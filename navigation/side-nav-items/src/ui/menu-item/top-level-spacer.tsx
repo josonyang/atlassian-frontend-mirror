@@ -32,7 +32,7 @@ const styles = cssMap({
  *
  * It may not exist in the future when global apps are no longer in the side navigation.
  */
-export function TopLevelSpacer() {
+export function TopLevelSpacer(): JSX.Element {
 	const level = useLevel();
 
 	useEffect(() => {

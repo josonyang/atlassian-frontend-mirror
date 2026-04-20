@@ -1,6 +1,8 @@
 import React from 'react';
 import type { ComponentProps } from 'react';
 
+import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
+
 // Custom icon ejection - these icons have been migrated away from the deprecated Custom / SVG components to native SVG. Please review whether this icon should be contributed to @atlaskit/icon-lab or whether it can be replaced by an existing icon from either @atlaskit/icon or @atlaskit/icon-lab
 const IconCardGlyph = ({
 	'aria-label': ariaLabel,
@@ -27,17 +29,18 @@ const IconCardGlyph = ({
 	);
 };
 
+const iconCardStyle: React.CSSProperties = { width: '24px', height: '24px' };
+
 export const IconCard = ({ label }: { label: string }): React.JSX.Element => {
+	const style = expValEquals('platform_editor_perf_lint_cleanup', 'isEnabled', true)
+		? iconCardStyle
+		: // eslint-disable-next-line @atlassian/perf-linting/no-unstable-inline-props
+		  { width: '24px', height: '24px' };
 	return (
 		<IconCardGlyph
 			aria-label={label}
-			// eslint-disable-next-line @atlassian/perf-linting/no-unstable-inline-props -- Ignored via go/ees017 (to be fixed)
-			style={{
-				// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
-				width: '24px',
-				// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
-				height: '24px',
-			}}
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
+			style={style}
 		/>
 	);
 };

@@ -5,6 +5,7 @@ import type { EventDispatcher } from '@atlaskit/editor-common/event-dispatcher';
 import { getTableContainerWidth } from '@atlaskit/editor-common/node-width';
 import type { PortalProviderAPI } from '@atlaskit/editor-common/portal';
 import ReactNodeView from '@atlaskit/editor-common/react-node-view';
+import { isTableInContentMode } from '@atlaskit/editor-common/table';
 import type {
 	GetEditorContainerWidth,
 	GetEditorFeatureFlags,
@@ -20,13 +21,12 @@ import { akEditorTableNumberColumnWidth } from '@atlaskit/editor-shared-styles';
 import { TableMap } from '@atlaskit/editor-tables/table-map';
 import { fg } from '@atlaskit/platform-feature-flags';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
-import { expValEqualsNoExposure } from '@atlaskit/tmp-editor-statsig/exp-val-equals-no-exposure';
 
 import { pluginConfig as getPluginConfig } from '../pm-plugins/create-plugin-config';
 import { getPluginState } from '../pm-plugins/plugin-factory';
 import { pluginKey as tableWidthPluginKey } from '../pm-plugins/table-width';
 import { isTableNested, tablesHaveDifferentColumnWidths } from '../pm-plugins/utils/nodes';
-import { isTableInContentMode } from '../pm-plugins/utils/tableMode';
+import { isContentModeSupported } from '../pm-plugins/utils/tableMode';
 import type { PluginInjectionAPI } from '../types';
 
 import { TableComponentWithSharedState } from './TableComponentWithSharedState';
@@ -267,25 +267,19 @@ export default class TableView extends ReactNodeView<Props> {
 		}
 		const attrs = tableAttributes(node) as Record<string, string>;
 
-		if (
-			expValEqualsNoExposure('platform_editor_table_fit_to_content_auto_convert', 'isEnabled', true)
-		) {
-			if (
-				isTableInContentMode({
-					node,
-					allowColumnResizing: !!this.reactComponentProps.allowColumnResizing,
-					allowTableResizing: !!this.reactComponentProps.allowTableResizing,
-					isFullPageEditor:
-						!this.reactComponentProps.options?.isCommentEditor &&
-						!this.reactComponentProps.options?.isChromelessEditor,
-					isTableNested: isTableNested(this.view.state, this.getPos()),
-				}) &&
-				expValEquals('platform_editor_table_fit_to_content_auto_convert', 'isEnabled', true)
-			) {
-				attrs['data-initial-width-mode'] = 'content';
-			} else {
-				this.table.removeAttribute('data-initial-width-mode');
-			}
+
+		// render table with content-mode attribute which removes all width constraints from the table
+		// fire exposure here
+		if (isTableInContentMode({
+			tableNode: node,
+			isSupported: isContentModeSupported({
+				allowColumnResizing: !!this.reactComponentProps.allowColumnResizing,
+				allowTableResizing: !!this.reactComponentProps.allowTableResizing,
+				isFullPageEditor: !this.reactComponentProps.options?.isCommentEditor
+					&& !this.reactComponentProps.options?.isChromelessEditor
+			}), isTableNested: isTableNested(this.view.state, this.getPos())
+		}) && expValEquals('platform_editor_table_fit_to_content_auto_convert', 'isEnabled', true)) {
+			attrs['data-initial-width-mode'] = 'content';
 		}
 
 		(Object.keys(attrs) as Array<keyof typeof attrs>).forEach((attr) => {

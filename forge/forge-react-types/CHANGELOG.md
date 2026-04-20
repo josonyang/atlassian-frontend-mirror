@@ -1,5 +1,18 @@
 # @atlaskit/forge-react-types
 
+## 1.0.7
+
+### Patch Changes
+
+- Updated dependencies
+
+## 1.0.6
+
+### Patch Changes
+
+- [`639dee621a5ab`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/639dee621a5ab) -
+  Cleanup platform_migrate_pressable_to_use_migrated_xcss and small refactor
+
 ## 1.0.5
 
 ### Patch Changes

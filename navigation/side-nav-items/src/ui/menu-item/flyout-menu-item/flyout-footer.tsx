@@ -41,7 +41,7 @@ export interface FlyoutFooterProps {
  * supplementary actions or information at the bottom of the flyout menu. This
  * component should be placed after FlyoutBody within the FlyoutMenuItemContent.
  */
-export const FlyoutFooter = (props: FlyoutFooterProps) => {
+export const FlyoutFooter = (props: FlyoutFooterProps): JSX.Element => {
 	const { children, testId } = props;
 
 	return (

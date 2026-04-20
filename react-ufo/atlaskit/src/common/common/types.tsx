@@ -139,6 +139,12 @@ export type MinorInteraction = {
 	startTime: DOMHighResTimeStamp;
 };
 
+/** One third-party iframe/embed perf row in the UFO payload; mirrors resourceTimings' `{ label, data }` pattern. */
+export type Segment3pTimingEntry = {
+	label: string;
+	data: Record<string, unknown>;
+};
+
 export interface InteractionMetrics {
 	id: string;
 	start: number;
@@ -213,6 +219,11 @@ export interface InteractionMetrics {
 	hold3pActive?: Map<string, HoldActive>;
 	hold3pInfo?: HoldInfo[];
 	minorInteractions?: MinorInteraction[];
+	/**
+	 * Third-party (3P) iframe/embed timing rows keyed by UFO segment id. Same `{ label, data }` row
+	 * shape as resourceTimings; emitted on the payload as `segment3pTimings`.
+	 */
+	segment3pTimings?: Record<string, Segment3pTimingEntry[]>;
 }
 
 export type LoadProfilerEventInfo = {

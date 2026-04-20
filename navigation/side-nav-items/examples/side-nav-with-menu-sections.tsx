@@ -204,7 +204,7 @@ function RandomItems({
 	});
 }
 
-export default function SideNavWithMenuSections() {
+export default function SideNavWithMenuSections(): JSX.Element {
 	return (
 		<Root isSideNavShortcutEnabled>
 			<TopNav>

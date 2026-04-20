@@ -26,7 +26,7 @@ const styles = cssMap({
 	},
 });
 
-export const DividerExample = () => (
+export const DividerExample = (): JSX.Element => (
 	<div css={[styles.root, styles.blackBorder]}>
 		<h2>Divider</h2>
 		<Divider />
@@ -34,7 +34,7 @@ export const DividerExample = () => (
 	</div>
 );
 
-export const MenuSectionExample = () => (
+export const MenuSectionExample = (): JSX.Element => (
 	<div css={styles.root}>
 		<SideNavBody>
 			<MenuList>

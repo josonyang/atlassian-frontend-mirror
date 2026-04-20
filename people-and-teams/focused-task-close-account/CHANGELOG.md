@@ -1,5 +1,13 @@
 # @atlaskit/focused-task-close-account
 
+## 4.0.1
+
+### Patch Changes
+
+- [`7fb5bfbafb83e`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/7fb5bfbafb83e) -
+  Enrol people-and-teams packages into the React Compiler with platform gating via
+  isReactCompilerActivePlatform
+
 ## 4.0.0
 
 ### Major Changes

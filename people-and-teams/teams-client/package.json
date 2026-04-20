@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/teams-client",
-	"version": "4.32.1",
+	"version": "4.32.2",
 	"description": "A client to retrieve team related data",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -8,6 +8,13 @@
 		"registry": "https://registry.npmjs.org/"
 	},
 	"atlassian": {
+		"react-compiler": {
+			"enabled": true,
+			"gating": {
+				"source": "@atlassian/react-compiler-gating",
+				"importSpecifierName": "isReactCompilerActivePlatform"
+			}
+		},
 		"team": "People and Teams Collective"
 	},
 	"repository": "https://bitbucket.org/atlassian/atlassian-frontend-monorepo",
@@ -62,6 +69,7 @@
 		"@atlaskit/feature-gate-js-client": "workspace:^",
 		"@atlassian/codegen": "workspace:^",
 		"@atlassian/ptc-test-utils": "workspace:^",
+		"@atlassian/react-compiler-gating": "workspace:^",
 		"@testing-library/react": "root:*",
 		"@types/faker": "root:*",
 		"react-dom": "root:*",

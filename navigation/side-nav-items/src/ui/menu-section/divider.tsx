@@ -18,7 +18,7 @@ const styles = css({
  *
  * A divider for use between menu sections.
  */
-export const Divider = () => (
+export const Divider = (): JSX.Element => (
 	<hr
 		/**
 		 * The existing usage of these dividers is presentational,

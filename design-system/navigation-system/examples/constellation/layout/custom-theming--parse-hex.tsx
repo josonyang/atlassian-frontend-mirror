@@ -9,7 +9,7 @@ import { MockContent } from '../common/mock-content';
 export const CustomThemingParseHexExample = (): React.JSX.Element => (
 	<MockRoot>
 		<TopNav
-			UNSAFE_theme={{ backgroundColor: parseHex('#F8EEFE'), highlightColor: parseHex('#964AC0') }}
+			customTheme={{ backgroundColor: parseHex('#F8EEFE'), highlightColor: parseHex('#964AC0') }}
 		>
 			<MockContent />
 		</TopNav>

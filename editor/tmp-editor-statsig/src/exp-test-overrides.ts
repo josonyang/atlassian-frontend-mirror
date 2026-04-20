@@ -62,7 +62,6 @@ export const testBooleanOverrides: EditorExperimentOverridesBoolean = {
 	platform_editor_no_cursor_on_edit_page_init: false,
 	'jira-work-sync-desc-comment-summary': false,
 	platform_editor_breakout_resizing: false,
-	platform_editor_ai_quickstart_command: false,
 	platform_editor_block_controls_perf_optimization: false,
 	platform_editor_enable_single_player_step_merging: false,
 	platform_editor_find_and_replace_improvements: false,

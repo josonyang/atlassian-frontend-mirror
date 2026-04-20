@@ -48,6 +48,7 @@ export interface MediaInlineProps {
 	contextIdentifierProvider?: Promise<ContextIdentifierProvider>;
 	dispatchAnalyticsEvent?: DispatchAnalyticsEvent;
 	editorViewMode?: boolean;
+	fallbackMediaNameFetcher?: (id: string) => Promise<string>;
 	getPos: ProsemirrorGetPosHandler;
 	handleMediaNodeMount: (node: PMNode, getPos: ProsemirrorGetPosHandler) => void;
 	handleMediaNodeUnmount: (node: PMNode) => void;
@@ -198,6 +199,7 @@ export const MediaInline = (props: MediaInlineProps): jsx.JSX.Element => {
 				isSelected={props.isSelected}
 				identifier={identifier}
 				mediaClientConfig={viewMediaClientConfig}
+				fallbackMediaNameFetcher={props.fallbackMediaNameFetcher}
 			/>
 		</MediaViewerContainer>
 	);
@@ -242,6 +244,7 @@ const MediaInlineSharedState = ({
 	contextIdentifierProvider,
 	api,
 	view,
+	fallbackMediaNameFetcher,
 }: MediaInlineSharedStateProps) => {
 	const {
 		mediaProvider,
@@ -285,6 +288,7 @@ const MediaInlineSharedState = ({
 			getPos={getPos}
 			contextIdentifierProvider={contextIdentifierProvider}
 			editorViewMode={viewMode === 'view'}
+			fallbackMediaNameFetcher={fallbackMediaNameFetcher}
 		/>
 	);
 };
@@ -292,6 +296,7 @@ const MediaInlineSharedState = ({
 interface MediaInlineNodeViewProps {
 	api: ExtractInjectionAPI<MediaNextEditorPluginType> | undefined;
 	dispatchAnalyticsEvent?: DispatchAnalyticsEvent;
+	fallbackMediaNameFetcher?: (id: string) => Promise<string>;
 	providerFactory: ProviderFactory;
 }
 export class MediaInlineNodeView extends SelectionBasedNodeView<MediaInlineNodeViewProps> {
@@ -314,7 +319,7 @@ export class MediaInlineNodeView extends SelectionBasedNodeView<MediaInlineNodeV
 	}
 
 	render(props: MediaInlineNodeViewProps): jsx.JSX.Element {
-		const { providerFactory, api } = props;
+		const { providerFactory, api, fallbackMediaNameFetcher } = props;
 		const { view } = this;
 		const getPos = this.getPos as getPosHandlerNode;
 		return (
@@ -333,6 +338,7 @@ export class MediaInlineNodeView extends SelectionBasedNodeView<MediaInlineNodeV
 							getPos={getPos}
 							contextIdentifierProvider={contextIdentifierProvider}
 							api={api}
+							fallbackMediaNameFetcher={fallbackMediaNameFetcher}
 						/>
 					);
 				}}
@@ -348,11 +354,13 @@ export const ReactMediaInlineNode =
 		providerFactory: ProviderFactory,
 		api: ExtractInjectionAPI<MediaNextEditorPluginType> | undefined,
 		dispatchAnalyticsEvent?: DispatchAnalyticsEvent,
+		fallbackMediaNameFetcher?: (id: string) => Promise<string>,
 	) =>
 	(node: PMNode, view: EditorView, getPos: getPosHandler): NodeView => {
 		return new MediaInlineNodeView(node, view, getPos, portalProviderAPI, eventDispatcher, {
 			providerFactory,
 			dispatchAnalyticsEvent,
 			api,
+			fallbackMediaNameFetcher,
 		}).init();
 	};

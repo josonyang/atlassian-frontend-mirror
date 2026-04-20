@@ -1,4 +1,4 @@
-import { createContext } from 'react';
+import { createContext, type Context } from 'react';
 
 // Note: this context value is in a seperate file as it is consumed
 // by our drag and drop drag preview
@@ -6,4 +6,4 @@ import { createContext } from 'react';
 /**
  * A context for storing the level value of the ExpandableMenuItem.
  */
-export const ExpandableMenuItemLevelContext = createContext(0);
+export const ExpandableMenuItemLevelContext: Context<number> = createContext(0);

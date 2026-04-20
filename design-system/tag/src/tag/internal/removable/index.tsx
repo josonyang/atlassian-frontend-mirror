@@ -116,15 +116,15 @@ const RemovableTagComponent: React.ForwardRefExoticComponent<
 		);
 
 		const handleRemoveComplete = useCallback(() => {
-			onAfterRemoveActionWithAnalytics(text);
 			setStatus(TagStatus.Removed);
-		}, [onAfterRemoveActionWithAnalytics, text]);
+		}, []);
 
 		const handleRemoveRequest = useCallback(() => {
 			if (onBeforeRemoveAction && onBeforeRemoveAction()) {
+				onAfterRemoveActionWithAnalytics(text);
 				handleRemoveComplete();
 			}
-		}, [handleRemoveComplete, onBeforeRemoveAction]);
+		}, [handleRemoveComplete, onBeforeRemoveAction, onAfterRemoveActionWithAnalytics, text]);
 
 		const onKeyPress = useCallback(
 			(e: React.KeyboardEvent<HTMLButtonElement>) => {
@@ -168,6 +168,7 @@ const RemovableTagComponent: React.ForwardRefExoticComponent<
 		}
 
 		// Use new TagNew component behind feature flag
+		// TagNew handles its own animation internally via RemovableWrapper
 		if (fg('platform-dst-lozenge-tag-badge-visual-uplifts')) {
 			const newColor = colorMapping[color || 'standard'];
 
@@ -182,7 +183,7 @@ const RemovableTagComponent: React.ForwardRefExoticComponent<
 					isRemovable={isRemovable}
 					removeButtonLabel={removeButtonLabel}
 					onBeforeRemoveAction={onBeforeRemoveAction}
-					onAfterRemoveAction={onAfterRemoveAction}
+					onAfterRemoveAction={onAfterRemoveActionWithAnalytics}
 					maxWidth={maxWidth}
 					swatchBefore={swatchBefore}
 				/>
@@ -218,7 +219,7 @@ const RemovableTagComponent: React.ForwardRefExoticComponent<
 		return (
 			<ExitingPersistence>
 				{!(status === TagStatus.Removed) && (
-					<ShrinkOut>
+					<ShrinkOut key="atlaskit-removable-tag-legacy-shrink-out" onFinish={handleRemoveComplete}>
 						{(motion) => {
 							return (
 								<BaseTag

@@ -21,6 +21,7 @@ import type {
 	ReactProfilerTiming,
 	RequestInfo,
 	SegmentInfo,
+	Segment3pTimingEntry,
 	Span,
 	SpanType,
 } from '../common';
@@ -225,6 +226,23 @@ export function addCustomData(
 		Object.keys(data).forEach((i) => {
 			interaction.customData.push({ labelStack, data: { [i]: data[i] } });
 		});
+	}
+}
+
+export function addIframeSegmentData(
+	interactionId: string,
+	segmentId: string,
+	entry: Segment3pTimingEntry,
+): void {
+	const interaction = interactions.get(interactionId);
+	if (interaction != null && fg('platform_ufo_3p_segment_timings')) {
+		if (!interaction.segment3pTimings) {
+			interaction.segment3pTimings = {};
+		}
+		if (!interaction.segment3pTimings[segmentId]) {
+			interaction.segment3pTimings[segmentId] = [];
+		}
+		interaction.segment3pTimings[segmentId].push(entry);
 	}
 }
 

@@ -1,6 +1,7 @@
 import React from 'react';
 
 import userEvent from '@testing-library/user-event';
+import { replaceRaf } from 'raf-stub';
 
 import { AnalyticsListener, UIAnalyticsEvent } from '@atlaskit/analytics-next';
 import Avatar from '@atlaskit/avatar';
@@ -9,6 +10,31 @@ import { render, screen } from '@atlassian/testing-library';
 
 import TagNew from '../../../tag-new';
 import AvatarTag from '../../../tag-new/avatar-tag';
+
+replaceRaf();
+const raf = window.requestAnimationFrame as any;
+
+// Mock matchMedia to disable reduced motion for animation tests
+const originalMatchMedia = window.matchMedia;
+beforeAll(() => {
+	Object.defineProperty(window, 'matchMedia', {
+		writable: true,
+		value: jest.fn().mockImplementation((query) => ({
+			matches: false, // Always return false to disable reduced motion
+			media: query,
+			onchange: null,
+			addListener: jest.fn(),
+			removeListener: jest.fn(),
+			addEventListener: jest.fn(),
+			removeEventListener: jest.fn(),
+			dispatchEvent: jest.fn(),
+		})),
+	});
+});
+
+afterAll(() => {
+	window.matchMedia = originalMatchMedia;
+});
 
 // eslint-disable-next-line @atlassian/a11y/require-jest-coverage
 describe('TagNew and AvatarTag onClick analytics', () => {
@@ -365,6 +391,9 @@ describe('TagNew and AvatarTag onClick analytics', () => {
 			const onAfterRemove = jest.fn();
 			const testId = 'removable-after-action';
 
+			jest.useFakeTimers();
+			const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
+
 			render(
 				<TagNew
 					text="Removable Tag"
@@ -376,7 +405,13 @@ describe('TagNew and AvatarTag onClick analytics', () => {
 			);
 
 			const removeButton = screen.getByTestId(`close-button-${testId}`);
-			await userEvent.click(removeButton);
+			await user.click(removeButton);
+
+			// onAfterRemoveAction fires after the ShrinkOut animation completes
+			raf.step();
+			raf.step();
+			jest.runAllTimers();
+			jest.useRealTimers();
 
 			expect(onAfterRemove).toHaveBeenCalledTimes(1);
 			const [text] = onAfterRemove.mock.calls[0];
@@ -414,6 +449,9 @@ describe('TagNew and AvatarTag onClick analytics', () => {
 			const onBeforeRemove = jest.fn(() => true);
 			const onAfterRemove = jest.fn();
 
+			jest.useFakeTimers();
+			const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
+
 			render(
 				<TagNew
 					text="Full Handlers"
@@ -427,17 +465,25 @@ describe('TagNew and AvatarTag onClick analytics', () => {
 			);
 
 			const link = screen.getByTestId(`${testId}--link`);
-			await userEvent.click(link);
-			await userEvent.click(link);
+			await user.click(link);
+			await user.click(link);
 
 			expect(onClickHandler).toHaveBeenCalledTimes(2);
 			expect(onBeforeRemove).not.toHaveBeenCalled();
 			expect(onAfterRemove).not.toHaveBeenCalled();
 
 			const removeButton = screen.getByTestId(`close-button-${testId}`);
-			await userEvent.click(removeButton);
+			await user.click(removeButton);
 
 			expect(onBeforeRemove).toHaveBeenCalledTimes(1);
+			expect(onAfterRemove).not.toHaveBeenCalled(); // not yet — animation still running
+
+			// onAfterRemoveAction fires after the ShrinkOut animation completes
+			raf.step();
+			raf.step();
+			jest.runAllTimers();
+			jest.useRealTimers();
+
 			expect(onAfterRemove).toHaveBeenCalledTimes(1);
 			expect(onClickHandler).toHaveBeenCalledTimes(2);
 		});

@@ -231,7 +231,7 @@ const wrapperStyles = cssMap({
 
 // For the VR snapshot, we're wrapping in a container that has a set width, so the snapshot doesn't include
 // extra whitespace.
-export function MenuItemNarrowVR() {
+export function MenuItemNarrowVR(): JSX.Element {
 	return (
 		<div css={wrapperStyles.root}>
 			<MenuItemNarrow />
@@ -256,7 +256,7 @@ function getResizeBounds(): ResizeBounds {
 
 // For the dev example, we're wrapping in a resizable container so we can play around with the width of the menu items.
 // Not using a `SideNav` so we don't have to worry about the side nav collapsing on small viewports
-export function MenuItemNarrowResizableExample() {
+export function MenuItemNarrowResizableExample(): JSX.Element {
 	const [width, setWidth] = useState(128); // Default width is 128 to match the min width of menu items
 	const resizeContainerRef = useRef<HTMLDivElement | null>(null);
 

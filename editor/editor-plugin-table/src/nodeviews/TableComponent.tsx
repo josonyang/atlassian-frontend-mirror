@@ -13,6 +13,7 @@ import type { EventDispatcher } from '@atlaskit/editor-common/event-dispatcher';
 import { getParentOfTypeCount } from '@atlaskit/editor-common/nesting';
 import { nodeVisibilityManager } from '@atlaskit/editor-common/node-visibility';
 import { getParentNodeWidth, getTableContainerWidth } from '@atlaskit/editor-common/node-width';
+import { isTableInContentMode } from '@atlaskit/editor-common/table';
 import type { EditorContainerWidth, GetEditorFeatureFlags } from '@atlaskit/editor-common/types';
 import { isValidPosition } from '@atlaskit/editor-common/utils';
 import type { Node as PmNode } from '@atlaskit/editor-prosemirror/model';
@@ -57,6 +58,7 @@ import {
 	tablesHaveDifferentNoOfRows,
 } from '../pm-plugins/utils/nodes';
 import { getAssistiveMessage } from '../pm-plugins/utils/table';
+import { isContentModeSupported } from '../pm-plugins/utils/tableMode';
 import type { CellHoverMeta, PluginInjectionAPI } from '../types';
 import { TableCssClassName as ClassName } from '../types';
 import {
@@ -166,8 +168,8 @@ class TableComponent extends React.Component<ComponentProps, TableState> {
 
 		this.isNestedInTable = tablePos
 			? getParentOfTypeCount(props.view.state.schema.nodes.table)(
-					props.view.state.doc.resolve(tablePos),
-				) > 0
+				props.view.state.doc.resolve(tablePos),
+			) > 0
 			: false;
 
 		if (!this.updateColGroupFromFullWidthChange) {
@@ -188,10 +190,10 @@ class TableComponent extends React.Component<ComponentProps, TableState> {
 						prev?.tableWrapperHeight === entry.contentRect?.height
 						? prev
 						: {
-								...prev,
-								tableWrapperWidth: entry.contentRect.width,
-								tableWrapperHeight: entry.contentRect.height,
-							};
+							...prev,
+							tableWrapperWidth: entry.contentRect.width,
+							tableWrapperHeight: entry.contentRect.height,
+						};
 				});
 			}
 		});
@@ -668,6 +670,22 @@ class TableComponent extends React.Component<ComponentProps, TableState> {
 						shouldUseIncreasedScalingPercent,
 						options?.isCommentEditor,
 					);
+
+					// Deferred from setDomAttrs — remove only once colgroup is updated and table has left content mode.
+					if (
+						this.table?.hasAttribute('data-initial-width-mode') &&
+						!isTableInContentMode({
+							tableNode: currentTable,
+							isSupported: isContentModeSupported({
+								allowColumnResizing: !!allowColumnResizing,
+								allowTableResizing: !!allowTableResizing,
+								isFullPageEditor: !this.props.options?.isCommentEditor && !this.props.options?.isChromelessEditor,
+							}),
+							isTableNested: isTableNested(view.state, getPos()),
+						})
+					) {
+						this.table.removeAttribute('data-initial-width-mode');
+					}
 				}
 
 				updateControls()(view.state);
@@ -1033,7 +1051,7 @@ class TableComponent extends React.Component<ComponentProps, TableState> {
 			);
 			const isOusideOfThreshold =
 				wrapperWidthDiffBetweenRerenders <=
-					NESTED_TABLE_IN_NESTED_PARENT_WIDTH_DIFF_MIN_THRESHOLD ||
+				NESTED_TABLE_IN_NESTED_PARENT_WIDTH_DIFF_MIN_THRESHOLD ||
 				wrapperWidthDiffBetweenRerenders > NESTED_TABLE_IN_NESTED_PARENT_WIDTH_DIFF_MAX_THRESHOLD;
 			// 1. Check isOusideOfThreshold is added to prevent undersired state update.
 			// When table is nested in the extenstion and the table column is being resized,

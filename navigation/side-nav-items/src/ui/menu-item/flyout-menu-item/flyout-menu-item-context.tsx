@@ -1,4 +1,4 @@
-import { createContext, useContext } from 'react';
+import { createContext, useContext, type Context, type MutableRefObject, type Provider } from 'react';
 
 import noop from '@atlaskit/ds-lib/noop';
 
@@ -9,16 +9,16 @@ import type { FlyoutCloseSource } from './flyout-menu-item-content';
  *
  * A context for storing the isOpen value of the FlyoutMenuItem.
  */
-export const IsOpenContext = createContext(false);
+export const IsOpenContext: Context<boolean> = createContext(false);
 
 /**
  * __Set is open context__
  *
  * A context for storing a function that sets isOpen value of the FlyoutMenuItem.
  */
-export const SetIsOpenContext = createContext<(value: boolean) => void>(noop);
+export const SetIsOpenContext: Context<(value: boolean) => void> = createContext<(value: boolean) => void>(noop);
 export const useFlyoutMenuOpen = (): boolean => useContext(IsOpenContext);
-export const useSetFlyoutMenuOpen = () => useContext(SetIsOpenContext);
+export const useSetFlyoutMenuOpen = (): (value: boolean) => void => useContext(SetIsOpenContext);
 
 /**
  * __On close context__
@@ -27,7 +27,7 @@ export const useSetFlyoutMenuOpen = () => useContext(SetIsOpenContext);
  * is used by FlyoutMenuItemContent, FlyoutMenuItemTrigger and FlyoutHeader to store
  * the on close function and source information for closing the flyout menu.
  */
-export const OnCloseContext = createContext<
+export const OnCloseContext: Context<MutableRefObject<((event: Event | React.MouseEvent<HTMLButtonElement> | KeyboardEvent | MouseEvent | null, source?: FlyoutCloseSource) => void) | null>> = createContext<
 	React.MutableRefObject<
 		| ((
 				event: Event | React.MouseEvent<HTMLButtonElement> | KeyboardEvent | MouseEvent | null,
@@ -44,12 +44,12 @@ export const OnCloseContext = createContext<
  * FlyoutHeader, and used as the aria-labelledby on the FlyoutMenuItemContent
  * container.
  */
-export const TitleIdContext = createContext<string | undefined>(undefined);
-export const useTitleId = () => useContext(TitleIdContext);
+export const TitleIdContext: Context<string | undefined> = createContext<string | undefined>(undefined);
+export const useTitleId = (): string | undefined => useContext(TitleIdContext);
 
 /**
  * __Title id provider__
  *
  * A context provider for supplying the title id to the FlyoutHeader.
  */
-export const TitleIdContextProvider = TitleIdContext.Provider;
+export const TitleIdContextProvider: Provider<string | undefined> = TitleIdContext.Provider;

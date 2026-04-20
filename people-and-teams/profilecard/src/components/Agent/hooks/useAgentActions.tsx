@@ -7,7 +7,17 @@ import { navigateToTeamsApp } from '@atlaskit/teams-app-config/navigation';
 import { useAnalyticsEvents } from '@atlaskit/teams-app-internal-analytics';
 
 import { encodeParamsToUrl } from '../../../util/url';
-import { getAtlassianStudioAgentDuplicateUrl, getAtlassianStudioAgentEditUrl } from '../utils';
+import {
+	getAtlassianStudioAgentDuplicateUrl,
+	getAtlassianStudioAgentEditUrl,
+	getStudioPath,
+} from '../utils';
+
+import {
+	fetchHasVersionCapability,
+	fetchActivationId,
+	fetchDuplicateAgentMutation,
+} from './duplicateFetch';
 
 export const firstCharUpper = (str: string): string => str.charAt(0).toUpperCase() + str.slice(1);
 const ROVO_PARAM_PREFIX = 'rovoChat';
@@ -34,7 +44,7 @@ export const useAgentUrlActions = ({
 }): {
 	onEditAgent: (agentId: string) => void;
 	onCopyAgent: (agentId: string) => void;
-	onDuplicateAgent: (agentId: string) => void;
+	onDuplicateAgent: (agentId: string) => Promise<void>;
 	onOpenChat: (agentId: string, agentName: string) => void;
 	onConversationStarter: ({ agentId, prompt }: { agentId: string; prompt: string }) => void;
 	onViewFullProfile: (agentId: string) => void;
@@ -70,14 +80,51 @@ export const useAgentUrlActions = ({
 	};
 
 	const onDuplicateAgent = useCallback(
-		(agentId: string): void => {
-			const url = getAtlassianStudioAgentDuplicateUrl(cloudId, agentId);
-			window.open(url, '_blank', 'noopener, noreferrer');
-
+		async (agentId: string): Promise<void> => {
 			fireEvent('ui.button.clicked.duplicateAgentButton', {
 				agentId,
 				source,
 			});
+
+			const legacyDuplicateUrl = getAtlassianStudioAgentDuplicateUrl(cloudId, agentId);
+
+			// When versioning FG is off, use legacy duplicate flow
+			if (!fg('rovo_agent_versioning_enabled')) {
+				window.open(legacyDuplicateUrl, '_blank', 'noopener, noreferrer');
+				return;
+			}
+
+			// Check if versioning migration has completed for this site
+			const hasVersionCapability = await fetchHasVersionCapability(cloudId);
+			if (!hasVersionCapability) {
+				// Opening in same tab because, we cannot open in new tab after async operation, because browsers prevent `.open` after certain duration
+				window.location.assign(legacyDuplicateUrl);
+				return;
+			}
+
+			// Resolve agent ARI (profilecard doesn't have agentAri, so fetch activationId)
+			const activationId = await fetchActivationId(cloudId);
+			if (!activationId) {
+				// Opening in same tab because, we cannot open in new tab after async operation, because browsers prevent `.open` after certain duration
+				window.location.assign(legacyDuplicateUrl);
+				return;
+			}
+			const agentAri = `ari:cloud:rovo::agent/activation/${activationId}/${agentId}`;
+
+			// Call BE mutation to duplicate the agent
+			const result = await fetchDuplicateAgentMutation(agentAri);
+			if (result.success && result.newAgentAri) {
+				// Opening in same tab because, we cannot open in new tab after async operation, because browsers prevent `.open` after certain duration
+				window.location.assign(
+					getStudioPath(
+						`/s/${cloudId}/agents/${encodeURIComponent(result.newAgentAri)}/v/draft/details`,
+					),
+				);
+			} else {
+				// Fallback to legacy on error
+				// Opening in same tab because, we cannot open in new tab after async operation, because browsers prevent `.open` after certain duration
+				window.location.assign(legacyDuplicateUrl);
+			}
 		},
 		[cloudId, fireEvent, source],
 	);

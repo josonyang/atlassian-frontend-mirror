@@ -24,7 +24,7 @@ const styles = cssMap({
 	},
 });
 
-export function MenuListExample() {
+export function MenuListExample(): JSX.Element {
 	return (
 		// Disabling this rule as this is a storybook, and the code is designed to swallow anchor-clicks
 		// to avoid leaving storybook.

@@ -64,7 +64,7 @@ export interface FlyoutBodyProps {
  * FlyoutHeader and FlyoutFooter (if present), as is scrollable if the content
  * exceeds the available space.
  */
-export const FlyoutBody = React.forwardRef<HTMLDivElement, FlyoutBodyProps>((props, ref) => {
+export const FlyoutBody: React.ForwardRefExoticComponent<FlyoutBodyProps & React.RefAttributes<HTMLDivElement>> = React.forwardRef<HTMLDivElement, FlyoutBodyProps>((props, ref) => {
 	const { children, testId, onKeyDown, onKeyUp, onBlurCapture } = props;
 
 	return (

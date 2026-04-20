@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/rovo-agent-components",
-	"version": "4.1.0",
+	"version": "4.2.0",
 	"description": "This package host public components related to rovo agents, the components here are needed for other public atlaskit packages",
 	"repository": "https://bitbucket.org/atlassian/atlassian-frontend-monorepo",
 	"atlassian": {
@@ -76,6 +76,7 @@
 		"@atlaskit/primitives": "workspace:^",
 		"@atlaskit/rovo-agent-analytics": "workspace:^",
 		"@atlaskit/skeleton": "workspace:^",
+		"@atlaskit/spinner": "workspace:^",
 		"@atlaskit/tokens": "workspace:^",
 		"@atlaskit/tooltip": "workspace:^",
 		"@babel/runtime": "root:*",
@@ -143,6 +144,9 @@
 			"type": "boolean"
 		},
 		"should-render-to-parent-should-be-true-ai-mate": {
+			"type": "boolean"
+		},
+		"rovo_agent_versioning_enabled": {
 			"type": "boolean"
 		},
 		"jira_ai_force_rovo_dev_avatar": {

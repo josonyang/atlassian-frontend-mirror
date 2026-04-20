@@ -87,7 +87,7 @@ export function DragPreview({
 }: {
 	children: ReactNode;
 	elemBefore?: ReactNode;
-}) {
+}): JSX.Element {
 	return (
 		// Resetting the expandable menu items to 0.
 		// This is to prevent our hidden element from pushing

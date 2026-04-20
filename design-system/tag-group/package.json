@@ -73,6 +73,11 @@
 			"design-system": "v1"
 		}
 	},
+	"platform-feature-flags": {
+		"platform-dst-lozenge-tag-badge-visual-uplifts": {
+			"type": "boolean"
+		}
+	},
 	"typesVersions": {
 		">=4.5 <4.9": {
 			"*": [

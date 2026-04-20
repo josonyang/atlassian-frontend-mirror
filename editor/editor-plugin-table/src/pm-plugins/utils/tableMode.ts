@@ -1,19 +1,18 @@
 import { ACTION_SUBJECT, EVENT_TYPE, TABLE_ACTION } from '@atlaskit/editor-common/analytics';
 import { TableSharedCssClassName } from '@atlaskit/editor-common/styles';
+import {
+	hasTableBeenResized,
+} from '@atlaskit/editor-common/table';
 import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { findTable } from '@atlaskit/editor-tables/utils';
-import { expValEqualsNoExposure } from '@atlaskit/tmp-editor-statsig/exp-val-equals-no-exposure';
 
 import type { PluginInjectionAPI, TableSharedStateInternal } from '../../types';
-import { hasTableColumnBeenResized } from '../table-resizing/utils/colgroup';
 import {
 	type TableMeasurement,
 	applyTableMeasurement,
 	getTableMeasurement,
 } from '../transforms/content-mode';
-
-import { ALIGN_START } from './alignment';
 
 type ContentModePluginOptions = {
 	allowColumnResizing: boolean;
@@ -21,43 +20,13 @@ type ContentModePluginOptions = {
 	isFullPageEditor: boolean;
 };
 
-export const isTableInContentMode = ({
-	allowColumnResizing,
-	allowTableResizing,
-	isFullPageEditor,
-	isTableNested,
-	node,
-}: ContentModePluginOptions & {
-	isTableNested?: boolean;
-	node?: PMNode;
-}) => {
-	if (
-		!expValEqualsNoExposure('platform_editor_table_fit_to_content_auto_convert', 'isEnabled', true)
-	) {
-		return false;
-	}
-
-	if (!node || isTableNested) {
-		return false;
-	}
-
-	return (
-		isContentModeSupported({ allowColumnResizing, allowTableResizing, isFullPageEditor }) &&
-		!hasTableBeenResized(node) &&
-		node.attrs.layout === ALIGN_START
-	);
-};
-
 export const isContentModeSupported = ({
 	allowColumnResizing,
 	allowTableResizing,
 	isFullPageEditor,
-}: ContentModePluginOptions) => {
+}: ContentModePluginOptions): boolean => {
 	return allowColumnResizing && allowTableResizing && isFullPageEditor;
 };
-
-export const hasTableBeenResized = (node: PMNode): boolean =>
-	node.attrs.width !== null || hasTableColumnBeenResized(node);
 
 /**
  * Iterates all top-level tables in the document, and for those in content mode,
@@ -82,7 +51,7 @@ export const applyMeasuredWidthToAllTables = (
 
 	// modify only top-level tables
 	doc.forEach((node, offset) => {
-		if (node.type !== table || (hasTableBeenResized(node) && node.attrs.layout !== ALIGN_START)) {
+		if (node.type !== table || (hasTableBeenResized(node) && node.attrs.layout !== 'align-start')) {
 			return;
 		}
 
@@ -128,6 +97,9 @@ export const applyMeasuredWidthToAllTables = (
 	}
 };
 
+/**
+ * Used to measure a selected table width with it's content being laid out natively by the browser
+ */
 export const applyMeasuredWidthToSelectedTable = (
 	view: EditorView,
 	api?: PluginInjectionAPI,

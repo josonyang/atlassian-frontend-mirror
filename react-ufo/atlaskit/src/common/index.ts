@@ -37,6 +37,7 @@ export type {
 	HoldActive,
 	Redirect,
 	InteractionMetrics,
+	Segment3pTimingEntry,
 	EnhancedUFOInteractionContextType,
 	BM3Event,
 	PostInteractionLogOutput,

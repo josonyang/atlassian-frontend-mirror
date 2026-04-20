@@ -8,6 +8,7 @@ import { SetAttrsStep } from '@atlaskit/adf-schema/steps';
 import type { DispatchAnalyticsEvent } from '@atlaskit/editor-common/analytics';
 import type { Dispatch } from '@atlaskit/editor-common/event-dispatcher';
 import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
+import { isTableInContentMode } from '@atlaskit/editor-common/table';
 import { isReplaceDocOperation } from '@atlaskit/editor-common/utils/document';
 import { PluginKey } from '@atlaskit/editor-prosemirror/state';
 import {
@@ -20,7 +21,7 @@ import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 import { TABLE_MAX_WIDTH, TABLE_FULL_WIDTH } from './table-resizing/utils/consts';
 import { ALIGN_START } from './utils/alignment';
-import { isTableInContentMode } from './utils/tableMode';
+import { isContentModeSupported } from './utils/tableMode';
 
 type TableWidthPluginState = {
 	resizing: boolean;
@@ -94,10 +95,12 @@ const createPlugin = (
 				newState.doc.forEach((node, offset) => {
 					if (
 						isTableInContentMode({
-							node,
-							allowColumnResizing: true,
-							allowTableResizing: true,
-							isFullPageEditor: true,
+							tableNode: node,
+							isSupported: isContentModeSupported({
+								allowColumnResizing: true,
+								allowTableResizing: true,
+								isFullPageEditor: true,
+							}),
 							isTableNested: false,
 						})
 					) {

@@ -866,9 +866,7 @@ export const getSupportedFormatting = (
 	);
 
 	return [
-		...(aiEnabled && editorExperiment('platform_editor_ai_quickstart_command', true)
-			? [quickInsertAskAI(intl)]
-			: []),
+		...(aiEnabled ? [quickInsertAskAI(intl)] : []),
 		...navigationKeymaps(intl),
 		...otherFormatting(intl),
 		...supportedBySchema,

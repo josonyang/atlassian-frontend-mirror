@@ -71,7 +71,7 @@ const headingStyles = cssMap({
 // Choosing a subset of menu items to demonstrate the selection + scrollIntoView behaviour, to simplify the example
 type SelectableMenuItems = 'your-work' | 'customize' | 'filters' | 'teams' | 'team-10';
 
-export function MenuItemScrollIntoView() {
+export function MenuItemScrollIntoView(): JSX.Element {
 	const [selectedItem, setSelectedItem] = useState<SelectableMenuItems>('your-work');
 
 	return (

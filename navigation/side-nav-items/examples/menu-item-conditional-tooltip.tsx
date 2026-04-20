@@ -53,7 +53,7 @@ const content: { [Key in TContent]: string } = {
 };
 const contentKeys: TContent[] = ['short', 'long'];
 
-export function ButtonMenuItemExample() {
+export function ButtonMenuItemExample(): JSX.Element {
 	return (
 		<div css={containerStyles.root}>
 			<SideNavHeader>
@@ -142,7 +142,7 @@ export function ButtonMenuItemExample() {
 	);
 }
 
-export function LinkMenuItemExample() {
+export function LinkMenuItemExample(): JSX.Element {
 	return (
 		<div css={containerStyles.root}>
 			<SideNavHeader>
@@ -187,7 +187,7 @@ export function LinkMenuItemExample() {
 	);
 }
 
-export function ExpandableMenuItemExample() {
+export function ExpandableMenuItemExample(): JSX.Element {
 	return (
 		<div css={containerStyles.root}>
 			<SideNavHeader>
@@ -235,7 +235,7 @@ export function ExpandableMenuItemExample() {
 	);
 }
 
-export function FlyoutMenuItemExample() {
+export function FlyoutMenuItemExample(): JSX.Element {
 	return (
 		<div css={containerStyles.root}>
 			<SideNavHeader>
@@ -297,7 +297,7 @@ const standaloneStyles = cssMap({
 	},
 });
 
-export default function Standalone() {
+export default function Standalone(): JSX.Element {
 	return (
 		<div css={standaloneStyles.root}>
 			<ButtonMenuItemExample />

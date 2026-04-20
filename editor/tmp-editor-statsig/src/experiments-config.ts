@@ -345,13 +345,6 @@ export const editorExperimentsConfig: {
 		productKeys?: ProductKeys;
 		typeGuard: IsBooleanType;
 	};
-	// Added 2025-05-07
-	platform_editor_ai_quickstart_command: {
-		defaultValue: boolean;
-		param: string;
-		productKeys?: ProductKeys;
-		typeGuard: IsBooleanType;
-	};
 	// Added 2024-11-26
 	platform_editor_ai_unsplash_page_header: {
 		defaultValue: boolean;
@@ -389,6 +382,13 @@ export const editorExperimentsConfig: {
 	};
 	// Added 2025-06-02
 	platform_editor_block_control_optimise_render: {
+		defaultValue: boolean;
+		param: string;
+		productKeys?: ProductKeys;
+		typeGuard: IsBooleanType;
+	};
+	// Added 2026-17-03
+	platform_editor_media_name_fallback: {
 		defaultValue: boolean;
 		param: string;
 		productKeys?: ProductKeys;
@@ -2304,10 +2304,10 @@ export const editorExperimentsConfig: {
 		param: 'isEnabled',
 		defaultValue: false,
 	}),
-	// Added 2025-05-07
-	platform_editor_ai_quickstart_command: createBooleanExperiment({
+	// Added 2026-17-03
+	platform_editor_media_name_fallback: createBooleanExperiment({
 		productKeys: {
-			confluence: 'platform_editor_ai_quickstart_command',
+			confluence: 'platform_editor_media_name_fallback',
 		},
 		param: 'isEnabled',
 		defaultValue: false,

@@ -62,7 +62,7 @@ const TopNavigation = ({ customTheme }: { customTheme?: CustomTheme }) => {
 	);
 
 	return (
-		<TopNav UNSAFE_theme={customTheme}>
+		<TopNav customTheme={customTheme}>
 			<TopNavStart
 				sideNavToggleButton={
 					<SideNavToggleButton collapseLabel="Collapse sidebar" expandLabel="Expand sidebar" />

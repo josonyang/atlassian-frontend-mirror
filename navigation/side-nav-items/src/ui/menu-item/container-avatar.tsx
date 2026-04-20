@@ -34,6 +34,6 @@ export type ContainerAvatarProps = {
  *
  * A container avatar to be used in sidebar navigation items.
  */
-export const ContainerAvatar = ({ src }: ContainerAvatarProps) => (
+export const ContainerAvatar = ({ src }: ContainerAvatarProps): JSX.Element => (
 	<img src={src} css={styles.root} alt="" />
 );

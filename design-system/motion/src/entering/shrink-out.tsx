@@ -1,5 +1,6 @@
 import type React from 'react';
 
+import { isReducedMotion } from '../utils/accessibility';
 import { durations } from '../utils/durations';
 import { useRequestAnimationFrame, useSetTimeout } from '../utils/timer-hooks';
 import { useElementRef } from '../utils/use-element-ref';
@@ -27,6 +28,12 @@ const ShrinkOut = ({ children, duration = 'small', onFinish }: ShrinkOutProps): 
 
 	useLayoutEffect(() => {
 		if (exiting.isExiting && element) {
+			if (isReducedMotion()) {
+				exiting.onFinish && exiting.onFinish();
+				onFinish && onFinish('exiting');
+				return;
+			}
+
 			const newStyles: React.CSSProperties = {
 				// We fix both width and height because when changing box sizing to border-box.
 				width: `${element.offsetWidth}px`,

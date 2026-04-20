@@ -1,5 +1,12 @@
 # @atlaskit/ufo-interaction-ignore
 
+## 5.14.1
+
+### Patch Changes
+
+- [`cc6a486b6fc66`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/cc6a486b6fc66) -
+  Add 3p segment timings for third-party iframe perf
+
 ## 5.14.0
 
 ### Minor Changes
@@ -209,7 +216,6 @@
 ### Patch Changes
 
 - [`d52302fe9ea1b`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/d52302fe9ea1b) -
-  Clean up platform_ufo_exclude_3p_attribute_changes feature gate, assuming always true
 - [`ac3d03af6d443`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/ac3d03af6d443) -
   Clean up feature gate platform_ufo_exclude_3p_elements_from_ttai - gate always evaluates to true
 

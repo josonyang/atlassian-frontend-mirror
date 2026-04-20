@@ -7,7 +7,8 @@ import { akEditorDefaultLayoutWidth } from '@atlaskit/editor-shared-styles';
 import { fg } from '@atlaskit/platform-feature-flags';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
-import { isTableInContentMode } from './content-mode';
+import { isTableInContentMode } from '@atlaskit/editor-common/table';
+import { isContentModeSupported } from './content-mode';
 
 type TableProps = SharedTableProps & {
 	children: React.ReactNode[];
@@ -70,8 +71,7 @@ export const Table = React.memo(
 		const isContentMode =
 			isTableInContentMode({
 				tableNode,
-				allowTableResizing,
-				rendererAppearance,
+				isSupported: isContentModeSupported({ allowTableResizing, rendererAppearance }),
 				isTableNested: isInsideOfBlockNode || isInsideOfTable,
 			}) && expValEquals('platform_editor_table_fit_to_content_auto_convert', 'isEnabled', true);
 

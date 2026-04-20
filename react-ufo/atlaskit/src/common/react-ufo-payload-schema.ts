@@ -11,6 +11,7 @@ import type {
 	InteractionType,
 	MinorInteraction,
 	SegmentInfo,
+	Segment3pTimingEntry,
 } from './common/types';
 import type { RevisionPayload } from './vc/types';
 
@@ -172,6 +173,7 @@ export type ReactUFOPayload = {
 				isBM3ConfigSSRDoneAsFmp: boolean;
 				isUFOConfigSSRDoneAsFmp: boolean;
 				resourceTimings: ResourceTiming[];
+				segment3pTimings?: Record<string, Segment3pTimingEntry[]>;
 				segments: SegmentInfo[] | RootSegment;
 				reactProfilerTimings: ReactProfilerTiming[];
 				holdInfo: OptimizedHoldInfo[];

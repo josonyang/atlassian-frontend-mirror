@@ -152,14 +152,14 @@ const FlyoutMenuItemSlots = ({
 // This example includes padding so we can also test the nested popup styling on the trigger.
 // Without the padding the mouse will be hovering the trigger (position 0, 0),
 // so the hovered background color is applied even if the nested popup selector is broken.
-export const FlyoutMenuItemSlotsManyDefaultOpen = () => (
+export const FlyoutMenuItemSlotsManyDefaultOpen = (): JSX.Element => (
 	<ExampleWrapper withPadding>
 		<FlyoutMenuItemSlots isDefaultOpen />
 	</ExampleWrapper>
 );
 
 // A single item so that we can test the focus ring styling and ensure it is not clipped
-export const FlyoutMenuItemSingleItemDefaultOpen = () => (
+export const FlyoutMenuItemSingleItemDefaultOpen = (): JSX.Element => (
 	<ExampleWrapper>
 		<FlyoutMenuItem isDefaultOpen>
 			<FlyoutMenuItemTrigger>Flyout menu item</FlyoutMenuItemTrigger>
@@ -175,7 +175,7 @@ export const FlyoutMenuItemSingleItemDefaultOpen = () => (
 	</ExampleWrapper>
 );
 
-export const FlyoutMenuItemExample = () => (
+export const FlyoutMenuItemExample = (): JSX.Element => (
 	<ExampleWrapper>
 		<FlyoutMenuItem>
 			<FlyoutMenuItemTrigger>Flyout Menu Item</FlyoutMenuItemTrigger>
@@ -250,7 +250,7 @@ export const FlyoutMenuItemExample = () => (
 	</ExampleWrapper>
 );
 
-export const FlyoutMenuItemDefaultOpenExample = ({ isSelected }: { isSelected?: boolean }) => (
+export const FlyoutMenuItemDefaultOpenExample = ({ isSelected }: { isSelected?: boolean }): JSX.Element => (
 	<ExampleWrapper>
 		<FlyoutMenuItem isDefaultOpen>
 			<FlyoutMenuItemTrigger
@@ -284,7 +284,7 @@ export const FlyoutMenuItemDefaultOpenExample = ({ isSelected }: { isSelected?: 
 	</ExampleWrapper>
 );
 
-export const FlyoutMenuItemDefaultOpenSelectedVR = () => (
+export const FlyoutMenuItemDefaultOpenSelectedVR = (): JSX.Element => (
 	<FlyoutMenuItemDefaultOpenExample isSelected />
 );
 
@@ -292,7 +292,7 @@ export const FlyoutMenuItemWithNestedPopupExample = ({
 	isDefaultOpen = false,
 }: {
 	isDefaultOpen?: boolean;
-}) => {
+}): JSX.Element => {
 	const [isNestedPopupOpen, setIsNestedPopupOpen] = useState(isDefaultOpen);
 
 	return (
@@ -349,23 +349,23 @@ export const FlyoutMenuItemWithNestedPopupExample = ({
 	);
 };
 
-export const FlyoutMenuItemWithNestedPopupDefaultOpenExample = () => (
+export const FlyoutMenuItemWithNestedPopupDefaultOpenExample = (): JSX.Element => (
 	<FlyoutMenuItemWithNestedPopupExample isDefaultOpen />
 );
 
-export const FlyoutMenuItemRTL = () => (
+export const FlyoutMenuItemRTL = (): JSX.Element => (
 	<div dir="rtl">
 		<FlyoutMenuItemExample />
 	</div>
 );
 
-export const FlyoutMenuItemDefaultOpenRTL = () => (
+export const FlyoutMenuItemDefaultOpenRTL = (): JSX.Element => (
 	<div dir="rtl">
 		<FlyoutMenuItemDefaultOpenExample />
 	</div>
 );
 
-export const FlyoutMenuItemTriggerBasic = () => (
+export const FlyoutMenuItemTriggerBasic = (): JSX.Element => (
 	<ExampleWrapper>
 		<FlyoutMenuItem>
 			<FlyoutMenuItemTrigger>Flyout menu item</FlyoutMenuItemTrigger>
@@ -373,7 +373,7 @@ export const FlyoutMenuItemTriggerBasic = () => (
 	</ExampleWrapper>
 );
 
-export const FlyoutMenuItemTriggerSelected = () => (
+export const FlyoutMenuItemTriggerSelected = (): JSX.Element => (
 	<ExampleWrapper>
 		<FlyoutMenuItem>
 			<FlyoutMenuItemTrigger isSelected>Flyout menu item</FlyoutMenuItemTrigger>
@@ -382,7 +382,7 @@ export const FlyoutMenuItemTriggerSelected = () => (
 );
 
 // Combining into one example for atlaskit site
-const Example = () => (
+const Example = (): JSX.Element => (
 	<Stack space="space.200">
 		<div>
 			Default

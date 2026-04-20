@@ -1,4 +1,4 @@
-import { createContext, useContext } from 'react';
+import { createContext, useContext, type Context } from 'react';
 
 import invariant from 'tiny-invariant';
 
@@ -10,27 +10,27 @@ type onExpansionToggle = (isExpanded: boolean) => void;
  * Whether all ancestor menu items of the current menu item are expanded. Used to know if the current menu item is
  * shown within the menu item tree.
  */
-export const AreAllAncestorsExpandedContext = createContext<boolean | null>(null);
+export const AreAllAncestorsExpandedContext: Context<boolean | null> = createContext<boolean | null>(null);
 
 /**
  * A context for storing the isExpanded value of the ExpandableMenuItem.
  */
-export const IsExpandedContext = createContext<boolean | null>(null);
+export const IsExpandedContext: Context<boolean | null> = createContext<boolean | null>(null);
 
 /**
  * A context for storing a function that sets isExpanded value of the ExpandableMenuItem.
  */
-export const SetIsExpandedContext = createContext<((value: boolean) => void) | null>(null);
+export const SetIsExpandedContext: Context<((value: boolean) => void) | null> = createContext<((value: boolean) => void) | null>(null);
 
 /**
  * A context for storing a function that triggers when isExpanded value of the ExpandableMenuItem is changed.
  */
-export const OnExpansionToggleContext = createContext<onExpansionToggle | null>(null);
+export const OnExpansionToggleContext: Context<onExpansionToggle | null> = createContext<onExpansionToggle | null>(null);
 
 /**
  * A context for storing the level value of the ExpandableMenuItem.
  */
-export const LevelContext = ExpandableMenuItemLevelContext;
+export const LevelContext: Context<number> = ExpandableMenuItemLevelContext;
 
 export const useIsExpanded = (): boolean => {
 	const context = useContext(IsExpandedContext);

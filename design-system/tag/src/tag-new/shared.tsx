@@ -17,7 +17,7 @@ import {
 	useState,
 } from 'react';
 
-import { jsx } from '@compiled/react';
+import { css, jsx } from '@compiled/react';
 
 import { type UIAnalyticsEvent } from '@atlaskit/analytics-next';
 import __noop from '@atlaskit/ds-lib/noop';
@@ -25,6 +25,7 @@ import Link, { type LinkProps } from '@atlaskit/link';
 import { ExitingPersistence, ShrinkOut } from '@atlaskit/motion';
 
 import RemoveButton from '../tag/internal/removable/remove-button';
+
 // CSS variable names for dynamic color values
 export const iconColorVar = '--ds-tag-icon';
 export const borderTokenVar = '--tag-border-token';
@@ -40,16 +41,22 @@ export enum TagStatus {
 export const defaultBeforeRemoveAction: () => boolean = () => true;
 export const noop: typeof __noop = __noop;
 
+/**
+ * Stable key so ExitingPersistence can match this child across the remove transition
+ * (see ShrinkOut + ExitingPersistence docs in @atlaskit/motion).
+ */
+const removableShrinkOutChildKey = 'atlaskit-tag-removable-shrink-out';
+
+const motionWrapperStyles = css({
+	display: 'inline-flex',
+});
+
 // Shared hook for tag removal logic
 // TODO: Fill in the hook {description}.
 /**
  * {description}.
  */
-export function useTagRemoval(
-	text: string,
-	onBeforeRemoveAction: (() => boolean) | undefined,
-	onAfterRemoveAction: ((text: string) => void) | undefined,
-): {
+export function useTagRemoval(onBeforeRemoveAction: (() => boolean) | undefined): {
 	status: TagStatus;
 	handleRemoveRequest: () => void;
 	onKeyPress: (e: React.KeyboardEvent<HTMLButtonElement>) => void;
@@ -58,17 +65,14 @@ export function useTagRemoval(
 } {
 	const [status, setStatus] = useState<TagStatus>(TagStatus.Showing);
 
-	const handleRemoveComplete = useCallback(() => {
-		(onAfterRemoveAction ?? noop)(text);
-		setStatus(TagStatus.Removed);
-	}, [onAfterRemoveAction, text]);
-
 	const handleRemoveRequest = useCallback((): void => {
 		const beforeAction = onBeforeRemoveAction ?? defaultBeforeRemoveAction;
 		if (beforeAction()) {
-			handleRemoveComplete();
+			// Defer onAfterRemoveAction until ShrinkOut's onFinish so ExitingPersistence can run
+			// the exit animation (e.g. in multi-select and user pickers).
+			setStatus(TagStatus.Removed);
 		}
-	}, [handleRemoveComplete, onBeforeRemoveAction]);
+	}, [onBeforeRemoveAction]);
 
 	const onKeyPress = useCallback(
 		(e: React.KeyboardEvent<HTMLButtonElement>): void => {
@@ -283,6 +287,7 @@ export function useRemoveButton({
 interface RemovableWrapperProps {
 	isRemovable: boolean;
 	status: TagStatus;
+	onShrinkOutExitComplete?: () => void;
 	children: ReactNode;
 }
 
@@ -290,6 +295,7 @@ interface RemovableWrapperProps {
 export function RemovableWrapper({
 	isRemovable,
 	status,
+	onShrinkOutExitComplete,
 	children,
 }: RemovableWrapperProps):
 	| string
@@ -303,7 +309,24 @@ export function RemovableWrapper({
 		return (
 			<ExitingPersistence>
 				{!(status === TagStatus.Removed) && (
-					<ShrinkOut>{(motion) => <span ref={motion.ref}>{children}</span>}</ShrinkOut>
+					<ShrinkOut
+						key={removableShrinkOutChildKey}
+						onFinish={
+							onShrinkOutExitComplete
+								? (phase) => {
+										if (phase === 'exiting') {
+											onShrinkOutExitComplete();
+										}
+									}
+								: undefined
+						}
+					>
+						{(motion) => (
+							<span ref={motion.ref} css={motionWrapperStyles}>
+								{children}
+							</span>
+						)}
+					</ShrinkOut>
 				)}
 			</ExitingPersistence>
 		);

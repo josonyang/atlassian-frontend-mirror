@@ -609,6 +609,7 @@ async function createInteractionMetricsPayload(
 			customTimings: optimizeCustomTimings(interaction.customTimings, start),
 			bundleEvalTimings: objectToArray(getBundleEvalTimings(start)),
 			resourceTimings: objectToArray(resourceTimings) as ResourceTiming[],
+			...(interaction.segment3pTimings ? { segment3pTimings: interaction.segment3pTimings } : {}),
 		};
 
 		// Include third-party holds when feature flag is active

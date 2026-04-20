@@ -41,7 +41,7 @@ export function SharedTopLevelFlyout({
 	label: string;
 	testId?: string;
 	value: TTopLevelItem;
-}) {
+}): JSX.Element {
 	const { state, draggableButtonRef, dragPreview, dropTargetRef, dropIndicator } =
 		useMenuItemDragAndDrop({
 			draggable: {

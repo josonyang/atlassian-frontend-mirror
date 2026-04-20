@@ -1,5 +1,13 @@
 # @atlaskit/teams-avatar
 
+## 2.6.1
+
+### Patch Changes
+
+- [`7fb5bfbafb83e`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/7fb5bfbafb83e) -
+  Enrol people-and-teams packages into the React Compiler with platform gating via
+  isReactCompilerActivePlatform
+
 ## 2.6.0
 
 ### Minor Changes

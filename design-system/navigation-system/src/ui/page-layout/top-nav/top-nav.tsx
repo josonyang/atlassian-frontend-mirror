@@ -148,11 +148,10 @@ type TopNavProps = CommonSlotProps & {
 	 */
 	height?: number;
 	/**
-	 * EXPERIMENTAL - DO NOT USE
-	 *
-	 * Feature is incomplete and API is subject to change at any time
+	 * Custom theme for the top navigation. This is a port of Nav 3 functionality, and not recommended for new usage,
+	 * as it does not align with our future vision.
 	 */
-	UNSAFE_theme?: CustomTheme;
+	customTheme?: CustomTheme;
 };
 
 /**
@@ -165,7 +164,7 @@ function TopNavOld({
 	skipLinkLabel = 'Top Bar',
 	testId,
 	id: providedId,
-	UNSAFE_theme,
+	customTheme: customThemeConfig,
 }: TopNavProps): JSX.Element {
 	const isFhsEnabled = useIsFhsEnabled();
 	const dangerouslyHoistSlotSizes = useContext(DangerouslyHoistSlotSizes);
@@ -175,7 +174,7 @@ function TopNavOld({
 	const hasIncreasedDefaultHeight = isFhsEnabled && fg('platform_dst_nav4_top_nav_increase_height');
 	const height = heightProp ?? (hasIncreasedDefaultHeight ? 56 : 48);
 
-	const customTheme = useCustomTheme(UNSAFE_theme);
+	const customTheme = useCustomTheme(customThemeConfig);
 
 	const { isExpandedOnDesktop } = useSideNavVisibility();
 
@@ -218,7 +217,7 @@ function TopNavNew({
 	skipLinkLabel = 'Top Bar',
 	testId,
 	id: providedId,
-	UNSAFE_theme,
+	customTheme: customThemeConfig,
 }: TopNavProps): JSX.Element {
 	const isFhsEnabled = useIsFhsEnabled();
 	const dangerouslyHoistSlotSizes = useContext(DangerouslyHoistSlotSizes);
@@ -228,7 +227,7 @@ function TopNavNew({
 	const hasIncreasedDefaultHeight = isFhsEnabled && fg('platform_dst_nav4_top_nav_increase_height');
 	const height = heightProp ?? (hasIncreasedDefaultHeight ? 56 : 48);
 
-	const customTheme = useCustomThemeNew(UNSAFE_theme);
+	const customTheme = useCustomThemeNew(customThemeConfig);
 	const hasDefaultBackground = customTheme.isEnabled ? customTheme.hasDefaultBackground : true;
 
 	const { isExpandedOnDesktop } = useSideNavVisibility();

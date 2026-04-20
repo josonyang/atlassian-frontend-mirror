@@ -2,6 +2,7 @@ import { snapshot } from '@af/visual-regression';
 
 import BasicAvatarGroup from '../../../../examples/02-basic-avatar-group';
 import BorderColorExample from '../../../../examples/03-avatar-group-border-color';
+import MoreIndicatorsExample from '../../../../examples/04-more-indicators';
 import AvatarGroupPlayground from '../../../../examples/10-avatar-group-playground';
 import OverridesMoreIndicatorExample from '../../../../examples/30-overrides-more-indicator';
 import AvatarGroupSizeExample from '../../../../examples/vr-avatar-group-sizes';
@@ -121,4 +122,11 @@ snapshot(OverridesMoreIndicatorExample, {
 			},
 		},
 	],
+});
+
+snapshot(MoreIndicatorsExample, {
+	description: 'Indicators should have appearances',
+	featureFlags: {
+		'jira-ai-agent-stack': [true],
+	},
 });

@@ -439,7 +439,7 @@ export const mediaWrapperStyle = (props: MediaWrapperProps): SerializedStyles =>
 	/* Renderer */
 	[data-node-type='media'] {
 		position: static !important;
-		${fg('platform_forge_ui_support_images_in_adfrenderer') ? 'height: auto !important;' : ''}
+		height: auto !important;
 
 		> div {
 			position: absolute;

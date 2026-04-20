@@ -20,7 +20,7 @@ const styles = cssMap({
 
 const homeIcon = <HomeIcon label="" color="currentColor" spacing="spacious" />;
 
-export function LinkMenuItemBleed() {
+export function LinkMenuItemBleed(): JSX.Element {
 	const ref = useRef<HTMLAnchorElement | null>(null);
 
 	// Focus on initial render for snapshots

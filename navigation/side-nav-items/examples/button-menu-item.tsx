@@ -84,7 +84,7 @@ const MockActions = ({ shouldRenderToParent }: { shouldRenderToParent: boolean }
 const homeIcon = <HomeIcon label="" color="currentColor" spacing="spacious" />;
 const elemAfter = <Lozenge>elem after</Lozenge>;
 
-export const ButtonMenuItemExample = () => (
+export const ButtonMenuItemExample = (): JSX.Element => (
 	<div css={styles.root}>
 		<SideNavBody>
 			<MenuList>
@@ -219,13 +219,13 @@ export const ButtonMenuItemExample = () => (
 	</div>
 );
 
-export const ButtonMenuItemRTLExample = () => (
+export const ButtonMenuItemRTLExample = (): JSX.Element => (
 	<div dir="rtl">
 		<ButtonMenuItemExample />
 	</div>
 );
 
-export const ButtonMenuItemWithPopup = () => {
+export const ButtonMenuItemWithPopup = (): JSX.Element => {
 	const [isNestedPopupOpen, setIsNestedPopupOpen] = useState(false);
 	const [isNestedPopup2Open, setIsNestedPopup2Open] = useState(true);
 	return (
@@ -305,7 +305,7 @@ export const ButtonMenuItemWithPopup = () => {
 	);
 };
 
-export const ButtonMenuItemWithElemAfter = () => (
+export const ButtonMenuItemWithElemAfter = (): JSX.Element => (
 	<div css={styles.root}>
 		<MenuList>
 			<ButtonMenuItem elemBefore={homeIcon} elemAfter={elemAfter}>
@@ -315,7 +315,7 @@ export const ButtonMenuItemWithElemAfter = () => (
 	</div>
 );
 
-export const ButtonMenuItemWithElemAfterAndActionsOnHover = () => (
+export const ButtonMenuItemWithElemAfterAndActionsOnHover = (): JSX.Element => (
 	<div css={styles.root}>
 		<MenuList>
 			<ButtonMenuItem
@@ -356,7 +356,7 @@ const ExportAction = ({
 	</DropdownMenu>
 );
 
-export const ButtonMenuItemWithDropdownActionOpen = () => (
+export const ButtonMenuItemWithDropdownActionOpen = (): JSX.Element => (
 	<div css={styles.root}>
 		<MenuList>
 			<Stack space="space.800">
@@ -394,7 +394,7 @@ export const ButtonMenuItemWithDropdownActionOpen = () => (
 	</div>
 );
 
-export const ButtonMenuItemDisabled = () => (
+export const ButtonMenuItemDisabled = (): JSX.Element => (
 	<div css={styles.root}>
 		<MenuList>
 			<ButtonMenuItem elemBefore={homeIcon} isDisabled>
@@ -404,7 +404,7 @@ export const ButtonMenuItemDisabled = () => (
 	</div>
 );
 
-export const ButtonMenuItemDisabledWithActions = () => (
+export const ButtonMenuItemDisabledWithActions = (): JSX.Element => (
 	<div css={styles.root}>
 		<MenuList>
 			<ButtonMenuItem
@@ -419,7 +419,7 @@ export const ButtonMenuItemDisabledWithActions = () => (
 	</div>
 );
 
-export const ButtonMenuItemSelected = () => (
+export const ButtonMenuItemSelected = (): JSX.Element => (
 	<div css={styles.root}>
 		<MenuList>
 			<ButtonMenuItem elemBefore={homeIcon} isSelected>
@@ -429,7 +429,7 @@ export const ButtonMenuItemSelected = () => (
 	</div>
 );
 
-export const ButtonMenuItemSelectedDisabled = () => (
+export const ButtonMenuItemSelectedDisabled = (): JSX.Element => (
 	<div css={styles.root}>
 		<MenuList>
 			<ButtonMenuItem elemBefore={homeIcon} isSelected isDisabled>
@@ -439,7 +439,7 @@ export const ButtonMenuItemSelectedDisabled = () => (
 	</div>
 );
 
-export const ButtonMenuItemBasic = () => (
+export const ButtonMenuItemBasic = (): JSX.Element => (
 	<div css={styles.root}>
 		<MenuList>
 			<ButtonMenuItem elemBefore={homeIcon}>Basic button menu item</ButtonMenuItem>
@@ -448,7 +448,7 @@ export const ButtonMenuItemBasic = () => (
 );
 
 // Combining into one example for atlaskit site
-const Example = () => (
+const Example = (): JSX.Element => (
 	<div>
 		<ButtonMenuItemExample />
 		<div>With popup</div>

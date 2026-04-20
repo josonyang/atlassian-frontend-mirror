@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/ads-mcp",
-	"version": "0.19.4",
+	"version": "0.20.0",
 	"description": "The official Atlassian Design System MCP server to develop apps and user interfaces matching the Atlassian style.",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -34,6 +34,20 @@
 			"publish": "./src/index.tsx",
 			"default": "./index.js"
 		},
+		"./tools/search-components": "./src/tools/search-components/index.tsx",
+		"./tools/search-tokens": "./src/tools/search-tokens/index.tsx",
+		"./tools/search-icons": "./src/tools/search-icons/index.tsx",
+		"./tools/get-all-components": "./src/tools/get-all-components/index.tsx",
+		"./tools/get-all-tokens": "./src/tools/get-all-tokens/index.tsx",
+		"./tools/get-all-icons": "./src/tools/get-all-icons/index.tsx",
+		"./tools/get-guidelines": "./src/tools/get-guidelines/index.tsx",
+		"./tools/get-lint-rules": "./src/tools/get-lint-rules/index.tsx",
+		"./tools/get-a11y-guidelines": "./src/tools/get-a11y-guidelines/index.tsx",
+		"./tools/suggest-a11y-fixes": "./src/tools/suggest-a11y-fixes/index.tsx",
+		"./tools/migration-guides": "./src/tools/migration-guides/index.tsx",
+		"./tools/i18n-conversion": "./src/tools/i18n-conversion/index.tsx",
+		"./tools/plan": "./src/tools/plan/index.tsx",
+		"./tools/analyze-a11y": "./src/tools/analyze-a11y/index.tsx",
 		"./package.json": "./package.json"
 	},
 	"platform-feature-flags": {

@@ -96,7 +96,7 @@ export const ExtensionNodeWrapper = ({
 
 	return (
 		<span
-			data-testId="extension-node-wrapper"
+			data-testid="extension-node-wrapper"
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop
 			className={wrapperClassNames}
 			css={[

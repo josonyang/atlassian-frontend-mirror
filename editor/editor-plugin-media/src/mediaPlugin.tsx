@@ -324,6 +324,8 @@ export const mediaPlugin: MediaNextEditorPluginType = ({ config: options = {}, a
 										eventDispatcher,
 										providerFactory,
 										api,
+										undefined,
+										options?.fallbackMediaNameFetcher,
 									),
 								},
 								errorReporter,

@@ -18,7 +18,7 @@ const styles = cssMap({
 	},
 });
 
-export const MenuItemAvatarExample = () => (
+export const MenuItemAvatarExample = (): JSX.Element => (
 	<div css={styles.root}>
 		<SideNavBody>
 			<MenuList>

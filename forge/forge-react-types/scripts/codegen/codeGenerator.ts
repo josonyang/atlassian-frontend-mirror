@@ -453,9 +453,11 @@ const getTypeDeclarationCodeFromImport = (
 	packageName: string,
 	typeName: string,
 ) => {
-	const importDeclaration = sourceFile.getImportDeclarationOrThrow(packageName);
-	const importSpecifier = importDeclaration
-		.getNamedImports()
+	// A file may import from the same package multiple times (e.g. separate `import type` lines).
+	const importSpecifier = sourceFile
+		.getImportDeclarations()
+		.filter((declaration) => declaration.getModuleSpecifierValue() === packageName)
+		.flatMap((declaration) => declaration.getNamedImports())
 		.find(
 			(specifier) =>
 				specifier.getName() === typeName || specifier.getAliasNode()?.getText() === typeName,
@@ -679,27 +681,23 @@ const baseGenerateComponentPropTypeSourceCode = (
 ) => {
 	// 1) extract the prop types from the source file
 	const baseComponentPropSymbol = getBaseComponentSymbol(componentPropSymbol, sourceFile);
-
 	// 2) from the prop type code further extract other relevant types in the source file
 	const dependentTypeDeclarations = getDependentTypeDeclarations(
 		baseComponentPropSymbol,
 		sourceFile,
 	);
-
 	// 3) extract the import statement
 	const importDeclarations = extractImportDeclarations(
 		sourceFile,
 		baseComponentPropSymbol,
 		dependentTypeDeclarations,
 	);
-
 	// 4) resolve other types definition (not part of the ADS components)
 	const externalTypesCode = resolveExternalTypesCode(
 		sourceFile,
 		baseComponentPropSymbol,
 		dependentTypeDeclarations,
 	);
-
 	// 5) generate the source file
 	const importCode = importDeclarations.map((declaration) => declaration.getText()).join('\n');
 	const dependentTypeCode = dependentTypeDeclarations
@@ -1060,6 +1058,22 @@ const extractImportsForVariables = (
 	return importDeclarations;
 };
 
+/**
+ * `dts` emit sometimes prints `keyof U` constraints as `string | number | symbol` instead of
+ * `keyof CSSProperties`. The latter is required so `K_1` can index `RestrictedPropsSpec`.
+ */
+const normalizeXcssValidateDtsKeyof = (declarationText: string): string => {
+	return declarationText
+		.replace(
+			/SafeCSSObject<string \| number \| symbol, string \| number \| symbol, RestrictedPropsSpec>/g,
+			'SafeCSSObject<keyof CSSProperties, keyof CSSProperties, RestrictedPropsSpec>',
+		)
+		.replace(
+			/Extract<keyof U, string \| number \| symbol>/g,
+			'Extract<keyof U, keyof CSSProperties>',
+		);
+};
+
 const handleXCSSProp: CodeConsolidator = ({
 	sourceFile,
 	importCode,
@@ -1094,9 +1108,11 @@ const handleXCSSProp: CodeConsolidator = ({
 		.getProject()
 		.addSourceFileAtPath(require.resolve('@atlassian/forge-ui/utils/xcssValidate'));
 	try {
-		const xcssValidatorDeclarationCode = utilsFile.getEmitOutput({
-			emitOnlyDtsFiles: true,
-		}).compilerObject.outputFiles[0].text;
+		const xcssValidatorDeclarationCode = normalizeXcssValidateDtsKeyof(
+			utilsFile.getEmitOutput({
+				emitOnlyDtsFiles: true,
+			}).compilerObject.outputFiles[0].text,
+		);
 
 		const xcssValidatorVariableDeclarationCode = [
 			xcssValidatorDeclarationCode,

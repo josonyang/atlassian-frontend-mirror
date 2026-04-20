@@ -208,9 +208,8 @@ const MultiValue: <Option, IsMulti extends boolean, Group extends GroupBase<Opti
 						text={labelText}
 						isRemovable={!isDisabled}
 						removeButtonLabel={`${labelText}, remove`}
-						onBeforeRemoveAction={() => {
+						onAfterRemoveAction={() => {
 							removeProps.onClick?.({} as MouseEvent<HTMLDivElement>);
-							return false;
 						}}
 						color={tagColor ?? 'gray'}
 						elemBefore={elemBefore}

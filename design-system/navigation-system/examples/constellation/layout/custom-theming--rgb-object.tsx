@@ -8,7 +8,7 @@ import { MockContent } from '../common/mock-content';
 export const CustomThemingRgbObjectExample = (): React.JSX.Element => (
 	<MockRoot>
 		<TopNav
-			UNSAFE_theme={{
+			customTheme={{
 				backgroundColor: { r: 248, g: 238, b: 254 },
 				highlightColor: { r: 150, g: 74, b: 192 },
 			}}

@@ -78,7 +78,7 @@ type Props = MultiValueProps<OptionType> & {
 	innerProps: any;
 	isFocused?: boolean;
 	ref?: React.RefObject<HTMLDivElement>;
-	removeProps: { onClick: Function };
+	removeProps: { onClick: (e?: React.MouseEvent<HTMLDivElement>) => void };
 	selectProps: UserPickerProps;
 };
 
@@ -201,9 +201,8 @@ export class MultiValue extends React.Component<Props> {
 				isTeam(data) && data?.state === 'DISBANDED' && fg('enable-sup-archive-experience');
 			const avatarProps = avatarUrl ? { name: data.name, src: avatarUrl } : { name: data.name };
 
-			const removeAction = () => {
+			const onAfterRemoveAction = () => {
 				removeProps.onClick({} as React.MouseEvent<HTMLDivElement>);
-				return true;
 			};
 
 			if (isEmailOption) {
@@ -215,7 +214,7 @@ export class MultiValue extends React.Component<Props> {
 								<AddOptionAvatar isLozenge isPendingAction={(data as Email).isPendingAction} />
 							}
 							isRemovable={!isDisabled}
-							onBeforeRemoveAction={removeAction}
+							onAfterRemoveAction={onAfterRemoveAction}
 						/>
 					</span>
 				);
@@ -236,7 +235,7 @@ export class MultiValue extends React.Component<Props> {
 								</Box>
 							}
 							isRemovable={!isDisabled}
-							onBeforeRemoveAction={removeAction}
+							onAfterRemoveAction={onAfterRemoveAction}
 						/>
 					</span>
 				);
@@ -253,7 +252,7 @@ export class MultiValue extends React.Component<Props> {
 								</div>
 							}
 							isRemovable={!isDisabled}
-							onBeforeRemoveAction={removeAction}
+							onAfterRemoveAction={onAfterRemoveAction}
 						/>
 					</span>
 				);
@@ -267,7 +266,7 @@ export class MultiValue extends React.Component<Props> {
 								text={label}
 								isVerified={isTeamOption ? data.verified : undefined}
 								isRemovable={!isDisabled}
-								onBeforeRemoveAction={removeAction}
+								onAfterRemoveAction={onAfterRemoveAction}
 								avatar={(props: AvatarPropTypes) => <TeamAvatar {...props} {...avatarProps} />}
 							/>
 							{canShowArchivedLozenge ? (
@@ -283,7 +282,7 @@ export class MultiValue extends React.Component<Props> {
 							type="user"
 							text={label}
 							isRemovable={!isDisabled}
-							onBeforeRemoveAction={removeAction}
+							onAfterRemoveAction={onAfterRemoveAction}
 							avatar={(props: AvatarPropTypes) => <Avatar {...props} {...avatarProps} />}
 						/>
 					)}

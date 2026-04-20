@@ -1,8 +1,10 @@
-import type { Change } from 'prosemirror-changeset';
+import { simplifyChanges, ChangeSet, type Change } from 'prosemirror-changeset';
 
 import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
-import { Mapping } from '@atlaskit/editor-prosemirror/transform';
+import { Mapping, ReplaceStep } from '@atlaskit/editor-prosemirror/transform';
 import type { Step, StepMap } from '@atlaskit/editor-prosemirror/transform';
+
+import { optimizeChanges } from './optimizeChanges';
 
 const mapPosition = (mapping: Mapping, pos: number): number => mapping.map(pos);
 const createMapping = (maps: StepMap[]): Mapping => {
@@ -55,18 +57,49 @@ const mergeOverlappingByNewDocRange = (changes: Change[]): Change[] => {
 	return merged;
 };
 
+const isReplaceStepForTextBlockNode = (
+	step: Step,
+	before: PMNode,
+	from: number,
+	to: number,
+): step is ReplaceStep => {
+	if (!(step instanceof ReplaceStep)) {
+		return false;
+	}
+	if (step.slice.openStart !== 0 || step.slice.openEnd !== 0) {
+		return false;
+	}
+
+	const replacedSlice = before.slice(from, to);
+	const replacingSlice = step.slice;
+
+	return Boolean(
+		replacedSlice.openStart === 0 &&
+			replacedSlice.openEnd === 0 &&
+			replacedSlice.content.childCount === 1 &&
+			replacingSlice.content.childCount === 1 &&
+			replacedSlice.content.firstChild?.type.name ===
+				replacingSlice.content.firstChild?.type.name &&
+			replacedSlice.content.firstChild?.type.isTextblock,
+	);
+};
+
 export const diffBySteps = (originalDoc: PMNode, steps: Step[]): Change[] => {
 	const changes: Change[] = [];
 	let currentDoc = originalDoc;
 	const successfulStepMaps = [];
 	const rangedSteps: Array<{
+		before: PMNode;
+		doc: PMNode;
 		from: number;
 		mapIndex: number;
+		step: Step;
 		stepMap: StepMap;
 		to: number;
 	}> = [];
 
 	for (const step of steps) {
+		const before = currentDoc;
 		const result = step.apply(currentDoc);
 		if (result.failed !== null || !result.doc) {
 			continue;
@@ -76,9 +109,12 @@ export const diffBySteps = (originalDoc: PMNode, steps: Step[]): Change[] => {
 		const rangeStep = step as Step & { from?: number; to?: number };
 		if (typeof rangeStep.from === 'number' && typeof rangeStep.to === 'number') {
 			rangedSteps.push({
+				before,
+				doc: result.doc,
 				from: rangeStep.from,
 				to: rangeStep.to,
 				mapIndex: successfulStepMaps.length,
+				step,
 				stepMap,
 			});
 		}
@@ -102,6 +138,41 @@ export const diffBySteps = (originalDoc: PMNode, steps: Step[]): Change[] => {
 
 		const fromB = mapPosition(afterStepToFinal, fromAfterStep);
 		const toB = mapPosition(afterStepToFinal, toAfterStep);
+
+		if (
+			isReplaceStepForTextBlockNode(
+				rangedStep.step,
+				rangedStep.before,
+				rangedStep.from,
+				rangedStep.to,
+			)
+		) {
+			const granularStepChanges = ChangeSet.create(rangedStep.before).addSteps(
+				rangedStep.doc,
+				[rangedStep.stepMap],
+				null,
+			);
+
+			const optimizedGranularStepChanges = optimizeChanges(
+				simplifyChanges(granularStepChanges.changes, granularStepChanges.startDoc),
+			);
+			for (const granularChange of optimizedGranularStepChanges) {
+				const granularFromA = mapPosition(beforeStepToOriginal, granularChange.fromA);
+				const granularToA = mapPosition(beforeStepToOriginal, granularChange.toA);
+				const granularFromB = mapPosition(afterStepToFinal, granularChange.fromB);
+				const granularToB = mapPosition(afterStepToFinal, granularChange.toB);
+
+				changes.push({
+					fromA: granularFromA,
+					toA: granularToA,
+					fromB: granularFromB,
+					toB: granularToB,
+					deleted: createSpans(Math.max(0, granularToA - granularFromA)),
+					inserted: createSpans(Math.max(0, granularToB - granularFromB)),
+				});
+			}
+			continue;
+		}
 
 		changes.push({
 			fromA,

@@ -16,7 +16,7 @@ import React, { type ComponentType, lazy, Suspense, useEffect, useState } from '
  * By deferring to after mount, both server and initial client render agree on `null`,
  * and the lazy import + Suspense only kicks in after hydration is complete.
  */
-export function LazyDragHandle() {
+export function LazyDragHandle(): React.JSX.Element | null {
 	const [Component, setComponent] = useState<ComponentType | null>(null);
 
 	useEffect(() => {

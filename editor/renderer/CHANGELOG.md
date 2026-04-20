@@ -1,5 +1,39 @@
 # @atlaskit/renderer
 
+## 130.2.0
+
+### Minor Changes
+
+- [`3394e81c10e6e`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/3394e81c10e6e) -
+  Fix table flicker on focus: defer data-initial-width-mode removal to after colgroup update.
+  Consolidate isTableInContentMode and hasTableBeenResized into editor-common/table.
+
+### Patch Changes
+
+- Updated dependencies
+
+## 130.1.0
+
+### Minor Changes
+
+- [`b6bb07e5d72ac`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/b6bb07e5d72ac) -
+  [ux] Fix for #hot-301450, add new media option for fallback media name fetcher to allow confluence
+  to use the attachment service instead of the media service to get filenames. After DC -> Cloud
+  migration filenames were not properly copied across to the media service causing inline media to
+  show an error.
+
+### Patch Changes
+
+- Updated dependencies
+
+## 130.0.1
+
+### Patch Changes
+
+- [`74fadc941d049`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/74fadc941d049) -
+  change div to span for InlineNodeRendererWrapper
+- Updated dependencies
+
 ## 130.0.0
 
 ### Major Changes

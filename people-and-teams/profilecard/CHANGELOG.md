@@ -1,5 +1,33 @@
 # @atlaskit/profilecard
 
+## 25.1.0
+
+### Minor Changes
+
+- [`266566c8db777`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/266566c8db777) -
+  Duplicate agent via BE mutation when versioning is enabled Changing all duplicate touchpoints to
+  do useMutation and then redirect. So this requires chaging all the onDuplicate to return Promise
+  and handles the loading state.
+
+  3 places where it changes:
+  - conversation-assistant-agent useAgentUrlActions - this is browse agent modal, view agent modal,
+    agent profile, chat sidebar, studio migration modal
+  - atlassian-studio AgentContextMenu - studio `...` buttons in side nav, agent title bar `...`
+  - profile-card useAgentUrlActions - Agent profile card (no relay)
+
+### Patch Changes
+
+- Updated dependencies
+
+## 25.0.3
+
+### Patch Changes
+
+- [`7fb5bfbafb83e`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/7fb5bfbafb83e) -
+  Enrol people-and-teams packages into the React Compiler with platform gating via
+  isReactCompilerActivePlatform
+- Updated dependencies
+
 ## 25.0.2
 
 ### Patch Changes

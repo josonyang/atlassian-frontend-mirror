@@ -49,7 +49,7 @@ export interface SkeletonMenuSectionHeadingProps {
  * section heading.
  *
  */
-export const SkeletonMenuSectionHeading = (props: SkeletonMenuSectionHeadingProps) => {
+export const SkeletonMenuSectionHeading = (props: SkeletonMenuSectionHeadingProps): JSX.Element => {
 	const { testId } = props;
 
 	return (

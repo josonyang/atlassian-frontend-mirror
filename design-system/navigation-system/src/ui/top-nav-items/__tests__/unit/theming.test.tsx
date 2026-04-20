@@ -47,7 +47,7 @@ describe('top navigation custom theming', () => {
 
 		it('should use the themed Button if a theme is provided', () => {
 			render(
-				<TopNav UNSAFE_theme={mockTheme}>
+				<TopNav customTheme={mockTheme}>
 					<Button onClick={noop}>Hello world</Button>
 				</TopNav>,
 			);
@@ -71,7 +71,7 @@ describe('top navigation custom theming', () => {
 
 		it('should use the themed IconButton if a theme is provided', () => {
 			render(
-				<TopNav UNSAFE_theme={mockTheme}>
+				<TopNav customTheme={mockTheme}>
 					<IconButton icon={mockIcon} label="" onClick={noop} />
 				</TopNav>,
 			);

@@ -1,5 +1,17 @@
 # @atlaskit/editor-plugin-table
 
+## 22.1.0
+
+### Minor Changes
+
+- [`3394e81c10e6e`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/3394e81c10e6e) -
+  Fix table flicker on focus: defer data-initial-width-mode removal to after colgroup update.
+  Consolidate isTableInContentMode and hasTableBeenResized into editor-common/table.
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 22.0.0
 
 ### Major Changes

@@ -143,7 +143,7 @@ export const SkeletonExample = ({
 	menuLoadDelayMs = MENU_LOAD_DELAY_MS,
 	recentFlyoutDefaultOpen = false,
 	starredFlyoutDefaultOpen = false,
-}: SkeletonExampleProps = {}) => {
+}: SkeletonExampleProps = {}): JSX.Element => {
 	const [menuItemsVisible, setMenuItemsVisible] = useState(false);
 
 	const [recentFlyoutContentLoaded, setRecentFlyoutContentLoaded] = useState(false);
@@ -358,9 +358,9 @@ export const SkeletonExample = ({
 	);
 };
 
-export const SkeletonMenuItemsExample = () => <SkeletonExample menuLoadDelayMs={5000} />;
+export const SkeletonMenuItemsExample = (): JSX.Element => <SkeletonExample menuLoadDelayMs={5000} />;
 
-export const SkeletonFlyoutExample = () => (
+export const SkeletonFlyoutExample = (): JSX.Element => (
 	<SkeletonExample menuLoadDelayMs={0} flyoutLoadDelayMs={5000} recentFlyoutDefaultOpen />
 );
 

@@ -95,11 +95,11 @@ function NestedExpandable({ children, label }: { children?: React.ReactNode; lab
 	);
 }
 
-export function MenuItemsDeeplyNestedVR() {
+export function MenuItemsDeeplyNestedVR(): JSX.Element {
 	return <MenuItemsDeeplyNestedExample isDeepNestedItemSelected={false} />;
 }
 
-export function MenuItemsDeeplyNestedSelectedVR() {
+export function MenuItemsDeeplyNestedSelectedVR(): JSX.Element {
 	return <MenuItemsDeeplyNestedExample isDeepNestedItemSelected />;
 }
 
@@ -107,7 +107,7 @@ function MenuItemsDeeplyNestedExample({
 	isDeepNestedItemSelected = false,
 }: {
 	isDeepNestedItemSelected?: boolean;
-}) {
+}): JSX.Element {
 	return (
 		<WithResponsiveViewport>
 			<Root>

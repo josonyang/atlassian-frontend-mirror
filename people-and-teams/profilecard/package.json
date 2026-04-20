@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/profilecard",
-	"version": "25.0.2",
+	"version": "25.1.0",
 	"description": "A React component to display a card with user information.",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -22,6 +22,13 @@
 	},
 	"atlaskit:src": "src/index.ts",
 	"atlassian": {
+		"react-compiler": {
+			"enabled": true,
+			"gating": {
+				"source": "@atlassian/react-compiler-gating",
+				"importSpecifierName": "isReactCompilerActivePlatform"
+			}
+		},
 		"team": "People and Teams Collective",
 		"website": {
 			"name": "Profilecard"
@@ -107,6 +114,7 @@
 		"@atlassian/feature-flags-test-utils": "workspace:^",
 		"@atlassian/platform-storybook-helpers": "workspace:^",
 		"@atlassian/ptc-test-utils": "workspace:^",
+		"@atlassian/react-compiler-gating": "workspace:^",
 		"@storybook/addon-actions": "root:*",
 		"@storybook/test": "root:*",
 		"@testing-library/react": "root:*",
@@ -179,6 +187,9 @@
 			"type": "boolean"
 		},
 		"rovo_display_ai_disclaimer_on_agent_profile_card": {
+			"type": "boolean"
+		},
+		"rovo_agent_versioning_enabled": {
 			"type": "boolean"
 		},
 		"rovo_agent_support_a2a_avatar": {

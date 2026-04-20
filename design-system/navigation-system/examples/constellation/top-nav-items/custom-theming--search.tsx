@@ -17,7 +17,7 @@ const ThemedSearch = () => {
 export const CustomThemingSearchExample = (): React.JSX.Element => (
 	<MockRoot>
 		<TopNav
-			UNSAFE_theme={{ backgroundColor: parseHex('#964AC0'), highlightColor: parseHex('#F8EEFE') }}
+			customTheme={{ backgroundColor: parseHex('#964AC0'), highlightColor: parseHex('#F8EEFE') }}
 		>
 			<TopNavMiddle>
 				<ThemedSearch />

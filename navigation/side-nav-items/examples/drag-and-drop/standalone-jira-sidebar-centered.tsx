@@ -16,7 +16,7 @@ const styles = css({
 	flexDirection: 'row',
 });
 
-export function StandaloneJiraSidebarCentered() {
+export function StandaloneJiraSidebarCentered(): JSX.Element {
 	return (
 		<div css={styles}>
 			<SidebarExampleContainer>

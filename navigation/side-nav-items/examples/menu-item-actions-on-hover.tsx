@@ -121,7 +121,7 @@ function ButtonMenuItemWithPopup({
 	);
 }
 
-function ButtonMenuItemExample() {
+function ButtonMenuItemExample(): JSX.Element {
 	return (
 		<div css={styles.root}>
 			<SideNavBody>

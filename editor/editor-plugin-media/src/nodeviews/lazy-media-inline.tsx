@@ -15,6 +15,7 @@ export const lazyMediaInlineView = (
 	providerFactory: ProviderFactory,
 	api: ExtractInjectionAPI<MediaNextEditorPluginType> | undefined,
 	dispatchAnalyticsEvent?: DispatchAnalyticsEvent,
+	fallbackMediaNameFetcher?: (id: string) => Promise<string>,
 ): NodeViewConstructor => {
 	return withLazyLoading({
 		nodeName: 'mediaInline',
@@ -31,6 +32,7 @@ export const lazyMediaInlineView = (
 						providerFactory,
 						api,
 						dispatchAnalyticsEvent,
+						fallbackMediaNameFetcher,
 					)(node, view, getPos);
 				};
 			});

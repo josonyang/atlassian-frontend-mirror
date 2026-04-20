@@ -2,7 +2,7 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
-import { forwardRef, memo } from 'react';
+import { forwardRef, memo, useCallback } from 'react';
 
 import { cssMap as cssMapUnbound, cx, jsx } from '@compiled/react';
 
@@ -67,12 +67,12 @@ const styles = cssMapUnbound({
 		borderStyle: 'solid',
 		borderWidth: token('border.width'),
 		cursor: 'default',
-		marginBlock: token('space.050'),
-		marginInline: token('space.050'),
-		paddingBlock: token('space.025'),
+		paddingBlock: token('space.025', '2px'),
 		paddingInline: '0.1875rem',
 		font: token('font.body.small'),
 		backgroundColor: token('color.background.neutral.subtle'),
+		marginBlock: token('space.050'),
+		marginInline: token('space.050'),
 	},
 	removableStyles: {
 		gap: token('space.050'),
@@ -379,11 +379,12 @@ const TagNewComponent = forwardRef<HTMLSpanElement, TagNewProps>(function TagNew
 	},
 	ref,
 ) {
-	const { status, handleRemoveRequest, onKeyPress, removingTag, showingTag } = useTagRemoval(
-		text,
-		onBeforeRemoveAction,
-		onAfterRemoveAction,
-	);
+	const { status, handleRemoveRequest, onKeyPress, removingTag, showingTag } =
+		useTagRemoval(onBeforeRemoveAction);
+
+	const onShrinkOutExitComplete = useCallback(() => {
+		onAfterRemoveAction?.(text);
+	}, [onAfterRemoveAction, text]);
 
 	const { isLink, LinkComponent } = useLink(href, linkComponent);
 	const {
@@ -451,7 +452,11 @@ const TagNewComponent = forwardRef<HTMLSpanElement, TagNewProps>(function TagNew
 	);
 
 	return (
-		<RemovableWrapper isRemovable={isRemovable} status={status}>
+		<RemovableWrapper
+			isRemovable={isRemovable}
+			status={status}
+			onShrinkOutExitComplete={isRemovable ? onShrinkOutExitComplete : undefined}
+		>
 			{tagContent}
 		</RemovableWrapper>
 	);

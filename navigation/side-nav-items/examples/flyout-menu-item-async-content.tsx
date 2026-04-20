@@ -78,7 +78,7 @@ function AsyncContentItems({
 	);
 }
 
-export default function FlyoutMenuItemAsyncContentExample() {
+export default function FlyoutMenuItemAsyncContentExample(): JSX.Element {
 	return (
 		<Root>
 			<TopNav>{null}</TopNav>

@@ -13,6 +13,7 @@ import DropdownMenu, { DropdownItem, DropdownItemGroup } from '@atlaskit/dropdow
 import MoreIcon from '@atlaskit/icon/core/show-more-horizontal';
 import { fg } from '@atlaskit/platform-feature-flags';
 import { Box, Inline } from '@atlaskit/primitives/compiled';
+import Spinner from '@atlaskit/spinner';
 import { token } from '@atlaskit/tokens';
 
 import { ChatPillIcon } from '../../common/ui/chat-icon';
@@ -103,7 +104,9 @@ type AgentDropdownMenuProps = {
 	agentName?: string;
 	onEditAgent?: React.ComponentProps<typeof DropdownItem>['onClick'];
 	onCopyAgent?: React.ComponentProps<typeof DropdownItem>['onClick'];
-	onDuplicateAgent?: React.ComponentProps<typeof DropdownItem>['onClick'];
+	onDuplicateAgent?: (
+		e: React.MouseEvent<Element, MouseEvent> | React.KeyboardEvent<Element>,
+	) => Promise<void>;
 	onDeleteAgent?: React.ComponentProps<typeof DropdownItem>['onClick'];
 	isForgeAgent: boolean;
 	onDropdownTriggerClick?: (
@@ -157,6 +160,7 @@ export const AgentDropdownMenu = ({
 	customDropdownOptions,
 }: AgentDropdownMenuProps): JSX.Element => {
 	const [isLoading, setIsLoading] = useState(false);
+	const [isDuplicating, setIsDuplicating] = useState(false);
 	const { formatMessage } = useIntl();
 	const [hasBeenCopied, setHasBeenCopied] = useState(false);
 	const [isOpen, setIsOpen] = useState(false);
@@ -263,10 +267,27 @@ export const AgentDropdownMenu = ({
 					</DropdownItem>
 				)}
 				{!isForgeAgent && isCreateAgentsEnabled && (
-					<DropdownItem onClick={onDuplicateAgent}>
-						{isAutodevTemplateAgent
-							? formatMessage(messages.useTemplateButton)
-							: formatMessage(messages.duplicateAgent)}
+					<DropdownItem
+						onClick={async (e) => {
+							if (fg('rovo_agent_versioning_enabled')) {
+								e.stopPropagation();
+							}
+
+							setIsDuplicating(true);
+							try {
+								await onDuplicateAgent?.(e);
+							} finally {
+								setIsDuplicating(false);
+							}
+						}}
+						isDisabled={isDuplicating}
+					>
+						<Inline space="space.050">
+							{isDuplicating && <Spinner size="small" />}
+							{isAutodevTemplateAgent
+								? formatMessage(messages.useTemplateButton)
+								: formatMessage(messages.duplicateAgent)}
+						</Inline>
 					</DropdownItem>
 				)}
 				<DropdownItem

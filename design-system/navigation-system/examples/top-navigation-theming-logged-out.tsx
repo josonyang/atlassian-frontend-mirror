@@ -36,7 +36,7 @@ const TopNavigationThemingInstance = ({ customTheme }: { customTheme?: CustomThe
 		 * Root sets the top bar height CSS variable that TopNav uses to set its height
 		 */
 		<MockRoot>
-			<TopNav UNSAFE_theme={customTheme}>
+			<TopNav customTheme={customTheme}>
 				<TopNavStart
 					sideNavToggleButton={
 						<SideNavToggleButton collapseLabel="Collapse sidebar" expandLabel="Expand sidebar" />

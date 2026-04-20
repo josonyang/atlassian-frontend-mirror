@@ -21,7 +21,7 @@ const wrapperStyles = cssMap({
 	},
 });
 
-export function TopLevelSpacerExample() {
+export function TopLevelSpacerExample(): JSX.Element {
 	return (
 		<div css={wrapperStyles.root}>
 			<SideNavBody>

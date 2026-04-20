@@ -93,7 +93,7 @@ export interface SkeletonMenuItemProps {
  * A skeleton menu item is used to display a loading state for a side nav menu item.
  * This component can have an icon element skeleton, and a description skeleton included.
  */
-export const SkeletonMenuItem = (props: SkeletonMenuItemProps) => {
+export const SkeletonMenuItem = (props: SkeletonMenuItemProps): JSX.Element => {
 	const { hasDescription = false, hasElemBefore = false, testId } = props;
 
 	return (

@@ -82,7 +82,7 @@ const MockActions = ({ shouldRenderToParent }: { shouldRenderToParent: boolean }
 	</>
 );
 
-export const ExpandableMenuItemUnselectable = () => (
+export const ExpandableMenuItemUnselectable = (): JSX.Element => (
 	<div css={styles.root}>
 		<SideNavBody>
 			<MenuList>
@@ -121,7 +121,7 @@ const ExpandableMenuItemControlled = () => {
 	);
 };
 
-export const ExpandableMenuItemSelectable = () => {
+export const ExpandableMenuItemSelectable = (): JSX.Element => {
 	const [selectedMenuItemId, setSelectedMenuItemId] = useState<string | null>(null);
 
 	return (
@@ -159,7 +159,7 @@ export const ExpandableMenuItemSelectable = () => {
 	);
 };
 
-export const ExpandableMenuItemSelected = () => (
+export const ExpandableMenuItemSelected = (): JSX.Element => (
 	<div css={styles.root}>
 		<SideNavBody>
 			<MenuList>
@@ -177,7 +177,7 @@ export const ExpandableMenuItemSelected = () => (
 	</div>
 );
 
-export const ExpandableMenuItemWithIcon = () => (
+export const ExpandableMenuItemWithIcon = (): JSX.Element => (
 	<div css={styles.root}>
 		<SideNavBody>
 			<MenuList>
@@ -195,7 +195,7 @@ export const ExpandableMenuItemWithIcon = () => (
 	</div>
 );
 
-export const ExpandableMenuItemSelectedWithIcon = () => (
+export const ExpandableMenuItemSelectedWithIcon = (): JSX.Element => (
 	<div css={styles.root}>
 		<SideNavBody>
 			<MenuList>
@@ -230,7 +230,7 @@ export const ExpandableMenuItemSelectedWithIcon = () => (
 	</div>
 );
 
-export const ExpandableMenuItemWithElemAfter = ({ isExpanded }: { isExpanded?: boolean }) => (
+export const ExpandableMenuItemWithElemAfter = ({ isExpanded }: { isExpanded?: boolean }): JSX.Element => (
 	<div css={styles.root}>
 		<SideNavBody>
 			<MenuList>
@@ -251,11 +251,11 @@ export const ExpandableMenuItemWithElemAfter = ({ isExpanded }: { isExpanded?: b
 	</div>
 );
 
-export const ExpandableMenuItemExpandedWithElemAfter = () => (
+export const ExpandableMenuItemExpandedWithElemAfter = (): JSX.Element => (
 	<ExpandableMenuItemWithElemAfter isExpanded />
 );
 
-export const ExpandableMenuItemWithActions = ({ isSelected }: { isSelected?: boolean }) => (
+export const ExpandableMenuItemWithActions = ({ isSelected }: { isSelected?: boolean }): JSX.Element => (
 	<div css={styles.root}>
 		<SideNavBody>
 			<MenuList>
@@ -286,7 +286,7 @@ export const ExpandableMenuItemWithActionsOnHover = ({
 }: {
 	isExpanded?: boolean;
 	isSelected?: boolean;
-}) => (
+}): JSX.Element => (
 	<div css={styles.root}>
 		<SideNavBody>
 			<MenuList>
@@ -309,15 +309,15 @@ export const ExpandableMenuItemWithActionsOnHover = ({
 	</div>
 );
 
-export const ExpandableMenuItemExpandedWithActionsOnHover = () => (
+export const ExpandableMenuItemExpandedWithActionsOnHover = (): JSX.Element => (
 	<ExpandableMenuItemWithActionsOnHover isExpanded />
 );
 
-export const ExpandableMenuItemSelectedWithActionsOnHover = () => (
+export const ExpandableMenuItemSelectedWithActionsOnHover = (): JSX.Element => (
 	<ExpandableMenuItemWithActionsOnHover isSelected />
 );
 
-export const ExpandableMenuItemWithActionsOnHoverAndElemAfter = () => (
+export const ExpandableMenuItemWithActionsOnHoverAndElemAfter = (): JSX.Element => (
 	<div css={styles.root}>
 		<SideNavBody>
 			<MenuList>
@@ -339,7 +339,7 @@ export const ExpandableMenuItemWithActionsOnHoverAndElemAfter = () => (
 	</div>
 );
 
-export const ExpandableMenuItemWithActionsAndElemAfter = () => (
+export const ExpandableMenuItemWithActionsAndElemAfter = (): JSX.Element => (
 	<div css={styles.root}>
 		<SideNavBody>
 			<MenuList>
@@ -361,7 +361,7 @@ export const ExpandableMenuItemWithActionsAndElemAfter = () => (
 	</div>
 );
 
-export const ExpandableMenuItemExpandedWithActionsOnHoverAndElemAfter = () => (
+export const ExpandableMenuItemExpandedWithActionsOnHoverAndElemAfter = (): JSX.Element => (
 	<div css={styles.root}>
 		<SideNavBody>
 			<MenuList>
@@ -387,7 +387,7 @@ export const ExpandableMenuItemNested = ({
 	hasItemInitiallySelected = true,
 }: {
 	hasItemInitiallySelected?: boolean;
-}) => {
+}): JSX.Element => {
 	const [selectedMenuItemId, setSelectedMenuItemId] = useState<string | null>(
 		hasItemInitiallySelected ? 'item-4' : null,
 	);
@@ -525,17 +525,17 @@ export const ExpandableMenuItemNested = ({
 	);
 };
 
-export const ExpandableMenuItemNestedNoSelection = () => (
+export const ExpandableMenuItemNestedNoSelection = (): JSX.Element => (
 	<ExpandableMenuItemNested hasItemInitiallySelected={false} />
 );
 
-export const ExpandableMenuItemNestedRTL = () => (
+export const ExpandableMenuItemNestedRTL = (): JSX.Element => (
 	<div dir="rtl">
 		<ExpandableMenuItemNested />
 	</div>
 );
 
-export const ExpandableMenuItemCollapsedWithSelectedChild = () => (
+export const ExpandableMenuItemCollapsedWithSelectedChild = (): JSX.Element => (
 	<div css={styles.root}>
 		<SideNavBody>
 			<MenuList>
@@ -564,7 +564,7 @@ export const ExpandableMenuItemCollapsedWithSelectedChild = () => (
 	</div>
 );
 
-export const ExpandableMenuItemLink = () => (
+export const ExpandableMenuItemLink = (): JSX.Element => (
 	<div css={styles.root}>
 		<SideNavBody>
 			<MenuList>
@@ -580,7 +580,7 @@ export const ExpandableMenuItemLink = () => (
 	</div>
 );
 
-export const ExpandableMenuItemWithAllOptions = () => (
+export const ExpandableMenuItemWithAllOptions = (): JSX.Element => (
 	<div css={styles.root}>
 		<SideNavBody>
 			<MenuList>
@@ -633,7 +633,7 @@ export const ExpandableMenuItemWithDropdownActionOpen = ({
 	isSelected,
 }: {
 	isSelected?: boolean;
-}) => (
+}): JSX.Element => (
 	<div css={styles.root}>
 		<MenuList>
 			<ExpandableMenuItem>
@@ -674,7 +674,7 @@ export const ExpandableMenuItemWithDropdownActionOpen = ({
 	</div>
 );
 
-export const ExpandableMenuItemSelectedWithDropdownActionOpen = () => (
+export const ExpandableMenuItemSelectedWithDropdownActionOpen = (): JSX.Element => (
 	<ExpandableMenuItemWithDropdownActionOpen isSelected />
 );
 
@@ -683,7 +683,7 @@ const ExampleWrapper = ({ children }: { children: React.ReactNode }) => (
 );
 
 // Combining into one example for atlaskit site
-const Example = () => (
+const Example = (): JSX.Element => (
 	<div>
 		<ExampleWrapper>
 			Unselectable

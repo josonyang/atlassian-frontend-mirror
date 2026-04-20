@@ -1,5 +1,37 @@
 # @atlaskit/editor-common
 
+## 114.2.0
+
+### Minor Changes
+
+- [`3dba8a4e8c8b2`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/3dba8a4e8c8b2) -
+  Perf-linting cleanup: fix performance linting violations in editor-common, gated behind
+  platform_editor_perf_lint_cleanup experiment
+- [`c1b397760c36c`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/c1b397760c36c) -
+  Perf-linting cleanup: fix performance linting violations in editor-common, gated behind
+  platform_editor_perf_lint_cleanup experiment
+- [`3394e81c10e6e`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/3394e81c10e6e) -
+  Fix table flicker on focus: defer data-initial-width-mode removal to after colgroup update.
+  Consolidate isTableInContentMode and hasTableBeenResized into editor-common/table.
+
+### Patch Changes
+
+- [`7f604c26ce22f`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/7f604c26ce22f) -
+  Fixes casing issue with data-testid on extension node wrapper
+- [`ddee349aeb565`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/ddee349aeb565) -
+  Clean up ff platform_forge_ui_support_images_in_adfrenderer
+
+## 114.1.1
+
+### Patch Changes
+
+- [`2e95c42be9be9`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/2e95c42be9be9) -
+  Fix inline node view portal rendering for SSR streaming. Add SSR branch in
+  `getInlineNodeViewProducer` that renders inline node views synchronously using `createRoot` +
+  `flushSync` directly into the `domRef`, bypassing the portal mechanism. Skip
+  `portalProviderAPI.remove()` during SSR cleanup. All changes gated behind
+  `platform_editor_editor_ssr_streaming`.
+
 ## 114.1.0
 
 ### Minor Changes

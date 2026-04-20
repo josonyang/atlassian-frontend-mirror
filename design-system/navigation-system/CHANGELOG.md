@@ -1,5 +1,16 @@
 # @atlassian/navigation-system
 
+## 8.0.0
+
+### Major Changes
+
+- [`90dc3406ea1eb`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/90dc3406ea1eb) -
+  Renames `UNSAFE_theme` prop to `customTheme` on `TopNav` component.
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 7.3.0
 
 ### Minor Changes

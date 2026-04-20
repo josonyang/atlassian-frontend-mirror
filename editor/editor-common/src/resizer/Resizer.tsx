@@ -15,6 +15,7 @@ import { useIntl } from 'react-intl';
 
 // eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives -- to be migrated to @atlaskit/primitives/compiled – go/akcss
 import { Box, xcss } from '@atlaskit/primitives';
+import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 import { token } from '@atlaskit/tokens';
 import Tooltip from '@atlaskit/tooltip';
@@ -277,30 +278,57 @@ const ResizerNext: ForwardRefRenderFunction<forwardRefType, PropsWithChildren<Re
 		),
 	};
 
+	const handleWidth = handlePositioning === 'adjacent' ? token('space.100') : token('space.300');
 	const baseHandleStyles: CSSProperties = {
-		width: handlePositioning === 'adjacent' ? token('space.100') : token('space.300'),
+		width: handleWidth,
 		zIndex: resizerHandleZIndex,
 		pointerEvents: 'auto',
 		alignItems: handlePositioning === 'adjacent' ? 'center' : undefined,
 	};
+	const memoizedBaseHandleStyles = useMemo(
+		() => ({
+			width: handleWidth,
+			zIndex: resizerHandleZIndex,
+			pointerEvents: 'auto',
+			alignItems: handlePositioning === 'adjacent' ? 'center' : undefined,
+		}),
+		[handleWidth, handlePositioning],
+	);
 
 	const offset =
 		handlePositioning === 'adjacent'
-			? `calc(${baseHandleStyles.width} * -1)`
-			: `calc(${baseHandleStyles.width} * -0.5)`;
+			? `calc(${handleWidth} * -1)`
+			: `calc(${handleWidth} * -0.5)`;
 
-	// eslint-disable-next-line @atlassian/perf-linting/no-expensive-computations-in-render -- Ignored via go/ees017 (to be fixed)
-	const nextHandleStyles = SUPPORTED_HANDLES.reduce<HandleStyles>(
-		(result, position) => ({
-			...result,
-			[position]: {
-				...baseHandleStyles,
-				[position]: offset,
-				...handleStyles?.[position],
-			},
-		}),
-		{},
+	const memoizedNextHandleStyles = useMemo(
+		() =>
+			SUPPORTED_HANDLES.reduce<HandleStyles>(
+				(result, position) => ({
+					...result,
+					[position]: {
+						...memoizedBaseHandleStyles,
+						[position]: offset,
+						...handleStyles?.[position],
+					},
+				}),
+				{},
+			),
+		[memoizedBaseHandleStyles, offset, handleStyles],
 	);
+	const nextHandleStyles = expValEquals('platform_editor_perf_lint_cleanup', 'isEnabled', true)
+		? memoizedNextHandleStyles
+		: // eslint-disable-next-line @atlassian/perf-linting/no-expensive-computations-in-render -- intentional fallback for experiment off path
+			SUPPORTED_HANDLES.reduce<HandleStyles>(
+				(result, position) => ({
+					...result,
+					[position]: {
+						...baseHandleStyles,
+						[position]: offset,
+						...handleStyles?.[position],
+					},
+				}),
+				{},
+			);
 
 	const resizerClassName = classnames(className, resizerItemClassName, {
 		'is-resizing': isResizing,
@@ -387,14 +415,16 @@ const ResizerNext: ForwardRefRenderFunction<forwardRefType, PropsWithChildren<Re
 		return snapGap;
 	}, [snap, snapGap]);
 
+	const resizerAutoSize = useMemo(() => ({ width: width ?? 'auto', height: 'auto' }), [width]);
+	const resizerSize = expValEquals('platform_editor_perf_lint_cleanup', 'isEnabled', true)
+		? resizerAutoSize
+		: // eslint-disable-next-line @atlassian/perf-linting/no-unstable-inline-props -- intentional fallback for experiment off path
+			{ width: width ?? 'auto', height: 'auto' };
+
 	return (
 		<Resizable
 			ref={resizable}
-			// eslint-disable-next-line @atlassian/perf-linting/no-unstable-inline-props -- Ignored via go/ees017 (to be fixed)
-			size={{
-				width: width ?? 'auto', // just content itself (no paddings)
-				height: 'auto',
-			}}
+			size={resizerSize}
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
 			className={resizerClassName}
 			handleClasses={handles}

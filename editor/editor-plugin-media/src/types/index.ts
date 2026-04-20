@@ -91,6 +91,12 @@ export interface MediaPluginOptions {
 	editorAppearance?: EditorAppearance;
 	editorSelectionAPI?: EditorSelectionAPI;
 	enableDownloadButton?: boolean;
+	/**
+	 * Optional fallback fetcher to retrieve the media filename from another service
+	 * Workaround for #hot-301450 where media service is missing filenames for DC -> Cloud migrated media
+	 * Receives the file ID and should resolve to the filename string.
+	 */
+	fallbackMediaNameFetcher?: (id: string) => Promise<string>;
 	featureFlags?: MediaFeatureFlags;
 	// Allows consumer products to always force the positioning of resize handles when resizing media.
 	// eg: inline comment editor (chromeless) can force a smaller gap between content and resize handles

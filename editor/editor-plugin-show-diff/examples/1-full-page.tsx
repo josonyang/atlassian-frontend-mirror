@@ -191,6 +191,7 @@ function FullPageDiffEditor(): React.JSX.Element {
 						createCommentExperience: undefined,
 						editorAppearance: 'full-page',
 						mediaViewerExtensions: undefined,
+						fallbackMediaNameFetcher: undefined,
 					},
 					mentions: {
 						handleMentionsChanged: () => {},

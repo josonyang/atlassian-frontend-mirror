@@ -37,16 +37,12 @@ export function placeholderPluginOptions({ intl, options }: Props): PlaceholderP
 		}
 
 		// SECTION: From confluence/next/packages/full-page-editor/src/FullPageEditorComponent.tsx `_getPlaceholderText()`
-		if (!options.isAIEnabled && editorExperiment('platform_editor_ai_quickstart_command', true)) {
+		if (!options.isAIEnabled) {
 			return intl.formatMessage(i18n.editorEmptyDocumentPlaceholderAI);
 		}
 
 		if (editorExperiment('platform_editor_controls', 'variant1')) {
 			return intl.formatMessage(i18n.defaultPlaceholder);
-		}
-
-		if (!options.isAIEnabled) {
-			return intl.formatMessage(i18n.aiPlaceholder);
 		}
 
 		return intl.formatMessage(i18n.easyMentionsPlaceholder);

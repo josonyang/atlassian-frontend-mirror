@@ -740,6 +740,7 @@ export default class ReactSerializer implements Serializer<JSX.Element> {
 		return {
 			...this.getProps(node),
 			ssr: this.media?.ssr,
+			fallbackMediaNameFetcher: this.media?.fallbackMediaNameFetcher,
 		};
 	}
 

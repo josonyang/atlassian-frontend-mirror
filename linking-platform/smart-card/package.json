@@ -17,6 +17,7 @@
 	],
 	"atlaskit:src": "src/index.ts",
 	"atlassian": {
+		"i18n": true,
 		"react-compiler": {
 			"enabled": true,
 			"gating": {

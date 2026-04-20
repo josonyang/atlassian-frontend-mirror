@@ -186,7 +186,7 @@ export class ExtensionNode<AdditionalParams = unknown> extends ReactNodeView<
 			const ssrElement = this.findSSRElement();
 			if (ssrElement) {
 				const extensionNodeWrapper = ssrElement.querySelector(
-					'[data-testId="extension-node-wrapper"]',
+					'[data-testid="extension-node-wrapper"]',
 				);
 				if (extensionNodeWrapper) {
 					extensionNodeWrapper.remove();

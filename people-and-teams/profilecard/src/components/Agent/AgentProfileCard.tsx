@@ -308,7 +308,7 @@ const AgentProfileCard = ({
 						agent={agent}
 						onEditAgent={() => onEditAgent(agent.id)}
 						onCopyAgent={() => onCopyAgent(agent.id)}
-						onDuplicateAgent={() => onDuplicateAgent(agent.id)}
+						onDuplicateAgent={async () => await onDuplicateAgent(agent.id)}
 						onDeleteAgent={handleOnDelete}
 						onChatClick={
 							onChatClick

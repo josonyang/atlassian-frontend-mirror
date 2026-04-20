@@ -1,5 +1,12 @@
 # @atlaskit/ads-mcp
 
+## 0.20.0
+
+### Minor Changes
+
+- [`d9d2dbae01e1a`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/d9d2dbae01e1a) -
+  Export tools allowing for programmatic access.
+
 ## 0.19.4
 
 ### Patch Changes

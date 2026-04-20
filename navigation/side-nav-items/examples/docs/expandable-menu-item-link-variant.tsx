@@ -79,7 +79,7 @@ function MoreAction() {
 // Examples of the link variant of the expandable menu item.
 // This means there is an href provided.
 // Clicking on a trigger will select it, demonstrating the selected state.
-export function ExpandableMenuItemLinkVariantExample() {
+export function ExpandableMenuItemLinkVariantExample(): JSX.Element {
 	// Track which menu item is currently selected by its unique id
 	const [selectedId, setSelectedId] = useState<string | null>(null);
 

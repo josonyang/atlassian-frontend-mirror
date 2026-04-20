@@ -1,8 +1,8 @@
-import { createContext } from 'react';
+import { createContext, type Context } from 'react';
 
 import { type TTopLevelItem } from './data';
 
-export function createRegistry() {
+export function createRegistry(): { getElementForFilter: (filterId: string) => HTMLElement | null; getElementForProject: (projectId: string) => HTMLElement | null; getElementForTopLevelItem: (item: TTopLevelItem) => HTMLElement | null; registerFilter: ({ filterId, element }: { element: HTMLElement; filterId: string; }) => () => void; registerProject: ({ projectId, element }: { element: HTMLElement; projectId: string; }) => () => void; registerTopLevelItem: ({ item, element }: { element: HTMLElement; item: TTopLevelItem; }) => () => void; } {
 	const projectRegistry = new Map<string, HTMLElement>();
 	const filterRegistry = new Map<string, HTMLElement>();
 
@@ -49,4 +49,11 @@ export function createRegistry() {
 	};
 }
 
-export const RegistryContext = createContext<ReturnType<typeof createRegistry> | null>(null);
+export const RegistryContext: Context<{
+    getElementForFilter: (filterId: string) => HTMLElement | null;
+    getElementForProject: (projectId: string) => HTMLElement | null;
+    getElementForTopLevelItem: (item: TTopLevelItem) => HTMLElement | null;
+    registerFilter: ({ filterId, element }: { element: HTMLElement; filterId: string; }) => () => void;
+    registerProject: ({ projectId, element }: { element: HTMLElement; projectId: string; }) => () => void;
+    registerTopLevelItem: ({ item, element }: { element: HTMLElement; item: TTopLevelItem; }) => () => void;
+} | null> = createContext<ReturnType<typeof createRegistry> | null>(null);

@@ -3,19 +3,17 @@
  *
  * Extract component prop types from UIKit 2 components - PressableProps
  *
- * @codegen <<SignedSource::d44ce111e6c9bdc78a54ec6d13b5377b>>
+ * @codegen <<SignedSource::01bd91e33c8b72a4191b1f1c461ee9dc>>
  * @codegenCommand yarn workspace @atlaskit/forge-react-types codegen
- * @codegenDependency ../../../../forge-ui/src/components/UIKit/pressable/index.tsx <<SignedSource::4faae83984df292d6278957438200179>>
+ * @codegenDependency ../../../../forge-ui/src/components/UIKit/pressable/index.tsx <<SignedSource::0c08c3b980dec5271dccf878d85b02ba>>
  */
 /* eslint @repo/internal/codegen/signed-source-integrity: "warn" */
 /* eslint-disable @atlaskit/design-system/ensure-design-token-usage/preview */
+import React from "react";
+import { type BackgroundColor, type Space, type MediaQuery, type BorderRadius, tokensMap } from "./tokens.codegen";
+import type * as CSS from "csstype";
+import { type SerializedStyles, type CSSObject } from "@emotion/serialize";
 
-import React from 'react';
-import { Pressable as PlatformPressable } from '@atlaskit/primitives';
-
-import type * as CSS from 'csstype';
-import type { MediaQuery } from '@atlaskit/primitives';
-import { tokensMap } from '@atlaskit/primitives';
 type CSSProperties = CSS.PropertiesFallback<number | string>;
 type TokensMap = typeof tokensMap;
 type TokensMapPropKey = keyof TokensMap;
@@ -67,8 +65,16 @@ declare const makeXCSSValidator: <U extends XCSSValidatorParam>(supportedXCSSPro
 } ? Exclude<V[keyof V], number | ((...args: any[]) => any)> : never) | undefined; }>;
 export { makeXCSSValidator };
 export type { SafeCSSObject };
-
-import type { BorderRadius } from '@atlaskit/primitives';
+/**
+ * Generates SerializedStyles from xcss style object.
+ *
+ * Previously we used `&&` specificity hack to ensure Emotion xcss styles could
+ * override Compiled styles when wrapping @atlaskit/primitives/compiled components.
+ *
+ * Now that components like Box and Pressable are reimplemented entirely in Emotion,
+ * we no longer need the specificity increase - Emotion merges styles in array order (last wins).
+ */
+export declare function generateXcss(styleObj: CSSObject): SerializedStyles;
 const borderRadiusTokens: BorderRadius[] = [
 	'radius.xsmall',
 	'radius.small',
@@ -78,7 +84,10 @@ const borderRadiusTokens: BorderRadius[] = [
 	'radius.full',
 	'radius.tile',
 ];
-const borderRadiusSupportedValues = [...borderRadiusTokens, 'border.radius'] as unknown as Array<BorderRadius>;
+const borderRadiusSupportedValues = [
+	...borderRadiusTokens,
+	'border.radius',
+] as unknown as Array<BorderRadius>;
 const xcssValidator = makeXCSSValidator({
 	// text related props
 	textAlign: {
@@ -205,17 +214,16 @@ const xcssValidator = makeXCSSValidator({
 });
 type XCSSProp = ReturnType<typeof xcssValidator>;
 
-type PlatformPressableProps = React.ComponentProps<typeof PlatformPressable>;
-
-export type PressableProps = Pick<PlatformPressableProps, 'children' | 'ref' | 'testId'> & {
+export type PressableProps = {
+	children: React.ReactNode;
 	/**
 	 * Token representing background color with a built-in fallback value.
 	 */
-	backgroundColor?: PlatformPressableProps['backgroundColor'];
+	backgroundColor?: BackgroundColor;
 	/**
 	 * Whether the button is disabled.
 	 */
-	isDisabled?: PlatformPressableProps['isDisabled'];
+	isDisabled?: boolean;
 	/**
 	 * Handler called on click.
 	 */
@@ -226,37 +234,42 @@ export type PressableProps = Pick<PlatformPressableProps, 'children' | 'ref' | '
 	 * @see paddingBlock
 	 * @see paddingInline
 	 */
-	padding?: PlatformPressableProps['padding'];
+	padding?: Space;
 	/**
 	 * Tokens representing CSS shorthand `paddingBlock`.
 	 *
 	 * @see paddingBlockStart
 	 * @see paddingBlockEnd
 	 */
-	paddingBlock?: PlatformPressableProps['paddingBlock'];
+	paddingBlock?: Space;
 	/**
 	 * Tokens representing CSS `paddingBlockEnd`.
 	 */
-	paddingBlockEnd?: PlatformPressableProps['paddingBlockEnd'];
+	paddingBlockEnd?: Space;
 	/**
 	 * Tokens representing CSS `paddingBlockStart`.
 	 */
-	paddingBlockStart?: PlatformPressableProps['paddingBlockStart'];
+	paddingBlockStart?: Space;
 	/**
 	 * Tokens representing CSS shorthand `paddingInline`.
 	 *
 	 * @see paddingInlineStart
 	 * @see paddingInlineEnd
 	 */
-	paddingInline?: PlatformPressableProps['paddingInline'];
+	paddingInline?: Space;
 	/**
 	 * Tokens representing CSS `paddingInlineEnd`.
 	 */
-	paddingInlineEnd?: PlatformPressableProps['paddingInlineEnd'];
+	paddingInlineEnd?: Space;
 	/**
 	 * Tokens representing CSS `paddingInlineStart`.
 	 */
-	paddingInlineStart?: PlatformPressableProps['paddingInlineStart'];
+	paddingInlineStart?: Space;
+	/**
+	 * A `testId` prop is a unique string that appears as a data attribute `data-testid`
+	 * in the rendered code, serving as a hook for automated tests.
+	 */
+	testId?: string;
 	/**
 	 * Apply a subset of permitted styles, powered by Atlassian Design System tokens.
 	 * For a list of supported style properties on this component, see [here](https://developer.atlassian.com/platform/forge/ui-kit/components/xcss).

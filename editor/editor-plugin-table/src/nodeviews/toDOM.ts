@@ -3,6 +3,7 @@ import kebabCase from 'lodash/kebabCase';
 
 import { table, tableWithNestedTable } from '@atlaskit/adf-schema';
 import { convertToInlineCss } from '@atlaskit/editor-common/lazy-node-view';
+import { isTableInContentMode } from '@atlaskit/editor-common/table';
 import type { GetEditorContainerWidth } from '@atlaskit/editor-common/types';
 import type { DOMOutputSpec, NodeSpec, Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
@@ -17,7 +18,7 @@ import {
 	getTableResizerContainerForFullPageWidthInCSS,
 	getTableResizerItemWidthInCSS,
 } from '../pm-plugins/table-resizing/utils/misc';
-import { isTableInContentMode } from '../pm-plugins/utils/tableMode';
+import { isContentModeSupported } from '../pm-plugins/utils/tableMode';
 
 import { getAlignmentStyle } from './table-container-styles';
 
@@ -43,10 +44,12 @@ export const tableNodeSpecWithFixedToDOM = (
 			const isFullPageEditor = !config.isChromelessEditor && !config.isCommentEditor;
 			const isInContentMode =
 				isTableInContentMode({
-					node,
-					allowColumnResizing: config.allowColumnResizing,
-					allowTableResizing: config.tableResizingEnabled,
-					isFullPageEditor,
+					tableNode: node,
+					isSupported: isContentModeSupported({
+						allowColumnResizing: config.allowColumnResizing,
+						allowTableResizing: config.tableResizingEnabled,
+						isFullPageEditor,
+					}),
 					isTableNested: config.isNested,
 				}) && expValEquals('platform_editor_table_fit_to_content_auto_convert', 'isEnabled', true);
 

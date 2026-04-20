@@ -2,9 +2,11 @@
 /* eslint-disable @typescript-eslint/ban-types */
 import { createSignedArtifact } from '@atlassian/codegen';
 import { Project } from 'ts-morph';
+import type { StandardizedFilePath } from '@ts-morph/common';
 import type { Symbol, SourceFile, ExportSpecifier, Node } from 'ts-morph';
 import { resolve } from 'path';
 import fs from 'fs';
+import ts from 'typescript';
 import { generateComponentPropTypeSourceCode } from './codeGenerator';
 
 const forgeUIProject = new Project({
@@ -15,6 +17,34 @@ const forgeUIProject = new Project({
 const isExportSpecifier = (node: Node): node is ExportSpecifier => 'getExportDeclaration' in node;
 
 const isSourceFile = (node: Node): node is SourceFile => 'getFilePath' in node;
+
+/**
+ * ts-morph often omits `moduleResolution` when loading options from tsconfig with
+ * `skipAddingFilesFromTsConfig`, but `ts.resolveModuleName` requires it or resolution
+ * returns nothing for relative paths.
+ */
+const compilerOptionsForModuleResolution = (project: Project): ts.CompilerOptions => {
+	const raw = project.compilerOptions.get() as unknown as ts.CompilerOptions;
+	return {
+		...raw,
+		moduleResolution:
+			raw.moduleResolution ?? ts.ModuleResolutionKind.Bundler,
+	};
+};
+
+const resolveModuleSpecifierToPath = (
+	project: Project,
+	containingFilePath: string,
+	moduleSpecifier: string,
+): string | undefined => {
+	const { resolvedModule } = ts.resolveModuleName(
+		moduleSpecifier,
+		containingFilePath,
+		compilerOptionsForModuleResolution(project),
+		ts.sys,
+	);
+	return resolvedModule?.resolvedFileName;
+};
 
 /**
  * This function tries to resolve the source file of a component symbol on
@@ -28,16 +58,33 @@ const loadComponentSourceFile = (componentSymbol: Symbol, project: Project): Sou
 	if (!declaration || !isExportSpecifier(declaration)) {
 		return null;
 	}
-	const importSrcDeclaration = declaration
-		.getExportDeclaration()
+	const exportDeclaration = declaration.getExportDeclaration();
+	const resolvedFromExport = exportDeclaration.getModuleSpecifierSourceFile();
+	const fallbackFromSymbol = exportDeclaration
 		.getModuleSpecifier()
 		?.getSymbol()
 		?.getValueDeclaration();
-	if (!importSrcDeclaration || !isSourceFile(importSrcDeclaration)) {
+	const moduleSpecifier = exportDeclaration.getModuleSpecifierValue();
+
+	let importSrc: string | undefined =
+		resolvedFromExport?.getFilePath() ??
+		(fallbackFromSymbol && isSourceFile(fallbackFromSymbol)
+			? fallbackFromSymbol.getFilePath()
+			: undefined);
+
+	if (!importSrc && moduleSpecifier) {
+		importSrc = resolveModuleSpecifierToPath(
+			project,
+			declaration.getSourceFile().getFilePath(),
+			moduleSpecifier,
+		);
+	}
+
+	if (!importSrc) {
 		return null;
 	}
-	const importSrc = importSrcDeclaration.getFilePath();
-	const sourceFile = project.addSourceFileAtPath(importSrc);
+
+	const sourceFile = project.addSourceFileAtPath(importSrc as StandardizedFilePath);
 	const baseComponentSymbol = findBaseSymbolFromSourceFile(sourceFile, componentSymbol);
 	if (!baseComponentSymbol) {
 		return sourceFile;
@@ -231,6 +278,9 @@ const generateComponentPropTypes = (componentNames?: string) => {
 	const componentIndexSourceFile = forgeUIProject.addSourceFileAtPath(
 		require.resolve('@atlassian/forge-ui/UIKit'),
 	);
+	// Pull in re-export targets so `getModuleSpecifierSourceFile()` can resolve; codegen only
+	// loads the barrel otherwise (`skipAddingFilesFromTsConfig`).
+	forgeUIProject.resolveSourceFileDependencies();
 	try {
 		const componentNamesFilter = componentNames ? componentNames.split(',') : [];
 		const componentPropTypeSymbols = componentIndexSourceFile

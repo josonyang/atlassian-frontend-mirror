@@ -67,7 +67,7 @@ export interface FlyoutHeaderProps {
  * close button, as well as any other provided actions relevant to the menu.
  * This component should be placed first within the FlyoutMenuItemContent.
  */
-export const FlyoutHeader = (props: FlyoutHeaderProps) => {
+export const FlyoutHeader = (props: FlyoutHeaderProps): JSX.Element => {
 	const { children, testId, title, closeButtonLabel } = props;
 
 	const id = useTitleId();

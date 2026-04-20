@@ -81,7 +81,7 @@ const homeIconButton = (
 );
 const elemAfter = <Lozenge>elem after</Lozenge>;
 
-export const LinkMenuItemExample = () => (
+export const LinkMenuItemExample = (): JSX.Element => (
 	<div css={styles.root}>
 		<SideNavBody>
 			<MenuList>
@@ -237,13 +237,13 @@ export const LinkMenuItemExample = () => (
 	</div>
 );
 
-export const LinkMenuItemRTLExample = () => (
+export const LinkMenuItemRTLExample = (): JSX.Element => (
 	<div dir="rtl">
 		<LinkMenuItemExample />
 	</div>
 );
 
-export const LinkMenuItemWithElemAfter = () => (
+export const LinkMenuItemWithElemAfter = (): JSX.Element => (
 	<div css={styles.root}>
 		<MenuList>
 			<LinkMenuItem href="#" elemBefore={homeIcon} elemAfter={elemAfter}>
@@ -253,7 +253,7 @@ export const LinkMenuItemWithElemAfter = () => (
 	</div>
 );
 
-export const LinkMenuItemWithElemAfterAndActionsOnHover = () => (
+export const LinkMenuItemWithElemAfterAndActionsOnHover = (): JSX.Element => (
 	<div css={styles.root}>
 		<MenuList>
 			<LinkMenuItem
@@ -268,7 +268,7 @@ export const LinkMenuItemWithElemAfterAndActionsOnHover = () => (
 	</div>
 );
 
-export const LinkMenuItemBasic = () => (
+export const LinkMenuItemBasic = (): JSX.Element => (
 	<div css={styles.root}>
 		<MenuList>
 			<LinkMenuItem href="#" elemBefore={homeIcon}>
@@ -278,7 +278,7 @@ export const LinkMenuItemBasic = () => (
 	</div>
 );
 
-export const LinkMenuItemSelected = () => (
+export const LinkMenuItemSelected = (): JSX.Element => (
 	<div css={styles.root}>
 		<MenuList>
 			<LinkMenuItem href="#" isSelected elemBefore={homeIcon}>
@@ -316,7 +316,7 @@ const ExportAction = ({
 	</DropdownMenu>
 );
 
-export const LinkMenuItemWithDropdownActionOpen = () => (
+export const LinkMenuItemWithDropdownActionOpen = (): JSX.Element => (
 	<div css={styles.root}>
 		<MenuList>
 			<Stack space="space.800">
@@ -368,7 +368,7 @@ export const LinkMenuItemWithDropdownActionOpen = () => (
 );
 
 // Combining into one example for atlaskit site
-const Example = () => (
+const Example = (): JSX.Element => (
 	<div>
 		<LinkMenuItemExample />
 		<div dir="rtl">RTL</div>

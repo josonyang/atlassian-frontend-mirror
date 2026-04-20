@@ -32,6 +32,7 @@ type RenderMediaInlineProps = {
 	clipboardAttrs: ClipboardAttrs;
 	collection?: string;
 	eventHandlers?: EventHandlers;
+	fallbackMediaNameFetcher?: (id: string) => Promise<string>;
 	featureFlags?: MediaFeatureFlags;
 	identifier: FileIdentifier;
 	intl?: IntlShape;
@@ -42,6 +43,7 @@ type RenderMediaInlineProps = {
 type MediaInlineProps = {
 	collection?: string;
 	eventHandlers?: EventHandlers;
+	fallbackMediaNameFetcher?: (id: string) => Promise<string>;
 	featureFlags?: MediaFeatureFlags;
 	id: string;
 	marks?: Array<Mark>;
@@ -56,6 +58,7 @@ const RenderMediaInline = ({
 	collection: collectionName,
 	eventHandlers,
 	identifier,
+	fallbackMediaNameFetcher,
 }: RenderMediaInlineProps) => {
 	const [contextIdentifier, setContextIdentifier] = useState<
 		ContextIdentifierProvider | undefined
@@ -151,6 +154,7 @@ const RenderMediaInline = ({
 				shouldDisplayToolTip={shouldDisplayToolTip}
 				mediaClientConfig={mediaClient.mediaClientConfig}
 				mediaViewerItems={Array.from(mediaIdentifierMap.values())}
+				fallbackMediaNameFetcher={fallbackMediaNameFetcher}
 			/>
 		</span>
 	);
@@ -169,6 +173,7 @@ const MediaInline = (props: MediaInlineProps & WrappedComponentProps & MediaInli
 		height,
 		marks,
 		ssr,
+		fallbackMediaNameFetcher,
 	} = props;
 
 	const clipboardAttrs: ClipboardAttrs = {
@@ -224,6 +229,7 @@ const MediaInline = (props: MediaInlineProps & WrappedComponentProps & MediaInli
 			intl={intl}
 			collection={collection}
 			featureFlags={featureFlags}
+			fallbackMediaNameFetcher={fallbackMediaNameFetcher}
 		/>
 	);
 };

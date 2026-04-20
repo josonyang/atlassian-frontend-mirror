@@ -17,7 +17,7 @@ import { formatDate } from '@atlaskit/media-ui/formatDate';
 import { MimeTypeIcon } from '@atlaskit/media-ui/mime-type-icon';
 import { MediaViewer, type ViewerOptionsProps } from '@atlaskit/media-viewer';
 import Tooltip from '@atlaskit/tooltip';
-import React, { type FC, useEffect, useState } from 'react';
+import React, { type FC, useEffect, useRef, useState } from 'react';
 import ReactDOM from 'react-dom';
 import { createIntl, injectIntl, IntlProvider, type WrappedComponentProps } from 'react-intl';
 import { MediaCardError } from '../errors';
@@ -30,6 +30,7 @@ import {
 } from './mediaInlineCardAnalytics';
 import { useCopyIntent } from '@atlaskit/media-client-react';
 import usePressTracing from '@atlaskit/react-ufo/use-press-tracing';
+import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 export interface MediaInlineCardProps {
 	identifier: FileIdentifier;
@@ -40,6 +41,12 @@ export interface MediaInlineCardProps {
 	onClick?: InlineCardOnClickCallback;
 	mediaViewerItems?: Identifier[];
 	viewerOptions?: ViewerOptionsProps;
+	/**
+	 * Optional fallback fetcher to retrieve the media filename from another service
+	 * Workaround for #hot-301450 where media service is missing filenames for DC -> Cloud migrated media
+	 * Receives the file ID and should resolve to the filename string.
+	 */
+	fallbackMediaNameFetcher?: (id: string) => Promise<string>;
 }
 
 // UI component which renders an inline link in the appropiate state based on a media file
@@ -53,12 +60,16 @@ export const MediaInlineCardInternal: FC<MediaInlineCardProps & WrappedComponent
 	mediaViewerItems,
 	intl,
 	viewerOptions,
+	fallbackMediaNameFetcher,
 }) => {
 	const [fileState, setFileState] = useState<FileState | undefined>();
 	const [subscribeError, setSubscribeError] = useState<Error>();
 	const [isSucceededEventSent, setIsSucceededEventSent] = useState(false);
 	const [isFailedEventSent, setIsFailedEventSent] = useState(false);
 	const [isMediaViewerVisible, setMediaViewerVisible] = useState(false);
+	const [fallbackMediaName, setFallbackMediaName] = useState<string | undefined>();
+	const [fallbackMediaNameFetchFailed, setFallbackMediaNameFetchFailed] = useState(false);
+	const fallbackMediaNameFetchAttempted = useRef(false);
 	const { createAnalyticsEvent } = useAnalyticsEvents();
 	const pressTracing = usePressTracing('click-media-inline-card');
 
@@ -144,6 +155,23 @@ export const MediaInlineCardInternal: FC<MediaInlineCardProps & WrappedComponent
 		};
 	}, [identifier.collectionName, identifier.id, mediaClient.file]);
 
+	useEffect(() => {
+		if (
+			fileState &&
+			fileState.status !== 'error' &&
+			!fileState.name &&
+			fallbackMediaNameFetcher &&
+			!fallbackMediaNameFetchAttempted.current &&
+			expValEquals('platform_editor_media_name_fallback', 'isEnabled', true)
+		) {
+			fallbackMediaNameFetchAttempted.current = true;
+			fallbackMediaNameFetcher(fileState.id).then(
+				(name) => setFallbackMediaName(name),
+				() => setFallbackMediaNameFetchFailed(true),
+			);
+		}
+	}, [fileState, fallbackMediaNameFetcher]);
+
 	if (subscribeError) {
 		const errorMessage =
 			fileState?.status === 'uploading' ? messages.failed_to_upload : messages.couldnt_load_file;
@@ -179,24 +207,46 @@ export const MediaInlineCardInternal: FC<MediaInlineCardProps & WrappedComponent
 		);
 	}
 
-	// Empty file handling
+	// Empty file handling — try the fallback name fetcher first if available
 	if (fileState && !fileState.name) {
-		const error = new MediaCardError(
-			'metadata-fetch',
-			new FileFetcherError('emptyFileName', { id: fileState.id }),
-		);
-		fireFailedOperationalEvent(error);
-		return renderContent(
-			<>
-				<MediaInlineCardErroredView
+		if (
+			fallbackMediaNameFetcher &&
+			!fallbackMediaNameFetchFailed &&
+			!fallbackMediaName &&
+			expValEquals('platform_editor_media_name_fallback', 'isEnabled', true)
+		) {
+			// Fetch not yet attempted or in flight — show loading
+			return (
+				<MediaInlineCardLoadingView
 					innerRef={copyNodeRef}
-					message={(intl || defaultIntl).formatMessage(messages.couldnt_load_file)}
+					message={(intl || defaultIntl).formatMessage(messages.loading_file)}
 					isSelected={isSelected}
-					onClick={onMediaInlineCardClick}
 				/>
-				{renderMediaViewer()}
-			</>,
-		);
+			);
+		}
+
+		if (
+			!expValEquals('platform_editor_media_name_fallback', 'isEnabled', true) ||
+			!fallbackMediaName
+		) {
+			// No fetcher provided or fetch failed — show error
+			const error = new MediaCardError(
+				'metadata-fetch',
+				new FileFetcherError('emptyFileName', { id: fileState.id }),
+			);
+			fireFailedOperationalEvent(error);
+			return renderContent(
+				<>
+					<MediaInlineCardErroredView
+						innerRef={copyNodeRef}
+						message={(intl || defaultIntl).formatMessage(messages.couldnt_load_file)}
+						isSelected={isSelected}
+						onClick={onMediaInlineCardClick}
+					/>
+					{renderMediaViewer()}
+				</>,
+			);
+		}
 	}
 
 	if (fileState?.status === 'uploading') {
@@ -224,7 +274,10 @@ export const MediaInlineCardInternal: FC<MediaInlineCardProps & WrappedComponent
 		fireFailedOperationalEvent(undefined, 'failed-processing');
 	}
 
-	const { mediaType, name, mimeType } = fileState;
+	const { mediaType, name: fileStateName, mimeType } = fileState;
+	const name = expValEquals('platform_editor_media_name_fallback', 'isEnabled', true)
+		? fileStateName || fallbackMediaName
+		: fileStateName;
 	const linkIcon = (
 		<MimeTypeIcon
 			testId={'media-inline-card-file-type-icon'}

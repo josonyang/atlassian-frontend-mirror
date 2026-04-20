@@ -2,7 +2,14 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
-import { cloneElement, type ComponentType, forwardRef, isValidElement, memo } from 'react';
+import {
+	cloneElement,
+	type ComponentType,
+	forwardRef,
+	isValidElement,
+	memo,
+	useCallback,
+} from 'react';
 
 import { cssMap as cssMapUnbound, jsx } from '@compiled/react';
 
@@ -402,11 +409,12 @@ const AvatarTagComponent = forwardRef<HTMLSpanElement, AvatarTagProps>(function 
 	},
 	ref,
 ) {
-	const { status, handleRemoveRequest, onKeyPress, removingTag, showingTag } = useTagRemoval(
-		text,
-		onBeforeRemoveAction,
-		onAfterRemoveAction,
-	);
+	const { status, handleRemoveRequest, onKeyPress, removingTag, showingTag } =
+		useTagRemoval(onBeforeRemoveAction);
+
+	const onShrinkOutExitComplete = useCallback(() => {
+		onAfterRemoveAction?.(text);
+	}, [onAfterRemoveAction, text]);
 
 	const { isLink, LinkComponent } = useLink(href, linkComponent);
 	const {
@@ -512,7 +520,11 @@ const AvatarTagComponent = forwardRef<HTMLSpanElement, AvatarTagProps>(function 
 	);
 
 	return (
-		<RemovableWrapper isRemovable={isRemovable} status={status}>
+		<RemovableWrapper
+			isRemovable={isRemovable}
+			status={status}
+			onShrinkOutExitComplete={isRemovable ? onShrinkOutExitComplete : undefined}
+		>
 			{tagContent}
 		</RemovableWrapper>
 	);

@@ -17,7 +17,7 @@ type AgentActionsProps = {
 	agent: RovoAgentProfileCardInfo;
 	onEditAgent: () => void;
 	onCopyAgent: () => void;
-	onDuplicateAgent: () => void;
+	onDuplicateAgent: () => Promise<void>;
 	onDeleteAgent: () => void;
 	onChatClick: (event: React.MouseEvent) => void;
 	onViewFullProfileClick: () => void;

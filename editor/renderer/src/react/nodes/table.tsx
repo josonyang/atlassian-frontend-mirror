@@ -49,7 +49,8 @@ import { TableStickyScrollbar } from './TableStickyScrollbar';
 
 import { TableProcessorWithContainerStyles } from './tableNew';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
-import { isTableInContentMode } from './table/content-mode';
+import { isTableInContentMode } from '@atlaskit/editor-common/table';
+import { isContentModeSupported } from './table/content-mode';
 
 export type TableArrayMapped = {
 	rowNodes: Array<PMNode | null>;
@@ -707,8 +708,7 @@ export class TableContainer extends React.Component<
 		const isContentModeTable =
 			isTableInContentMode({
 				tableNode,
-				allowTableResizing,
-				rendererAppearance,
+				isSupported: isContentModeSupported({ allowTableResizing, rendererAppearance }),
 				isTableNested: isInsideOfBlockNode || isInsideOfTable,
 			}) && expValEquals('platform_editor_table_fit_to_content_auto_convert', 'isEnabled', true);
 

@@ -34,7 +34,7 @@ import { WithResponsiveViewport } from '../../utils/with-responsive-viewport';
 
 import { Sidebar } from './sidebar';
 
-export function App() {
+export function App(): JSX.Element {
 	return (
 		<WithResponsiveViewport>
 			<div>

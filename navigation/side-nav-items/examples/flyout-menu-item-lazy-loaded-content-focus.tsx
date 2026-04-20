@@ -130,7 +130,7 @@ const exampleContainerStyles = cssMap({
 	},
 });
 
-export default function FlyoutMenuItemLazyLoadedContentFocusExample() {
+export default function FlyoutMenuItemLazyLoadedContentFocusExample(): JSX.Element {
 	const [isOpen, setIsOpen] = useState(false);
 	const triggerRef = useRef<HTMLButtonElement>(null);
 	const [isLoaded, setIsLoaded] = useState(false);

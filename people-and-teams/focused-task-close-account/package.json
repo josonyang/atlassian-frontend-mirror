@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/focused-task-close-account",
-	"version": "4.0.0",
+	"version": "4.0.1",
 	"description": "This package contains all of the UI components needed to assemble the focused tasks for deactivating and deleting users' accounts in accordance with the GDPR \"Right to be forgotten\".",
 	"deprecated": "⚠️ DEPRECATED: This package is marked for removal. Please avoid new usage.",
 	"publishConfig": {
@@ -33,6 +33,13 @@
 		"test:coverage": "(cd ../../.. && yarn test 'packages/people-and-teams/focused-task-close-account/src' --coverage --coverageProvider=v8 --collectCoverageFrom='[\"packages/people-and-teams/focused-task-close-account/src/**\", \"!packages/people-and-teams/focused-task-close-account/src/**/**/types.ts\", \"!packages/people-and-teams/focused-task-close-account/src/ui/**/styled.tsx\"]')"
 	},
 	"atlassian": {
+		"react-compiler": {
+			"enabled": true,
+			"gating": {
+				"source": "@atlassian/react-compiler-gating",
+				"importSpecifierName": "isReactCompilerActivePlatform"
+			}
+		},
 		"team": "Admin Hub: Nexus",
 		"website": {
 			"name": "Focused Task Close Account"
@@ -60,6 +67,7 @@
 		"react-transition-group": "^4.4.1"
 	},
 	"devDependencies": {
+		"@atlassian/react-compiler-gating": "workspace:^",
 		"@testing-library/react": "root:*",
 		"enzyme": "root:*",
 		"react-intl": "root:*"

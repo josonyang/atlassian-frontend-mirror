@@ -13,6 +13,7 @@ import {
 	akEditorFullPageNarrowBreakout,
 } from '@atlaskit/editor-shared-styles';
 import { fg } from '@atlaskit/platform-feature-flags';
+import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
 import type { EditorAnalyticsAPI } from '../analytics';
@@ -87,6 +88,7 @@ const defaultStyles = { display: 'grid' };
 type ResizerNextHandler = React.ElementRef<typeof Resizer>;
 
 const RESIZE_STEP_VALUE = 10;
+const RESIZER_ENABLE_HANDLES = { left: true, right: true };
 
 type BreakoutResizerProps = {
 	disabled?: boolean;
@@ -403,8 +405,11 @@ const BreakoutResizer = ({
 	return (
 		<Resizer
 			ref={resizerRef}
-			// eslint-disable-next-line @atlassian/perf-linting/no-unstable-inline-props -- Ignored via go/ees017 (to be fixed)
-			enable={{ left: true, right: true }}
+			enable={
+				expValEquals('platform_editor_perf_lint_cleanup', 'isEnabled', true)
+					? RESIZER_ENABLE_HANDLES
+					: { left: true, right: true }
+			}
 			snap={snaps || undefined}
 			snapGap={SNAP_GAP}
 			handleStyles={getHandleStyle(nodeType, hidden)}

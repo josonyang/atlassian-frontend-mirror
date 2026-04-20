@@ -22,7 +22,7 @@ export default function TopNavigationThemedButtonsExample(): React.JSX.Element {
 		 */
 		<MockRoot>
 			<TopNav
-				UNSAFE_theme={{
+				customTheme={{
 					backgroundColor: { r: 50, g: 100, b: 200 },
 					highlightColor: { r: 50, g: 50, b: 50 },
 				}}

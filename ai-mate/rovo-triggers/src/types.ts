@@ -316,6 +316,16 @@ export type InsertPromptPayload = PayloadCore<
 		 * user completion, rather than sending them immediately.
 		 */
 		overrideAutoSend?: boolean;
+		/**
+		 * Optional conversation ID to target. When provided, the handler will resume
+		 * the specified conversation (setting placeholder agent, opening the channel,
+		 * and selecting the conversation) before inserting or sending the prompt.
+		 */
+		channelId?: string;
+		agentId?: string;
+		agentName?: string;
+		agentIdentityAccountId?: string;
+		avatarUrl?: string;
 	} & PlaceholderParam
 >;
 

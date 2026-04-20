@@ -1,4 +1,4 @@
-import { createContext, useContext } from 'react';
+import { createContext, useContext, type Context } from 'react';
 
 import invariant from 'tiny-invariant';
 
@@ -6,7 +6,7 @@ import type { TAction, TData } from './data';
 
 export type TDispatchContextValue = (action: TAction) => void;
 
-export const DispatchContext = createContext<TDispatchContextValue | null>(null);
+export const DispatchContext: Context<TDispatchContextValue | null> = createContext<TDispatchContextValue | null>(null);
 
 export function useDispatch(): TDispatchContextValue {
 	const dispatch = useContext(DispatchContext);
@@ -16,15 +16,15 @@ export function useDispatch(): TDispatchContextValue {
 
 export type TGetDataContextValue = () => TData;
 
-export const GetDataContext = createContext<TGetDataContextValue | null>(null);
+export const GetDataContext: Context<TGetDataContextValue | null> = createContext<TGetDataContextValue | null>(null);
 
-export function useGetData() {
+export function useGetData(): TGetDataContextValue {
 	const getData = useContext(GetDataContext);
 	invariant(getData, 'Could not find getData()');
 	return getData;
 }
 
-export const LastActionContext = createContext<TAction | null>(null);
+export const LastActionContext: Context<TAction | null> = createContext<TAction | null>(null);
 /**
  * Not ideal. Use sparingly
  */

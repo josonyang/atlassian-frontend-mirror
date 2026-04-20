@@ -1,4 +1,4 @@
-import { createContext, useContext } from 'react';
+import { createContext, useContext, type Context } from 'react';
 
 import invariant from 'tiny-invariant';
 
@@ -6,7 +6,7 @@ import invariant from 'tiny-invariant';
  * Context for the current menu section. It holds a unique ID for the section, used for associating the section heading
  * as an accessible label for the group.
  */
-export const MenuSectionContext = createContext<string | null>(null);
+export const MenuSectionContext: Context<string | null> = createContext<string | null>(null);
 
 export const useMenuSectionContext = (): string => {
 	const context = useContext(MenuSectionContext);

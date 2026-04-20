@@ -61,7 +61,7 @@ function MainContentBorderExample({
 		<WithResponsiveViewport>
 			<Root>
 				{!isFullscreen && (
-					<TopNav UNSAFE_theme={isCustomThemeEnabled ? customTheme : undefined}>
+					<TopNav customTheme={isCustomThemeEnabled ? customTheme : undefined}>
 						<TopNavStart
 							sideNavToggleButton={
 								<SideNavToggleButton
