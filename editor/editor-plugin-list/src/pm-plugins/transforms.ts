@@ -4,7 +4,6 @@ import { Fragment, NodeRange, Slice } from '@atlaskit/editor-prosemirror/model';
 import type { Selection, Transaction } from '@atlaskit/editor-prosemirror/state';
 import { TextSelection } from '@atlaskit/editor-prosemirror/state';
 import { liftTarget, ReplaceAroundStep, ReplaceStep } from '@atlaskit/editor-prosemirror/transform';
-import { findParentNodeOfTypeClosestToPos } from '@atlaskit/editor-prosemirror/utils';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 import { getListLiftTarget } from './utils/indentation';
@@ -143,13 +142,29 @@ function getAffectedListsFromTransactions(
 			if (!(step instanceof ReplaceStep) && !(step instanceof ReplaceAroundStep)) {
 				continue;
 			}
-			// Check both the start and end of each changed range, mapped to post-paste positions.
+			// Check both the start and end of each changed range, mapped to post-transaction positions.
 			for (const rawPos of [step.from, step.to]) {
 				const mappedPos = Math.min(tr.mapping.map(rawPos), doc.content.size - 1);
 				const $pos = doc.resolve(mappedPos);
-				const ancestor = findParentNodeOfTypeClosestToPos($pos, listTypes);
-				if (ancestor) {
-					result.set(ancestor.pos, ancestor.node);
+				// Walk ancestors from inner to outer, recording the outermost list node.
+				// Once we find a list and then exit list structure (hit a non-list ancestor),
+				// break early — prevents container nodes (e.g. panel) from causing us to
+				// return an outer list that is in a different structural context.
+				// $pos.node(depth) is O(1) array access.
+				let rootListPos: number | null = null;
+				let rootListNode: Node | null = null;
+				for (let depth = $pos.depth; depth >= 0; depth--) {
+					const node = $pos.node(depth);
+					if (listTypes.includes(node.type)) {
+						rootListPos = $pos.before(depth);
+						rootListNode = node;
+					} else if (rootListNode !== null && node.type !== schema.nodes.listItem) {
+						// We've exited the list structure — stop walking.
+						break;
+					}
+				}
+				if (rootListPos !== null && rootListNode !== null) {
+					result.set(rootListPos, rootListNode);
 				}
 			}
 		}
@@ -185,23 +200,31 @@ export function applyListNormalisationFixes({
 		return tr;
 	}
 
-	const { listItem, paragraph } = schema.nodes;
+	const { listItem, paragraph, bulletList, orderedList, taskList } = schema.nodes;
 	if (!listItem) {
 		return tr;
 	}
+	const nestedListTypes = [bulletList, orderedList, taskList].filter(Boolean);
 
 	// Process lists in reverse position order so fixes at higher positions
 	// don't shift the positions of fixes at lower positions.
 	const sortedEntries = [...affectedLists.entries()].sort(([posA], [posB]) => posB - posA);
 
-	for (const [listPos, listNode] of sortedEntries) {
-		// Collect listItem positions in document order, then process in reverse so that
-		// fixes at higher positions don't shift positions of fixes at lower positions.
+	for (const [listPos] of sortedEntries) {
+		// Re-resolve the list node from the current transaction doc (post-paste state),
+		// as the original listNode snapshot may be stale after the paste transaction.
+		const mappedListPos = tr.mapping.map(listPos);
+		const currentListNode = tr.doc.nodeAt(mappedListPos);
+		if (!currentListNode) {
+			continue;
+		}
+
+		// Collect all listItem positions at all depths in document order, then process in
+		// reverse so that fixes at higher positions don't shift positions of lower ones.
 		const listItemPositions: number[] = [];
-		listNode.descendants((node, offsetPos) => {
+		currentListNode.descendants((node, offsetPos) => {
 			if (node.type === listItem) {
-				listItemPositions.push(listPos + 1 + offsetPos);
-				return false; // Don't descend — inner listItems are handled via their own ancestor list
+				listItemPositions.push(mappedListPos + 1 + offsetPos);
 			}
 			return true;
 		});
@@ -235,16 +258,21 @@ export function applyListNormalisationFixes({
 				}
 			}
 
-			// Insert empty paragraph before list-first listItems when _indentation is off.
+			// Insert empty paragraph before a list-type first child when _indentation is off.
+			// Only list types (bulletList, orderedList, taskList) are invalid as a first child —
+			// other non-paragraph types (mediaSingle, codeBlock, extension) are valid per the schema.
 			if (
 				paragraph &&
 				!expValEquals('platform_editor_flexible_list_indentation', 'isEnabled', true)
 			) {
-				const currentNode = tr.doc.nodeAt(mappedPos);
-				if (currentNode && currentNode.firstChild && currentNode.firstChild.type !== paragraph) {
+				// Re-map position after any join steps that may have been added above.
+				const remappedPos = tr.mapping.map(listItemPositions[i]);
+				const currentNode = tr.doc.nodeAt(remappedPos);
+				const firstChild = currentNode?.firstChild;
+				if (firstChild && nestedListTypes.includes(firstChild.type)) {
 					const emptyParagraph = paragraph.createAndFill();
 					if (emptyParagraph) {
-						tr.insert(mappedPos + 1, emptyParagraph);
+						tr.insert(remappedPos + 1, emptyParagraph);
 					}
 				}
 			}

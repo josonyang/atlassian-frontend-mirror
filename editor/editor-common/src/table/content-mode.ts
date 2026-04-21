@@ -63,7 +63,5 @@ export const isTableInContentMode = ({
 		return false;
 	}
 
-	return (
-		isSupported && !hasTableBeenResized(tableNode) && tableNode.attrs.layout === 'align-start'
-	);
+	return isSupported && !hasTableBeenResized(tableNode) && tableNode.attrs.layout === 'align-start';
 };

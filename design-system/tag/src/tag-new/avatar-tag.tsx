@@ -100,6 +100,11 @@ interface CommonAvatarTagProps {
 	 */
 	maxWidth?: string | number;
 	/**
+	 * When false, removes the tag's default margin. Use in contexts like User-picker
+	 * where the parent controls spacing. Defaults to `true`.
+	 */
+	hasMargin?: boolean;
+	/**
 	 * Handler called when the tag is clicked. Only fires for link tags (when href is provided).
 	 * The second argument provides an Atlaskit UI analytics event.
 	 */
@@ -120,9 +125,7 @@ type UserAvatarTag = CommonAvatarTagProps & {
 	isVerified?: never;
 	/**
 	 * The avatar component to render. AvatarTag will provide controlled props (size, appearance, borderColor).
-	 * Accepts Avatar or any compatible component.
-	 * @example avatar={Avatar}
-	 * @example avatar={(props) => <Avatar {...props} src="user.png" />}
+	 * Accepts Avatar from `@atlaskit/avatar` package
 	 */
 	avatar: ComponentType<AvatarPropTypes>;
 };
@@ -141,9 +144,7 @@ type OtherAvatarTag = CommonAvatarTagProps & {
 	isVerified?: boolean;
 	/**
 	 * The avatar component to render. AvatarTag will provide controlled props (size, appearance, borderColor).
-	 * Accepts Avatar, TeamAvatar, or any compatible component.
-	 * @example avatar={TeamAvatar}
-	 * @example avatar={(props) => <TeamAvatar {...props} name="Team" />}
+	 * Accepts Avatar from `@atlaskit/avatar` or `@atlaskit/teams-avatar` package
 	 */
 	avatar: ComponentType<AvatarPropTypes> | ComponentType<TeamAvatarProps>;
 };
@@ -162,9 +163,7 @@ type AgentAvatarTag = CommonAvatarTagProps & {
 	isVerified?: never;
 	/**
 	 * The avatar component to render. AvatarTag will provide controlled props (size, appearance, borderColor).
-	 * Accepts Avatar or any compatible component.
-	 * @example avatar={Avatar}
-	 * @example avatar={(props) => <Avatar {...props} src="agent.png" />}
+	 * Accepts Avatar from `@atlaskit/avatar` package
 	 */
 	avatar: ComponentType<AvatarPropTypes>;
 };
@@ -192,25 +191,32 @@ const styles = cssMapUnbound({
 		color: token('color.text'),
 		cursor: 'default',
 		font: token('font.body.small'),
-		marginBlock: token('space.050'),
-		marginInline: token('space.050'),
 		paddingInlineEnd: '6px',
 		paddingInlineStart: token('space.0'),
 		paddingBlock: token('space.0'),
+		marginBlock: token('space.050'),
+		marginInline: token('space.050'),
+	},
+	noMarginStyles: {
+		marginBlock: token('space.0'),
+		marginInline: token('space.0'),
 	},
 	otherBaseStyles: {
-		borderRadius: token('radius.small', '4px'),
+		borderRadius: token('radius.small'),
 		paddingInlineEnd: token('space.050'),
 	},
 	agentBaseStyles: {
-		borderRadius: token('radius.small', '4px'),
+		borderRadius: token('radius.small'),
 		paddingInlineEnd: token('space.050'),
 	},
 	removableStyles: {
 		paddingInlineEnd: '3px',
+		// Ensure remove button always fits when compressed; text/avatar truncate first.
+		minWidth: '2.5rem',
 	},
 	userRemovableStyles: {
 		paddingInlineEnd: '3px',
+		minWidth: '2.5rem',
 	},
 	avatarStyles: {
 		display: 'inline-flex',
@@ -231,13 +237,15 @@ const styles = cssMapUnbound({
 		overflow: 'hidden',
 		textOverflow: 'ellipsis',
 		whiteSpace: 'nowrap',
-		flexGrow: 1,
+		flex: '1 1 0',
+		flexShrink: 1,
 		minWidth: 0,
 		color: token('color.text'),
 	},
 	afterStyles: {
 		display: 'flex',
 		alignItems: 'center',
+		flex: '0 0 auto',
 		flexShrink: 0,
 		pointerEvents: 'auto',
 		marginInlineStart: token('space.025'),
@@ -404,6 +412,7 @@ const AvatarTagComponent = forwardRef<HTMLSpanElement, AvatarTagProps>(function 
 		testId,
 		isVerified, // Shows verified icon for 'other' type tags
 		maxWidth,
+		hasMargin = true,
 		onClick,
 		...other
 	},
@@ -471,6 +480,7 @@ const AvatarTagComponent = forwardRef<HTMLSpanElement, AvatarTagProps>(function 
 			ref={ref}
 			css={[
 				styles.baseStyles,
+				!hasMargin && styles.noMarginStyles,
 				isOtherType && styles.otherBaseStyles,
 				isAgentType && styles.agentBaseStyles,
 				borderColorStyles.root,

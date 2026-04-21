@@ -17,8 +17,8 @@ interface InputSpecificProps<
 	Option = unknown,
 	IsMulti extends boolean = boolean,
 	Group extends GroupBase<Option> = GroupBase<Option>,
->
-	extends InputHTMLAttributes<HTMLInputElement>, CommonPropsAndClassName<Option, IsMulti, Group> {
+> extends InputHTMLAttributes<HTMLInputElement>,
+		CommonPropsAndClassName<Option, IsMulti, Group> {
 	/**
 	 * Reference to the internal element
 	 */
@@ -77,6 +77,12 @@ const inputStylesOld = cssMap({
 	disabled: {
 		visibility: 'hidden',
 	},
+	labellingFFStyles: {
+		font: token('font.body.small'),
+		marginBlock: token('space.0'),
+		marginInline: token('space.0'),
+		paddingBlock: token('space.0'),
+	},
 });
 
 const inputStyles = cssMap({
@@ -105,6 +111,12 @@ const inputStyles = cssMap({
 	},
 	disabled: {
 		visibility: 'hidden',
+	},
+	labellingFFStyles: {
+		font: token('font.body.small'),
+		marginBlock: token('space.0'),
+		marginInline: token('space.0'),
+		paddingBlock: token('space.0'),
 	},
 });
 
@@ -147,16 +159,21 @@ const Input: <Option, IsMulti extends boolean, Group extends GroupBase<Option>>(
 ) => JSX.Element = <Option, IsMulti extends boolean, Group extends GroupBase<Option>>(
 	props: InputProps<Option, IsMulti, Group>,
 ) => {
-	const { cx: builtinCX, value, xcss } = props;
+	const { cx: builtinCX, value, xcss, isMulti } = props;
 	const { innerRef, isDisabled, isHidden, inputClassName, testId, ...innerProps } =
 		cleanCommonProps(props);
 	const dataId = testId ? `${testId}-select--input` : null;
 	const { css, className } = getStyleProps(props, 'input', { 'input-container': true });
 
+	const ffTagUplifts = fg('platform-dst-lozenge-tag-badge-visual-uplifts');
 	if (fg('platform_fix_input_component_styling')) {
 		return (
 			<div
-				css={[inputStyles.root, isDisabled && inputStyles.disabled]}
+				css={[
+					inputStyles.root,
+					isMulti && ffTagUplifts && inputStyles.labellingFFStyles,
+					isDisabled && inputStyles.disabled,
+				]}
 				// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop
 				style={css as CSSProperties}
 				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop, @atlaskit/ui-styling-standard/local-cx-xcss, @compiled/local-cx-xcss
@@ -179,7 +196,11 @@ const Input: <Option, IsMulti extends boolean, Group extends GroupBase<Option>>(
 
 	return (
 		<div
-			css={[inputStylesOld.root, isDisabled && inputStylesOld.disabled]}
+			css={[
+				inputStylesOld.root,
+				isMulti && ffTagUplifts && inputStylesOld.labellingFFStyles,
+				isDisabled && inputStylesOld.disabled,
+			]}
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop
 			style={css as CSSProperties}
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop, @atlaskit/ui-styling-standard/local-cx-xcss, @compiled/local-cx-xcss

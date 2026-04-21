@@ -1,5 +1,19 @@
 # @atlaskit/editor-plugin-table
 
+## 22.1.2
+
+### Patch Changes
+
+- [`3304011dd30e7`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/3304011dd30e7) -
+  Editor-6446: Fix reload page cause table inside the synced block to rescale when page is full
+  width
+
+## 22.1.1
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 22.1.0
 
 ### Minor Changes

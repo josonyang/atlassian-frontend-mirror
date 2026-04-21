@@ -1,5 +1,17 @@
 # @atlaskit/link-analytics
 
+## 11.0.4
+
+### Patch Changes
+
+- [`76faad1c8c7b5`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/76faad1c8c7b5) -
+  Removed `react-intl-next` alias and replaced all usages with `react-intl` directly.
+
+  What changed: The `react-intl-next` devDependency alias (which resolved to `react-intl@^5`) has
+  been renamed to `react-intl`. This is a development-only change with no impact on consumers.
+
+- Updated dependencies
+
 ## 11.0.3
 
 ### Patch Changes

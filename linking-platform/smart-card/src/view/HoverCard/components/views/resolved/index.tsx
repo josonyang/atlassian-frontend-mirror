@@ -70,7 +70,10 @@ const HoverCardResolvedView = ({
 	di(useAISummaryAction);
 
 	const { fireEvent } = useAnalyticsEvents();
-	const { isEnabled: InlineActionNudgeExperimentValue } = useInlineActionNudgeExperiment();
+	const { isEnabled: InlineActionNudgeExperimentValue } = useInlineActionNudgeExperiment(
+		flexibleCardProps.url,
+		true,
+	);
 
 	// We want to fire exposure event only for those cases when user otherwise can see the experiment which would be controlled
 	// by all the other condition defined above as a result of what was defined in actionOptions as well as in CardContext.

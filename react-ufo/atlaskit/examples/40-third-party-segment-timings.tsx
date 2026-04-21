@@ -7,7 +7,10 @@ import { useCallback, useRef, useState } from 'react';
 import { css, jsx } from '@compiled/react';
 
 import UFOLoadHold from '@atlaskit/react-ufo/load-hold';
-import UFOSegment, { UFOThirdPartySegment, type IframeSegmentEvent } from '@atlaskit/react-ufo/segment';
+import UFOSegment, {
+	UFOThirdPartySegment,
+	type IframeSegmentEvent,
+} from '@atlaskit/react-ufo/segment';
 
 const containerStyle = css({
 	display: 'flex',
@@ -30,30 +33,33 @@ export default function Example(): JSX.Element {
 	const listenersRef = useRef<Set<(event: IframeSegmentEvent) => void>>(new Set());
 	const [isContentLoading, setIsContentLoading] = useState(true);
 
-	const onRegisterIframeEventListener = useCallback((listener: (event: IframeSegmentEvent) => void) => {
-		listenersRef.current.add(listener);
+	const onRegisterIframeEventListener = useCallback(
+		(listener: (event: IframeSegmentEvent) => void) => {
+			listenersRef.current.add(listener);
 
-		// Simulate the event sequence from Forge UI's PerformanceAnalyticsContext (validated timeline):
-		//   1. emit-ready-event  (optional; not written to segment3pTimings)
-		//   2. lcp-snapshot      → segment3pTimings[segmentId] gets { label: 'lcp-snapshot', data: { ... } }
-		//   3. fcp-snapshot      → same array, { label: 'fcp-snapshot', data: { ... } } (resourceTimings shape)
-		const timer = setTimeout(() => {
-			const emit = (event: IframeSegmentEvent) => {
-				listenersRef.current.forEach((l) => l(event));
+			// Simulate the event sequence from Forge UI's PerformanceAnalyticsContext (validated timeline):
+			//   1. emit-ready-event  (optional; not written to segment3pTimings)
+			//   2. lcp-snapshot      → segment3pTimings[segmentId] gets { label: 'lcp-snapshot', data: { ... } }
+			//   3. fcp-snapshot      → same array, { label: 'fcp-snapshot', data: { ... } } (resourceTimings shape)
+			const timer = setTimeout(() => {
+				const emit = (event: IframeSegmentEvent) => {
+					listenersRef.current.forEach((l) => l(event));
+				};
+
+				emit({ type: 'emit-ready-event', elapsed: performance.now() });
+				emit({ type: 'lcp-snapshot', elapsed: performance.now(), size: 1200, start: 250 });
+				emit({ type: 'fcp-snapshot', elapsed: performance.now(), start: 120 });
+
+				setIsContentLoading(false);
+			}, 200);
+
+			return () => {
+				listenersRef.current.delete(listener);
+				clearTimeout(timer);
 			};
-
-			emit({ type: 'emit-ready-event', elapsed: performance.now() });
-			emit({ type: 'lcp-snapshot', elapsed: performance.now(), size: 1200, start: 250 });
-			emit({ type: 'fcp-snapshot', elapsed: performance.now(), start: 120 });
-
-			setIsContentLoading(false);
-		}, 200);
-
-		return () => {
-			listenersRef.current.delete(listener);
-			clearTimeout(timer);
-		};
-	}, []);
+		},
+		[],
+	);
 
 	return (
 		<UFOSegment name="third-party-segment-timings-example">

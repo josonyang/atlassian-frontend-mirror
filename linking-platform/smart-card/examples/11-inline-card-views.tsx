@@ -3,6 +3,7 @@ import React from 'react';
 import { Checkbox } from '@atlaskit/checkbox';
 import { cssMap } from '@atlaskit/css';
 import { HelperMessage } from '@atlaskit/form';
+import { iconTestUrls } from '@atlaskit/link-test-helpers/smart-card';
 import { Box, Inline, Stack } from '@atlaskit/primitives/compiled';
 import Range from '@atlaskit/range';
 import Select from '@atlaskit/select';
@@ -43,7 +44,9 @@ export default (): React.JSX.Element => {
 								{ label: 'font.heading.xlarge', value: token('font.heading.xlarge') },
 								{ label: 'font.heading.xxlarge', value: token('font.heading.xxlarge') },
 							]}
-							onChange={(option) => option && setFontOption(option)}
+							onChange={(newValue: FontOptions | null) =>
+								setFontOption(newValue ?? undefined)
+							}
 							value={fontOption}
 						/>
 						<HelperMessage>Set parent container font token.</HelperMessage>
@@ -71,6 +74,7 @@ export default (): React.JSX.Element => {
 					<CardViewExample
 						appearance="inline"
 						showHoverPreview={true}
+						urls={iconTestUrls}
 						truncateInline={truncateInline}
 						CardComponent={Card}
 					/>

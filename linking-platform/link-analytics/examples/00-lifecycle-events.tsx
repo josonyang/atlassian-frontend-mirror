@@ -1,5 +1,5 @@
 import React, { useCallback, useRef, useState, Fragment, forwardRef } from 'react';
-import { IntlProvider } from 'react-intl-next';
+import { IntlProvider } from 'react-intl';
 import Button from '@atlaskit/button/new';
 import Popup, { type PopupProps } from '@atlaskit/popup';
 import {

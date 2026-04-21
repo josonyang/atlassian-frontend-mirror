@@ -1,5 +1,18 @@
 # @atlaskit/editor-plugin-synced-block
 
+## 8.0.2
+
+### Patch Changes
+
+- [`720144a6aaf86`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/720144a6aaf86) -
+  [ux] Do not show confirm modal when source sync block without references is deleted.
+
+## 8.0.1
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 8.0.0
 
 ### Major Changes

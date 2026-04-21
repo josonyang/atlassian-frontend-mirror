@@ -24,6 +24,7 @@ import InlineCardForbiddenTruncate from '../../../examples/vr-inline-card/vr-inl
 import InlineCardIcons from '../../../examples/vr-inline-card/vr-inline-card-icons';
 import InlineCardNotFound from '../../../examples/vr-inline-card/vr-inline-card-not-found';
 import InlineCardNotFoundTruncate from '../../../examples/vr-inline-card/vr-inline-card-not-found-truncate';
+import InlineCardResolvedIconVariations from '../../../examples/vr-inline-card/vr-inline-card-resolved-icon-variations';
 import InlineCardSelected from '../../../examples/vr-inline-card/vr-inline-card-selected';
 import InlineCardTextWrap from '../../../examples/vr-inline-card/vr-inline-card-text-wrap';
 import InlineCardUnauthorised from '../../../examples/vr-inline-card/vr-inline-card-unauthorised';
@@ -329,6 +330,23 @@ snapshot(InlineCardUnauthorisedDefaultIcon, {
 snapshot.skip(InlineCardIcons, {
 	description: `inline card icons`,
 	featureFlags: {},
+});
+
+snapshot(InlineCardResolvedIconVariations, {
+	description:
+		'inline card resolved icon variations (ResolvedClient iconTestUrls — extractIcon document / non-document paths)',
+	featureFlags: {
+		platform_sl_3p_unauth_paste_as_block_card: 'card_by_default_and_new_design',
+		platform_sl_3p_preauth_better_hovercard_killswitch: true,
+		platform_sl_3p_preauth_better_hovercard: true,
+	},
+	ignoredErrors: [
+		{
+			pattern: /Failed to load resource/,
+			ignoredBecause: 'Icon test fixtures use external image URLs; dev build may log load noise',
+			jiraIssueId: 'TODO-1',
+		},
+	],
 });
 
 snapshot(VRInlineCardAllExamplesInText, {

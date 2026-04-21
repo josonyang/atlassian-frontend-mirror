@@ -45,11 +45,7 @@ import { MarkdownTransformer } from '@atlaskit/editor-markdown-transformer';
 import type { Node as PMNode, Schema } from '@atlaskit/editor-prosemirror/model';
 import { Fragment, Slice } from '@atlaskit/editor-prosemirror/model';
 import type { EditorState, Transaction } from '@atlaskit/editor-prosemirror/state';
-import {
-	contains,
-	findParentNodeOfTypeClosestToPos,
-	hasParentNodeOfType,
-} from '@atlaskit/editor-prosemirror/utils';
+import { contains, hasParentNodeOfType } from '@atlaskit/editor-prosemirror/utils';
 import { handlePaste as handlePasteTable } from '@atlaskit/editor-tables/utils';
 import { insm } from '@atlaskit/insm';
 import { extractClientIdsFromHtml } from '@atlaskit/media-common';
@@ -114,29 +110,6 @@ import {
 	isPastedFromTinyMCEConfluence,
 	tryRebuildCompleteTableHtml,
 } from './util/tinyMCE';
-
-function isListIntoListPaste(tr: Transaction, state: EditorState): boolean {
-	const { listItem, bulletList, orderedList } = state.schema.nodes;
-	const { $from, $to } = state.selection;
-
-	const selectionInList =
-		!!findParentNodeOfTypeClosestToPos($from, [listItem]) ||
-		!!findParentNodeOfTypeClosestToPos($to, [listItem]);
-	if (!selectionInList) {
-		return false;
-	}
-
-	return tr.steps.some((step) => {
-		const slice = extractSliceFromStep(step);
-		let listExists = false;
-		slice?.content?.forEach((node) => {
-			if (node.type === bulletList || node.type === orderedList) {
-				listExists = true;
-			}
-		});
-		return listExists;
-	});
-}
 
 export const isInsideBlockQuote = (state: EditorState): boolean => {
 	const { blockquote } = state.schema.nodes;
@@ -400,22 +373,37 @@ export function createPlugin(
 						return tableExists;
 					});
 
-					// Don't add closeHistory if we're pasting a list into a list, as the list plugin will
-					// appendTransaction to normalise the list structure and we want to keep the paste and
-					// normalisation as one undo event. We also set a meta on the transaction so the list
-					// plugin's appendTransaction can cheaply detect this case without re-checking flags.
-					if (
-						expValEqualsNoExposure('platform_editor_flexible_list_schema', 'isEnabled', true) &&
-						isListIntoListPaste(tr, state)
-					) {
-						tr = tr.setMeta('listPasteNormalisation', true);
+					// Don't flag as a paste event (add closeHistory) when the paste affects a list and
+					// the list plugin's appendTransaction will normalise the structure, and we want the
+					// paste + normalisation to be a single undo step.
+					// Pasting into an existing list — selection is inside a list node.
+					let isPastingIntoList = false;
+					// Pasting list content from an external source — slice top-level contains a list node.
+					let isPastingListContent = false;
+
+					if (expValEqualsNoExposure('platform_editor_flexible_list_schema', 'isEnabled', true)) {
+						const listNodeTypes = [
+							state.schema.nodes.bulletList,
+							state.schema.nodes.orderedList,
+							state.schema.nodes.taskList,
+						].filter((n): n is NonNullable<typeof n> => Boolean(n));
+
+						isPastingIntoList = hasParentNodeOfType(listNodeTypes)(state.selection);
+
+						for (let i = 0; i < slice.content.childCount; i++) {
+							if (listNodeTypes.includes(slice.content.child(i).type)) {
+								isPastingListContent = true;
+								break;
+							}
+						}
 					}
 
 					if (
 						!isPastingTextInsidePlaceholderText &&
 						!isPastingTable &&
 						!isPastingOverLayoutColumns &&
-						!tr.getMeta('listPasteNormalisation') &&
+						!isPastingIntoList &&
+						!isPastingListContent &&
 						pluginInjectionApi?.betterTypeHistory
 					) {
 						tr = pluginInjectionApi?.betterTypeHistory?.actions.flagPasteEvent(tr);

@@ -1,5 +1,13 @@
 # @atlaskit/editor-statsig-tmp
 
+## 63.0.0
+
+### Major Changes
+
+- [`acce33a5519e2`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/acce33a5519e2) -
+  Remove stale experiment `platform_editor_ai_quickstart_command` from experiments config and test
+  overrides.
+
 ## 62.8.0
 
 ### Minor Changes

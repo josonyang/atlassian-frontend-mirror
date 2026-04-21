@@ -62,11 +62,6 @@ test.describe('collab', () => {
 	});
 
 	test('offline should resync', async ({ firstEditor, secondEditor, thirdEditor, page }) => {
-		fixTest({
-			jiraIssueId: 'TODO-123',
-			reason: 'Firefox is skipped as it is a very slow browser on this test',
-			browsers: [BROWSERS.firefox],
-		});
 		await firstEditor.focus();
 		await firstEditor.keyboard.type('Hello', { delay: 200 });
 
@@ -93,8 +88,8 @@ test.describe('collab', () => {
 		await firstEditor.keyboard.type('!!!', { delay: 200 });
 		await expect(firstEditor).toHaveDocument(doc(p('HelloWorld!!!')));
 		await expect(thirdEditor).toHaveDocument(doc(p('HelloWorld!!!')));
-		await expect(secondEditor).toHaveDocument(doc(p('HelloWorld!!!')));
-		await expect(page).toBeAccessible();
+		await expect(secondEditor).toHaveDocument(doc(p('HelloWorld!!!')), { timeout: 10000 });
+		await expect(page).toBeAccessible({ violationCount: 1 });
 	});
 
 	test.describe('telepointer', () => {

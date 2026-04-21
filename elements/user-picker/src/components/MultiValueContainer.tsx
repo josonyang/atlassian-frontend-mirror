@@ -4,13 +4,14 @@
  */
 import { components, type MultiValueProps } from '@atlaskit/select';
 import React, { Fragment } from 'react';
-import { FormattedMessage } from 'react-intl';
+import { FormattedMessage } from 'react-intl-next';
+import { fg } from '@atlaskit/platform-feature-flags';
 import { type Option, type User } from '../types';
 import { messages } from './i18n';
 import { isChildInput } from './utils';
 import ValueContainerWrapper from './ValueContainerWrapper';
 import { token } from '@atlaskit/tokens';
-import { cssMap, jsx } from '@compiled/react';
+import { cx, cssMap, jsx } from '@compiled/react';
 
 export type State = {
 	previousValueSize: number;
@@ -19,6 +20,8 @@ export type State = {
 
 type Props = MultiValueProps<Option<User>[], true> & {
 	innerProps?: ValueContainerInnerProps;
+	/** Passed through from Atlaskit Select value container (spacing compact). */
+	isCompact?: boolean;
 };
 
 type ValueContainerInnerProps = {
@@ -28,9 +31,6 @@ type ValueContainerInnerProps = {
 const valueContainerStyles = cssMap({
 	root: {
 		gridTemplateColumns: 'auto 1fr',
-		paddingTop: token('space.075'),
-		paddingBottom: token('space.075'),
-		paddingLeft: token('space.075'),
 		overflowX: 'hidden',
 		overflowY: 'auto',
 		scrollbarWidth: 'none',
@@ -41,6 +41,30 @@ const valueContainerStyles = cssMap({
 			background: 'transparent',
 		},
 	},
+	paddingLegacy: {
+		paddingTop: token('space.100'),
+		paddingBottom: token('space.100'),
+		paddingLeft: token('space.100'),
+	},
+	tagUpliftVerticalDefault: {
+		paddingTop: token('space.100'),
+		paddingBottom: token('space.100'),
+	},
+	tagUpliftVerticalCompact: {
+		paddingTop: token('space.025'),
+		paddingBottom: token('space.025'),
+	},
+	paddingLeftTight: {
+		paddingLeft: token('space.075'),
+	},
+	paddingLeftWide: {
+		paddingLeft: token('space.100'),
+	},
+	withFlexAndGap: {
+		gridTemplateColumns: 'unset',
+		flexWrap: 'wrap',
+		gap: token('space.050'),
+	},
 });
 
 export class MultiValueContainer extends React.PureComponent<Props, State> {
@@ -48,8 +72,8 @@ export class MultiValueContainer extends React.PureComponent<Props, State> {
 		nextProps: Props,
 		prevState: State,
 	): {
-		valueSize: number;
 		previousValueSize: number;
+		valueSize: number;
 	} {
 		return {
 			valueSize: nextProps.getValue ? nextProps.getValue().length : 0,
@@ -148,18 +172,45 @@ export class MultiValueContainer extends React.PureComponent<Props, State> {
 	onValueContainerClick: any = this.props.selectProps.onValueContainerClick;
 
 	render(): JSX.Element {
-		const { children, innerProps, ...valueContainerProps } = this.props;
+		const {
+			children: _children,
+			innerProps: _innerProps,
+			hasValue,
+			isCompact,
+			...valueContainerProps
+		} = this.props;
 		const props = {
 			...valueContainerProps,
+			hasValue,
+			isCompact,
 			innerProps: this.valueContainerInnerProps,
 		};
+
+		const ffTagUplifts = fg('platform-dst-lozenge-tag-badge-visual-uplifts');
+		const controlRendersValueInControl = this.props.selectProps.controlShouldRenderValue !== false;
+		const tagUpliftChipRow = ffTagUplifts && hasValue && controlRendersValueInControl;
 
 		return (
 			<ValueContainerWrapper
 				isEnabled={this.onValueContainerClick}
 				onMouseDown={this.onValueContainerClick}
 			>
-				<components.ValueContainer {...props} xcss={valueContainerStyles.root}>
+				<components.ValueContainer
+					{...props}
+					xcss={cx(
+						valueContainerStyles.root,
+						!ffTagUplifts && valueContainerStyles.paddingLegacy,
+						ffTagUplifts &&
+							(isCompact
+								? valueContainerStyles.tagUpliftVerticalCompact
+								: valueContainerStyles.tagUpliftVerticalDefault),
+						ffTagUplifts &&
+							(tagUpliftChipRow
+								? valueContainerStyles.paddingLeftWide
+								: valueContainerStyles.paddingLeftTight),
+						tagUpliftChipRow && valueContainerStyles.withFlexAndGap,
+					)}
+				>
 					{this.renderChildren()}
 				</components.ValueContainer>
 			</ValueContainerWrapper>

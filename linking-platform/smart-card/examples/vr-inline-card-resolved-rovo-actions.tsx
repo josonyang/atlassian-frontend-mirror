@@ -1,15 +1,24 @@
 import React from 'react';
 
+import type { JsonLd } from '@atlaskit/json-ld-types';
 import { CardClient, SmartCardProvider } from '@atlaskit/link-provider';
+import { SlackMessage } from '@atlaskit/link-test-helpers';
 
 import { Card } from '../src';
 
-import { mocks } from './utils/common';
 import ExampleContainer from './utils/example-container';
 
-class CustomClient extends CardClient {
-	fetchData(_url: string) {
-		return Promise.resolve(mocks.entityDataSuccess);
+const slackMessageResponse = {
+	...SlackMessage,
+	meta: {
+		...SlackMessage.meta,
+		supportedFeature: ['RovoActions'],
+	},
+} as JsonLd.Response<JsonLd.Data.BaseData>;
+
+class ProviderClient extends CardClient {
+	fetchData(_: string) {
+		return Promise.resolve(slackMessageResponse);
 	}
 }
 
@@ -25,12 +34,12 @@ const VRInlineCardResolvedRovoActions: {
 	displayName: string;
 } = (): JSX.Element => {
 	return (
-		<ExampleContainer title="Inline Card with Rovo Actions">
+		<ExampleContainer title="Inline Card with Rovo Actions CTA">
 			<SmartCardProvider
-				client={new CustomClient('staging')}
+				client={new ProviderClient()}
 				rovoOptions={{ isRovoEnabled: true, isRovoLLMEnabled: true }}
 			>
-				<Card appearance="inline" url="https://www.mockurl.com" />
+				<Card appearance="inline" url={SlackMessage.data.url} showHoverPreview={true} />
 			</SmartCardProvider>
 		</ExampleContainer>
 	);

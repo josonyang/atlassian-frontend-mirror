@@ -2,16 +2,14 @@ import React from 'react';
 
 import VRTestWrapper, { type VRTestWrapperProps } from '../utils/vr-test-wrapper';
 
-import CardView from './card-view';
-import type { MultiCardViewProps } from './card-view-props';
+import CardView, { type CardViewLayoutProps } from './card-view';
 
 // Statically import the component to ensure it's loaded before the test runs
 import '../../src/view/CardWithUrl/component-lazy';
 
-const VRCardView = ({
-	style,
-	...props
-}: MultiCardViewProps & VRTestWrapperProps): React.JSX.Element => (
+export type VRCardViewProps = CardViewLayoutProps & VRTestWrapperProps;
+
+const VRCardView = ({ style, ...props }: VRCardViewProps): React.JSX.Element => (
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop
 	<VRTestWrapper style={style}>
 		<CardView {...props} />

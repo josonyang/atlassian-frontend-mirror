@@ -1,4 +1,4 @@
-import type { IntlShape } from 'react-intl-next';
+import type { IntlShape } from 'react-intl';
 
 import { processRawValue } from '@atlaskit/editor-common/process-raw-value';
 import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';

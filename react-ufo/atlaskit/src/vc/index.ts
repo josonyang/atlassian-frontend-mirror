@@ -31,7 +31,7 @@ export class VCObserverWrapper implements VCObserverInterface {
 		return (
 			isVCRevisionEnabled('fy25.03', experienceKey) ||
 			isVCRevisionEnabled('fy26.04', experienceKey) ||
-			fg('platform_ufo_vc_raw_handler_only')
+			fg('ufo_disable_ttvc_v4')
 		);
 	}
 

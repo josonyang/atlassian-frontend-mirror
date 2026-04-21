@@ -1,5 +1,14 @@
 # @atlaskit/editor-synced-block-renderer
 
+## 8.1.1
+
+### Patch Changes
+
+- [`9e45c7ac76c9a`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/9e45c7ac76c9a) -
+  Enrol editor core packages into the React Compiler with platform gating via
+  isReactCompilerActivePlatform
+- Updated dependencies
+
 ## 8.1.0
 
 ### Minor Changes

@@ -3,7 +3,7 @@
  * @jsx jsx
  * @jsxFrag React.Fragment
  */
-import React, { useCallback, useMemo, useState } from 'react';
+import React, { useCallback, useMemo, useRef, useState } from 'react';
 
 import { css, jsx } from '@compiled/react';
 
@@ -35,6 +35,11 @@ const controlBoxStyles = css({
 	paddingBottom: token('space.200'),
 	paddingLeft: token('space.200'),
 	borderRadius: '3px',
+});
+
+const sliderLabelStyles = css({
+	width: '100px',
+	whiteSpace: 'nowrap',
 });
 
 const sectionHeadingStyles = css({
@@ -98,6 +103,16 @@ const sizingOverlayOptions: { label: string; value: 'show' | 'hide' }[] = [
 	{ label: 'Hide', value: 'hide' },
 ];
 
+function ZoomBox({ children, zoom }: { children: React.ReactNode; zoom: number }) {
+	if (zoom === 100) {
+		return <>{children}</>;
+	}
+	return (
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop
+		<div style={{ zoom: zoom / 100 }}>{children}</div>
+	);
+}
+
 function useLocalStorageState<T>(key: string, defaultValue: T): [T, (value: T) => void] {
 	const storageKey = `example-31-icon-variations-${key}`;
 	const [state, setState] = useState<T>(() => {
@@ -109,14 +124,19 @@ function useLocalStorageState<T>(key: string, defaultValue: T): [T, (value: T) =
 		}
 	});
 
+	const timerRef = useRef<ReturnType<typeof setTimeout>>();
+
 	const setPersistedState = useCallback(
 		(value: T) => {
 			setState(value);
-			try {
-				localStorage.setItem(storageKey, JSON.stringify(value));
-			} catch {
-				// storage full or unavailable
-			}
+			clearTimeout(timerRef.current);
+			timerRef.current = setTimeout(() => {
+				try {
+					localStorage.setItem(storageKey, JSON.stringify(value));
+				} catch {
+					// storage full or unavailable
+				}
+			}, 300);
 		},
 		[storageKey],
 	);
@@ -141,6 +161,7 @@ export default (): React.JSX.Element => {
 		'sizingOverlay',
 		'hide',
 	);
+	const [zoomLevel, setZoomLevel] = useLocalStorageState<number>('zoom', 100);
 
 	const showTitle = titleOption === 'show';
 	const showBorder = tileOption === 'off';
@@ -217,10 +238,12 @@ export default (): React.JSX.Element => {
 								/>
 							</Inline>
 						</Inline>
-						<Inline space="space.200" alignBlock="start" grow="fill">
-							<Text weight="bold" color="color.text">
-								Grid cell: {gridMinWidth}px
-							</Text>
+						<Inline space="space.200" alignBlock="center" grow="fill">
+							<span css={sliderLabelStyles}>
+								<Text weight="bold" color="color.text">
+									Grid cell: {gridMinWidth}px
+								</Text>
+							</span>
 							<Box>
 								<Range
 									aria-label="Grid cell min width"
@@ -229,6 +252,21 @@ export default (): React.JSX.Element => {
 									max={300}
 									value={gridMinWidth}
 									onChange={setGridMinWidth}
+								/>
+							</Box>
+							<span css={sliderLabelStyles}>
+								<Text weight="bold" color="color.text">
+									Zoom: {zoomLevel}%
+								</Text>
+							</span>
+							<Box>
+								<Range
+									aria-label="Zoom level"
+									step={25}
+									min={100}
+									max={1000}
+									value={zoomLevel}
+									onChange={setZoomLevel}
 								/>
 							</Box>
 						</Inline>
@@ -244,49 +282,53 @@ export default (): React.JSX.Element => {
 						<Checkbox
 							label="Group by domain"
 							isChecked={groupByDomain}
-							onChange={(e) => setGroupByDomain(e.currentTarget.checked)}
+							onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
+								setGroupByDomain(event.currentTarget.checked)
+							}
 						/>
 					</Inline>
 				</div>
 
-				{groupByDomain ? (
-					iconTypeGroups.map((group) => (
-						<Stack key={group.title} space="space.100">
-							<Text weight="bold">{group.title}</Text>
-							<IconGrid gridTemplateColumns={gridTemplateColumns}>
-								{iconTypeEntries
-									.filter(([, v]) => group.filter(v))
-									.map(([name, value]) => (
-										<IconVariant
-											key={name}
-											label={name}
-											icon={value}
-											activeSizes={activeSizes}
-											showBorder={showBorder}
-											showSizingOverlay={showSizingOverlay}
-											showTitle={showTitle}
-											tileVariants={tileVariants}
-										/>
-									))}
-							</IconGrid>
-						</Stack>
-					))
-				) : (
-					<IconGrid gridTemplateColumns={gridTemplateColumns}>
-						{iconTypeEntries.map(([name, value]) => (
-							<IconVariant
-								key={name}
-								label={name}
-								icon={value}
-								activeSizes={activeSizes}
-								showBorder={showBorder}
-								showSizingOverlay={showSizingOverlay}
-								showTitle={showTitle}
-								tileVariants={tileVariants}
-							/>
-						))}
-					</IconGrid>
-				)}
+				<ZoomBox zoom={zoomLevel}>
+					{groupByDomain ? (
+						iconTypeGroups.map((group) => (
+							<Stack key={group.title} space="space.100">
+								<Text weight="bold">{group.title}</Text>
+								<IconGrid gridTemplateColumns={gridTemplateColumns}>
+									{group.icons.map((icon) => (
+											<IconVariant
+												key={icon}
+												label={icon}
+												icon={icon}
+												activeSizes={activeSizes}
+												showBorder={showBorder}
+												showSizingOverlay={showSizingOverlay}
+												showTitle={showTitle}
+												tileVariants={tileVariants}
+												zoom={zoomLevel}
+											/>
+										))}
+								</IconGrid>
+							</Stack>
+						))
+					) : (
+						<IconGrid gridTemplateColumns={gridTemplateColumns}>
+							{iconTypeEntries.map(([name, value]) => (
+								<IconVariant
+									key={name}
+									label={name}
+									icon={value}
+									activeSizes={activeSizes}
+									showBorder={showBorder}
+									showSizingOverlay={showSizingOverlay}
+									showTitle={showTitle}
+									tileVariants={tileVariants}
+									zoom={zoomLevel}
+								/>
+							))}
+						</IconGrid>
+					)}
+				</ZoomBox>
 
 				{/* Section: URL-based icons (url prop) */}
 				<div css={sectionHeadingStyles}>
@@ -294,22 +336,25 @@ export default (): React.JSX.Element => {
 						url prop — 3P Provider favicons ({Object.keys(providerIcons).length} providers)
 					</Text>
 				</div>
-				<IconGrid gridTemplateColumns={gridTemplateColumns}>
-					{Object.entries(providerIcons).map(([provider, urls]) =>
-						urls.map((url, i) => (
-							<IconVariant
-								key={`${provider}-${i}`}
-								label={urls.length > 1 ? `${provider} (${i + 1})` : provider}
-								url={url}
-								activeSizes={activeSizes}
-								showBorder={showBorder}
-								showSizingOverlay={showSizingOverlay}
-								showTitle={showTitle}
-								tileVariants={tileVariants}
-							/>
-						)),
-					)}
-				</IconGrid>
+				<ZoomBox zoom={zoomLevel}>
+					<IconGrid gridTemplateColumns={gridTemplateColumns}>
+						{Object.entries(providerIcons).map(([provider, urls]) =>
+							urls.map((url, i) => (
+								<IconVariant
+									key={`${provider}-${i}`}
+									label={urls.length > 1 ? `${provider} (${i + 1})` : provider}
+									url={url}
+									activeSizes={activeSizes}
+									showBorder={showBorder}
+									showSizingOverlay={showSizingOverlay}
+									showTitle={showTitle}
+									tileVariants={tileVariants}
+									zoom={zoomLevel}
+								/>
+							)),
+						)}
+					</IconGrid>
+				</ZoomBox>
 
 				{/* Section: render prop */}
 				<div css={sectionHeadingStyles}>
@@ -317,43 +362,48 @@ export default (): React.JSX.Element => {
 						render prop — Custom render functions
 					</Text>
 				</div>
-				<IconGrid gridTemplateColumns={gridTemplateColumns}>
-					<IconVariant
-						label="Emoji render"
-						render={() => (
-							<span role="img" aria-label="rocket">
-								🚀
-							</span>
-						)}
-						activeSizes={activeSizes}
-						showBorder={showBorder}
-						showSizingOverlay={showSizingOverlay}
-						showTitle={showTitle}
-						tileVariants={tileVariants}
-					/>
-					<IconVariant
-						label="Text render"
-						render={() => <span>AB</span>}
-						activeSizes={activeSizes}
-						showBorder={showBorder}
-						showSizingOverlay={showSizingOverlay}
-						showTitle={showTitle}
-						tileVariants={tileVariants}
-					/>
-					<IconVariant
-						label="SVG render"
-						render={() => (
-							<svg viewBox="0 0 16 16" width="16" height="16">
-								<circle cx="8" cy="8" r="7" fill={token('color.icon.brand')} />
-							</svg>
-						)}
-						activeSizes={activeSizes}
-						showBorder={showBorder}
-						showSizingOverlay={showSizingOverlay}
-						showTitle={showTitle}
-						tileVariants={tileVariants}
-					/>
-				</IconGrid>
+				<ZoomBox zoom={zoomLevel}>
+					<IconGrid gridTemplateColumns={gridTemplateColumns}>
+						<IconVariant
+							label="Emoji render"
+							render={() => (
+								<span role="img" aria-label="rocket">
+									🚀
+								</span>
+							)}
+							activeSizes={activeSizes}
+							showBorder={showBorder}
+							showSizingOverlay={showSizingOverlay}
+							showTitle={showTitle}
+							tileVariants={tileVariants}
+							zoom={zoomLevel}
+						/>
+						<IconVariant
+							label="Text render"
+							render={() => <span>AB</span>}
+							activeSizes={activeSizes}
+							showBorder={showBorder}
+							showSizingOverlay={showSizingOverlay}
+							showTitle={showTitle}
+							tileVariants={tileVariants}
+							zoom={zoomLevel}
+						/>
+						<IconVariant
+							label="SVG render"
+							render={() => (
+								<svg viewBox="0 0 16 16" width="16" height="16">
+									<circle cx="8" cy="8" r="7" fill={token('color.icon.brand')} />
+								</svg>
+							)}
+							activeSizes={activeSizes}
+							showBorder={showBorder}
+							showSizingOverlay={showSizingOverlay}
+							showTitle={showTitle}
+							tileVariants={tileVariants}
+							zoom={zoomLevel}
+						/>
+					</IconGrid>
+				</ZoomBox>
 
 				{/* Section: default fallback (no props) */}
 				<div css={sectionHeadingStyles}>
@@ -361,16 +411,19 @@ export default (): React.JSX.Element => {
 						Default fallback — No icon/url/render provided
 					</Text>
 				</div>
-				<IconGrid gridTemplateColumns={gridTemplateColumns}>
-					<IconVariant
-						label="(default LinkIcon)"
-						activeSizes={activeSizes}
-						showBorder={showBorder}
-						showSizingOverlay={showSizingOverlay}
-						showTitle={showTitle}
-						tileVariants={tileVariants}
-					/>
-				</IconGrid>
+				<ZoomBox zoom={zoomLevel}>
+					<IconGrid gridTemplateColumns={gridTemplateColumns}>
+						<IconVariant
+							label="(default LinkIcon)"
+							activeSizes={activeSizes}
+							showBorder={showBorder}
+							showSizingOverlay={showSizingOverlay}
+							showTitle={showTitle}
+							tileVariants={tileVariants}
+							zoom={zoomLevel}
+						/>
+					</IconGrid>
+				</ZoomBox>
 			</Stack>
 		</ExampleContainer>
 	);

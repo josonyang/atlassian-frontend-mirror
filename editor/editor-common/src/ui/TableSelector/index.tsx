@@ -11,6 +11,7 @@ import { css, jsx } from '@emotion/react';
 import { bind } from 'bind-event-listener';
 
 import { akEditorMenuZIndex } from '@atlaskit/editor-shared-styles';
+import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 import { token } from '@atlaskit/tokens';
 
@@ -23,6 +24,7 @@ import tableSelectorPopup, {
 } from './table-selector';
 
 const TABLE_SELECTOR_PADDING_TOP = 8;
+const POPUP_OFFSET: [number, number] = [0, 3];
 const TABLE_SELECTOR_PADDING_SIDE = 10;
 
 const DEFAULT_TABLE_SELECTOR_ROWS = 5;
@@ -314,11 +316,14 @@ export const TableSelectorPopup = (props: TableSelectorPopupProps): jsx.JSX.Elem
 		return unbind;
 	}, [handleMouseMove, props.allowOutsideSelection, tablePopupRef]);
 
+	const offset = expValEquals('platform_editor_perf_lint_cleanup', 'isEnabled', true)
+		? POPUP_OFFSET
+		: ([0, 3] satisfies [number, number]);
+
 	return (
 		<Popup
 			target={props.target}
-			// eslint-disable-next-line @atlassian/perf-linting/no-unstable-inline-props -- Ignored via go/ees017 (to be fixed)
-			offset={[0, 3]}
+			offset={offset}
 			mountTo={props.popupsMountPoint}
 			boundariesElement={props.popupsBoundariesElement}
 			scrollableElement={props.popupsScrollableElement}

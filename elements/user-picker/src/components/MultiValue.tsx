@@ -68,9 +68,8 @@ const nameWrapper = css({
 });
 
 const avatarTagWrapperStyle = css({
-	display: 'inline-flex',
-	// eslint-disable-next-line @atlaskit/design-system/use-tokens-space -- offsets AvatarTag's built-in space.050 margin down to space.025
-	margin: '-2px',
+	display: 'flex',
+	font: token('font.body.small'),
 });
 
 type Props = MultiValueProps<OptionType> & {
@@ -215,6 +214,7 @@ export class MultiValue extends React.Component<Props> {
 							}
 							isRemovable={!isDisabled}
 							onAfterRemoveAction={onAfterRemoveAction}
+							hasMargin={false}
 						/>
 					</span>
 				);
@@ -236,6 +236,7 @@ export class MultiValue extends React.Component<Props> {
 							}
 							isRemovable={!isDisabled}
 							onAfterRemoveAction={onAfterRemoveAction}
+							hasMargin={false}
 						/>
 					</span>
 				);
@@ -252,6 +253,7 @@ export class MultiValue extends React.Component<Props> {
 								</div>
 							}
 							isRemovable={!isDisabled}
+							hasMargin={false}
 							onAfterRemoveAction={onAfterRemoveAction}
 						/>
 					</span>
@@ -268,6 +270,7 @@ export class MultiValue extends React.Component<Props> {
 								isRemovable={!isDisabled}
 								onAfterRemoveAction={onAfterRemoveAction}
 								avatar={(props: AvatarPropTypes) => <TeamAvatar {...props} {...avatarProps} />}
+								hasMargin={false}
 							/>
 							{canShowArchivedLozenge ? (
 								<Box xcss={archivedLozengeWrapper}>
@@ -284,6 +287,7 @@ export class MultiValue extends React.Component<Props> {
 							isRemovable={!isDisabled}
 							onAfterRemoveAction={onAfterRemoveAction}
 							avatar={(props: AvatarPropTypes) => <Avatar {...props} {...avatarProps} />}
+							hasMargin={false}
 						/>
 					)}
 				</span>

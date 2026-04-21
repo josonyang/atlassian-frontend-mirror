@@ -3,9 +3,16 @@
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
 	},
-	"version": "1.0.0",
+	"version": "1.0.2",
 	"description": "Common UI for Toolbars across the platform",
 	"atlassian": {
+		"react-compiler": {
+			"enabled": true,
+			"gating": {
+				"source": "@atlassian/react-compiler-gating",
+				"importSpecifierName": "isReactCompilerActivePlatform"
+			}
+		},
 		"team": "Editor: Jenga",
 		"releaseModel": "continuous"
 	},
@@ -45,6 +52,7 @@
 		"react-intl": "^5.25.1 || ^6.0.0 || ^7.0.0"
 	},
 	"devDependencies": {
+		"@atlassian/react-compiler-gating": "workspace:^",
 		"@testing-library/react": "root:*",
 		"react-dom": "root:*",
 		"react-intl": "root:*"

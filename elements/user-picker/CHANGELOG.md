@@ -1,5 +1,29 @@
 # @atlaskit/user-picker
 
+## 12.0.4
+
+### Patch Changes
+
+- [`7c17bccdb5fb8`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/7c17bccdb5fb8) -
+  Fixes bug where tags were overlapping in multi-select in smaller screen sizes.
+- Updated dependencies
+
+## 12.0.3
+
+### Patch Changes
+
+- [`c23fa87416661`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/c23fa87416661) -
+  Fixes bug where tags were overlapping in multi-select in smaller screen sizes.
+- Updated dependencies
+
+## 12.0.2
+
+### Patch Changes
+
+- [`ea970883e4943`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/ea970883e4943) -
+  Fixes bug where tags were overlapping in multi-select in smaller screen sizes.
+- Updated dependencies
+
 ## 12.0.1
 
 ### Patch Changes

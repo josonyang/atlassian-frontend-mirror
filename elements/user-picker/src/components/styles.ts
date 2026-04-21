@@ -85,7 +85,15 @@ export const getStyles: MemoizedFn<
 										: token('color.background.input.hovered'),
 					},
 					padding: 0,
-					minHeight: minHeight ? minHeight : height || isCompact ? 'none' : 44,
+					minHeight: minHeight
+						? minHeight
+						: height || isCompact
+							? isMulti && fg('platform-dst-lozenge-tag-badge-visual-uplifts')
+								? 30
+								: 'none'
+							: isMulti && fg('platform-dst-lozenge-tag-badge-visual-uplifts')
+								? 42
+								: 44,
 					/* IE 11 needs to set height explicitly to be vertical align when being in not compact mode */
 					height: height ? height : isCompact || isMulti ? '100%' : 44,
 					maxWidth: '100%',
@@ -112,13 +120,35 @@ export const getStyles: MemoizedFn<
 			}),
 			valueContainer: ({ _paddingTop, _paddingBottom, _position, ...css }, state) => {
 				const isMulti = state.selectProps.isMulti;
-
 				return {
 					...css,
 					gridTemplateColumns: 'auto 1fr',
-					paddingTop: isCompact ? 0 : BORDER_PADDING,
-					paddingBottom: isCompact ? 0 : BORDER_PADDING,
-					paddingLeft: isMulti ? BORDER_PADDING : 0,
+					paddingTop: isCompact
+						? isMulti && fg('platform-dst-lozenge-tag-badge-visual-uplifts')
+							? token('space.025')
+							: 0
+						: isMulti && fg('platform-dst-lozenge-tag-badge-visual-uplifts')
+							? token('space.100')
+							: BORDER_PADDING,
+					paddingBottom: isCompact
+						? isMulti && fg('platform-dst-lozenge-tag-badge-visual-uplifts')
+							? token('space.025')
+							: 0
+						: isMulti && fg('platform-dst-lozenge-tag-badge-visual-uplifts')
+							? token('space.100')
+							: BORDER_PADDING,
+					// Match pre–tag-uplift leading inset when only the placeholder shows (share dialog VR, etc.).
+					paddingLeft: isMulti
+						? state.hasValue &&
+							state.selectProps.controlShouldRenderValue !== false &&
+							fg('platform-dst-lozenge-tag-badge-visual-uplifts')
+							? token('space.100')
+							: BORDER_PADDING
+						: 0,
+					gap:
+						isMulti && fg('platform-dst-lozenge-tag-badge-visual-uplifts')
+							? token('space.050')
+							: undefined,
 					overflowX: 'hidden',
 					overflowY: 'auto',
 					scrollbarWidth: 'none',
@@ -182,11 +212,18 @@ export const getStyles: MemoizedFn<
 				gridArea: '1/2/2/3',
 				gridTemplateColumns: isMulti && state.placeholder ? '0 123px' : css.gridTemplateColumns,
 				/* Necessary to make input height and tag height the same. */
-				margin: `${token('space.050')} 0`,
+				margin:
+					isMulti && fg('platform-dst-lozenge-tag-badge-visual-uplifts')
+						? 0
+						: `${token('space.050')} 0`,
 				/* Padding top and bottom of 2 is set by default. */
 				paddingTop: 0,
 				paddingBottom: 0,
-
+				...(isMulti &&
+					fg('platform-dst-lozenge-tag-badge-visual-uplifts') && {
+						height: token('space.250'),
+						alignItems: 'center',
+					}),
 				paddingLeft: state.selectProps.isMulti ? 0 : BORDER_PADDING,
 				'& input::placeholder': {
 					/* Chrome, Firefox, Opera, Safari 10.1+ */

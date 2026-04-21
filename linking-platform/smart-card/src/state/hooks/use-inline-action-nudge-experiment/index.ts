@@ -33,14 +33,19 @@ const NOT_ENABLED_RESULT: InlineActionNudgeExperiment = {
  * The extension key is derived from the card store via the resolved URL,
  * so callers don't need to thread it as a prop.
  */
-const useInlineActionNudgeExperiment = (url?: string): InlineActionNudgeExperiment => {
+const useInlineActionNudgeExperiment = (
+	url?: string,
+	showHoverPreview?: boolean,
+): InlineActionNudgeExperiment => {
 	const rovoConfig = useRovoConfig();
 	const isRovoChatEnabled = getIsRovoChatEnabled(rovoConfig);
 	const cardState = useSmartCardState(url ?? '');
+	const supportsRovoActions =
+		cardState?.details?.meta?.supportedFeature?.includes('RovoActions') ?? false;
 	const extensionKey = getExtensionKey(cardState.details);
 
 	return useMemo(() => {
-		if (!isRovoChatEnabled) {
+		if (!isRovoChatEnabled || !showHoverPreview || !supportsRovoActions || !url) {
 			return NOT_ENABLED_RESULT;
 		}
 
@@ -51,7 +56,7 @@ const useInlineActionNudgeExperiment = (url?: string): InlineActionNudgeExperime
 		const isEnabled = expValEquals('rovogrowth-640-inline-action-nudge-exp', 'isEnabled', true);
 
 		return { isEnabled };
-	}, [isRovoChatEnabled, extensionKey]);
+	}, [isRovoChatEnabled, extensionKey, showHoverPreview, supportsRovoActions, url]);
 };
 
 export default useInlineActionNudgeExperiment;

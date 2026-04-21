@@ -230,7 +230,11 @@ export const ExpandableMenuItemSelectedWithIcon = (): JSX.Element => (
 	</div>
 );
 
-export const ExpandableMenuItemWithElemAfter = ({ isExpanded }: { isExpanded?: boolean }): JSX.Element => (
+export const ExpandableMenuItemWithElemAfter = ({
+	isExpanded,
+}: {
+	isExpanded?: boolean;
+}): JSX.Element => (
 	<div css={styles.root}>
 		<SideNavBody>
 			<MenuList>
@@ -255,7 +259,11 @@ export const ExpandableMenuItemExpandedWithElemAfter = (): JSX.Element => (
 	<ExpandableMenuItemWithElemAfter isExpanded />
 );
 
-export const ExpandableMenuItemWithActions = ({ isSelected }: { isSelected?: boolean }): JSX.Element => (
+export const ExpandableMenuItemWithActions = ({
+	isSelected,
+}: {
+	isSelected?: boolean;
+}): JSX.Element => (
 	<div css={styles.root}>
 		<SideNavBody>
 			<MenuList>

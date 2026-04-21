@@ -7,8 +7,7 @@ import type { ComponentType, CSSProperties, MouseEvent, ReactNode } from 'react'
 import { css, cssMap, cx, jsx } from '@compiled/react';
 
 import { fg } from '@atlaskit/platform-feature-flags';
-import Tag from '@atlaskit/tag';
-import type { NewTagColor } from '@atlaskit/tag';
+import Tag, { type NewTagColor } from '@atlaskit/tag';
 import { token } from '@atlaskit/tokens';
 
 import { getStyleProps } from '../get-style-props';
@@ -41,19 +40,21 @@ export interface MultiValueProps<
 	index: number;
 }
 
-// Tag wrapper: Tag has built-in margin; cancel the inline margin so we control spacing
-const tagMarginToken = token('space.050');
 const multiValueTagWrapperStyles = cssMap({
 	root: {
+		alignItems: 'center',
 		display: 'flex',
+		flex: '0 1 auto',
 		minWidth: token('space.0'),
-		marginBlockStart: token('space.025'),
-		marginInlineEnd: token('space.050'),
-		marginBlockEnd: token('space.025'),
-		maxWidth: '100%',
-	},
-	inner: {
-		marginInline: `calc(-1 * ${tagMarginToken})`,
+		marginBlock: token('space.0'),
+		marginInline: token('space.0'),
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- styling Tag component wrapper
+		'& > *': {
+			alignItems: 'center',
+			display: 'flex',
+			flex: '1 1 0',
+			minWidth: token('space.0'),
+		},
 	},
 });
 
@@ -98,12 +99,12 @@ const multiValueTagLikeStyles = cssMap({
 		boxSizing: 'border-box',
 		position: 'relative',
 		alignItems: 'center',
-		minWidth: '0rem',
+		alignSelf: 'center',
+		minWidth: token('space.0'),
+		flexShrink: 1,
 		maxWidth: '11.25rem',
 		height: '1.25rem',
-		overflow: 'hidden', // Match TagNew margins for consistent chip spacing (padding omitted to avoid clipping custom Label content)
-		marginBlock: token('space.025'),
-		marginInline: token('space.025'),
+		overflow: 'hidden',
 		borderRadius: token('radius.small', '4px'),
 		borderStyle: 'solid',
 		borderWidth: token('border.width'),
@@ -111,16 +112,18 @@ const multiValueTagLikeStyles = cssMap({
 		font: token('font.body.small'),
 		color: token('color.text'),
 		cursor: 'default',
+		marginBlock: token('space.0'),
+		marginInline: token('space.0'),
 		'@media screen and (-ms-high-contrast: active)': {
 			border: 'none',
 		},
 	},
-	// Wrapper around custom Label content; minHeight: 0 allows flex shrink so root height is enforced.
-	// flex: 0 1 auto avoids growing to fill space (unlike default TagNew text) so Label and Remove stay compact.
+	// Wrapper around Label: flex 1 1 0 = take remaining space, shrink first (Remove has flexShrink: 0).
+	// Text truncates, X stays visible. minWidth: 0 required for flex child to shrink below content size.
 	labelWrapper: {
 		display: 'flex',
 		alignItems: 'center',
-		flex: '0 1 auto',
+		flex: '1 1 0',
 		minWidth: token('space.0'),
 		minHeight: 0,
 		overflow: 'hidden',
@@ -190,6 +193,7 @@ const MultiValue: <Option, IsMulti extends boolean, Group extends GroupBase<Opti
 	});
 
 	const hasCustomLabel = Label !== MultiValueLabel;
+	// Plain labels: use Tag with fillContainer so it truncates like tag-like structure.
 	if (ffTagUplifts && isPlainLabel && !hasCustomLabel) {
 		const { elemBefore, color: tagColor } = (data ?? {}) as {
 			elemBefore?: ReactNode;
@@ -203,24 +207,23 @@ const MultiValue: <Option, IsMulti extends boolean, Group extends GroupBase<Opti
 				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop, @atlaskit/ui-styling-standard/local-cx-xcss, @compiled/local-cx-xcss
 				className={cx(props.className as any, containerClassName, props.xcss, '-multiValue')}
 			>
-				<div css={multiValueTagWrapperStyles.inner}>
-					<Tag
-						text={labelText}
-						isRemovable={!isDisabled}
-						removeButtonLabel={`${labelText}, remove`}
-						onAfterRemoveAction={() => {
-							removeProps.onClick?.({} as MouseEvent<HTMLDivElement>);
-						}}
-						color={tagColor ?? 'gray'}
-						elemBefore={elemBefore}
-					/>
-				</div>
+				<Tag
+					text={labelText}
+					isRemovable={!isDisabled}
+					removeButtonLabel={`${labelText}, remove`}
+					onBeforeRemoveAction={() => {
+						removeProps.onClick?.({} as MouseEvent<HTMLDivElement>);
+						return false;
+					}}
+					color={tagColor ?? 'gray'}
+					elemBefore={elemBefore}
+					hasMargin={false}
+				/>
 			</div>
 		);
 	}
 
-	// FF on + custom content or custom Label/Remove → tag-like container styling with the provided
-	// Label and Remove components so custom overrides continue to work.
+	// FF on + custom content → tag-like path
 	if (ffTagUplifts) {
 		const colorKey = (data as { color?: string })?.color;
 

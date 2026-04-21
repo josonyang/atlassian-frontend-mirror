@@ -1,12 +1,18 @@
 /* eslint-disable @repo/internal/react/no-class-components */
 import React, { PureComponent } from 'react';
 
+import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
+
 import { ProviderFactory, WithProviders } from '../../provider-factory';
 import type { Providers } from '../../provider-factory';
 import type { ProfilecardProvider } from '../../provider-factory/profile-card-provider';
 import type { MentionEventHandlers } from '../EventHandlers';
 
 import { MentionWithProviders } from './mention-with-providers';
+
+type ProviderName = 'mentionProvider' | 'profilecardProvider';
+
+const MENTION_PROVIDERS: ProviderName[] = ['mentionProvider', 'profilecardProvider'];
 
 export interface MentionProps {
 	accessLevel?: string;
@@ -55,10 +61,12 @@ export default class Mention extends PureComponent<MentionProps, Object> {
 	};
 
 	render(): React.JSX.Element {
+		const providers = expValEquals('platform_editor_perf_lint_cleanup', 'isEnabled', true)
+			? MENTION_PROVIDERS
+			: (['mentionProvider', 'profilecardProvider'] satisfies ProviderName[]);
 		return (
 			<WithProviders
-				// eslint-disable-next-line @atlassian/perf-linting/no-unstable-inline-props -- Ignored via go/ees017 (to be fixed)
-				providers={['mentionProvider', 'profilecardProvider']}
+				providers={providers}
 				providerFactory={this.providerFactory}
 				renderNode={this.renderWithProvider}
 			/>

@@ -10,7 +10,9 @@ type onExpansionToggle = (isExpanded: boolean) => void;
  * Whether all ancestor menu items of the current menu item are expanded. Used to know if the current menu item is
  * shown within the menu item tree.
  */
-export const AreAllAncestorsExpandedContext: Context<boolean | null> = createContext<boolean | null>(null);
+export const AreAllAncestorsExpandedContext: Context<boolean | null> = createContext<
+	boolean | null
+>(null);
 
 /**
  * A context for storing the isExpanded value of the ExpandableMenuItem.
@@ -20,12 +22,15 @@ export const IsExpandedContext: Context<boolean | null> = createContext<boolean 
 /**
  * A context for storing a function that sets isExpanded value of the ExpandableMenuItem.
  */
-export const SetIsExpandedContext: Context<((value: boolean) => void) | null> = createContext<((value: boolean) => void) | null>(null);
+export const SetIsExpandedContext: Context<((value: boolean) => void) | null> = createContext<
+	((value: boolean) => void) | null
+>(null);
 
 /**
  * A context for storing a function that triggers when isExpanded value of the ExpandableMenuItem is changed.
  */
-export const OnExpansionToggleContext: Context<onExpansionToggle | null> = createContext<onExpansionToggle | null>(null);
+export const OnExpansionToggleContext: Context<onExpansionToggle | null> =
+	createContext<onExpansionToggle | null>(null);
 
 /**
  * A context for storing the level value of the ExpandableMenuItem.

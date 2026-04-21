@@ -50,7 +50,10 @@ export interface SimpleTagProps {
 	 * Accepts any valid CSS max-width value (e.g., '200px', '15rem', '100%').
 	 */
 	maxWidth?: string | number;
-
+	/**
+	 * When false, removes the tag's default margin. Use when parent controls spacing (e.g. Select). Defaults to `true`.
+	 */
+	hasMargin?: boolean;
 	/**
 	 *
 	 * @internal

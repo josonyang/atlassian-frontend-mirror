@@ -1,5 +1,12 @@
 # @atlaskit/rovo-triggers
 
+## 5.42.0
+
+### Minor Changes
+
+- [`b2eeb3d02b882`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/b2eeb3d02b882) -
+  Support updating space with conversation id, and listing conversations scoped to space in sidebar
+
 ## 5.41.0
 
 ### Minor Changes

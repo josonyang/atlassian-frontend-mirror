@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-core",
-	"version": "219.0.1",
+	"version": "219.0.3",
 	"description": "A package contains Atlassian editor core functionality",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -25,6 +25,13 @@
 	],
 	"atlaskit:src": "src/index.ts",
 	"atlassian": {
+		"react-compiler": {
+			"enabled": true,
+			"gating": {
+				"source": "@atlassian/react-compiler-gating",
+				"importSpecifierName": "isReactCompilerActivePlatform"
+			}
+		},
 		"team": "Editor",
 		"singleton": true,
 		"website": {
@@ -119,6 +126,7 @@
 		"@atlassian/adf-schema-json": "workspace:^",
 		"@atlassian/editor-rovo-bridge": "workspace:^",
 		"@atlassian/feature-flags-test-utils": "workspace:^",
+		"@atlassian/react-compiler-gating": "workspace:^",
 		"@atlassian/search-client": "workspace:^",
 		"@atlassian/search-provider": "workspace:^",
 		"@emotion/jest": "root:*",

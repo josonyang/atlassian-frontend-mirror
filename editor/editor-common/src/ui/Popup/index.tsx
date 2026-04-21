@@ -139,9 +139,7 @@ export default class Popup extends React.Component<Props, State> {
 			offset: offset!,
 			allowOutOfBounds,
 			rect,
-			boundariesElement: fg('platform_editor_link_popup_position_fix_aifc')
-				? boundariesElement || document.body
-				: undefined,
+			boundariesElement: boundariesElement || document.body,
 			minPopupMargin,
 		});
 		position = onPositionCalculated ? onPositionCalculated(position) : position;
@@ -211,7 +209,7 @@ export default class Popup extends React.Component<Props, State> {
 	 * Checks whether it's possible to position popup along given target, and if it's not throws an error.
 	 */
 	private initPopup(popup: HTMLElement) {
-		if (this.popupRef.current && fg('platform_editor_link_popup_position_fix_aifc')) {
+		if (this.popupRef.current) {
 			this.resizeObserver?.unobserve(this.popupRef.current);
 		}
 
@@ -244,7 +242,7 @@ export default class Popup extends React.Component<Props, State> {
 			this.initFocusTrap();
 		}
 
-		if (this.popupRef.current && fg('platform_editor_link_popup_position_fix_aifc')) {
+		if (this.popupRef.current) {
 			this.resizeObserver?.observe(this.popupRef.current);
 		}
 	}
@@ -370,13 +368,7 @@ export default class Popup extends React.Component<Props, State> {
 			this.scrollElement.removeEventListener('scroll', this.onResize);
 		}
 
-		if (fg('platform_editor_link_popup_position_fix_aifc')) {
-			this.resizeObserver?.disconnect();
-		} else {
-			if (this.scrollParentElement && this.resizeObserver) {
-				this.resizeObserver.unobserve(this.scrollParentElement);
-			}
-		}
+		this.resizeObserver?.disconnect();
 
 		this.scheduledUpdatePosition.cancel();
 

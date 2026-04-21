@@ -18,6 +18,7 @@ import { PluginKey } from '@atlaskit/editor-prosemirror/state';
 import { findParentNodeOfType } from '@atlaskit/editor-prosemirror/utils';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { Decoration, DecorationSet } from '@atlaskit/editor-prosemirror/view';
+import { expValEqualsNoExposure } from '@atlaskit/tmp-editor-statsig/exp-val-equals-no-exposure';
 
 import type { ListPlugin } from '../listPluginType';
 import type { ListState } from '../types';
@@ -186,21 +187,22 @@ export const createPlugin = (
 		key: listPluginKey,
 
 		appendTransaction(transactions, _oldState, newState) {
-			// The paste plugin sets 'listPasteNormalisation' on the transaction when it detects
-			// a list is being pasted into a list (and the flexible list schema flag is on).
-			// We use this meta to cheaply trigger normalisation without re-checking flags.
-			if (transactions.some((t) => t.getMeta('listPasteNormalisation'))) {
-				const tr = applyListNormalisationFixes({
-					tr: newState.tr,
-					transactions,
-					doc: newState.doc,
-					schema: newState.schema,
-				});
-				if (tr.docChanged) {
-					return tr;
-				}
+			if (!expValEqualsNoExposure('platform_editor_flexible_list_schema', 'isEnabled', true)) {
+				return null;
 			}
-
+			if (!transactions.some((t) => t.docChanged)) {
+				return null;
+			}
+			// Efficiently scans only affected list nodes — exits early if none are found.
+			const tr = applyListNormalisationFixes({
+				tr: newState.tr,
+				transactions,
+				doc: newState.doc,
+				schema: newState.schema,
+			});
+			if (tr.docChanged) {
+				return tr;
+			}
 			return null;
 		},
 

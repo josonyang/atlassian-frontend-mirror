@@ -296,9 +296,7 @@ const ResizerNext: ForwardRefRenderFunction<forwardRefType, PropsWithChildren<Re
 	);
 
 	const offset =
-		handlePositioning === 'adjacent'
-			? `calc(${handleWidth} * -1)`
-			: `calc(${handleWidth} * -0.5)`;
+		handlePositioning === 'adjacent' ? `calc(${handleWidth} * -1)` : `calc(${handleWidth} * -0.5)`;
 
 	const memoizedNextHandleStyles = useMemo(
 		() =>

@@ -440,6 +440,13 @@ describe('smart-card: card states, inline', () => {
 
 	describe('rovogrowth-640-inline-action-nudge experiment', () => {
 		const rovoOptions = { isRovoEnabled: true, isRovoLLMEnabled: true };
+		const mockSuccessWithRovoActions = {
+			...mocks.success,
+			meta: {
+				...mocks.success.meta,
+				supportedFeature: ['RovoActions'],
+			},
+		};
 
 		ffTest.on('smart-card-inline-resolved-view-refactor', 'with functional resolved view', () => {
 			ffTest.on('rovogrowth-640-inline-action-nudge-fg', 'with inline nudge fg on', () => {
@@ -447,10 +454,11 @@ describe('smart-card: card states, inline', () => {
 					.describe('rovogrowth-640-inline-action-nudge-exp', 'inline action nudge experiment')
 					.variant(true, () => {
 						it('renders the rovo action button when experiment is enabled', async () => {
+							mockFetch.mockImplementation(() => Promise.resolve(mockSuccessWithRovoActions));
 							render(
 								<IntlProvider locale="en">
 									<Provider client={mockClient} rovoOptions={rovoOptions}>
-										<Card appearance="inline" url={mockUrl} />
+										<Card appearance="inline" url={mockUrl} showHoverPreview />
 									</Provider>
 								</IntlProvider>,
 							);
@@ -458,6 +466,20 @@ describe('smart-card: card states, inline', () => {
 							expect(
 								await screen.findByTestId('inline-card-resolved-view-rovo-actions-cta'),
 							).toBeInTheDocument();
+						});
+
+						it('does not render rovo action button when supportedFeature does not include RovoActions', async () => {
+							render(
+								<IntlProvider locale="en">
+									<Provider client={mockClient} rovoOptions={rovoOptions}>
+										<Card appearance="inline" url={mockUrl} showHoverPreview />
+									</Provider>
+								</IntlProvider>,
+							);
+							expect(await screen.findByTestId('inline-card-resolved-view')).toBeInTheDocument();
+							expect(
+								screen.queryByTestId('inline-card-resolved-view-rovo-actions-cta'),
+							).not.toBeInTheDocument();
 						});
 
 						it('does not render rovo action button when rovo is disabled', async () => {

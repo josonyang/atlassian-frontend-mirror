@@ -544,12 +544,14 @@ export const apply = (
 					latestActiveNode.pos,
 					to,
 				);
-				const rootNodeDecAtActivePos = getDecorationAtPos(
-					newState,
-					decorations,
-					latestActiveNode.rootPos,
-					to,
-				);
+				// Guard against rootPos being undefined (keyboard-triggered handles do not set it),
+				// which would cause a RangeError in ProseMirror. When the gate is off, the original
+				// behaviour is preserved for safe incremental rollout.
+				const rootNodeDecAtActivePos = fg('platform_editor_block_menu_jira_patch_1')
+					? latestActiveNode.rootPos !== undefined
+						? getDecorationAtPos(newState, decorations, latestActiveNode.rootPos, to)
+						: undefined
+					: getDecorationAtPos(newState, decorations, latestActiveNode.rootPos, to);
 
 				if (nodeDecAtActivePos || rootNodeDecAtActivePos) {
 					isActiveNodeModified = true;

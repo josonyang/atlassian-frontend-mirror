@@ -34,6 +34,9 @@ export {
 	ResolvedClientWithTextHighlightInTitleUrl,
 	ResolvedClientProfileUrl,
 	ResolvingClientUrl,
+
+	// Icon test URLs
+	iconTestUrls,
 } from './mock-clients';
 
 // Export the mock card client

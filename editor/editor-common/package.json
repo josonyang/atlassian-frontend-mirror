@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-common",
-	"version": "114.2.0",
+	"version": "114.3.1",
 	"description": "A package that contains common classes and components for editor and renderer",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -25,6 +25,13 @@
 	],
 	"atlaskit:src": "src/index.ts",
 	"atlassian": {
+		"react-compiler": {
+			"enabled": true,
+			"gating": {
+				"source": "@atlassian/react-compiler-gating",
+				"importSpecifierName": "isReactCompilerActivePlatform"
+			}
+		},
 		"team": "Editor",
 		"singleton": true
 	},
@@ -229,6 +236,7 @@
 	"devDependencies": {
 		"@atlaskit/media-core": "workspace:^",
 		"@atlassian/a11y-jest-testing": "workspace:^",
+		"@atlassian/react-compiler-gating": "workspace:^",
 		"@testing-library/dom": "root:*",
 		"@testing-library/jest-dom": "root:*",
 		"@testing-library/react": "root:*",
@@ -276,9 +284,6 @@
 			"type": "boolean"
 		},
 		"media-perf-uplift-mutation-fix": {
-			"type": "boolean"
-		},
-		"platform_editor_link_popup_position_fix_aifc": {
 			"type": "boolean"
 		},
 		"platform_editor_inline_node_virt_threshold_override": {

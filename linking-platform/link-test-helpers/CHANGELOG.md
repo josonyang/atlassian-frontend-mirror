@@ -1,5 +1,13 @@
 # @atlaskit/link-test-helpers
 
+## 10.1.0
+
+### Minor Changes
+
+- [`6a42c22d8ea62`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/6a42c22d8ea62) -
+  Export new member - iconTestUrls. List of urls that when tested with mocked ResolvedClient will
+  give various icons
+
 ## 10.0.0
 
 ### Major Changes

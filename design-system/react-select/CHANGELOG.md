@@ -1,5 +1,29 @@
 # @atlaskit/react-select
 
+## 3.15.5
+
+### Patch Changes
+
+- [`7c17bccdb5fb8`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/7c17bccdb5fb8) -
+  [ux] Fixes bug where tags were overlapping in multi-select in smaller screen sizes.
+- Updated dependencies
+
+## 3.15.4
+
+### Patch Changes
+
+- [`c23fa87416661`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/c23fa87416661) -
+  [ux] Fixes bug where tags were overlapping in multi-select in smaller screen sizes.
+- Updated dependencies
+
+## 3.15.3
+
+### Patch Changes
+
+- [`ea970883e4943`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/ea970883e4943) -
+  [ux] Fixes bug where tags were overlapping in multi-select in smaller screen sizes.
+- Updated dependencies
+
 ## 3.15.2
 
 ### Patch Changes

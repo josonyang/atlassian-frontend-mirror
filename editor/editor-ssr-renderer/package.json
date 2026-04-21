@@ -1,9 +1,16 @@
 {
 	"name": "@atlaskit/editor-ssr-renderer",
-	"version": "5.0.0",
+	"version": "5.0.2",
 	"description": "SSR Renderer based on Editor",
 	"author": "Atlassian Pty Ltd",
 	"atlassian": {
+		"react-compiler": {
+			"enabled": true,
+			"gating": {
+				"source": "@atlassian/react-compiler-gating",
+				"importSpecifierName": "isReactCompilerActivePlatform"
+			}
+		},
 		"team": "Editor: Lego",
 		"releaseModel": "continuous",
 		"singleton": true
@@ -42,6 +49,7 @@
 		"react-intl": "^5.25.1 || ^6.0.0 || ^7.0.0"
 	},
 	"devDependencies": {
+		"@atlassian/react-compiler-gating": "workspace:^",
 		"react-intl": "root:*"
 	}
 }

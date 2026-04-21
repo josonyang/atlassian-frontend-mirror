@@ -75,12 +75,11 @@ const isReplaceStepForTextBlockNode = (
 
 	return Boolean(
 		replacedSlice.openStart === 0 &&
-			replacedSlice.openEnd === 0 &&
-			replacedSlice.content.childCount === 1 &&
-			replacingSlice.content.childCount === 1 &&
-			replacedSlice.content.firstChild?.type.name ===
-				replacingSlice.content.firstChild?.type.name &&
-			replacedSlice.content.firstChild?.type.isTextblock,
+		replacedSlice.openEnd === 0 &&
+		replacedSlice.content.childCount === 1 &&
+		replacingSlice.content.childCount === 1 &&
+		replacedSlice.content.firstChild?.type.name === replacingSlice.content.firstChild?.type.name &&
+		replacedSlice.content.firstChild?.type.isTextblock,
 	);
 };
 

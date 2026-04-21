@@ -133,6 +133,24 @@ export const isTableNestedInMoreThanOneNode = (state: EditorState, tablePos = 0)
 	return state.doc.resolve(tablePos).depth > 2;
 };
 
+/**
+ * True when the table sits under a bodiedSyncBlock ancestor.
+ * Used to prefer DOM-measured wrapper width over getParentNodeWidth() for stable scaling.
+ */
+export const isTableNestedUnderBodiedSyncBlock = (state: EditorState, tablePos: number): boolean => {
+	const bodiedSyncBlock = state.schema.nodes.bodiedSyncBlock;
+	if (!bodiedSyncBlock) {
+		return false;
+	}
+	const $pos = state.doc.resolve(tablePos);
+	for (let d = $pos.depth; d > 0; d--) {
+		if ($pos.node(d).type === bodiedSyncBlock) {
+			return true;
+		}
+	}
+	return false;
+};
+
 const anyChildCellMergedAcrossRow = (node: PmNode): boolean =>
 	mapChildren(node, (child) => child.attrs.rowspan || 0).some((rowspan) => rowspan > 1);
 

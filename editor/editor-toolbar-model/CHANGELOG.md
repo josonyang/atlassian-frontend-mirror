@@ -1,5 +1,19 @@
 # @atlaskit/editor-toolbar-model
 
+## 0.4.37
+
+### Patch Changes
+
+- [`9e45c7ac76c9a`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/9e45c7ac76c9a) -
+  Enrol editor core packages into the React Compiler with platform gating via
+  isReactCompilerActivePlatform
+
+## 0.4.36
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 0.4.35
 
 ### Patch Changes

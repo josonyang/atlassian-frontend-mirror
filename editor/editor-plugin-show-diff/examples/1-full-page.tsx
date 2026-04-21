@@ -1,6 +1,6 @@
 import React, { useCallback, useState } from 'react';
 
-import { IntlProvider, useIntl } from 'react-intl-next';
+import { IntlProvider, useIntl } from 'react-intl';
 
 import type { DocNode } from '@atlaskit/adf-schema';
 import Button from '@atlaskit/button/new';

@@ -9,12 +9,8 @@ import { css, jsx } from '@compiled/react';
 import { Stack } from '@atlaskit/primitives/compiled';
 import { token } from '@atlaskit/tokens';
 
-import {
-	IconGrid,
-	IconVariant,
-	iconTypeEntries,
-	sizes,
-} from '../utils/icon-element-variations-shared';
+import { IconType } from '../../src/constants';
+import { IconGrid, IconVariant, sizes } from '../utils/icon-element-variations-shared';
 import VRTestWrapper from '../utils/vr-test-wrapper';
 
 const gridTemplateColumns = `repeat(auto-fill, minmax(40px, 1fr))`;
@@ -24,12 +20,14 @@ const contentStyles = css({ maxWidth: '1200px' });
 
 const mockProviderIconUrl = `data:image/svg+xml;charset=UTF-8,${encodeURIComponent('<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32"><rect width="32" height="32" rx="6" fill="#0C66E4"/></svg>')}`;
 
+const allIconTypes = Object.entries(IconType) as [string, IconType][];
+
 export const IconElementAllVariations = (): React.JSX.Element => (
 	<VRTestWrapper>
 		<div css={contentStyles}>
 			<Stack space="space.200">
 				<IconGrid gridTemplateColumns={gridTemplateColumns}>
-					{iconTypeEntries.map(([name, value]) => (
+					{allIconTypes.map(([name, value]) => (
 						<IconVariant
 							key={name}
 							label={name}

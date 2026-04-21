@@ -15,6 +15,7 @@ import {
 import { atlasProjectUrl } from '../example-helpers/_jsonLDExamples/provider.atlas';
 import { overrideEmbedContent } from '../example-helpers/_jsonLDExamples/utils';
 import {
+	avatar3,
 	figmaUnauthImage,
 	forbiddenJira,
 	gdriveUnauthImage,
@@ -212,18 +213,6 @@ export const mocks = {
 	unauthorized: (
 		url: string,
 	): {
-		meta: {
-			access: string;
-			visibility: string;
-			auth: {
-				key: string;
-				displayName: string;
-				url: string;
-			}[];
-			definitionId: string;
-			key: string;
-			resourceType: string;
-		};
 		data: {
 			'@context': {
 				'@vocab': string;
@@ -232,17 +221,29 @@ export const mocks = {
 			};
 			'@type': string;
 			generator: {
+				'@type': string;
 				icon?:
 					| {
 							'@type': string;
 							url: string;
 					  }
 					| undefined;
-				'@type': string;
 				name: string;
 			};
-			url: string;
 			image: any;
+			url: string;
+		};
+		meta: {
+			access: string;
+			auth: {
+				displayName: string;
+				key: string;
+				url: string;
+			}[];
+			definitionId: string;
+			key: string;
+			resourceType: string;
+			visibility: string;
 		};
 	} => {
 		let key = 'google-object-provider';
@@ -324,8 +325,208 @@ export const ResolvedClientEmbedInteractiveUrl: 'https://docs.google.com/documen
 export const ResolvedClientWithLongTitleUrl: 'https://project-url/long-title' = `${atlasProjectUrl}/long-title`;
 export const ResolvedClientWithTextHighlightInTitleUrl: 'https://project-url/text-highlight-title' = `${atlasProjectUrl}/text-highlight-title`;
 export const ResolvedClientProfileUrl: 'https://project-url/profile-url' = `${atlasProjectUrl}/profile-url`;
+
+const ICON_TEST_BASE = 'https://icon-test';
+
+const iconTestMeta = {
+	auth: [] as never[],
+	definitionId: 'icon-test-provider',
+	visibility: 'public' as const,
+	access: 'granted' as const,
+	key: 'icon-test-provider',
+};
+
+const iconTestContext = {
+	'@vocab': 'https://www.w3.org/ns/activitystreams#',
+	atlassian: 'https://schema.atlassian.com/ns/vocabulary#',
+	schema: 'http://schema.org/',
+};
+
+const iconTestDefaultGenerator: Record<string, unknown> = {
+	'@type': 'Application',
+	name: 'Acme Link Sandbox',
+	icon: { '@type': 'Image', url: iconGoogleDrive },
+};
+
+const iconTestSharedFields = {
+	preview: {
+		'@type': 'Link',
+		href: 'https://icon-test.example/assets/preview-placeholder',
+	},
+	updated: '2025-11-18T14:22:00.000Z',
+	attributedTo: [
+		{
+			'@type': 'Person',
+			icon: avatar3,
+			name: 'Jordan Rivers',
+		},
+	],
+};
+
+const makeIconTestResponse = (
+	url: string,
+	type: string | string[],
+	dataOverrides?: Record<string, unknown>,
+	generator: Record<string, unknown> = iconTestDefaultGenerator,
+): JsonLd.Response =>
+	({
+		meta: iconTestMeta,
+		data: {
+			'@context': iconTestContext,
+			'@type': type,
+			url,
+			...iconTestSharedFields,
+			generator,
+			...dataOverrides,
+		},
+	}) as JsonLd.Response;
+
+const confluenceGenerator = {
+	'@type': 'Application',
+	'@id': 'https://www.atlassian.com/#Confluence',
+	name: 'Confluence',
+	icon: { '@type': 'Image', url: image2 },
+};
+
+const jiraGenerator = {
+	'@type': 'Application',
+	'@id': 'https://www.atlassian.com/#Jira',
+	name: 'Jira',
+	icon: { '@type': 'Image', url: image2 },
+};
+
+const iconTestResponseMap: Record<string, JsonLd.Response> = {
+	[`${ICON_TEST_BASE}/url-icon`]: makeIconTestResponse(
+		`${ICON_TEST_BASE}/url-icon`,
+		'Document',
+		{
+			name: 'Quarterly roadmap — icon resolved from explicit document image URL',
+			summary:
+				'This mock prioritises the linked `icon` URL over file format and provider artwork, so you can verify URL-based icons without relying on generator metadata.',
+			icon: { '@type': 'Image', url: iconGoogleDrive },
+		},
+	),
+	[`${ICON_TEST_BASE}/file-format`]: makeIconTestResponse(
+		`${ICON_TEST_BASE}/file-format`,
+		'Document',
+		{
+			name: 'Field photos — JPEG archive (file-format icon path)',
+			summary:
+				'No dedicated thumbnail URL is supplied; the smart card should derive a file-type glyph from `schema:fileFormat` while still showing title and summary in the resolved layout.',
+			'schema:fileFormat': 'image/jpeg',
+		},
+	),
+	[`${ICON_TEST_BASE}/provider-only`]: makeIconTestResponse(
+		`${ICON_TEST_BASE}/provider-only`,
+		'Object',
+		{
+			name: 'Partner CRM record #88421 (provider icon fallback)',
+			summary:
+				'A generic object with no per-resource icon or file format hint. The inline card should fall back to the upstream application icon from `generator`, matching the prioritisation order used in production resolver payloads.',
+		},
+	),
+	[`${ICON_TEST_BASE}/blog`]: makeIconTestResponse(`${ICON_TEST_BASE}/blog`, 'schema:BlogPosting', {
+		name: 'Engineering blog: shipping safer deploys with progressive rollouts',
+		summary:
+			'Long-form `schema:BlogPosting` content used to exercise blog-specific iconography alongside a full summary block, attribution, and preview link metadata.',
+	}),
+	[`${ICON_TEST_BASE}/digital-doc-confluence`]: makeIconTestResponse(
+		`${ICON_TEST_BASE}/digital-doc-confluence`,
+		'schema:DigitalDocument',
+		{
+			name: 'Confluence live doc — collaborative spec (digital document + Confluence generator)',
+			summary:
+				'Represents a live Confluence-backed digital document. Useful for validating Confluence generator detection, co-editing affordances in block/embed cards, and the Confluence-specific icon branch.',
+		},
+		confluenceGenerator,
+	),
+	[`${ICON_TEST_BASE}/digital-doc`]: makeIconTestResponse(
+		`${ICON_TEST_BASE}/digital-doc`,
+		'schema:DigitalDocument',
+		{
+			name: 'Shared playbook — Google Doc export (digital document, non-Confluence)',
+			summary:
+				'A vendor-neutral `schema:DigitalDocument` with rich text summary so block and inline appearances still read well when the resource is not tied to Atlassian generator metadata.',
+		},
+	),
+	[`${ICON_TEST_BASE}/template`]: makeIconTestResponse(
+		`${ICON_TEST_BASE}/template`,
+		'atlassian:Template',
+		{
+			name: 'Sprint retrospective template (Confluence)',
+			summary:
+				'Pre-built retrospective structure with prompts for what went well, what to improve, and action items. Exercises `atlassian:Template` typing and template icon mapping in the extractor pipeline.',
+		},
+	),
+	[`${ICON_TEST_BASE}/pull-request`]: makeIconTestResponse(
+		`${ICON_TEST_BASE}/pull-request`,
+		'atlassian:SourceCodePullRequest',
+		{
+			name: 'PR #482: harden OAuth token refresh + add integration tests',
+			summary:
+				'Source pull request payload with a realistic title and description span. Helps validate pull-request icons, status chips, and how long metadata wraps inside block and embed frames.',
+			'atlassian:state': {
+				'@type': 'Object',
+				name: 'Open',
+				appearance: 'information',
+			},
+		},
+	),
+	[`${ICON_TEST_BASE}/jira-bug`]: makeIconTestResponse(
+		`${ICON_TEST_BASE}/jira-bug`,
+		['atlassian:Task', 'Object'],
+		{
+			name: 'NAV-2048: Inline card icons drift when priority chip is present',
+			summary:
+				'Steps to reproduce: open inline smart link in the editor, toggle reduced motion, resize panel. Expected: priority and issue type icons stay aligned. Actual: glyph baseline shifts by 2px.',
+			'atlassian:taskType': {
+				'@type': 'Object',
+				'@id': 'https://www.atlassian.com/taskType#JiraBug',
+				name: 'Bug',
+			},
+			'atlassian:state': {
+				'@type': 'Object',
+				name: 'In progress',
+				appearance: 'information',
+			},
+		},
+		jiraGenerator,
+	),
+	[`${ICON_TEST_BASE}/task-default`]: makeIconTestResponse(
+		`${ICON_TEST_BASE}/task-default`,
+		['atlassian:Task', 'Object'],
+		{
+			name: 'LP-901: Document smart-link icon precedence for QA fixtures',
+			summary:
+				'Tracker work item without a specialised `atlassian:taskType` id, so the card should use the default task/issue iconography while still rendering summary and workflow state from JSON-LD.',
+			'atlassian:state': {
+				'@type': 'Object',
+				name: 'To do',
+				appearance: 'default',
+			},
+		},
+	),
+	[`${ICON_TEST_BASE}/confluence-doc`]: makeIconTestResponse(
+		`${ICON_TEST_BASE}/confluence-doc`,
+		'Document',
+		{
+			name: 'Runbook: restoring Media Services after a regional failover',
+			summary:
+				'Operational checklist covering traffic drain, cache invalidation, and comms templates. Uses a Confluence `generator` block so provider-specific document icons and titles can be regression-tested together.',
+		},
+		confluenceGenerator,
+	),
+};
+
+export const iconTestUrls: string[] = Object.keys(iconTestResponseMap);
+
 export class ResolvedClient extends MockCardClient {
 	fetchData(url: string): Promise<JsonLd.Response<JsonLd.Data.BaseData>> {
+		const iconTestResponse = iconTestResponseMap[url];
+		if (iconTestResponse) {
+			return Promise.resolve(iconTestResponse as JsonLd.Response<JsonLd.Data.BaseData>);
+		}
+
 		switch (url) {
 			case ResolvedClientEmbedUrl:
 				return resolve(url, YouTubeVideo);

@@ -1,5 +1,18 @@
 # @atlaskit/smart-card
 
+## 44.1.2
+
+### Patch Changes
+
+- [`2d863950af693`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/2d863950af693) -
+  [ux] Only show the Rovo Actions cta icon if the link supports RovoActions
+
+## 44.1.1
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 44.1.0
 
 ### Minor Changes

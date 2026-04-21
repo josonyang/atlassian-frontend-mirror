@@ -358,7 +358,9 @@ export const SkeletonExample = ({
 	);
 };
 
-export const SkeletonMenuItemsExample = (): JSX.Element => <SkeletonExample menuLoadDelayMs={5000} />;
+export const SkeletonMenuItemsExample = (): JSX.Element => (
+	<SkeletonExample menuLoadDelayMs={5000} />
+);
 
 export const SkeletonFlyoutExample = (): JSX.Element => (
 	<SkeletonExample menuLoadDelayMs={0} flyoutLoadDelayMs={5000} recentFlyoutDefaultOpen />

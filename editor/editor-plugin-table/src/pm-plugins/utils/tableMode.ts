@@ -1,8 +1,6 @@
 import { ACTION_SUBJECT, EVENT_TYPE, TABLE_ACTION } from '@atlaskit/editor-common/analytics';
 import { TableSharedCssClassName } from '@atlaskit/editor-common/styles';
-import {
-	hasTableBeenResized,
-} from '@atlaskit/editor-common/table';
+import { hasTableBeenResized } from '@atlaskit/editor-common/table';
 import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { findTable } from '@atlaskit/editor-tables/utils';

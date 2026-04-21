@@ -1,5 +1,3 @@
-
-
 const GRAPHQL_ENDPOINT = '/gateway/api/graphql';
 
 /**
@@ -35,7 +33,7 @@ export const fetchHasVersionCapability = async (cloudId: string): Promise<boolea
 	} catch {
 		return false;
 	}
-}
+};
 
 /**
  * Fetches the Rovo activation ID for a given cloud ID.
@@ -63,7 +61,7 @@ export const fetchActivationId = async (cloudId: string): Promise<string | null>
 	} catch {
 		return null;
 	}
-}
+};
 
 /**
  * Calls the agentStudio_duplicateAgent mutation via raw GraphQL fetch.
@@ -105,4 +103,4 @@ export const fetchDuplicateAgentMutation = async (
 			errorMessage: error instanceof Error ? error.message : 'Network error during duplication',
 		};
 	}
-}
+};

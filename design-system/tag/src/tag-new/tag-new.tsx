@@ -74,6 +74,10 @@ const styles = cssMapUnbound({
 		marginBlock: token('space.050'),
 		marginInline: token('space.050'),
 	},
+	noMarginStyles: {
+		marginBlock: token('space.0'),
+		marginInline: token('space.0'),
+	},
 	removableStyles: {
 		gap: token('space.050'),
 	},
@@ -373,6 +377,7 @@ const TagNewComponent = forwardRef<HTMLSpanElement, TagNewProps>(function TagNew
 		onAfterRemoveAction,
 		testId,
 		maxWidth,
+		hasMargin = true,
 		onClick,
 		swatchBefore,
 		...other
@@ -414,6 +419,7 @@ const TagNewComponent = forwardRef<HTMLSpanElement, TagNewProps>(function TagNew
 			ref={ref}
 			css={[
 				styles.baseStyles,
+				!hasMargin && styles.noMarginStyles,
 				colorStyles[color as keyof typeof colorStyles],
 				borderIconFilterStyles.root,
 				isLink && styles.interactiveBaseStyles,
@@ -479,6 +485,7 @@ export const TagDropdownTriggerComponent: import('react').ForwardRefExoticCompon
 		elemBefore,
 		testId,
 		maxWidth,
+		hasMargin = true,
 		onClick,
 		isSelected = false,
 		isLoading = false,
@@ -497,9 +504,8 @@ export const TagDropdownTriggerComponent: import('react').ForwardRefExoticCompon
 			// eslint-disable-next-line @compiled/no-suppress-xcss
 			xcss={cx(
 				styles.baseStyles,
+				!hasMargin && styles.noMarginStyles,
 				colorStyles[resolvedColor as keyof typeof colorStyles],
-				dropdownStyles.interactive,
-				styles.focusRingStyles,
 				borderIconFilterStyles.root,
 				borderIconInteractiveFilterStyles.root,
 				isSelected && dropdownStyles.selected,

@@ -30,6 +30,32 @@ const enabledGates = [
 const emptyConfig = {};
 const emptyGates: string[] = [];
 
+/**
+ * Same key as `getFeatureFlagLSKey` on the examples website — checkbox selections are
+ * persisted here. `groupId` / `packageId` are taken from the examples page query (routing
+ * metadata for which package is open), not from `featureFlag` URL params.
+ *
+ * @see platform/website/src/constants.ts
+ * @see platform/website/src/pages/Examples/minimal.tsx (useFeatureFlags)
+ */
+function getFeatureFlagLocalStorageKey(groupId: string, packageId: string): string {
+	return `atlaskitFeatureFlag_${groupId}${packageId}`;
+}
+
+function getUserSelectedFeatureFlagsFromExamplesLocalStorage(): string[] {
+	if (typeof window === 'undefined') {
+		return [];
+	}
+	const params = new URLSearchParams(window.location.search);
+	const groupId = params.get('groupId') ?? '';
+	const packageId = params.get('packageId') ?? '';
+	if (!groupId || !packageId) {
+		return [];
+	}
+	const raw = window.localStorage.getItem(getFeatureFlagLocalStorageKey(groupId, packageId));
+	return raw?.split(',').filter(Boolean) ?? [];
+}
+
 const useFeatureGateOverrideConfig = (withExperiments: boolean = true) => {
 	// Revision counter: 0 = not yet initialized, >0 = ready.
 	// Incrementing on each config change forces children to re-render
@@ -66,15 +92,26 @@ const useFeatureGateOverrideConfig = (withExperiments: boolean = true) => {
 			Object.entries(currentConfig).forEach(([name, config]) => {
 				FeatureGates.overrideConfig(name, config);
 			});
-			currentEnabledGates.forEach((gate) => {
+
+			const userSelectedGates = getUserSelectedFeatureFlagsFromExamplesLocalStorage();
+			const userSelectedGatesSet = new Set(userSelectedGates);
+			const mergedEnabledGates = [...new Set([...currentEnabledGates, ...userSelectedGates])];
+			mergedEnabledGates.forEach((gate) => {
 				FeatureGates.overrideGate(gate, true);
 			});
 
-			// The example website framework sets a static booleanResolver from
-			// URL query params, which intercepts fg() and ignores gate overrides.
-			// Override it to delegate to FeatureGates.checkGate() instead.
-			// eslint-disable-next-line @atlaskit/platform/use-recommended-utils
-			setBooleanFeatureFlagResolver((flagKey) => FeatureGates.checkGate(flagKey));
+			// The example website framework sets a static booleanResolver early in boot, which
+			// this hook replaces for FeatureGates-driven checks. Delegate to
+			// FeatureGates.checkGate() for this package's overrides, but preserve flags the user
+			// enabled in the examples shell (read from localStorage above).
+			setBooleanFeatureFlagResolver((flagKey) => {
+				if (userSelectedGatesSet.has(flagKey)) {
+					return true;
+				}
+				// `fg()` delegates to this resolver, so the bootstrap path must read gates directly.
+				// eslint-disable-next-line @atlaskit/platform/use-recommended-utils
+				return FeatureGates.checkGate(flagKey);
+			});
 
 			if (!cancelled) {
 				setRevision((r) => r + 1);

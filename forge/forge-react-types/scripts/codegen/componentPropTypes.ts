@@ -27,8 +27,7 @@ const compilerOptionsForModuleResolution = (project: Project): ts.CompilerOption
 	const raw = project.compilerOptions.get() as unknown as ts.CompilerOptions;
 	return {
 		...raw,
-		moduleResolution:
-			raw.moduleResolution ?? ts.ModuleResolutionKind.Bundler,
+		moduleResolution: raw.moduleResolution ?? ts.ModuleResolutionKind.Bundler,
 	};
 };
 

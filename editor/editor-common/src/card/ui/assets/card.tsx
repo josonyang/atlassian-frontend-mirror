@@ -35,7 +35,7 @@ export const IconCard = ({ label }: { label: string }): React.JSX.Element => {
 	const style = expValEquals('platform_editor_perf_lint_cleanup', 'isEnabled', true)
 		? iconCardStyle
 		: // eslint-disable-next-line @atlassian/perf-linting/no-unstable-inline-props
-		  { width: '24px', height: '24px' };
+			{ width: '24px', height: '24px' };
 	return (
 		<IconCardGlyph
 			aria-label={label}

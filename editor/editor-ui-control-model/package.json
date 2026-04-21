@@ -1,5 +1,12 @@
 {
 	"atlassian": {
+		"react-compiler": {
+			"enabled": true,
+			"gating": {
+				"source": "@atlassian/react-compiler-gating",
+				"importSpecifierName": "isReactCompilerActivePlatform"
+			}
+		},
 		"team": "Editor: Jenga",
 		"releaseModel": "continuous"
 	},
@@ -65,11 +72,14 @@
 		}
 	},
 	"name": "@atlaskit/editor-ui-control-model",
-	"version": "1.1.0",
+	"version": "1.1.1",
 	"description": "Rendering logic and model-types for Editor controls registry ( editor-plugin-ui-control-registry)",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
+	},
+	"devDependencies": {
+		"@atlassian/react-compiler-gating": "workspace:^"
 	}
 }

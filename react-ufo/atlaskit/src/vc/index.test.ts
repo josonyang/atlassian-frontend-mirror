@@ -80,12 +80,10 @@ describe('VCObserverWrapper', () => {
 		// No exceptions should be thrown
 	});
 
-	describe('raw-handler-only mode (platform_ufo_vc_raw_handler_only)', () => {
+	describe('raw-handler-only mode (ufo_disable_ttvc_v4)', () => {
 		it('should create VCObserverNew when no revisions enabled but raw-handler-only gate is on', () => {
 			(configModule.isVCRevisionEnabled as jest.Mock).mockImplementation(() => false);
-			(fg as jest.Mock).mockImplementation(
-				(flag: string) => flag === 'platform_ufo_vc_raw_handler_only',
-			);
+			(fg as jest.Mock).mockImplementation((flag: string) => flag === 'ufo_disable_ttvc_v4');
 
 			const wrapper = new VCObserverWrapper();
 			wrapper.start({ startTime: 100, experienceKey: 'test' });
@@ -107,9 +105,7 @@ describe('VCObserverWrapper', () => {
 
 		it('should call getVCResult on VCObserverNew in raw-handler-only mode', async () => {
 			(configModule.isVCRevisionEnabled as jest.Mock).mockImplementation(() => false);
-			(fg as jest.Mock).mockImplementation(
-				(flag: string) => flag === 'platform_ufo_vc_raw_handler_only',
-			);
+			(fg as jest.Mock).mockImplementation((flag: string) => flag === 'ufo_disable_ttvc_v4');
 
 			const mockRawResult = [
 				{
@@ -138,9 +134,7 @@ describe('VCObserverWrapper', () => {
 
 		it('should stop VCObserverNew in raw-handler-only mode', () => {
 			(configModule.isVCRevisionEnabled as jest.Mock).mockImplementation(() => false);
-			(fg as jest.Mock).mockImplementation(
-				(flag: string) => flag === 'platform_ufo_vc_raw_handler_only',
-			);
+			(fg as jest.Mock).mockImplementation((flag: string) => flag === 'ufo_disable_ttvc_v4');
 
 			const wrapper = new VCObserverWrapper();
 			wrapper.stop('test');

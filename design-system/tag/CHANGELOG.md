@@ -1,5 +1,29 @@
 # @atlaskit/tag
 
+## 14.12.0
+
+### Minor Changes
+
+- [`7c17bccdb5fb8`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/7c17bccdb5fb8) -
+  [ux] Adds hasMargin optional prop to tag so that margin can be removed in tag. This is used in
+  parent elements that control margin themselves.
+
+## 14.11.0
+
+### Minor Changes
+
+- [`c23fa87416661`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/c23fa87416661) -
+  [ux] Adds hasMargin optional prop to tag so that margin can be removed in tag. This is used in
+  parent elements that control margin themselves.
+
+## 14.10.0
+
+### Minor Changes
+
+- [`ea970883e4943`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/ea970883e4943) -
+  [ux] Adds hasMargin optional prop to tag so that margin can be removed in tag. This is used in
+  parent elements that control margin themselves.
+
 ## 14.9.1
 
 ### Patch Changes

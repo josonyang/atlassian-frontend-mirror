@@ -461,7 +461,7 @@ export const ImageEmoji = (props: Props): JSX.Element => {
 			loading={disableLazyLoad ? 'eager' : 'lazy'}
 			src={src}
 			key={src}
-			alt={emoji.name || emoji.shortName}
+			alt={emoji.name || emoji.shortName || ''}
 			data-emoji-short-name={emoji.shortName}
 			data-emoji-id={emoji.id}
 			data-emoji-text={emoji.fallback || emoji.shortName}
@@ -547,7 +547,7 @@ export const EmojiNodeWrapper: React.ForwardRefExoticComponent<
 
 	return (
 		<span
-			role={editorEmoji ? undefined : shouldBeInteractive ? 'button' : 'img'}
+			role={editorEmoji ? undefined : shouldBeInteractive ? 'button' : ariaLabel ? 'img' : 'presentation'}
 			aria-label={ariaLabel}
 			ref={ref}
 			data-testid={`${type}-emoji-${emoji.shortName}`}

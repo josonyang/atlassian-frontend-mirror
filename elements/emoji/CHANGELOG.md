@@ -1,5 +1,18 @@
 # @atlaskit/emoji
 
+## 70.1.0
+
+### Minor Changes
+
+- [`9e5079cbca371`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/9e5079cbca371) -
+  Fix accessibility issues image-alt, role-img-alt
+
+## 70.0.1
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 70.0.0
 
 ### Major Changes

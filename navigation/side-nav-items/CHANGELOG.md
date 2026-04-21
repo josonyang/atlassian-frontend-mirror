@@ -1,5 +1,12 @@
 # @atlaskit/side-nav-items
 
+## 1.13.2
+
+### Patch Changes
+
+- [`9205cdd5ef843`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/9205cdd5ef843) -
+  (NAVX-3624): Fixing eslint suppression warnings in GSN
+
 ## 1.13.1
 
 ### Patch Changes

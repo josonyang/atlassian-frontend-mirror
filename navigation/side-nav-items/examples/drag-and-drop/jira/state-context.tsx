@@ -6,7 +6,8 @@ import type { TAction, TData } from './data';
 
 export type TDispatchContextValue = (action: TAction) => void;
 
-export const DispatchContext: Context<TDispatchContextValue | null> = createContext<TDispatchContextValue | null>(null);
+export const DispatchContext: Context<TDispatchContextValue | null> =
+	createContext<TDispatchContextValue | null>(null);
 
 export function useDispatch(): TDispatchContextValue {
 	const dispatch = useContext(DispatchContext);
@@ -16,7 +17,8 @@ export function useDispatch(): TDispatchContextValue {
 
 export type TGetDataContextValue = () => TData;
 
-export const GetDataContext: Context<TGetDataContextValue | null> = createContext<TGetDataContextValue | null>(null);
+export const GetDataContext: Context<TGetDataContextValue | null> =
+	createContext<TGetDataContextValue | null>(null);
 
 export function useGetData(): TGetDataContextValue {
 	const getData = useContext(GetDataContext);

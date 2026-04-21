@@ -250,7 +250,11 @@ export const FlyoutMenuItemExample = (): JSX.Element => (
 	</ExampleWrapper>
 );
 
-export const FlyoutMenuItemDefaultOpenExample = ({ isSelected }: { isSelected?: boolean }): JSX.Element => (
+export const FlyoutMenuItemDefaultOpenExample = ({
+	isSelected,
+}: {
+	isSelected?: boolean;
+}): JSX.Element => (
 	<ExampleWrapper>
 		<FlyoutMenuItem isDefaultOpen>
 			<FlyoutMenuItemTrigger

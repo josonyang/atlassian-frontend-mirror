@@ -1,5 +1,12 @@
 {
 	"atlassian": {
+		"react-compiler": {
+			"enabled": true,
+			"gating": {
+				"source": "@atlassian/react-compiler-gating",
+				"importSpecifierName": "isReactCompilerActivePlatform"
+			}
+		},
 		"team": "Editor: Jenga"
 	},
 	"repository": "https://bitbucket.org/atlassian/atlassian-frontend-monorepo",
@@ -42,11 +49,14 @@
 		}
 	},
 	"name": "@atlaskit/editor-element-browser",
-	"version": "7.0.0",
+	"version": "7.0.1",
 	"description": "Placeholder for new UI for the QuickInsert menu and Right rail",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
+	},
+	"devDependencies": {
+		"@atlassian/react-compiler-gating": "workspace:^"
 	}
 }

@@ -2,7 +2,7 @@ import React, { useCallback, useState } from 'react';
 
 import '@atlaskit/link-test-helpers/jest';
 
-import { IntlProvider } from 'react-intl-next';
+import { IntlProvider } from 'react-intl';
 import userEvent from '@testing-library/user-event';
 import { act, fireEvent, render, renderHook, screen, waitFor } from '@testing-library/react';
 

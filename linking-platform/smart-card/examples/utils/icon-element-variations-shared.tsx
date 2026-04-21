@@ -2,12 +2,13 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
-import React from 'react';
+import React, { useCallback, useRef, useState } from 'react';
 
 import { css, jsx } from '@compiled/react';
 
 import { Stack } from '@atlaskit/primitives/compiled';
 import { token } from '@atlaskit/tokens';
+import Tooltip from '@atlaskit/tooltip';
 
 import { IconType, SmartLinkSize } from '../../src/constants';
 import BaseIconElement from '../../src/view/FlexibleCard/components/elements/common/base-icon-element';
@@ -24,23 +25,114 @@ export const sizes: SmartLinkSize[] = [
 	SmartLinkSize.XLarge,
 ];
 
-export const iconTypeEntries = Object.entries(IconType) as [string, IconType][];
+export const iconTypeGroups: { icons: IconType[]; title: string }[] = [
+	{
+		title: 'IconTile wrapped - @atlaskit/icon/core',
+		icons: [
+			IconType.Generic,
+			IconType.Document,
+			IconType.Audio,
+			IconType.Code,
+			IconType.File,
+			IconType.Folder,
+			IconType.Image,
+			IconType.Presentation,
+			IconType.Spreadsheet,
+			IconType.Video,
+		],
+	},
+	{
+		title: 'Basic - @atlaskit/icon/core',
+		icons: [
+			IconType.Default,
+			IconType.Project,
+			IconType.Template,
+			IconType.Forbidden,
+			IconType.Error,
+		],
+	},
+	{
+		title: 'Badge icons - @atlaskit/icon/core',
+		icons: [
+			IconType.Attachment,
+			IconType.CheckItem,
+			IconType.Component,
+			IconType.Comment,
+			IconType.View,
+			IconType.React,
+			IconType.Vote,
+			IconType.PriorityUndefined,
+			IconType.ProgrammingLanguage,
+			IconType.Subscriber,
+			IconType.SubTasksProgress,
+		],
+	},
+	{
+		title: 'File type icons (16/24) - @atlaskit/icon-file-type',
+		icons: [
+			IconType.Archive,
+			IconType.Executable,
+			IconType.GIF,
+			IconType.GoogleDocs,
+			IconType.GoogleForms,
+			IconType.GoogleSheets,
+			IconType.GoogleSlides,
+			IconType.MSExcel,
+			IconType.MSPowerpoint,
+			IconType.MSWord,
+			IconType.PDF,
+			IconType.Sketch,
+		],
+	},
+	{
+		title: 'Object icons (16/24) - @atlaskit/icon-object',
+		icons: [
+			IconType.Blog,
+			IconType.LiveDocument,
+			IconType.Branch,
+			IconType.Commit,
+			IconType.PullRequest,
+			IconType.Repo,
+			IconType.Bug,
+			IconType.Change,
+			IconType.Epic,
+			IconType.Incident,
+			IconType.Problem,
+			IconType.ServiceRequest,
+			IconType.Story,
+			IconType.SubTask,
+			IconType.Task,
+		],
+	},
+	{
+		title: 'Product logos - @atlaskit/logo',
+		icons: [IconType.Confluence, IconType.Jira],
+	},
 
-export const iconTypeGroups: { filter: (value: string) => boolean; title: string }[] = [
-	{ filter: (v) => v.startsWith('FileType'), title: 'File Types' },
-	{ filter: (v) => v.startsWith('BitBucket'), title: 'Bitbucket' },
-	{ filter: (v) => v.startsWith('Jira'), title: 'Jira' },
 	{
-		filter: (v) => v.startsWith('Confluence') || v.startsWith('Provider:Confluence'),
-		title: 'Confluence',
+		title: 'Priority icons - custom SVGs',
+		icons: [
+			IconType.PriorityBlocker,
+			IconType.PriorityCritical,
+			IconType.PriorityHigh,
+			IconType.PriorityHighest,
+			IconType.PriorityLow,
+			IconType.PriorityLowest,
+			IconType.PriorityMajor,
+			IconType.PriorityMedium,
+			IconType.PriorityMinor,
+			IconType.PriorityTrivial,
+		],
 	},
-	{ filter: (v) => v.startsWith('Provider'), title: 'Provider Icons' },
-	{
-		filter: (v) => v === 'Default' || v === 'Default:Error' || v === 'Default:Forbidden',
-		title: 'Fallbacks',
-	},
-	{ filter: (v) => v.startsWith('Badge'), title: 'Badge Icons' },
 ];
+
+export const iconTypeEntries = iconTypeGroups.flatMap((group) =>
+	group.icons.map<[string, IconType]>((icon: IconType) => [icon.toString(), icon]),
+);
+
+if (iconTypeEntries.length !== Object.keys(IconType).length) {
+	throw new Error('Not all IconType was represented in iconTypeGroups');
+}
 
 export const providerIcons: Record<string, string[]> = {
 	'adobe-xd': [
@@ -187,6 +279,223 @@ export interface IconVariantProps {
 	showTitle: boolean;
 	tileVariants: boolean[];
 	url?: string;
+	zoom?: number;
+}
+
+const tooltipTableStyles = css({
+	display: 'grid',
+	gridTemplateColumns: 'auto 1fr',
+	columnGap: token('space.100'),
+	font: token('font.body.small'),
+	textAlign: 'left',
+});
+
+const tooltipHeadingStyles = css({
+	gridColumn: '1 / -1',
+});
+
+const tooltipLabelStyles = css({
+	whiteSpace: 'nowrap',
+});
+
+const tooltipDimStyles = css({
+	fontFamily: 'monospace',
+});
+
+interface DomMeasurements {
+	child: { height: number; tag: string; width: number } | null;
+	wrapper: { height: number; tag: string; width: number };
+}
+
+function formatNumber(n: number): string {
+	return Number.isInteger(n) ? `${n}` : n.toFixed(1);
+}
+
+function formatDimensions(m: { height: number; width: number }): string {
+	return `${formatNumber(m.width)}×${formatNumber(m.height)}`;
+}
+
+function formatMeasurement(
+	m: { height: number; width: number },
+	zoomFactor: number,
+): React.ReactNode {
+	const raw = `${formatDimensions(m)} px`;
+	if (zoomFactor <= 1) {
+		return raw;
+	}
+	const adjusted = formatDimensions({
+		height: m.height / zoomFactor,
+		width: m.width / zoomFactor,
+	});
+	return (
+		<React.Fragment>
+			{adjusted} px <span css={tooltipLabelStyles}>(@ 100%)</span>
+		</React.Fragment>
+	);
+}
+
+function TooltipContent({
+	label,
+	icon,
+	url,
+	hasRender,
+	size,
+	isTiled,
+	measurements,
+	zoom = 100,
+}: {
+	hasRender?: boolean;
+	icon?: IconType;
+	isTiled: boolean;
+	label: string;
+	measurements: DomMeasurements | null;
+	size: SmartLinkSize;
+	url?: string;
+	zoom?: number;
+}) {
+	let source: string;
+	if (icon) {
+		source = `icon: ${icon}`;
+	} else if (url) {
+		source = `url: ${url}`;
+	} else if (hasRender) {
+		source = 'render()';
+	} else {
+		source = 'default fallback';
+	}
+
+	const zoomFactor = zoom / 100;
+
+	return (
+		<div css={tooltipTableStyles}>
+			<strong css={tooltipHeadingStyles}>{label}</strong>
+
+			<span css={tooltipLabelStyles}>source</span>
+			<span>{source}</span>
+
+			<span css={tooltipLabelStyles}>size</span>
+			<span>{size}</span>
+
+			{isTiled && (
+				<React.Fragment>
+					<span css={tooltipLabelStyles}>tile</span>
+					<span>'on'</span>
+				</React.Fragment>
+			)}
+
+			{measurements && (
+				<React.Fragment>
+					<span css={tooltipLabelStyles}>{`<${measurements.wrapper.tag}>`}</span>
+					<span css={tooltipDimStyles}>{formatMeasurement(measurements.wrapper, zoomFactor)}</span>
+
+					{measurements.child && (
+						<React.Fragment>
+							<span css={tooltipLabelStyles}>{`└ <${measurements.child.tag}>`}</span>
+							<span css={tooltipDimStyles}>
+								{formatMeasurement(measurements.child, zoomFactor)}
+							</span>
+						</React.Fragment>
+					)}
+				</React.Fragment>
+			)}
+		</div>
+	);
+}
+
+function IconInstance({
+	label,
+	icon,
+	url,
+	render,
+	size,
+	isTiled,
+	showSizingOverlay,
+	showTitle,
+	zoom,
+}: {
+	icon?: IconType;
+	isTiled: boolean;
+	label: string;
+	render?: () => React.ReactNode;
+	showSizingOverlay: boolean;
+	showTitle: boolean;
+	size: SmartLinkSize;
+	url?: string;
+	zoom?: number;
+}) {
+	const containerRef = useRef<HTMLDivElement>(null);
+	const [measurements, setMeasurements] = useState<DomMeasurements | null>(null);
+	const testId = `icon-${label}-${size}-${isTiled}`;
+
+	const measure = useCallback(() => {
+		if (!containerRef.current) {
+			return;
+		}
+		const tileEl = containerRef.current.querySelector<HTMLElement>(
+			`[data-testid="${testId}-tile"]`,
+		);
+		const boxEl = containerRef.current.querySelector<HTMLElement>(`[data-testid="${testId}-box"]`);
+		const wrapperEl = tileEl ?? boxEl;
+		if (!wrapperEl) {
+			return;
+		}
+		const wrapperRect = wrapperEl.getBoundingClientRect();
+		const firstChild = wrapperEl.firstElementChild as HTMLElement | null;
+		const childRect = firstChild?.getBoundingClientRect() ?? null;
+
+		setMeasurements({
+			wrapper: {
+				width: wrapperRect.width,
+				height: wrapperRect.height,
+				tag: tileEl ? 'Tile' : 'Box',
+			},
+			child: childRect
+				? {
+						width: childRect.width,
+						height: childRect.height,
+						tag: firstChild!.tagName.toLowerCase(),
+					}
+				: null,
+		});
+	}, [testId]);
+
+	return (
+		<Stack alignInline="center" alignBlock="center" grow="fill" space="space.025">
+			<Tooltip
+				content={
+					<TooltipContent
+						label={label}
+						icon={icon}
+						url={url}
+						hasRender={!!render}
+						size={size}
+						isTiled={isTiled}
+						measurements={measurements}
+						zoom={zoom}
+					/>
+				}
+			>
+				<div css={iconBoxStyles} ref={containerRef} onMouseOver={measure} onFocus={measure}>
+					<BaseIconElement
+						icon={icon}
+						url={url}
+						render={render}
+						size={size}
+						isTiledIcon={isTiled}
+						testId={testId}
+					/>
+					{showSizingOverlay && (
+						<React.Fragment>
+							<div css={[sizesOverlayStyles, size20OverlayStyles]}></div>
+							<div css={[sizesOverlayStyles, size24OverlayStyles]}></div>
+							<div css={[sizesOverlayStyles, size32OverlayStyles]}></div>
+						</React.Fragment>
+					)}
+				</div>
+			</Tooltip>
+			{showTitle && <div css={sizeTagStyles}>{size}</div>}
+		</Stack>
+	);
 }
 
 export const IconVariant = ({
@@ -199,37 +508,24 @@ export const IconVariant = ({
 	showBorder,
 	showSizingOverlay,
 	showTitle,
+	zoom,
 }: IconVariantProps) => (
 	<div css={[cellStyles, showBorder && !showSizingOverlay && cellBorderStyles]}>
 		{showTitle && <div css={labelTextStyles}>{label}</div>}
 		{tileVariants.map((isTiled) =>
 			activeSizes.map((size) => (
-				<Stack
+				<IconInstance
 					key={`${isTiled}-${size}`}
-					alignInline="center"
-					alignBlock="center"
-					grow="fill"
-					space="space.025"
-				>
-					<div css={iconBoxStyles}>
-						<BaseIconElement
-							icon={icon}
-							url={url}
-							render={render}
-							size={size}
-							isTiledIcon={isTiled}
-							testId={`icon-${label}-${size}-${isTiled}`}
-						/>
-						{showSizingOverlay && (
-							<React.Fragment>
-								<div css={[sizesOverlayStyles, size20OverlayStyles]}></div>
-								<div css={[sizesOverlayStyles, size24OverlayStyles]}></div>
-								<div css={[sizesOverlayStyles, size32OverlayStyles]}></div>
-							</React.Fragment>
-						)}
-					</div>
-					{showTitle && <div css={sizeTagStyles}>{size}</div>}
-				</Stack>
+					label={label}
+					icon={icon}
+					url={url}
+					render={render}
+					size={size}
+					isTiled={isTiled}
+					showSizingOverlay={showSizingOverlay}
+					showTitle={showTitle}
+					zoom={zoom}
+				/>
 			)),
 		)}
 	</div>

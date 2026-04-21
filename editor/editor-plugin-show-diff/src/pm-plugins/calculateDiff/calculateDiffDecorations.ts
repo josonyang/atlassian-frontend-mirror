@@ -2,7 +2,7 @@
 import isEqual from 'lodash/isEqual';
 import memoizeOne, { type MemoizedFn } from 'memoize-one';
 import { type Change, ChangeSet, simplifyChanges } from 'prosemirror-changeset';
-import type { IntlShape } from 'react-intl-next';
+import type { IntlShape } from 'react-intl';
 
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import { areNodesEqualIgnoreAttrs } from '@atlaskit/editor-common/utils/document';

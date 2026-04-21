@@ -1,5 +1,21 @@
 # @atlaskit/editor-plugin-block-controls
 
+## 11.0.2
+
+### Patch Changes
+
+- [`140f356e0c8c5`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/140f356e0c8c5) -
+  Fix RangeError: Position -1 outside of fragment when activeNode.rootPos is undefined
+  (keyboard-triggered drag handle). Guarded behind platform_editor_block_menu_jira_patch_1 feature
+  gate.
+- Updated dependencies
+
+## 11.0.1
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 11.0.0
 
 ### Major Changes

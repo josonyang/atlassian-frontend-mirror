@@ -1,5 +1,18 @@
 # @atlaskit/profilecard
 
+## 25.1.2
+
+### Patch Changes
+
+- [`d95f2529148e8`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/d95f2529148e8) -
+  Fix for creator data mismatch in agent profile cards
+
+## 25.1.1
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 25.1.0
 
 ### Minor Changes

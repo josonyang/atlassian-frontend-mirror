@@ -2,6 +2,7 @@ import React from 'react';
 
 import { cssMap } from '@atlaskit/css';
 import { HelperMessage } from '@atlaskit/form';
+import { iconTestUrls } from '@atlaskit/link-test-helpers/smart-card';
 import { Box, Stack } from '@atlaskit/primitives/compiled';
 import Range from '@atlaskit/range';
 import { Card } from '@atlaskit/smart-card';
@@ -53,7 +54,7 @@ export default (): React.JSX.Element => {
 					</HelperMessage>
 				</Box>
 				<Box style={{ width: `${widthPercentage}%` }}>
-					<CardViewExample appearance="block" CardComponent={Card} />
+					<CardViewExample appearance="block" urls={iconTestUrls} CardComponent={Card} />
 				</Box>
 			</Stack>
 		</ExampleContainer>

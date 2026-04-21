@@ -6,6 +6,7 @@ import { type CSSProperties, type ReactNode } from 'react';
 
 import { css, cssMap, cx, jsx } from '@compiled/react';
 
+import { fg } from '@atlaskit/platform-feature-flags';
 import { token } from '@atlaskit/tokens';
 
 import { getStyleProps } from '../../get-style-props';
@@ -119,19 +120,32 @@ const valueContainerStyles = cssMap({
 		WebkitOverflowScrolling: 'touch',
 		position: 'relative',
 		overflow: 'hidden',
-		paddingBlockStart: token('space.025'),
 		paddingInlineEnd: token('space.075'),
-		paddingBlockEnd: token('space.025'),
 		paddingInlineStart: token('space.075'),
+	},
+	verticalPaddingStandard: {
+		paddingBlockStart: token('space.025'),
+		paddingBlockEnd: token('space.025'),
+	},
+	verticalPaddingTagUpliftMulti: {
+		paddingBlockStart: token('space.050'),
+		paddingBlockEnd: token('space.050'),
+	},
+	verticalPaddingTagUpliftCompactMulti: {
+		paddingBlockStart: token('space.025'),
+		paddingBlockEnd: token('space.025'),
+	},
+	verticalPaddingCompactNonUplift: {
+		paddingBlockStart: token('space.0'),
+		paddingBlockEnd: token('space.0'),
 	},
 	flex: {
 		display: 'flex',
 	},
-	compact: {
-		paddingBlockStart: token('space.0'),
-		paddingInlineEnd: token('space.075'),
-		paddingBlockEnd: token('space.0'),
-		paddingInlineStart: token('space.075'),
+	flexWithGap: {
+		display: 'flex',
+		flexWrap: 'wrap',
+		gap: token('space.050'),
 	},
 });
 
@@ -156,12 +170,28 @@ export const ValueContainer: <Option, IsMulti extends boolean, Group extends Gro
 		'value-container--is-multi': isMulti,
 		'value-container--has-value': hasValue,
 	});
+
+	const ffTagUplifts = fg('platform-dst-lozenge-tag-badge-visual-uplifts');
+	const tagUpliftMultiVertical = ffTagUplifts && isMulti;
+	const tagUpliftChipRow =
+		ffTagUplifts && isMulti && hasValue && controlShouldRenderValue;
+
 	return (
 		<div
 			css={[
 				valueContainerStyles.default,
+				tagUpliftMultiVertical &&
+					isCompact &&
+					valueContainerStyles.verticalPaddingTagUpliftCompactMulti,
+				tagUpliftMultiVertical &&
+					!isCompact &&
+					valueContainerStyles.verticalPaddingTagUpliftMulti,
+				!tagUpliftMultiVertical && !isCompact && valueContainerStyles.verticalPaddingStandard,
+				!tagUpliftMultiVertical &&
+					isCompact &&
+					valueContainerStyles.verticalPaddingCompactNonUplift,
 				isMulti && hasValue && controlShouldRenderValue && valueContainerStyles.flex,
-				isCompact && valueContainerStyles.compact,
+				tagUpliftChipRow && valueContainerStyles.flexWithGap,
 			]}
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop, @atlaskit/ui-styling-standard/local-cx-xcss, @compiled/local-cx-xcss
 			className={cx(className as any, xcss, '-ValueContainer')}

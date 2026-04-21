@@ -1,9 +1,11 @@
 import { getTableContainerWidth } from '@atlaskit/editor-common/node-width';
 import { tableCellMinWidth } from '@atlaskit/editor-common/styles';
+import { BodiedSyncBlockSharedCssClassName } from '@atlaskit/editor-common/sync-block';
 import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import type { Transaction } from '@atlaskit/editor-prosemirror/state';
 import type { DomAtPos } from '@atlaskit/editor-prosemirror/utils';
 import { akEditorTableNumberColumnWidth } from '@atlaskit/editor-shared-styles';
+import { fg } from '@atlaskit/platform-feature-flags';
 
 import type { PluginInjectionAPI } from '../../../types';
 import { updateColumnWidths } from '../../transforms/column-width';
@@ -130,7 +132,6 @@ const scaleWithParent = (
 // Scales the table to a given size and updates its colgroup DOM node
 export function scaleTableTo(state: ResizeState, maxSize: number): ResizeState {
 	const scaleFactor = maxSize / getTotalWidth(state);
-
 	let newState = {
 		...state,
 		maxSize,
@@ -148,7 +149,6 @@ export function scaleTableTo(state: ResizeState, maxSize: number): ResizeState {
 	if (newTotalWidth > maxSize) {
 		newState = reduceSpace(newState, newTotalWidth - maxSize);
 	}
-
 	return adjustColumnsWidths(newState, maxSize);
 }
 
@@ -246,9 +246,21 @@ export const scaleTable =
 
 		let resizeState;
 		if (parentWidth) {
+			// When the table is nested inside a bodiedSyncBlock, the table's outer transparent
+			// left/right borders (1px total under `border-collapse: collapse`) cause the
+			// table's outer width to exceed the colgroup width by 1px. Subtract 1px from the
+			// parentWidth here so that the scaled colgroup fits within the sync-block
+			// container without overflowing.
+			const isNestedInBodiedSyncBlock =
+				!!tableRef.closest?.(`.${BodiedSyncBlockSharedCssClassName.content}`) &&
+				fg('platform_synced_block_patch_9');
+			const BORDER_COLLAPSE_WIDTH_PX = 1;
+			const adjustedParentWidth = isNestedInBodiedSyncBlock
+				? parentWidth - BORDER_COLLAPSE_WIDTH_PX
+				: parentWidth;
 			resizeState = scaleWithParent(
 				tableRef,
-				parentWidth,
+				adjustedParentWidth,
 				node,
 				start,
 				domAtPos,

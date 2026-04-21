@@ -1,5 +1,13 @@
 # @atlaskit/editor-performance-metrics
 
+## 2.1.10
+
+### Patch Changes
+
+- [`9e45c7ac76c9a`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/9e45c7ac76c9a) -
+  Enrol editor core packages into the React Compiler with platform gating via
+  isReactCompilerActivePlatform
+
 ## 2.1.9
 
 ### Patch Changes

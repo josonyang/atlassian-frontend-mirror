@@ -1,5 +1,14 @@
 # @atlaskit/editor-plugin-help-dialog
 
+## 10.0.1
+
+### Patch Changes
+
+- [`acce33a5519e2`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/acce33a5519e2) -
+  Clean up stale experiment `platform_editor_ai_quickstart_command` - enable the quickstart command
+  behaviour by default.
+- Updated dependencies
+
 ## 10.0.0
 
 ### Major Changes

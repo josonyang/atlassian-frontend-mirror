@@ -54,13 +54,15 @@ export const AgentProfileCardResourced = (
 				: '',
 		[agentData?.creator_type, agentData?.creator],
 	);
-	const { href: profileHref } = navigateToTeamsApp({
+
+	const navResult = navigateToTeamsApp({
 		type: 'USER',
 		payload: {
 			userId: creatorUserId || '',
 		},
 		cloudId: props.cloudId,
 	});
+	let profileHref = navResult.href;
 
 	const getCreator = useCallback(
 		async ({
@@ -74,12 +76,28 @@ export const AgentProfileCardResourced = (
 		}) => {
 			try {
 				let userCreatorInfo;
-				if (creatorUserId && props.cloudId) {
+				const currentCreatorUserId = fg('jira_ai_fix_agent_profile_card_flashing')
+					? creator_type === 'CUSTOMER' && creator
+						? getAAIDFromARI(creator)
+						: undefined
+					: creatorUserId;
+
+				if (currentCreatorUserId && props.cloudId) {
 					userCreatorInfo = await props.resourceClient.getProfile(
 						props.cloudId,
-						creatorUserId,
+						currentCreatorUserId,
 						fireEvent,
 					);
+
+					if (fg('jira_ai_fix_agent_profile_card_flashing')) {
+						profileHref = navigateToTeamsApp({
+							type: 'USER',
+							payload: {
+								userId: currentCreatorUserId,
+							},
+							cloudId: props.cloudId,
+						}).href;
+					}
 				}
 
 				const creatorInfo = getAgentCreator({
@@ -95,7 +113,7 @@ export const AgentProfileCardResourced = (
 								name: userCreatorInfo.fullName ?? '',
 								profileLink: fg('platform-adopt-teams-nav-config')
 									? profileHref
-									: `/people/${creatorUserId}`,
+									: `/people/${currentCreatorUserId}`,
 							}
 						: undefined,
 					forgeCreator: creator ?? undefined,

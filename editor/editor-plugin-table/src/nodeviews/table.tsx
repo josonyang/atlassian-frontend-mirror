@@ -267,18 +267,22 @@ export default class TableView extends ReactNodeView<Props> {
 		}
 		const attrs = tableAttributes(node) as Record<string, string>;
 
-
 		// render table with content-mode attribute which removes all width constraints from the table
 		// fire exposure here
-		if (isTableInContentMode({
-			tableNode: node,
-			isSupported: isContentModeSupported({
-				allowColumnResizing: !!this.reactComponentProps.allowColumnResizing,
-				allowTableResizing: !!this.reactComponentProps.allowTableResizing,
-				isFullPageEditor: !this.reactComponentProps.options?.isCommentEditor
-					&& !this.reactComponentProps.options?.isChromelessEditor
-			}), isTableNested: isTableNested(this.view.state, this.getPos())
-		}) && expValEquals('platform_editor_table_fit_to_content_auto_convert', 'isEnabled', true)) {
+		if (
+			isTableInContentMode({
+				tableNode: node,
+				isSupported: isContentModeSupported({
+					allowColumnResizing: !!this.reactComponentProps.allowColumnResizing,
+					allowTableResizing: !!this.reactComponentProps.allowTableResizing,
+					isFullPageEditor:
+						!this.reactComponentProps.options?.isCommentEditor &&
+						!this.reactComponentProps.options?.isChromelessEditor,
+				}),
+				isTableNested: isTableNested(this.view.state, this.getPos()),
+			}) &&
+			expValEquals('platform_editor_table_fit_to_content_auto_convert', 'isEnabled', true)
+		) {
 			attrs['data-initial-width-mode'] = 'content';
 		}
 

@@ -1,7 +1,7 @@
 /* eslint-disable no-console */
 
 import React, { useEffect, useState } from 'react';
-import { IntlProvider } from 'react-intl-next';
+import { IntlProvider } from 'react-intl';
 import { mentionResourceProvider } from '@atlaskit/util-data-test/mention-story-data';
 import { getMockTaskDecisionResource } from '@atlaskit/util-data-test/task-decision-story-data';
 import { Editor, EditorContext, CollapsedEditor } from '@atlaskit/editor-core';

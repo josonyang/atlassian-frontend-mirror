@@ -1,5 +1,5 @@
 import type { Change } from 'prosemirror-changeset';
-import type { IntlShape } from 'react-intl-next';
+import type { IntlShape } from 'react-intl';
 
 import { convertToInlineCss } from '@atlaskit/editor-common/lazy-node-view';
 import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';

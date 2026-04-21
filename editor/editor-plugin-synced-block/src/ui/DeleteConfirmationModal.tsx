@@ -124,6 +124,12 @@ export const DeleteConfirmationModal = ({
 		undefined,
 	);
 
+	// When platform_synced_block_patch_9 is on and a source block with no references is deleted,
+	// the modal is never shown but onDeleteCompleted still sets bodiedSyncBlockDeletionStatus to
+	// 'completed'. This ref signals the useEffect to silently reset the status without trying to
+	// close the modal (which was never open).
+	const skipModalOnCompletedRef = React.useRef(false);
+
 	const handleClick = useCallback(
 		(confirm: boolean) => () => {
 			if (resolverRef.current) {
@@ -146,8 +152,68 @@ export const DeleteConfirmationModal = ({
 		[api?.core?.actions],
 	);
 
+	// Store activeFlag in a ref so confirmationCallback always reads the latest value
+	// even if it changes during the await fetchReferenceCountRef call.
+	const activeFlagRef = React.useRef(activeFlag);
+	activeFlagRef.current = activeFlag;
+
+	// Use a ref so fetchReferenceCount can be called from confirmationCallback without
+	// being added to its dependency array — preventing confirmationCallback from being
+	// recreated mid-flight during an await (which would break the promise chain).
+	// The assignment during render is intentional — this is a standard React ref-as-latest-value
+	// pattern. The reduce over syncBlockIds (typically 1-2 items) is not actually expensive.
+	const fetchReferenceCountRef = React.useRef<(syncBlockIds: SyncBlockAttrs[]) => Promise<number>>(
+		() => Promise.resolve(0),
+	);
+	fetchReferenceCountRef.current = async (syncBlockIds: SyncBlockAttrs[]): Promise<number> => {
+		const references = await Promise.all(
+			syncBlockIds.map(async (syncBlockId) => {
+				const result = await syncBlockStoreManager.sourceManager.fetchReferences(
+					syncBlockId.resourceId,
+				);
+				if (result?.error) {
+					// Consider fetch fails as soon as one of the fetches fails
+					throw new Error();
+				}
+				return result.references?.length ?? 0;
+			}),
+		);
+		// eslint-disable-next-line @atlassian/perf-linting/no-expensive-computations-in-render
+		return references.reduce((sum, count) => sum + count, 0);
+	};
+
 	const confirmationCallback = useCallback(
-		(syncBlockIds: SyncBlockAttrs[], deleteReason: DeletionReason | undefined) => {
+		async (syncBlockIds: SyncBlockAttrs[], deleteReason: DeletionReason | undefined) => {
+			if (fg('platform_synced_block_patch_9')) {
+				// Fetch references before opening the modal. If none exist, skip the modal
+				// entirely and auto-confirm the deletion. On fetch error, default to showing
+				// the modal to avoid accidental data loss.
+				let count: number;
+				try {
+					count = await fetchReferenceCountRef.current(syncBlockIds);
+				} catch {
+					count = 1;
+				}
+
+				if (count === 0) {
+					// No references — auto-confirm without showing the modal.
+					// Clear activeFlag to avoid issues with subsequent deletion attempts.
+					// We do NOT reset bodiedSyncBlockDeletionStatus here because onDeleteCompleted
+					// will set it to 'completed' after the delete call returns. Instead we use a
+					// ref to signal that the next 'completed' status should be silently reset
+					// without trying to close the modal.
+					skipModalOnCompletedRef.current = true;
+					api?.core?.actions.execute(({ tr }) => {
+						return tr.setMeta(syncedBlockPluginKey, {
+							...(activeFlagRef.current ? { activeFlag: false } : {}),
+						});
+					});
+					return true;
+				}
+
+				setReferenceCount(count);
+			}
+
 			setIsOpen(true);
 			setSyncBlockIds(syncBlockIds);
 
@@ -159,7 +225,7 @@ export const DeleteConfirmationModal = ({
 				resolverRef.current = resolve;
 			});
 
-			if (activeFlag) {
+			if (activeFlagRef.current) {
 				api?.core?.actions.execute(({ tr }) => {
 					return tr.setMeta(syncedBlockPluginKey, {
 						// Clear flag to avoid potential retry deletion of different blocks
@@ -170,7 +236,10 @@ export const DeleteConfirmationModal = ({
 
 			return confirmedPromise;
 		},
-		[activeFlag, api?.core?.actions],
+		// fetchReferenceCountRef and activeFlagRef are intentionally omitted — they are refs
+		// and never change identity, ensuring confirmationCallback is never recreated mid-flight
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+		[api?.core?.actions],
 	);
 
 	useEffect(() => {
@@ -183,6 +252,26 @@ export const DeleteConfirmationModal = ({
 	}, [syncBlockStoreManager, confirmationCallback]);
 
 	useEffect(() => {
+		if (skipModalOnCompletedRef.current && fg('platform_synced_block_patch_9')) {
+			if (bodiedSyncBlockDeletionStatus === 'completed') {
+				// Deletion was auto-confirmed without showing the modal (no references).
+				// Reset the status to 'none' — keep skipModalOnCompletedRef true until
+				// we confirm the status has landed as 'none' to guard against the race where
+				// the next deletion opens the modal before this transaction is processed.
+				api?.core?.actions.execute(({ tr }) => {
+					return tr.setMeta(syncedBlockPluginKey, {
+						bodiedSyncBlockDeletionStatus: 'none',
+					});
+				});
+			} else if (bodiedSyncBlockDeletionStatus === 'none') {
+				skipModalOnCompletedRef.current = false;
+			} else if (bodiedSyncBlockDeletionStatus === 'processing' && isOpen) {
+				// Reset on deletion failure (e.g. network error) to avoid modal stuck in opened state.
+				skipModalOnCompletedRef.current = false;
+			}
+			return;
+		}
+
 		if (bodiedSyncBlockDeletionStatus === 'completed' && isOpen) {
 			// auto close modal once deletion is successful
 			// eslint-disable-next-line @atlassian/perf-linting/no-chain-state-updates -- Ignored via go/ees017 (to be fixed)
@@ -197,23 +286,13 @@ export const DeleteConfirmationModal = ({
 	}, [api?.core?.actions, bodiedSyncBlockDeletionStatus, isOpen]);
 
 	useEffect(() => {
-		if (isOpen && syncBlockIds !== undefined) {
+		// When the flag is off, fetch references after the modal opens (original behaviour).
+		// When the flag is on, references are fetched and set before the modal opens in
+		// confirmationCallback, so this useEffect is skipped to avoid a duplicate fetch.
+		if (isOpen && syncBlockIds !== undefined && !fg('platform_synced_block_patch_9')) {
 			const fetchReferences = async () => {
 				try {
-					const references = await Promise.all(
-						syncBlockIds.map(async (syncBlockId) => {
-							const references = await syncBlockStoreManager.sourceManager.fetchReferences(
-								syncBlockId.resourceId,
-							);
-							if (references?.error) {
-								// Consider fetch fails as soon as one of the fetches fails
-								throw new Error();
-							}
-							return references.references?.length ?? 0;
-						}),
-					);
-
-					const totalCount = references.reduce((sum, count) => sum + count, 0);
+					const totalCount = await fetchReferenceCountRef.current(syncBlockIds);
 					setReferenceCount(totalCount);
 				} catch {
 					setReferenceCount(0);
@@ -223,7 +302,7 @@ export const DeleteConfirmationModal = ({
 			// eslint-disable-next-line @atlassian/perf-linting/no-chain-state-updates -- Ignored via go/ees017 (to be fixed)
 			fetchReferences();
 		}
-	}, [isOpen, syncBlockIds, syncBlockStoreManager.sourceManager]);
+	}, [isOpen, syncBlockIds]);
 
 	return (
 		<ModalTransition>

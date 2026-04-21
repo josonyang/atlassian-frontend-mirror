@@ -1,5 +1,15 @@
 # @atlaskit/ufo-interaction-ignore
 
+## 5.15.0
+
+### Minor Changes
+
+- [`3f23b70c4fcb4`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/3f23b70c4fcb4) -
+  Fix `getEnabledVCRevisions` to honour an explicitly-empty `enabledVCRevisions.all` array when the
+  `ufo_disable_ttvc_v4` feature gate is on. Previously, passing `all: []` would fall through to the
+  default revision (`fy26.04`), causing TTVC v4 to still be calculated client-side even when
+  intentionally disabled.
+
 ## 5.14.1
 
 ### Patch Changes

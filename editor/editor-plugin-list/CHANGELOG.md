@@ -1,5 +1,25 @@
 # @atlaskit/editor-plugin-list
 
+## 12.0.2
+
+### Patch Changes
+
+- [`402738b592e0b`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/402738b592e0b) -
+  Fix invalid flexible list structures caused by delete, paste, and typing operations.
+
+  Under platform_editor_flexible_list_schema, operations that remove content spanning list or task
+  list items could leave nodes with a nested list as their first child instead of a required
+  paragraph/item. Normalisation now runs efficiently on all relevant transactions in
+  appendTransaction.
+
+- Updated dependencies
+
+## 12.0.1
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 12.0.0
 
 ### Major Changes

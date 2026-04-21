@@ -67,8 +67,6 @@ export const EditorToolbarProvider = ({
 			};
 
 	return (
-		<EditorToolbarContext.Provider value={contextValue}>
-			{children}
-		</EditorToolbarContext.Provider>
+		<EditorToolbarContext.Provider value={contextValue}>{children}</EditorToolbarContext.Provider>
 	);
 };

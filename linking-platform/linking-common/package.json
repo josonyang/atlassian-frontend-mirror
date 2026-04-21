@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/linking-common",
-	"version": "9.11.3",
+	"version": "9.11.4",
 	"description": "Contains utils and interfaces shared across different LP components",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -56,7 +56,7 @@
 		"@types/linkify-it": "root:*",
 		"fetch-mock": "root:*",
 		"react-dom": "root:*",
-		"react-intl-next": "root:*",
+		"react-intl": "root:*",
 		"sinon": "root:*",
 		"wait-for-expect": "root:*"
 	},

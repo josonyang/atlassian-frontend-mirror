@@ -1,5 +1,35 @@
 # @atlaskit/editor-plugin-paste
 
+## 11.0.3
+
+### Patch Changes
+
+- [`402738b592e0b`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/402738b592e0b) -
+  Fix invalid flexible list structures caused by delete, paste, and typing operations.
+
+  Under platform_editor_flexible_list_schema, operations that remove content spanning list or task
+  list items could leave nodes with a nested list as their first child instead of a required
+  paragraph/item. Normalisation now runs efficiently on all relevant transactions in
+  appendTransaction.
+
+- Updated dependencies
+
+## 11.0.2
+
+### Patch Changes
+
+- [`90779068bff5a`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/90779068bff5a) -
+  Fix: preserve fontSize block mark when pasting small text copied from inside container nodes (e.g.
+  panel, expand). ProseMirror wraps the pasted content back in the container context, increasing
+  openStart/openEnd. handleParagraphBlockMarks now unwraps these container nodes so the fontSize
+  mark is preserved during paste.
+
+## 11.0.1
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 11.0.0
 
 ### Major Changes

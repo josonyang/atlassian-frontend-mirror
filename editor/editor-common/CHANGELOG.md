@@ -1,5 +1,32 @@
 # @atlaskit/editor-common
 
+## 114.3.1
+
+### Patch Changes
+
+- [`9e45c7ac76c9a`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/9e45c7ac76c9a) -
+  Enrol editor core packages into the React Compiler with platform gating via
+  isReactCompilerActivePlatform
+- Updated dependencies
+
+## 114.3.0
+
+### Minor Changes
+
+- [`bdbd238ab3549`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/bdbd238ab3549) -
+  Perf-linting cleanup: fix performance linting violations in editor-common, gated behind
+  platform_editor_perf_lint_cleanup experiment
+
+### Patch Changes
+
+- Updated dependencies
+
+## 114.2.1
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 114.2.0
 
 ### Minor Changes

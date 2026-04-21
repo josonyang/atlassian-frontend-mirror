@@ -1,5 +1,12 @@
 {
 	"atlassian": {
+		"react-compiler": {
+			"enabled": true,
+			"gating": {
+				"source": "@atlassian/react-compiler-gating",
+				"importSpecifierName": "isReactCompilerActivePlatform"
+			}
+		},
 		"team": "Editor: Lego",
 		"website": {
 			"name": "EditorPerformanceMetrics",
@@ -43,6 +50,7 @@
 		"@af/integration-testing": "workspace:^",
 		"@atlaskit/checkbox": "workspace:^",
 		"@atlaskit/textarea": "workspace:^",
+		"@atlassian/react-compiler-gating": "workspace:^",
 		"@testing-library/react": "root:*",
 		"react-dom": "root:*",
 		"wait-for-expect": "root:*"
@@ -92,7 +100,7 @@
 		"build-and-copy-page-score": "npx esbuild ./src/page-complexity-score/index.ts --bundle --platform=neutral --target=es2022 --format=iife --global-name=pageTreeScore | pbcopy"
 	},
 	"name": "@atlaskit/editor-performance-metrics",
-	"version": "2.1.9",
+	"version": "2.1.10",
 	"description": "Experimental code to track Editor Full Page performance on some particular scenarios",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",

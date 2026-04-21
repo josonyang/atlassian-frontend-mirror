@@ -4,7 +4,7 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
-import React, { useLayoutEffect, useRef, useState } from 'react';
+import React, { useLayoutEffect, useMemo, useRef, useState } from 'react';
 
 // eslint-disable-next-line @typescript-eslint/consistent-type-imports -- jsx required at runtime for @jsxRuntime classic
 import { css, jsx } from '@emotion/react'; // eslint-disable-line @atlaskit/ui-styling-standard/use-compiled
@@ -148,6 +148,30 @@ const HoverLinkOverlay = ({
 	const [isHovered, setHovered] = useState(false);
 	const openTextWidthRef = useRef<number | null>(null);
 
+	const regularPadding =
+		expValEquals('confluence_compact_text_format', 'isEnabled', true) ||
+		(expValEquals('cc_editor_ai_content_mode', 'variant', 'test') &&
+			fg('platform_editor_content_mode_button_mvp'))
+			? DYNAMIC_PADDING_BLOCK
+			: token('space.025');
+	const memoizedHoverLinkStyles = useMemo(
+		() => ({
+			paddingBlock: compactPadding ? '1px' : regularPadding,
+		}),
+		[compactPadding, regularPadding],
+	);
+	const hoverLinkStyles = expValEquals('platform_editor_perf_lint_cleanup', 'isEnabled', true)
+		? memoizedHoverLinkStyles
+		: {
+				paddingBlock: compactPadding
+					? '1px'
+					: expValEquals('confluence_compact_text_format', 'isEnabled', true) ||
+					  (expValEquals('cc_editor_ai_content_mode', 'variant', 'test') &&
+							fg('platform_editor_content_mode_button_mvp'))
+					? DYNAMIC_PADDING_BLOCK
+					: token('space.025'),
+		  };
+
 	useLayoutEffect(() => {
 		if (!isVisible || !isHovered) {
 			return;
@@ -278,16 +302,8 @@ const HoverLinkOverlay = ({
 					xcss={linkStylesCommon}
 					href={url}
 					target="_blank"
-					// eslint-disable-next-line @atlassian/perf-linting/no-unstable-inline-props -- Ignored via go/ees017 (to be fixed)
-					style={{
-						paddingBlock: compactPadding
-							? '1px'
-							: expValEquals('confluence_compact_text_format', 'isEnabled', true) ||
-								  (expValEquals('cc_editor_ai_content_mode', 'variant', 'test') &&
-										fg('platform_editor_content_mode_button_mvp'))
-								? DYNAMIC_PADDING_BLOCK
-								: token('space.025'),
-					}}
+					// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- dynamic paddingBlock value based on experiment flags
+					style={hoverLinkStyles}
 					onClick={handleClick}
 					testId="inline-card-hoverlink-overlay"
 				>

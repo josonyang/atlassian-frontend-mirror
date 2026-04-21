@@ -156,6 +156,7 @@ export type Config = {
 		readonly ssrEnablePageLayoutPlaceholder?: boolean;
 		readonly includeSSRInV3?: boolean;
 		/**
+		 * @private
 		 * @deprecated No longer has any effect. Kept as a compatibility no-op.
 		 */
 		readonly stopVCAtInteractionFinish?: boolean;
@@ -286,8 +287,19 @@ export function getEnabledVCRevisions(experienceKey: string = ''): readonly TTVC
 				return enabledVCRevisions.byExperience?.[experienceKey];
 			}
 
-			if (isValidConfigArray(enabledVCRevisions?.all)) {
-				return enabledVCRevisions.all;
+			// When the disable flag is on, treat an explicitly-set empty array as
+			// "no client-side revisions" rather than falling back to the default revision.
+			const allRevisions = enabledVCRevisions?.all;
+			if (
+				Array.isArray(allRevisions) &&
+				allRevisions.length === 0 &&
+				fg('ufo_disable_ttvc_v4')
+			) {
+				return allRevisions;
+			}
+
+			if (isValidConfigArray(allRevisions)) {
+				return allRevisions;
 			}
 
 			return [getDefaultTTVCRevision()];

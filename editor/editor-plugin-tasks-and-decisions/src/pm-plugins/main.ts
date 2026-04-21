@@ -16,16 +16,17 @@ import type {
 	Transaction,
 } from '@atlaskit/editor-prosemirror/state';
 import { NodeSelection } from '@atlaskit/editor-prosemirror/state';
-import { Decoration, DecorationSet } from '@atlaskit/editor-prosemirror/view';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
+import { Decoration, DecorationSet } from '@atlaskit/editor-prosemirror/view';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
+import { expValEqualsNoExposure } from '@atlaskit/tmp-editor-statsig/exp-val-equals-no-exposure';
 
 import { DecisionItemNodeView } from '../nodeviews/DecisionItemNodeView';
 import { taskView } from '../nodeviews/task-node-view';
 import type { TasksAndDecisionsPlugin } from '../tasksAndDecisionsPluginType';
 import type { TaskDecisionPluginState, TaskItemInfoMeta } from '../types';
 
-import { focusTaskDecision, setProvider, openRequestEditPopup } from './actions';
+import { focusTaskDecision, openRequestEditPopup, setProvider } from './actions';
 import {
 	focusCheckbox,
 	focusCheckboxAndUpdateSelection,
@@ -36,8 +37,9 @@ import {
 } from './helpers';
 import { stateKey } from './plugin-key';
 import { taskItemOnChange } from './taskItemOnChange';
-import { ACTIONS } from './types';
+import { applyTaskListNormalisationFixes } from './transforms';
 import type { TaskDecisionPluginAction, TaskDecisionPluginCommand } from './types';
+import { ACTIONS } from './types';
 import { tempTransformSliceToRemoveBlockTaskItem } from './utils/paste';
 
 type ChangedFn = (
@@ -337,6 +339,27 @@ export function createPlugin(
 		 * Note: we currently do not handle the edge case where two nodes may have the same localId
 		 */
 		appendTransaction: (transactions, _oldState, newState) => {
+			// Normalise taskList structure first — runs on its own transaction (without addToHistory: false)
+			// so it is included in history and correctly undone with the triggering operation.
+			if (
+				expValEqualsNoExposure('platform_editor_flexible_list_schema', 'isEnabled', true) &&
+				transactions.some((t) => t.docChanged)
+			) {
+				const normTr = applyTaskListNormalisationFixes({
+					tr: newState.tr,
+					transactions,
+					doc: newState.doc,
+					schema: newState.schema,
+				});
+				if (normTr.docChanged) {
+					// Return the normalisation transaction — the next appendTransaction call will
+					// assign any missing localIds to newly inserted nodes via the localId path below.
+					return normTr;
+				}
+			}
+
+			// Assign unique localIds to any new nodes that don't have one.
+			// Runs with addToHistory: false so localId assignment is not part of the undo history.
 			const tr = newState.tr;
 			let modified = false;
 			transactions.forEach((transaction) => {
@@ -374,6 +397,7 @@ export function createPlugin(
 			if (modified) {
 				return tr.setMeta('addToHistory', false);
 			}
+
 			return;
 		},
 		view: () => {

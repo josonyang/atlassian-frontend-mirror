@@ -1,5 +1,14 @@
 # @atlaskit/editor-presets
 
+## 2.0.2
+
+### Patch Changes
+
+- [`acce33a5519e2`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/acce33a5519e2) -
+  Clean up stale experiment `platform_editor_ai_quickstart_command` - enable the quickstart command
+  behaviour by default.
+- Updated dependencies
+
 ## 2.0.1
 
 ### Patch Changes

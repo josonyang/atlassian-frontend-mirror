@@ -36,7 +36,13 @@ import {
 import type { RunMacroAutoConvert } from '@atlaskit/editor-plugin-extension';
 import type { FindRootParentListNode } from '@atlaskit/editor-plugin-list';
 import type { InsertMediaAsMediaSingle } from '@atlaskit/editor-plugin-media/types';
-import type { Mark, MarkType, NodeType, Schema } from '@atlaskit/editor-prosemirror/model';
+import type {
+	Mark,
+	MarkType,
+	NodeType,
+	ResolvedPos,
+	Schema,
+} from '@atlaskit/editor-prosemirror/model';
 import { Fragment, Node as PMNode, Slice } from '@atlaskit/editor-prosemirror/model';
 import type { EditorState, Selection, Transaction } from '@atlaskit/editor-prosemirror/state';
 import { AllSelection, NodeSelection, TextSelection } from '@atlaskit/editor-prosemirror/state';
@@ -100,16 +106,16 @@ function compose<
 	R extends FN extends []
 		? F1
 		: FN extends [Func<infer A, any>]
-			? (a: A) => ReturnType<F1>
-			: FN extends [any, Func<infer A, any>]
-				? (a: A) => ReturnType<F1>
-				: FN extends [any, any, Func<infer A, any>]
-					? (a: A) => ReturnType<F1>
-					: FN extends [any, any, any, Func<infer A, any>]
-						? (a: A) => ReturnType<F1>
-						: FN extends [any, any, any, any, Func<infer A, any>]
-							? (a: A) => ReturnType<F1>
-							: Func<any, ReturnType<F1>>, // Doubtful we'd ever want to pipe this many functions, but in the off chance someone does, we can still infer the return type
+		? (a: A) => ReturnType<F1>
+		: FN extends [any, Func<infer A, any>]
+		? (a: A) => ReturnType<F1>
+		: FN extends [any, any, Func<infer A, any>]
+		? (a: A) => ReturnType<F1>
+		: FN extends [any, any, any, Func<infer A, any>]
+		? (a: A) => ReturnType<F1>
+		: FN extends [any, any, any, any, Func<infer A, any>]
+		? (a: A) => ReturnType<F1>
+		: Func<any, ReturnType<F1>>, // Doubtful we'd ever want to pipe this many functions, but in the off chance someone does, we can still infer the return type
 >(func: F1, ...funcs: FN): R {
 	const allFuncs = [func, ...funcs];
 	return function composed(raw: any) {
@@ -500,13 +506,13 @@ export const doesSelectionWhichStartsOrEndsInListContainEntireList = (
 	const endOfEntireList =
 		$from.pos < $to.pos
 			? selectionParentListItemNodeResolvedPos.pos +
-				selectionParentListNode.nodeSize -
-				$to.depth -
-				1
+			  selectionParentListNode.nodeSize -
+			  $to.depth -
+			  1
 			: selectionParentListItemNodeResolvedPos.pos +
-				selectionParentListNode.nodeSize -
-				$from.depth -
-				1;
+			  selectionParentListNode.nodeSize -
+			  $from.depth -
+			  1;
 
 	if (!startOfEntireList || !endOfEntireList) {
 		return false;
@@ -1194,6 +1200,98 @@ function getTopLevelMarkTypesInSlice(slice: Slice) {
 	return markTypes;
 }
 
+/**
+ * Peels container wrapper nodes (e.g. panel, expand) added by ProseMirror's addContext()
+ * so that fontSize-marked paragraphs become top-level, preserving the mark on paste.
+ */
+function unwrapContainerNodesWithBlockMarks(
+	slice: Slice,
+	schema: Schema,
+	fontSize: MarkType,
+): Slice {
+	let content = slice.content;
+	let levelsUnwrapped = 0;
+
+	while (
+		content.childCount === 1 &&
+		content.firstChild &&
+		!content.firstChild.isTextblock &&
+		slice.openStart - levelsUnwrapped > 1
+	) {
+		let hasBlockMarkedParagraph = false;
+		for (let i = 0; i < content.firstChild.childCount; i++) {
+			const child = content.firstChild.child(i);
+			if (child.type === schema.nodes.paragraph && child.marks.some((m) => m.type === fontSize)) {
+				hasBlockMarkedParagraph = true;
+				break;
+			}
+		}
+
+		if (!hasBlockMarkedParagraph) {
+			break;
+		}
+
+		content = content.firstChild.content;
+		levelsUnwrapped++;
+	}
+
+	if (levelsUnwrapped === 0) {
+		return slice;
+	}
+
+	return new Slice(
+		content,
+		slice.openStart - levelsUnwrapped,
+		Math.max(0, slice.openEnd - levelsUnwrapped),
+	);
+}
+
+/**
+ * Returns the fontSize attrs to apply at the paste destination, or false if none.
+ * Checks list and task destinations in priority order.
+ */
+function getDestinationFontSizeAttrs(
+	destinationListNode: PMNode | undefined,
+	isInSmallTaskContext: boolean,
+	$from: ResolvedPos,
+	currentNode: PMNode | undefined,
+	fontSize: MarkType,
+): Record<string, unknown> | false {
+	if (destinationListNode) {
+		return getFirstParagraphBlockMarkAttrs(destinationListNode, fontSize);
+	}
+	if (isInSmallTaskContext) {
+		return (
+			getBlockMarkAttrs($from.parent, fontSize) ||
+			getFirstParagraphBlockMarkAttrs(currentNode, fontSize)
+		);
+	}
+	return false;
+}
+
+/**
+ * Resolves which marks to apply to a paragraph node after filtering forbidden marks.
+ * When a destination block mark is provided, replaces any existing fontSize mark with it.
+ * When normalizing for the target context, removes the fontSize mark entirely.
+ * Otherwise returns the filtered marks unchanged.
+ */
+function resolveParagraphMarks(
+	marks: readonly Mark[],
+	destinationBlockMarkAttrs: Record<string, unknown> | false,
+	shouldNormalize: boolean,
+	fontSize: MarkType,
+): readonly Mark[] {
+	if (destinationBlockMarkAttrs) {
+		return marks
+			.filter((m) => m.type !== fontSize)
+			.concat(fontSize.create(destinationBlockMarkAttrs));
+	}
+	if (shouldNormalize) {
+		return marks.filter((m) => m.type !== fontSize);
+	}
+	return marks;
+}
+
 export function handleParagraphBlockMarks(state: EditorState, slice: Slice): Slice {
 	if (slice.content.size === 0) {
 		return slice;
@@ -1206,6 +1304,17 @@ export function handleParagraphBlockMarks(state: EditorState, slice: Slice): Sli
 	} = state;
 	const { bulletList, orderedList, blockTaskItem, taskItem, paragraph, heading } = schema.nodes;
 	const { fontSize } = schema.marks;
+
+	const isSmallFontSizeEnabled =
+		expValEquals('platform_editor_small_font_size', 'isEnabled', true) && !!fontSize;
+
+	// When copying from inside a container (e.g. panel, expand), ProseMirror wraps the
+	// content back in the container via addContext(), increasing openStart/openEnd. Unwrap
+	// so the paragraph (with its fontSize mark) becomes top-level.
+	if (isSmallFontSizeEnabled) {
+		slice = unwrapContainerNodesWithBlockMarks(slice, schema, fontSize);
+	}
+
 	const destinationListNode = findParentNodeOfType([bulletList, orderedList])(selection)?.node;
 	const currentNode = typeof $from.node === 'function' ? $from.node() : undefined;
 	const isInNormalTaskContext = currentNode?.type === taskItem || $from.parent.type === taskItem;
@@ -1218,16 +1327,14 @@ export function handleParagraphBlockMarks(state: EditorState, slice: Slice): Sli
 				$from.depth > 0 &&
 				$from.node($from.depth - 1).type === blockTaskItem));
 
-	const isSmallFontSizeEnabled =
-		expValEquals('platform_editor_small_font_size', 'isEnabled', true) && !!fontSize;
-
 	const destinationBlockMarkAttrs = isSmallFontSizeEnabled
-		? destinationListNode
-			? getFirstParagraphBlockMarkAttrs(destinationListNode, fontSize)
-			: isInSmallTaskContext
-				? getBlockMarkAttrs($from.parent, fontSize) ||
-					getFirstParagraphBlockMarkAttrs(currentNode, fontSize)
-				: false
+		? getDestinationFontSizeAttrs(
+				destinationListNode,
+				isInSmallTaskContext,
+				$from,
+				currentNode,
+				fontSize,
+		  )
 		: false;
 
 	// If no paragraph in the slice contains marks, there's no need for special handling
@@ -1267,17 +1374,15 @@ export function handleParagraphBlockMarks(state: EditorState, slice: Slice): Sli
 	const normalizedContent = mapSlice(slice, (node) => {
 		if (node.type === paragraph) {
 			const paragraphMarks = node.marks.filter((mark) => !forbiddenMarkTypes.includes(mark.type));
-
 			return paragraph.createChecked(
 				undefined,
 				node.content,
-				destinationBlockMarkAttrs
-					? paragraphMarks
-							.filter((mark) => mark.type !== fontSize)
-							.concat(fontSize.create(destinationBlockMarkAttrs))
-					: shouldNormalizeFontSizeForTarget
-						? paragraphMarks.filter((mark) => mark.type !== fontSize)
-						: paragraphMarks,
+				resolveParagraphMarks(
+					paragraphMarks,
+					destinationBlockMarkAttrs,
+					shouldNormalizeFontSizeForTarget,
+					fontSize,
+				),
 			);
 		} else if (node.type === heading) {
 			// Preserve heading attributes to keep formatting
@@ -1392,7 +1497,7 @@ export function handleRichText(
 			? getFirstParagraphBlockMarkAttrs(
 					findParentNodeOfType(listContainerNodeTypes)(selection)?.node,
 					fontSize,
-				)
+			  )
 			: false;
 
 		// In case user is pasting inline code,
@@ -1609,7 +1714,7 @@ export const handleSelectedTable =
 export function checkTaskListInList(state: EditorState, slice: Slice): boolean {
 	return Boolean(
 		isInListItem(state) &&
-		['taskList', 'taskItem'].includes(slice.content.firstChild?.type?.name || ''),
+			['taskList', 'taskItem'].includes(slice.content.firstChild?.type?.name || ''),
 	);
 }
 

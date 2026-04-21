@@ -6,10 +6,28 @@ import React, { Fragment } from 'react';
 
 import { css, jsx } from '@compiled/react';
 
+
 import { SmartCardProvider } from '@atlaskit/link-provider';
 import { Card } from '@atlaskit/smart-card';
+import { token } from '@atlaskit/tokens';
 
 import type { MultiCardViewProps } from './card-view-props';
+
+export type CardViewLayoutProps = MultiCardViewProps & {
+	/**
+	 * When multiple `urls` are rendered, stack each card vertically (e.g. VR icon matrices).
+	 * Default: siblings with no layout wrapper (matches historical CardView behaviour).
+	 */
+	stackUrlListVertically?: boolean;
+};
+
+const cardUrlListStackStyles = css({
+	display: 'flex',
+	flexDirection: 'column',
+	alignItems: 'flex-start',
+	rowGap: token('space.100'),
+	width: '100%',
+});
 
 const embedCardWrapperStyles = css({
 	width: '100%',
@@ -49,25 +67,30 @@ const CardView = ({
 	truncateInline,
 	showHoverPreview,
 	CompetitorPrompt,
-}: MultiCardViewProps): JSX.Element => (
-	<SmartCardProvider client={client}>
-		<EmbedCardWrapper inheritDimensions={inheritDimensions}>
-			{(urls || [url]).map((currentUrl = defaultUrl, idx: number) => (
-				<Card
-					key={`${currentUrl?.slice(0, 3)}-${idx}`}
-					appearance={appearance}
-					url={currentUrl}
-					/* Embed-specific props */
-					frameStyle={frameStyle}
-					isSelected={isSelected}
-					inheritDimensions={inheritDimensions}
-					truncateInline={truncateInline}
-					showHoverPreview={showHoverPreview}
-					CompetitorPrompt={CompetitorPrompt}
-				/>
-			))}
-		</EmbedCardWrapper>
-	</SmartCardProvider>
-);
+	stackUrlListVertically = false,
+}: CardViewLayoutProps): JSX.Element => {
+	const cards = (urls || [url]).map((currentUrl = defaultUrl, index: number) => (
+		<Card
+			key={`${currentUrl}-${index}`}
+			appearance={appearance}
+			url={currentUrl}
+			/* Embed-specific props */
+			frameStyle={frameStyle}
+			isSelected={isSelected}
+			inheritDimensions={inheritDimensions}
+			truncateInline={truncateInline}
+			showHoverPreview={showHoverPreview}
+			CompetitorPrompt={CompetitorPrompt}
+		/>
+	));
+
+	return (
+		<SmartCardProvider client={client}>
+			<EmbedCardWrapper inheritDimensions={inheritDimensions}>
+				{stackUrlListVertically ? <div css={cardUrlListStackStyles}>{cards}</div> : cards}
+			</EmbedCardWrapper>
+		</SmartCardProvider>
+	);
+};
 
 export default CardView;

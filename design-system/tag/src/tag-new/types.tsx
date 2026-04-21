@@ -71,6 +71,11 @@ export interface TagNewProps {
 	 */
 	maxWidth?: string | number;
 	/**
+	 * When false, removes the tag's default margin. Use in contexts like Select multi-value
+	 * where the parent controls spacing (e.g. gap between tags). Defaults to `true`.
+	 */
+	hasMargin?: boolean;
+	/**
 	 * Handler called when the tag is clicked. Only fires for link tags (when href is provided).
 	 * The second argument provides an Atlaskit UI analytics event.
 	 */

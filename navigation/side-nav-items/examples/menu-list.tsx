@@ -26,10 +26,7 @@ const styles = cssMap({
 
 export function MenuListExample(): JSX.Element {
 	return (
-		// Disabling this rule as this is a storybook, and the code is designed to swallow anchor-clicks
-		// to avoid leaving storybook.
-		// eslint-disable-next-line @atlassian/a11y/no-noninteractive-element-interactions, @atlassian/a11y/click-events-have-key-events
-		<nav css={styles.root} onClick={(evt) => evt.preventDefault()}>
+		<nav css={styles.root}>
 			<SideNavBody>
 				<ButtonMenuItem>Text only</ButtonMenuItem>
 				<ButtonMenuItem elemBefore={<Avatar />}>With avatar</ButtonMenuItem>

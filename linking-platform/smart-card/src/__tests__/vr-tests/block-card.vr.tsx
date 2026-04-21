@@ -20,6 +20,7 @@ import { BlockCardAtlas } from '../../../examples/vr-block-card/vr-block-card-re
 import { BlockCardBitbucket } from '../../../examples/vr-block-card/vr-block-card-resolved-bitbucket';
 import { BlockCardConfluence } from '../../../examples/vr-block-card/vr-block-card-resolved-confluence';
 import { BlockCardEntities } from '../../../examples/vr-block-card/vr-block-card-resolved-entities';
+import BlockCardResolvedIconVariations from '../../../examples/vr-block-card/vr-block-card-resolved-icon-variations';
 import { BlockCardJira } from '../../../examples/vr-block-card/vr-block-card-resolved-jira';
 import { BlockCardTrello } from '../../../examples/vr-block-card/vr-block-card-resolved-trello-image-preview';
 import { BlockCardUnauthorisedView } from '../../../examples/vr-block-card/vr-block-card-unauthorised';
@@ -112,6 +113,24 @@ snapshot(BlockCardTrello, {
 snapshot(BlockCardAtlas, {
 	featureFlags: {},
 	waitForReactLazy: true,
+});
+
+snapshot(BlockCardResolvedIconVariations, {
+	description:
+		'block card resolved icon variations (ResolvedClient iconTestUrls — flexible extractSmartLinkIcon path)',
+	featureFlags: {
+		platform_sl_3p_unauth_paste_as_block_card: 'card_by_default_and_new_design',
+		platform_sl_3p_preauth_better_hovercard_killswitch: true,
+		platform_sl_3p_preauth_better_hovercard: true,
+	},
+	waitForReactLazy: true,
+	ignoredErrors: [
+		{
+			pattern: /Failed to load resource/,
+			ignoredBecause: 'Icon test fixtures use external image URLs; dev build may log load noise',
+			jiraIssueId: 'TODO-1',
+		},
+	],
 });
 snapshot(BlockCardBitbucket, {
 	featureFlags: {},

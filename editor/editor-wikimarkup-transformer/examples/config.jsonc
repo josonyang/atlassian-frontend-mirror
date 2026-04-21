@@ -5,6 +5,6 @@
  */
 {
   "exampleDependencies": [
-    "react-intl-next"
+    "react-intl"
   ]
 }

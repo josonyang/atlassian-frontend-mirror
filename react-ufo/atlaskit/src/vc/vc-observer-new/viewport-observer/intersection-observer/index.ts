@@ -102,7 +102,7 @@ export function createIntersectionObserver({
 					return tagOrCallbackResult;
 				};
 
-				for (const child of entry.target.children) {
+				for (const child of Array.from(entry.target.children)) {
 					observer.observe(child);
 					callbacksPerElement.set(child, zeroDimensionRectangleTagCallback);
 				}

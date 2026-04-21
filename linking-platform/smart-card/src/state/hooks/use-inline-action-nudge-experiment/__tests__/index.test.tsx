@@ -13,13 +13,14 @@ const mockUrl = 'https://www.mockurl.com';
 const enabledRovoOptions = { isRovoEnabled: true, isRovoLLMEnabled: true };
 const disabledRovoOptions = { isRovoEnabled: false, isRovoLLMEnabled: false };
 
-const makeDetails = (extensionKey: string) => ({
+const makeDetails = (extensionKey: string, supportedFeature: string[] = ['RovoActions']) => ({
 	meta: {
 		auth: [],
 		definitionId: 'd1',
 		key: extensionKey,
 		visibility: 'restricted' as const,
 		access: 'granted' as const,
+		supportedFeature,
 	},
 	data: {
 		'@context': {
@@ -36,13 +37,14 @@ const wrapper =
 	(
 		rovoOptions = enabledRovoOptions,
 		extensionKey?: string,
+		supportedFeature: string[] = ['RovoActions'],
 	): React.JSXElementConstructor<{ children: React.ReactNode }> =>
 	({ children }) => {
 		const storeOptions: CardProviderStoreOpts | undefined = extensionKey
 			? {
 					initialState: {
 						[mockUrl]: {
-							details: makeDetails(extensionKey) as any,
+							details: makeDetails(extensionKey, supportedFeature) as any,
 							status: 'resolved' as const,
 						},
 					},
@@ -78,18 +80,32 @@ describe('useInlineActionNudgeExperiment', () => {
 		expect(result.current.isEnabled).toBe(false);
 	});
 
+	it('returns isEnabled=false when showHoverPreview is false', () => {
+		const { result } = renderHook(() => useInlineActionNudgeExperiment(mockUrl, false), {
+			wrapper: wrapper(enabledRovoOptions, 'slack-object-provider'),
+		});
+		expect(result.current.isEnabled).toBe(false);
+	});
+
+	it('returns isEnabled=false when supportedFeature does not include RovoActions', () => {
+		const { result } = renderHook(() => useInlineActionNudgeExperiment(mockUrl, true), {
+			wrapper: wrapper(enabledRovoOptions, 'slack-object-provider', []),
+		});
+		expect(result.current.isEnabled).toBe(false);
+	});
+
 	eeTest
 		.describe('rovogrowth-640-inline-action-nudge-exp', 'inline action nudge experiment')
 		.variant(true, () => {
 			it('returns isEnabled=true when rovo is enabled and experiment is on', () => {
-				const { result } = renderHook(() => useInlineActionNudgeExperiment(mockUrl), {
-					wrapper: wrapper(),
+				const { result } = renderHook(() => useInlineActionNudgeExperiment(mockUrl, true), {
+					wrapper: wrapper(enabledRovoOptions, 'slack-object-provider'),
 				});
 				expect(result.current.isEnabled).toBe(true);
 			});
 
 			it('returns isEnabled=true for non-excluded extensionKeys', () => {
-				const { result } = renderHook(() => useInlineActionNudgeExperiment(mockUrl), {
+				const { result } = renderHook(() => useInlineActionNudgeExperiment(mockUrl, true), {
 					wrapper: wrapper(enabledRovoOptions, 'confluence-object-provider'),
 				});
 				expect(result.current.isEnabled).toBe(true);

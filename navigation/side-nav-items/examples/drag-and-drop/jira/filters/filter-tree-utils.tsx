@@ -105,7 +105,13 @@ export function getPathToFilter(
 	return null;
 }
 
-export function tree(filters: TFilter[]): { build(): TFilter[]; insertAfter({ insert, targetId }: { insert: TFilter; targetId: string; }): /*elided*/ any; insertBefore({ insert, targetId }: { insert: TFilter; targetId: string; }): /*elided*/ any; insertChild({ insert, targetId }: { insert: TFilter; targetId: string; }): /*elided*/ any; remove(filterId: string): /*elided*/ any; } {
+export function tree(filters: TFilter[]): {
+	build(): TFilter[];
+	insertAfter({ insert, targetId }: { insert: TFilter; targetId: string }): /*elided*/ any;
+	insertBefore({ insert, targetId }: { insert: TFilter; targetId: string }): /*elided*/ any;
+	insertChild({ insert, targetId }: { insert: TFilter; targetId: string }): /*elided*/ any;
+	remove(filterId: string): /*elided*/ any;
+} {
 	let result = Array.from(filters);
 
 	const api = {

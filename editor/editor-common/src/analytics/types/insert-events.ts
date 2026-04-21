@@ -379,7 +379,7 @@ export type InsertSourceSyncedBlockPayload = InsertAEP<
 
 type InsertSnippetAEP = InsertAEP<
 	ACTION_SUBJECT_ID.SNIPPET,
-	{ inputMethod: INPUT_METHOD.QUICK_INSERT; snippetId: string },
+	{ hadMedia?: boolean; inputMethod: INPUT_METHOD.QUICK_INSERT; snippetId: string; },
 	undefined
 >;
 
@@ -389,8 +389,8 @@ type FailedToInsertSnippetAEP = OperationalAEP<
 	ACTION_SUBJECT_ID.SNIPPET,
 	| { reason: 'emptyBody' | 'parseError'; snippetId: string }
 	| {
-			copiedMediaFiles: number;
-			reason: 'partialMediaCopyFailure';
+			failedMediaFiles: number;
+			reason: 'partialMediaCopyIntentFailure';
 			snippetId: string;
 			totalMediaFiles: number;
 	  }
