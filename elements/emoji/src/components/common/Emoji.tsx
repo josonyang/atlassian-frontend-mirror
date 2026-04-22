@@ -547,7 +547,15 @@ export const EmojiNodeWrapper: React.ForwardRefExoticComponent<
 
 	return (
 		<span
-			role={editorEmoji ? undefined : shouldBeInteractive ? 'button' : ariaLabel ? 'img' : 'presentation'}
+			role={
+				editorEmoji
+					? undefined
+					: shouldBeInteractive
+						? 'button'
+						: ariaLabel
+							? 'img'
+							: 'presentation'
+			}
 			aria-label={ariaLabel}
 			ref={ref}
 			data-testid={`${type}-emoji-${emoji.shortName}`}

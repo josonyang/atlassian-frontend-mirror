@@ -1,6 +1,6 @@
 import { SmartLinkActionType } from '@atlaskit/linking-types';
 
-import { ActionName, type IconType, InternalActionName, MediaType } from '../constants';
+import { ActionName, type IconType, MediaType } from '../constants';
 import { type FlexibleUiDataContext } from '../state/flexible-ui-context/types';
 
 const context: FlexibleUiDataContext = {
@@ -49,7 +49,7 @@ const context: FlexibleUiDataContext = {
 		RovoChatAction: {
 			invokeAction: {
 				actionSubjectId: 'rovoChatPrompt',
-				actionType: InternalActionName.RovoChatAction,
+				actionType: ActionName.RovoChatAction,
 				definitionId: 'd1',
 				display: 'hoverCardPreview',
 				extensionKey: 'google-object-provider',

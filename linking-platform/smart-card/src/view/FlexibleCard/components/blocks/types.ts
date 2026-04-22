@@ -207,7 +207,8 @@ export type NamedDataActionItem = BaseDataActionItem & {
 		| ActionName.PreviewAction
 		| ActionName.DownloadAction
 		| ActionName.AutomationAction
-		| ActionName.CopyLinkAction;
+		| ActionName.CopyLinkAction
+		| ActionName.RovoChatAction;
 };
 
 /**

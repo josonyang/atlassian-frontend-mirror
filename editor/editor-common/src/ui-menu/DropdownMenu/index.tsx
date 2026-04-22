@@ -4,7 +4,7 @@
  * @jsx jsx
  */
 import type { MouseEventHandler, PointerEvent } from 'react';
-import React, { PureComponent, useContext } from 'react';
+import React, { PureComponent, useCallback, useContext, useMemo } from 'react';
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled, @typescript-eslint/consistent-type-imports -- Ignored via go/DSP-18766; jsx required at runtime for @jsxRuntime classic
 import { css, jsx } from '@emotion/react';
@@ -170,6 +170,13 @@ export default class DropdownMenuWrapper extends PureComponent<Props, State> {
 		}
 	};
 
+	private handleEnterKeydown = (e: KeyboardEvent) => {
+		if (!this.props.allowEnterDefaultBehavior) {
+			e.preventDefault();
+		}
+		e.stopPropagation();
+	};
+
 	private renderDropdownMenu() {
 		const { target, popupPlacement } = this.state;
 		const {
@@ -186,7 +193,6 @@ export default class DropdownMenuWrapper extends PureComponent<Props, State> {
 			onItemActivated,
 			arrowKeyNavigationProviderOptions,
 			section,
-			allowEnterDefaultBehavior,
 			handleEscapeKeydown,
 		} = this.props;
 		// Note that this onSelection function can't be refactored to useMemo for
@@ -211,7 +217,7 @@ export default class DropdownMenuWrapper extends PureComponent<Props, State> {
 								});
 							}
 						},
-					};
+				  };
 
 		return (
 			<Popup
@@ -237,13 +243,7 @@ export default class DropdownMenuWrapper extends PureComponent<Props, State> {
 						shouldFitContainer={true}
 						handleClickOutside={this.handleClose}
 						handleEscapeKeydown={handleEscapeKeydown || this.handleCloseAndFocus}
-						// eslint-disable-next-line @atlassian/perf-linting/no-unstable-inline-props -- Ignored via go/ees017 (to be fixed)
-						handleEnterKeydown={(e: KeyboardEvent) => {
-							if (!allowEnterDefaultBehavior) {
-								e.preventDefault();
-							}
-							e.stopPropagation();
-						}}
+						handleEnterKeydown={this.handleEnterKeydown}
 						targetRef={this.state.target}
 					>
 						{/* eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766 */}
@@ -359,6 +359,39 @@ export function DropdownMenuItem({
 >): jsx.JSX.Element {
 	const [submenuActive, setSubmenuActive] = React.useState(false);
 
+	const memoizedOnClick = useCallback(
+		() => onItemActivated && onItemActivated({ item }),
+		[onItemActivated, item],
+	);
+	const onClick = expValEquals('platform_editor_perf_lint_cleanup', 'isEnabled', true)
+		? memoizedOnClick
+		: () => onItemActivated && onItemActivated({ item });
+
+	const memoizedOnMouseDown = useCallback((e: React.MouseEvent) => {
+		e.preventDefault();
+	}, []);
+	const onMouseDown = expValEquals('platform_editor_perf_lint_cleanup', 'isEnabled', true)
+		? memoizedOnMouseDown
+		: (e: React.MouseEvent) => {
+				e.preventDefault();
+		  };
+
+	const memoizedOnMouseEnter = useCallback(
+		() => onMouseEnter && onMouseEnter({ item }),
+		[onMouseEnter, item],
+	);
+	const onMouseEnterHandler = expValEquals('platform_editor_perf_lint_cleanup', 'isEnabled', true)
+		? memoizedOnMouseEnter
+		: () => onMouseEnter && onMouseEnter({ item });
+
+	const memoizedOnMouseLeave = useCallback(
+		() => onMouseLeave && onMouseLeave({ item }),
+		[onMouseLeave, item],
+	);
+	const onMouseLeaveHandler = expValEquals('platform_editor_perf_lint_cleanup', 'isEnabled', true)
+		? memoizedOnMouseLeave
+		: () => onMouseLeave && onMouseLeave({ item });
+
 	// onClick and value.name are the action indicators in the handlers
 	// If neither are present, don't wrap in an Item.
 	if (!item.onClick && !(item.value && item.value.name)) {
@@ -408,26 +441,20 @@ export function DropdownMenuItem({
 					shouldUseDefaultRole
 						? 'button'
 						: expValEquals('platform_editor_august_a11y', 'isEnabled', true)
-							? undefined
-							: 'menuitem'
+						? undefined
+						: 'menuitem'
 				}
 				iconBefore={item.elemBefore}
 				iconAfter={item.elemAfter}
 				isDisabled={item.isDisabled}
-				// eslint-disable-next-line @atlassian/perf-linting/no-unstable-inline-props -- Ignored via go/ees017 (to be fixed)
-				onClick={() => onItemActivated && onItemActivated({ item })}
+				onClick={onClick}
 				aria-label={ariaLabel}
 				aria-pressed={shouldUseDefaultRole ? item.isActive : undefined}
 				aria-keyshortcuts={item['aria-keyshortcuts']}
-				// eslint-disable-next-line @atlassian/perf-linting/no-unstable-inline-props -- Ignored via go/ees017 (to be fixed)
-				onMouseDown={(e) => {
-					e.preventDefault();
-				}}
+				onMouseDown={onMouseDown}
 				component={DropdownMenuItemCustomComponent}
-				// eslint-disable-next-line @atlassian/perf-linting/no-unstable-inline-props -- Ignored via go/ees017 (to be fixed)
-				onMouseEnter={() => onMouseEnter && onMouseEnter({ item })}
-				// eslint-disable-next-line @atlassian/perf-linting/no-unstable-inline-props -- Ignored via go/ees017 (to be fixed)
-				onMouseLeave={() => onMouseLeave && onMouseLeave({ item })}
+				onMouseEnter={onMouseEnterHandler}
+				onMouseLeave={onMouseLeaveHandler}
 				aria-expanded={
 					expValEquals('platform_editor_august_a11y', 'isEnabled', true)
 						? undefined
@@ -465,13 +492,16 @@ export const DropdownMenuWithKeyboardNavigation: React.MemoExoticComponent<
 
 		// This context is to handle the tab, Arrow Right/Left key events for dropdown.
 		// Default context has the void callbacks for above key events
+		const memoizedArrowKeyNavOptions = useMemo(
+			() => ({ ...props.arrowKeyNavigationProviderOptions, keyDownHandlerContext }),
+			[props.arrowKeyNavigationProviderOptions, keyDownHandlerContext],
+		);
+		const arrowKeyNavOptions = expValEquals('platform_editor_perf_lint_cleanup', 'isEnabled', true)
+			? memoizedArrowKeyNavOptions
+			: { ...props.arrowKeyNavigationProviderOptions, keyDownHandlerContext };
 		return (
 			<DropdownMenuWrapper
-				// eslint-disable-next-line @atlassian/perf-linting/no-unstable-inline-props -- Ignored via go/ees017 (to be fixed)
-				arrowKeyNavigationProviderOptions={{
-					...props.arrowKeyNavigationProviderOptions,
-					keyDownHandlerContext,
-				}}
+				arrowKeyNavigationProviderOptions={arrowKeyNavOptions}
 				// eslint-disable-next-line react/jsx-props-no-spreading -- Spreading props to pass through dynamic component props
 				{...props}
 			/>

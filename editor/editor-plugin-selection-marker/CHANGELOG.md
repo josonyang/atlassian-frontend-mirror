@@ -1,5 +1,22 @@
 # @atlaskit/editor-plugin-selection-marker
 
+## 10.1.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 10.1.0
+
+### Minor Changes
+
+- [`1a60935ff6ea6`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/1a60935ff6ea6) -
+  Remove flag to increase accessibility in links.
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 10.0.1
 
 ### Patch Changes

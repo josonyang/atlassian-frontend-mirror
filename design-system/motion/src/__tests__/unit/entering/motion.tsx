@@ -1,12 +1,13 @@
 import React from 'react';
 
 import { token } from '@atlaskit/tokens';
-import { act, render, screen, waitFor } from '@atlassian/testing-library';
+import { act, render, screen } from '@atlassian/testing-library';
 
 import ExitingPersistence from '../../../entering/exiting-persistence';
 import Motion, { Reanimate } from '../../../entering/motion';
 import StaggeredEntrance from '../../../entering/staggered-entrance';
 import { isReducedMotion } from '../../../index';
+import { CustomMotionExample } from '../__fixtures__/custom-motion';
 
 const MOTION_DURATION = 350;
 
@@ -18,6 +19,12 @@ jest.mock('@atlaskit/tokens', () => ({
 		if (path === 'motion.test.exit') {
 			return 'var(--ds-test-exit)';
 		}
+		if (path === 'motion.test.enter.delay') {
+			return 'var(--ds-test-enter-delay)';
+		}
+		if (path === 'motion.test.exit.delay') {
+			return 'var(--ds-test-exit-delay)';
+		}
 		return path;
 	},
 }));
@@ -26,6 +33,8 @@ jest.mock('../../../utils/accessibility');
 
 const ENTERING_ANIMATION = token('motion.test.enter' as any);
 const EXITING_ANIMATION = token('motion.test.exit' as any);
+const ENTERING_DELAYED_ANIMATION = token('motion.test.enter.delay' as any);
+const EXITING_DELAYED_ANIMATION = token('motion.test.exit.delay' as any);
 
 const TEST_MOTION_CSS = `
 @keyframes FadeIn {
@@ -39,6 +48,8 @@ const TEST_MOTION_CSS = `
 :root {
   --ds-test-enter: 350ms cubic-bezier(0.66, 0, 0.34, 1) FadeIn;
   --ds-test-exit: 350ms cubic-bezier(0.66, 0, 0.34, 1) FadeOut;
+  --ds-test-enter-delay: 350ms cubic-bezier(0.66, 0, 0.34, 1) 120ms FadeIn;
+  --ds-test-exit-delay: 200ms cubic-bezier(0.66, 0, 0.34, 1) 80ms FadeOut;
 }
 `;
 
@@ -61,6 +72,24 @@ beforeEach(() => {
 describe('<Motion />', () => {
 	beforeEach(() => {
 		jest.useFakeTimers();
+
+		const styleMock = new CSSStyleDeclaration();
+		jest.spyOn(window, 'getComputedStyle').mockReturnValue(styleMock);
+		jest.spyOn(styleMock, 'getPropertyValue').mockImplementation((name) => {
+			if (name === '--ds-test-enter') {
+				return '350ms cubic-bezier(0.66, 0, 0.34, 1) FadeIn';
+			}
+			if (name === '--ds-test-exit') {
+				return '350ms cubic-bezier(0.66, 0, 0.34, 1) FadeOut';
+			}
+			if (name === '--ds-test-enter-delay') {
+				return '350ms cubic-bezier(0.66, 0, 0.34, 1) 120ms FadeIn';
+			}
+			if (name === '--ds-test-exit-delay') {
+				return '200ms cubic-bezier(0.66, 0, 0.34, 1) 80ms FadeOut';
+			}
+			return '';
+		});
 	});
 	afterEach(() => {
 		jest.useRealTimers();
@@ -83,65 +112,64 @@ describe('<Motion />', () => {
 	});
 
 	describe('entering', () => {
-		it('should fill the animation backwards to prevent a frame of the element already being entered', () => {
-			renderWithMotionStyles(
-				<Motion
-					enteringAnimation={ENTERING_ANIMATION}
-					exitingAnimation={EXITING_ANIMATION}
-					testId="target"
-				>
-					<div />
-				</Motion>,
-			);
 
-			expect(screen.getByTestId('target').style.animation).toContain('backwards');
-		});
-
-		it('should animate in', () => {
-			renderWithMotionStyles(
-				<Motion
-					enteringAnimation={ENTERING_ANIMATION}
-					exitingAnimation={EXITING_ANIMATION}
-					testId="target"
-				>
-					<div />
-				</Motion>,
-			);
-
-			expect(screen.getByTestId('target')).toHaveCompiledCss('animation-play-state', 'running');
-		});
-
-		it('should callback when entering on finish', () => {
-			const callback = jest.fn();
-			renderWithMotionStyles(
-				<Motion
-					enteringAnimation={ENTERING_ANIMATION}
-					exitingAnimation={EXITING_ANIMATION}
-					onFinish={callback}
-					testId="target"
-				>
-					<div />
-				</Motion>,
-			);
-			act(() => {
-				jest.advanceTimersByTime(1000);
-			});
-
-			expect(callback).toHaveBeenCalledWith('entering');
-		});
-
-		it('should callback when entering in a staggered list after finishing', () => {
-			const step = 50;
-			const callback = jest.fn();
-			renderWithMotionStyles(
-				<StaggeredEntrance delayStep={step} columns={1}>
+		describe('token motion', () => {
+			it('should fill the animation backwards to prevent a frame of the element already being entered', () => {
+				renderWithMotionStyles(
 					<Motion
 						enteringAnimation={ENTERING_ANIMATION}
 						exitingAnimation={EXITING_ANIMATION}
 						testId="target"
 					>
 						<div />
-					</Motion>
+					</Motion>,
+				);
+	
+				expect(screen.getByTestId('target').style.animation).toContain('var(--ds-test-enter)');
+				expect(screen.getByTestId('target')).toHaveCompiledCss('animation-fill-mode', 'backwards');
+			});
+	
+			it('should animate in', () => {
+				renderWithMotionStyles(
+					<Motion
+						enteringAnimation={ENTERING_ANIMATION}
+						exitingAnimation={EXITING_ANIMATION}
+						testId="target"
+					>
+						<div />
+					</Motion>,
+				);
+	
+				expect(screen.getByTestId('target')).toHaveCompiledCss('animation-play-state', 'running');
+			});
+
+			it('should call onFinish for entering only after token duration and delay', () => {
+				const callback = jest.fn();
+				renderWithMotionStyles(
+					<Motion
+						enteringAnimation={ENTERING_DELAYED_ANIMATION}
+						exitingAnimation={EXITING_ANIMATION}
+						onFinish={callback}
+						testId="target"
+					>
+						<div />
+					</Motion>,
+				);
+	
+				act(() => {
+					jest.advanceTimersByTime(469);
+				});
+				expect(callback).not.toHaveBeenCalled();
+	
+				act(() => {
+					jest.advanceTimersByTime(1);
+				});
+				expect(callback).toHaveBeenCalledWith('entering');
+			});
+
+			it('should callback when entering on finish', () => {
+				const callback = jest.fn();
+				renderWithMotionStyles(
 					<Motion
 						enteringAnimation={ENTERING_ANIMATION}
 						exitingAnimation={EXITING_ANIMATION}
@@ -149,242 +177,232 @@ describe('<Motion />', () => {
 						testId="target"
 					>
 						<div />
-					</Motion>
-				</StaggeredEntrance>,
-			);
-
-			// Step is actually logarithmic so we add a little on to make sure it hits the timeout.
-			act(() => {
-				jest.advanceTimersByTime(MOTION_DURATION + step + 2);
-			});
-			expect(callback).toHaveBeenCalledWith('entering');
-		});
-
-		it('should not callback if paused', () => {
-			const callback = jest.fn();
-			renderWithMotionStyles(
-				<ExitingPersistence>
-					<Motion
-						enteringAnimation={ENTERING_ANIMATION}
-						exitingAnimation={EXITING_ANIMATION}
-						onFinish={callback}
-						isPaused
-					>
-						<div />
-					</Motion>
-				</ExitingPersistence>,
-			);
-			act(() => {
-				jest.runAllTimers();
+					</Motion>,
+				);
+				act(() => {
+					jest.advanceTimersByTime(1000);
+				});
+	
+				expect(callback).toHaveBeenCalledWith('entering');
 			});
 
-			expect(callback).not.toHaveBeenCalled();
-		});
-
-		it('should callback immediately if appear is false', () => {
-			const callback = jest.fn();
-			renderWithMotionStyles(
-				<ExitingPersistence>
-					<Motion
-						enteringAnimation={ENTERING_ANIMATION}
-						exitingAnimation={EXITING_ANIMATION}
-						onFinish={callback}
-					>
-						<div />
-					</Motion>
-				</ExitingPersistence>,
-			);
-
-			expect(callback).toHaveBeenCalledWith('entering');
-		});
-
-		it('should call onFinish correctly when appear is true', () => {
-			const onFinish = jest.fn();
-
-			const { rerender } = renderWithMotionStyles(
-				<ExitingPersistence appear>
-					<Motion
-						enteringAnimation={ENTERING_ANIMATION}
-						exitingAnimation={EXITING_ANIMATION}
-						onFinish={onFinish}
-					>
-						<div />
-					</Motion>
-				</ExitingPersistence>,
-			);
-
-			expect(onFinish).not.toHaveBeenCalled();
-
-			act(() => {
-				// `onFinish` is called after the entering duration
-				jest.advanceTimersByTime(MOTION_DURATION);
+			it('should callback when entering in a staggered list after finishing', () => {
+				const step = 50;
+				const callback = jest.fn();
+				renderWithMotionStyles(
+					<StaggeredEntrance delayStep={step} columns={1}>
+						<Motion
+							enteringAnimation={ENTERING_ANIMATION}
+							exitingAnimation={EXITING_ANIMATION}
+							testId="target"
+						>
+							<div />
+						</Motion>
+						<Motion
+							enteringAnimation={ENTERING_ANIMATION}
+							exitingAnimation={EXITING_ANIMATION}
+							onFinish={callback}
+							testId="target2"
+						>
+							<div />
+						</Motion>
+					</StaggeredEntrance>,
+				);
+	
+				expect(screen.getByTestId('target2')).toHaveCompiledCss('visibility', 'hidden');
+	
+				// Step is actually logarithmic so we add a little on to make sure it hits the timeout.
+				act(() => {
+					jest.advanceTimersByTime(step + 2);
+				});
+	
+				expect(screen.getByTestId('target2')).not.toHaveCompiledCss('visibility', 'hidden');
+	
+				expect(callback).not.toHaveBeenCalled();
+	
+				// Advance by the motion duration
+				act(() => {
+					jest.advanceTimersByTime(MOTION_DURATION);
+				});
+	
+				expect(callback).toHaveBeenCalledWith('entering');
 			});
 
-			expect(onFinish).toHaveBeenCalledTimes(1);
-			expect(onFinish).toHaveBeenCalledWith('entering');
-			onFinish.mockClear();
-
-			rerender(<ExitingPersistence>{false}</ExitingPersistence>);
-
-			expect(onFinish).not.toHaveBeenCalled();
-
-			act(() => {
-				// `onFinish` is called after the exiting duration
-				jest.advanceTimersByTime(MOTION_DURATION);
+			it('should callback immediately if appear is false', () => {
+				const callback = jest.fn();
+				renderWithMotionStyles(
+					<ExitingPersistence>
+						<Motion
+							enteringAnimation={ENTERING_ANIMATION}
+							exitingAnimation={EXITING_ANIMATION}
+							onFinish={callback}
+						>
+							<div />
+						</Motion>
+					</ExitingPersistence>,
+				);
+	
+				expect(callback).toHaveBeenCalledWith('entering');
 			});
 
-			expect(onFinish).toHaveBeenCalledTimes(1);
-			expect(onFinish).toHaveBeenCalledWith('exiting');
+			it('should call onFinish correctly when appear is true', () => {
+				const onFinish = jest.fn();
+	
+				const { rerender } = renderWithMotionStyles(
+					<ExitingPersistence appear>
+						<Motion
+							enteringAnimation={ENTERING_ANIMATION}
+							exitingAnimation={EXITING_ANIMATION}
+							onFinish={onFinish}
+						>
+							<div />
+						</Motion>
+					</ExitingPersistence>,
+				);
+	
+				expect(onFinish).not.toHaveBeenCalled();
+	
+				act(() => {
+					// `onFinish` is called after the entering duration
+					jest.advanceTimersByTime(MOTION_DURATION);
+				});
+	
+				expect(onFinish).toHaveBeenCalledTimes(1);
+				expect(onFinish).toHaveBeenCalledWith('entering');
+				onFinish.mockClear();
+	
+				rerender(<ExitingPersistence>{false}</ExitingPersistence>);
+	
+				expect(onFinish).not.toHaveBeenCalled();
+	
+				act(() => {
+					// `onFinish` is called after the exiting duration
+					jest.advanceTimersByTime(MOTION_DURATION);
+				});
+	
+				expect(onFinish).toHaveBeenCalledTimes(1);
+				expect(onFinish).toHaveBeenCalledWith('exiting');
+			});
+	
+			it('should call onFinish correctly when appear is false', () => {
+				const onFinish = jest.fn();
+	
+				const { rerender } = renderWithMotionStyles(
+					<ExitingPersistence>
+						<Motion
+							enteringAnimation={ENTERING_ANIMATION}
+							exitingAnimation={EXITING_ANIMATION}
+							onFinish={onFinish}
+						>
+							<div />
+						</Motion>
+					</ExitingPersistence>,
+				);
+	
+				// `onFinish` is called immediately because `appear={false}` means there's no entrance animation
+				expect(onFinish).toHaveBeenCalledTimes(1);
+				expect(onFinish).toHaveBeenCalledWith('entering');
+				onFinish.mockClear();
+	
+				rerender(<ExitingPersistence>{false}</ExitingPersistence>);
+	
+				expect(onFinish).not.toHaveBeenCalled();
+	
+				act(() => {
+					// `onFinish` is called after the exiting duration
+					jest.advanceTimersByTime(MOTION_DURATION);
+				});
+	
+				expect(onFinish).toHaveBeenCalledTimes(1);
+				expect(onFinish).toHaveBeenCalledWith('exiting');
+			});
+	
+			it('should not animate if appear is false', () => {
+				renderWithMotionStyles(
+					<ExitingPersistence>
+						<Motion
+							enteringAnimation={ENTERING_ANIMATION}
+							exitingAnimation={EXITING_ANIMATION}
+							testId="target"
+						>
+							<div />
+						</Motion>
+					</ExitingPersistence>,
+				);
+	
+				expect(screen.getByTestId('target')).not.toHaveCompiledCss('animation-play-state', 'running');
+			});
+	
+			it('should animate on mount if appear is true', () => {
+				renderWithMotionStyles(
+					<ExitingPersistence appear>
+						<Motion
+							enteringAnimation={ENTERING_ANIMATION}
+							exitingAnimation={EXITING_ANIMATION}
+							testId="target"
+						>
+							<div />
+						</Motion>
+					</ExitingPersistence>,
+				);
+	
+				expect(screen.getByTestId('target')).toHaveCompiledCss('animation-play-state', 'running');
+			});
 		});
 
-		it('should call onFinish correctly when appear is false', () => {
-			const onFinish = jest.fn();
-
-			const { rerender } = renderWithMotionStyles(
-				<ExitingPersistence>
-					<Motion
-						enteringAnimation={ENTERING_ANIMATION}
-						exitingAnimation={EXITING_ANIMATION}
-						onFinish={onFinish}
-					>
-						<div />
-					</Motion>
-				</ExitingPersistence>,
-			);
-
-			// `onFinish` is called immediately because `appear={false}` means there's no entrance animation
-			expect(onFinish).toHaveBeenCalledTimes(1);
-			expect(onFinish).toHaveBeenCalledWith('entering');
-			onFinish.mockClear();
-
-			rerender(<ExitingPersistence>{false}</ExitingPersistence>);
-
-			expect(onFinish).not.toHaveBeenCalled();
-
-			act(() => {
-				// `onFinish` is called after the exiting duration
-				jest.advanceTimersByTime(MOTION_DURATION);
+		describe('custom motion', () => {
+			beforeEach(() => {
+				const styleMock = new CSSStyleDeclaration();
+				jest.spyOn(window, 'getComputedStyle').mockReturnValue(styleMock);
+				jest.spyOn(styleMock, 'getPropertyValue').mockImplementation((name) => {
+					if (name === 'animation-duration') {
+						return '0.25s';
+					}
+					if (name === 'animation-delay') {
+						return '0.2s';
+					}
+					return '';
+				});
 			});
 
-			expect(onFinish).toHaveBeenCalledTimes(1);
-			expect(onFinish).toHaveBeenCalledWith('exiting');
-		});
-
-		it('should not animate if appear is false', () => {
-			renderWithMotionStyles(
-				<ExitingPersistence>
-					<Motion
-						enteringAnimation={ENTERING_ANIMATION}
-						exitingAnimation={EXITING_ANIMATION}
+			it('should set entering animationDuration and animationDelay from custom motion', () => {
+				renderWithMotionStyles(
+					<CustomMotionExample
 						testId="target"
 					>
 						<div />
-					</Motion>
-				</ExitingPersistence>,
-			);
+					</CustomMotionExample>,
+				);
+	
+				expect(screen.getByTestId('target')).toHaveCompiledCss('animation-duration', 'var(--ds-duration-long,.25s)');
+				expect(screen.getByTestId('target')).toHaveCompiledCss('animation-delay', 'var(--ds-duration-medium,.2s)');
+			});
 
-			expect(screen.getByTestId('target')).not.toHaveCompiledCss('animation-play-state', 'running');
-		});
-
-		it('should animate on mount if appear is true', () => {
-			renderWithMotionStyles(
-				<ExitingPersistence appear>
-					<Motion
-						enteringAnimation={ENTERING_ANIMATION}
-						exitingAnimation={EXITING_ANIMATION}
+			it('should call onFinish for entering only after token duration and delay', () => {
+				const callback = jest.fn();
+				renderWithMotionStyles(
+					<CustomMotionExample
+						onFinish={callback}
 						testId="target"
 					>
 						<div />
-					</Motion>
-				</ExitingPersistence>,
-			);
-
-			expect(screen.getByTestId('target')).toHaveCompiledCss('animation-play-state', 'running');
+					</CustomMotionExample>,
+				);
+	
+				act(() => {
+					jest.advanceTimersByTime(449);
+				});
+				expect(callback).not.toHaveBeenCalled();
+	
+				act(() => {
+					jest.advanceTimersByTime(1);
+				});
+				expect(callback).toHaveBeenCalledWith('entering');
+			});
 		});
 	});
 
 	describe('exiting', () => {
-		it('should call callback on finish', () => {
-			const callback = jest.fn();
-			const { rerender } = renderWithMotionStyles(
-				<ExitingPersistence>
-					<Motion
-						enteringAnimation={ENTERING_ANIMATION}
-						exitingAnimation={EXITING_ANIMATION}
-						onFinish={callback}
-					>
-						<div />
-					</Motion>
-				</ExitingPersistence>,
-			);
-
-			rerender(<ExitingPersistence>{false}</ExitingPersistence>);
-			act(() => {
-				jest.advanceTimersByTime(MOTION_DURATION);
-			});
-
-			expect(callback).toHaveBeenCalledWith('exiting');
-		});
-
-		it('should not callback if the component is fully unmounted', () => {
-			const callback = jest.fn();
-			const { rerender } = renderWithMotionStyles(
-				<ExitingPersistence>
-					<Motion
-						enteringAnimation={ENTERING_ANIMATION}
-						exitingAnimation={EXITING_ANIMATION}
-						onFinish={callback}
-					>
-						<div />
-					</Motion>
-				</ExitingPersistence>,
-			);
-			jest.runAllTimers();
-			callback.mockReset();
-			rerender(<span />);
-
-			act(() => {
-				jest.runAllTimers();
-			});
-
-			expect(callback).not.toHaveBeenCalled();
-		});
-
-		it('should have no delay', () => {
-			const { rerender } = renderWithMotionStyles(
-				<ExitingPersistence>
-					<Motion
-						enteringAnimation={ENTERING_ANIMATION}
-						exitingAnimation={EXITING_ANIMATION}
-						testId="target"
-					>
-						<div />
-					</Motion>
-				</ExitingPersistence>,
-			);
-
-			rerender(<ExitingPersistence>{false}</ExitingPersistence>);
-
-			expect(screen.getByTestId('target')).toHaveStyle({ animationDelay: '' });
-		});
-
-		it('should fill the animation forwards to prevent a frame of the element already being exited', () => {
-			const { rerender } = renderWithMotionStyles(
-				<ExitingPersistence>
-					<Motion
-						enteringAnimation={ENTERING_ANIMATION}
-						exitingAnimation={EXITING_ANIMATION}
-						testId="target"
-					>
-						<div />
-					</Motion>
-				</ExitingPersistence>,
-			);
-
-			rerender(<ExitingPersistence>{false}</ExitingPersistence>);
-
-			expect(screen.getByTestId('target').style.animation).toContain('forwards');
-		});
 
 		it('should run the animation', () => {
 			const { rerender } = renderWithMotionStyles(
@@ -402,6 +420,182 @@ describe('<Motion />', () => {
 			rerender(<ExitingPersistence>{false}</ExitingPersistence>);
 
 			expect(screen.getByTestId('target')).toHaveCompiledCss('animation-play-state', 'running');
+		});
+
+		it('should fill the animation forwards to prevent a frame of the element already being exited', () => {
+			const { rerender } = renderWithMotionStyles(
+				<ExitingPersistence>
+					<Motion
+						enteringAnimation={ENTERING_ANIMATION}
+						exitingAnimation={EXITING_ANIMATION}
+						testId="target"
+					>
+						<div />
+					</Motion>
+				</ExitingPersistence>,
+			);
+
+			rerender(<ExitingPersistence>{false}</ExitingPersistence>);
+
+			expect(screen.getByTestId('target')).toHaveCompiledCss('animation-fill-mode', 'forwards');
+		});
+
+		describe('token motion', () => {
+			it('should call callback on finish', () => {
+				const callback = jest.fn();
+				const { rerender } = renderWithMotionStyles(
+					<ExitingPersistence>
+						<Motion
+							enteringAnimation={ENTERING_ANIMATION}
+							exitingAnimation={EXITING_ANIMATION}
+							onFinish={callback}
+						>
+							<div />
+						</Motion>
+					</ExitingPersistence>,
+				);
+	
+				rerender(<ExitingPersistence>{false}</ExitingPersistence>);
+				act(() => {
+					jest.advanceTimersByTime(MOTION_DURATION);
+				});
+	
+				expect(callback).toHaveBeenCalledWith('exiting');
+			});
+	
+			it('should not callback if the component is fully unmounted', () => {
+				const callback = jest.fn();
+				const { rerender } = renderWithMotionStyles(
+					<ExitingPersistence>
+						<Motion
+							enteringAnimation={ENTERING_ANIMATION}
+							exitingAnimation={EXITING_ANIMATION}
+							onFinish={callback}
+						>
+							<div />
+						</Motion>
+					</ExitingPersistence>,
+				);
+				jest.runAllTimers();
+				callback.mockReset();
+				rerender(<span />);
+	
+				act(() => {
+					jest.runAllTimers();
+				});
+	
+				expect(callback).not.toHaveBeenCalled();
+			});
+	
+			it('should have no delay', () => {
+				const { rerender } = renderWithMotionStyles(
+					<ExitingPersistence>
+						<Motion
+							enteringAnimation={ENTERING_ANIMATION}
+							exitingAnimation={EXITING_ANIMATION}
+							testId="target"
+						>
+							<div />
+						</Motion>
+					</ExitingPersistence>,
+				);
+	
+				rerender(<ExitingPersistence>{false}</ExitingPersistence>);
+			
+				//Expect no animation delay property to be set
+				expect(screen.getByTestId('target')).toHaveStyle({ animationDelay: '' });
+			});
+
+			it('should call onFinish for exiting only after token duration and delay', () => {
+				const callback = jest.fn();
+				const { rerender } = renderWithMotionStyles(
+					<ExitingPersistence>
+						<Motion
+							enteringAnimation={ENTERING_ANIMATION}
+							exitingAnimation={EXITING_DELAYED_ANIMATION}
+							onFinish={callback}
+						>
+							<div />
+						</Motion>
+					</ExitingPersistence>,
+				);
+	
+				// Initial mount in non-appear mode triggers entering callback immediately.
+				callback.mockClear();
+				rerender(<ExitingPersistence>{false}</ExitingPersistence>);
+				expect(callback).not.toHaveBeenCalled();
+	
+				act(() => {
+					jest.advanceTimersByTime(279);
+				});
+				expect(callback).not.toHaveBeenCalled();
+	
+				act(() => {
+					jest.advanceTimersByTime(1);
+				});
+				expect(callback).toHaveBeenCalledWith('exiting');
+			});
+		});
+
+		describe('custom motion', () => {
+
+			beforeEach(() => {
+				const styleMock = new CSSStyleDeclaration();
+				jest.spyOn(window, 'getComputedStyle').mockReturnValue(styleMock);
+				jest.spyOn(styleMock, 'getPropertyValue').mockImplementation((name) => {
+					if (name === 'animation-duration') {
+						return '0.2s';
+					}
+					if (name === 'animation-delay') {
+						return '0.15s';
+					}
+					return '';
+				});
+			});
+
+			it('should set exiting animationDuration and animationDelay from custom motion', () => {
+				const { rerender } = renderWithMotionStyles(
+					<ExitingPersistence>
+						<CustomMotionExample
+							testId="target"
+						>
+							<div />
+						</CustomMotionExample>
+					</ExitingPersistence>,
+				);
+	
+				rerender(<ExitingPersistence>{false}</ExitingPersistence>);
+	
+				expect(screen.getByTestId('target')).toHaveCompiledCss('animation-duration', 'var(--ds-duration-medium,.2s)');
+				expect(screen.getByTestId('target')).toHaveCompiledCss('animation-delay', 'var(--ds-duration-short,.15s)');
+			});
+
+			it('should call onFinish for exiting only after custom duration and delay', () => {
+				const callback = jest.fn();
+				const { rerender } = renderWithMotionStyles(
+					<ExitingPersistence>
+						<CustomMotionExample
+							onFinish={callback}
+						>
+							<div />
+						</CustomMotionExample>
+					</ExitingPersistence>,
+				);
+	
+				// Initial mount in non-appear mode triggers entering callback immediately.
+				callback.mockClear();
+				rerender(<ExitingPersistence>{false}</ExitingPersistence>);
+	
+				act(() => {
+					jest.advanceTimersByTime(349);
+				});
+				expect(callback).not.toHaveBeenCalled();
+	
+				act(() => {
+					jest.advanceTimersByTime(1);
+				});
+				expect(callback).toHaveBeenCalledWith('exiting');
+			});
 		});
 	});
 
@@ -432,9 +626,8 @@ describe('<Motion />', () => {
 					ref.current?.reanimate(Reanimate.enter);
 				});
 
-				await waitFor(() => {
-					expect(screen.getByTestId('target').style.animation).toContain('backwards');
-				});
+				expect(screen.getByTestId('target').style.animation).toContain('var(--ds-test-enter)');
+				expect(screen.getByTestId('target')).toHaveCompiledCss('animation-fill-mode', 'backwards');
 			});
 
 			it('should animate in when appear is true', async () => {
@@ -468,9 +661,7 @@ describe('<Motion />', () => {
 					ref.current?.reanimate(Reanimate.enter);
 				});
 
-				await waitFor(() => {
-					expect(screen.getByTestId('target').style.animation).toContain('backwards');
-				});
+				expect(screen.getByTestId('target')).toHaveCompiledCss('animation-fill-mode', 'backwards');
 			});
 		});
 		describe('Reanimate.exit_then_enter', () => {
@@ -498,21 +689,16 @@ describe('<Motion />', () => {
 				act(() => {
 					ref.current?.reanimate(Reanimate.exit_then_enter);
 				});
-
 				expect(screen.getByTestId('target')).toHaveCompiledCss('animation-play-state', 'running');
-				expect(screen.getByTestId('target')).toHaveStyle({
-					animation: 'var(--ds-test-exit) forwards',
-				});
+
+				expect(screen.getByTestId('target')).toHaveCompiledCss('animation-fill-mode', 'forwards');
 
 				act(() => {
 					jest.advanceTimersByTime(MOTION_DURATION);
 				});
 
-				await waitFor(() => {
-					expect(screen.getByTestId('target').style.animation).toContain(
-						'var(--ds-test-enter) backwards',
-					);
-				});
+				expect(screen.getByTestId('target').style.animation).toContain('var(--ds-test-enter)');
+				expect(screen.getByTestId('target')).toHaveCompiledCss('animation-fill-mode', 'backwards');
 			});
 			it('should animate out then in when appear is true', async () => {
 				const ref = React.createRef<any>();
@@ -546,19 +732,15 @@ describe('<Motion />', () => {
 				});
 
 				expect(screen.getByTestId('target')).toHaveCompiledCss('animation-play-state', 'running');
-				expect(screen.getByTestId('target')).toHaveStyle({
-					animation: 'var(--ds-test-exit) forwards',
-				});
+				expect(screen.getByTestId('target')).toHaveCompiledCss('animation-fill-mode', 'forwards');
+				expect(screen.getByTestId('target').style.animation).toContain('var(--ds-test-exit)');
 
 				act(() => {
 					jest.advanceTimersByTime(MOTION_DURATION);
 				});
 
-				await waitFor(() => {
-					expect(screen.getByTestId('target').style.animation).toContain(
-						'var(--ds-test-enter) backwards',
-					);
-				});
+				expect(screen.getByTestId('target').style.animation).toContain('var(--ds-test-enter)');
+				expect(screen.getByTestId('target')).toHaveCompiledCss('animation-fill-mode', 'backwards');
 			});
 		});
 	});

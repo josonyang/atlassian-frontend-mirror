@@ -1,5 +1,11 @@
 # @atlaskit/insm
 
+## 0.4.16
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 0.4.15
 
 ### Patch Changes

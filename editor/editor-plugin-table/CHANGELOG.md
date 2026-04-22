@@ -1,5 +1,18 @@
 # @atlaskit/editor-plugin-table
 
+## 22.1.4
+
+### Patch Changes
+
+- [`af869bf30a1e1`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/af869bf30a1e1) -
+  Fix table-layout: auto inline style persisting after fit-to-content measurement
+
+## 22.1.3
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 22.1.2
 
 ### Patch Changes

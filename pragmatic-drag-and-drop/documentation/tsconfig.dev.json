@@ -141,6 +141,9 @@
 			"path": "../../design-system/tokens/tsconfig.app.json"
 		},
 		{
+			"path": "../../accessibility/axe-integration/a11y-playwright-testing/tsconfig.app.json"
+		},
+		{
 			"path": "../../design-system/codegen/tsconfig.app.json"
 		},
 		{

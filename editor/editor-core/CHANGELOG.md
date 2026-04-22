@@ -1,5 +1,29 @@
 # @atlaskit/editor-core
 
+## 219.0.6
+
+### Patch Changes
+
+- [`01bfb2823034b`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/01bfb2823034b) -
+  Expands automatic accessibility (a11y) Playwright test coverage for Platform
+- Updated dependencies
+
+## 219.0.5
+
+### Patch Changes
+
+- [`f22d623e8024c`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/f22d623e8024c) -
+  Fix plugin ordering in universal preset: move blockMenuPlugin before blockTypePlugin and
+  codeBlockPlugin so that quote, paragraph, heading, and code block items are correctly registered
+  in the block menu for Jira and JPD.
+- Updated dependencies
+
+## 219.0.4
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 219.0.3
 
 ### Patch Changes

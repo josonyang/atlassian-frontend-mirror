@@ -309,8 +309,8 @@ export type FlexibleUiActions = {
 	[ActionName.FollowAction]?: ServerActionProp<boolean>;
 	/* Contains data needed to show a preview action that open embed modal.*/
 	[ActionName.PreviewAction]?: PreviewActionData;
+	[ActionName.RovoChatAction]?: RovoChatActionData;
 	[InternalActionName.AISummaryAction]?: AISummaryActionData;
-	[InternalActionName.RovoChatAction]?: RovoChatActionData;
 	[InternalActionName.UnresolvedAction]?: UnresolvedActionData;
 	[InternalActionName.ViewRelatedLinksAction]?: ViewRelatedLinksActionData;
 };

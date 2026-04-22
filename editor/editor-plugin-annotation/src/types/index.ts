@@ -57,7 +57,6 @@ export type InlineCommentCreateComponentProps = AnnotationComponentProps & {
 	 * Creates an annotation mark in the document with the given id.
 	 */
 	onCreate: (id: string) => void;
-	wasNewAnnotationSelected?: boolean;
 };
 
 export type InlineCommentViewComponentProps = AnnotationComponentProps & {
@@ -176,11 +175,11 @@ export enum AnnotationSelectionType {
 
 const prefix = 'ak-editor-annotation';
 export const AnnotationTestIds: {
-	prefix: string;
+	componentClose: string;
+	componentSave: string;
 	floatingComponent: string;
 	floatingToolbarCreateButton: string;
-	componentSave: string;
-	componentClose: string;
+	prefix: string;
 } = {
 	prefix,
 	floatingComponent: `${prefix}-floating-component`,

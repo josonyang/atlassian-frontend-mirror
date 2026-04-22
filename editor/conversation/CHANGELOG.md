@@ -1,5 +1,16 @@
 # @atlaskit/conversation
 
+## 25.1.0
+
+### Minor Changes
+
+- [`f8631829a2320`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/f8631829a2320) -
+  Remove flag to increase accessibility in links.
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 25.0.0
 
 ### Patch Changes

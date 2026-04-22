@@ -155,6 +155,40 @@ export type UserGroupProps = {
  */
 export type TUserGroup<T> = (props: UserGroupProps) => T;
 
+export type UserProps = {
+	/** The Atlassian account ID of the user to display. */
+	accountId: string;
+	/** Whether to hide the user's display name. Defaults to `false`. */
+	hideDisplayName?: boolean;
+};
+
+/**
+ * A component that represents a user, displaying details such as name and profile picture.
+ *
+ * @see [User](https://developer.atlassian.com/platform/forge/ui-kit/components/user/) in UI Kit documentation
+ */
+export type TUser<T> = (props: UserProps) => T;
+
+export type ImageProps = {
+	/** The URL of the image to display. */
+	src: string;
+	/** Alternative text for the image, used for accessibility. */
+	alt?: string;
+	/** The size preset for the image. */
+	size?: 'xsmall' | 'small' | 'medium' | 'large' | 'xlarge';
+	/** The height of the image. Accepts a number (pixels) or a CSS string. */
+	height?: string | number;
+	/** The width of the image. Accepts a number (pixels) or a CSS string. */
+	width?: string | number;
+};
+
+/**
+ * An image component to display images.
+ *
+ * @see [Image](https://developer.atlassian.com/platform/forge/ui-kit/components/image/) in UI Kit documentation
+ */
+export type TImage<T> = (props: ImageProps) => T;
+
 export type FrameProps = {
 	/**
 	 * Sets the height of the Frame component. By default the Frame resizes
@@ -173,6 +207,8 @@ export type FrameProps = {
 	 * Accepted units are `px` and `%`.
 	 */
 	width?: string;
+
+	frameId?: string;
 };
 
 /**

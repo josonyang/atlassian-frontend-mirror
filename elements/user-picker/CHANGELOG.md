@@ -1,5 +1,13 @@
 # @atlaskit/user-picker
 
+## 12.0.5
+
+### Patch Changes
+
+- [`01bfb2823034b`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/01bfb2823034b) -
+  Expands automatic accessibility (a11y) Playwright test coverage for Platform
+- Updated dependencies
+
 ## 12.0.4
 
 ### Patch Changes

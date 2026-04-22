@@ -296,18 +296,18 @@ export default (): React.JSX.Element => {
 								<Text weight="bold">{group.title}</Text>
 								<IconGrid gridTemplateColumns={gridTemplateColumns}>
 									{group.icons.map((icon) => (
-											<IconVariant
-												key={icon}
-												label={icon}
-												icon={icon}
-												activeSizes={activeSizes}
-												showBorder={showBorder}
-												showSizingOverlay={showSizingOverlay}
-												showTitle={showTitle}
-												tileVariants={tileVariants}
-												zoom={zoomLevel}
-											/>
-										))}
+										<IconVariant
+											key={icon}
+											label={icon}
+											icon={icon}
+											activeSizes={activeSizes}
+											showBorder={showBorder}
+											showSizingOverlay={showSizingOverlay}
+											showTitle={showTitle}
+											tileVariants={tileVariants}
+											zoom={zoomLevel}
+										/>
+									))}
 								</IconGrid>
 							</Stack>
 						))

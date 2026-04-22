@@ -1,4 +1,4 @@
-import React, { type MouseEvent, useCallback, useEffect, useMemo } from 'react';
+import React, { type MouseEvent, useCallback, useEffect, useMemo, useRef } from 'react';
 
 import { useAnalyticsEvents as useAnalyticsEventsNext } from '@atlaskit/analytics-next';
 import { extractSmartLinkEmbed } from '@atlaskit/link-extractors';
@@ -38,6 +38,7 @@ import FlexibleCard from '../FlexibleCard';
 import { InlineCard } from '../InlineCard';
 import { useFire3PWorkflowsClickEvent } from '../SmartLinkEvents/useSmartLinkEvents';
 
+import withCardIntersectionObserver from './card-intersection-observer';
 import { type CardWithUrlContentProps } from './types';
 
 const thirdPartyARIPrefix = 'ari:third-party';
@@ -52,6 +53,7 @@ function Component({
 	url,
 	isSelected,
 	isHovered,
+	isIntersected,
 	frameStyle,
 	platform,
 	onClick,
@@ -78,6 +80,7 @@ function Component({
 }: CardWithUrlContentProps) {
 	const { createAnalyticsEvent } = useAnalyticsEventsNext();
 	const { fireEvent } = useAnalyticsEvents();
+	const hasFiredSeenRef = useRef(false);
 
 	let isFlexibleUi = useMemo(() => isFlexibleUiCard(children, ui), [children, ui]);
 
@@ -275,6 +278,18 @@ function Component({
 			});
 		}
 	}, [appearance, extensionKey, fireEvent, id, isFlexibleUi, state.status]);
+
+	// Fire smartLink seen event once on a successful render card is in the viewport
+	useEffect(() => {
+		if (fg('platform_sl_event_ui_seen')) {
+			if (!isFinalState(state.status)) return;
+
+			if (isIntersected && !hasFiredSeenRef.current) {
+				fireEvent('ui.smartLink.seen', { display: appearance });
+				hasFiredSeenRef.current = true;
+			}
+		}
+	}, [state.status, isIntersected, fireEvent, appearance]);
 
 	const onIframeDwell = useCallback(
 		(dwellTime: number, dwellPercentVisible: number) => {
@@ -414,6 +429,7 @@ function ComponentUpdated({
 	url,
 	isSelected,
 	isHovered,
+	isIntersected,
 	frameStyle,
 	platform,
 	onClick,
@@ -440,6 +456,7 @@ function ComponentUpdated({
 }: CardWithUrlContentProps) {
 	const { createAnalyticsEvent } = useAnalyticsEventsNext();
 	const { fireEvent } = useAnalyticsEvents();
+	const hasFiredSeenRef = useRef(false);
 
 	let isFlexibleUi = useMemo(() => isFlexibleUiCard(children, ui), [children, ui]);
 
@@ -637,6 +654,18 @@ function ComponentUpdated({
 			});
 		}
 	}, [appearance, extensionKey, fireEvent, id, isFlexibleUi, state.status]);
+
+	// Fire smartLink seen event once on a successful render card is in the viewport
+	useEffect(() => {
+		if (fg('platform_sl_event_ui_seen')) {
+			if (!isFinalState(state.status)) return;
+
+			if (isIntersected && !hasFiredSeenRef.current) {
+				fireEvent('ui.smartLink.seen', { display: appearance });
+				hasFiredSeenRef.current = true;
+			}
+		}
+	}, [state.status, isIntersected, fireEvent, appearance]);
 
 	const onIframeDwell = useCallback(
 		(dwellTime: number, dwellPercentVisible: number) => {
@@ -811,3 +840,5 @@ export const CardWithUrlContent = (props: CardWithUrlContentProps): React.JSX.El
 		</SmartLinkModalProvider>
 	);
 };
+
+export const CardWithUrl = withCardIntersectionObserver(CardWithUrlContent);

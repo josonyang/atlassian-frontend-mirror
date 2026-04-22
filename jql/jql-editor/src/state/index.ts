@@ -60,6 +60,7 @@ import { type PortalActions } from '../ui/jql-editor-portal-provider/types';
 import {
 	type HydratedDeprecatedField,
 	type HydratedProject,
+	type HydratedGoal,
 	type HydratedTeam,
 	type HydratedUser,
 	type HydratedValue,
@@ -1066,6 +1067,20 @@ export const useHydratedProject = createHook<
 			? state.hydratedValues[normaliseHydrationKey(fieldName)]?.get(normaliseJqlString(id))
 			: state.hydratedValues[normaliseJqlString(fieldName)]?.get(normaliseJqlString(id));
 		return project && project.type === 'project' ? project : undefined;
+	},
+});
+
+export const useHydratedGoal = createHook<
+	State,
+	Actions,
+	HydratedGoal | undefined,
+	{ fieldName: string; id: string }
+>(Store, {
+	selector: (state, { id, fieldName }) => {
+		const goal = state.hydratedValues[normaliseHydrationKey(fieldName)]?.get(
+			normaliseJqlString(id),
+		);
+		return goal && goal.type === 'goal' ? goal : undefined;
 	},
 });
 

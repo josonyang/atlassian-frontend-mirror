@@ -1,5 +1,14 @@
 # @atlaskit/avatar
 
+## 25.13.0
+
+### Minor Changes
+
+- [`91ec2c3ecc3b5`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/91ec2c3ecc3b5) -
+  [ux] Added `'warning'` as a new value for the `status` prop on `Avatar` and the `Status`
+  component. This adds a yellow warning indicator to signal caution or attention-required states,
+  supporting Agent visibility use cases.
+
 ## 25.12.0
 
 ### Minor Changes

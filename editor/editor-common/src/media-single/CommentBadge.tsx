@@ -13,6 +13,7 @@ import type { IntlShape } from 'react-intl';
 import CustomThemeButton from '@atlaskit/button/custom-theme-button';
 import { akEditorUnitZIndex } from '@atlaskit/editor-shared-styles';
 import CommentIcon from '@atlaskit/icon/core/comment';
+import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { token } from '@atlaskit/tokens';
 import Tooltip from '@atlaskit/tooltip';
 
@@ -93,7 +94,6 @@ export const CommentBadge: ForwardRefExoticComponent<
 		}, [mediaSingleElement]);
 
 		const badgeDimensions = badgeSize === 'medium' ? '24px' : '16px';
-
 		const colourToken = useMemo(() => {
 			switch (status) {
 				case 'active':
@@ -104,6 +104,28 @@ export const CommentBadge: ForwardRefExoticComponent<
 					return token('color.background.accent.yellow.subtlest');
 			}
 		}, [status]);
+
+		const memoizedBadgeStyle = useMemo(
+			() => ({
+				height: badgeDimensions,
+				width: badgeDimensions,
+				background: colourToken,
+				display: 'flex',
+				justifyContent: 'center',
+				alignItems: 'center',
+			}),
+			[badgeDimensions, colourToken],
+		);
+		const badgeStyle = expValEquals('platform_editor_perf_lint_cleanup', 'isEnabled', true)
+			? memoizedBadgeStyle
+			: {
+					height: badgeDimensions,
+					width: badgeDimensions,
+					background: colourToken,
+					display: 'flex',
+					justifyContent: 'center',
+					alignItems: 'center',
+				};
 
 		return (
 			<div
@@ -124,20 +146,8 @@ export const CommentBadge: ForwardRefExoticComponent<
 				<Tooltip position="top" content={title}>
 					{/* TODO: (from codemod) CustomThemeButton will be deprecated. Please consider migrating to Pressable or Anchor Primitives with custom styles. */}
 					<CustomThemeButton
-						// eslint-disable-next-line @atlassian/perf-linting/no-unstable-inline-props -- Ignored via go/ees017 (to be fixed)
-						style={{
-							// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
-							height: badgeDimensions,
-							// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
-							width: badgeDimensions,
-							background: colourToken,
-							// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
-							display: 'flex',
-							// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
-							justifyContent: 'center',
-							// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
-							alignItems: 'center',
-						}}
+						// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
+						style={badgeStyle}
 						onClick={onClick}
 						onMouseEnter={onMouseEnter}
 						onMouseLeave={onMouseLeave}

@@ -5,7 +5,6 @@ import fetchMock from 'fetch-mock/cjs/client';
 import ButtonGroup from '@atlaskit/button/button-group';
 import Button from '@atlaskit/button/new';
 import Link from '@atlaskit/link';
-import { fg } from '@atlaskit/platform-feature-flags';
 import { token } from '@atlaskit/tokens';
 
 import { default as whiteboardSvg } from '../example-helpers/hero-image.svg';
@@ -94,16 +93,9 @@ export default function CreateBasic(): React.JSX.Element {
 			{link && (
 				// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
 				<div style={{ marginBottom: token('space.200') }}>
-					{fg('dst-a11y__replace-anchor-with-link__linking-platfo') ? (
-						<Link href={link} target="_blank" rel="noopener noreferrer nofollow">
-							{link}
-						</Link>
-					) : (
-						// eslint-disable-next-line @atlaskit/design-system/no-html-anchor
-						<a href={link} target="_blank" rel="noopener noreferrer nofollow">
-							{link}
-						</a>
-					)}
+					<Link href={link} target="_blank" rel="noopener noreferrer nofollow">
+						{link}
+					</Link>
 				</div>
 			)}
 			<ButtonGroup>

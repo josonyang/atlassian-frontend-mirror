@@ -5,7 +5,7 @@ import { fg } from '@atlaskit/platform-feature-flags';
 import { startLighthouseObserver } from '../additional-payload';
 import { type PostInteractionLogOutput } from '../common';
 import { type VCResult } from '../common/vc/types';
-import { type Config, isUFOEnabled, setUFOConfig } from '../config';
+import { type Config, getSelectorConfig, isUFOEnabled, setUFOConfig } from '../config';
 import {
 	experimentalVC,
 	sinkExperimentalHandler,
@@ -249,7 +249,9 @@ export function init(
 			heatmapSize: config.vc.heatmapSize,
 			oldDomUpdates: config.vc.oldDomUpdates,
 			devToolsEnabled: config.vc.devToolsEnabled,
-			selectorConfig: config.vc.selectorConfig,
+			// Use centralised getter so the FedRAMP override (forces every
+			// selector field to false) is applied consistently.
+			selectorConfig: getSelectorConfig(),
 			ssrEnablePageLayoutPlaceholder: config.vc.ssrEnablePageLayoutPlaceholder,
 			trackLayoutShiftOffenders: config.vc.trackLayoutShiftOffenders,
 		};

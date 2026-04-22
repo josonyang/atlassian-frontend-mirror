@@ -10,7 +10,6 @@ import { avatarGroupPlugin } from '@atlaskit/editor-plugins/avatar-group';
 import { batchAttributeUpdatesPlugin } from '@atlaskit/editor-plugins/batch-attribute-updates';
 import { beforePrimaryToolbarPlugin } from '@atlaskit/editor-plugins/before-primary-toolbar';
 import { blockControlsPlugin } from '@atlaskit/editor-plugins/block-controls';
-import { blockMenuPlugin } from '@atlaskit/editor-plugins/block-menu';
 import { borderPlugin } from '@atlaskit/editor-plugins/border';
 import { breakoutPlugin } from '@atlaskit/editor-plugins/breakout';
 import { captionPlugin } from '@atlaskit/editor-plugins/caption';
@@ -93,7 +92,9 @@ export type InitialPluginConfiguration = {
 		rightSideControlsEnabled?: boolean;
 	};
 	blockMenuPlugin?: {
+		blockLinkHashPrefix?: string;
 		enabled?: boolean;
+		getLinkPath?: () => string | null;
 		useStandardNodeWidth?: boolean;
 	};
 	blockTypePlugin?: {
@@ -184,6 +185,13 @@ export default function createUniversalPresetInternal({
 			...props.blockType,
 			...initialPluginConfiguration?.blockTypePlugin,
 		},
+		blockMenu: {
+			enabled: initialPluginConfiguration?.blockMenuPlugin?.enabled ?? false,
+			useStandardNodeWidth:
+				initialPluginConfiguration?.blockMenuPlugin?.useStandardNodeWidth ?? false,
+			blockLinkHashPrefix: initialPluginConfiguration?.blockMenuPlugin?.blockLinkHashPrefix,
+			getLinkPath: initialPluginConfiguration?.blockMenuPlugin?.getLinkPath,
+		},
 		appearance,
 		createAnalyticsEvent,
 		hyperlinkOptions: {
@@ -226,16 +234,6 @@ export default function createUniversalPresetInternal({
 				},
 			],
 			Boolean(initialPluginConfiguration?.blockControlsPlugin?.enabled ?? false),
-		)
-		.maybeAdd(
-			[
-				blockMenuPlugin,
-				{
-					useStandardNodeWidth:
-						initialPluginConfiguration?.blockMenuPlugin?.useStandardNodeWidth ?? false,
-				},
-			],
-			Boolean(initialPluginConfiguration?.blockMenuPlugin?.enabled ?? false),
 		)
 		.maybeAdd(
 			[breakoutPlugin, { allowBreakoutButton: appearance === 'full-page', appearance: appearance }],

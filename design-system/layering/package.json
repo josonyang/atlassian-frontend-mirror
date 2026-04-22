@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/layering",
-	"version": "3.6.2",
+	"version": "3.7.0",
 	"description": "Layering provides consistent and accessible layered experience",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -29,7 +29,14 @@
 	"atlaskit:src": "src/index.tsx",
 	"exports": {
 		".": "./src/index.tsx",
-		"./experimental/open-layer-observer": "./src/entry-points/experimental/open-layer-observer.tsx"
+		"./experimental/open-layer-observer": "./src/entry-points/experimental/open-layer-observer-old.tsx",
+		"./layering": "./src/entry-points/layering.tsx",
+		"./hooks": "./src/entry-points/hooks.tsx",
+		"./experimental/open-layer-observer/open-layer-observer": "./src/entry-points/experimental/open-layer-observer.tsx",
+		"./experimental/use-notify-open-layer-observer": "./src/entry-points/experimental/use-notify-open-layer-observer.tsx",
+		"./experimental/use-open-layer-observer": "./src/entry-points/experimental/use-open-layer-observer.tsx",
+		"./experimental/open-layer-observer-namespace-provider": "./src/entry-points/experimental/open-layer-observer-namespace-provider.tsx",
+		"./experimental/types": "./src/entry-points/experimental/types.tsx"
 	},
 	"dependencies": {
 		"@babel/runtime": "root:*",

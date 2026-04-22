@@ -34,7 +34,15 @@ export type RovoChatActionMessageKey =
 	| 'rovo_prompt_button_key_highlights'
 	| 'rovo_prompt_message_key_highlights'
 	| 'rovo_prompt_button_ask_rovo_anything'
-	| 'rovo_prompt_message_ask_rovo_anything';
+	| 'rovo_prompt_message_ask_rovo_anything'
+	| 'rovo_prompt_button_highlight_relevant_content'
+	| 'rovo_prompt_message_highlight_relevant_content'
+	| 'rovo_prompt_button_identify_key_trends'
+	| 'rovo_prompt_message_identify_key_trends'
+	| 'rovo_prompt_button_identify_key_points'
+	| 'rovo_prompt_message_identify_key_points'
+	| 'rovo_prompt_button_find_open_questions'
+	| 'rovo_prompt_message_find_open_questions';
 export type MessageKey =
 	| 'assigned_to'
 	| 'ai_summarize'
@@ -1257,5 +1265,57 @@ export const messages: Messages = defineMessages({
 		defaultMessage: '`I have a question about this linked item` {url}',
 		description:
 			'The placeholder prompt message pre-filled in Rovo Chat input. {url} refers to the Smart Link URL. This is not auto-submitted — the user types their question.',
+	},
+	rovo_prompt_button_highlight_relevant_content: {
+		id: 'fabric.linking.rovo_prompt_button_highlight_relevant_content.non-final',
+		defaultMessage: `Highlight what's relevant`,
+		description:
+			'The name of the action to send prompt message to Rovo Chat in relation to current Smart Link',
+	},
+	rovo_prompt_message_highlight_relevant_content: {
+		id: 'fabric.linking.rovo_prompt_message_highlight_relevant_content.non-final',
+		defaultMessage:
+			'<p>Based on this linked item (<a>{url}</a>) and the {context} I’m currently viewing, highlight the parts of the linked content that are most relevant to this work. Explain briefly why each part is relevant.</p>',
+		description:
+			'The prompt message to send to Rovo Chat. {context} refers to the content the user triggered from, e.g. Confluence page or Jira work item. {url} refers to Smart Link that the user triggers this action from. (Please make sure all html tags remain the same.)',
+	},
+	rovo_prompt_button_identify_key_trends: {
+		id: 'fabric.linking.rovo_prompt_button_identify_key_trends.non-final',
+		defaultMessage: `Identify key trends`,
+		description:
+			'The name of the action to send prompt message to Rovo Chat in relation to current Smart Link',
+	},
+	rovo_prompt_message_identify_key_trends: {
+		id: 'fabric.linking.rovo_prompt_message_identify_key_trends.non-final',
+		defaultMessage:
+			'<p>From this <a>{url}</a>, identify the key trends, anomalies, and headline numbers. Call out anything increasing/decreasing significantly, noteworthy comparisons, and any risks or opportunities the data suggests.</p>',
+		description:
+			'The prompt message to send to Rovo Chat. {url} refers to Smart Link that the user triggers this action from. (Please make sure all html tags remain the same.)',
+	},
+	rovo_prompt_button_identify_key_points: {
+		id: 'fabric.linking.rovo_prompt_button_identify_key_points.non-final',
+		defaultMessage: `Identify key points`,
+		description:
+			'The name of the action to send prompt message to Rovo Chat in relation to current Smart Link',
+	},
+	rovo_prompt_message_identify_key_points: {
+		id: 'fabric.linking.rovo_prompt_message_identify_key_points.non-final',
+		defaultMessage:
+			'<p>From this <a>{url}</a>, identify the key points, proposals, and decisions. Focus on what someone skimming the deck should know in order to understand the main message.</p>',
+		description:
+			'The prompt message to send to Rovo Chat. {url} refers to Smart Link that the user triggers this action from. (Please make sure all html tags remain the same.)',
+	},
+	rovo_prompt_button_find_open_questions: {
+		id: 'fabric.linking.rovo_prompt_button_find_open_questions.non-final',
+		defaultMessage: `Find open questions`,
+		description:
+			'The name of the action to send prompt message to Rovo Chat in relation to current Smart Link',
+	},
+	rovo_prompt_message_find_open_questions: {
+		id: 'fabric.linking.rovo_prompt_message_find_open_questions.non-final',
+		defaultMessage:
+			'<p>Look at this <a>{url}</a> and list any open questions, unresolved decisions, or asks that still need follow‑up. Group them by owner if possible and keep it concise.</p>',
+		description:
+			'The prompt message to send to Rovo Chat. {url} refers to Smart Link that the user triggers this action from. (Please make sure all html tags remain the same.)',
 	},
 });

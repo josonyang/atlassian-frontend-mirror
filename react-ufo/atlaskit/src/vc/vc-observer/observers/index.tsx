@@ -1,4 +1,5 @@
 import { type VCIgnoreReason } from '../../../common/vc/types';
+import { getSelectorConfig } from '../../../config';
 import type { SearchPageConfig } from '../../types';
 import { isContainedWithinMediaWrapper } from '../media-wrapper/vc-utils';
 
@@ -100,7 +101,15 @@ export class Observers implements BrowserObservers {
 	};
 
 	constructor(opts: ConstructorOptions) {
-		this.selectorConfig = {
+		// Selector-config resolution is centralised in `getSelectorConfig()`.
+		// It enforces FedRAMP-override > caller-override > centrally
+		// configured > caller default, gated by
+		// `platform_ufo_fedramp_overrides`. When the gate is OFF the helper
+		// returns `opts.selectorConfig ?? config?.vc?.selectorConfig`, and we
+		// fall back to the historical merge — byte-for-byte unchanged from
+		// pre-FedRAMP behaviour.
+		const resolved = getSelectorConfig(opts.selectorConfig, this.selectorConfig);
+		this.selectorConfig = resolved ?? {
 			...this.selectorConfig,
 			...opts.selectorConfig,
 		};

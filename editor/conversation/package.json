@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/conversation",
-	"version": "25.0.0",
+	"version": "25.1.0",
 	"description": "DEPRECATED Render conversation threads",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -63,9 +63,5 @@
 	"exports": {
 		".": "./src/index.ts"
 	},
-	"platform-feature-flags": {
-		"dst-a11y__replace-anchor-with-link__bitbucket-core": {
-			"type": "boolean"
-		}
-	}
+	"platform-feature-flags": {}
 }

@@ -4,7 +4,7 @@
 - **size** - xsmall (inline), small (compact), medium (standard), large (prominent), xlarge (hero),
   xxlarge (marketing)
 - **presence** - Use sparingly for real-time status (online, busy, focus, offline)
-- **status** - For approval states (approved, declined, locked)
+- **status** - For approval states (approved, declined, locked, warning)
 - **appearance** - Use "square" for non-circular avatars
 
 # Translating from Tailwind

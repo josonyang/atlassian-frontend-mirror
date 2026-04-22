@@ -9,7 +9,6 @@ import {
 	type EnvironmentsKeys,
 	SmartCardProvider as Provider,
 } from '@atlaskit/link-provider';
-import { fg } from '@atlaskit/platform-feature-flags';
 import { token } from '@atlaskit/tokens';
 import Tooltip from '@atlaskit/tooltip';
 
@@ -81,22 +80,12 @@ export const SmartLinksShowcase = (): React.JSX.Element => {
 						<p>
 							We know it's not a usual "log in" but we need to acquire ASAP-signed JWT token through
 							a micros static server for our Atlaskit examples.{' '}
-							{fg('dst-a11y__replace-anchor-with-link__linking-platfo') ? (
-								<Link
-									href="https://product-fabric.atlassian.net/wiki/spaces/MEX/pages/3057025945"
-									target="_blank"
-								>
-									Read more about that here.
-								</Link>
-							) : (
-								// eslint-disable-next-line @atlaskit/design-system/no-html-anchor
-								<a
-									href="https://product-fabric.atlassian.net/wiki/spaces/MEX/pages/3057025945"
-									target="_blank"
-								>
-									Read more about that here.
-								</a>
-							)}
+							<Link
+								href="https://product-fabric.atlassian.net/wiki/spaces/MEX/pages/3057025945"
+								target="_blank"
+							>
+								Read more about that here.
+							</Link>
 						</p>
 						<p>
 							To access the links login to start. Atlassian products' production links including

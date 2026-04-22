@@ -57,6 +57,7 @@ const JiraIssuesTableView = ({
 			labels: 100,
 			priority: 200,
 			description: 650,
+			'description-richtext': 650,
 		},
 		visibleColumnKeys: initialVisibleColumnKeys,
 	});

@@ -1,5 +1,53 @@
 # @atlaskit/link-datasource
 
+## 5.2.1
+
+### Patch Changes
+
+- [`01bfb2823034b`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/01bfb2823034b) -
+  Expands automatic accessibility (a11y) Playwright test coverage for Platform
+- Updated dependencies
+
+## 5.2.0
+
+### Minor Changes
+
+- [`5e63427d4e3b8`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/5e63427d4e3b8) -
+  Align the jira datasource mock with production behaviour and improve test fixture a11y.
+  - `mockDatasourceFetchRequests` for `type: 'jira'` now mirrors production: when no
+    `initialVisibleColumnKeys` option is passed, `/data` returns only the default visible columns
+    (`defaultInitialVisibleColumnKeys`) for `items`, `schema.defaultProperties`, and
+    `schema.properties`. Previously the mock returned a wider superset.
+  - `/data` now honours the `fields` field on the request body. When `fields` is non-empty, the mock
+    filters its response to only those keys (matching how the production datasource API behaves).
+    This is what allows the dedicated rich-text VR test to opt into the `description-richtext`
+    column via `visibleColumnKeys`.
+  - Add a `description-richtext` column to jira mocks for the dedicated rich-text VR test, while
+    keeping the `description` column as plain ADF (no HTML) so non-rich-text VR tests render
+    unchanged.
+  - Fix a11y violations in mock HTML: replace deprecated `<font>` and `<tt>` elements with
+    `<span style>` and `<code>`; remove empty anchor tags and duplicate `rel` attributes; correct
+    heading-order so headings progress h1 → h2 → h3 → h4 (was previously h1 → h2 → h4 → h4).
+  - Remove the `allAvailableColumnKeys` export. The rich-text column is reachable via the schema's
+    full property catalog (column picker) and via explicit `fields` requests, never as a default.
+
+### Patch Changes
+
+- [`5e63427d4e3b8`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/5e63427d4e3b8) -
+  NAVX-4680: Remove platform_navx_jira_sllv_rich_text_gate feature flag (cleanup state: true)
+- Updated dependencies
+
+## 5.1.0
+
+### Minor Changes
+
+- [`c4f985702c3d5`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/c4f985702c3d5) -
+  Remove flag to increase accessibility in links.
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 5.0.1
 
 ### Patch Changes

@@ -379,7 +379,7 @@ export type InsertSourceSyncedBlockPayload = InsertAEP<
 
 type InsertSnippetAEP = InsertAEP<
 	ACTION_SUBJECT_ID.SNIPPET,
-	{ hadMedia?: boolean; inputMethod: INPUT_METHOD.QUICK_INSERT; snippetId: string; },
+	{ hadMedia?: boolean; inputMethod: INPUT_METHOD.QUICK_INSERT; snippetId: string },
 	undefined
 >;
 

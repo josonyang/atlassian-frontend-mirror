@@ -158,9 +158,13 @@ const renderSyncBlockColgroup = ({
 		return null;
 	}
 
-	// SSR / first render before WidthContext measures. Output % of original ADF proportions so
-	// columns are stable — the CSS container query (100cqw) handles actual scaling width.
-	if (contextWidth <= 0 && renderWidthProp <= 0) {
+	// SSR / first client render before WidthObserver measures. Output % of original ADF
+	// proportions so columns are stable — the CSS container query (100cqw) handles actual
+	// scaling width. We key off renderWidthProp alone because WidthProvider initialises with
+	// document.body.offsetWidth (non-zero on the client), so contextWidth > 0 even before
+	// WidthObserver has measured the real container, which would skip this branch and produce
+	// column widths scaled to the full viewport.
+	if (renderWidthProp <= 0) {
 		const fullTableWidth = isNumberColumnEnabled
 			? rawTotalWidth + akEditorTableNumberColumnWidth
 			: rawTotalWidth;
@@ -173,7 +177,31 @@ const renderSyncBlockColgroup = ({
 	// getParentNodeWidth() border offset. Fall back to renderWidthProp for the non-CSS path.
 	const effectiveRenderWidth = contextWidth > 0 ? contextWidth - 2 : renderWidthProp;
 	const availableWidth = getDataColumnWidth(effectiveRenderWidth, isNumberColumnEnabled);
-	return scaleColumnsToWidth(columnWidths, availableWidth);
+
+	// Only scale down if the table is actually wider than the available space.
+	// If the table fits, return original widths with the same tableCellBorderWidth (2px) adjustment
+	// that renderScaleDownColgroup applies via fixColumnWidth's no-scale path.
+	if (availableWidth >= rawTotalWidth) {
+		return columnWidths.map((colWidth) => ({
+			width: `${Math.max(colWidth - tableCellBorderWidth, tableCellMinWidth)}px`,
+		}));
+	}
+
+	// Cap scaling at MAX_SCALING_PERCENT (30%), matching renderScaleDownColgroup's calcScalePercent.
+	//
+	// Both `availableWidth` and `rawTotalWidth` are already in data-column space (number column
+	// excluded via getDataColumnWidth), so `diffPercent = 1 - availableWidth / rawTotalWidth` is
+	// equivalent to calcScalePercent's `numColumnScalePercent` path when isNumberColumnEnabled,
+	// and to the `noNumColumnScalePercent` path otherwise. We express the cap as a target width
+	// (clampedAvailableWidth) rather than a scale-down percentage, but the result is the same:
+	// columns are scaled by at most MAX_SCALING_PERCENT (30%).
+	const diffPercent = 1 - availableWidth / rawTotalWidth;
+	const clampedAvailableWidth =
+		diffPercent <= MAX_SCALING_PERCENT
+			? availableWidth
+			: Math.floor(rawTotalWidth * (1 - MAX_SCALING_PERCENT));
+
+	return scaleColumnsToWidth(columnWidths, clampedAvailableWidth);
 };
 
 const renderScaleDownColgroup = (

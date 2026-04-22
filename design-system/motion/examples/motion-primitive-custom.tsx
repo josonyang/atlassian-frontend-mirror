@@ -28,11 +28,20 @@ const styles = cssMap({
 		paddingBlockEnd: token('space.100'),
 		paddingInlineStart: token('space.100'),
 	},
+	entering: {
+		animationDuration: token('motion.duration.xxlong'),
+		animationTimingFunction: token('motion.easing.out.practical'),
+		animationName: `${token('motion.keyframe.scale.in.medium')}, ${token('motion.keyframe.fade.in')}`,
+	},
+	exiting: {
+		animationDuration: token('motion.duration.xxlong'),
+		animationTimingFunction: token('motion.easing.in.practical'),
+		animationName: `${token('motion.keyframe.scale.out.medium')}, ${token('motion.keyframe.fade.out')}`,
+	},
 });
 
 export default (): React.JSX.Element => {
 	const [isIn, setIsIn] = useState(true);
-	const [isPaused, setIsPaused] = useState(true);
 	const motionRef = useRef<MotionRef>(null);
 
 	const handleReanimate = (reanimate: Reanimate): void => {
@@ -51,8 +60,8 @@ export default (): React.JSX.Element => {
 				<ExitingPersistence appear>
 					{isIn && (
 						<Motion
-							enteringAnimation={token('motion.modal.enter')}
-							exitingAnimation={token('motion.modal.exit')}
+							enteringAnimationXcss={styles.entering}
+							exitingAnimationXcss={styles.exiting}
 						>
 							<Block appearance="small" />
 						</Motion>
@@ -62,25 +71,25 @@ export default (): React.JSX.Element => {
 			<Heading size="medium">Staggered Entrance</Heading>
 			<Box xcss={styles.box}>
 				<Inline>
-					<StaggeredEntrance>
+					<StaggeredEntrance delayStep={100}>
 						<ExitingPersistence appear>
 							{isIn && (
 								<React.Fragment>
 									<Motion
-										enteringAnimation={token('motion.modal.enter')}
-										exitingAnimation={token('motion.modal.exit')}
+										enteringAnimationXcss={styles.entering}
+										exitingAnimationXcss={styles.exiting}
 									>
 										<Block appearance="small" />
 									</Motion>
 									<Motion
-										enteringAnimation={token('motion.modal.enter')}
-										exitingAnimation={token('motion.modal.exit')}
+										enteringAnimationXcss={styles.entering}
+										exitingAnimationXcss={styles.exiting}
 									>
 										<Block appearance="small" />
 									</Motion>
 									<Motion
-										enteringAnimation={token('motion.modal.enter')}
-										exitingAnimation={token('motion.modal.exit')}
+										enteringAnimationXcss={styles.entering}
+										exitingAnimationXcss={styles.exiting}
 									>
 										<Block appearance="small" />
 									</Motion>
@@ -104,8 +113,8 @@ export default (): React.JSX.Element => {
 							<React.Fragment>
 								<Motion
 									ref={motionRef}
-									enteringAnimation={token('motion.modal.enter')}
-									exitingAnimation={token('motion.modal.exit')}
+									enteringAnimationXcss={styles.entering}
+									exitingAnimationXcss={styles.exiting}
 								>
 									<Block appearance="small" />
 								</Motion>
@@ -113,28 +122,6 @@ export default (): React.JSX.Element => {
 						)}
 					</ExitingPersistence>
 				</Inline>
-			</Box>
-			<Heading size="medium">Pausing animations</Heading>
-			<Box xcss={styles.box}>
-				<Stack space="space.100">
-					<Button onClick={() => setIsPaused((val) => !val)}>
-						{isPaused ? 'Resume' : 'Pause'}
-					</Button>
-					<ExitingPersistence appear>
-						{isIn && (
-							<React.Fragment>
-								<Motion
-									ref={motionRef}
-									enteringAnimation={token('motion.modal.enter')}
-									exitingAnimation={token('motion.modal.exit')}
-									isPaused={isPaused}
-								>
-									<Block appearance="small" />
-								</Motion>
-							</React.Fragment>
-						)}
-					</ExitingPersistence>
-				</Stack>
 			</Box>
 		</RetryContainer>
 	);

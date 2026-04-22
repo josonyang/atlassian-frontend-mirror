@@ -160,11 +160,11 @@ export enum ActionName {
 	AutomationAction = 'AutomationAction',
 	DownloadAction = 'DownloadAction',
 	CustomAction = 'CustomAction',
+	RovoChatAction = 'RovoChatAction',
 }
 
 export enum InternalActionName {
 	AISummaryAction = 'AISummaryAction',
-	RovoChatAction = 'RovoChatAction',
 	UnresolvedAction = 'UnresolvedAction',
 	ViewRelatedLinksAction = 'ViewRelatedLinksAction',
 }

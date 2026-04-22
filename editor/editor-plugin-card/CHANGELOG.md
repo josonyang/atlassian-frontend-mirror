@@ -1,5 +1,31 @@
 # @atlaskit/editor-plugin-card
 
+## 16.1.0
+
+### Minor Changes
+
+- [`51d860f32cd31`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/51d860f32cd31) -
+  Force 16:9 aspect ratio for Confluence Slides embeds.
+  - `editor-card-provider`: Added `isConfluenceSlideUrl()` URL checker and exported it via
+    `./url-checkers` subpath; slide URLs now always resolve to `'embed'` appearance via
+    `getHardCodedAppearance()`
+  - `editor-plugin-card`: In `onResolve()`, overrides the ORS-resolved aspect ratio with `16/9` when
+    the URL is a Confluence Slide
+  - `native-embeds-slide-experience`: Added `parameterDefaults: { width: 960, height: 540 }` to
+    `SlideExperienceManifest` so slides get a 16:9 aspect-ratio container
+  - `native-embeds-editor-extension`: Falls back to `manifest.parameterDefaults` for width/height
+    when the ADF node has no explicit dimensions
+
+### Patch Changes
+
+- Updated dependencies
+
+## 16.0.3
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 16.0.2
 
 ### Patch Changes

@@ -165,6 +165,7 @@ export function getNodeRenderer<T extends Parameters>(
 	extensionKey: ExtensionKey,
 ): React.ComponentType<{
 	actions?: MultiBodiedExtensionActions;
+	isSelected?: boolean;
 	node: ExtensionParams<T>;
 	references?: ReferenceEntity[];
 	showUnknownMacroPlaceholder?: boolean;
@@ -173,6 +174,7 @@ export function getNodeRenderer<T extends Parameters>(
 	return Loadable<
 		{
 			actions?: MultiBodiedExtensionActions;
+			isSelected?: boolean;
 			node: ExtensionParams<T>;
 			references?: ReferenceEntity[];
 			showUnknownMacroPlaceholder?: boolean;

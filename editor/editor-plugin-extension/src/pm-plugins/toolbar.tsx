@@ -292,7 +292,7 @@ const breakoutOptions = (
 				extensionState,
 				breakoutEnabled,
 				editorAnalyticsAPI,
-			);
+		  );
 };
 
 const editButton = (
@@ -609,20 +609,14 @@ export const getToolbarConfig =
 							state,
 							formatMessage: intl.formatMessage,
 							nodeType,
-							onClick: expValEquals(
-								'platform_editor_ai_edit_unsupported_content',
-								'isEnabled',
-								true,
-							)
-								? createOnClickCopyButton({
-										formatMessage,
-										extensionApi,
-										extensionProvider,
-										getUnsupportedContent,
-										state,
-										locale,
-									})
-								: undefined,
+							onClick: createOnClickCopyButton({
+								formatMessage,
+								extensionApi,
+								extensionProvider,
+								getUnsupportedContent,
+								state,
+								locale,
+							}),
 						},
 					],
 					...(shouldHideCopyButton && { hidden: shouldHideCopyButton }),

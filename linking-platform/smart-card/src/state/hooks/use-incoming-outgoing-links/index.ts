@@ -1,7 +1,6 @@
 import { useCallback, useMemo } from 'react';
 
 import { request } from '@atlaskit/linking-common';
-import { fg } from '@atlaskit/platform-feature-flags';
 
 import { queryIncomingOutgoingLinks as queryIncomingOutgoingAris } from './query';
 
@@ -96,14 +95,11 @@ const useIncomingOutgoingAri = (
 		 *
 		 */
 		async (ari: string, firstIncoming: number = 50, firstOutgoing: number = 50) => {
-			let headers: HeadersInit | undefined;
-			if (fg('platform_navx_send_context_to_ugs_for_rel_links')) {
-				const siteId = await getSiteId(ari);
-				if (!siteId) {
-					return { incomingAris: [], outgoingAris: [] };
-				}
-				headers = { 'X-Query-Context': `ari:cloud:platform::site/${siteId}` };
+			const siteId = await getSiteId(ari);
+			if (!siteId) {
+				return { incomingAris: [], outgoingAris: [] };
 			}
+			const headers: HeadersInit = { 'X-Query-Context': `ari:cloud:platform::site/${siteId}` };
 
 			const response = await aggRequestCall<RelatedLinksAgsResponse>(
 				{

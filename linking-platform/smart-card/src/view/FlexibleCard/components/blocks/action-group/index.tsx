@@ -14,10 +14,11 @@ import ButtonGroup from '@atlaskit/button/button-group';
 import Button from '@atlaskit/button/standard-button';
 import DropdownMenu from '@atlaskit/dropdown-menu';
 import MoreIcon from '@atlaskit/icon/core/show-more-horizontal';
+import { fg } from "@atlaskit/platform-feature-flags";
 import { token } from '@atlaskit/tokens';
 import Tooltip from '@atlaskit/tooltip';
 
-import { SmartLinkSize } from '../../../../../constants';
+import { ActionName, SmartLinkSize } from '../../../../../constants';
 import { messages } from '../../../../../messages';
 import {
 	useFlexibleUiContext,
@@ -81,6 +82,7 @@ const ActionGroup = ({
 
 	const renderableActionItems = useMemo(() => filterActionItems(items, context), [context, items]);
 	const isMoreThenTwoItems = renderableActionItems.length > visibleButtonsNum;
+	const isRovoActionsEnabled = !!context?.actions?.[ActionName.RovoChatAction];
 
 	const onOpenChange = useCallback(
 		(attrs: { isOpen: boolean }) => {
@@ -99,6 +101,15 @@ const ActionGroup = ({
 	}, [isOpen, onOpenChange]);
 
 	const actionButtons = useMemo(() => {
+		if (isRovoActionsEnabled && fg('platform_sl_3p_auth_rovo_block_card_kill_switch')) {
+			const rovoActions: ActionItem[] = [
+				...renderableActionItems.slice(0, visibleButtonsNum - 1),
+				{ name: ActionName.PreviewAction, hideContent: true },
+				{ name: ActionName.CopyLinkAction, hideContent: true },
+			];
+			return renderActionItems(rovoActions, size, appearance, false, onActionItemClick);
+		}
+
 		const actionItems = isMoreThenTwoItems
 			? renderableActionItems.slice(0, visibleButtonsNum - 1)
 			: renderableActionItems;
@@ -111,12 +122,15 @@ const ActionGroup = ({
 		renderableActionItems,
 		size,
 		visibleButtonsNum,
+		isRovoActionsEnabled,
 	]);
 
 	const moreActionDropdown = useMemo(() => {
-		const actionItems = isMoreThenTwoItems
-			? renderableActionItems.slice(visibleButtonsNum - 1)
-			: [];
+		const actionItems =
+			isMoreThenTwoItems ||
+			(isRovoActionsEnabled && fg('platform_sl_3p_auth_rovo_block_card_kill_switch'))
+				? renderableActionItems.slice(visibleButtonsNum - 1)
+				: [];
 
 		if (actionItems.length > 0) {
 			const spacing = sizeToButtonSpacing[size];
@@ -140,6 +154,7 @@ const ActionGroup = ({
 								testId="action-group-more-button"
 								iconBefore={moreIcon}
 								ref={triggerRef}
+								{...fg('platform_sl_3p_auth_rovo_block_card_kill_switch') ? { appearance } : {}}
 							/>
 						</Tooltip>
 					)}
@@ -161,6 +176,7 @@ const ActionGroup = ({
 		size,
 		ui?.zIndex,
 		visibleButtonsNum,
+		isRovoActionsEnabled,
 	]);
 
 	return renderableActionItems.length > 0 ? (

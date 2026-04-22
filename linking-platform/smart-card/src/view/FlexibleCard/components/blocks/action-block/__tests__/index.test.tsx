@@ -7,7 +7,7 @@ import { ffTest } from '@atlassian/feature-flags-test-utils';
 import context from '../../../../../../__fixtures__/flexible-ui-data-context';
 import { getFlexibleCardTestWrapper } from '../../../../../../__tests__/__utils__/unit-testing-library-helpers';
 import { type SmartLinkStatus } from '../../../../../../constants';
-import { InternalActionName } from '../../../../../../constants';
+import { ActionName } from '../../../../../../constants';
 import * as useAISummary from '../../../../../../state/hooks/use-ai-summary';
 import ActionBlock from '../index';
 import type { ActionBlockProps } from '../types';
@@ -28,7 +28,7 @@ jest.mock('../../../../../../state/hooks/use-rovo-chat', () => ({
 const getContextWithoutRovo = () => {
 	if (!context.actions) return context;
 	const restActions = { ...context.actions };
-	delete (restActions as Record<string, unknown>)[InternalActionName.RovoChatAction];
+	delete (restActions as Record<string, unknown>)[ActionName.RovoChatAction];
 	return { ...context, actions: restActions };
 };
 
@@ -162,7 +162,7 @@ describe('ActionBlock', () => {
 					...context,
 					actions: {
 						...context.actions,
-						[InternalActionName.RovoChatAction]: undefined,
+						[ActionName.RovoChatAction]: undefined,
 					},
 				};
 				setup({ isAny3pRovoActionsExperimentOn: true }, undefined, contextWithoutRovo);

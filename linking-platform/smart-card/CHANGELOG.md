@@ -1,5 +1,44 @@
 # @atlaskit/smart-card
 
+## 44.3.2
+
+### Patch Changes
+
+- [`dee5bdcb8345a`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/dee5bdcb8345a) -
+  Fire analytics event when SL intesects into viewport
+- Updated dependencies
+
+## 44.3.1
+
+### Patch Changes
+
+- [`3c09c35ca21ce`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/3c09c35ca21ce) -
+  NAVX-2971: Remove platform_navx_send_context_to_ugs_for_rel_links feature flag (cleanup state:
+  true) — always send X-Query-Context header
+- Updated dependencies
+
+## 44.3.0
+
+### Minor Changes
+
+- [`6752a0f97f86d`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/6752a0f97f86d) -
+  [ux] NAVX-4446 Add new Rovo actions on block card for 3P Auth experiment
+
+### Patch Changes
+
+- Updated dependencies
+
+## 44.2.0
+
+### Minor Changes
+
+- [`c4f985702c3d5`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/c4f985702c3d5) -
+  Remove flag to increase accessibility in links.
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 44.1.2
 
 ### Patch Changes

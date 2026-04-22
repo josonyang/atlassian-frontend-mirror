@@ -8,6 +8,7 @@ import { concatMap } from 'rxjs/operators/concatMap';
 import { delay } from 'rxjs/operators/delay';
 import { filter } from 'rxjs/operators/filter';
 
+import FeatureGates from '@atlaskit/feature-gate-js-client';
 import {
 	type AutocompleteOption,
 	type AutocompleteOptions,
@@ -19,7 +20,12 @@ import { type JqlEditorAutocompleteAnalyticsEvent } from '../../analytics';
 import { type GetAutocompleteSuggestions, type JQLFieldResponse } from '../../common/types';
 import findField$ from '../../utils/find-field-observable';
 import { normalize } from '../../utils/strings';
-import { PROJECT_FIELD_TYPE, TEAM_FIELD_TYPE, USER_FIELD_TYPE } from '../constants';
+import {
+	PROJECT_FIELD_TYPE,
+	TEAM_FIELD_TYPE,
+	USER_FIELD_TYPE,
+	GOAL_FIELD_TYPE,
+} from '../constants';
 import {
 	type FieldValuesCache,
 	type OnValues,
@@ -36,6 +42,12 @@ const getValueType = (field: JQLFieldResponse): AutocompleteValueType | void => 
 	}
 	if (field.types.includes(PROJECT_FIELD_TYPE) && fg('projects_in_jira_eap_drop2')) {
 		return 'project';
+	}
+	if (
+		field.types.includes(GOAL_FIELD_TYPE) &&
+		FeatureGates.getExperimentValue('anip-1095-goals-in-harmonised-filter', 'isEnabled', false)
+	) {
+		return 'goal';
 	}
 
 	return undefined;
@@ -119,6 +131,12 @@ const useOnValues = (
 									}
 									if (
 										valueType === 'team' ||
+										(valueType === 'goal' &&
+											FeatureGates.getExperimentValue(
+												'anip-1095-goals-in-harmonised-filter',
+												'isEnabled',
+												false,
+											)) ||
 										(valueType === 'project' && fg('projects_in_jira_eap_drop2'))
 									) {
 										values.forEach((value: AutocompleteOption) => {

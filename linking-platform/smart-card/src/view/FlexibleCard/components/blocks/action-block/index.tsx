@@ -12,7 +12,7 @@ import { token } from '@atlaskit/tokens';
 
 import {
 	type FlexibleUiActionName,
-	InternalActionName,
+	ActionName,
 	SmartLinkSize,
 } from '../../../../../constants';
 import {
@@ -96,7 +96,7 @@ const ActionBlock = ({
 		(fg('platform_sl_3p_auth_rovo_action_kill_switch') ||
 			fg('rovogrowth-640-inline-action-nudge-fg')) &&
 		isAny3pRovoActionsExperimentOn
-			? context?.actions?.[InternalActionName.RovoChatAction] !== undefined
+			? context?.actions?.[ActionName.RovoChatAction] !== undefined
 			: undefined;
 
 	const [message, setMessage] = useState<ActionMessage>();
@@ -134,9 +134,9 @@ const ActionBlock = ({
 			fg('platform_sl_3p_auth_rovo_action_kill_switch') ||
 			fg('rovogrowth-640-inline-action-nudge-fg')
 				? isRovoChatActionAvailable
-					? [InternalActionName.RovoChatAction]
+					? [ActionName.RovoChatAction]
 					: (Object.keys(context.actions) as FlexibleUiActionName[]).filter(
-							(name) => name !== InternalActionName.RovoChatAction,
+							(name) => name !== ActionName.RovoChatAction,
 						)
 				: (Object.keys(context.actions) as FlexibleUiActionName[]);
 

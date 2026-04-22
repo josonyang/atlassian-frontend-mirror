@@ -96,6 +96,58 @@ export const applyMeasuredWidthToAllTables = (
 };
 
 /**
+ * Temporarily overrides inline styles on the table and its surrounding containers so the browser
+ * lays columns out with `table-layout: auto`, takes a content-width measurement, and then
+ * **resets every modified style** so no temporary overrides leak into the rendered output.
+ */
+export const measureTableWithAutoLayout = (tableRef: HTMLTableElement): TableMeasurement => {
+	const cols = Array.from(tableRef.querySelectorAll<HTMLElement>(':scope > colgroup > col'));
+	const contentWrap = tableRef.closest<HTMLElement>(
+		`.${TableSharedCssClassName.TABLE_VIEW_CONTENT_WRAP}`,
+	);
+	const resizerContainer = contentWrap?.querySelector<HTMLElement>(
+		`.${TableSharedCssClassName.TABLE_RESIZER_CONTAINER}`,
+	);
+	const resizerItem = resizerContainer?.querySelector<HTMLElement>('.resizer-item.display-handle');
+
+	// Capture current inline styles so we can restore them after measurement
+	const prevTableWidth = tableRef.style.width;
+	const prevTableLayout = tableRef.style.tableLayout;
+	const prevColWidths = cols.map((col) => col.style.width);
+	const prevResizerItemWidth = resizerItem?.style.width;
+
+	// Apply temporary styles for content-based measurement
+	tableRef.style.width = '';
+	tableRef.style.tableLayout = 'auto';
+	cols.forEach((col) => (col.style.width = ''));
+
+	if (resizerContainer) {
+		// favour CSS var to align with the table first render state, which gets reset
+		// once resized by user. By doing this we avoid the need to any 'reset' work after
+		// measurement and ensures it works if the table has been resized or not in the session.
+		resizerContainer.style.width = 'var(--ak-editor-table-width)';
+		resizerContainer.style.setProperty('--ak-editor-table-width', 'max-content');
+	}
+
+	if (resizerItem) {
+		resizerItem.style.width = 'max-content';
+	}
+
+	const measurement = getTableMeasurement(tableRef);
+
+	// Reset all inline styles back to their previous values
+	tableRef.style.width = prevTableWidth;
+	tableRef.style.tableLayout = prevTableLayout;
+	cols.forEach((col, i) => (col.style.width = prevColWidths[i]));
+
+	if (resizerItem) {
+		resizerItem.style.width = prevResizerItemWidth ?? '';
+	}
+
+	return measurement;
+};
+
+/**
  * Used to measure a selected table width with it's content being laid out natively by the browser
  */
 export const applyMeasuredWidthToSelectedTable = (
@@ -115,34 +167,10 @@ export const applyMeasuredWidthToSelectedTable = (
 		return;
 	}
 
-	const tableRef = tableState.tableRef;
-
 	// Instead of dispatching a transaction to "strip widths" and then waiting
-	// for a rAF to measure natural column widths, instea directly update the DOM elements and
-	// take a measurement.
-	const cols = Array.from(tableRef.querySelectorAll<HTMLElement>(':scope > colgroup > col'));
-	const contentWrap = tableRef.closest<HTMLElement>(
-		`.${TableSharedCssClassName.TABLE_VIEW_CONTENT_WRAP}`,
-	);
-	const resizerContainer = contentWrap?.querySelector<HTMLElement>(
-		`.${TableSharedCssClassName.TABLE_RESIZER_CONTAINER}`,
-	);
-	const resizerItem = resizerContainer?.querySelector<HTMLElement>('.resizer-item.display-handle');
-
-	tableRef.style.width = '';
-	tableRef.style.tableLayout = 'auto';
-	cols.forEach((col) => (col.style.width = ''));
-
-	if (resizerContainer) {
-		resizerContainer.style.width = 'max-content';
-		resizerContainer.style.setProperty('--ak-editor-table-width', 'max-content');
-	}
-
-	if (resizerItem) {
-		resizerItem.style.width = 'max-content';
-	}
-
-	const measurement = getTableMeasurement(tableRef);
+	// for a rAF to measure natural column widths, directly update the DOM elements,
+	// take a measurement, and reset styles so no temporary overrides persist.
+	const measurement = measureTableWithAutoLayout(tableState.tableRef);
 
 	const tr = applyTableMeasurement(view.state.tr, node, measurement, pos);
 

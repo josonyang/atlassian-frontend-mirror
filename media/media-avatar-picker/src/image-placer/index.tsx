@@ -18,6 +18,7 @@ import { ImagePlacerImage } from './image';
 import { Margin } from './margin';
 import { initialiseImagePreview, renderImageAtCurrentView } from './imageProcessor';
 import { zoomToFit, applyConstraints, transformVisibleBoundsToImageCoords } from './constraints';
+import { fg } from '@atlaskit/platform-feature-flags';
 import { ImagePlacerErrorWrapper } from './imagePlacerErrorWrapper';
 import { isSSR } from '../util';
 
@@ -214,6 +215,9 @@ export class ImagePlacer extends React.Component<ImagePlacerProps, ImagePlacerSt
 
 	/* respond to prop changes */
 	async UNSAFE_componentWillReceiveProps(nextProps: ImagePlacerProps): Promise<void> {
+		if (fg('platform_media_package_react19_lifecycle_fix')) {
+			return;
+		}
 		const { imageSourceRect, state, props } = this;
 		const { zoom } = state;
 		const {
@@ -280,6 +284,83 @@ export class ImagePlacer extends React.Component<ImagePlacerProps, ImagePlacerSt
 		}
 
 		if (isImageAction) {
+			this.provideImageActions();
+		}
+	}
+
+	async componentDidUpdate(prevProps: ImagePlacerProps): Promise<void> {
+		if (!fg('platform_media_package_react19_lifecycle_fix')) {
+			return;
+		}
+		const { imageSourceRect, props } = this;
+		const {
+			zoom: nextZoom,
+			useConstraints: nextUseConstraints,
+			containerWidth: nextContainerWidth,
+			containerHeight: nextContainerHeight,
+			margin: nextMargin,
+			src: nextSrc,
+			onImageActions: nextOnImageActions,
+		} = props;
+		const {
+			zoom: prevZoom,
+			useConstraints: prevUseConstraints,
+			containerWidth: prevContainerWidth,
+			containerHeight: prevContainerHeight,
+			margin: prevMargin,
+			src: prevSrc,
+			onImageActions: prevOnImageActions,
+		} = prevProps;
+
+		const isZoomChange = nextZoom !== prevZoom;
+		const isUseConstraintsChange =
+			nextUseConstraints !== undefined && nextUseConstraints !== prevUseConstraints;
+		const isContainerWidthChange =
+			nextContainerWidth !== undefined && nextContainerWidth !== prevContainerWidth;
+		const isContainerHeightChange =
+			nextContainerHeight !== undefined && nextContainerHeight !== prevContainerHeight;
+		const isMarginChange = nextMargin !== undefined && nextMargin !== prevMargin;
+		const isImageActionChange = nextOnImageActions !== prevOnImageActions;
+
+		const zoomReset = { zoom: 0 };
+
+		if (isZoomChange) {
+			this.setZoom(nextZoom);
+		}
+
+		if (isUseConstraintsChange) {
+			this.setState(
+				{
+					zoom: 0,
+					imageWidth: imageSourceRect.width,
+					imageHeight: imageSourceRect.height,
+				},
+				this.update,
+			);
+		}
+
+		if (isContainerWidthChange || isContainerHeightChange || isMarginChange) {
+			this.setState(zoomReset, this.update);
+			this.updateZoomProp();
+		}
+
+		if (nextSrc !== prevSrc) {
+			let fileInfo;
+
+			if (nextSrc instanceof File) {
+				fileInfo = await getFileInfo(nextSrc as File);
+			}
+
+			if (typeof nextSrc === 'string') {
+				fileInfo = await getFileInfoFromSrc(nextSrc as string);
+			}
+
+			if (fileInfo) {
+				await this.preprocessFile(fileInfo);
+			}
+		}
+
+		if (isImageActionChange) {
 			this.provideImageActions();
 		}
 	}

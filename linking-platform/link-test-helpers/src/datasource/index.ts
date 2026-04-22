@@ -199,14 +199,20 @@ export const mockDatasourceFetchRequests = ({
 			const {
 				parameters: { cloudId },
 				includeSchema,
+				fields,
 			} = requestBody;
+			// Mirror production: when the client requests specific `fields`, return data
+			// (and schema, if requested) for those fields. Otherwise, fall back to the
+			// mock's configured default visible columns.
+			const requestedColumnKeys =
+				Array.isArray(fields) && fields.length > 0 ? fields : initialVisibleColumnKeys;
 			function getMock() {
 				if (type === 'jira') {
 					return jiraMocks.generateDataResponse({
 						cloudId,
 						numberOfLoads,
 						includeSchema,
-						initialVisibleColumnKeys,
+						initialVisibleColumnKeys: requestedColumnKeys,
 					});
 				}
 				if (type === 'confluence') {
@@ -214,7 +220,7 @@ export const mockDatasourceFetchRequests = ({
 						cloudId,
 						numberOfLoads,
 						includeSchema,
-						initialVisibleColumnKeys,
+						initialVisibleColumnKeys: requestedColumnKeys,
 					});
 				}
 			}

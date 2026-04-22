@@ -23,6 +23,7 @@ export const KNOWN_ATTRIBUTES_THAT_DOES_NOT_CAUSE_LAYOUT_SHIFTS: string[] = [
 	'contenteditable',
 	'data-has-collab-initialised',
 	'translate',
+	'data-comment-id',
 ];
 
 // Common aria attributes that don't cause visual layout shifts

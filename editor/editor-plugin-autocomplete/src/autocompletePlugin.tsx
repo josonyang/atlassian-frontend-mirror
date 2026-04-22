@@ -2,7 +2,7 @@ import type { AutocompletePlugin } from './autocompletePluginType';
 import { autocompletePluginKey, createAutocompletePlugin } from './pm-plugins/autocomplete-plugin';
 import type { AutocompletePluginState } from './pm-plugins/autocomplete-plugin';
 
-export const autocompletePlugin: AutocompletePlugin = ({ config: options }) => {
+export const autocompletePlugin: AutocompletePlugin = ({ config: options, api }) => {
 	return {
 		name: 'autocomplete',
 		getSharedState(editorState): AutocompletePluginState | undefined {
@@ -16,7 +16,7 @@ export const autocompletePlugin: AutocompletePlugin = ({ config: options }) => {
 			return [
 				{
 					name: 'autocomplete',
-					plugin: () => createAutocompletePlugin(options),
+					plugin: () => createAutocompletePlugin(options, api),
 				},
 			];
 		},

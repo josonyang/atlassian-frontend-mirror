@@ -1,5 +1,13 @@
 # @atlaskit/focused-task-close-account
 
+## 4.0.3
+
+### Patch Changes
+
+- [`35359015f4b76`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/35359015f4b76) -
+  Fix accessibility violation: add aria-label to StatefulInlineDialog trigger button to ensure it
+  has a discernible name for screen readers
+
 ## 4.0.2
 
 ### Patch Changes

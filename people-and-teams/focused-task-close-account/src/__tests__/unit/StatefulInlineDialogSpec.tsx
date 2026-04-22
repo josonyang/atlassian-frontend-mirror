@@ -5,7 +5,7 @@ import StatefulInlineDialog from '../../components/StatefulInlineDialog';
 
 const render = (props = {}) =>
 	shallow(
-		<StatefulInlineDialog content={<div id="content" />} {...props}>
+		<StatefulInlineDialog content={<div id="content" />} label="More information" {...props}>
 			<div id="trigger" />
 		</StatefulInlineDialog>,
 	);

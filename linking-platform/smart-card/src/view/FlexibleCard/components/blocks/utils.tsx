@@ -1,5 +1,7 @@
 import React from 'react';
 
+import { fg } from '@atlaskit/platform-feature-flags';
+
 import { ActionName, ElementName, SmartLinkSize } from '../../../../constants';
 import type { FlexibleUiDataContext } from '../../../../state/flexible-ui-context/types';
 import { isFlexibleUiElement } from '../../../../utils/flexible';
@@ -96,6 +98,20 @@ export const filterActionItems = (
 			case ActionName.CustomAction:
 				// Named and custom actions that user defines.
 				return Boolean(ActionName[item.name]);
+			case ActionName.RovoChatAction:
+				if (fg('platform_sl_3p_auth_rovo_block_card_kill_switch')) {
+					return Boolean(ActionName[item.name]);
+				}
+				// same as default case below
+				// remove on cleanup of platform_sl_3p_auth_rovo_block_card_kill_switch
+				if (context?.actions === undefined) {
+					return false;
+				}
+				return Boolean(
+					item.name in context.actions
+						? context.actions[item.name as keyof typeof context.actions]
+						: undefined,
+				);
 			default:
 				// Action that require data from the data context to render.
 				if (context?.actions === undefined) {

@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/panel",
-	"version": "1.0.0",
+	"version": "1.1.0",
 	"description": "A React component rendering a collapsible panel",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -65,9 +65,5 @@
 	"sideEffects": [
 		"*.compiled.css"
 	],
-	"platform-feature-flags": {
-		"dst-a11y__replace-anchor-with-link__bitbucket-core": {
-			"type": "boolean"
-		}
-	}
+	"platform-feature-flags": {}
 }

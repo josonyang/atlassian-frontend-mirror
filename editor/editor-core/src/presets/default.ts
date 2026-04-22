@@ -13,6 +13,8 @@ import { analyticsPlugin } from '@atlaskit/editor-plugins/analytics';
 import type { BasePluginOptions } from '@atlaskit/editor-plugins/base';
 import { basePlugin } from '@atlaskit/editor-plugins/base';
 import { betterTypeHistoryPlugin } from '@atlaskit/editor-plugins/better-type-history';
+import { blockMenuPlugin } from '@atlaskit/editor-plugins/block-menu';
+import type { BlockMenuPluginOptions } from '@atlaskit/editor-plugins/block-menu';
 import type { BlockTypePluginOptions } from '@atlaskit/editor-plugins/block-type';
 import { blockTypePlugin } from '@atlaskit/editor-plugins/block-type';
 import { clearMarksOnEmptyDocPlugin } from '@atlaskit/editor-plugins/clear-marks-on-empty-doc';
@@ -75,6 +77,7 @@ export type DefaultPresetPluginOptions = {
 	allowUndoRedoButtons?: boolean;
 	appearance?: EditorAppearance | undefined;
 	base?: BasePluginOptions;
+	blockMenu?: BlockMenuPluginOptions & { enabled?: boolean };
 	blockType?: BlockTypePluginOptions;
 	codeBlock?: CodeBlockPluginOptions;
 	contextIdentifierProvider?: Promise<ContextIdentifierProvider>;
@@ -152,6 +155,17 @@ export function createDefaultPreset(options: DefaultPresetPluginOptions): Defaul
 		.maybeAdd(
 			undoRedoPlugin,
 			Boolean(options.featureFlags?.undoRedoButtons ?? options.allowUndoRedoButtons),
+		)
+		.maybeAdd(
+			[
+				blockMenuPlugin,
+				{
+					useStandardNodeWidth: options.blockMenu?.useStandardNodeWidth ?? false,
+					blockLinkHashPrefix: options.blockMenu?.blockLinkHashPrefix,
+					getLinkPath: options.blockMenu?.getLinkPath,
+				},
+			],
+			Boolean(options.blockMenu?.enabled ?? false),
 		)
 		.add([
 			blockTypePlugin,

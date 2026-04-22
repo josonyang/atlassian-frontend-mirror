@@ -56,6 +56,16 @@ const LockedIndicator = (
 	</Fragment>
 );
 
+const WarningIndicator = (
+	<Fragment>
+		<circle fill={token('color.icon.warning')} cx="4" cy="4" r="4" />
+		<path
+			fill={token('elevation.surface.overlay')}
+			d="M4,1.33333333 C4.36918944,1.33333333 4.66666667,1.63081056 4.66666667,2 L4.66666667,4 C4.66666667,4.36918944 4.36918944,4.66666667 4,4.66666667 C3.63081056,4.66666667 3.33333333,4.36918944 3.33333333,4 L3.33333333,2 C3.33333333,1.63081056 3.63081056,1.33333333 4,1.33333333 Z M4,5.33333333 C4.36918944,5.33333333 4.66666667,5.63081056 4.66666667,6 C4.66666667,6.36918944 4.36918944,6.66666667 4,6.66666667 C3.63081056,6.66666667 3.33333333,6.36918944 3.33333333,6 C3.33333333,5.63081056 3.63081056,5.33333333 4,5.33333333 Z"
+		/>
+	</Fragment>
+);
+
 function getStatus(status: Status) {
 	switch (status) {
 		case 'approved':
@@ -64,6 +74,8 @@ function getStatus(status: Status) {
 			return DeclinedIndicator;
 		case 'locked':
 			return LockedIndicator;
+		case 'warning':
+			return WarningIndicator;
 	}
 }
 

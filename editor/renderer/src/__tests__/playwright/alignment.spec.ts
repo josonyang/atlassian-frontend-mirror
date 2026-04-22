@@ -1,3 +1,5 @@
+import { doc, p, table, tr, alignment, td, th } from '@atlaskit/editor-test-helpers/doc-builder';
+import { defaultSchema } from '@atlaskit/adf-schema/schema-default';
 import { rendererTestCase as test, expect } from './not-libra';
 
 import {
@@ -7,8 +9,6 @@ import {
 	thirdParagraphCentered,
 	mixAlignmentParagraph,
 } from './alignment.spec.ts-fixtures';
-import { doc, p, table, tr, alignment, td, th } from '@atlaskit/editor-test-helpers/doc-builder';
-import { defaultSchema } from '@atlaskit/adf-schema/schema-default';
 
 test.describe('when the paragraphs are in the first level of the document', () => {
 	test.describe('and when it is the first paragraph', () => {

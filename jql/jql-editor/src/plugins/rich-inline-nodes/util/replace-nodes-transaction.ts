@@ -1,5 +1,6 @@
 import { type Node } from '@atlaskit/editor-prosemirror/model';
 import { type EditorState, type Transaction } from '@atlaskit/editor-prosemirror/state';
+import FeatureGates from '@atlaskit/feature-gate-js-client';
 import {
 	AbstractJastVisitor,
 	type Argument,
@@ -35,6 +36,12 @@ export const replaceRichInlineNodes = (
 			if (
 				value.type === 'user' ||
 				value.type === 'team' ||
+				(value.type === 'goal' &&
+					FeatureGates.getExperimentValue(
+						'anip-1095-goals-in-harmonised-filter',
+						'isEnabled',
+						false,
+					)) ||
 				(value.type === 'project' && fg('projects_in_jira_eap_drop2'))
 			) {
 				// First try to find as direct value operand (e.g., Team[Team] = uuid)
@@ -76,6 +83,10 @@ const getRichInlineNode = (fieldName: string, value: HydratedValue, text: string
 		case 'project': {
 			const textContent = JQLEditorSchema.text(text);
 			return JQLEditorSchema.nodes.project.create({ ...value, fieldName }, textContent);
+		}
+		case 'goal': {
+			const textContent = JQLEditorSchema.text(text);
+			return JQLEditorSchema.nodes.goal.create({ ...value, fieldName }, textContent);
 		}
 		default: {
 			throw new Error(`Unsupported hydrated value type ${value.type}`);

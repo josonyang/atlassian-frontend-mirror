@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-plugin-scroll-into-view",
-	"version": "10.0.0",
+	"version": "10.1.0",
 	"description": "Scroll-into-view plugin for @atlaskit/editor-core",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -45,11 +45,7 @@
 		"@testing-library/react": "root:*",
 		"wait-for-expect": "root:*"
 	},
-	"platform-feature-flags": {
-		"dst-a11y__replace-anchor-with-link__editor-lego": {
-			"type": "boolean"
-		}
-	},
+	"platform-feature-flags": {},
 	"techstack": {
 		"@atlassian/frontend": {
 			"code-structure": [

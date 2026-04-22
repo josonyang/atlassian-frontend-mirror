@@ -10,7 +10,7 @@ export const VRIssueLikeTableRichText: React.ComponentType<object> = withWaitFor
 		return (
 			<HoverableContainer>
 				<ExampleJiraIssuesTableView
-					visibleColumnKeys={['key', 'description', 'summary', 'assignee']}
+					visibleColumnKeys={['key', 'description-richtext', 'summary', 'assignee']}
 					scrollableContainerHeight={800}
 				/>
 			</HoverableContainer>

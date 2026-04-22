@@ -12,6 +12,8 @@ import {
 	getBlockMarkAttrs,
 	getFirstParagraphBlockMarkAttrs,
 	reconcileBlockMarkForContainerAtPos,
+	reconcileBlockMarkForParagraphAtPos,
+	reconcileBlockMarkInRange,
 } from '@atlaskit/editor-common/lists';
 import { anyMarkActive } from '@atlaskit/editor-common/mark';
 import {
@@ -106,16 +108,16 @@ function compose<
 	R extends FN extends []
 		? F1
 		: FN extends [Func<infer A, any>]
-		? (a: A) => ReturnType<F1>
-		: FN extends [any, Func<infer A, any>]
-		? (a: A) => ReturnType<F1>
-		: FN extends [any, any, Func<infer A, any>]
-		? (a: A) => ReturnType<F1>
-		: FN extends [any, any, any, Func<infer A, any>]
-		? (a: A) => ReturnType<F1>
-		: FN extends [any, any, any, any, Func<infer A, any>]
-		? (a: A) => ReturnType<F1>
-		: Func<any, ReturnType<F1>>, // Doubtful we'd ever want to pipe this many functions, but in the off chance someone does, we can still infer the return type
+			? (a: A) => ReturnType<F1>
+			: FN extends [any, Func<infer A, any>]
+				? (a: A) => ReturnType<F1>
+				: FN extends [any, any, Func<infer A, any>]
+					? (a: A) => ReturnType<F1>
+					: FN extends [any, any, any, Func<infer A, any>]
+						? (a: A) => ReturnType<F1>
+						: FN extends [any, any, any, any, Func<infer A, any>]
+							? (a: A) => ReturnType<F1>
+							: Func<any, ReturnType<F1>>, // Doubtful we'd ever want to pipe this many functions, but in the off chance someone does, we can still infer the return type
 >(func: F1, ...funcs: FN): R {
 	const allFuncs = [func, ...funcs];
 	return function composed(raw: any) {
@@ -506,13 +508,13 @@ export const doesSelectionWhichStartsOrEndsInListContainEntireList = (
 	const endOfEntireList =
 		$from.pos < $to.pos
 			? selectionParentListItemNodeResolvedPos.pos +
-			  selectionParentListNode.nodeSize -
-			  $to.depth -
-			  1
+				selectionParentListNode.nodeSize -
+				$to.depth -
+				1
 			: selectionParentListItemNodeResolvedPos.pos +
-			  selectionParentListNode.nodeSize -
-			  $from.depth -
-			  1;
+				selectionParentListNode.nodeSize -
+				$from.depth -
+				1;
 
 	if (!startOfEntireList || !endOfEntireList) {
 		return false;
@@ -1306,7 +1308,7 @@ export function handleParagraphBlockMarks(state: EditorState, slice: Slice): Sli
 	const { fontSize } = schema.marks;
 
 	const isSmallFontSizeEnabled =
-		expValEquals('platform_editor_small_font_size', 'isEnabled', true) && !!fontSize;
+		!!fontSize && expValEquals('platform_editor_small_font_size', 'isEnabled', true);
 
 	// When copying from inside a container (e.g. panel, expand), ProseMirror wraps the
 	// content back in the container via addContext(), increasing openStart/openEnd. Unwrap
@@ -1334,8 +1336,10 @@ export function handleParagraphBlockMarks(state: EditorState, slice: Slice): Sli
 				$from,
 				currentNode,
 				fontSize,
-		  )
+			)
 		: false;
+
+	const isInHeadingContext = $from.parent.type === heading;
 
 	// If no paragraph in the slice contains marks, there's no need for special handling
 	// unless we're pasting into a small-text list and need to add the destination block mark.
@@ -1346,7 +1350,7 @@ export function handleParagraphBlockMarks(state: EditorState, slice: Slice): Sli
 
 	const shouldNormalizeFontSizeForTarget =
 		isSmallFontSizeEnabled &&
-		(!!destinationListNode || isInNormalTaskContext || isInSmallTaskContext);
+		(!!destinationListNode || isInNormalTaskContext || isInSmallTaskContext || isInHeadingContext);
 
 	// If pasting a single paragraph into pre-existing content, match destination formatting.
 	// For bullet/ordered lists under small-text, we still need to normalize the paragraph block mark
@@ -1406,7 +1410,9 @@ export function handleParagraphBlockMarks(state: EditorState, slice: Slice): Sli
 	}
 
 	if (forbiddenMarkTypes.length === 0 && shouldNormalizeFontSizeForTarget) {
-		const openStart = Math.max(0, slice.openStart - 1);
+		// When pasting into a heading, keep the original openStart so ProseMirror merges inline
+		// content into the heading node rather than replacing it with a paragraph.
+		const openStart = isInHeadingContext ? slice.openStart : Math.max(0, slice.openStart - 1);
 		return new Slice(normalizedContent.content, openStart, slice.openEnd);
 	}
 
@@ -1489,15 +1495,13 @@ export function handleRichText(
 		const firstChildOfSlice = slice.content?.firstChild;
 		const lastChildOfSlice = slice.content?.lastChild;
 		const listContainerNodeTypes = [bulletList, orderedList];
-		const destinationListFontSizeAttrs = expValEquals(
-			'platform_editor_small_font_size',
-			'isEnabled',
-			true,
-		)
-			? getFirstParagraphBlockMarkAttrs(
-					findParentNodeOfType(listContainerNodeTypes)(selection)?.node,
-					fontSize,
-			  )
+		const isSmallFontSizeEnabled =
+			!!fontSize && expValEquals('platform_editor_small_font_size', 'isEnabled', true);
+		const destinationListNode = isSmallFontSizeEnabled
+			? findParentNodeOfType(listContainerNodeTypes)(selection)?.node
+			: undefined;
+		const destinationListFontSizeAttrs = isSmallFontSizeEnabled
+			? getFirstParagraphBlockMarkAttrs(destinationListNode, fontSize)
 			: false;
 
 		// In case user is pasting inline code,
@@ -1525,6 +1529,26 @@ export function handleRichText(
 			slice,
 			listContainerNodeTypes,
 		);
+
+		// Compute once and reuse below to avoid traversing the slice twice.
+		const sliceMarkTypes = isSmallFontSizeEnabled
+			? getTopLevelMarkTypesInSlice(slice)
+			: new Set<MarkType>();
+
+		const destinationIsEmpty =
+			isSmallFontSizeEnabled &&
+			selection.$from.parent.type === paragraph &&
+			selection.$from.parent.textContent.length === 0;
+
+		// Capture the destination paragraph's non-fontSize block marks (e.g. alignment, indentation)
+		// before the paste so they can be restored if the paste replaces the paragraph entirely
+		// (which happens when small text is pasted with openStart=0).
+		const destinationNonFontSizeBlockMarks =
+			isSmallFontSizeEnabled &&
+			selection.$from.parent.type === paragraph &&
+			sliceMarkTypes.has(fontSize)
+				? selection.$from.parent.marks.filter((m) => m.type !== fontSize)
+				: [];
 
 		// We want to use safeInsert to insert invalid content, as it inserts at the closest non schema violating position
 		// rather than spliting the selection parent node in half (which is what replaceSelection does)
@@ -1609,11 +1633,8 @@ export function handleRichText(
 			}
 		}
 
-		if (
-			(isSliceContentListNodes || sliceContentBlockquoteListNodes) &&
-			fontSize &&
-			expValEquals('platform_editor_small_font_size', 'isEnabled', true)
-		) {
+		// font size handling for pasting into lists or blockquotes
+		if (isSmallFontSizeEnabled && (isSliceContentListNodes || sliceContentBlockquoteListNodes)) {
 			const containingList = findParentNodeOfTypeClosestToPos(
 				tr.selection.$from,
 				listContainerNodeTypes,
@@ -1625,6 +1646,28 @@ export function handleRichText(
 					fontSize,
 					isSliceContentListNodes ? destinationListFontSizeAttrs : false,
 				);
+			}
+		}
+
+		// font size handling for pasting into paragraphs (normal text) - preserve source style
+		if (
+			isSmallFontSizeEnabled &&
+			destinationIsEmpty &&
+			!sliceMarkTypes.has(fontSize) &&
+			!destinationListNode &&
+			selection.$from.parent.type === paragraph &&
+			getBlockMarkAttrs(selection.$from.parent, fontSize)
+		) {
+			reconcileBlockMarkForParagraphAtPos(tr, tr.mapping.map(selection.$from.pos), fontSize, false);
+		}
+
+		// Restore destination block marks (e.g. alignment) that were lost when pasting small text
+		// replaced the paragraph entirely (openStart=0 from container unwrap).
+		if (isSmallFontSizeEnabled && destinationNonFontSizeBlockMarks.length > 0) {
+			const pastedFrom = tr.mapping.map(selection.from, -1);
+			const pastedTo = tr.mapping.map(selection.to, 1);
+			for (const mark of destinationNonFontSizeBlockMarks) {
+				reconcileBlockMarkInRange(tr, pastedFrom, pastedTo, mark.type, mark.attrs);
 			}
 		}
 

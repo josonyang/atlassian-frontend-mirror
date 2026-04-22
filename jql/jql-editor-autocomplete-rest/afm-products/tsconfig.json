@@ -24,6 +24,9 @@
 	],
 	"references": [
 		{
+			"path": "../../../measurement/feature-gate-js-client/afm-products/tsconfig.json"
+		},
+		{
 			"path": "../../jql-editor-common/afm-products/tsconfig.json"
 		},
 		{

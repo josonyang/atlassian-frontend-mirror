@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/pragmatic-drag-and-drop-docs",
-	"version": "1.4.19",
+	"version": "1.4.20",
 	"description": "This package holds the documentation for Pragmatic drag and drop in one place. It is not intended to be consumed directly by consumers. The package is used by other tools for sharing examples",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -56,6 +56,7 @@
 		"@atlaskit/primitives": "workspace:^",
 		"@atlaskit/theme": "workspace:^",
 		"@atlaskit/tokens": "workspace:^",
+		"@atlassian/a11y-playwright-testing": "workspace:^",
 		"@atlassian/codegen": "workspace:^",
 		"@emotion/react": "root:*",
 		"@tanstack/react-virtual": "root:*",

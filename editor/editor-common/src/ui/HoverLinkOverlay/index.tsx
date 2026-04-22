@@ -166,11 +166,11 @@ const HoverLinkOverlay = ({
 				paddingBlock: compactPadding
 					? '1px'
 					: expValEquals('confluence_compact_text_format', 'isEnabled', true) ||
-					  (expValEquals('cc_editor_ai_content_mode', 'variant', 'test') &&
-							fg('platform_editor_content_mode_button_mvp'))
-					? DYNAMIC_PADDING_BLOCK
-					: token('space.025'),
-		  };
+						  (expValEquals('cc_editor_ai_content_mode', 'variant', 'test') &&
+								fg('platform_editor_content_mode_button_mvp'))
+						? DYNAMIC_PADDING_BLOCK
+						: token('space.025'),
+			};
 
 	useLayoutEffect(() => {
 		if (!isVisible || !isHovered) {

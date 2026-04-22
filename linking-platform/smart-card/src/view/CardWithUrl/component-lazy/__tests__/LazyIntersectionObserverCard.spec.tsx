@@ -1,8 +1,13 @@
+import '@atlaskit/link-test-helpers/jest';
 import React from 'react';
 
+import { AnalyticsListener } from '@atlaskit/analytics-next';
 import { SmartCardProvider } from '@atlaskit/link-provider';
-import { renderWithIntl } from '@atlaskit/link-test-helpers';
+import { renderWithIntl, ResolvedClient } from '@atlaskit/link-test-helpers';
+import { ffTest } from '@atlassian/feature-flags-test-utils';
 
+import { ANALYTICS_CHANNEL } from '../../../../utils/analytics';
+import * as componentModule from '../../component';
 import { LazyIntersectionObserverCard } from '../LazyIntersectionObserverCard';
 
 describe('LazyIntersectionObserverCard', () => {
@@ -10,17 +15,26 @@ describe('LazyIntersectionObserverCard', () => {
 		jest.clearAllMocks();
 	});
 
-	const setup = (props: Partial<React.ComponentProps<typeof LazyIntersectionObserverCard>> = {}) =>
-		renderWithIntl(
-			<SmartCardProvider>
-				<LazyIntersectionObserverCard
-					appearance="block"
-					url="http://example.com"
-					id="123"
-					{...props}
-				/>
+	const setup = (
+		props: Partial<React.ComponentProps<typeof LazyIntersectionObserverCard>> = {},
+	) => {
+		const onEvent = jest.fn();
+
+		const renderResult = renderWithIntl(
+			<SmartCardProvider client={new ResolvedClient()}>
+				<AnalyticsListener onEvent={onEvent} channel={ANALYTICS_CHANNEL}>
+					<LazyIntersectionObserverCard
+						appearance="block"
+						url="http://example.com"
+						id="123"
+						{...props}
+					/>
+				</AnalyticsListener>
 			</SmartCardProvider>,
 		);
+
+		return { ...renderResult, onEvent };
+	};
 
 	describe('when not intersecting', () => {
 		const observe = jest.fn();
@@ -39,16 +53,18 @@ describe('LazyIntersectionObserverCard', () => {
 			});
 		});
 
-		it('should disconnect intersection observer when unmounting if never intersected', async () => {
-			const { unmount } = setup();
+		ffTest.both('platform_sl_event_ui_seen', '', () => {
+			it('should disconnect intersection observer when unmounting if never intersected', async () => {
+				const { unmount } = setup();
 
-			expect(observe).toHaveBeenCalledTimes(1);
-			expect(observe).toHaveBeenCalledWith(expect.any(HTMLDivElement));
-			expect(disconnect).toHaveBeenCalledTimes(0);
+				expect(observe).toHaveBeenCalledTimes(1);
+				expect(observe).toHaveBeenCalledWith(expect.any(HTMLDivElement));
+				expect(disconnect).toHaveBeenCalledTimes(0);
 
-			unmount();
+				unmount();
 
-			expect(disconnect).toHaveBeenCalledTimes(1);
+				expect(disconnect).toHaveBeenCalledTimes(1);
+			});
 		});
 	});
 
@@ -85,20 +101,39 @@ describe('LazyIntersectionObserverCard', () => {
 			});
 		});
 
-		it('should immediately disconnect intersection observer if intersecting', async () => {
-			const { unmount } = setup();
+		ffTest.both('platform_sl_event_ui_seen', '', () => {
+			it('should immediately disconnect intersection observer if intersecting', async () => {
+				const { unmount } = setup();
 
-			expect(observe).toHaveBeenCalledTimes(1);
-			expect(observe).toHaveBeenCalledWith(expect.any(HTMLDivElement));
-			expect(disconnect).toHaveBeenCalledTimes(1);
+				expect(observe).toHaveBeenCalledTimes(1);
+				expect(observe).toHaveBeenCalledWith(expect.any(HTMLDivElement));
+				expect(disconnect).toHaveBeenCalledTimes(1);
 
-			unmount();
+				unmount();
 
-			/**
-			 * Called twice because the useEffect cleanup function
-			 * also calls disconnect
-			 */
-			expect(disconnect).toHaveBeenCalledTimes(2);
+				/**
+				 * Called twice because the useEffect cleanup function
+				 * also calls disconnect
+				 */
+				expect(disconnect).toHaveBeenCalledTimes(2);
+			});
+		});
+
+		ffTest.on('platform_sl_event_ui_seen', '', () => {
+			it('should pass isIntersected=true to wrapped component after intersection', async () => {
+				const spy = jest
+					.spyOn(componentModule, 'CardWithUrlContent')
+					.mockImplementation(() => <div />);
+
+				const { unmount } = setup();
+
+				expect(spy).toHaveBeenLastCalledWith(
+					expect.objectContaining({ isIntersected: true }),
+					expect.anything(),
+				);
+
+				unmount();
+			});
 		});
 	});
 });

@@ -1605,7 +1605,7 @@ export const DragHandleWithVisibility = ({
 	return (
 		<VisibilityContainer
 			api={api}
-			controlSide={rightSideControlsEnabled && !isLayoutColumn ? 'left' : undefined}
+			controlSide={!isLayoutColumn && rightSideControlsEnabled ? 'left' : undefined}
 			forceVisibleOnMouseOut={
 				expValEquals('platform_editor_drag_handle_keyboard_a11y', 'isEnabled', true) &&
 				!!handleOptions?.isFocused

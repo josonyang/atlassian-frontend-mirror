@@ -82,6 +82,7 @@ export default class DeleteUserDrawerExample extends React.Component {
 							label={
 								<StatefulInlineDialog
 									placement="right"
+									label="More information"
 									content="Toggles between 2nd and 3rd person text."
 								>
 									Is current user
@@ -94,6 +95,7 @@ export default class DeleteUserDrawerExample extends React.Component {
 							label={
 								<StatefulInlineDialog
 									placement="right"
+									label="More information"
 									content="Toggles between active and deactivated user."
 								>
 									Is user deactivated

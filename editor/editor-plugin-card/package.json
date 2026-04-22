@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-plugin-card",
-	"version": "16.0.2",
+	"version": "16.1.0",
 	"description": "Card plugin for @atlaskit/editor-core",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -35,6 +35,7 @@
 		"@atlaskit/adf-schema": "workspace:^",
 		"@atlaskit/analytics-next": "workspace:^",
 		"@atlaskit/custom-steps": "workspace:^",
+		"@atlaskit/editor-card-provider": "workspace:^",
 		"@atlaskit/editor-plugin-analytics": "workspace:^",
 		"@atlaskit/editor-plugin-base": "workspace:^",
 		"@atlaskit/editor-plugin-connectivity": "workspace:^",

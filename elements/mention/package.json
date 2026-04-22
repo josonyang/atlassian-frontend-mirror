@@ -48,6 +48,7 @@
 		"@af/visual-regression": "workspace:^",
 		"@atlaskit/elements-test-helpers": "workspace:^",
 		"@atlassian/a11y-jest-testing": "workspace:^",
+		"@atlassian/a11y-playwright-testing": "workspace:^",
 		"@atlassian/feature-flags-test-utils": "workspace:^",
 		"@testing-library/react": "root:*",
 		"@testing-library/user-event": "root:*",
@@ -127,5 +128,5 @@
 			]
 		}
 	},
-	"version": "25.0.0"
+	"version": "25.0.1"
 }

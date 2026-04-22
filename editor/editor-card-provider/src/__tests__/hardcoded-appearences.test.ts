@@ -74,6 +74,19 @@ describe('hardcoded appearences', () => {
 			'A whiteboard with query params',
 			'https://pug.jira-dev.com/wiki/spaces/BT2/whiteboard/452724424706?myQueryParam=foo&bar=baz',
 		],
+		['A slide', 'https://hello.atlassian.net/wiki/spaces/TEAM/slide/6822455429'],
+		[
+			'A slide with user space',
+			'https://hello.atlassian.net/wiki/spaces/~63749c02a593cb822e92b8ec/slide/6822455429',
+		],
+		[
+			'A slide with query params',
+			'https://hello.atlassian.net/wiki/spaces/TEAM/slide/6822455429?foo=bar',
+		],
+		[
+			'A slide with UUID resource id',
+			'https://hello.atlassian.net/wiki/spaces/TEAM/slide/8fb8c642-803d-59fe-8d1c-066610e860c6',
+		],
 		[
 			'A database with a user space',
 			'https://databases-playground.jira-dev.com/wiki/spaces/~123456789/database/12345',

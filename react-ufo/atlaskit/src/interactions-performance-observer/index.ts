@@ -1,9 +1,26 @@
+import { getSelectorConfig } from '../config';
 import { getActiveInteraction } from '../interaction-metrics';
 import getElementName, { type SelectorConfig } from '../vc/vc-observer-new/get-unique-element-name';
 
 let performanceEventObserver: PerformanceObserver | undefined;
 
-const selectorConfig: SelectorConfig = { id: true, testId: true, role: true, className: true };
+const DEFAULT_SELECTOR_CONFIG: SelectorConfig = {
+	id: true,
+	testId: true,
+	role: true,
+	className: true,
+};
+
+/**
+ * Resolve the SelectorConfig for the performance-observer code path.
+ *
+ * In FedRAMP Moderate environments (when `getSelectorConfig()` returns the
+ * forced all-`false` config) we honour that override; otherwise we fall back
+ * to the historical default that enables every selector.
+ */
+function resolveSelectorConfig(): SelectorConfig {
+	return getSelectorConfig() ?? DEFAULT_SELECTOR_CONFIG;
+}
 
 type ReactFiberType = {
 	memoizedProps?: Record<string, string>;
@@ -103,7 +120,7 @@ export const setInteractionPerformanceEvent = (entry: PerformanceEventTiming): v
 					interaction.unknownElementHierarchy = componentHierarchy;
 				}
 				interaction.unknownElementName = getElementName(
-					selectorConfig,
+					resolveSelectorConfig(),
 					entry.target as HTMLElement,
 				);
 			}

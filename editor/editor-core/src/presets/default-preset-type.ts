@@ -4,6 +4,7 @@ import type { UserPreferencesPlugin } from '@atlaskit/editor-plugin-user-prefere
 import type { AnalyticsPlugin } from '@atlaskit/editor-plugins/analytics';
 import type { BasePlugin } from '@atlaskit/editor-plugins/base';
 import type { BetterTypeHistoryPlugin } from '@atlaskit/editor-plugins/better-type-history';
+import type { BlockMenuPlugin } from '@atlaskit/editor-plugins/block-menu';
 import type { BlockTypePlugin } from '@atlaskit/editor-plugins/block-type';
 import type { ClearMarksOnEmptyDocPlugin } from '@atlaskit/editor-plugins/clear-marks-on-empty-doc';
 import type { ClipboardPlugin } from '@atlaskit/editor-plugins/clipboard';
@@ -60,8 +61,9 @@ export type DefaultPresetPlugins = [
 	HyperlinkPlugin,
 	SelectionToolbarPlugin,
 	ClearMarksOnEmptyDocPlugin,
-	BlockTypePlugin,
 	UndoRedoPlugin | undefined,
+	BlockMenuPlugin | undefined,
+	BlockTypePlugin,
 	PrimaryToolbarPlugin,
 	ToolbarPlugin | undefined,
 	UserIntentPlugin | undefined,

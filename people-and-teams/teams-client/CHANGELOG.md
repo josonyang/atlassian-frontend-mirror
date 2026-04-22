@@ -1,5 +1,13 @@
 # @atlaskit/teams-client
 
+## 4.32.3
+
+### Patch Changes
+
+- [`238ba9dc63a10`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/238ba9dc63a10) -
+  Fix ARCHIVE_TEAM/UNARCHIVE_TEAM permission logic for ORG_ADMIN_MANAGED, EXTERNAL and
+  OPEN/MEMBER_INVITE teams, and stop fg() mock state leaking between test describe blocks.
+
 ## 4.32.2
 
 ### Patch Changes

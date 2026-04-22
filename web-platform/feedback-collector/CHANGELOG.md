@@ -1,5 +1,16 @@
 # @atlaskit/feedback-collector
 
+## 15.1.0
+
+### Minor Changes
+
+- [`a8e9bef6d418f`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/a8e9bef6d418f) -
+  Remove flag to increase accessibility in links.
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 15.0.0
 
 ### Major Changes

@@ -1,5 +1,6 @@
 import React from 'react';
 
+import { fg } from '@atlaskit/platform-feature-flags';
 import { withAnalyticsEvents, type WithAnalyticsEventsProps } from '@atlaskit/analytics-next';
 import {
 	ANALYTICS_MEDIA_CHANNEL,
@@ -78,6 +79,9 @@ export class DropzoneBase extends LocalUploadComponentReact<DropzoneProps> {
 	}
 
 	public UNSAFE_componentWillReceiveProps(nextProps: DropzoneProps): void {
+		if (fg('platform_media_package_react19_lifecycle_fix')) {
+			return;
+		}
 		const {
 			config: { container: newContainer },
 		} = nextProps;
@@ -88,6 +92,27 @@ export class DropzoneBase extends LocalUploadComponentReact<DropzoneProps> {
 
 		if (newContainer !== oldContainer) {
 			this.removeContainerListeners(oldContainer);
+			this.addContainerListeners(newContainer);
+		}
+	}
+
+	public componentDidUpdate(prevProps: DropzoneProps): void {
+		if (!fg('platform_media_package_react19_lifecycle_fix')) {
+			return;
+		}
+		const {
+			config: { container: newContainer },
+		} = this.props;
+
+		const {
+			config: { container: oldContainer },
+		} = prevProps;
+
+		if (newContainer !== oldContainer) {
+			// Resolve the old container explicitly: in componentDidUpdate, this.props is already
+			// updated, so this.getContainer() would return the new container. We must pass the
+			// resolved old container directly to avoid removing listeners from the wrong target.
+			this.removeContainerListeners(oldContainer ?? document.body);
 			this.addContainerListeners(newContainer);
 		}
 	}

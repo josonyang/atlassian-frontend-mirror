@@ -14,15 +14,20 @@ import React, {
 
 import type { XCSSProp } from '@compiled/react';
 
-import { cssMap, jsx, type XCSSAllProperties, type XCSSAllPseudos } from '@atlaskit/css';
+import { cssMap, cx, jsx, type XCSSAllProperties, type XCSSAllPseudos } from '@atlaskit/css';
+import mergeRefs from '@atlaskit/ds-lib/merge-refs';
 import { type Motion as MotionToken } from '@atlaskit/tokens/css-type-schema';
 
 import { isReducedMotion } from '../utils/accessibility';
-import { getDurationMs, resolveMotionToken } from '../utils/animation';
+import { convertToMs, getDurationMs, resolveMotionToken } from '../utils/animation';
 
 import { useExitingPersistence } from './exiting-persistence';
 import { useStaggeredEntrance } from './staggered-entrance';
 import { type Transition } from './types';
+
+export type CustomMotionXCSS = XCSSProp<"animationName" | "animationDuration" | "animationTimingFunction" | "animationDelay", never>;
+
+type MotionState = 'init' | 'entering' | 'exiting' | 'idle' | 'reanimating';
 
 const styles = cssMap({
 	base: {
@@ -31,6 +36,15 @@ const styles = cssMap({
 			animation: 'none',
 			transition: 'none',
 		},
+	},
+	hidden: {
+		visibility: 'hidden'
+	},
+	entering: {
+		animationFillMode: 'backwards'
+	},
+	exiting: {
+		animationFillMode: 'forwards'
 	},
 });
 
@@ -52,8 +66,6 @@ export interface MotionRef {
 	reanimate: (value: Reanimate) => void;
 }
 
-type MotionState = 'entering' | 'exiting' | 'idle' | 'reanimating';
-
 export interface MotionProps {
 	/**
 	 * Will callback when the motion has finished in the particular direction.
@@ -66,23 +78,32 @@ export interface MotionProps {
 	 * Children to be animated.
 	 */
 	children: React.ReactNode;
+	
 	/**
 	 * Motion token for the entering animation.
 	 */
 	enteringAnimation?: MotionToken;
 
 	/**
+	 * CSS properties to apply to the entering animation.
+	 */
+	enteringAnimationXcss?: CustomMotionXCSS;
+
+	/**
 	 * Motion token for the exiting animation.
 	 */
 	exitingAnimation?: MotionToken;
+
+	/**
+	 * CSS properties to apply to the exiting animation.
+	 */
+	exitingAnimationXcss?: CustomMotionXCSS;
+
 	/**
 	 * CSS properties to apply to the motion container.
 	 */
 	xcss?: XCSSProp<XCSSAllProperties, XCSSAllPseudos>;
-	/**
-	 * Can be used to pause the animation before it has finished.
-	 */
-	isPaused?: boolean;
+
 	/**
 	 * A `testId` prop is provided for specified elements,
 	 * which is a unique string that appears as a data attribute `data-testid` in the rendered code,
@@ -103,8 +124,9 @@ const Motion: React.ForwardRefExoticComponent<
 		{
 			children,
 			enteringAnimation,
+			enteringAnimationXcss,
 			exitingAnimation,
-			isPaused,
+			exitingAnimationXcss,
 			onFinish: onFinishMotion,
 			xcss,
 			testId,
@@ -113,19 +135,37 @@ const Motion: React.ForwardRefExoticComponent<
 	): React.JSX.Element => {
 		const staggered = useStaggeredEntrance();
 		const { isExiting, onFinish: onExitFinished, appear } = useExitingPersistence();
-		const paused = isPaused || !staggered.isReady;
-		const delay = isExiting ? 0 : staggered.delay;
+		const staggeredDelay = isExiting ? 0 : staggered.delay;
+		const staggedIsReady = staggered.isReady;
 
-		const [state, setState] = useState<MotionState>(appear ? 'entering' : 'idle');
+		const [state, setState] = useState<MotionState>(appear ? staggedIsReady && !staggeredDelay ? 'entering' : 'init' : 'idle');
 
+		const elementRef = useRef<HTMLDivElement>(null);
 		const reanimateRef = useRef<Reanimate>();
 		const animationRef = useRef<NodeJS.Timeout>();
+		const staggeredEntryRef = useRef<NodeJS.Timeout>();
 
 		useEffect(() => {
 			if (isExiting) {
 				setState('exiting');
 			}
 		}, [isExiting]);
+
+		// Handles staggered entry
+		useEffect(() => {
+			if(state !== 'init') return;
+
+			// We delay the entry animation by the stagger delay
+			staggeredEntryRef.current = setTimeout(() => {
+				setState('entering');
+			}, staggeredDelay);
+
+			return () => {
+				if (staggeredEntryRef.current) {
+					clearTimeout(staggeredEntryRef.current);
+				}
+			};
+		}, [state, staggedIsReady, staggeredDelay])
 
 		/**
 		 * Updates relevant state.
@@ -171,10 +211,9 @@ const Motion: React.ForwardRefExoticComponent<
 			// Tracking this to prevent changing state on an unmounted component
 			let isCancelled = false;
 
-			if (paused) {
+			if (!staggedIsReady) {
 				return;
 			}
-
 			// On initial mount if elements aren't set to animate on appear, we return early and callback
 			// This only occurs on initial mount, as appear will be true once the component is mounted
 			if (!appear) {
@@ -182,26 +221,49 @@ const Motion: React.ForwardRefExoticComponent<
 				return;
 			}
 
-			// If the state is idle, we don't need to do anything
-			if (state === 'idle') {
+			// If the state is idle or init, we don't need to do anything
+			if (state === 'idle' || state === 'init') {
 				return;
 			}
 
 			// If there is reduced motion or no exit animation, we call the onAnimationEnd function immediately
-			if (isReducedMotion() || !exitingAnimation) {
+			if (isReducedMotion() || (!exitingAnimation && !exitingAnimationXcss)) {
 				onAnimationEnd(state, isCancelled);
 				return;
 			}
 
+			let animationDuration = 0;
+			let animationDelay = 0;
+			if (state === 'entering' || state === 'exiting') {
+				if(elementRef.current) {
+					if(elementRef.current.style.animation) {
+						// Motion token
+						const animationTimings = getDurationMs(resolveMotionToken(elementRef.current.style.animation));
+						animationDuration = animationTimings.duration;
+						animationDelay = animationTimings.delay;
+					} else {
+						// Custom motion
+						const styles = window.getComputedStyle(elementRef.current);
+						if(styles.animationDuration) {
+							animationDuration = convertToMs(styles.animationDuration);
+						} 
+						if(styles.animationDelay) {
+							animationDelay = convertToMs(styles.animationDelay);
+						}
+					}
+				}
+			}
+
 			// Queue `onAnimationEnd` for after the animation has finished
-			if (state === 'exiting' && exitingAnimation) {
-				const duration = getDurationMs(resolveMotionToken(exitingAnimation));
-				animationRef.current = setTimeout(() => onAnimationEnd(state, isCancelled), duration);
-			} else if (state === 'entering' && enteringAnimation) {
-				const duration = getDurationMs(resolveMotionToken(enteringAnimation));
+			if (state === 'exiting' && (exitingAnimation || exitingAnimationXcss)) {
+				animationRef.current = setTimeout(
+					() => onAnimationEnd(state, isCancelled), 
+					animationDuration + animationDelay,
+				);
+			} else if (state === 'entering' && (enteringAnimation || enteringAnimationXcss)) {
 				animationRef.current = setTimeout(
 					() => onAnimationEnd(state, isCancelled),
-					duration + delay,
+					animationDuration + animationDelay,
 				);
 			}
 
@@ -215,7 +277,16 @@ const Motion: React.ForwardRefExoticComponent<
 			// which would then trigger this effect every re-render.
 			// We want to make it easier for consumers so we go down this path unfortunately.
 			// eslint-disable-next-line react-hooks/exhaustive-deps
-		}, [onAnimationEnd, state, exitingAnimation, enteringAnimation, delay, paused]);
+		}, [
+			onAnimationEnd,
+			state,
+			exitingAnimation,
+			enteringAnimation,
+			exitingAnimationXcss,
+			enteringAnimationXcss,
+			staggeredDelay,
+			staggedIsReady
+		]);
 
 		useImperativeHandle(ref, () => ({
 			reanimate: (value: Reanimate) => {
@@ -229,25 +300,35 @@ const Motion: React.ForwardRefExoticComponent<
 			},
 		}));
 
-		const style: React.CSSProperties = {
-			animation:
-				state === 'exiting'
-					? `${exitingAnimation} forwards ${paused ? 'paused' : ''}`
-					: state === 'entering'
-						? `${enteringAnimation} backwards ${paused ? 'paused' : ''}`
-						: undefined,
-		};
-		if (delay) {
-			style.animationDelay = `${delay}ms`;
+		let style: React.CSSProperties = {};
+		let customAnimation: CustomMotionXCSS | undefined;
+		if(state === 'entering') {
+			if(enteringAnimation) {
+				style.animation = enteringAnimation;
+			} else if(enteringAnimationXcss) {
+				customAnimation = enteringAnimationXcss;
+			}
+		} else if(state === 'exiting') {
+			if(exitingAnimation) {
+				style.animation = exitingAnimation;
+			} else if(exitingAnimationXcss) {
+				customAnimation = exitingAnimationXcss;
+			}
 		}
 
-		const hasAnimationStyles = state !== 'idle';
+		const hasAnimationStyles = state !== 'idle' && state !== 'init';
 
 		return (
 			<div
-				className={xcss}
-				ref={staggered.ref}
-				css={[hasAnimationStyles && styles.base]}
+				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop, @atlaskit/ui-styling-standard/local-cx-xcss, @compiled/local-cx-xcss
+				className={cx(xcss, customAnimation)}
+				ref={mergeRefs([staggered.ref, elementRef])}
+				css={[
+					hasAnimationStyles && styles.base,
+					state === 'init' && styles.hidden,
+					state === 'entering' && styles.entering,
+					state === 'exiting' && styles.exiting,
+				]}
 				// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop
 				style={hasAnimationStyles ? style : undefined}
 				data-testid={testId}

@@ -235,7 +235,8 @@ export const messages: {
 	submitButtonLabel: {
 		id: 'feedback-collector.submit-button.label',
 		defaultMessage: 'Send feedback',
-		description: 'The button to submit the feedback form',
+		description:
+			"The text is shown on a primary submit button at the bottom of the feedback collector form. When clicked, it submits the user's feedback to Atlassian.",
 	},
 	cancelButtonLabel: {
 		id: 'feedback-collector.cancel-button.label',
@@ -265,7 +266,8 @@ export const messages: {
 	formEmptyLabel: {
 		id: 'feedback-collector.form.empty.label',
 		defaultMessage: 'Select an option',
-		description: 'The default dropdown list option',
+		description:
+			'The text is shown as the default empty/placeholder option in the feedback type drop-down list when no option has been selected yet.',
 	},
 	formNotRelevantLabel: {
 		id: 'feedback-collector.form.not-relevant.label',
@@ -315,12 +317,14 @@ export const messages: {
 	selectionOptionDefaultLabel: {
 		id: 'feedback-collector.option.default.label',
 		defaultMessage: 'Select feedback',
-		description: 'The feedback dropdown list label',
+		description:
+			'The text is shown as the visible label of the feedback type drop-down selector in the feedback collector form, prompting the user to choose a feedback category.',
 	},
 	selectionOptionDefaultPlaceholder: {
 		id: 'feedback-collector.option.default.placeholder',
 		defaultMessage: 'Choose one',
-		description: 'The feedback dropdown list placeholder',
+		description:
+			'The text is shown as the placeholder inside the feedback type drop-down selector before the user makes a selection, prompting them to pick one of the available feedback categories.',
 	},
 	feedbackIconLabel: {
 		id: 'proforma-form-builder.feedback-icon-label',
@@ -346,7 +350,8 @@ export const messages: {
 		id: 'feedback-collector.anonymous',
 		defaultMessage:
 			'This feedback is being submitted anonymously. Atlassian will not be able to contact you directly regarding this feedback',
-		description: 'Notice that feedback is anonymous',
+		description:
+			'The text is shown as an informational notice in the feedback collector form when the user is submitting feedback anonymously, informing them that Atlassian will not be able to follow up with them directly.',
 	},
 	requiredFieldsSummary: {
 		id: 'feedback-collector.required.fields.summary',

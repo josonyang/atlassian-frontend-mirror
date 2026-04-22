@@ -1,5 +1,16 @@
 # @atlaskit/editor-statsig-tmp
 
+## 64.0.0
+
+### Major Changes
+
+- [`79124c226e2f4`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/79124c226e2f4) -
+  NO-ISSUE Clean up platform_editor_ai_edit_unsupported_content
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 63.0.0
 
 ### Major Changes

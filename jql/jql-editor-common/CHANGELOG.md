@@ -1,5 +1,12 @@
 # @atlaskit/jql-editor-common
 
+## 3.2.0
+
+### Minor Changes
+
+- [`2f2e1ff7d48a0`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/2f2e1ff7d48a0) -
+  [ux] Add goal lozenge and use it on JQL editor
+
 ## 3.1.1
 
 ### Patch Changes

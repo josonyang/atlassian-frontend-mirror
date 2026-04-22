@@ -16,6 +16,6 @@ export type AvatarClickEventHandler = (
 	analyticsEvent?: UIAnalyticsEvent,
 ) => void;
 
-export type Status = 'approved' | 'declined' | 'locked';
+export type Status = 'approved' | 'declined' | 'locked' | 'warning';
 
 export type Presence = 'online' | 'busy' | 'focus' | 'offline';

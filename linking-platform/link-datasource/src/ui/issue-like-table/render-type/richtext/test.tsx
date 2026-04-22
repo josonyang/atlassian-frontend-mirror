@@ -3,7 +3,6 @@ import React from 'react';
 import { render } from '@testing-library/react';
 
 import { type RichText } from '@atlaskit/linking-types';
-import { ffTest } from '@atlassian/feature-flags-test-utils';
 
 import RichTextType from './index';
 
@@ -342,59 +341,39 @@ describe('RichText Type', () => {
 		);
 	});
 
-	ffTest.on('platform_navx_jira_sllv_rich_text_gate', 'when feature flag is enabled', () => {
-		it('renders rich text field with html content', () => {
-			const value: RichText = {
-				type: 'adf',
-				text: JSON.stringify({
-					version: 1,
-					type: 'doc',
-					content: [{ type: 'paragraph', content: [{ type: 'text', text: 'asdf' }] }],
-				}),
-				html: '<p>Hello, world!</p>',
-			};
+	it('renders rich text field with html content', () => {
+		const value: RichText = {
+			type: 'adf',
+			text: JSON.stringify({
+				version: 1,
+				type: 'doc',
+				content: [{ type: 'paragraph', content: [{ type: 'text', text: 'asdf' }] }],
+			}),
+			html: '<p>Hello, world!</p>',
+		};
 
-			const { container } = render(<RichTextType value={value} />);
+		const { container } = render(<RichTextType value={value} />);
 
-			expect(
-				container.querySelector('[data-testid="datasource-richtext-html-content"]')?.innerHTML,
-			).toEqual('<p>Hello, world!</p>');
-		});
-
-		it('renders rich text field without dangerouse html tags ', () => {
-			const value: RichText = {
-				type: 'adf',
-				text: JSON.stringify({
-					version: 1,
-					type: 'doc',
-					content: [{ type: 'text', text: 'asdf' }],
-				}),
-				html: '<p>Scary stuff: <script>alert("Hello, world!");</script>!</p>',
-			};
-
-			const { container } = render(<RichTextType value={value} />);
-
-			expect(
-				container.querySelector('[data-testid="datasource-richtext-html-content"]')?.innerHTML,
-			).toEqual('<p>Scary stuff: !</p>');
-		});
+		expect(
+			container.querySelector('[data-testid="datasource-richtext-html-content"]')?.innerHTML,
+		).toEqual('<p>Hello, world!</p>');
 	});
 
-	ffTest.off('platform_navx_jira_sllv_rich_text_gate', 'when feature flag is enabled', () => {
-		it('renders rich text taken from ADF even if html is provided', () => {
-			const value: RichText = {
-				type: 'adf',
-				text: JSON.stringify({
-					version: 1,
-					type: 'doc',
-					content: [{ type: 'text', text: 'asdf' }],
-				}),
-				html: '<p>Hello, world!</p>',
-			};
+	it('renders rich text field without dangerouse html tags ', () => {
+		const value: RichText = {
+			type: 'adf',
+			text: JSON.stringify({
+				version: 1,
+				type: 'doc',
+				content: [{ type: 'text', text: 'asdf' }],
+			}),
+			html: '<p>Scary stuff: <script>alert("Hello, world!");</script>!</p>',
+		};
 
-			const { container } = render(<RichTextType value={value} />);
+		const { container } = render(<RichTextType value={value} />);
 
-			expect(container.textContent).toEqual('asdf');
-		});
+		expect(
+			container.querySelector('[data-testid="datasource-richtext-html-content"]')?.innerHTML,
+		).toEqual('<p>Scary stuff: !</p>');
 	});
 });

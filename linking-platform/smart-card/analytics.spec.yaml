@@ -851,6 +851,15 @@ events:
           required: false
           type: string
           description: The unique ID for this Smart Link
+  - smartLink seen:
+      type: ui
+      description: fires an event that represents when a rendered Smart Link is visible in the viewport for the first time
+      attributes:
+        <<: [*PackageMetaDataContext, *CommonContext, *ResolvedContext]
+        display:
+          required: true
+          type: ['inline', 'block', 'embed', 'flexible']
+          description: Whether the card was an Inline, Block, Embed or Flexible UI
   - smartLink clicked (smartlinkClickAnalyticsWorkflows):
       type: ui
       description:

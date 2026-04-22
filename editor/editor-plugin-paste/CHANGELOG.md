@@ -1,5 +1,19 @@
 # @atlaskit/editor-plugin-paste
 
+## 11.0.5
+
+### Patch Changes
+
+- [`583f16df338b0`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/583f16df338b0) -
+  Normalise small text fontSize mark on paste: strip fontSize when pasting into headings, and
+  preserve source style when pasting normal text into small-text paragraphs
+
+## 11.0.4
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 11.0.3
 
 ### Patch Changes

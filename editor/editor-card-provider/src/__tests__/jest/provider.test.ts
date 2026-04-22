@@ -16,6 +16,13 @@ import { eeTest } from '@atlaskit/tmp-editor-statsig/editor-experiments-test-uti
 
 jest.spyOn(CardClient.prototype, 'fetchData').mockRejectedValue({});
 
+// Test subclass exposing protected methods for getHardCodedAppearance assertions
+class TestableEditorCardProvider extends EditorCardProvider {
+	public testGetHardCodedAppearance(url: string) {
+		return this.getHardCodedAppearance(url);
+	}
+}
+
 describe('EditorCardProvider', () => {
 	let provider: EditorCardProvider;
 	let mockCardClient: jest.Mocked<CardClient>;
@@ -387,13 +394,6 @@ describe('EditorCardProvider', () => {
 	});
 
 	describe('getHardCodedAppearance - AVP Visualization URLs', () => {
-		// Create a test subclass to access protected method
-		class TestableEditorCardProvider extends EditorCardProvider {
-			public testGetHardCodedAppearance(url: string) {
-				return this.getHardCodedAppearance(url);
-			}
-		}
-
 		let testProvider: TestableEditorCardProvider;
 
 		beforeEach(() => {
@@ -480,6 +480,36 @@ describe('EditorCardProvider', () => {
 			const enabledProvider = new TestableEditorCardProvider();
 			const url = 'https://hello.atlassian.net/avpviz/c/12345';
 			expect(enabledProvider.testGetHardCodedAppearance(url)).toBe('embed');
+		});
+	});
+
+	describe('getHardCodedAppearance - Loom URLs', () => {
+		let testProvider: TestableEditorCardProvider;
+
+		beforeEach(() => {
+			testProvider = new TestableEditorCardProvider();
+		});
+
+		it('should return embed for Loom video share URLs', () => {
+			const url = 'https://www.loom.com/share/abcdef0123456789abcdef0123456789';
+			expect(testProvider.testGetHardCodedAppearance(url)).toBe('embed');
+		});
+
+		it('should return embed for Loom screenshot URLs when feature gate is enabled', () => {
+			setBooleanFeatureFlagResolver((flag) => flag === 'loom-support-screenshot-sl-resolution');
+			const url = 'https://www.loom.com/i/abcdef0123456789abcdef0123456789';
+			expect(testProvider.testGetHardCodedAppearance(url)).toBe('embed');
+		});
+
+		it('should return undefined for Loom screenshot URLs when feature gate is disabled', () => {
+			setBooleanFeatureFlagResolver(() => false);
+			const url = 'https://www.loom.com/i/abcdef0123456789abcdef0123456789';
+			expect(testProvider.testGetHardCodedAppearance(url)).toBeUndefined();
+		});
+
+		it('should return undefined for Loom URLs with an invalid id', () => {
+			const url = 'https://www.loom.com/share/not-a-valid-id';
+			expect(testProvider.testGetHardCodedAppearance(url)).toBeUndefined();
 		});
 	});
 });

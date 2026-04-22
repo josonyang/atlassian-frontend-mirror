@@ -24,191 +24,191 @@ const generateMockPeopleResponse = (size: number) => {
 let mocks = 1;
 // It is not in a particular format. IT is transformed into expected format when consumed.
 export const mockJiraData: {
-	nextPageCursor: string;
-	totalIssues: number;
 	data: (
 		| {
 				ari: {
 					data: string;
 				};
-				type: {
-					label: string;
-					source: string;
-				};
-				issueNumber: string;
-				summary: string;
 				assignee: {
 					displayName: string;
 					source: string;
 				};
-				project: {
-					name: string;
-					id: string;
-				};
-				people: {
-					displayName: string;
-					avatarSource: string;
-				}[];
-				priority: {
-					label: string;
-					source: string;
-					text: string;
-				};
-				status: {
-					text: string;
-					status: string;
-				};
-				resolution: string;
 				created: string;
-				updated: string;
 				due: string;
-				link: string;
+				issueNumber: string;
 				labels: string[];
-		  }
-		| {
-				ari: {
-					data: string;
-				};
-				type: {
-					label: string;
-					source: string;
-				};
-				issueNumber: string;
-				summary: string;
-				assignee: undefined;
-				project: {
-					name: string;
-					id: string;
-				};
+				link: string;
 				people: {
-					displayName: string;
 					avatarSource: string;
+					displayName: string;
 				}[];
 				priority: {
 					label: string;
 					source: string;
 					text: string;
 				};
-				status: {
-					text: string;
-					status: string;
+				project: {
+					id: string;
+					name: string;
 				};
 				resolution: string;
-				created: string;
+				status: {
+					status: string;
+					text: string;
+				};
+				summary: string;
+				type: {
+					label: string;
+					source: string;
+				};
 				updated: string;
-				due: string;
-				link: string;
-				labels?: undefined;
 		  }
 		| {
 				ari: {
 					data: string;
 				};
+				assignee: undefined;
+				created: string;
+				due: string;
+				issueNumber: string;
+				labels?: undefined;
+				link: string;
+				people: {
+					avatarSource: string;
+					displayName: string;
+				}[];
+				priority: {
+					label: string;
+					source: string;
+					text: string;
+				};
+				project: {
+					id: string;
+					name: string;
+				};
+				resolution: string;
+				status: {
+					status: string;
+					text: string;
+				};
+				summary: string;
 				type: {
 					label: string;
 					source: string;
 				};
-				issueNumber: string;
-				summary: string;
+				updated: string;
+		  }
+		| {
+				ari: {
+					data: string;
+				};
 				assignee: {
 					displayName: string;
 					source: string;
 				};
-				project: {
-					name: string;
-					id: string;
-				};
+				created: string;
+				due: string;
+				issueNumber: string;
+				labels?: undefined;
+				link: string;
 				people: undefined;
 				priority: {
 					label: string;
 					source: string;
 					text: string;
 				};
-				status: {
-					text: string;
-					status: string;
+				project: {
+					id: string;
+					name: string;
 				};
 				resolution: string;
-				created: string;
+				status: {
+					status: string;
+					text: string;
+				};
+				summary: string;
+				type: {
+					label: string;
+					source: string;
+				};
 				updated: string;
-				due: string;
-				link: string;
-				labels?: undefined;
 		  }
 		| {
 				ari: {
 					data: string;
 				};
-				type: {
-					label: string;
-					source: string;
-				};
-				issueNumber: string;
-				summary: string;
 				assignee: undefined;
-				project: {
-					name: string;
-					id: string;
-				};
+				created: string;
+				due: string;
+				issueNumber: string;
+				labels?: undefined;
+				link: string;
 				people: {
-					displayName: string;
 					avatarSource: string;
+					displayName: string;
 				}[];
 				priority: {
 					label: string;
 					source: string;
 					text?: undefined;
 				};
-				status: {
-					text: string;
-					status: string;
+				project: {
+					id: string;
+					name: string;
 				};
 				resolution: string;
-				created: string;
+				status: {
+					status: string;
+					text: string;
+				};
+				summary: string;
+				type: {
+					label: string;
+					source: string;
+				};
 				updated: string;
-				due: string;
-				link: string;
-				labels?: undefined;
 		  }
 		| {
 				ari: {
 					data: string;
 				};
-				type: {
-					label: string;
-					source: string;
-				};
-				issueNumber: string;
-				summary: string;
 				assignee: {
 					displayName: string;
 					source: string;
 				};
-				project: {
-					name: string;
-					id: string;
-				};
+				created: string;
+				due: string;
+				issueNumber: string;
+				labels?: undefined;
+				link: string;
 				people: {
-					displayName: string;
 					avatarSource: string;
+					displayName: string;
 				}[];
 				priority: {
 					label: string;
 					source: string;
 					text?: undefined;
 				};
-				status: {
-					text: string;
-					status: string;
+				project: {
+					id: string;
+					name: string;
 				};
 				resolution: string;
-				created: string;
+				status: {
+					status: string;
+					text: string;
+				};
+				summary: string;
+				type: {
+					label: string;
+					source: string;
+				};
 				updated: string;
-				due: string;
-				link: string;
-				labels?: undefined;
 		  }
 	)[];
+	nextPageCursor: string;
+	totalIssues: number;
 } = {
 	nextPageCursor: 'c3RhcnRBdD01',
 	totalIssues: 1357,
@@ -880,12 +880,12 @@ export const mockJiraData: {
 };
 
 export const mockSiteData: {
-	cloudId: string;
-	url: string;
-	displayName: string;
-	products: string[];
 	avatarUrl: undefined;
+	cloudId: string;
+	displayName: string;
 	isVertigo: boolean;
+	products: string[];
+	url: string;
 }[] = [
 	{
 		cloudId: '67899',
@@ -954,8 +954,8 @@ export const mockSiteData: {
 ];
 
 export const mockProductsData: {
-	productId: string;
 	productDisplayName: string;
+	productId: string;
 	workspaces: {
 		cloudId: string;
 		cloudUrl: string;
@@ -1091,53 +1091,53 @@ export const mockSite: Site = {
 
 // https://developer.atlassian.com/cloud/jira/platform/rest/v3/api-group-jql/#api-rest-api-3-jql-autocompletedata-post
 export const mockAutoCompleteData: {
+	jqlReservedWords: string[];
 	visibleFieldNames: (
 		| {
-				value: string;
+				auto: string;
+				cfid?: undefined;
 				displayName: string;
 				operators: string[];
-				searchable: string;
-				auto: string;
 				orderable: string;
+				searchable: string;
 				types: string[];
-				cfid?: undefined;
+				value: string;
 		  }
 		| {
-				value: string;
-				displayName: string;
-				orderable: string;
 				auto: string;
 				cfid: string;
+				displayName: string;
 				operators: string[];
-				types: string[];
+				orderable: string;
 				searchable?: undefined;
+				types: string[];
+				value: string;
 		  }
 		| {
-				value: string;
-				displayName: string;
-				searchable: string;
 				auto: string;
-				operators: string[];
-				types: string[];
-				orderable?: undefined;
 				cfid?: undefined;
+				displayName: string;
+				operators: string[];
+				orderable?: undefined;
+				searchable: string;
+				types: string[];
+				value: string;
 		  }
 	)[];
 	visibleFunctionNames: (
 		| {
-				value: string;
 				displayName: string;
 				isList: string;
 				types: string[];
+				value: string;
 		  }
 		| {
-				value: string;
 				displayName: string;
-				types: string[];
 				isList?: undefined;
+				types: string[];
+				value: string;
 		  }
 	)[];
-	jqlReservedWords: string[];
 } = {
 	visibleFieldNames: [
 		{
@@ -1195,8 +1195,8 @@ export const mockAutoCompleteData: {
 // https://developer.atlassian.com/cloud/jira/platform/rest/v3/api-group-jql/#api-rest-api-3-jql-autocompletedata-suggestions-get
 export const mockSuggestionData: {
 	results: {
-		value: string;
 		displayName: string;
+		value: string;
 	}[];
 } = {
 	results: [
@@ -1231,3 +1231,4 @@ export const defaultInitialVisibleColumnKeys: string[] = [
 	'priority',
 	'daterange',
 ];
+

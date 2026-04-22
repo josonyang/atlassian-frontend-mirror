@@ -9,9 +9,8 @@ import { css, jsx } from '@compiled/react';
 import { token } from '@atlaskit/tokens';
 
 import {
-	type ActionName,
+	ActionName,
 	type FlexibleUiActionName,
-	InternalActionName,
 } from '../../../../../constants';
 import { useFlexibleCardContext } from '../../../../../state/flexible-ui-context';
 import { useFlexibleUiContext } from '../../../../../state/flexible-ui-context';
@@ -26,7 +25,7 @@ import type { ResolvedHoverCardFooterBlockProps } from './types';
  * @featureGate platform_sl_3p_auth_rovo_action_kill_switch
  */
 const HIDDEN_HOVER_CARD_FOOTER_ACTIONS: FlexibleUiActionName[] = [
-	InternalActionName.RovoChatAction,
+	ActionName.RovoChatAction,
 ];
 
 const ignoreContainerMarginStyles = css({

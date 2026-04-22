@@ -26,6 +26,7 @@ import useRecommendedUtils from './rules/feature-gating/use-recommended-utils';
 import validGateName from './rules/feature-gating/valid-gate-name';
 import expandBackgroundShorthand from './rules/compiled/expand-background-shorthand';
 import expandSpacingShorthand from './rules/compiled/expand-spacing-shorthand';
+import noCssPropInObjectSpread from './rules/compiled/no-css-prop-in-object-spread';
 import noSparseCheckout from './rules/no-sparse-checkout';
 import noDirectDocumentUsage from './rules/no-direct-document-usage';
 import noSetImmediate from './rules/no-set-immediate';
@@ -78,6 +79,7 @@ const rules = {
 	'expand-border-shorthand': expandBorderShorthand,
 	'expand-background-shorthand': expandBackgroundShorthand,
 	'expand-spacing-shorthand': expandSpacingShorthand,
+	'no-css-prop-in-object-spread': noCssPropInObjectSpread,
 	'no-duplicate-dependencies': noDuplicateDependencies,
 	'no-invalid-feature-flag-usage': noInvalidFeatureFlagUsage,
 	'no-pre-post-install-scripts': noPreAndPostInstallScripts,
@@ -121,6 +123,7 @@ const commonConfig = {
 	'@atlaskit/platform/expand-border-shorthand': 'error',
 	'@atlaskit/platform/expand-background-shorthand': 'error',
 	'@atlaskit/platform/expand-spacing-shorthand': 'error',
+	'@atlaskit/platform/no-css-prop-in-object-spread': 'error',
 	'@compiled/jsx-pragma': [
 		'error',
 		{

@@ -24,6 +24,9 @@
 	],
 	"references": [
 		{
+			"path": "../../../uip/atlassian-context/afm-cc/tsconfig.json"
+		},
+		{
 			"path": "../../../helpers/browser-apis/afm-cc/tsconfig.json"
 		},
 		{

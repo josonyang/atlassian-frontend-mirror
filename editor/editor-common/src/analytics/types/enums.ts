@@ -357,6 +357,7 @@ export enum ACTION_SUBJECT {
 	AI_DEFINITIONS = 'aiDefinitions',
 	AI_QUICK_PROMPT = 'aiQuickPrompt',
 	AI_AUTOCOMPLETE = 'aiAutocomplete',
+	CONTEXTUAL_TYPEAHEAD = 'contextualTypeahead',
 	USER_PREFERENCES = 'userPreferences',
 	ALIGNMENT = 'alignment',
 	OFFLINE_EDITING = 'offlineEditing',

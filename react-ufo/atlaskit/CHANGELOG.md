@@ -1,5 +1,30 @@
 # @atlaskit/ufo-interaction-ignore
 
+## 5.16.1
+
+### Patch Changes
+
+- [`14515ef2d51e7`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/14515ef2d51e7) -
+  FedRAMP-Moderate hardening for `@atlaskit/react-ufo`, all gated behind the
+  `platform_ufo_fedramp_overrides` feature flag and `isFedrampModerate()` perimeter detection from
+  `@atlaskit/atlassian-context`:
+  - `selectorConfig` is forced to all-false in both the new (`VCObserverNew`) and legacy
+    (`VCObserver`) viewport observer pipelines. Both now consult `getSelectorConfig()` when no
+    caller-provided `selectorConfig` is passed, so element-name selectors collapse to tag-name
+    chains (no `id`, `testId`, `role`, `className`, or `data-vc` content).
+  - The `raw-handler` revision payload (`RawDataHandler.getRawData()`) is scrubbed of the
+    `rawData.att`, `obs[].att`, `rawData.lbl`, and `rawData.lblMode` fields. These are
+    `MutationRecord.attributeName` strings and UFO label-stack strings that could in principle embed
+    product-specific or user-derived identifiers; they are not required for server-side TTVC
+    reconstruction (which is driven by timestamps, encoded rectangles, and mutation kind only).
+
+## 5.16.0
+
+### Minor Changes
+
+- [`cf3992de030d6`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/cf3992de030d6) -
+  Add data-comment-id to known attributes excluded from Visually Complete
+
 ## 5.15.0
 
 ### Minor Changes

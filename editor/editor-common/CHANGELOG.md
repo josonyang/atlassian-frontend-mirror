@@ -1,5 +1,43 @@
 # @atlaskit/editor-common
 
+## 114.6.0
+
+### Minor Changes
+
+- [`d482d7a660905`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/d482d7a660905) -
+  Perf-linting cleanup: fix performance linting violations in editor-common, gated behind
+  platform_editor_perf_lint_cleanup experiment
+
+## 114.5.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 114.5.0
+
+### Minor Changes
+
+- [`6940e6da4162d`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/6940e6da4162d) -
+  Wire up sendSelectedChange for native embeds
+
+### Patch Changes
+
+- Updated dependencies
+
+## 114.4.0
+
+### Minor Changes
+
+- [`2958c4c1d01b8`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/2958c4c1d01b8) -
+  Perf-linting cleanup: fix performance linting violations in editor-common, gated behind
+  platform_editor_perf_lint_cleanup experiment
+
+### Patch Changes
+
+- [`0242b2a3c1ab9`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/0242b2a3c1ab9) -
+  Clean up platform_editor_link_popup_position_fix_aifc feature flag (shipped as true).
+
 ## 114.3.1
 
 ### Patch Changes

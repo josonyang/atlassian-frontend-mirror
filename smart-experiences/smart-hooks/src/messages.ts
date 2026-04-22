@@ -4,7 +4,7 @@ export const messages = defineMessages({
 	externalUserSourcesHeading: {
 		id: 'smart-experiences.smart-hooks.external.sourced.from',
 		defaultMessage: 'Found in:',
-		description: 'From where the external user is coming',
+		description: 'The text is shown as a label in the user picker dropdown preceding the list of external organizations or directories where the external user account was found (e.g. a guest directory or external workspace).',
 	},
 	slackProvider: {
 		id: 'smart-experiences.smart-hooks.slack.provider',

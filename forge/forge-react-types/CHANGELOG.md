@@ -1,5 +1,12 @@
 # @atlaskit/forge-react-types
 
+## 1.0.8
+
+### Patch Changes
+
+- [`1defac8866839`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/1defac8866839) -
+  Consolidate User and Image UIKit component types into forge-react-types package
+
 ## 1.0.7
 
 ### Patch Changes

@@ -1,5 +1,12 @@
 # @atlaskit/layering
 
+## 3.7.0
+
+### Minor Changes
+
+- [`74f04d68a4ff6`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/74f04d68a4ff6) -
+  Autofix: add explicit package exports (barrel removal)
+
 ## 3.6.2
 
 ### Patch Changes

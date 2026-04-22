@@ -218,7 +218,7 @@ export const InlineNodeRendererWrapper = ({
 	ssrPlaceholderReplace?: string;
 }>) => {
 	return (
-		<span
+		<div
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
 			className={`inline-extension-renderer ${isPlainTextMacro ? 'plain-text-macro' : ''}`}
 			css={[inlineExtensionStyle, isPlainTextMacro && plainTextMacroStyle]}
@@ -226,6 +226,6 @@ export const InlineNodeRendererWrapper = ({
 			data-ssr-placeholder-replace={ssrPlaceholderReplace}
 		>
 			{children}
-		</span>
+		</div>
 	);
 };

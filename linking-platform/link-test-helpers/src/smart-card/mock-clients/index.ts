@@ -396,16 +396,12 @@ const jiraGenerator = {
 };
 
 const iconTestResponseMap: Record<string, JsonLd.Response> = {
-	[`${ICON_TEST_BASE}/url-icon`]: makeIconTestResponse(
-		`${ICON_TEST_BASE}/url-icon`,
-		'Document',
-		{
-			name: 'Quarterly roadmap — icon resolved from explicit document image URL',
-			summary:
-				'This mock prioritises the linked `icon` URL over file format and provider artwork, so you can verify URL-based icons without relying on generator metadata.',
-			icon: { '@type': 'Image', url: iconGoogleDrive },
-		},
-	),
+	[`${ICON_TEST_BASE}/url-icon`]: makeIconTestResponse(`${ICON_TEST_BASE}/url-icon`, 'Document', {
+		name: 'Quarterly roadmap — icon resolved from explicit document image URL',
+		summary:
+			'This mock prioritises the linked `icon` URL over file format and provider artwork, so you can verify URL-based icons without relying on generator metadata.',
+		icon: { '@type': 'Image', url: iconGoogleDrive },
+	}),
 	[`${ICON_TEST_BASE}/file-format`]: makeIconTestResponse(
 		`${ICON_TEST_BASE}/file-format`,
 		'Document',

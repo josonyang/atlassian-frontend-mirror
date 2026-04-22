@@ -3,7 +3,7 @@ import { extractSmartLinkUrl } from '@atlaskit/link-extractors';
 import type { ProductType } from '@atlaskit/linking-common';
 import { fg } from '@atlaskit/platform-feature-flags';
 
-import { InternalActionName } from '../../../constants';
+import { ActionName } from '../../../constants';
 import type { RovoChatActionData } from '../../../state/flexible-ui-context/types';
 import { getDefinitionId, getExtensionKey, getResourceType } from '../../../state/helpers';
 import type { RovoConfig } from '../../../state/hooks/use-rovo-config';
@@ -47,9 +47,10 @@ const extractRovoChatAction = ({
 		isGoogleProvider && fg('platform_sl_3p_auth_rovo_action_kill_switch');
 	const is3PInlinePostAuthActionsEnabled =
 		!isGoogleProvider && fg('rovogrowth-640-inline-action-nudge-fg');
+    const is3PBlockPostAuthActionsEnabled = supportsRovoActions && fg('platform_sl_3p_auth_rovo_block_card_kill_switch')
 
 	const isSupportedFeature =
-		(supportsRovoActions && is3PInlinePostAuthActionsEnabled) || is3PAuthRovoActionEnabled;
+		(supportsRovoActions && is3PInlinePostAuthActionsEnabled) || is3PAuthRovoActionEnabled || is3PBlockPostAuthActionsEnabled;
 	const isOptIn = actionOptions?.rovoChatAction?.optIn === true;
 
 	const url = extractSmartLinkUrl(response);
@@ -57,7 +58,7 @@ const extractRovoChatAction = ({
 		? {
 				invokeAction: {
 					actionSubjectId: 'rovoChatPrompt',
-					actionType: InternalActionName.RovoChatAction,
+					actionType: ActionName.RovoChatAction,
 					definitionId: getDefinitionId(response),
 					display: appearance,
 					extensionKey: getExtensionKey(response),

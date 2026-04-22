@@ -1017,13 +1017,6 @@ export const editorExperimentsConfig: {
 		productKeys?: ProductKeys;
 		typeGuard: IsBooleanType;
 	};
-	// Added 2026-01-16
-	platform_editor_ai_edit_unsupported_content: {
-		defaultValue: boolean;
-		param: string;
-		productKeys?: ProductKeys;
-		typeGuard: IsBooleanType;
-	};
 	// Added 2026-01-19
 	platform_editor_copy_paste_issue_fix: {
 		defaultValue: boolean;
@@ -2914,14 +2907,6 @@ export const editorExperimentsConfig: {
 	platform_editor_ai_disable_bridge_without_ai: createBooleanExperiment({
 		productKeys: {
 			confluence: 'platform_editor_ai_disable_bridge_without_ai',
-		},
-		param: 'isEnabled',
-		defaultValue: false,
-	}),
-	// Added 2026-01-16
-	platform_editor_ai_edit_unsupported_content: createBooleanExperiment({
-		productKeys: {
-			confluence: 'platform_editor_ai_edit_unsupported_content',
 		},
 		param: 'isEnabled',
 		defaultValue: false,

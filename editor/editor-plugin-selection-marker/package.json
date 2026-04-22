@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-plugin-selection-marker",
-	"version": "10.0.1",
+	"version": "10.1.1",
 	"description": "Selection marker plugin for @atlaskit/editor-core.",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -92,9 +92,5 @@
 			]
 		}
 	},
-	"platform-feature-flags": {
-		"dst-a11y__replace-anchor-with-link__editor-lego": {
-			"type": "boolean"
-		}
-	}
+	"platform-feature-flags": {}
 }

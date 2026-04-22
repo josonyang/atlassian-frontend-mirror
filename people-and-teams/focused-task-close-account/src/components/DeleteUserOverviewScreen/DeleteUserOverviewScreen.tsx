@@ -81,6 +81,7 @@ export class DeleteUserOverviewScreen extends React.Component<DeleteUserOverview
 				<Styled.IconHoverWrapper>
 					<StatefulInlineDialog
 						placement="auto-start"
+						label="More information"
 						content={
 							<Styled.InlineDialogContent>
 								<FormattedMessage
@@ -155,6 +156,7 @@ export class DeleteUserOverviewScreen extends React.Component<DeleteUserOverview
 				<Styled.IconHoverWrapper>
 					<StatefulInlineDialog
 						placement="auto-start"
+						label="More information"
 						content={
 							<FormattedMessage
 								{...this.selectAdminOrSelfCopy(
@@ -186,6 +188,7 @@ export class DeleteUserOverviewScreen extends React.Component<DeleteUserOverview
 				<Styled.IconHoverWrapper>
 					<StatefulInlineDialog
 						placement="auto-start"
+						label="More information"
 						content={
 							<FormattedMessage
 								{...this.selectAdminOrSelfCopy(

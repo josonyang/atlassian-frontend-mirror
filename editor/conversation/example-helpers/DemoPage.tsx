@@ -12,7 +12,6 @@ import { MOCK_USERS } from './MockData';
 
 import type { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
 import Link from '@atlaskit/link';
-import { fg } from '@atlaskit/platform-feature-flags';
 
 const DUMMY_CODE = `
 class Main() {
@@ -136,17 +135,10 @@ class File extends React.Component<FileProps, { addAt?: number }> {
 			<div key={index}>
 				<Line key={index}>
 					<LineNumber>
-						{fg('dst-a11y__replace-anchor-with-link__bitbucket-core') ? (
-							// eslint-disable-next-line @atlassian/a11y/anchor-is-valid
-							<Link href="#" onClick={(evt) => this.onLineClick(evt, index)}>
-								{index}
-							</Link>
-						) : (
-							// eslint-disable-next-line @atlaskit/design-system/no-html-anchor, @atlassian/a11y/anchor-is-valid
-							<a href="#" onClick={(evt) => this.onLineClick(evt, index)}>
-								{index}
-							</a>
-						)}
+						{/* eslint-disable-next-line @atlassian/a11y/anchor-is-valid */}
+						<Link href="#" onClick={(evt) => this.onLineClick(evt, index)}>
+							{index}
+						</Link>
 					</LineNumber>
 					<Code>
 						<pre>{line}</pre>

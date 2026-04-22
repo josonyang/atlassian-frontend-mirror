@@ -24,7 +24,6 @@ snapshotInformational(VRIssueLikeTableRichText, {
 		},
 	],
 	featureFlags: {
-		platform_navx_jira_sllv_rich_text_gate: [true, false],
 		'lp_enable_datasource-table-view_height_override': [true],
 	},
 });

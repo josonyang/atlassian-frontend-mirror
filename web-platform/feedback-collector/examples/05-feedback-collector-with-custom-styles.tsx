@@ -7,7 +7,6 @@ import { CheckboxField } from '@atlaskit/form/CheckboxField';
 import Field from '@atlaskit/form/Field';
 import { ErrorMessage, HelperMessage } from '@atlaskit/form/Messages';
 import Link from '@atlaskit/link';
-import { fg } from '@atlaskit/platform-feature-flags';
 import SectionMessage from '@atlaskit/section-message/section-message';
 import Select from '@atlaskit/select';
 import TextArea from '@atlaskit/textarea';
@@ -92,27 +91,13 @@ const WarningContent = () => (
 		</p>
 		<span>
 			Please check{' '}
-			{fg('dst-a11y__replace-anchor-with-link__belugas-feedba') ? (
-				<Link href="https://ops.internal.atlassian.com/jira/issues/?filter=16189" target="_blank">
-					currently open incidents
-				</Link>
-			) : (
-				// eslint-disable-next-line @atlaskit/design-system/no-html-anchor
-				<a href="https://ops.internal.atlassian.com/jira/issues/?filter=16189" target="_blank">
-					currently open incidents
-				</a>
-			)}{' '}
+			<Link href="https://ops.internal.atlassian.com/jira/issues/?filter=16189" target="_blank">
+				currently open incidents
+			</Link>{' '}
 			and raise a ticket at{' '}
-			{fg('dst-a11y__replace-anchor-with-link__belugas-feedba') ? (
-				<Link href="http://go.atlassian.com/incident" target="_blank">
-					go/incident
-				</Link>
-			) : (
-				// eslint-disable-next-line @atlaskit/design-system/no-html-anchor
-				<a href="http://go.atlassian.com/incident" target="_blank">
-					go/incident
-				</a>
-			)}
+			<Link href="http://go.atlassian.com/incident" target="_blank">
+				go/incident
+			</Link>
 			.
 		</span>
 		<p>
@@ -120,35 +105,18 @@ const WarningContent = () => (
 		</p>
 		<span>
 			For the best results, make sure you are logged into{' '}
-			{fg('dst-a11y__replace-anchor-with-link__belugas-feedba') ? (
-				<Link href="https://jira.atlassian.com/browse" target="_blank">
-					JAC
-				</Link>
-			) : (
-				// eslint-disable-next-line @atlaskit/design-system/no-html-anchor
-				<a href="https://jira.atlassian.com/browse" target="_blank">
-					JAC
-				</a>
-			)}{' '}
+			<Link href="https://jira.atlassian.com/browse" target="_blank">
+				JAC
+			</Link>{' '}
 			before launching this form.
 		</span>
 		<p>
-			{fg('dst-a11y__replace-anchor-with-link__belugas-feedba') ? (
-				<Link
-					href="https://hello.atlassian.net/wiki/spaces/CONF/blog/2019/04/03/430286923/What+happened+to+Hello+Confluence+feedback+collector"
-					target="_blank"
-				>
-					Learn more about how your feedback is triaged.
-				</Link>
-			) : (
-				// eslint-disable-next-line @atlaskit/design-system/no-html-anchor
-				<a
-					href="https://hello.atlassian.net/wiki/spaces/CONF/blog/2019/04/03/430286923/What+happened+to+Hello+Confluence+feedback+collector"
-					target="_blank"
-				>
-					Learn more about how your feedback is triaged.
-				</a>
-			)}
+			<Link
+				href="https://hello.atlassian.net/wiki/spaces/CONF/blog/2019/04/03/430286923/What+happened+to+Hello+Confluence+feedback+collector"
+				target="_blank"
+			>
+				Learn more about how your feedback is triaged.
+			</Link>
 		</p>
 	</SectionMessage>
 );

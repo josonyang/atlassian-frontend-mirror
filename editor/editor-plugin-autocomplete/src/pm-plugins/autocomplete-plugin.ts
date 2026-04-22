@@ -1,4 +1,6 @@
+import { ACTION, ACTION_SUBJECT, EVENT_TYPE } from '@atlaskit/editor-common/analytics';
 import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
+import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import { keydownHandler } from '@atlaskit/editor-prosemirror/keymap';
 import { PluginKey } from '@atlaskit/editor-prosemirror/state';
 import type {
@@ -8,6 +10,8 @@ import type {
 } from '@atlaskit/editor-prosemirror/state';
 import { DecorationSet } from '@atlaskit/editor-prosemirror/view';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
+
+import type { AutocompletePlugin } from '../autocompletePluginType';
 
 import { createGhostTextDecorationSet } from './ghost-text-decoration';
 import { createSlowLaneClient, setDefaultSlowLaneClient, isWordBoundary } from './slow-lane-client';
@@ -90,6 +94,8 @@ const setAutocompleteMeta = (
 /**
  * Apply a ghost text suggestion to the editor state.
  */
+let lastShownGhostText = '';
+
 const showGhostText = (view: EditorView, text: string, position: number): void => {
 	const { state, dispatch } = view;
 	const decorationSet = createGhostTextDecorationSet(state, position, text);
@@ -196,7 +202,7 @@ const buildSlowLaneText = (docText: string, context?: AutocompleteContext): stri
 	return lines.join('\n');
 };
 
-export const createAutocompletePlugin = (options?: AutocompletePluginOptions) => {
+export const createAutocompletePlugin = (options?: AutocompletePluginOptions, api?: ExtractInjectionAPI<AutocompletePlugin>) => {
 	let debounceTimer: ReturnType<typeof setTimeout> | null = null;
 	let hasIngestedPage = false;
 	let resolvedContext: AutocompleteContext | undefined;
@@ -258,6 +264,14 @@ export const createAutocompletePlugin = (options?: AutocompletePluginOptions) =>
 
 			if (prediction && prediction.length > 0) {
 				showGhostText(view, prediction, selection.from);
+				if (prediction !== lastShownGhostText) {
+					lastShownGhostText = prediction;
+					api?.analytics?.actions.fireAnalyticsEvent({
+						action: ACTION.SUGGESTION_VIEWED,
+						actionSubject: ACTION_SUBJECT.CONTEXTUAL_TYPEAHEAD,
+						eventType: EVENT_TYPE.TRACK,
+					});
+				}
 			}
 		}, DEBOUNCE_MS);
 	};
@@ -346,12 +360,28 @@ export const createAutocompletePlugin = (options?: AutocompletePluginOptions) =>
 			handleKeyDown: keydownHandler({
 				Tab: (state: EditorState, dispatch?: (tr: Transaction) => void) => {
 					const accepted = acceptGhostText(state, dispatch);
-					if (accepted) justAccepted = true;
+					if (accepted) {
+						justAccepted = true;
+						lastShownGhostText = '';
+						api?.analytics?.actions.fireAnalyticsEvent({
+							action: ACTION.SUGGESTION_INSERTED,
+							actionSubject: ACTION_SUBJECT.CONTEXTUAL_TYPEAHEAD,
+							eventType: EVENT_TYPE.TRACK,
+						});
+					}
 					return accepted;
 				},
 				ArrowRight: (state: EditorState, dispatch?: (tr: Transaction) => void) => {
 					const accepted = acceptGhostText(state, dispatch);
-					if (accepted) justAccepted = true;
+					if (accepted) {
+						justAccepted = true;
+						lastShownGhostText = '';
+						api?.analytics?.actions.fireAnalyticsEvent({
+							action: ACTION.SUGGESTION_INSERTED,
+							actionSubject: ACTION_SUBJECT.CONTEXTUAL_TYPEAHEAD,
+							eventType: EVENT_TYPE.TRACK,
+						});
+					}
 					return accepted;
 				},
 				Escape: (state: EditorState, dispatch?: (tr: Transaction) => void) => {

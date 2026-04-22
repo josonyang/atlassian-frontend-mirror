@@ -3,6 +3,7 @@ import { FormattedMessage } from 'react-intl';
 import { messages } from '@atlaskit/media-ui';
 import deepEqual from 'deep-equal';
 import { type MediaClient, type FileState, globalMediaEventEmitter } from '@atlaskit/media-client';
+import { fg } from '@atlaskit/platform-feature-flags';
 import { type Outcome } from '../domain';
 import ErrorMessage from '../errorMessage';
 import { Spinner } from '../loading';
@@ -51,6 +52,9 @@ export abstract class BaseViewer<
 	// However, this lifecycle method might eventually be deprecated, so be careful
 	// when working with it.
 	UNSAFE_componentWillReceiveProps(nextProps: Readonly<Props>): void {
+		if (fg('platform_media_package_react19_lifecycle_fix')) {
+			return;
+		}
 		if (this.needsReset(nextProps, this.props)) {
 			this.release();
 			this.setState(this.initialState);
@@ -58,8 +62,16 @@ export abstract class BaseViewer<
 	}
 
 	componentDidUpdate(prevProps: Props): void {
-		if (this.needsReset(prevProps, this.props)) {
-			this.init();
+		if (fg('platform_media_package_react19_lifecycle_fix')) {
+			if (this.needsReset(prevProps, this.props)) {
+				this.release();
+				this.setState(this.initialState);
+				this.init();
+			}
+		} else {
+			if (this.needsReset(prevProps, this.props)) {
+				this.init();
+			}
 		}
 	}
 

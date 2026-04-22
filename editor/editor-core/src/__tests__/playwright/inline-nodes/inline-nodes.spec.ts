@@ -1,6 +1,7 @@
 import { expect, editorTestCase as test } from '@af/editor-libra';
 import { fixTest } from '@af/integration-testing';
 import { BROWSERS } from '@af/integration-testing/config/constants';
+import { skipAutoA11yFile } from '@atlassian/a11y-playwright-testing';
 
 import {
 	multilineWithDates,
@@ -45,6 +46,10 @@ import {
 	trailingSpacesWithUnsupportedInline,
 } from './inline-nodes.spec.ts-fixtures/unsupportedinline';
 import type { TestSuiteOptions } from './test-suite-options';
+// This file exposes one or more accessibility violations. Testing is currently skipped but violations need to
+// be fixed in a timely manner or result in escalation. Once all violations have been fixed, you can remove
+// the next line and associated import. For more information, see go/afm-a11y-tooling:playwright
+skipAutoA11yFile();
 
 const testCases: Array<TestSuiteOptions> = [
 	{

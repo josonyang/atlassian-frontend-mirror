@@ -1,5 +1,13 @@
 # @atlaskit/side-nav-items
 
+## 1.13.3
+
+### Patch Changes
+
+- [`01bfb2823034b`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/01bfb2823034b) -
+  Expands automatic accessibility (a11y) Playwright test coverage for Platform
+- Updated dependencies
+
 ## 1.13.2
 
 ### Patch Changes

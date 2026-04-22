@@ -11,7 +11,6 @@ import { type DocNode } from '@atlaskit/adf-schema';
 import { defaultSchema } from '@atlaskit/adf-schema/schema-default';
 import { Node as PMNode, Schema } from '@atlaskit/editor-prosemirror/model';
 import { type RichText } from '@atlaskit/linking-types';
-import { fg } from '@atlaskit/platform-feature-flags';
 
 const rootStyles = css({
 	position: 'relative',
@@ -58,7 +57,7 @@ export const parseRichText = (value: RichText): string | null => {
 const RichTextType = ({ value }: { value: RichText }): JSX.Element => {
 	const adfPlainText = useMemo(() => parseRichText(value), [value]);
 
-	if (value.html && value.html.trim() !== '' && fg('platform_navx_jira_sllv_rich_text_gate')) {
+	if (value.html && value.html.trim() !== '') {
 		// eslint-disable-next-line react/no-danger
 		return (
 			<div

@@ -137,7 +137,10 @@ export const isTableNestedInMoreThanOneNode = (state: EditorState, tablePos = 0)
  * True when the table sits under a bodiedSyncBlock ancestor.
  * Used to prefer DOM-measured wrapper width over getParentNodeWidth() for stable scaling.
  */
-export const isTableNestedUnderBodiedSyncBlock = (state: EditorState, tablePos: number): boolean => {
+export const isTableNestedUnderBodiedSyncBlock = (
+	state: EditorState,
+	tablePos: number,
+): boolean => {
 	const bodiedSyncBlock = state.schema.nodes.bodiedSyncBlock;
 	if (!bodiedSyncBlock) {
 		return false;

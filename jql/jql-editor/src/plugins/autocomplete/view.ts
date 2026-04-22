@@ -3,6 +3,7 @@ import { type FunctionComponent } from 'react';
 import { Fragment, type Node, Slice } from '@atlaskit/editor-prosemirror/model';
 import { type EditorState, TextSelection } from '@atlaskit/editor-prosemirror/state';
 import { type EditorView } from '@atlaskit/editor-prosemirror/view';
+import FeatureGates from '@atlaskit/feature-gate-js-client';
 import { isListOperator } from '@atlaskit/jql-ast';
 import { fg } from '@atlaskit/platform-feature-flags';
 
@@ -81,6 +82,12 @@ export default class AutocompletePluginView extends ReactPluginView<Autocomplete
 			this.enableRichInlineNodes &&
 			option.type === 'value' &&
 			(option.valueType === 'team' ||
+				(option.valueType === 'goal' &&
+					FeatureGates.getExperimentValue(
+						'anip-1095-goals-in-harmonised-filter',
+						'isEnabled',
+						false,
+					)) ||
 				(option.valueType === 'project' && fg('projects_in_jira_eap_drop2')))
 		) {
 			transaction.setMeta('hydrate', true);
@@ -143,6 +150,26 @@ export default class AutocompletePluginView extends ReactPluginView<Autocomplete
 							fieldName: context?.field,
 						};
 						nodes.push(this.view.state.schema.nodes.project.create(attributes, textContent));
+					} else {
+						nodes.push(textContent);
+					}
+					break;
+				}
+				case 'goal': {
+					if (
+						FeatureGates.getExperimentValue(
+							'anip-1095-goals-in-harmonised-filter',
+							'isEnabled',
+							false,
+						)
+					) {
+						const attributes = {
+							type: 'goal',
+							id: value,
+							name: nameOnRichInlineNode ?? name,
+							fieldName: context?.field,
+						};
+						nodes.push(this.view.state.schema.nodes.goal.create(attributes, textContent));
 					} else {
 						nodes.push(textContent);
 					}

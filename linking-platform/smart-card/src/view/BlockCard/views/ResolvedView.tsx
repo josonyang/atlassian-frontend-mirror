@@ -8,10 +8,15 @@ import { useEffect, useMemo, useState } from 'react';
 import { css, jsx } from '@compiled/react';
 
 import { browser } from '@atlaskit/linking-common/user-agent';
+import { fg } from "@atlaskit/platform-feature-flags";
 import { token } from '@atlaskit/tokens';
 
 import { ActionName, ElementName, SmartLinkPosition } from '../../../constants';
+import extractRovoChatAction from '../../../extractors/flexible/actions/extract-rovo-chat-action';
+import { getExtensionKey } from '../../../state/helpers';
+import useRovoConfig from '../../../state/hooks/use-rovo-config';
 import FlexibleCard from '../../FlexibleCard';
+import { RovoChatPromptKey } from '../../FlexibleCard/components/actions/rovo-chat-action';
 import {
 	FooterBlock,
 	MetadataBlock,
@@ -68,6 +73,27 @@ const ResolvedView = ({
 	hideIconLoadingSkeleton,
 }: FlexibleBlockCardProps) => {
 	const [isPreviewBlockErrored, setIsPreviewBlockErrored] = useState<boolean>(false);
+	const extensionKey = getExtensionKey(cardState.details);
+
+	const rovoConfig = fg('platform_sl_3p_auth_rovo_block_card_kill_switch')
+		? // eslint-disable-next-line react-hooks/rules-of-hooks
+			useRovoConfig()
+		: undefined;
+
+	const showRovoResolvedView = fg('platform_sl_3p_auth_rovo_block_card_kill_switch')
+		? // eslint-disable-next-line react-hooks/rules-of-hooks
+			useMemo(
+				() =>
+					cardState?.status === 'resolved' &&
+					cardState.details &&
+					extractRovoChatAction({
+						response: cardState.details,
+						rovoConfig,
+						actionOptions: actionOptions,
+					}) !== undefined,
+				[actionOptions, cardState?.details, cardState?.status, rovoConfig],
+			)
+		: undefined;
 
 	// eslint-disable-next-line react-hooks/rules-of-hooks
 	const { safari = false } = useMemo(() => browser(), []);
@@ -80,13 +106,47 @@ const ResolvedView = ({
 		cardState.details,
 	);
 
+	const prompts = useMemo(() => {
+		if (fg('platform_sl_3p_auth_rovo_block_card_kill_switch')) {
+			const defaultPrompts = [
+				RovoChatPromptKey.HIGHLIGHT_RELEVANT_CONTENT,
+				RovoChatPromptKey.ASK_ROVO_ANYTHING,
+			];
+
+			const linkType = cardState.details?.data?.['@type'];
+
+			if (extensionKey === 'slack-object-provider') {
+				return [RovoChatPromptKey.FIND_OPEN_QUESTIONS, ...defaultPrompts];
+			}
+			if (extensionKey === 'google-object-provider' && linkType?.includes('schema:PresentationDigitalDocument')) {
+				return [RovoChatPromptKey.IDENTIFY_KEY_POINTS, ...defaultPrompts];
+			}
+			if (extensionKey === 'google-object-provider' && linkType?.includes('schema:SpreadsheetDigitalDocument')) {
+				return [RovoChatPromptKey.IDENTIFY_KEY_TRENDS, ...defaultPrompts];
+			}
+
+			return [RovoChatPromptKey.SUMMARIZE_LINK, ...defaultPrompts];
+		}
+		return [];
+		}, [cardState?.details?.data, extensionKey]);
+
 	const footerActions: ActionItem[] = useMemo(
-		() => [
-			{ name: ActionName.FollowAction, hideIcon: true },
-			{ name: ActionName.PreviewAction, hideIcon: true },
-			{ name: ActionName.DownloadAction, hideIcon: true },
-		],
-		[],
+		() =>
+			showRovoResolvedView && fg('platform_sl_3p_auth_rovo_block_card_kill_switch')
+				? [
+						{
+							name: ActionName.RovoChatAction,
+							prompts: prompts,
+						},
+						{ name: ActionName.FollowAction, hideIcon: true },
+						{ name: ActionName.DownloadAction, hideIcon: true },
+					]
+				: [
+						{ name: ActionName.FollowAction, hideIcon: true },
+						{ name: ActionName.PreviewAction, hideIcon: true },
+						{ name: ActionName.DownloadAction, hideIcon: true },
+					],
+		[showRovoResolvedView, prompts],
 	);
 
 	const uiOptions = FlexibleCardUiOptions;

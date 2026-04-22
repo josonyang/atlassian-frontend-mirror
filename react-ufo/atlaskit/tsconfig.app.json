@@ -33,6 +33,9 @@
 	},
 	"references": [
 		{
+			"path": "../../uip/atlassian-context/tsconfig.app.json"
+		},
+		{
 			"path": "../../helpers/browser-apis/tsconfig.app.json"
 		},
 		{

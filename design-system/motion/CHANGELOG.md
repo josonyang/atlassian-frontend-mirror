@@ -1,5 +1,18 @@
 # @atlaskit/motion
 
+## 5.7.0
+
+### Minor Changes
+
+- [`3f856fac603f7`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/3f856fac603f7) -
+  Motion primitive now can accept a custom motion object defining duration, easing, keyframe and
+  delay. This allows consumers to create more customised entry and exit animations if an applicable
+  motion design token does not exist.
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 5.6.1
 
 ### Patch Changes

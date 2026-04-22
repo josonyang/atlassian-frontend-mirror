@@ -7,6 +7,7 @@ import uuid from 'uuid/v4';
 
 import type { RichMediaLayout } from '@atlaskit/adf-schema';
 import { SetAttrsStep } from '@atlaskit/adf-schema/steps';
+import { isConfluenceSlideUrl } from '@atlaskit/editor-card-provider/url-checkers';
 import type { DispatchAnalyticsEvent } from '@atlaskit/editor-common/analytics';
 import type { EventDispatcher } from '@atlaskit/editor-common/event-dispatcher';
 import { useSharedPluginStateWithSelector } from '@atlaskit/editor-common/hooks';
@@ -45,6 +46,7 @@ import { fg } from '@atlaskit/platform-feature-flags';
 import { componentWithCondition } from '@atlaskit/platform-feature-flags-react';
 import { EmbedResizeMessageListener, Card as SmartCard } from '@atlaskit/smart-card';
 import { CardSSR } from '@atlaskit/smart-card/ssr';
+import { expValEqualsNoExposure } from '@atlaskit/tmp-editor-statsig/exp-val-equals-no-exposure';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
 import type { cardPlugin } from '../index';
@@ -54,6 +56,29 @@ import ResizableEmbedCard from '../ui/ResizableEmbedCard';
 import { BlockCardComponent } from './blockCard';
 import type { SmartCardProps } from './genericCard';
 import { Card } from './genericCard';
+
+/**
+ * Returns a forced aspect ratio for URLs that have a known canvas shape,
+ * overriding the generic value returned by the link resolver.
+ * Add new URL checks here as more content types get fixed aspect ratios.
+ */
+/**
+ * Returns a forced aspect ratio for URLs that have a known canvas shape,
+ * or `undefined` to use the default resolver-provided ratio.
+ *
+ * @internal Exported for testing only.
+ */
+export const getAspectRatioForUrl = (url: string | undefined): number | undefined => {
+	if (
+		expValEqualsNoExposure('cc-mui-slides-experiment', 'isEnabled', true) &&
+		url &&
+		isConfluenceSlideUrl(url)
+	) {
+		// Slides have a 16:9 canvas
+		return 16 / 9;
+	}
+	return undefined;
+};
 
 interface CardProps {
 	fullWidthMode?: boolean;
@@ -218,8 +243,11 @@ export class EmbedCardComponent extends React.PureComponent<
 	onResolve = (data: { aspectRatio?: number; title?: string; url?: string }): void => {
 		const { view } = this.props;
 
-		const { title, url, aspectRatio } = data;
+		const { title, url, aspectRatio: resolvedAspectRatio } = data;
 		const { originalHeight, originalWidth } = this.props.node.attrs;
+
+		const aspectRatio = getAspectRatioForUrl(url) ?? resolvedAspectRatio;
+
 		if (aspectRatio && !originalHeight && !originalWidth) {
 			// Assumption here is if ADF already have both height and width set,
 			// we will going to use that later on in this class as aspectRatio

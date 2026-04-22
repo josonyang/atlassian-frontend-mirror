@@ -17,8 +17,8 @@ interface InputSpecificProps<
 	Option = unknown,
 	IsMulti extends boolean = boolean,
 	Group extends GroupBase<Option> = GroupBase<Option>,
-> extends InputHTMLAttributes<HTMLInputElement>,
-		CommonPropsAndClassName<Option, IsMulti, Group> {
+>
+	extends InputHTMLAttributes<HTMLInputElement>, CommonPropsAndClassName<Option, IsMulti, Group> {
 	/**
 	 * Reference to the internal element
 	 */

@@ -1,4 +1,5 @@
 import type { RawObservation, RevisionPayloadEntry, VCAbortReason } from '../../../common/vc/types';
+import { isFedrampOverrideActive } from '../../../config';
 import { getEarliestHiddenTiming } from '../../../hidden-timing';
 import getViewportHeight from '../metric-calculator/utils/get-viewport-height';
 import getViewportWidth from '../metric-calculator/utils/get-viewport-width';
@@ -296,19 +297,47 @@ export default class RawDataHandler {
 			}
 		}
 
+		// FedRAMP-Moderate scrubbing.
+		//
+		// In commercial environments the raw-handler payload includes:
+		//   - `rawData.att` / `obs[].att`  → DOM attribute names from
+		//     `MutationRecord.attributeName`. These are *names* (not values),
+		//     but custom product attributes can in principle embed
+		//     identifiers (e.g. `data-user-{id}-state`).
+		//   - `rawData.lbl`                → UFO labelStacks. Generally
+		//     curated product paths but in poorly-instrumented call sites
+		//     could embed dynamic identifiers.
+		//
+		// Server-side TTVC reconstruction does not require these fields
+		// (it is driven by timestamps, rectangles, and mutation kind),
+		// so dropping them in FedRAMP is safe and removes residual PII risk.
+		const isFedrampScrubbed = isFedrampOverrideActive();
+
+		const scrubbedObservations = isFedrampScrubbed
+			? rawObservations.map(({ att: _att, ...rest }) => rest)
+			: rawObservations;
+
 		const result: RevisionPayloadEntry = {
 			revision: this.revisionNo,
 			clean: isVCClean,
 			'metric:vc90': null,
 			rawData: {
-				obs: rawObservations ?? undefined,
+				obs: scrubbedObservations ?? undefined,
 				eid: elementMapEntriesMap ?? undefined,
 				chg: typeMapEntriesMap ?? undefined,
-				att: attributeEntriesMap ?? undefined,
+				att: isFedrampScrubbed ? undefined : (attributeEntriesMap ?? undefined),
 				evts: rawEventObservations.length > 0 ? rawEventObservations : undefined,
 				evt: Object.keys(eventTypeMapEntriesMap).length > 0 ? eventTypeMapEntriesMap : undefined,
-				lbl: Object.keys(labelStacksMap).length > 0 ? labelStacksMap : undefined,
-				lblMode: Object.keys(labelStacksMap).length > 0 ? 'sentinel-v1' : undefined,
+				lbl: isFedrampScrubbed
+					? undefined
+					: Object.keys(labelStacksMap).length > 0
+						? labelStacksMap
+						: undefined,
+				lblMode: isFedrampScrubbed
+					? undefined
+					: Object.keys(labelStacksMap).length > 0
+						? 'sentinel-v1'
+						: undefined,
 			},
 			abortReason: dirtyReason,
 			abortTimestamp: getVCCleanStatusResult.abortTimestamp,

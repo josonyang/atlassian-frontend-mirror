@@ -2,7 +2,7 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
-import React from 'react';
+import React, { useCallback, useMemo } from 'react';
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { css, jsx } from '@emotion/react';
@@ -16,6 +16,7 @@ import ChevronDownIcon from '@atlaskit/icon/core/chevron-down';
 import { fg } from '@atlaskit/platform-feature-flags';
 // eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives -- to be migrated to @atlaskit/primitives/compiled – go/akcss
 import { Box, xcss, Inline } from '@atlaskit/primitives';
+import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 import { token } from '@atlaskit/tokens';
 import Tooltip from '@atlaskit/tooltip';
@@ -103,6 +104,7 @@ type Props = WithAnalyticsEventsProps & {
 };
 
 const ColorPaletteWithReactViewListeners = withReactEditorViewOuterListeners(ColorPalette);
+const COLOR_PICKER_POPUP_OFFSET: [number, number] = [0, 10];
 
 const ColorPickerButton = (props: Props) => {
 	const buttonRef = React.useRef<HTMLButtonElement>(null);
@@ -111,13 +113,65 @@ const ColorPickerButton = (props: Props) => {
 	const [isOpenedByKeyboard, setIsOpenedByKeyboard] = React.useState(false);
 	const { formatMessage } = useIntl();
 
-	const togglePopup = () => {
-		setIsPopupOpen(!isPopupOpen);
-		if (!isPopupOpen) {
-			setIsOpenedByKeyboard(false);
-			setIsPopupPositioned(false);
-		}
-	};
+	const memoizedHandleClose = useCallback(() => setIsPopupOpen(false), [setIsPopupOpen]);
+	const handleClose = expValEquals('platform_editor_perf_lint_cleanup', 'isEnabled', true)
+		? memoizedHandleClose
+		: () => setIsPopupOpen(false);
+
+	const memoizedTogglePopup = useCallback(() => {
+		setIsPopupOpen((prevIsOpen) => {
+			if (!prevIsOpen) {
+				setIsOpenedByKeyboard(false);
+				setIsPopupPositioned(false);
+			}
+			return !prevIsOpen;
+		});
+	}, []);
+	const togglePopup = expValEquals('platform_editor_perf_lint_cleanup', 'isEnabled', true)
+		? memoizedTogglePopup
+		: () => {
+				setIsPopupOpen(!isPopupOpen);
+				if (!isPopupOpen) {
+					setIsOpenedByKeyboard(false);
+					setIsPopupPositioned(false);
+				}
+		  };
+
+	const memoizedOnKeyDown = useCallback(
+		(event: React.KeyboardEvent) => {
+			if (event.key === 'Enter' || event.key === ' ') {
+				event.preventDefault();
+				memoizedTogglePopup();
+				setIsOpenedByKeyboard(true);
+			}
+		},
+		[memoizedTogglePopup],
+	);
+	const onKeyDown = expValEquals('platform_editor_perf_lint_cleanup', 'isEnabled', true)
+		? memoizedOnKeyDown
+		: (event: React.KeyboardEvent) => {
+				if (event.key === 'Enter' || event.key === ' ') {
+					event.preventDefault();
+					togglePopup();
+					setIsOpenedByKeyboard(true);
+				}
+		  };
+
+	const memoizedPaletteOptions = useMemo(
+		() => ({
+			palette: props.colorPalette,
+			hexToPaletteColor: props.hexToPaletteColor,
+			paletteColorTooltipMessages: props.paletteColorTooltipMessages,
+		}),
+		[props.colorPalette, props.hexToPaletteColor, props.paletteColorTooltipMessages],
+	);
+	const paletteOptions = expValEquals('platform_editor_perf_lint_cleanup', 'isEnabled', true)
+		? memoizedPaletteOptions
+		: {
+				palette: props.colorPalette,
+				hexToPaletteColor: props.hexToPaletteColor,
+				paletteColorTooltipMessages: props.paletteColorTooltipMessages,
+		  };
 
 	React.useEffect(() => {
 		if (props.setDisableParentScroll) {
@@ -194,8 +248,11 @@ const ColorPickerButton = (props: Props) => {
 				target={buttonRef.current}
 				fitHeight={350}
 				fitWidth={350}
-				// eslint-disable-next-line @atlassian/perf-linting/no-unstable-inline-props -- Ignored via go/ees017 (to be fixed)
-				offset={[0, 10]}
+				offset={
+					expValEquals('platform_editor_perf_lint_cleanup', 'isEnabled', true)
+						? COLOR_PICKER_POPUP_OFFSET
+						: [0, 10]
+				}
 				alignX={props.alignX}
 				mountTo={props.setDisableParentScroll ? props.mountPoint : undefined}
 				absoluteOffset={props.absoluteOffset}
@@ -216,8 +273,7 @@ const ColorPickerButton = (props: Props) => {
 						selectedRowIndex={selectedRowIndex}
 						selectedColumnIndex={selectedColumnIndex}
 						closeOnTab={true}
-						// eslint-disable-next-line @atlassian/perf-linting/no-unstable-inline-props -- Ignored via go/ees017 (to be fixed)
-						handleClose={() => setIsPopupOpen(false)}
+						handleClose={handleClose}
 						isOpenedByKeyboard={isOpenedByKeyboard}
 						isPopupPositioned={isPopupPositioned}
 						ignoreEscapeKey={props.returnEscToButton}
@@ -228,12 +284,7 @@ const ColorPickerButton = (props: Props) => {
 							onClick={onColorSelected}
 							handleClickOutside={togglePopup}
 							handleEscapeKeydown={handleEsc}
-							// eslint-disable-next-line @atlassian/perf-linting/no-unstable-inline-props -- Ignored via go/ees017 (to be fixed)
-							paletteOptions={{
-								palette: props.colorPalette,
-								hexToPaletteColor: props.hexToPaletteColor,
-								paletteColorTooltipMessages: props.paletteColorTooltipMessages,
-							}}
+							paletteOptions={paletteOptions}
 						/>
 					</ArrowKeyNavigationProvider>
 				</div>
@@ -282,14 +333,7 @@ const ColorPickerButton = (props: Props) => {
 							editorExperiment('platform_editor_controls', 'variant1') ? 'default' : 'compact'
 						}
 						onClick={togglePopup}
-						// eslint-disable-next-line @atlassian/perf-linting/no-unstable-inline-props -- Ignored via go/ees017 (to be fixed)
-						onKeyDown={(event: React.KeyboardEvent) => {
-							if (event.key === 'Enter' || event.key === ' ') {
-								event.preventDefault();
-								togglePopup();
-								setIsOpenedByKeyboard(true);
-							}
-						}}
+						onKeyDown={onKeyDown}
 						data-selected-color={props.currentColor}
 						isSelected={isPopupOpen}
 					>

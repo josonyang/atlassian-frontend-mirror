@@ -26,7 +26,7 @@ export const getFlexibleCardTestWrapper =
 	({ children }) => {
 		return (
 			<IntlProvider locale="en">
-				<SmartCardProvider>
+				<SmartCardProvider rovoOptions={{ isRovoEnabled: true, isRovoLLMEnabled: true }}>
 					<FlexibleCardContext.Provider
 						value={{ data, status: status ?? SmartLinkStatus.Resolved, ui }}
 					>

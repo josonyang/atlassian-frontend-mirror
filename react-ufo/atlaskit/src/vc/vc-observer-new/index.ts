@@ -1,7 +1,7 @@
 import { fg } from '@atlaskit/platform-feature-flags';
 
 import { type RevisionPayloadEntry } from '../../common/vc/types';
-import { isVCRevisionEnabled } from '../../config';
+import { getSelectorConfig, isVCRevisionEnabled } from '../../config';
 import { getActiveInteraction } from '../../interaction-metrics';
 import type { SearchPageConfig } from '../types';
 import { SSRPlaceholderHandlers } from '../vc-observer/observers/ssr-placeholders';
@@ -81,7 +81,19 @@ export default class VCObserverNew {
 		this.entriesTimeline = new EntriesTimeline();
 		this.isPostInteraction = config.isPostInteraction ?? false;
 
-		this.selectorConfig = config.selectorConfig ?? DEFAULT_SELECTOR_CONFIG;
+		// Selector-config resolution is centralised in `getSelectorConfig()`
+		// (`../../config`). It applies the FedRAMP all-`false` override when
+		// `platform_ufo_fedramp_overrides` + `isFedrampModerate()` are both
+		// true; otherwise it returns `caller-override → setUFOConfig value →
+		// historical default`.
+		//
+		// When the gate is OFF, `getSelectorConfig()` returns the same value
+		// it always did, so the local `?? DEFAULT_SELECTOR_CONFIG` fallback
+		// preserves the previous behaviour byte-for-byte.
+		this.selectorConfig =
+			getSelectorConfig(config.selectorConfig, DEFAULT_SELECTOR_CONFIG) ??
+			config.selectorConfig ??
+			DEFAULT_SELECTOR_CONFIG;
 
 		// Use shared SSR placeholder handler if provided, otherwise create new one if feature flag is enabled
 		if (config.ssrPlaceholderHandler) {

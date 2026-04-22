@@ -1,4 +1,5 @@
 import React from 'react';
+import { fg } from '@atlaskit/platform-feature-flags';
 import { withAnalyticsEvents, type WithAnalyticsEventsProps } from '@atlaskit/analytics-next';
 import { withMediaAnalyticsContext, type MediaFeatureFlags } from '@atlaskit/media-common';
 import isValidId from 'uuid-validate';
@@ -121,10 +122,25 @@ export class BrowserBase extends LocalUploadComponentReact<BrowserProps> {
 	}
 
 	UNSAFE_componentWillReceiveProps(nextProps: BrowserProps): void {
+		if (fg('platform_media_package_react19_lifecycle_fix')) {
+			return;
+		}
 		const { isOpen } = this.props;
 		const { isOpen: nextIsOpen } = nextProps;
 
 		if (nextIsOpen && nextIsOpen !== isOpen) {
+			this.browse();
+		}
+	}
+
+	componentDidUpdate(prevProps: BrowserProps): void {
+		if (!fg('platform_media_package_react19_lifecycle_fix')) {
+			return;
+		}
+		const { isOpen } = this.props;
+		const { isOpen: prevIsOpen } = prevProps;
+
+		if (isOpen && isOpen !== prevIsOpen) {
 			this.browse();
 		}
 	}

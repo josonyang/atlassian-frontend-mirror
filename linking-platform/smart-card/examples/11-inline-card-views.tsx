@@ -44,9 +44,7 @@ export default (): React.JSX.Element => {
 								{ label: 'font.heading.xlarge', value: token('font.heading.xlarge') },
 								{ label: 'font.heading.xxlarge', value: token('font.heading.xxlarge') },
 							]}
-							onChange={(newValue: FontOptions | null) =>
-								setFontOption(newValue ?? undefined)
-							}
+							onChange={(newValue: FontOptions | null) => setFontOption(newValue ?? undefined)}
 							value={fontOption}
 						/>
 						<HelperMessage>Set parent container font token.</HelperMessage>

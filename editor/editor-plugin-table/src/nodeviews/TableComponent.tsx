@@ -169,8 +169,8 @@ class TableComponent extends React.Component<ComponentProps, TableState> {
 
 		this.isNestedInTable = tablePos
 			? getParentOfTypeCount(props.view.state.schema.nodes.table)(
-					props.view.state.doc.resolve(tablePos),
-				) > 0
+				props.view.state.doc.resolve(tablePos),
+			) > 0
 			: false;
 
 		if (!this.updateColGroupFromFullWidthChange) {
@@ -191,10 +191,10 @@ class TableComponent extends React.Component<ComponentProps, TableState> {
 						prev?.tableWrapperHeight === entry.contentRect?.height
 						? prev
 						: {
-								...prev,
-								tableWrapperWidth: entry.contentRect.width,
-								tableWrapperHeight: entry.contentRect.height,
-							};
+							...prev,
+							tableWrapperWidth: entry.contentRect.width,
+							tableWrapperHeight: entry.contentRect.height,
+						};
 				});
 			}
 		});
@@ -1041,8 +1041,8 @@ class TableComponent extends React.Component<ComponentProps, TableState> {
 		const node = getNode();
 		const prevAttrs = prevNode.attrs;
 
-		const isNested = isTableNested(this.props.view.state, this.props.getPos());
 		const tablePos = this.props.getPos();
+		const isNested = isTableNested(this.props.view.state, tablePos);
 
 		let parentWidth = this.getParentNodeWidth();
 
@@ -1056,10 +1056,11 @@ class TableComponent extends React.Component<ComponentProps, TableState> {
 			// Prefer the live DOM measurement (`clientWidth`) over the ResizeObserver-cached
 			// value (`wrapperWidth`) because clientWidth is synchronous and more up-to-date
 			// at the time this handler runs. Fall back to `wrapperWidth` if the wrapper ref
-			// is not yet available. Both are guarded by `> 1` to ignore degenerate values
-			// that can appear before the element has been laid out.
+			// is not yet available.
+			// The clientWidth > 0 since DOM clientWidth is 0 before layout
+			// The > 1 guard for wrapperWidth was intentional to filter out the degenerate value of 1 that ResizeObserver reports during element unmounting.
 			let measuredWrapperWidth: number | undefined;
-			if (this.wrapper && this.wrapper.clientWidth > 1) {
+			if (this.wrapper && this.wrapper.clientWidth > 0) {
 				measuredWrapperWidth = this.wrapper.clientWidth;
 			} else if (this.wrapperWidth && this.wrapperWidth > 1) {
 				measuredWrapperWidth = this.wrapperWidth;
@@ -1074,7 +1075,7 @@ class TableComponent extends React.Component<ComponentProps, TableState> {
 		if (
 			!useMeasuredWidthForBodiedSyncBlock &&
 			isNested &&
-			isTableNestedInMoreThanOneNode(this.props.view.state, this.props.getPos())
+			isTableNestedInMoreThanOneNode(this.props.view.state, tablePos)
 		) {
 			const resizeObsWrapperWidth = this.wrapperWidth || 0;
 
@@ -1083,7 +1084,7 @@ class TableComponent extends React.Component<ComponentProps, TableState> {
 			);
 			const isOusideOfThreshold =
 				wrapperWidthDiffBetweenRerenders <=
-					NESTED_TABLE_IN_NESTED_PARENT_WIDTH_DIFF_MIN_THRESHOLD ||
+				NESTED_TABLE_IN_NESTED_PARENT_WIDTH_DIFF_MIN_THRESHOLD ||
 				wrapperWidthDiffBetweenRerenders > NESTED_TABLE_IN_NESTED_PARENT_WIDTH_DIFF_MAX_THRESHOLD;
 			// 1. Check isOusideOfThreshold is added to prevent undersired state update.
 			// When table is nested in the extenstion and the table column is being resized,

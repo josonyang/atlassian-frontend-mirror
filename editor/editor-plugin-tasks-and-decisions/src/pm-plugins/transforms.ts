@@ -106,7 +106,6 @@ export function applyTaskListNormalisationFixes({
 				return true;
 			});
 
-
 			// Process in reverse (highest positions first).
 			for (let i = invalidTaskListPositions.length - 1; i >= 0; i--) {
 				const remappedPos = tr.mapping.map(invalidTaskListPositions[i]);

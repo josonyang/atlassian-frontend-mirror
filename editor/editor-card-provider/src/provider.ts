@@ -18,6 +18,7 @@ import type {
 } from '@atlaskit/linking-common';
 import DataLoader from 'dataloader';
 import { Transformer } from './transformer';
+import { isConfluenceSlideUrl } from './url-checkers';
 import type {
 	CardProvider,
 	LinkAppearance,
@@ -74,13 +75,21 @@ const isConfluenceWhiteboard: UrlChecker = (url) =>
 const isConfluenceDatabase: UrlChecker = (url) =>
 	url.match(/\/wiki\/spaces\/~?[\d\w]+\/database\/\d+(\?.*)?$/);
 
+
 const isYoutubeVideo: UrlChecker = (url) =>
 	url.match(/^https:\/\/(.*?\.)?(youtube\..*?\/(watch\?|v\/|shorts\/)|youtu\.be)/);
 
-const isLoomUrl: UrlChecker = (url) => {
+const isLoomVideoUrl: UrlChecker = (url) => {
 	return url.match(
 		// @ts-ignore - TS1503 TypeScript 5.9.2 upgrade
 		/^https:\/\/(.*?\.)?(loom\..*?\/(share|embed))\/([a-zA-Z0-9-]*-)?(?<videoId>[a-f0-9]{32})/,
+	);
+};
+
+const isLoomScreenshotUrl: UrlChecker = (url) => {
+	return url.match(
+		// @ts-ignore - TS1503 TypeScript 5.9.2 upgrade
+		/^https:\/\/(.*?\.)?loom\..*?\/i\/(?<id>[a-f0-9]{32})/,
 	);
 };
 
@@ -142,6 +151,17 @@ const isAvpVisualizationView: UrlChecker = (url) =>
 
 export const isJiraWorkItem = (url: string): boolean => /\/browse\/((?:\w+)-(?:\d+))/i.test(url);
 
+// Local UrlChecker-compatible wrapper around the boolean-returning
+// `isConfluenceSlideUrl` from `./url-checkers` (the single source of truth for
+// slide URL matching). Wrapping (rather than aliasing the imported identifier
+// directly inside the exported `internalUrlCheckers` object) avoids the
+// @atlaskit/editor/no-re-export lint rule and gives the registry a uniform
+// `(url) => RegExpMatchArray | null` signature. Consumers of
+// `internalUrlCheckers` only check the truthiness of the result, so returning
+// a synthetic single-element match array (or `null`) preserves behaviour.
+const isConfluenceSlide: UrlChecker = (url) =>
+	isConfluenceSlideUrl(url) ? ([url] as unknown as RegExpMatchArray) : null;
+
 export const internalUrlCheckers: { [key: string]: UrlChecker } = {
 	isJiraRoadmapOrTimeline,
 	isPolarisView,
@@ -149,6 +169,7 @@ export const internalUrlCheckers: { [key: string]: UrlChecker } = {
 	isJiraList,
 	isConfluenceWhiteboard,
 	isConfluenceDatabase,
+	isConfluenceSlide,
 	isJiraDashboard,
 	isJiraBacklog,
 	isJiraBoard,
@@ -460,8 +481,10 @@ export class EditorCardProvider
 			isProformaView(url) ||
 			isConfluenceWhiteboard(url) ||
 			isConfluenceDatabase(url) ||
+			isConfluenceSlideUrl(url) ||
 			isYoutubeVideo(url) ||
-			isLoomUrl(url) ||
+			isLoomVideoUrl(url) ||
+			(isLoomScreenshotUrl(url) && fg('loom-support-screenshot-sl-resolution')) ||
 			isJiraDashboard(url) ||
 			isJiraBacklog(url) ||
 			isJiraBoard(url) ||
@@ -601,17 +624,17 @@ export class EditorCardProvider
 				let preferredAppearance =
 					shouldForceAppearance === undefined
 						? // Ignore both User and provider's appearances if older editor that doesn't send shouldForceAppearance
-							hardCodedAppearance || appearance
+						  hardCodedAppearance || appearance
 						: // User preferred appearance. It would be either one that has matching domain/path pattern OR
-							// if user's default choice is NOT "inline" (so, block or embed at this point, url was dealt with above)
-							(userPreference as CardAppearance) ||
-							// If user's default choice is "inline" or user hasn't specified preferences at all,
-							// we check whatever one of the hardcoded providers match url (jira /timeline, polaris, etc)
-							(isEmbedFriendlyLocationEvaluated && hardCodedAppearance) ||
-							// If non match, we see if this provider has default appearance for this particular regexp
-							providerDefaultAppearance ||
-							// If not, we pick what editor (or any other client) requested
-							appearance;
+						  // if user's default choice is NOT "inline" (so, block or embed at this point, url was dealt with above)
+						  (userPreference as CardAppearance) ||
+						  // If user's default choice is "inline" or user hasn't specified preferences at all,
+						  // we check whatever one of the hardcoded providers match url (jira /timeline, polaris, etc)
+						  (isEmbedFriendlyLocationEvaluated && hardCodedAppearance) ||
+						  // If non match, we see if this provider has default appearance for this particular regexp
+						  providerDefaultAppearance ||
+						  // If not, we pick what editor (or any other client) requested
+						  appearance;
 
 				if (preferredAppearance === userPreference && userPreference === 'embed') {
 					const canItBeEmbed = await this.canBeResolvedAsEmbed(url);

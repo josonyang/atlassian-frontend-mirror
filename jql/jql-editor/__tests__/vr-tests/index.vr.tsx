@@ -4,6 +4,7 @@ import TeamNodesExample from '../../examples/07-team-nodes';
 import AiAgentUsersExample from '../../examples/08-ai-agent-users';
 import MembersOfTeamNodesExample from '../../examples/09-membersof-team-nodes';
 import ProjectNodesExample from '../../examples/10-project-nodes';
+import GoalNodesExample from '../../examples/11-goal-nodes';
 
 snapshot(AiAgentUsersExample, {
 	featureFlags: {
@@ -22,5 +23,11 @@ snapshot(TeamNodesExample);
 snapshot(ProjectNodesExample, {
 	featureFlags: {
 		projects_in_jira_eap_drop2: true,
+	},
+});
+
+snapshot(GoalNodesExample, {
+	featureFlags: {
+		'anip-1095-goals-in-harmonised-filter': true,
 	},
 });

@@ -173,8 +173,7 @@ export const ValueContainer: <Option, IsMulti extends boolean, Group extends Gro
 
 	const ffTagUplifts = fg('platform-dst-lozenge-tag-badge-visual-uplifts');
 	const tagUpliftMultiVertical = ffTagUplifts && isMulti;
-	const tagUpliftChipRow =
-		ffTagUplifts && isMulti && hasValue && controlShouldRenderValue;
+	const tagUpliftChipRow = ffTagUplifts && isMulti && hasValue && controlShouldRenderValue;
 
 	return (
 		<div
@@ -183,9 +182,7 @@ export const ValueContainer: <Option, IsMulti extends boolean, Group extends Gro
 				tagUpliftMultiVertical &&
 					isCompact &&
 					valueContainerStyles.verticalPaddingTagUpliftCompactMulti,
-				tagUpliftMultiVertical &&
-					!isCompact &&
-					valueContainerStyles.verticalPaddingTagUpliftMulti,
+				tagUpliftMultiVertical && !isCompact && valueContainerStyles.verticalPaddingTagUpliftMulti,
 				!tagUpliftMultiVertical && !isCompact && valueContainerStyles.verticalPaddingStandard,
 				!tagUpliftMultiVertical &&
 					isCompact &&

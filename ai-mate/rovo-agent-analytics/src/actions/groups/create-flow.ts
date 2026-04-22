@@ -89,4 +89,15 @@ export type CreateFlowEventPayload =
 			actionSubject: 'rovoAgent';
 			action: 'createLandInConfigure';
 			attributes: {};
+	  }
+	| {
+			// https://data-portal.internal.atlassian.com/analytics/registry/100739
+			//
+			// Fired when a user lands on a deprecated `/create/<subpath>` URL
+			// (e.g. /create/details, /create/identity) and is redirected to the
+			// NL create screen (v1 studio) or the agents landing page with the
+			// SA modal open (v2 studio) because agent versioning is enabled.
+			actionSubject: 'rovoAgent';
+			action: 'createSubpathRedirect';
+			attributes: {};
 	  };

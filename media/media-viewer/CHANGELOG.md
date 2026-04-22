@@ -1,5 +1,13 @@
 # @atlaskit/media-viewer
 
+## 53.0.1
+
+### Patch Changes
+
+- [`e3d1ec1074c7e`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/e3d1ec1074c7e) -
+  Removing UNSAFE_componentWillReceiveProps from media-picker, media-avatar-picker and media-viewer
+  package to support React19 migration
+
 ## 53.0.0
 
 ### Major Changes

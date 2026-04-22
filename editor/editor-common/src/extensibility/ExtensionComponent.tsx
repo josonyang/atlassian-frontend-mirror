@@ -348,6 +348,8 @@ class ExtensionComponentInner extends Component<PropsInner, State> {
 		} = this.props;
 		const { extensionType, extensionKey, parameters, text } = pmNode.attrs;
 		const isBodiedExtension = pmNode.type.name === 'bodiedExtension';
+		const { selection } = editorView.state;
+		const isSelected = selection instanceof NodeSelection && selection.node === pmNode;
 
 		if (isBodiedExtension && !showBodiedExtensionRendererView) {
 			return;
@@ -399,6 +401,7 @@ class ExtensionComponentInner extends Component<PropsInner, State> {
 					<NodeRenderer
 						node={node}
 						references={this.props.references}
+						isSelected={isSelected}
 						showUnknownMacroPlaceholder={fg('tinymce_display_unknown_macro_body_content')}
 					/>
 				);

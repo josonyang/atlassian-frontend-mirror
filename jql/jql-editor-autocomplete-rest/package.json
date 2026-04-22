@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/jql-editor-autocomplete-rest",
-	"version": "3.1.3",
+	"version": "3.2.0",
 	"description": "Autocomplete REST API integration for the JQL Editor.",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -40,6 +40,7 @@
 		".": "./src/index.ts"
 	},
 	"dependencies": {
+		"@atlaskit/feature-gate-js-client": "workspace:^",
 		"@atlaskit/jql-editor-common": "workspace:^",
 		"@atlaskit/platform-feature-flags": "workspace:^",
 		"@babel/runtime": "root:*",

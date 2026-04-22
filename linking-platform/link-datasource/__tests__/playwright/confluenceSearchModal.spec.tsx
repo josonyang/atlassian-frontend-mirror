@@ -1,6 +1,12 @@
 import type { Page } from '@playwright/test';
 
 import { expect, test } from '@af/integration-testing';
+import { skipAutoA11yFile } from '@atlassian/a11y-playwright-testing';
+// This file exposes one or more accessibility violations. Testing is currently skipped but violations need to
+// be fixed in a timely manner or result in escalation. Once all violations have been fixed, you can remove
+// the next line and associated import. For more information, see go/afm-a11y-tooling:playwright
+skipAutoA11yFile();
+
 
 const sitePickerSelector =
 	'[data-testid="confluence-search-datasource-modal--site-selector__control"]';

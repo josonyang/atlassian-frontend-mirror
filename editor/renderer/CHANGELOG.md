@@ -1,5 +1,36 @@
 # @atlaskit/renderer
 
+## 130.2.6
+
+### Patch Changes
+
+- [`01bfb2823034b`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/01bfb2823034b) -
+  Expands automatic accessibility (a11y) Playwright test coverage for Platform
+- Updated dependencies
+
+## 130.2.5
+
+### Patch Changes
+
+- [`c896b4d6c83a3`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/c896b4d6c83a3) -
+  Fix table column widths being scaled to viewport on first client render in synced blocks by keying
+  off renderWidthProp alone instead of contextWidth
+- Updated dependencies
+
+## 130.2.4
+
+### Patch Changes
+
+- Updated dependencies
+
+## 130.2.3
+
+### Patch Changes
+
+- [`bd7ade3d67585`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/bd7ade3d67585) -
+  revert changing inline node renderer wrapper element
+- Updated dependencies
+
 ## 130.2.2
 
 ### Patch Changes

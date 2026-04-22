@@ -1,5 +1,12 @@
 # @atlaskit/table
 
+## 0.15.0
+
+### Minor Changes
+
+- [`a67de9fc8b501`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/a67de9fc8b501) -
+  Autofix: add explicit package exports (barrel removal)
+
 ## 0.14.10
 
 ### Patch Changes

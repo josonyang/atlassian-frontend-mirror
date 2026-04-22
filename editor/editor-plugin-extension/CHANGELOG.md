@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-extension
 
+## 13.0.2
+
+### Patch Changes
+
+- [`79124c226e2f4`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/79124c226e2f4) -
+  NO-ISSUE Clean up platform_editor_ai_edit_unsupported_content
+- Updated dependencies
+
 ## 13.0.1
 
 ### Patch Changes

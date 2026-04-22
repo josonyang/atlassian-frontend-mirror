@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/smart-card",
-	"version": "44.1.2",
+	"version": "44.3.2",
 	"description": "Smart card component",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -199,9 +199,6 @@
 		"confluence-issue-terminology-refresh": {
 			"type": "boolean"
 		},
-		"dst-a11y__replace-anchor-with-link__linking-platfo": {
-			"type": "boolean"
-		},
 		"platform_editor_content_mode_button_mvp": {
 			"type": "boolean"
 		},
@@ -232,10 +229,10 @@
 		"platform_navx_flex_card_status_dropdown_a11y_fix": {
 			"type": "boolean"
 		},
-		"platform_navx_send_context_to_ugs_for_rel_links": {
+		"platform_sl_3p_auth_rovo_action_kill_switch": {
 			"type": "boolean"
 		},
-		"platform_sl_3p_auth_rovo_action_kill_switch": {
+		"platform_sl_event_ui_seen": {
 			"type": "boolean"
 		},
 		"jpx-1074-smart-links-iframe": {
@@ -260,6 +257,9 @@
 			"type": "boolean"
 		},
 		"rovogrowth-640-inline-action-nudge-fg": {
+			"type": "boolean"
+		},
+		"platform_sl_3p_auth_rovo_block_card_kill_switch": {
 			"type": "boolean"
 		}
 	},

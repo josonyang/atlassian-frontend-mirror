@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/comment",
-	"version": "13.2.15",
+	"version": "13.3.0",
 	"description": "A comment displays discussions and user feedback.",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -93,8 +93,14 @@
 	},
 	"homepage": "https://atlassian.design/components/comment",
 	"exports": {
-		"./types": "./src/types.tsx",
-		".": "./src/index.tsx"
+		"./types": "./src/entry-points/types.tsx",
+		".": "./src/index.tsx",
+		"./comment": "./src/entry-points/comment.tsx",
+		"./action-item": "./src/entry-points/action-item.tsx",
+		"./author": "./src/entry-points/author.tsx",
+		"./edited": "./src/entry-points/edited.tsx",
+		"./layout": "./src/entry-points/layout.tsx",
+		"./time": "./src/entry-points/time.tsx"
 	},
 	"platform-feature-flags": {}
 }

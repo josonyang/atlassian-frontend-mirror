@@ -24,6 +24,16 @@ jest.mock('../../config', () => ({
 	getInteractionTimeout: jest.fn(() => 60000),
 	getPostInteractionRate: jest.fn(() => 1),
 	getExperimentalInteractionRate: jest.fn(() => 0),
+	// `addNewInteraction` calls `getSelectorConfig()` to obtain the
+	// FedRAMP-aware selectorConfig for the per-interaction VC observer. It
+	// must be present in this mock; returning `undefined` mirrors the
+	// pre-FedRAMP-override behaviour (the legacy hard-coded fallback in
+	// VCObserver applies).
+	getSelectorConfig: jest.fn(() => undefined),
+	getExtraInteractionRate: jest.fn(() => 0),
+	getFinishInteractionOnTransition: jest.fn(() => false),
+	getReactHydrationStats: jest.fn(() => false),
+	shouldUseRawDataThirdPartyBehavior: jest.fn(() => false),
 }));
 
 // Mock coinflip

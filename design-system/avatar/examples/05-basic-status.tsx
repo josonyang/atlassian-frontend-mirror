@@ -18,6 +18,9 @@ export default (): React.JSX.Element => (
 			<ShrinkWrap>
 				<Status status="locked" />
 			</ShrinkWrap>
+			<ShrinkWrap>
+				<Status status="warning" />
+			</ShrinkWrap>
 		</Block>
 
 		<Block heading="Circular">
@@ -25,7 +28,7 @@ export default (): React.JSX.Element => (
 			<Avatar name="xlarge" size="xlarge" status="approved" />
 			<Avatar name="large" size="large" status="declined" />
 			<Avatar name="medium" size="medium" status="locked" />
-			<Avatar name="small" size="small" status="approved" />
+			<Avatar name="small" size="small" status="warning" />
 			<Avatar name="xsmall" size="xsmall" />
 		</Block>
 
@@ -34,7 +37,7 @@ export default (): React.JSX.Element => (
 			<Avatar appearance="square" name="xlarge" size="xlarge" status="approved" />
 			<Avatar appearance="square" name="large" size="large" status="declined" />
 			<Avatar appearance="square" name="medium" size="medium" status="locked" />
-			<Avatar appearance="square" name="small" size="small" status="approved" />
+			<Avatar appearance="square" name="small" size="small" status="warning" />
 			<Avatar appearance="square" name="xsmall" size="xsmall" />
 		</Block>
 
@@ -43,7 +46,7 @@ export default (): React.JSX.Element => (
 			<Avatar appearance="hexagon" name="xlarge" size="xlarge" status="approved" />
 			<Avatar appearance="hexagon" name="large" size="large" status="declined" />
 			<Avatar appearance="hexagon" name="medium" size="medium" status="locked" />
-			<Avatar appearance="hexagon" name="small" size="small" status="approved" />
+			<Avatar appearance="hexagon" name="small" size="small" status="warning" />
 			<Avatar appearance="hexagon" name="xsmall" size="xsmall" />
 		</Block>
 	</Stack>

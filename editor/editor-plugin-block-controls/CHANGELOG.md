@@ -1,5 +1,28 @@
 # @atlaskit/editor-plugin-block-controls
 
+## 11.1.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 11.1.0
+
+### Minor Changes
+
+- [`675d310a49c28`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/675d310a49c28) -
+  Remix entrypoints: ensure `cc-maui-experiment` exposures only fire on user-interactive surfaces.
+  - Fire exposure for: editor toolbar remix button, right-side hover button, highlight toolbar,
+    inline comment nudge, whiteboard AI action badge
+  - Use no-exposure for: props/infrastructure/layout-only checks (e.g., embedded header padding,
+    native-embed extension registration)
+  - Fix drag-handle controlSide ordering to avoid right-side controls on layout columns
+  - Restore layout column drag-handle VR test file
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 11.0.2
 
 ### Patch Changes

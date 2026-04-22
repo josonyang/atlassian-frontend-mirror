@@ -20,6 +20,7 @@ import type { FileIdentifier, FileState, MediaClient } from '@atlaskit/media-cli
 import { FileFetcherError } from '@atlaskit/media-client';
 import { MediaClientContext } from '@atlaskit/media-client-react';
 import { MediaViewer } from '@atlaskit/media-viewer';
+import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
 import { messages } from '../messages/media-inline-card';
@@ -107,6 +108,11 @@ export const MediaInlineImageCardInternal = ({
 		}
 	}, [identifier, mediaClient]);
 
+	const memoizedRenderError = useCallback(
+		() => <InlineImageCardErrorView message={formatMessage(messages.unableToLoadContent)} />,
+		[formatMessage],
+	);
+
 	const content = (dimensions: Dimensions) => {
 		if (!mediaClient) {
 			return <InlineImageCardLoadingView />;
@@ -154,10 +160,14 @@ export const MediaInlineImageCardInternal = ({
 				<InlineImageCard
 					dimensions={dimensions}
 					identifier={identifier}
-					// eslint-disable-next-line @atlassian/perf-linting/no-unstable-inline-props -- Ignored via go/ees017 (to be fixed)
-					renderError={() => (
-						<InlineImageCardErrorView message={formatMessage(messages.unableToLoadContent)} />
-					)}
+					renderError={
+						expValEquals('platform_editor_perf_lint_cleanup', 'isEnabled', true)
+							? memoizedRenderError
+							: // eslint-disable-next-line @atlassian/perf-linting/no-unstable-inline-props -- intentional fallback for experiment off path
+								() => (
+									<InlineImageCardErrorView message={formatMessage(messages.unableToLoadContent)} />
+								)
+					}
 					alt={alt}
 					ssr={ssr?.mode}
 					isLazy={isLazy}
@@ -234,13 +244,19 @@ export const MediaInlineImageCardInternal = ({
 		setMediaViewerVisible(false);
 	}, []);
 
+	const memoizedMediaViewerItems = useMemo(() => [identifier], [identifier]);
+
 	const mediaViewer = useMemo(() => {
 		if (isMediaViewerVisible && mediaClient?.mediaClientConfig) {
 			return ReactDOM.createPortal(
 				<MediaViewer
 					collectionName={identifier.collectionName || ''}
-					// eslint-disable-next-line @atlassian/perf-linting/no-unstable-inline-props -- Ignored via go/ees017 (to be fixed)
-					items={[identifier]}
+					items={
+						expValEquals('platform_editor_perf_lint_cleanup', 'isEnabled', true)
+							? memoizedMediaViewerItems
+							: // eslint-disable-next-line @atlassian/perf-linting/no-unstable-inline-props -- intentional fallback for experiment off path
+								[identifier]
+					}
 					mediaClientConfig={mediaClient?.mediaClientConfig}
 					selectedItem={identifier}
 					onClose={onMediaInlinePreviewClose}
@@ -249,7 +265,13 @@ export const MediaInlineImageCardInternal = ({
 			);
 		}
 		return null;
-	}, [identifier, isMediaViewerVisible, mediaClient?.mediaClientConfig, onMediaInlinePreviewClose]);
+	}, [
+		identifier,
+		isMediaViewerVisible,
+		mediaClient?.mediaClientConfig,
+		onMediaInlinePreviewClose,
+		memoizedMediaViewerItems,
+	]);
 
 	return (
 		<Fragment>

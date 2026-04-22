@@ -3,7 +3,6 @@ import React from 'react';
 import { type IntlShape } from 'react-intl';
 
 import { type DatasourceType } from '@atlaskit/linking-types';
-import { fg } from '@atlaskit/platform-feature-flags';
 
 import { type TableViewPropsRenderType } from '../types';
 
@@ -49,7 +48,7 @@ export const stringifyType = (
 		case 'user':
 			return value?.displayName || formatMessage(userTypeMessages.userDefaultdisplayNameValue);
 		case 'richtext':
-			if (value.html && value.html.trim() !== '' && fg('platform_navx_jira_sllv_rich_text_gate')) {
+			if (value.html && value.html.trim() !== '') {
 				return '';
 			} else {
 				const adfPlainText = parseRichText(value);

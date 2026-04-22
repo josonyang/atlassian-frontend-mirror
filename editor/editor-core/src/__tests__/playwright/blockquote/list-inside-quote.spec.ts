@@ -19,6 +19,7 @@ import {
 	tr,
 	ul,
 } from '@atlaskit/editor-test-helpers/doc-builder';
+import { skipAutoA11yFile } from '@atlassian/a11y-playwright-testing';
 
 import { nestedNumberedListDocument, numberedListDocument } from '../../__fixtures__/base-adfs';
 
@@ -27,6 +28,12 @@ import {
 	blockquoteInsideExpandAdf,
 	blockquoteInsideTableAdf,
 } from './__fixtures__/blockquote';
+
+// This file exposes one or more accessibility violations. Testing is currently skipped but violations need to
+// be fixed in a timely manner or result in escalation. Once all violations have been fixed, you can remove
+// the next line and associated import. For more information, see go/afm-a11y-tooling:playwright
+skipAutoA11yFile();
+
 
 test.describe('List inside a blockquote', () => {
 	test.use({

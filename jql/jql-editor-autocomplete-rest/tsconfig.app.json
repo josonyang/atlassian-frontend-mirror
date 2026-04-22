@@ -33,6 +33,9 @@
 	},
 	"references": [
 		{
+			"path": "../../measurement/feature-gate-js-client/tsconfig.app.json"
+		},
+		{
 			"path": "../jql-editor-common/tsconfig.app.json"
 		},
 		{

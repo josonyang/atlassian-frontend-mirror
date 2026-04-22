@@ -2,10 +2,11 @@ import React, { useCallback, useMemo } from 'react';
 
 import { type IntlShape, useIntl } from 'react-intl';
 
+import AiGenerativeTextIcon from '@atlaskit/icon-lab/core/ai-generative-text';
 import type { ProductType } from '@atlaskit/linking-common';
 import { expValEqualsNoExposure } from '@atlaskit/tmp-editor-statsig/exp-val-equals-no-exposure';
 
-import { InternalActionName } from '../../../../../constants';
+import { ActionName } from '../../../../../constants';
 import { messages } from '../../../../../messages';
 import { useFlexibleUiContext } from '../../../../../state/flexible-ui-context';
 import useInvokeClientAction from '../../../../../state/hooks/use-invoke-client-action';
@@ -25,6 +26,10 @@ export enum RovoChatPromptKey {
 	SUMMARIZE_LINK = 'summarize-link',
 	KEY_HIGHLIGHTS = 'key-highlights',
 	ASK_ROVO_ANYTHING = 'ask-rovo-anything',
+	IDENTIFY_KEY_POINTS = 'identify-key-points',
+	IDENTIFY_KEY_TRENDS = 'identify-key-trends',
+	FIND_OPEN_QUESTIONS = 'find-open-questions',
+	HIGHLIGHT_RELEVANT_CONTENT = 'highlight-relevant-content',
 }
 const GOOGLE_PROMPTS = [
 	RovoChatPromptKey.RECOMMEND_OTHER_SOURCES,
@@ -197,6 +202,81 @@ const getPromptAction = (
 					placeholderType: 'generic',
 				},
 			};
+
+		case RovoChatPromptKey.HIGHLIGHT_RELEVANT_CONTENT:
+			const label_highlight_relevant_content = intl.formatMessage(messages.rovo_prompt_button_highlight_relevant_content);
+			const html_highlight_relevant_content = intl.formatMessage(
+				messages.rovo_prompt_message_highlight_relevant_content,
+				{ context: contextLong, url },
+				{ ignoreTag: true },
+			);
+			return {
+				icon: <AiGenerativeTextIcon label={label_highlight_relevant_content} />,
+				content: label_highlight_relevant_content,
+				tooltipMessage: label_highlight_relevant_content,
+				data: {
+					name: label_highlight_relevant_content,
+					dialogues: [],
+					prompt: htmlToAdf(html_highlight_relevant_content),
+				},
+			};
+		case RovoChatPromptKey.IDENTIFY_KEY_TRENDS:
+			const label_identify_key_trends = intl.formatMessage(
+				messages.rovo_prompt_button_identify_key_trends,
+			);
+			const html_identify_key_trends = intl.formatMessage(
+				messages.rovo_prompt_message_identify_key_trends,
+				{ url },
+				{ ignoreTag: true },
+			);
+			return {
+				icon: <AiGenerativeTextIcon label={label_identify_key_trends} />,
+				content: label_identify_key_trends,
+				tooltipMessage: label_identify_key_trends,
+				data: {
+					name: label_identify_key_trends,
+					dialogues: [],
+					prompt: htmlToAdf(html_identify_key_trends),
+				},
+			};
+		case RovoChatPromptKey.IDENTIFY_KEY_POINTS:
+			const label_identify_key_points = intl.formatMessage(
+				messages.rovo_prompt_button_identify_key_points,
+			);
+			const html_identify_key_points = intl.formatMessage(
+				messages.rovo_prompt_message_identify_key_points,
+				{ url },
+				{ ignoreTag: true },
+			);
+			return {
+				icon: <AiGenerativeTextIcon label={label_identify_key_points} />,
+				content: label_identify_key_points,
+				tooltipMessage: label_identify_key_points,
+				data: {
+					name: label_identify_key_points,
+					dialogues: [],
+					prompt: htmlToAdf(html_identify_key_points),
+				},
+			};
+		case RovoChatPromptKey.FIND_OPEN_QUESTIONS:
+			const label_find_open_questions = intl.formatMessage(
+				messages.rovo_prompt_button_find_open_questions,
+			);
+			const html_find_open_questions = intl.formatMessage(
+				messages.rovo_prompt_message_find_open_questions,
+				{ url },
+				{ ignoreTag: true },
+			);
+			return {
+				icon: <AiGenerativeTextIcon label={label_find_open_questions} />,
+				content: label_find_open_questions,
+				tooltipMessage: label_find_open_questions,
+				data: {
+					name: label_find_open_questions,
+					dialogues: [],
+					prompt: htmlToAdf(html_find_open_questions),
+				},
+			};
 	}
 };
 
@@ -212,7 +292,7 @@ const RovoChatAction = ({
 	const intl = useIntl();
 	const { isRovoChatEnabled, sendPromptMessage } = useRovoChat();
 	const context = useFlexibleUiContext();
-	const data = context?.actions?.[InternalActionName.RovoChatAction];
+	const data = context?.actions?.[ActionName.RovoChatAction];
 
 	const resolvedPrompts = useMemo(() => {
 		if (prompts) {

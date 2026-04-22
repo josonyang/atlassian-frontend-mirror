@@ -45,6 +45,9 @@
 			"path": "../../../build/test-tooling/integration-testing/tsconfig.app.json"
 		},
 		{
+			"path": "../../uip/atlassian-context/tsconfig.app.json"
+		},
+		{
 			"path": "../../helpers/browser-apis/tsconfig.app.json"
 		},
 		{

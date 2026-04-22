@@ -1,5 +1,23 @@
 # @atlaskit/rovo-agent-analytics
 
+## 1.3.0
+
+### Minor Changes
+
+- [`6f5f7728ba6d1`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/6f5f7728ba6d1) -
+  [ux] Redirect deprecated `/create/<subpath>` URLs to the appropriate create entry point when agent
+  versioning is enabled.
+
+  When a user lands on a bookmarked or shared URL like `/create/details`, `/create/identity`,
+  `/create/permissions`, `/create/overview`, `/create/surfaces`, or `/create/scenarios` (anything
+  under `/create/...` except `/create/chat`), they're now automatically redirected:
+  - **v1 studio** → NL create screen (`/create/chat`)
+  - **v2 studio** → agents landing page with the Solutions Architect modal opened
+    (`?openCreateAgentModal=true`)
+
+  The Solutions Architect FE-draft escape hatch (`?draftBuildId=...`) is preserved until the SA
+  migration is complete.
+
 ## 1.2.0
 
 ### Minor Changes

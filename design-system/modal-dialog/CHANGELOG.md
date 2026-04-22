@@ -1,5 +1,12 @@
 # @atlaskit/modal-dialog
 
+## 14.16.0
+
+### Minor Changes
+
+- [`25716b59a8e71`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/25716b59a8e71) -
+  Clean up flag to prepare for boolean autoFocus removal.
+
 ## 14.15.1
 
 ### Patch Changes

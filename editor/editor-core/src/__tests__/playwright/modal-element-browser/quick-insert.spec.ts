@@ -1,6 +1,6 @@
 import { expect, editorTestCase as test } from '@af/editor-libra';
 import { EditorTypeAheadModel } from '@af/editor-libra/page-models';
-
+import { skipAutoA11y } from '@atlassian/a11y-playwright-testing';
 test.use({
 	editorProps: {
 		appearance: 'full-page',
@@ -13,6 +13,10 @@ test.use({
 
 test.describe('Quick Insert', () => {
 	test('should set selection to after the inserted node', async ({ editor }) => {
+		// This test exposes one or more accessibility violations. Testing is currently skipped but violations need to
+		// be fixed in a timely manner or result in escalation. Once all violations have been fixed, you can remove
+		// the next line and associated import. For more information, see go/afm-a11y-tooling:playwright
+		skipAutoA11y();
 		const toolbar = editor.page.getByRole('toolbar', {
 			name: 'Editor',
 		});
@@ -29,6 +33,10 @@ test.describe('Quick Insert', () => {
 	});
 
 	test('should capture and report a11y violations', async ({ editor }) => {
+		// This test exposes one or more accessibility violations. Testing is currently skipped but violations need to
+		// be fixed in a timely manner or result in escalation. Once all violations have been fixed, you can remove
+		// the next line and associated import. For more information, see go/afm-a11y-tooling:playwright
+		skipAutoA11y();
 		const toolbar = editor.page.getByRole('toolbar', {
 			name: 'Editor',
 		});

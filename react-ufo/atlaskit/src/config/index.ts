@@ -1,8 +1,69 @@
+import { isFedrampModerate } from '@atlaskit/atlassian-context';
 import { fg } from '@atlaskit/platform-feature-flags';
 
 import type { AssetsConfig, InteractionMetrics, InteractionType } from '../common';
 
 let config: Config | undefined;
+
+/**
+ * Cached result of `isFedrampModerate()` so we don't re-parse cookies on
+ * every selector lookup. Reset via `__resetFedrampOverrideCacheForTests` in
+ * unit tests only.
+ */
+let cachedIsFedrampModerate: boolean | undefined;
+
+function detectIsFedrampModerate(): boolean {
+	if (cachedIsFedrampModerate !== undefined) {
+		return cachedIsFedrampModerate;
+	}
+	try {
+		cachedIsFedrampModerate = isFedrampModerate();
+	} catch {
+		// Defensive default: if perimeter detection throws, treat as non-FedRAMP
+		// so UFO behaviour is unchanged. Mirrors `analyticsWebClient` pattern.
+		cachedIsFedrampModerate = false;
+	}
+	return cachedIsFedrampModerate;
+}
+
+/**
+ * @internal Test-only helper. Do not use outside unit tests.
+ */
+export function __resetFedrampOverrideCacheForTests(): void {
+	cachedIsFedrampModerate = undefined;
+}
+
+/**
+ * Returns true when react-ufo should apply its FedRAMP-Moderate hardening:
+ *
+ *   - all `selectorConfig` fields forced to `false`
+ *   - `rawData.att`, `obs[].att`, `rawData.lbl`, `rawData.lblMode` scrubbed
+ *     from the `raw-handler` revision payload
+ *
+ * Centralising the gate + perimeter check here ensures every FedRAMP code
+ * path in react-ufo is rolled out and rolled back together — flipping the
+ * `platform_ufo_fedramp_overrides` gate restores the previous behaviour
+ * byte-for-byte across the package.
+ *
+ * Defensive against `isFedrampModerate()` ever throwing — falls back to
+ * `false` so the metrics pipeline never breaks because of perimeter
+ * detection.
+ */
+export function isFedrampOverrideActive(): boolean {
+	try {
+		return fg('platform_ufo_fedramp_overrides') && detectIsFedrampModerate();
+	} catch {
+		return false;
+	}
+}
+
+const FEDRAMP_DISABLED_SELECTOR_CONFIG: SelectorConfig = Object.freeze({
+	id: false,
+	testId: false,
+	role: false,
+	className: false,
+	dataVC: false,
+});
 
 export interface AdditionalData {
 	[key: string]:
@@ -261,6 +322,62 @@ export function getConfig(): Config | undefined {
 }
 
 /**
+ * Centralised resolver for the active `SelectorConfig` for the VC observer.
+ *
+ * Precedence (highest first):
+ *   1. **FedRAMP override** — when both `isFedrampModerate()` and the
+ *      `platform_ufo_fedramp_overrides` gate are true, every selector field
+ *      is forced to `false` regardless of any other input. This guarantees
+ *      that no `id`, `testId`, `role`, `className`, or `data-vc` selectors
+ *      escape the FedRAMP perimeter via the raw-handler payload.
+ *   2. **Caller-provided override** — `callerOverride` argument (e.g. an
+ *      explicit `selectorConfig` passed by a per-interaction VC observer
+ *      consumer).
+ *   3. **Centrally configured value** — `config.vc.selectorConfig` as set
+ *      via `setUFOConfig`.
+ *   4. **Caller-provided default** — `defaultConfig` argument (used by call
+ *      sites that have a historical hard-coded fallback they want to keep
+ *      when nothing else is available).
+ *   5. `undefined` — when no caller default is supplied either.
+ *
+ * **Gating note:** the entire new resolution behaviour (including the
+ * consultation of caller override / configured / default) is wrapped in the
+ * same `platform_ufo_fedramp_overrides` gate as the FedRAMP override
+ * itself. When the gate is OFF, this function falls back to the
+ * pre-FedRAMP-override behaviour: returning `callerOverride ??
+ * config?.vc?.selectorConfig`. This means rolling the gate back will
+ * restore byte-for-byte the previous behaviour at every call site.
+ *
+ * @param callerOverride Explicit per-call-site selectorConfig override.
+ * @param defaultConfig  Hard-coded fallback used only when nothing else
+ *                       provided a value. Only consulted when the gate is
+ *                       on (pre-existing call sites still own their own
+ *                       defaults when the gate is off).
+ */
+export function getSelectorConfig(
+	callerOverride?: SelectorConfig,
+	defaultConfig?: SelectorConfig,
+): SelectorConfig | undefined {
+	// Gate guard: when the gate is OFF we keep the historical behaviour
+	// untouched. Pre-FedRAMP code expected `getSelectorConfig()` (no args)
+	// to return only the centrally configured value, and per-observer
+	// merges to take care of caller overrides and defaults locally.
+	if (!fg('platform_ufo_fedramp_overrides')) {
+		return callerOverride ?? config?.vc?.selectorConfig;
+	}
+
+	// Gate ON.
+	// 1. FedRAMP override always wins.
+	if (detectIsFedrampModerate()) {
+		return FEDRAMP_DISABLED_SELECTOR_CONFIG;
+	}
+	// 2. Then caller-provided.
+	// 3. Then centrally configured.
+	// 4. Then caller-provided default.
+	return callerOverride ?? config?.vc?.selectorConfig ?? defaultConfig;
+}
+
+/**
  * Check if UFO is enabled based on the config.enabled field.
  *
  * @returns true if UFO is enabled, false if disabled
@@ -290,11 +407,7 @@ export function getEnabledVCRevisions(experienceKey: string = ''): readonly TTVC
 			// When the disable flag is on, treat an explicitly-set empty array as
 			// "no client-side revisions" rather than falling back to the default revision.
 			const allRevisions = enabledVCRevisions?.all;
-			if (
-				Array.isArray(allRevisions) &&
-				allRevisions.length === 0 &&
-				fg('ufo_disable_ttvc_v4')
-			) {
+			if (Array.isArray(allRevisions) && allRevisions.length === 0 && fg('ufo_disable_ttvc_v4')) {
 				return allRevisions;
 			}
 

@@ -7,9 +7,11 @@ import { useCallback, useMemo } from 'react';
 import { css, jsx } from '@compiled/react';
 
 import { browser } from '@atlaskit/linking-common/user-agent';
+import { fg } from "@atlaskit/platform-feature-flags";
 import { token } from '@atlaskit/tokens';
 
 import {
+	ActionName,
 	SmartLinkAlignment,
 	SmartLinkDirection,
 	SmartLinkSize,
@@ -40,6 +42,7 @@ const FooterBlockResolvedView = (props: FooterBlockProps): JSX.Element => {
 		hideProvider,
 	} = props;
 	const context = useFlexibleUiContext();
+	const isRovoSupportedFeature = !!context?.actions?.[ActionName.RovoChatAction];
 
 	const hasActions = useMemo(
 		() => filterActionItems(actions, context)?.length > 0,
@@ -72,7 +75,11 @@ const FooterBlockResolvedView = (props: FooterBlockProps): JSX.Element => {
 					<ActionGroup
 						onDropdownOpenChange={onDropdownOpenChange}
 						items={actions}
-						appearance="default"
+						appearance={
+							isRovoSupportedFeature && fg('platform_sl_3p_auth_rovo_block_card_kill_switch')
+								? 'subtle'
+								: 'default'
+						}
 						size={size}
 					/>
 				</ElementGroup>

@@ -1,4 +1,5 @@
-import type { NextEditorPlugin } from '@atlaskit/editor-common/types';
+import type { NextEditorPlugin, OptionalPlugin } from '@atlaskit/editor-common/types';
+import type { AnalyticsPlugin } from '@atlaskit/editor-plugin-analytics';
 
 import type {
 	AutocompletePluginOptions,
@@ -10,5 +11,6 @@ export type AutocompletePlugin = NextEditorPlugin<
 	{
 		pluginConfiguration?: AutocompletePluginOptions | undefined;
 		sharedState: AutocompletePluginState | undefined;
+		dependencies: [OptionalPlugin<AnalyticsPlugin>];
 	}
 >;

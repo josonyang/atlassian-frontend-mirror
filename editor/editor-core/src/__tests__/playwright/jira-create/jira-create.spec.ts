@@ -2,11 +2,11 @@ import { expect, editorTestCase as test } from '@af/editor-libra';
 import { fixTest } from '@af/integration-testing';
 
 export const emptyDoc: {
-	version: number;
-	type: string;
 	content: {
 		type: string;
 	}[];
+	type: string;
+	version: number;
 } = {
 	version: 1,
 	type: 'doc',

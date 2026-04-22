@@ -13,7 +13,7 @@ import type {
 	VCRawDataType,
 	VCResult,
 } from '../../common/vc/types';
-import { isVCRevisionEnabled } from '../../config';
+import { getSelectorConfig, isVCRevisionEnabled } from '../../config';
 import { getActiveInteraction } from '../../interaction-metrics';
 import type { GetVCResultType, VCObserverInterface, VCObserverOptions } from '../types';
 
@@ -117,14 +117,25 @@ export class VCObserver implements VCObserverInterface {
 
 		const { ssrEnablePageLayoutPlaceholder, ssrPlaceholderHandler } = options;
 
+		// Selector-config resolution is centralised in `getSelectorConfig()`
+		// (`../../config`). It enforces FedRAMP-override > caller-override >
+		// centrally configured > caller default, gated by
+		// `platform_ufo_fedramp_overrides`. When the gate is OFF the helper
+		// returns `options.selectorConfig ?? config?.vc?.selectorConfig`, and
+		// we fall back to the legacy hard-coded default — byte-for-byte
+		// unchanged from pre-FedRAMP behaviour.
+		const LEGACY_DEFAULT_SELECTOR_CONFIG = {
+			id: false,
+			testId: false,
+			role: false,
+			className: true,
+			dataVC: true,
+		};
 		this.observers = new Observers({
-			selectorConfig: options.selectorConfig || {
-				id: false,
-				testId: false,
-				role: false,
-				className: true,
-				dataVC: true,
-			},
+			selectorConfig:
+				getSelectorConfig(options.selectorConfig, LEGACY_DEFAULT_SELECTOR_CONFIG) ||
+				options.selectorConfig ||
+				LEGACY_DEFAULT_SELECTOR_CONFIG,
 			SSRConfig: {
 				enablePageLayoutPlaceholder: ssrEnablePageLayoutPlaceholder || false,
 			},

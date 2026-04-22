@@ -2,7 +2,7 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
-import { Fragment, useMemo } from 'react';
+import { Fragment, useCallback, useMemo } from 'react';
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { jsx } from '@emotion/react';
@@ -12,6 +12,7 @@ import type { SSR } from '@atlaskit/media-common';
 import { getRandomHex } from '@atlaskit/media-common';
 import { useFilePreview } from '@atlaskit/media-file-preview';
 import { MediaImage } from '@atlaskit/media-ui';
+import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 import type { Dimensions } from './types';
 import { InlineImageCardLoadingView } from './views/loading-view';
@@ -60,6 +61,10 @@ export const InlineImageCard = ({
 		traceContext,
 	});
 
+	const memoizedOnImageLoad = useCallback(() => {
+		onImageLoad(preview);
+	}, [onImageLoad, preview]);
+
 	if (previewError) {
 		return renderError({ error: previewError });
 	}
@@ -74,10 +79,13 @@ export const InlineImageCard = ({
 				dataURI={preview.dataURI}
 				alt={alt}
 				previewOrientation={preview.orientation}
-				// eslint-disable-next-line @atlassian/perf-linting/no-unstable-inline-props -- Ignored via go/ees017 (to be fixed)
-				onImageLoad={() => {
-					onImageLoad(preview);
-				}}
+				onImageLoad={
+					expValEquals('platform_editor_perf_lint_cleanup', 'isEnabled', true)
+						? memoizedOnImageLoad
+						: () => {
+								onImageLoad(preview);
+							}
+				}
 				onImageError={onImageError}
 				loading={isLazy ? 'lazy' : undefined}
 				forceSyncDisplay={!!ssr}

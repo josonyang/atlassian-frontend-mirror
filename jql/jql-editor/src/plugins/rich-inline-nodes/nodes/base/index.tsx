@@ -81,13 +81,13 @@ const styles = cssMap({
  */
 
 export const NodeBase = (props: NodeViewProps<NodeBaseProps>) => {
-	const { iconBefore, text, isLocked, selected, error } = props;
+	const { iconBefore, text, isLocked, selected, error, isRichNodeDisplay } = props;
 
 	const isNewExperienceEnabled = FeatureGates.getExperimentValue(
 		'projects_in_jira_eap_drop2_fast_follow_filters',
 		'isEnabled',
 		false,
-	);
+	) || isRichNodeDisplay;
 
 	return (
 		<Pressable

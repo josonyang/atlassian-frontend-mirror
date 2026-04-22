@@ -1,5 +1,16 @@
 # @atlaskit/editor-plugin-autocomplete
 
+## 2.2.0
+
+### Minor Changes
+
+- [`6eb5747f5ba37`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/6eb5747f5ba37) -
+  Add SAR analytics for autocomplete plugin
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 2.1.0
 
 ### Minor Changes

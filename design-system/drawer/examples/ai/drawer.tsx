@@ -5,7 +5,7 @@ import Drawer, { DrawerCloseButton, DrawerContent, DrawerSidebar } from '@atlask
 import Heading from '@atlaskit/heading';
 import { Text } from '@atlaskit/primitives/compiled';
 
-export default [
+const examples: (() => React.JSX.Element)[] = [
 	() => {
 		const [isOpen, setIsOpen] = useState(false);
 		return (
@@ -24,3 +24,5 @@ export default [
 		);
 	},
 ];
+
+export default examples;

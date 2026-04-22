@@ -36,6 +36,7 @@ import {
 	getInteractionTimeout,
 	getPostInteractionRate,
 	getReactHydrationStats,
+	getSelectorConfig,
 	shouldUseRawDataThirdPartyBehavior,
 } from '../config';
 import {
@@ -1239,7 +1240,9 @@ export function addNewInteraction(
 			heatmapSize: config.vc.heatmapSize,
 			oldDomUpdates: config.vc.oldDomUpdates,
 			devToolsEnabled: config.vc.devToolsEnabled,
-			selectorConfig: config.vc.selectorConfig,
+			// Use centralised getter so the FedRAMP override (forces every
+			// selector field to false) is applied consistently.
+			selectorConfig: getSelectorConfig(),
 			ssrEnablePageLayoutPlaceholder: config.vc.ssrEnablePageLayoutPlaceholder,
 			trackLayoutShiftOffenders: config.vc.trackLayoutShiftOffenders,
 			searchPageConfig,
