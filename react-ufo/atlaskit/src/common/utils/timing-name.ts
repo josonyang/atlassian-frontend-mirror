@@ -1,5 +1,3 @@
-import { fg } from '@atlaskit/platform-feature-flags';
-
 export const MAX_TIMING_NAME_LENGTH = 255;
 
 export function sanitizeTimingName(name: string): string {
@@ -7,9 +5,5 @@ export function sanitizeTimingName(name: string): string {
 		return name;
 	}
 
-	if (fg('platform_ufo_validate_timing_name_length')) {
-		return name.slice(0, MAX_TIMING_NAME_LENGTH);
-	}
-
-	return name;
+	return name.slice(0, MAX_TIMING_NAME_LENGTH);
 }

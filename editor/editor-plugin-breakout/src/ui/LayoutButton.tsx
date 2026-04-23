@@ -25,7 +25,6 @@ import { akEditorFullPageNarrowBreakout } from '@atlaskit/editor-shared-styles';
 import GrowHorizontalIcon from '@atlaskit/icon/core/grow-horizontal';
 import ShrinkHorizontalIcon from '@atlaskit/icon/core/shrink-horizontal';
 import { layers } from '@atlaskit/theme/constants';
-import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 import { token } from '@atlaskit/tokens';
 
@@ -108,12 +107,10 @@ const LayoutButton = ({
 }: Props & WrappedComponentProps) => {
 	const handleClick = useCallback(
 		(breakoutMode: BreakoutMode) => {
-			if (expValEquals('platform_editor_hydratable_ui', 'isEnabled', true) && !editorView) {
+			if (!editorView) {
 				return;
 			}
-			// Remove ! during platform_editor_hydratable_ui cleanup
-			// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-			const { state, dispatch } = editorView!;
+			const { state, dispatch } = editorView;
 			const breakoutNode = getPluginState(state)?.breakoutNode;
 			if (['wide', 'full-width'].indexOf(breakoutMode) !== -1) {
 				setBreakoutMode(breakoutMode, isLivePage)(state, dispatch);
@@ -144,13 +141,11 @@ const LayoutButton = ({
 		[api?.analytics?.actions, editorView, isLivePage],
 	);
 
-	if (expValEquals('platform_editor_hydratable_ui', 'isEnabled', true) && !editorView) {
+	if (!editorView) {
 		return null;
 	}
 
-	// Remove ! during platform_editor_hydratable_ui cleanup
-	// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-	if (!isBreakoutNodePresent || !isBreakoutMarkAllowed(editorView!.state)) {
+	if (!isBreakoutNodePresent || !isBreakoutMarkAllowed(editorView.state)) {
 		return null;
 	}
 
@@ -160,17 +155,13 @@ const LayoutButton = ({
 	const nextBreakoutMode = getNextBreakoutMode(breakoutMode);
 	const belowOtherPopupsZIndex = layers.layer() - 1;
 
-	// Remove ! during platform_editor_hydratable_ui cleanup
-	// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-	const pluginState = getPluginState(editorView!.state);
+	const pluginState = getPluginState(editorView.state);
 
 	if (!pluginState) {
 		return null;
 	}
 
-	// Remove ! during platform_editor_hydratable_ui cleanup
-	// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-	let element = getBreakoutNodeElement(pluginState, editorView!.state.selection, editorView!);
+	let element = getBreakoutNodeElement(pluginState, editorView.state.selection, editorView);
 	if (!element) {
 		return null;
 	}

@@ -8,6 +8,7 @@ import { Fragment } from 'react';
 import { cssMap, jsx } from '@compiled/react';
 
 import type { StrictXCSSProp } from '@atlaskit/css';
+import { fg } from '@atlaskit/platform-feature-flags';
 
 import { useSkipLink } from '../../../context/skip-links/use-skip-link';
 import { contentHeightWhenFixed, contentInsetBlockStart } from '../constants';
@@ -42,7 +43,7 @@ const mainElementStyles = cssMap({
 export function Main({
 	children,
 	xcss,
-	skipLinkLabel = 'Main Content',
+	skipLinkLabel = fg('platform_dst_nav4_skip_link_a11y_1') ? 'Main content' : 'Main Content',
 	testId,
 	id: providedId,
 }: CommonSlotProps & {

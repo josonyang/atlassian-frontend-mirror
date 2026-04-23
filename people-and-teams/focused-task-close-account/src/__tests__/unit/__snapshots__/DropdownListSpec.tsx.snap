@@ -2,7 +2,7 @@
 
 exports[`Dropdown list button renders sites list 1`] = `
 <Fragment>
-  <Styled(ul)>
+  <AccessibleSitesList>
     <li
       key="0"
     >
@@ -18,20 +18,20 @@ exports[`Dropdown list button renders sites list 1`] = `
     >
       test.atlassian.net
     </li>
-  </Styled(ul)>
-  <Styled(div)>
+  </AccessibleSitesList>
+  <AccessibleSitesListFootnote>
     <MemoizedFormattedMessage
       defaultMessage="Other Atlassian account services, such as Atlassian Community and Marketplace. "
       description="A paragraph explaining that upon deletion the user may also lose access to services that weren't listed prior."
       id="focused-task-close-account.delete-account.overview.paragraph.loseAccess.footnote"
     />
-  </Styled(div)>
+  </AccessibleSitesListFootnote>
 </Fragment>
 `;
 
 exports[`Dropdown list button renders sites list with collapse button for more than 3 sites after been expanded 1`] = `
 <Fragment>
-  <Styled(ul)>
+  <AccessibleSitesList>
     <li
       key="0"
     >
@@ -52,15 +52,15 @@ exports[`Dropdown list button renders sites list with collapse button for more t
     >
       bitflix.atlassian.net
     </li>
-  </Styled(ul)>
-  <Styled(div)>
+  </AccessibleSitesList>
+  <AccessibleSitesListFootnote>
     <MemoizedFormattedMessage
       defaultMessage="Other Atlassian account services, such as Atlassian Community and Marketplace. "
       description="A paragraph explaining that upon deletion the user may also lose access to services that weren't listed prior."
       id="focused-task-close-account.delete-account.overview.paragraph.loseAccess.footnote"
     />
-  </Styled(div)>
-  <Styled(div)>
+  </AccessibleSitesListFootnote>
+  <ButtonWrapper>
     <Button
       appearance="link"
       onClick={[Function]}
@@ -72,13 +72,13 @@ exports[`Dropdown list button renders sites list with collapse button for more t
         id="focused-task-close-account.delete-account.drop-down-collapse-button"
       />
     </Button>
-  </Styled(div)>
+  </ButtonWrapper>
 </Fragment>
 `;
 
 exports[`Dropdown list button renders sites list with expand button for more than 3 sites 1`] = `
 <Fragment>
-  <Styled(ul)>
+  <AccessibleSitesList>
     <li
       key="0"
     >
@@ -94,8 +94,8 @@ exports[`Dropdown list button renders sites list with expand button for more tha
     >
       test.atlassian.net
     </li>
-  </Styled(ul)>
-  <Styled(div)>
+  </AccessibleSitesList>
+  <ButtonWrapper>
     <Button
       appearance="link"
       onClick={[Function]}
@@ -112,13 +112,13 @@ exports[`Dropdown list button renders sites list with expand button for more tha
         }
       />
     </Button>
-  </Styled(div)>
+  </ButtonWrapper>
 </Fragment>
 `;
 
 exports[`Dropdown list button renders sites list with expand button for more than 3 sites after been collapsed 1`] = `
 <Fragment>
-  <Styled(ul)>
+  <AccessibleSitesList>
     <li
       key="0"
     >
@@ -134,8 +134,8 @@ exports[`Dropdown list button renders sites list with expand button for more tha
     >
       test.atlassian.net
     </li>
-  </Styled(ul)>
-  <Styled(div)>
+  </AccessibleSitesList>
+  <ButtonWrapper>
     <Button
       appearance="link"
       onClick={[Function]}
@@ -152,6 +152,6 @@ exports[`Dropdown list button renders sites list with expand button for more tha
         }
       />
     </Button>
-  </Styled(div)>
+  </ButtonWrapper>
 </Fragment>
 `;

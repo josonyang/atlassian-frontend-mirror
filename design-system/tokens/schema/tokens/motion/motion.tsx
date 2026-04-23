@@ -7,25 +7,25 @@ const motion: AttributeSchema<MotionTokenSchema<MotionPaletteToken>> = {
 			enter: {
 				attributes: {
 					group: 'motion',
-					state: 'experimental',
+					state: 'active',
 					introduced: '11.2.0',
-					description: '',
+					description: 'Use for avatar group enter transitions.',
 				},
 			},
 			exit: {
 				attributes: {
 					group: 'motion',
-					state: 'experimental',
+					state: 'active',
 					introduced: '11.2.0',
-					description: '',
+					description: 'Use for avatar group exit transitions.',
 				},
 			},
 			hovered: {
 				attributes: {
 					group: 'motion',
-					state: 'experimental',
+					state: 'active',
 					introduced: '11.2.0',
-					description: '',
+					description: 'Use for hover state on avatar elements.',
 				},
 			},
 		},
@@ -33,17 +33,17 @@ const motion: AttributeSchema<MotionTokenSchema<MotionPaletteToken>> = {
 			enter: {
 				attributes: {
 					group: 'motion',
-					state: 'experimental',
+					state: 'active',
 					introduced: '11.5.0',
-					description: '',
+					description: 'Use for blanket enter transitions.',
 				},
 			},
 			exit: {
 				attributes: {
 					group: 'motion',
-					state: 'experimental',
+					state: 'active',
 					introduced: '11.5.0',
-					description: '',
+					description: 'Use for blanket exit transitions.',
 				},
 			},
 		},
@@ -51,25 +51,25 @@ const motion: AttributeSchema<MotionTokenSchema<MotionPaletteToken>> = {
 			enter: {
 				attributes: {
 					group: 'motion',
-					state: 'experimental',
+					state: 'active',
 					introduced: '11.2.0',
-					description: '',
+					description: 'Use for flag enter transitions.',
 				},
 			},
 			exit: {
 				attributes: {
 					group: 'motion',
-					state: 'experimental',
+					state: 'active',
 					introduced: '11.2.0',
-					description: '',
+					description: 'Use for flag exit transitions.',
 				},
 			},
 			reposition: {
 				attributes: {
 					group: 'motion',
-					state: 'experimental',
+					state: 'active',
 					introduced: '11.2.0',
-					description: '',
+					description: 'Use for repositioning flag elements.',
 				},
 			},
 		},
@@ -77,17 +77,17 @@ const motion: AttributeSchema<MotionTokenSchema<MotionPaletteToken>> = {
 			enter: {
 				attributes: {
 					group: 'motion',
-					state: 'experimental',
+					state: 'active',
 					introduced: '11.2.0',
-					description: '',
+					description: 'Use for modal enter transitions.',
 				},
 			},
 			exit: {
 				attributes: {
 					group: 'motion',
-					state: 'experimental',
+					state: 'active',
 					introduced: '11.2.0',
-					description: '',
+					description: 'Use for modal exit transitions.',
 				},
 			},
 		},
@@ -96,33 +96,33 @@ const motion: AttributeSchema<MotionTokenSchema<MotionPaletteToken>> = {
 				top: {
 					attributes: {
 						group: 'motion',
-						state: 'experimental',
+						state: 'active',
 						introduced: '11.2.0',
-						description: '',
+						description: 'Use for popup enter from the top: popup, tooltip, dropdown, inline message, inline dialog.',
 					},
 				},
 				bottom: {
 					attributes: {
 						group: 'motion',
-						state: 'experimental',
+						state: 'active',
 						introduced: '11.2.0',
-						description: '',
+						description: 'Use for popup enter from the bottom.',
 					},
 				},
 				left: {
 					attributes: {
 						group: 'motion',
-						state: 'experimental',
+						state: 'active',
 						introduced: '11.2.0',
-						description: '',
+						description: 'Use for popup enter from the left.',
 					},
 				},
 				right: {
 					attributes: {
 						group: 'motion',
-						state: 'experimental',
+						state: 'active',
 						introduced: '11.2.0',
-						description: '',
+						description: 'Use for popup enter from the right.',
 					},
 				},
 			},
@@ -130,33 +130,33 @@ const motion: AttributeSchema<MotionTokenSchema<MotionPaletteToken>> = {
 				top: {
 					attributes: {
 						group: 'motion',
-						state: 'experimental',
+						state: 'active',
 						introduced: '11.2.0',
-						description: '',
+						description: 'Use for popup exit toward the top.',
 					},
 				},
 				bottom: {
 					attributes: {
 						group: 'motion',
-						state: 'experimental',
+						state: 'active',
 						introduced: '11.2.0',
-						description: '',
+						description: 'Use for popup exit toward the bottom.',
 					},
 				},
 				left: {
 					attributes: {
 						group: 'motion',
-						state: 'experimental',
+						state: 'active',
 						introduced: '11.2.0',
-						description: '',
+						description: 'Use for popup exit toward the left.',
 					},
 				},
 				right: {
 					attributes: {
 						group: 'motion',
-						state: 'experimental',
+						state: 'active',
 						introduced: '11.2.0',
-						description: '',
+						description: 'Use for popup exit toward the right.',
 					},
 				},
 			},
@@ -165,17 +165,17 @@ const motion: AttributeSchema<MotionTokenSchema<MotionPaletteToken>> = {
 			enter: {
 				attributes: {
 					group: 'motion',
-					state: 'experimental',
+					state: 'active',
 					introduced: '11.2.0',
-					description: '',
+					description: 'Use for spotlight enter transitions.',
 				},
 			},
 			exit: {
 				attributes: {
 					group: 'motion',
-					state: 'experimental',
+					state: 'active',
 					introduced: '11.2.0',
-					description: '',
+					description: 'Use for spotlight exit transitions.',
 				},
 			},
 		},

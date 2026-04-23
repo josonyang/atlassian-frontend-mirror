@@ -286,10 +286,7 @@ export const gridPlugin: GridPlugin = ({ config: options, api }) => {
 		},
 
 		contentComponent: ({ editorView }) => {
-			if (!editorView) {
-				return null;
-			}
-			if (expValEquals('platform_editor_hydratable_ui', 'isEnabled', true) && isSSR()) {
+			if (!editorView || isSSR()) {
 				return null;
 			}
 			return <ContentComponent editorView={editorView} options={options} api={api} />;

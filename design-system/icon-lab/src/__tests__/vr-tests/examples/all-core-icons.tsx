@@ -3,7 +3,7 @@
  *
  * To change the format of this file, modify `createVRTest` in icon-build-process/src/create-vr-test.tsx.
  *
- * @codegen <<SignedSource::4216a2d7cb8b765dc9121ad5986554ac>>
+ * @codegen <<SignedSource::435a6e99744b3e43836493a0d726b4a5>>
  * @codegenCommand yarn build:icon-glyphs
  */
 /* eslint-disable @atlaskit/platform/use-entrypoints-in-examples */
@@ -96,6 +96,7 @@ import DataAppIcon from '../../../../core/data-app';
 import DataBucketIcon from '../../../../core/data-bucket';
 import DataFormulaIcon from '../../../../core/data-formula';
 import DataFunctionIcon from '../../../../core/data-function';
+import DataLakeIcon from '../../../../core/data-lake';
 import DataPivotIcon from '../../../../core/data-pivot';
 import DataTransposeIcon from '../../../../core/data-transpose';
 import DataUnpivotIcon from '../../../../core/data-unpivot';
@@ -104,6 +105,7 @@ import DataVisualizationMetricIcon from '../../../../core/data-visualization-met
 import DataZeroFillIcon from '../../../../core/data-zero-fill';
 import DatabaseStorageIcon from '../../../../core/database-storage';
 import DatabaseStorageCacheIcon from '../../../../core/database-storage-cache';
+import DeployedServiceIcon from '../../../../core/deployed-service';
 import DiagramArchitectureMapIcon from '../../../../core/diagram-architecture-map';
 import DiagramArrowheadAggregationLeftIcon from '../../../../core/diagram-arrowhead-aggregation-left';
 import DiagramArrowheadAggregationRightIcon from '../../../../core/diagram-arrowhead-aggregation-right';
@@ -249,6 +251,8 @@ import ExpandElementIcon from '../../../../core/expand-element';
 import EyedropperIcon from '../../../../core/eyedropper';
 import FieldSelectIcon from '../../../../core/field-select';
 import FieldTextIcon from '../../../../core/field-text';
+import FileMarkdownIcon from '../../../../core/file-markdown';
+import FileTextIcon from '../../../../core/file-text';
 import FlowerIcon from '../../../../core/flower';
 import FolderSharedIcon from '../../../../core/folder-shared';
 import GenerativeDateIcon from '../../../../core/generative-date';
@@ -273,6 +277,7 @@ import HardwareRepairIcon from '../../../../core/hardware-repair';
 import HardwareReturnIcon from '../../../../core/hardware-return';
 import HardwareShipIcon from '../../../../core/hardware-ship';
 import HardwareTransferIcon from '../../../../core/hardware-transfer';
+import HierarchyIcon from '../../../../core/hierarchy';
 import HistoryIcon from '../../../../core/history';
 import HourglassIcon from '../../../../core/hourglass';
 import IfElseIcon from '../../../../core/if-else';
@@ -462,6 +467,7 @@ import VideoTimelineClipSplitIcon from '../../../../core/video-timeline-clip-spl
 import VideoTimelineEditorIcon from '../../../../core/video-timeline-editor';
 import VideoWatchLaterRemoveIcon from '../../../../core/video-watch-later-remove';
 import VideoWatchLaterSavedIcon from '../../../../core/video-watch-later-saved';
+import ViewSplitIcon from '../../../../core/view-split';
 import ViewTypeBoardHomeIcon from '../../../../core/view-type-board-home';
 import ViewTypeCardHomeIcon from '../../../../core/view-type-card-home';
 import ViewTypeTableHomeIcon from '../../../../core/view-type-table-home';
@@ -937,6 +943,12 @@ const Icons = [
 	VideoTimelineClipInsertStartIcon,
 	TextNormalIcon,
 	TextSmallIcon,
+	DataLakeIcon,
+	DeployedServiceIcon,
+	FileMarkdownIcon,
+	FileTextIcon,
+	HierarchyIcon,
+	ViewSplitIcon,
 ];
 
 const groupSize = 50;

@@ -1,3 +1,4 @@
+import { fg } from '@atlaskit/platform-feature-flags';
 import {
 	AbstractResource,
 	type OnProviderChange,
@@ -112,7 +113,7 @@ export interface EmojiResourceConfig {
 	singleEmojiApi?: SingleEmojiApiLoaderConfig;
 }
 
-export interface OnEmojiProviderChange extends OnProviderChange<EmojiSearchResult, any, void> {}
+export interface OnEmojiProviderChange extends OnProviderChange<EmojiSearchResult, any, void> { }
 
 export interface Retry<T> {
 	(): Promise<T> | T;
@@ -148,8 +149,7 @@ export interface LastQuery {
 
 export class EmojiResource
 	extends AbstractResource<string, EmojiSearchResult, any, undefined, SearchOptions>
-	implements EmojiProvider
-{
+	implements EmojiProvider {
 	protected recordConfig?: ServiceConfig;
 	protected emojiRepository?: EmojiRepository;
 	protected lastQuery?: LastQuery;
@@ -667,8 +667,7 @@ export class EmojiResource
 
 export default class UploadingEmojiResource
 	extends EmojiResource
-	implements UploadingEmojiProvider
-{
+	implements UploadingEmojiProvider {
 	protected allowUpload: boolean;
 
 	constructor(config: EmojiResourceConfig) {
@@ -688,10 +687,10 @@ export default class UploadingEmojiResource
 
 	uploadCustomEmoji(
 		upload: EmojiUpload,
-		retry = false,
-		timeout = 12_000,
+		retry: boolean = false,
+		timeout: number = fg('increase-emoji-client-upload-timeout') ? 30_000 : 12_000,
 	): Promise<EmojiDescription> {
-		return this.isUploadSupported().then((supported) => {
+		return this.isUploadSupported().then((supported: boolean) => {
 			if (!supported || !this.isRepositoryAvailable<SiteEmojiResource>(this.siteEmojiResource)) {
 				return Promise.reject('No media api support is configured');
 			}

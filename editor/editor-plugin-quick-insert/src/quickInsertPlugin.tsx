@@ -122,10 +122,7 @@ export const quickInsertPlugin: QuickInsertPlugin = ({ config: options, api }) =
 			refs.popupsMountPoint = popupsMountPoint || undefined;
 			refs.wrapperElement = wrapperElement || undefined;
 
-			if (
-				!editorView ||
-				(expValEquals('platform_editor_hydratable_ui', 'isEnabled', true) && isSSR())
-			) {
+			if (!editorView || isSSR()) {
 				return null;
 			}
 

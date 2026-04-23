@@ -2540,6 +2540,16 @@ const metadata: IconMetadata = {
 		usage: 'Multi purpose - Known uses: help, tip.',
 		createdAt: '2025-07-31T03:28:03.217Z',
 	},
+	'quotation-block': {
+		keywords: ['quotation marks', 'blockquote'],
+		categorization: 'multi-purpose',
+		location: '@atlaskit/icon',
+		team: 'Design System Team',
+		status: 'published',
+		id: '66589:45820',
+		usage: 'Preferred for representing block quotes and quote text style in Confluence',
+		createdAt: '2026-04-22T16:08:02.803Z',
+	},
 	'quotation-mark': {
 		keywords: ['quote', 'testimonial', 'blockquote', 'jira status'],
 		categorization: 'multi-purpose',

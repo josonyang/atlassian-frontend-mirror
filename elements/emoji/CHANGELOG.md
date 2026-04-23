@@ -1,5 +1,28 @@
 # @atlaskit/emoji
 
+## 70.2.0
+
+### Minor Changes
+
+- [`cf3379a558a4e`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/cf3379a558a4e) -
+  Increase emoji upload timeout from 12 to 30 seconds
+
+### Patch Changes
+
+- Updated dependencies
+
+## 70.1.3
+
+### Patch Changes
+
+- Updated dependencies
+
+## 70.1.2
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 70.1.1
 
 ### Patch Changes

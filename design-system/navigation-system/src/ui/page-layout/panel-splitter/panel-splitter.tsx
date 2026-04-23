@@ -21,7 +21,6 @@ import invariant from 'tiny-invariant';
 import { useId } from '@atlaskit/ds-lib/use-id';
 import useStableRef from '@atlaskit/ds-lib/use-stable-ref';
 import { useOpenLayerObserver } from '@atlaskit/layering/experimental/open-layer-observer';
-import { fg } from '@atlaskit/platform-feature-flags';
 import { combine } from '@atlaskit/pragmatic-drag-and-drop/combine';
 import { draggable } from '@atlaskit/pragmatic-drag-and-drop/element/adapter';
 import { blockDraggingToIFrames } from '@atlaskit/pragmatic-drag-and-drop/element/block-dragging-to-iframes';
@@ -91,6 +90,10 @@ const grabAreaStyles = cssMap({
 		paddingInlineStart: token('space.0'),
 		color: 'transparent',
 		backgroundColor: 'transparent',
+		// Intent is to align with tooltip timings so the resizer appears in sync with the tooltip
+		transitionDuration: '150ms',
+		transitionDelay: '300ms',
+		transitionTimingFunction: 'ease-in-out',
 		transitionProperty: 'color',
 		'&:hover': {
 			// We are setting the cursor within the :hover pseudo to ensure the specifity is higher than Pressable's cursor.
@@ -111,23 +114,6 @@ const grabAreaStyles = cssMap({
 		'&:hover': {
 			cursor: 'col-resize',
 		},
-	},
-	oldTransition: {
-		transitionDuration: '100ms',
-		transitionDelay: '0ms',
-		'&:hover': {
-			transitionDelay: '200ms',
-		},
-		'&:hover, &:focus-within': {
-			transitionProperty: 'color',
-			transitionDuration: '200ms',
-		},
-	},
-	newTransition: {
-		// Intent is to align with tooltip timings so the resizer appears in sync with the tooltip
-		transitionDuration: '150ms',
-		transitionDelay: '300ms',
-		transitionTimingFunction: 'ease-in-out',
 	},
 });
 
@@ -226,16 +212,12 @@ const MaybeTooltip = ({ tooltipContent, shortcut, children, testId }: MaybeToolt
 				testId={testId}
 				content={tooltipContent}
 				shortcut={shortcut}
-				position={fg('platform_dst_nav4_side_nav_resize_tooltip_feedback') ? 'mouse-y' : 'mouse'}
+				position="mouse-y"
 				mousePosition="right"
 				isScreenReaderAnnouncementDisabled
-				component={
-					fg('platform_dst_nav4_side_nav_resize_tooltip_feedback')
-						? PanelSplitterTooltip
-						: undefined
-				}
-				UNSAFE_shouldAlwaysFadeIn={fg('platform_dst_nav4_side_nav_resize_tooltip_feedback')}
-				UNSAFE_shouldRenderToParent={fg('platform_dst_nav4_side_nav_resize_tooltip_feedback')}
+				component={PanelSplitterTooltip}
+				UNSAFE_shouldAlwaysFadeIn
+				UNSAFE_shouldRenderToParent
 			>
 				{children}
 			</Tooltip>
@@ -530,24 +512,14 @@ const PortaledPanelSplitter = ({
 			<MaybeTooltip
 				tooltipContent={tooltipContent}
 				shortcut={shortcut}
-				testId={
-					testId && fg('platform_dst_nav4_side_nav_resize_tooltip_feedback')
-						? `${testId}-tooltip`
-						: undefined
-				}
+				testId={testId ? `${testId}-tooltip` : undefined}
 			>
 				{/* eslint-disable-next-line @atlassian/a11y/no-static-element-interactions --
 				We intentionally do not add keyboard event listeners to this element, as keyboard accessibility
 				is provided via a dedicated keyboard shortcut elsewhere in the application. */}
 				<div
 					ref={splitterRef}
-					css={[
-						grabAreaStyles.root,
-						isFhsEnabled && grabAreaStyles.fullHeightSidebar,
-						fg('platform_dst_nav4_side_nav_resize_tooltip_feedback')
-							? grabAreaStyles.newTransition
-							: grabAreaStyles.oldTransition,
-					]}
+					css={[grabAreaStyles.root, isFhsEnabled && grabAreaStyles.fullHeightSidebar]}
 					data-testid={testId}
 					onDoubleClick={onDoubleClick}
 				>

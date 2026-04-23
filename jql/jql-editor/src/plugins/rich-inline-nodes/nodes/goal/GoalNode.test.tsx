@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { render } from '@testing-library/react';
-import { IntlProvider } from 'react-intl-next';
+import { IntlProvider } from 'react-intl';
 import { DiProvider, injectable } from 'react-magnetic-di';
 
 import { useHydratedGoal } from '../../../../state';
@@ -26,13 +26,7 @@ describe('GoalNode', () => {
 		render(
 			<IntlProvider locale="en">
 				<DiProvider use={deps}>
-					<GoalNode
-						id="id"
-						fieldName="goal"
-						name={name}
-						error={error}
-						selected={selected}
-					/>
+					<GoalNode id="id" fieldName="goal" name={name} error={error} selected={selected} />
 				</DiProvider>
 			</IntlProvider>,
 		);

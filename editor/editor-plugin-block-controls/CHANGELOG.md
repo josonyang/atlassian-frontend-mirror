@@ -1,5 +1,34 @@
 # @atlaskit/editor-plugin-block-controls
 
+## 11.2.2
+
+### Patch Changes
+
+- Updated dependencies
+
+## 11.2.1
+
+### Patch Changes
+
+- [`4642f37c59f0f`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/4642f37c59f0f) -
+  Fix Remix button not appearing when hovering over tables in live page view mode. When the
+  `platform_editor_native_anchor_with_dnd` experiment is disabled, table rows only have
+  `data-node-anchor` (not `data-drag-handler-anchor-name`), so hover detection and anchor resolution
+  now fall back to `data-node-anchor`. Also fixes right-edge positioning for wide/max breakout
+  tables using `getBoundingClientRect`.
+- Updated dependencies
+
+## 11.2.0
+
+### Minor Changes
+
+- [`64134fd6d8fee`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/64134fd6d8fee) -
+  clean up platform_editor_block_control_optimise_render
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 11.1.1
 
 ### Patch Changes

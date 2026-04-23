@@ -1,34 +1,4 @@
-/**
- * Allocation for multi-query Fuse search: each term alone, plus one spaced combined query.
- *
- * `poolMax = limit * termCount`. From each term we take up to `perTermTake` hits; the rest of the
- * pool is filled from the spaced combined query.
- */
-export function computeMultiTermFuseAllocation(
-	limit: number,
-	termCount: number,
-): {
-	/**
-	 * The amount token by each term, minimum of 1.
-	 */
-	perTermTake: number;
-	/**
-	 * Hits to take from the spaced combined query.
-	 */
-	combinedTake: number;
-	/**
-	 * The total amount of hits to take, minimum of 1.
-	 */
-	totalTake: number;
-} {
-	if (termCount <= 1) return { perTermTake: 1, combinedTake: 0, totalTake: 1 };
-
-	const perTermTake = Math.max(Math.round(limit / termCount), 1);
-	const combinedTake = Math.max(limit * termCount - termCount * perTermTake, 1);
-	const totalTake = Math.max(perTermTake * termCount + combinedTake, 1);
-	return { perTermTake, combinedTake, totalTake };
-}
-
+import { computeMultiTermFuseAllocation } from './compute-multi-term-fuse-allocation';
 export type FuseHit<T> = {
 	item: T;
 	/**
@@ -134,3 +104,5 @@ function takeFirstUniqueKeys<T>(sortedHits: ScoredHit<T>[], limit: number): T[] 
 	}
 	return out;
 }
+
+export { computeMultiTermFuseAllocation } from './compute-multi-term-fuse-allocation';

@@ -177,10 +177,8 @@ const LozengeActionTrigger = ({
 				testId={testId}
 				ref={triggerRef}
 				aria-label={
-					fg('platform_navx_flex_card_status_dropdown_a11y_fix')
-						? // The `as unknown` type cast is needed for react-intl v7 upgrade
-							(intl.formatMessage(messages.change_status, { status: text }) as unknown as string)
-						: undefined
+					// The `as unknown` type cast is needed for react-intl v7 upgrade
+					intl.formatMessage(messages.change_status, { status: text }) as unknown as string
 				}
 			>
 				{text}
@@ -201,9 +199,8 @@ const LozengeActionTrigger = ({
 			onKeyUp={onMouseOrKeyUp}
 			ref={triggerRef}
 			aria-label={
-				fg('platform_navx_flex_card_status_dropdown_a11y_fix')
-					? (intl.formatMessage(messages.change_status, { status: text }) as unknown as string)
-					: undefined
+				// The `as unknown` type cast is needed for react-intl v7 upgrade
+				intl.formatMessage(messages.change_status, { status: text }) as unknown as string
 			}
 		>
 			{lozenge}

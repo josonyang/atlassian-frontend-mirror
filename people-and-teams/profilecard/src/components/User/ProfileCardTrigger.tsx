@@ -150,10 +150,7 @@ export default function ProfilecardTriggerNext({
 	// Skip delay entirely for click triggers, or for externally controlled visibility
 	// when the flashing fix is not enabled (preserving the original 0ms behavior).
 	const shouldSkipDelay =
-		trigger === 'click' ||
-		(isExternalControl &&
-			!fg('jira_ai_fix_agent_profile_card_flashing') &&
-			fg('fix_profilecard_trigger_isvisible'));
+		trigger === 'click' || (isExternalControl && !fg('jira_ai_fix_agent_profile_card_flashing'));
 	// When externally controlled with the flashing fix enabled, use a short debounce
 	// to absorb rapid focus changes from dropdown options settling after async load.
 	const REDUCED_DELAY_MS = 100;
@@ -383,9 +380,6 @@ export default function ProfilecardTriggerNext({
 	}, [showProfilecard]);
 
 	useEffect(() => {
-		if (!fg('fix_profilecard_trigger_isvisible')) {
-			return;
-		}
 		// If the prop isVisible is not defined, we don't want to do anything
 		if (propsIsVisible === undefined) {
 			return;

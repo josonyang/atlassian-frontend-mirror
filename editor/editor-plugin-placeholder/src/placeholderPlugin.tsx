@@ -6,7 +6,6 @@ import { isEmptyDocument } from '@atlaskit/editor-common/utils/document';
 import { PluginKey } from '@atlaskit/editor-prosemirror/state';
 import { Box } from '@atlaskit/primitives/compiled';
 import Spinner from '@atlaskit/spinner/spinner';
-import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 import type { PlaceholderPlugin } from './placeholderPluginType';
 import createPlugin from './pm-plugins/main';
@@ -63,46 +62,40 @@ export const placeholderPlugin: PlaceholderPlugin = ({ config: options, api }) =
 				},
 			];
 		},
-		contentComponent: expValEquals(
-			'confluence_load_editor_title_on_transition',
-			'contentPlaceholder',
-			true,
-		)
-			? (params) => {
-					if (expValEquals('platform_editor_hydratable_ui', 'isEnabled', true) && isSSR()) {
-						return null;
-					}
-
-					// If loading spinner is explicitly disabled (e.g., for DiffEditor/version history), skip
-					if (options?.enableLoadingSpinner === false) {
-						return null;
-					}
-
-					const doc = params.editorView?.state.doc;
-
-					// @ts-ignore fix which needs follow up to use standard apis
-					const collabEditPluginState = params.editorView?.state?.collabEditPlugin$;
-
-					if (collabEditPluginState && collabEditPluginState.isReady !== true) {
-						if (doc && !isEmptyDocument(doc)) {
-							// If we have a document, and it's not empty - we should not show a loading component
-							return null;
-						}
-
-						// In this scenario
-						// - the collab plugin exists - but we don't have a "initial/placeholder" document
-						// - and the collab plugin is not yet ready
-						// So we show a placeholder spinner to indicate the content is still loading
-						return (
-							<Box xcss={spinnerContainerStyles.spinnerContainer}>
-								<Spinner interactionName="live-pages-loading-spinner" size="medium" />
-							</Box>
-						);
-					}
-
+		contentComponent: (params) => {
+				if (isSSR()) {
 					return null;
 				}
-			: undefined,
+
+				// If loading spinner is explicitly disabled (e.g., for DiffEditor/version history), skip
+				if (options?.enableLoadingSpinner === false) {
+					return null;
+				}
+
+				const doc = params.editorView?.state.doc;
+
+				// @ts-ignore fix which needs follow up to use standard apis
+				const collabEditPluginState = params.editorView?.state?.collabEditPlugin$;
+
+				if (collabEditPluginState && collabEditPluginState.isReady !== true) {
+					if (doc && !isEmptyDocument(doc)) {
+						// If we have a document, and it's not empty - we should not show a loading component
+						return null;
+					}
+
+					// In this scenario
+					// - the collab plugin exists - but we don't have a "initial/placeholder" document
+					// - and the collab plugin is not yet ready
+					// So we show a placeholder spinner to indicate the content is still loading
+					return (
+						<Box xcss={spinnerContainerStyles.spinnerContainer}>
+							<Spinner interactionName="live-pages-loading-spinner" size="medium" />
+						</Box>
+					);
+				}
+
+				return null;
+			},
 	};
 };
 

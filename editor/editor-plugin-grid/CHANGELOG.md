@@ -1,5 +1,22 @@
 # @atlaskit/editor-plugin-grid
 
+## 10.1.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 10.1.0
+
+### Minor Changes
+
+- [`e5cdd96dcf4f9`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/e5cdd96dcf4f9) -
+  Clean up platform_editor_hydratable_ui experiment (shipped as enabled)
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 10.0.2
 
 ### Patch Changes

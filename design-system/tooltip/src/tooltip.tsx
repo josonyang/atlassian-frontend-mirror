@@ -9,18 +9,16 @@ import useCloseOnEscapePress from '@atlaskit/ds-lib/use-close-on-escape-press';
 import useStableRef from '@atlaskit/ds-lib/use-stable-ref';
 import { useNotifyOpenLayerObserver } from '@atlaskit/layering/experimental/open-layer-observer';
 import { type Direction, ExitingPersistence, FadeIn, type Transition } from '@atlaskit/motion';
-import { fg } from '@atlaskit/platform-feature-flags';
 import { type Placement, Popper } from '@atlaskit/popper';
 import Portal from '@atlaskit/portal';
 import { layers } from '@atlaskit/theme/constants';
 
 import { register } from './internal/drag-manager';
-import { getMousePosition } from './internal/get-mouse-position';
 import { getVirtualElementFromMousePos } from './internal/get-virtual-element-from-mouse-pos';
 import { type API, type Entry, show, type Source } from './internal/tooltip-manager';
 import useUniqueId from './internal/use-unique-id';
 import TooltipContainer from './tooltip-container';
-import { type TooltipProps, type TriggerProps, type FakeMouseElement } from './types';
+import { type TooltipProps, type TriggerProps } from './types';
 
 const tooltipZIndex = layers.tooltip();
 const analyticsAttributes = {
@@ -102,7 +100,7 @@ function Tooltip({
 		...analyticsAttributes,
 	});
 
-	const apiRef = useRef<API>(null);
+	const apiRef = useRef<API | null>(null);
 	const [state, setState] = useState<State>('hide');
 	const targetRef = useRef<HTMLElement | null>(null);
 	const containerRef = useRef<HTMLElement | null>(null);
@@ -132,7 +130,6 @@ function Tooltip({
 	const shouldAlwaysFadeInStable = useStableRef(shouldAlwaysFadeIn);
 
 	const start = useCallback((api: API) => {
-		// @ts-ignore
 		apiRef.current = api;
 		hasCalledShowHandler.current = false;
 	}, []);
@@ -144,9 +141,8 @@ function Tooltip({
 		if (hasCalledShowHandler.current) {
 			onHideHandlerStable.current();
 		}
-		// @ts-ignore
+
 		apiRef.current = null;
-		// @ts-ignore
 		hasCalledShowHandler.current = false;
 		// just in case
 		setState('hide');
@@ -161,7 +157,6 @@ function Tooltip({
 		if (hasCalledShowHandler.current) {
 			onHideHandlerStable.current();
 		}
-		// @ts-ignore
 		apiRef.current = null;
 	}, [onHideHandlerStable]);
 	useEffect(
@@ -256,9 +251,7 @@ function Tooltip({
 					}
 				},
 				done,
-				shouldAlwaysFadeIn: fg('platform_dst_nav4_side_nav_resize_tooltip_feedback')
-					? shouldAlwaysFadeInStable.current
-					: false,
+				shouldAlwaysFadeIn: shouldAlwaysFadeInStable.current,
 			};
 
 			const api: API = show(entry);
@@ -339,15 +332,6 @@ function Tooltip({
 			const source: Source = isMousePosition
 				? {
 						type: 'mouse',
-						// TODO: ideally not recalculating this object each time
-						// Removing old `mouse` behind gate because it stored a function.
-						// With the gate we just store the coords which are easier to work with.
-						mouse: fg('platform_dst_nav4_side_nav_resize_tooltip_feedback')
-							? undefined
-							: getMousePosition({
-									left: event.clientX,
-									top: event.clientY,
-								}),
 						clientX: event.clientX,
 						clientY: event.clientY,
 					}
@@ -385,12 +369,6 @@ function Tooltip({
 	const onMouseMove = isMousePosition
 		? (event: React.MouseEvent<HTMLElement>) => {
 				if (apiRef.current?.isActive()) {
-					if (!fg('platform_dst_nav4_side_nav_resize_tooltip_feedback')) {
-						apiRef.current.mousePosition = getMousePosition({
-							left: event.clientX,
-							top: event.clientY,
-						});
-					}
 					apiRef.current.mousePos = { clientX: event.clientX, clientY: event.clientY };
 				}
 			}
@@ -433,7 +411,6 @@ function Tooltip({
 		(transition: Transition) => {
 			// Using lastState here because motion is not picking up the latest value
 			if (transition === 'exiting' && stableState.current === 'fade-out' && apiRef.current) {
-				// @ts-ignore: refs are writeable
 				apiRef.current.finishHideAnimation();
 			}
 		},
@@ -467,25 +444,12 @@ function Tooltip({
 		onClose: handleOpenLayerObserverCloseSignal,
 	});
 
-	const getReferenceElement = (): HTMLElement | VirtualElement | FakeMouseElement | undefined => {
-		if (
-			isMousePosition &&
-			apiRef.current?.mousePos &&
-			targetRef.current &&
-			fg('platform_dst_nav4_side_nav_resize_tooltip_feedback')
-		) {
+	const getReferenceElement = (): HTMLElement | VirtualElement | undefined => {
+		if (isMousePosition && apiRef.current?.mousePos && targetRef.current) {
 			return getVirtualElementFromMousePos(apiRef.current.mousePos, {
 				targetElement: targetRef.current,
 				tooltipPosition: position,
 			});
-		}
-
-		if (
-			isMousePosition &&
-			apiRef.current?.mousePosition &&
-			!fg('platform_dst_nav4_side_nav_resize_tooltip_feedback')
-		) {
-			return apiRef.current?.mousePosition;
 		}
 
 		return targetRef.current || undefined;
@@ -540,10 +504,7 @@ function Tooltip({
 		</span>
 	) : null;
 
-	const PopperWrapper =
-		UNSAFE_shouldRenderToParent && fg('platform_dst_nav4_side_nav_resize_tooltip_feedback')
-			? Fragment
-			: TooltipPortal;
+	const PopperWrapper = UNSAFE_shouldRenderToParent ? Fragment : TooltipPortal;
 
 	return (
 		<>

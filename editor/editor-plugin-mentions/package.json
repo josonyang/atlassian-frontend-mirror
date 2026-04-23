@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-plugin-mentions",
-	"version": "12.0.2",
+	"version": "12.1.2",
 	"description": "Mentions plugin for @atlaskit/editor-core",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -114,9 +114,6 @@
 			"type": "boolean"
 		},
 		"platform_editor_adf_with_localid": {
-			"type": "boolean"
-		},
-		"dst-a11y__replace-anchor-with-link__editor-ai": {
 			"type": "boolean"
 		},
 		"jira_invites_auto_tag_new_user_in_mentions_fg": {

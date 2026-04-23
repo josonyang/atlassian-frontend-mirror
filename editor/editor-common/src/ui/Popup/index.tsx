@@ -7,6 +7,7 @@ import { createPortal, flushSync } from 'react-dom';
 
 import { akEditorFloatingPanelZIndex } from '@atlaskit/editor-shared-styles';
 import { fg } from '@atlaskit/platform-feature-flags';
+import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
 import type { Position } from './utils';
@@ -66,7 +67,6 @@ export interface State {
 // eslint-disable-next-line @repo/internal/react/no-class-components
 export default class Popup extends React.Component<Props, State> {
 	scrollElement: undefined | false | HTMLElement;
-	scrollParentElement: undefined | false | HTMLElement;
 	rafIds: Set<number> = new Set();
 	static defaultProps: {
 		allowOutOfBound: boolean;
@@ -141,6 +141,10 @@ export default class Popup extends React.Component<Props, State> {
 			rect,
 			boundariesElement: boundariesElement || document.body,
 			minPopupMargin,
+			scrollableElement:
+				stick && expValEquals('platform_editor_fix_scrolling_popup_position', 'isEnabled', true)
+					? this.scrollElement
+					: undefined,
 		});
 		position = onPositionCalculated ? onPositionCalculated(position) : position;
 
@@ -341,13 +345,25 @@ export default class Popup extends React.Component<Props, State> {
 
 		// Ignored via go/ees005
 		// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-		this.scrollParentElement = findOverflowScrollParent(this.props.target!);
-		if (this.scrollParentElement && this.resizeObserver) {
-			this.resizeObserver.observe(this.scrollParentElement);
+		const target = this.props.target!;
+
+		// Resolve the effective scroll parent: prefer the explicitly provided scrollableElement
+		// prop over the auto-detected ancestor. Allows product consumers to provide the correct
+		// scroll container (e.g. a modal body) when auto-detection can't find it.
+		const scrollParentElement = expValEquals(
+			'platform_editor_fix_scrolling_popup_position',
+			'isEnabled',
+			true,
+		)
+			? this.props.scrollableElement || findOverflowScrollParent(target)
+			: findOverflowScrollParent(target);
+
+		if (scrollParentElement && this.resizeObserver) {
+			this.resizeObserver.observe(scrollParentElement);
 		}
 
 		if (stick) {
-			this.scrollElement = this.scrollParentElement;
+			this.scrollElement = scrollParentElement;
 		} else {
 			this.scrollElement = this.props.scrollableElement;
 		}

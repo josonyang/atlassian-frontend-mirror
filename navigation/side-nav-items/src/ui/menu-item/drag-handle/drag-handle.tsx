@@ -33,6 +33,9 @@ const styles = cssMap({
 });
 
 // Using default export to play well with React.lazy
+export { DragHandle };
+
+// Remove the "default" when "navx-4718-inline-drag-handle" is cleaned up
 export default function DragHandle(): JSX.Element {
 	return (
 		<div css={styles.root} aria-hidden="true">

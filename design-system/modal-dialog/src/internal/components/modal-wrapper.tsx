@@ -85,6 +85,7 @@ const InternalModalWrapper = (props: InternalModalWrapperProps): JSX.Element => 
 		label,
 		testId,
 		isFullScreen,
+		UNSAFE_shouldDisableMotionUplift = false,
 	} = props;
 
 	const calculatedStackIndex = useModalStack({ onStackChange });
@@ -94,11 +95,7 @@ const InternalModalWrapper = (props: InternalModalWrapperProps): JSX.Element => 
 	// When a user supplies a ref to focus we skip auto focus via react-focus-lock
 	// When flag is true and a ref is not supplied, autofocus is true. See https://product-fabric.atlassian.net/browse/DSP-24307
 	// When we remove boolean `autoFocus`, we won't have to worry about this
-	const autoFocusLock = fg('platform_dst_autofocus-never-false-2')
-		? typeof autoFocus === 'boolean'
-		: typeof autoFocus === 'boolean'
-			? autoFocus
-			: false;
+	const autoFocusLock = typeof autoFocus === 'boolean';
 
 	const onCloseHandler = usePlatformLeafEventHandler({
 		fn: providedOnClose || noop,
@@ -155,6 +152,7 @@ const InternalModalWrapper = (props: InternalModalWrapperProps): JSX.Element => 
 				onOpenComplete={onOpenComplete}
 				hasProvidedOnClose={Boolean(providedOnClose)}
 				isFullScreen={isFullScreen}
+				UNSAFE_shouldDisableMotionUplift={UNSAFE_shouldDisableMotionUplift}
 			>
 				{children}
 			</ModalDialog>
@@ -177,7 +175,7 @@ const InternalModalWrapper = (props: InternalModalWrapperProps): JSX.Element => 
 	return (
 		<Layering isDisabled={false}>
 			<Portal zIndex={layers.modal()}>
-				{fg('platform-dst-motion-uplift') ? (
+				{!UNSAFE_shouldDisableMotionUplift && fg('platform-dst-motion-uplift') ? (
 					<Motion
 						enteringAnimation={token('motion.blanket.enter')}
 						exitingAnimation={token('motion.blanket.exit')}

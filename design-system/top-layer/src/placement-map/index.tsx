@@ -1,5 +1,4 @@
-import { type TPlacement } from '../internal/resolve-placement';
-import { type TPlacementOptions } from '../popup/types';
+import { type TPlacementOptions } from '../internal/resolve-placement';
 
 /**
  * Legacy Popper.js placement values (used by `@atlaskit/popper`, `@atlaskit/popup`,
@@ -60,7 +59,7 @@ export type TLegacyPlacement =
  * // newPlacement === { axis: 'block', edge: 'end', align: 'start' }
  * ```
  */
-const placementMapping: Record<TLegacyPlacement, TPlacement> = {
+const placementMapping: Record<TLegacyPlacement, TPlacementOptions> = {
 	top: { axis: 'block', edge: 'start', align: 'center' },
 	'top-start': { axis: 'block', edge: 'start', align: 'start' },
 	'top-center': { axis: 'block', edge: 'start', align: 'center' },
@@ -81,10 +80,40 @@ const placementMapping: Record<TLegacyPlacement, TPlacement> = {
 };
 
 /**
- * Convert a legacy Popper.js placement to the new CSS `position-area`-based Placement.
+ * Convert a legacy Popper.js placement to the new `position-area`-based Placement.
+ * Optional `offset` is the legacy Popper `[along, away]` tuple (also known as
+ * `[skidding, distance]`); negative `along` becomes `direction: 'backwards'`.
+ *
+ * The tuple keeps the historical popper names so call sites that already pass
+ * `[along, away]` migrate without thinking; the new internal field names
+ * (`gap` / `crossAxisShift`) are produced inside this adapter.
  */
-export function fromLegacyPlacement({ legacy }: { legacy: TLegacyPlacement }): TPlacementOptions {
-	return placementMapping[legacy];
+export function fromLegacyPlacement({
+	legacy,
+	offset,
+}: {
+	legacy: TLegacyPlacement;
+	offset?: [along: number, away: number];
+}): TPlacementOptions {
+	const basePlacement = placementMapping[legacy];
+
+	if (!offset) {
+		return basePlacement;
+	}
+
+	const [along, away] = offset;
+
+	return {
+		...basePlacement,
+		offset: {
+			gap: away,
+			crossAxisShift: {
+				// Sign is captured in `direction`; `value` is the magnitude.
+				value: Math.abs(along),
+				direction: along >= 0 ? 'forwards' : 'backwards',
+			},
+		},
+	};
 }
 
 /**

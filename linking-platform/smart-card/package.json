@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/smart-card",
-	"version": "44.3.2",
+	"version": "44.3.6",
 	"description": "Smart card component",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -224,9 +224,6 @@
 			"type": "boolean"
 		},
 		"navx-2478-sl-fix-hover-card-unresolved-view": {
-			"type": "boolean"
-		},
-		"platform_navx_flex_card_status_dropdown_a11y_fix": {
 			"type": "boolean"
 		},
 		"platform_sl_3p_auth_rovo_action_kill_switch": {

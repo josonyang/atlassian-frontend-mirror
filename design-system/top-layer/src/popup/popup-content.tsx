@@ -40,7 +40,6 @@ export const PopupContent = forwardRef<HTMLDivElement, TPopupContentProps>(funct
 		placement: placementProp,
 		onClose: onCloseProp,
 		testId: testIdProp,
-		offset: offsetProp,
 		forceFallbackPositioning: forceFallbackPositioningProp,
 	},
 	ref,
@@ -138,7 +137,6 @@ export const PopupContent = forwardRef<HTMLDivElement, TPopupContentProps>(funct
 		anchorRef: triggerRef ?? { current: null },
 		popoverRef,
 		placement,
-		offset: offsetProp,
 		forceFallbackPositioning,
 		arrow: arrowPreset ?? undefined,
 	});

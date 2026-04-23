@@ -470,7 +470,6 @@ export const DragHandle = ({
 	const [dragHandleSelected, setDragHandleSelected] = useState(false);
 	const [dragHandleDisabled, setDragHandleDisabled] = useState(false);
 	const [blockCardWidth, setBlockCardWidth] = useState(768);
-	const [recalculatePosition, setRecalculatePosition] = useState<boolean>(false);
 	const [positionStylesOld, setPositionStylesOld] = useState<CSSProperties>({ display: 'none' });
 	const [isFocused, setIsFocused] = useState(Boolean(handleOptions?.isFocused));
 	const { macroInteractionUpdates, selection, isShiftDown, interactionState } =
@@ -514,9 +513,6 @@ export const DragHandle = ({
 		: isTopLevelNode;
 
 	useEffect(() => {
-		if (editorExperiment('platform_editor_block_control_optimise_render', true)) {
-			return;
-		}
 		// blockCard/datasource width is rendered correctly after this decoraton does. We need to observe for changes.
 		if (nodeType === 'blockCard') {
 			const dom: HTMLElement | null = view.dom.querySelector(
@@ -939,117 +935,6 @@ export const DragHandle = ({
 		});
 	}, [anchorName, api, getPos, isMultiSelect, nodeType, start, view]);
 
-	const positionStyles = useMemo(() => {
-		if (!editorExperiment('platform_editor_block_control_optimise_render', true)) {
-			return {};
-		}
-
-		// This is a no-op to allow recalculatePosition to be used as a dependency
-		if (recalculatePosition) {
-			setRecalculatePosition(recalculatePosition);
-		}
-
-		const pos = getPos();
-		const $pos = expValEquals('platform_editor_native_anchor_with_dnd', 'isEnabled', true)
-			? typeof pos === 'number' && view.state.doc.resolve(pos)
-			: pos && view.state.doc.resolve(pos);
-		const parentPos = $pos && $pos.depth ? $pos.before() : undefined;
-		const node = parentPos !== undefined ? view.state.doc.nodeAt(parentPos) : undefined;
-		const parentNodeType = node?.type.name;
-		const supportsAnchor =
-			CSS.supports('top', `anchor(${anchorName} start)`) &&
-			CSS.supports('left', `anchor(${anchorName} start)`);
-
-		const safeAnchorName = editorExperiment('platform_editor_controls', 'variant1')
-			? refreshAnchorName({ getPos, view, anchorName })
-			: anchorName;
-
-		const dom: HTMLElement | null = view.dom.querySelector(
-			`[${getAnchorAttrName()}="${safeAnchorName}"]`,
-		);
-
-		const hasResizer = nodeType === 'table' || nodeType === 'mediaSingle';
-		const isExtension =
-			nodeType === 'extension' ||
-			nodeType === 'bodiedExtension' ||
-			nodeType === 'multiBodiedExtension';
-		const isBlockCard = nodeType === 'blockCard';
-
-		const isEmbedCard = nodeType === 'embedCard';
-
-		const isMacroInteractionUpdates = macroInteractionUpdates && isExtension;
-
-		let innerContainer: HTMLElement | null = null;
-		if (dom) {
-			if (isEmbedCard) {
-				innerContainer = dom.querySelector('.rich-media-item');
-			} else if (hasResizer) {
-				innerContainer = dom.querySelector('.resizer-item');
-			} else if (isExtension) {
-				innerContainer = dom.querySelector('.extension-container[data-layout]');
-			} else if (isBlockCard) {
-				//specific to datasource blockCard
-				innerContainer = dom.querySelector('.datasourceView-content-inner-wrap');
-			}
-		}
-
-		const isEdgeCase = (hasResizer || isExtension || isEmbedCard || isBlockCard) && innerContainer;
-		const isSticky = shouldBeSticky(nodeType);
-
-		if (supportsAnchor) {
-			const bottom = editorExperiment('platform_editor_controls', 'variant1')
-				? getControlBottomCSSValue(safeAnchorName, isSticky, isTopLevelNodeValue, isLayoutColumn)
-				: {};
-
-			return {
-				left: isEdgeCase
-					? `calc(anchor(${safeAnchorName} start) + ${getLeftPosition(dom, nodeType, innerContainer, isMacroInteractionUpdates, parentNodeType)})`
-					: editorExperiment('advanced_layouts', true) && isLayoutColumn
-						? `calc((anchor(${safeAnchorName} right) + anchor(${safeAnchorName} left))/2 - ${DRAG_HANDLE_HEIGHT / 2}px)`
-						: `calc(anchor(${safeAnchorName} start) - ${DRAG_HANDLE_WIDTH}px - ${dragHandleGap(nodeType, parentNodeType)}px)`,
-
-				top:
-					editorExperiment('advanced_layouts', true) && isLayoutColumn
-						? `calc(anchor(${safeAnchorName} top) - ${DRAG_HANDLE_WIDTH}px)`
-						: `calc(anchor(${safeAnchorName} start) + ${topPositionAdjustment(
-								expValEquals('platform_editor_native_anchor_with_dnd', 'isEnabled', true)
-									? ($pos && $pos.nodeAfter && getNodeTypeWithLevel($pos.nodeAfter)) || nodeType
-									: nodeType,
-								dom?.getAttribute('layout') || '',
-							)}px)`,
-
-				...bottom,
-			};
-		}
-
-		const height = editorExperiment('platform_editor_controls', 'variant1')
-			? getControlHeightCSSValue(
-					getNodeHeight(dom, safeAnchorName, anchorRectCache) || 0,
-					isSticky,
-					isTopLevelNodeValue,
-					`${DRAG_HANDLE_HEIGHT}`,
-					isLayoutColumn,
-				)
-			: {};
-		return {
-			left: isEdgeCase
-				? `calc(${dom?.offsetLeft || 0}px + ${getLeftPosition(dom, nodeType, innerContainer, isMacroInteractionUpdates, parentNodeType)})`
-				: getLeftPosition(dom, nodeType, innerContainer, isMacroInteractionUpdates, parentNodeType),
-			top: getTopPosition(dom, nodeType),
-			...height,
-		};
-	}, [
-		anchorName,
-		getPos,
-		view,
-		nodeType,
-		macroInteractionUpdates,
-		anchorRectCache,
-		isTopLevelNodeValue,
-		isLayoutColumn,
-		recalculatePosition,
-	]);
-
 	const calculatePositionOld = useCallback(() => {
 		const pos = getPos();
 		const $pos = expValEquals('platform_editor_native_anchor_with_dnd', 'isEnabled', true)
@@ -1152,10 +1037,6 @@ export const DragHandle = ({
 	]);
 
 	useEffect(() => {
-		if (editorExperiment('platform_editor_block_control_optimise_render', true)) {
-			return;
-		}
-
 		let cleanUpTransitionListener: () => void;
 
 		if (nodeType === 'extension' || nodeType === 'embedCard') {
@@ -1183,42 +1064,13 @@ export const DragHandle = ({
 	}, [calculatePositionOld, view.dom, anchorName, nodeType]);
 
 	useEffect(() => {
-		if (!editorExperiment('platform_editor_block_control_optimise_render', true)) {
-			return;
-		}
-
-		let cleanUpTransitionListener: () => void;
-
-		if (nodeType === 'extension' || nodeType === 'embedCard') {
-			const dom: HTMLElement | null = view.dom.querySelector(
-				`[${getAnchorAttrName()}="${anchorName}"]`,
-			);
-			if (!dom) {
-				return;
-			}
-			cleanUpTransitionListener = bind(dom, {
-				type: 'transitionend',
-				listener: () => {
-					setRecalculatePosition(!recalculatePosition);
-				},
-			});
-		}
-
-		return () => {
-			cleanUpTransitionListener?.();
-		};
-	}, [view, anchorName, nodeType, recalculatePosition]);
-
-	useEffect(() => {
 		if (handleOptions?.isFocused && buttonRef.current) {
 			const id = requestAnimationFrame(() => {
 				buttonRef.current?.focus();
 			});
 			return () => {
 				cancelAnimationFrame(id);
-				if (!editorExperiment('platform_editor_block_control_optimise_render', true)) {
-					view.focus();
-				}
+				view.focus();
 			};
 		}
 	}, [buttonRef, handleOptions?.isFocused, view]);
@@ -1411,13 +1263,7 @@ export const DragHandle = ({
 			]}
 			ref={buttonRef}
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
-			style={
-				!editorExperiment('platform_editor_controls', 'variant1')
-					? editorExperiment('platform_editor_block_control_optimise_render', true)
-						? positionStyles
-						: positionStylesOld
-					: {}
-			}
+			style={!editorExperiment('platform_editor_controls', 'variant1') ? positionStylesOld : {}}
 			onMouseDown={
 				expValEqualsNoExposure('platform_editor_selection_toolbar_block_handle', 'isEnabled', true)
 					? handleMouseDown
@@ -1478,11 +1324,7 @@ export const DragHandle = ({
 	const stickyWithTooltip = () => (
 		<Box
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop
-			style={
-				editorExperiment('platform_editor_block_control_optimise_render', true)
-					? positionStyles
-					: positionStylesOld
-			}
+			style={positionStylesOld}
 			// eslint-disable-next-line @atlassian/perf-linting/no-unstable-inline-props -- Ignored via go/ees017 (to be fixed)
 			xcss={[dragHandleContainerStyles]}
 			as="span"
@@ -1528,11 +1370,7 @@ export const DragHandle = ({
 	const stickyWithoutTooltip = () => (
 		<Box
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop
-			style={
-				editorExperiment('platform_editor_block_control_optimise_render', true)
-					? positionStyles
-					: positionStylesOld
-			}
+			style={positionStylesOld}
 			// eslint-disable-next-line @atlassian/perf-linting/no-unstable-inline-props -- Ignored via go/ees017 (to be fixed)
 			xcss={[dragHandleContainerStyles]}
 			as="span"

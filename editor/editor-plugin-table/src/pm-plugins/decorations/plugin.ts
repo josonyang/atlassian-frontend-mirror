@@ -32,7 +32,6 @@ export const handleDocOrSelectionChanged = (
 	const isResizing = tableWidthPluginKey.getState(newState)?.resizing;
 	const wasResizing = tableWidthPluginKey.getState(oldState)?.resizing;
 	const {
-		isDragAndDropEnabled = false,
 		isInDanger,
 		isTableHovered,
 	} = tablePluginKey.getState(newState) || {};
@@ -43,13 +42,7 @@ export const handleDocOrSelectionChanged = (
 	if (isResizing) {
 		return DecorationSet.empty;
 	} else if (tr.docChanged || tr.selection instanceof CellSelection || changedResizing) {
-		return buildColumnControlsDecorations({
-			decorationSet,
-			tr,
-			options: {
-				isDragAndDropEnabled,
-			},
-		});
+		return buildColumnControlsDecorations({ decorationSet, tr });
 	} else if (tr.selectionSet) {
 		const isTransactionFromMouseClick = !tr.docChanged && tr.selectionSet && tr.getMeta('pointer');
 		if (isTransactionFromMouseClick || oldState.selection instanceof CellSelection) {
@@ -64,13 +57,7 @@ export const handleDocOrSelectionChanged = (
 			(!insideTable(newState) ||
 				findTable(newState.selection)?.node !== findTable(oldState.selection)?.node)
 		) {
-			return buildColumnControlsDecorations({
-				decorationSet,
-				tr,
-				options: {
-					isDragAndDropEnabled,
-				},
-			});
+			return buildColumnControlsDecorations({ decorationSet, tr });
 		}
 	}
 

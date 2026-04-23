@@ -1,5 +1,31 @@
 # @atlaskit/icon-lab
 
+## 6.6.0
+
+### Minor Changes
+
+- [`a8a1708dfe5e6`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/a8a1708dfe5e6) -
+  This release adds and updates icons in `@atlaskit/icon-lab`.
+
+  ### Added:
+
+  **`@atlaskit/icon-lab/core`**
+  - `data-lake`
+  - `deployed-service`
+  - `file-markdown`
+  - `file-text`
+  - `hierarchy`
+  - `view-split`
+
+  ### Updated:
+
+  **`@atlaskit/icon-lab/core`**
+  - `teamwork-graph`
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 6.5.0
 
 ### Minor Changes

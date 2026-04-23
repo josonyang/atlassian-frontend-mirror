@@ -1,5 +1,38 @@
 # @atlaskit/editor-plugin-card
 
+## 16.3.0
+
+### Minor Changes
+
+- [`85699a44bd1f8`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/85699a44bd1f8) -
+  Add Confluence short-link URL expansion for native embeds. When a Confluence short link
+  (`/wiki/x/<token>`) is pasted, it is resolved to its canonical page URL via the Object Resolver
+  Service before matching against registered experience manifests, gated behind
+  `platform-native-embeds-short-link-expansion`.
+  - `NativeEmbedFacade`: new `expandShortLink`, `getExperienceIdFromUrlAsync`, and `setCardClient`
+    methods; `createExperienceForUrl` now expands short links before manifest matching.
+  - `editor-plugin-card`: exposes `resolveShortLinkUrl` action; `replaceQueuedUrlWithCard` supports
+    async `EmbedCardNodeTransformer` return values.
+  - `editor-plugin-native-embeds`: wires `cardClient` from config and passes `api` to
+    `cardToNativeEmbedNode` for async short-link resolution.
+  - `editor-common`: `EmbedCardNodeTransformer` type updated to allow `Promise` return;
+    `CardPluginActions` extended with `resolveShortLinkUrl`.
+
+### Patch Changes
+
+- Updated dependencies
+
+## 16.2.0
+
+### Minor Changes
+
+- [`e5cdd96dcf4f9`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/e5cdd96dcf4f9) -
+  Clean up platform_editor_hydratable_ui experiment (shipped as enabled)
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 16.1.0
 
 ### Minor Changes

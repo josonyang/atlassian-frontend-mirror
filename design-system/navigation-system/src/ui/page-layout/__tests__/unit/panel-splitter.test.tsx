@@ -636,30 +636,12 @@ describe('PanelSplitter', () => {
 
 	describe('splitter styles', () => {
 		// We are testing these styles directly as they can't be asserted in a VR test.
-		it('should delay showing the panel splitter on hover', () => {
-			render(<TestComponent />);
-
-			const splitter = screen.getByTestId('panel-splitter');
-
-			expect(splitter).toHaveCompiledCss('transition-delay', '.2s', { target: ':hover' });
-		});
-
-		// We are testing these styles directly as they can't be asserted in a VR test.
-		it('should show the panel splitter slower than when hiding', () => {
-			render(<TestComponent />);
-
-			const splitter = screen.getByTestId('panel-splitter');
-
-			expect(splitter).toHaveCompiledCss('transition-duration', '.2s', { target: ':hover' });
-		});
-
-		// We are testing these styles directly as they can't be asserted in a VR test.
 		it('should hide the panel splitter faster than when showing', () => {
 			render(<TestComponent />);
 
 			const splitter = screen.getByTestId('panel-splitter');
 
-			expect(splitter).toHaveCompiledCss('transition-duration', '.1s');
+			expect(splitter).toHaveCompiledCss('transition-duration', '.15s');
 		});
 
 		// We are testing these styles directly as they can't be asserted in a VR test.
@@ -672,7 +654,7 @@ describe('PanelSplitter', () => {
 			const splitter = screen.getByTestId('panel-splitter');
 
 			expect(splitter).toHaveCompiledCss({
-				transitionDelay: '0ms',
+				transitionDelay: '.3s',
 			});
 		});
 
@@ -682,7 +664,7 @@ describe('PanelSplitter', () => {
 
 			const splitter = screen.getByTestId('panel-splitter');
 
-			expect(splitter).toHaveCompiledCss('transition-delay', '0ms');
+			expect(splitter).toHaveCompiledCss('transition-delay', '.3s');
 		});
 	});
 
@@ -915,8 +897,11 @@ describe('PanelSplitter', () => {
 				jest.runAllTimers();
 			});
 
+			// Using `hidden: true` because the panel splitter is only visible above 48rem width
+			// but there isn't proper support for media query styles in JSDOM,
+			// so it thinks it is hidden.
 			expect(
-				await screen.findByRole('tooltip', { name: 'Double click to collapse' }),
+				await screen.findByRole('tooltip', { name: 'Double click to collapse', hidden: true }),
 			).toBeInTheDocument();
 		});
 
@@ -929,7 +914,10 @@ describe('PanelSplitter', () => {
 				jest.runAllTimers();
 			});
 
-			expect(screen.queryByRole('tooltip')).not.toBeInTheDocument();
+			// Using `hidden: true` because the panel splitter is only visible above 48rem width
+			// but there isn't proper support for media query styles in JSDOM,
+			// so it thinks it is hidden.
+			expect(screen.queryByRole('tooltip', { hidden: true })).not.toBeInTheDocument();
 		});
 
 		it('should display tooltip shortcuts when the shortcut prop is provided to the provider', async () => {
@@ -941,100 +929,100 @@ describe('PanelSplitter', () => {
 				jest.runAllTimers();
 			});
 
+			// Using `hidden: true` because the panel splitter is only visible above 48rem width
+			// but there isn't proper support for media query styles in JSDOM,
+			// so it thinks it is hidden.
 			expect(
-				await screen.findByRole('tooltip', { name: 'Double click to collapse Ctrl [' }),
+				await screen.findByRole('tooltip', {
+					name: 'Double click to collapse Ctrl [',
+					hidden: true,
+				}),
 			).toBeInTheDocument();
 		});
 
-		ffTest.on(
-			'platform_dst_nav4_side_nav_resize_tooltip_feedback',
-			'when tooltip feedback flag is on',
-			() => {
-				describe('transform value handling', () => {
-					const originalPopper = popperModule.Popper;
-					const popperSpy = jest.spyOn(popperModule, 'Popper');
+		describe('transform value handling', () => {
+			const originalPopper = popperModule.Popper;
+			const popperSpy = jest.spyOn(popperModule, 'Popper');
 
-					let transform = 'translate3d(0px, 0px, 0px)';
-					popperSpy.mockImplementation((props: CustomPopperProps<unknown>) => {
-						const children = props.children;
-						if (!children) {
-							return originalPopper(props);
-						}
-						return originalPopper({
-							...props,
-							children: (childProps: PopperChildrenProps) =>
-								children({
-									...childProps,
-									style: {
-										...childProps.style,
+			let transform = 'translate3d(0px, 0px, 0px)';
+			popperSpy.mockImplementation((props: CustomPopperProps<unknown>) => {
+				const children = props.children;
+				if (!children) {
+					return originalPopper(props);
+				}
+				return originalPopper({
+					...props,
+					children: (childProps: PopperChildrenProps) =>
+						children({
+							...childProps,
+							style: {
+								...childProps.style,
 
-										transform,
-									},
-								}),
-						});
-					});
-
-					afterAll(() => {
-						popperSpy.mockRestore();
-					});
-
-					it('should preserve integer transformX and transformY values in the modified transform', async () => {
-						transform = 'translate3d(308px, 123px, 0)';
-
-						const user = createUser();
-						render(<TestComponent tooltipContent="Double click to collapse" />);
-
-						await user.hover(screen.getByTestId('panel-splitter'));
-						act(() => {
-							jest.runAllTimers();
-						});
-
-						const tooltipContainer = screen.getByTestId('panel-splitter-tooltip--wrapper');
-						// The integer transformX and transformY values are preserved in the modified transform
-						expect((tooltipContainer as HTMLElement).style.transform).toMatchInlineSnapshot(
-							`"translate3d(308px, max(calc(calc(var(--n_bnrM, 0px) + var(--n_tNvM, 0px)) + var(--ds-space-100, 8px)), 123px), 0)"`,
-						);
-					});
-
-					it('should preserve non-integer transformX and transformY values in the modified transform', async () => {
-						// Non-integer values like these can occur in real browsers due to scaling
-						transform = 'translate3d(308.5px, 123.7px, 0)';
-
-						const user = createUser();
-						render(<TestComponent tooltipContent="Double click to collapse" />);
-
-						await user.hover(screen.getByTestId('panel-splitter'));
-						act(() => {
-							jest.runAllTimers();
-						});
-
-						const tooltipContainer = screen.getByTestId('panel-splitter-tooltip--wrapper');
-						// The non-integer transformX and transformY values are preserved in the modified transform
-						expect((tooltipContainer as HTMLElement).style.transform).toMatchInlineSnapshot(
-							`"translate3d(308.5px, max(calc(calc(var(--n_bnrM, 0px) + var(--n_tNvM, 0px)) + var(--ds-space-100, 8px)), 123.7px), 0)"`,
-						);
-					});
-
-					it('should preserve negative transformX and transformY values in the modified transform', async () => {
-						// Non-integer values like these can occur in real browsers due to scaling
-						transform = 'translate3d(-308.5px, -123.7px, 0)';
-
-						const user = createUser();
-						render(<TestComponent tooltipContent="Double click to collapse" />);
-
-						await user.hover(screen.getByTestId('panel-splitter'));
-						act(() => {
-							jest.runAllTimers();
-						});
-
-						const tooltipContainer = screen.getByTestId('panel-splitter-tooltip--wrapper');
-						// The negative transformX and transformY values are preserved in the modified transform
-						expect((tooltipContainer as HTMLElement).style.transform).toMatchInlineSnapshot(
-							`"translate3d(-308.5px, max(calc(calc(var(--n_bnrM, 0px) + var(--n_tNvM, 0px)) + var(--ds-space-100, 8px)), -123.7px), 0)"`,
-						);
-					});
+								transform,
+							},
+						}),
 				});
-			},
-		);
+			});
+
+			afterAll(() => {
+				popperSpy.mockRestore();
+			});
+
+			it('should preserve integer transformX and transformY values in the modified transform', async () => {
+				transform = 'translate3d(308px, 123px, 0)';
+
+				const user = createUser();
+				render(<TestComponent tooltipContent="Double click to collapse" />);
+
+				await act(async () => {
+					await user.hover(screen.getByTestId('panel-splitter'));
+					jest.runAllTimers();
+				});
+
+				const tooltipContainer = screen.getByTestId('panel-splitter-tooltip--wrapper');
+				// The integer transformX and transformY values are preserved in the modified transform
+				expect((tooltipContainer as HTMLElement).style.transform).toMatchInlineSnapshot(
+					`"translate3d(308px, max(calc(calc(var(--n_bnrM, 0px) + var(--n_tNvM, 0px)) + var(--ds-space-100, 8px)), 123px), 0)"`,
+				);
+			});
+
+			it('should preserve non-integer transformX and transformY values in the modified transform', async () => {
+				// Non-integer values like these can occur in real browsers due to scaling
+				transform = 'translate3d(308.5px, 123.7px, 0)';
+
+				const user = createUser();
+				render(<TestComponent tooltipContent="Double click to collapse" />);
+
+				await act(async () => {
+					await user.hover(screen.getByTestId('panel-splitter'));
+					jest.runAllTimers();
+				});
+
+				const tooltipContainer = screen.getByTestId('panel-splitter-tooltip--wrapper');
+				// The non-integer transformX and transformY values are preserved in the modified transform
+				expect((tooltipContainer as HTMLElement).style.transform).toMatchInlineSnapshot(
+					`"translate3d(308.5px, max(calc(calc(var(--n_bnrM, 0px) + var(--n_tNvM, 0px)) + var(--ds-space-100, 8px)), 123.7px), 0)"`,
+				);
+			});
+
+			it('should preserve negative transformX and transformY values in the modified transform', async () => {
+				// Non-integer values like these can occur in real browsers due to scaling
+				transform = 'translate3d(-308.5px, -123.7px, 0)';
+
+				const user = createUser();
+				render(<TestComponent tooltipContent="Double click to collapse" />);
+
+				await act(async () => {
+					await user.hover(screen.getByTestId('panel-splitter'));
+					jest.runAllTimers();
+				});
+
+				const tooltipContainer = screen.getByTestId('panel-splitter-tooltip--wrapper');
+				// The negative transformX and transformY values are preserved in the modified transform
+				expect((tooltipContainer as HTMLElement).style.transform).toMatchInlineSnapshot(
+					`"translate3d(-308.5px, max(calc(calc(var(--n_bnrM, 0px) + var(--n_tNvM, 0px)) + var(--ds-space-100, 8px)), -123.7px), 0)"`,
+				);
+			});
+		});
 	});
 });

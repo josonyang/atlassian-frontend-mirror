@@ -4,13 +4,8 @@ import type { DecorationSet } from '@atlaskit/editor-prosemirror/view';
 
 export type DecorationTransformer = (params: DecorationTransformerParams) => DecorationSet;
 
-type DecorationTransformerParams = {
+export type DecorationTransformerParams = {
 	decorationSet: DecorationSet;
 	tr: Transaction | ReadonlyTransaction;
 };
 
-export type BuildDecorationTransformerParams = DecorationTransformerParams & {
-	options: {
-		isDragAndDropEnabled: boolean;
-	};
-};

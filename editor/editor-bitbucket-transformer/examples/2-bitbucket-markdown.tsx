@@ -1,7 +1,7 @@
 /* eslint-disable no-console */
 
 import React from 'react';
-import { IntlProvider } from 'react-intl-next';
+import { IntlProvider } from 'react-intl';
 
 import { Editor, EditorContext, CollapsedEditor } from '@atlaskit/editor-core';
 import { getMockTaskDecisionResource } from '@atlaskit/util-data-test/task-decision-story-data';

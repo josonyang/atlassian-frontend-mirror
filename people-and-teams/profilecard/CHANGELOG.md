@@ -1,5 +1,24 @@
 # @atlaskit/profilecard
 
+## 25.1.6
+
+### Patch Changes
+
+- [`33a5dcc627271`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/33a5dcc627271) -
+  Updated custom pressables border radius to align with Team 26 US
+
+## 25.1.5
+
+### Patch Changes
+
+- Updated dependencies
+
+## 25.1.4
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 25.1.3
 
 ### Patch Changes

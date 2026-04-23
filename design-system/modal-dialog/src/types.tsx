@@ -139,4 +139,13 @@ export interface ModalDialogProps {
 	 * - Blanket: `{testId}--blanket`
 	 */
 	testId?: string;
+
+	/**
+	 * @internal NOT FOR PUBLIC USE.
+	 * This prop is used to disable the new motion uplift.
+	 * It is strictly only used for cases where the motion uplift is not working as expected.
+	 *
+	 * @warning Use with caution. This prop will be removed in a future release.
+	 */
+	UNSAFE_shouldDisableMotionUplift?: boolean | undefined;
 }

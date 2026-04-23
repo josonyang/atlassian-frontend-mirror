@@ -1,5 +1,13 @@
 # @atlaskit/reactions
 
+## 34.0.1
+
+### Patch Changes
+
+- [`04871bfd6f636`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/04871bfd6f636) -
+  Clean up feature gate `platform_reactions_tooltip_a11y`
+- Updated dependencies
+
 ## 34.0.0
 
 ### Major Changes

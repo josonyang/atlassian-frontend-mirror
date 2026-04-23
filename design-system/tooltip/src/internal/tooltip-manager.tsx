@@ -1,9 +1,3 @@
-import type { VirtualElement } from '@popperjs/core';
-
-import { fg } from '@atlaskit/platform-feature-flags';
-
-import type { FakeMouseElement } from '../types';
-
 let delayId: number | null = null;
 
 function clearScheduled(): void {
@@ -27,7 +21,6 @@ function scheduleTimeout(fn: () => void, delay: number): void {
 export type Source =
 	| {
 			type: 'mouse';
-			mouse?: VirtualElement | FakeMouseElement;
 			clientX: number;
 			clientY: number;
 	  }
@@ -44,7 +37,6 @@ export type Entry = {
 
 export type API = {
 	isActive: () => boolean;
-	mousePosition: VirtualElement | FakeMouseElement | null | undefined;
 	mousePos: Pick<React.MouseEvent<HTMLElement>, 'clientX' | 'clientY'> | null;
 	requestHide: (value: { isImmediate: boolean }) => void;
 	finishHideAnimation: () => void;
@@ -146,17 +138,8 @@ export function show(entry: Entry): API {
 		return phase === 'shown' || phase === 'waiting-to-hide' || phase === 'hide-animating';
 	}
 
-	function getInitialMouse(): VirtualElement | FakeMouseElement | null | undefined {
-		if (entry.source.type === 'mouse') {
-			return entry.source.mouse;
-		}
-		return null;
-	}
-
 	function start() {
-		const shouldAlwaysFadeIn = fg('platform_dst_nav4_side_nav_resize_tooltip_feedback')
-			? entry.shouldAlwaysFadeIn
-			: false;
+		const shouldAlwaysFadeIn = entry.shouldAlwaysFadeIn;
 		const showImmediately: boolean = Boolean(active && active.isVisible()) && !shouldAlwaysFadeIn;
 
 		// If there was an active tooltip; we tell it to remove itself at once!
@@ -195,13 +178,8 @@ export function show(entry: Entry): API {
 		isActive,
 		requestHide,
 		finishHideAnimation,
-		// Removing old `mousePosition` behind gate because it stored a function.
-		// With the gate we just store the coords which are easier to work with.
-		mousePosition: fg('platform_dst_nav4_side_nav_resize_tooltip_feedback')
-			? undefined
-			: getInitialMouse(),
 		mousePos:
-			entry.source.type === 'mouse' && fg('platform_dst_nav4_side_nav_resize_tooltip_feedback')
+			entry.source.type === 'mouse'
 				? { clientX: entry.source.clientX, clientY: entry.source.clientY }
 				: null,
 	};

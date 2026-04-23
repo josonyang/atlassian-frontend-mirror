@@ -1,5 +1,28 @@
 # @atlaskit/editor-plugin-mentions
 
+## 12.1.2
+
+### Patch Changes
+
+- Updated dependencies
+
+## 12.1.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 12.1.0
+
+### Minor Changes
+
+- [`e68ed5fe3e06c`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/e68ed5fe3e06c) -
+  Remove flag to increase accessibility in links.
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 12.0.2
 
 ### Patch Changes

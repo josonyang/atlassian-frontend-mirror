@@ -1,3 +1,17 @@
+/**
+ * Anchor positioning for top-layer popovers. See
+ * `notes/architecture/positioning.md` for the full model.
+ *
+ * Two runtime paths: CSS Anchor Positioning (modern browsers) and a JS
+ * fallback that measures the trigger and writes `top`/`left`.
+ *
+ * Both paths honour `offset.gap` and `offset.crossAxisShift`. The
+ * CSS path passes the values through as strings; the JS fallback resolves
+ * them to pixels via a hidden DOM probe (see `resolveCssLengthToPixels`)
+ * so tokens, `calc()`, `var()`, etc all work. The JS fallback hides the
+ * popover with `opacity: 0` until the first measurement completes, so it
+ * is never painted at the wrong location.
+ */
 import { type RefObject, useId, useLayoutEffect } from 'react';
 
 import { bind } from 'bind-event-listener';
@@ -6,10 +20,11 @@ import rafSchedule from 'raf-schd';
 import once from '@atlaskit/ds-lib/once';
 
 import { type TArrowPreset } from '../arrow/types';
-import { type TPlacementOptions } from '../popup/types';
+import { type TPlacementOptions } from '../internal/resolve-placement';
 
 import { computeFallbackPosition } from './anchor-positioning-fallback';
 import { combine } from './combine';
+import { resolveCssLengthToPixels } from './resolve-css-length-to-pixels';
 import { getPlacement, type TPlacement } from './resolve-placement';
 import { setStyle } from './set-style';
 
@@ -101,6 +116,19 @@ export function placementToTryFallbacks({ placement }: { placement: TPlacementOp
 }
 
 /**
+ * Returns true when the popover is currently open. Wrapped because the
+ * `:popover-open` pseudo-class is not implemented in some test environments
+ * (e.g. jsdom), where `matches` throws on unknown selectors.
+ */
+function isPopoverOpen(popover: HTMLElement): boolean {
+	try {
+		return popover.matches(':popover-open');
+	} catch {
+		return false;
+	}
+}
+
+/**
  * Detects whether the browser supports CSS Anchor Positioning.
  * Uses `once()` for lazy evaluation — safe for SSR and avoids hydration mismatches.
  */
@@ -116,24 +144,18 @@ const supportsAnchorPositioning = once((): boolean => {
 });
 
 /**
- * Default gap between the popover and its trigger (in pixels).
- * Maps to `space.100` (8px) in the design token scale.
- */
-const DEFAULT_OFFSET = 8;
-
-/**
  * Returns the CSS margin declaration that creates a gap between the
  * popover and its trigger on the side facing the anchor.
  *
  * For example, a `block-end` placement (popover below) gets
  * `margin-block-start: 8px` to push it away from the trigger's bottom edge.
  */
-function edgeMargin({ placement, offset }: { placement: TPlacement; offset: number }): {
+function edgeMargin({ placement, offset }: { placement: TPlacement; offset: string }): {
 	property: string;
 	value: string;
 } {
 	const { axis, edge } = placement;
-	const value = `${offset}px`;
+	const value = offset;
 
 	if (axis === 'block' && edge === 'end') {
 		return { property: 'margin-block-start', value };
@@ -148,6 +170,40 @@ function edgeMargin({ placement, offset }: { placement: TPlacement; offset: numb
 		return { property: 'margin-inline-end', value };
 	}
 	return { property: 'margin-block-start', value };
+}
+
+/**
+ * Cross-axis shift margin. Margin side matches the popover's anchored
+ * cross-axis edge: `align: 'start'` uses the START margin, `align: 'end'`
+ * uses the END margin with the sign inverted (so `forwards` is always
+ * positive), `align: 'center'` uses START. Margin on the un-anchored side
+ * has no effect under CSS Anchor Positioning.
+ */
+function crossAxisShiftMargin({
+	placement,
+	crossAxisShiftCssValue,
+	direction,
+}: {
+	placement: TPlacement;
+	crossAxisShiftCssValue: string;
+	direction: 'forwards' | 'backwards';
+}): {
+	property: string;
+	value: string;
+} {
+	const { axis, align } = placement;
+	const directionSign = direction === 'forwards' ? 1 : -1;
+	const crossAxis = axis === 'block' ? 'inline' : 'block';
+	const useEndSide = align === 'end';
+	const side = useEndSide ? 'end' : 'start';
+	const sideSign = useEndSide ? -1 : 1;
+	const finalSign = directionSign * sideSign;
+	// Wrap any string in calc() with the sign factor. CSS handles the math.
+	const value = finalSign === 1 ? crossAxisShiftCssValue : `calc(-1 * ${crossAxisShiftCssValue})`;
+	return {
+		property: `margin-${crossAxis}-${side}`,
+		value,
+	};
 }
 
 /**
@@ -170,7 +226,6 @@ export function useAnchorPosition({
 	anchorRef,
 	popoverRef,
 	placement,
-	offset = DEFAULT_OFFSET,
 	forceFallbackPositioning = false,
 	arrow,
 }: {
@@ -184,13 +239,10 @@ export function useAnchorPosition({
 	popoverRef: RefObject<HTMLElement | null>;
 	/**
 	 * Where to place the element relative to the anchor.
+	 * `offset.gap` and `offset.crossAxisShift` are part of the
+	 * placement object.
 	 */
 	placement: TPlacementOptions;
-	/**
-	 * Gap between the positioned element and the anchor, in pixels.
-	 * Defaults to 8 (`space.100`). Tooltip uses 4.
-	 */
-	offset?: number;
 	/**
 	 * Forces the JavaScript positioning fallback even when the browser
 	 * supports CSS Anchor Positioning. Useful for testing fallback
@@ -218,11 +270,21 @@ export function useAnchorPosition({
 		}
 
 		const resolvedPlacement = getPlacement({ placement });
+		const gapCssValue = resolvedPlacement.offset.gap;
+		const crossAxisShiftCssValue = resolvedPlacement.offset.crossAxisShift.value;
 
 		const shouldForceFallback = Boolean(forceFallbackPositioning);
 
 		if (supportsAnchorPositioning() && !shouldForceFallback) {
-			const gap = edgeMargin({ placement: resolvedPlacement, offset });
+			const gap = edgeMargin({
+				placement: resolvedPlacement,
+				offset: gapCssValue,
+			});
+			const crossAxisShift = crossAxisShiftMargin({
+				placement: resolvedPlacement,
+				crossAxisShiftCssValue,
+				direction: resolvedPlacement.offset.crossAxisShift.direction,
+			});
 
 			const popoverStyles: Array<{ property: string; value: string }> = [
 				{ property: 'position-anchor', value: anchorName },
@@ -240,14 +302,51 @@ export function useAnchorPosition({
 				// with anchor positioning (UA: `inset: 0; margin: auto;`)
 				{ property: 'margin', value: '0' },
 				{ property: 'inset', value: 'auto' },
-				// Gap between the popover and its trigger
+				// Main-axis gap between the popover and its trigger
 				{ property: gap.property, value: gap.value },
+				// Cross-axis shift
+				{ property: crossAxisShift.property, value: crossAxisShift.value },
 			];
+
+			// Surface the active cross-axis shift value as a custom property so
+			// each named arrow @position-try rule can re-apply it after a flip.
+			// The four properties cover (cross-axis, side); only one is non-zero
+			// at a time.
+			popoverStyles.push({ property: '--ds-cross-axis-shift-margin-start', value: '0px' });
+			popoverStyles.push({ property: '--ds-cross-axis-shift-margin-end', value: '0px' });
+			popoverStyles.push({
+				property: '--ds-cross-axis-shift-margin-block-start',
+				value: '0px',
+			});
+			popoverStyles.push({
+				property: '--ds-cross-axis-shift-margin-block-end',
+				value: '0px',
+			});
+			const crossAxisShiftActive = crossAxisShiftMargin({
+				placement: resolvedPlacement,
+				crossAxisShiftCssValue,
+				direction: resolvedPlacement.offset.crossAxisShift.direction,
+			});
+			// Map margin property to its corresponding custom property name.
+			const customPropertyByMarginProperty: Record<string, string> = {
+				'margin-inline-start': '--ds-cross-axis-shift-margin-start',
+				'margin-inline-end': '--ds-cross-axis-shift-margin-end',
+				'margin-block-start': '--ds-cross-axis-shift-margin-block-start',
+				'margin-block-end': '--ds-cross-axis-shift-margin-block-end',
+			};
+			const crossAxisShiftCustomProperty =
+				customPropertyByMarginProperty[crossAxisShiftActive.property];
+			if (crossAxisShiftCustomProperty) {
+				popoverStyles.push({
+					property: crossAxisShiftCustomProperty,
+					value: crossAxisShiftActive.value,
+				});
+			}
 
 			if (arrow) {
 				// Set the arrow size variable used by the injected arrow CSS
 				// and the @position-try rules for margin values.
-				popoverStyles.push({ property: '--ds-arrow-size', value: `${offset}px` });
+				popoverStyles.push({ property: '--ds-arrow-size', value: gapCssValue });
 				// Mark the popover root as the arrow host. The ARROW_CSS targets
 				// [data-ds-popover-arrow] to apply clip-path: inset(0) margin-box
 				// and box-shadow: none. Must be on the popover root (not a child)
@@ -287,43 +386,86 @@ export function useAnchorPosition({
 				height: window.innerHeight,
 			};
 
+			// Resolve consumer-supplied CSS length strings (tokens, calc, var,
+			// px, rem, etc) to pixels. The probe is mounted next to the popover
+			// so it inherits the same custom-property scope and font size.
+			// `popover.parentElement` is guaranteed to exist for any rendered
+			// popover (the popover itself is appended somewhere in the tree),
+			// but fall back to the popover element if not for safety.
+			const probeContainer = popover.parentElement ?? popover;
+			const gapPx = resolveCssLengthToPixels({
+				value: gapCssValue,
+				container: probeContainer,
+			});
+			const crossAxisShiftPx = resolveCssLengthToPixels({
+				value: crossAxisShiftCssValue,
+				container: probeContainer,
+			});
+
 			const { top, left } = computeFallbackPosition({
 				triggerRect,
 				popoverEl: popover,
 				placement: resolvedPlacement,
 				viewport,
-				offset,
+				gap: gapPx,
+				crossAxisShift: {
+					value: crossAxisShiftPx,
+					direction: resolvedPlacement.offset.crossAxisShift.direction,
+				},
 			});
 
 			popover.style.setProperty('top', `${top}px`);
 			popover.style.setProperty('left', `${left}px`);
+			// Reveal the popover only after it has been positioned.
+			// See the toggle listener below for why we hide on open.
+			popover.style.removeProperty('opacity');
 		}
 
 		// Throttle scroll/resize updates to one per animation frame
 		const scheduledUpdate = rafSchedule(update);
 
-		let pendingFrame: number | null = null;
+		// Wait for the FIRST valid layout before measuring: the popover
+		// is `display: none` until `showPopover()`, and some browsers
+		// fire `toggle` before layout, so RAF-after-toggle is unreliable.
+		// ResizeObserver fires once the browser has real dimensions.
+		// Self-disconnects after one valid measurement; ongoing
+		// scroll/resize is handled by the window listeners below.
+		const resizeObserver = new ResizeObserver(() => {
+			if (popover.offsetWidth > 0 && popover.offsetHeight > 0) {
+				update();
+				resizeObserver.disconnect();
+			}
+		});
+
+		// If the popover is already open by the time this effect runs (for
+		// example, the parent `useAnchorPosition` effect runs after the child
+		// `Popover` effect that called `showPopover()`), the initial `toggle`
+		// event has already fired and our listener below would miss it. Start
+		// observing immediately so the first measurement still happens.
+		if (isPopoverOpen(popover)) {
+			popover.style.setProperty('opacity', '0');
+			resizeObserver.observe(popover);
+		}
 
 		const undoPositioning = combine(
 			cleanupBaseStyles,
-			// Position when the popover transitions to visible.
-			// The popover starts hidden (`display: none` per the popover
-			// UA stylesheet), so `offsetWidth`/`offsetHeight` are 0 until
-			// `showPopover()` is called. We defer positioning to the next
-			// animation frame because some browsers (Firefox) fire the
-			// `toggle` event synchronously during `showPopover()`, before
-			// the element has been laid out — so dimensions are still 0.
-			// Waiting one frame guarantees layout has run and measurements
-			// are accurate.
+			// On every open: hide synchronously so the user never sees
+			// the UA-default position, then re-observe for a fresh
+			// measurement. We use `opacity: 0` rather than
+			// `visibility: hidden` because Firefox skips visibility-hidden
+			// elements during `<dialog>` initial-focus traversal — see
+			// `form-in-popup.spec.tsx` on `desktop-firefox`.
 			bind(popover, {
 				type: 'toggle',
 				listener: (event: Event) => {
 					const toggleEvent = event as ToggleEvent;
 					if (toggleEvent.newState === 'open') {
-						pendingFrame = requestAnimationFrame(update);
+						popover.style.setProperty('opacity', '0');
+						resizeObserver.observe(popover);
 					}
 				},
 			}),
+			() => resizeObserver.disconnect(),
 			bind(window, {
 				type: 'scroll',
 				listener: scheduledUpdate,
@@ -336,14 +478,12 @@ export function useAnchorPosition({
 			}),
 			() => {
 				scheduledUpdate.cancel();
-				if (pendingFrame !== null) {
-					cancelAnimationFrame(pendingFrame);
-				}
 				popover.style.removeProperty('top');
 				popover.style.removeProperty('left');
+				popover.style.removeProperty('opacity');
 			},
 		);
 
 		return undoPositioning;
-	}, [anchorRef, popoverRef, placement, anchorName, offset, forceFallbackPositioning, arrow]);
+	}, [anchorRef, popoverRef, placement, anchorName, forceFallbackPositioning, arrow]);
 }

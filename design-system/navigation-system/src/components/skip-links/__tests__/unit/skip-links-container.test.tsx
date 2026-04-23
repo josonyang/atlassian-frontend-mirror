@@ -4,6 +4,7 @@ import { render, screen, within } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 
 import noop from '@atlaskit/ds-lib/noop';
+import { ffTest } from '@atlassian/feature-flags-test-utils';
 import { resetMatchMedia } from '@atlassian/test-utils';
 
 import { useSkipLink } from '../../../../context/skip-links/use-skip-link';
@@ -347,6 +348,50 @@ describe('page layout slots', () => {
 		expect(skipLinksContainer.getByRole('link', { name: 'Skip to panel' })).toBeInTheDocument();
 	});
 });
+
+ffTest.on(
+	'platform_dst_nav4_skip_link_a11y_1',
+	'with skip link a11y improvements',
+	() => {
+		let resetConsoleErrorSpyFn: ResetConsoleErrorFn;
+		beforeAll(() => {
+			// Rendering the `SideNav` causes `parseCss` errors in JSDOM
+			resetConsoleErrorSpyFn = filterFromConsoleErrorOutput(parseCssErrorRegex);
+			resetMatchMedia();
+		});
+
+		afterAll(() => {
+			resetConsoleErrorSpyFn();
+		});
+
+		it('should only render skip links for the SideNav and Main slots', () => {
+			render(
+				<Root testId="root">
+					<Banner height={32}>banner</Banner>
+					<TopNav height={48}>top nav</TopNav>
+					<SideNav defaultWidth={320}>side nav</SideNav>
+					<Main>main</Main>
+					<Aside defaultWidth={200}>aside</Aside>
+					<Panel defaultWidth={200}>panel</Panel>
+				</Root>,
+			);
+
+			const skipLinksContainer = within(screen.getByTestId('root--skip-links-container'));
+
+			expect(skipLinksContainer.getAllByRole('link')).toHaveLength(2);
+			expect(skipLinksContainer.getByRole('link', { name: 'Sidebar' })).toBeInTheDocument();
+			expect(skipLinksContainer.getByRole('link', { name: 'Main content' })).toBeInTheDocument();
+			expect(
+				skipLinksContainer.queryByRole('link', { name: 'Banner' }),
+			).not.toBeInTheDocument();
+			expect(
+				skipLinksContainer.queryByRole('link', { name: 'Top Bar' }),
+			).not.toBeInTheDocument();
+			expect(skipLinksContainer.queryByRole('link', { name: 'Aside' })).not.toBeInTheDocument();
+			expect(skipLinksContainer.queryByRole('link', { name: 'Panel' })).not.toBeInTheDocument();
+		});
+	},
+);
 
 it('should manage focus for the targeted element', async () => {
 	render(

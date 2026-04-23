@@ -16,9 +16,7 @@ test.describe('side nav panel splitter', () => {
 			'navigation-system',
 			'resizable-slots',
 			{
-				// Enabling both feature flags by setting the featureFlag query parameter twice
-				featureFlag:
-					'navx-full-height-sidebar&featureFlag=platform_dst_nav4_side_nav_resize_tooltip_feedback',
+				featureFlag: 'navx-full-height-sidebar',
 			},
 		);
 	});

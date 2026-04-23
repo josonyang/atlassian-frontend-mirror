@@ -210,6 +210,12 @@ export function ChromelessEditorContainer({
 	return (
 		<div
 			css={[chromelessEditorStylesNew, scrollbarStylesNew]}
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
+			className={
+				expValEquals('platform_editor_ai_chromeless_akEditor_class', 'isEnabled', true)
+					? 'akEditor'
+					: undefined
+			}
 			style={{
 				maxHeight: maxHeight ? `${maxHeight}px` : undefined,
 				minHeight: `${minHeight}px`,

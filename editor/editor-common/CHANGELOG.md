@@ -1,5 +1,67 @@
 # @atlaskit/editor-common
 
+## 114.8.0
+
+### Minor Changes
+
+- [`019540f8c0a67`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/019540f8c0a67) -
+  Fix editor popup scroll parent detection for chromeless editor in modals.
+
+  When the `platform_editor_fix_scrolling_popup_position` experiment is enabled, the Popup component
+  now prefers an explicitly provided `scrollableElement` prop over the auto-detected DOM ancestor.
+  This fixes popup positioning (code block language selector, table options, selection toolbar) in
+  chromeless editors embedded within modals, where the scroll container uses `overflow: auto` and
+  cannot be found by the existing `findOverflowScrollParent` utility.
+
+  The pre-computed scroll parent is also threaded through to `calculateVerticalStickTop` and
+  `calculateVerticalStickBottom` to avoid redundant DOM traversal and ensure position calculations
+  use the same element as the scroll event listener.
+
+### Patch Changes
+
+- Updated dependencies
+
+## 114.7.0
+
+### Minor Changes
+
+- [`f25ff7f70d948`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/f25ff7f70d948) -
+  FFCLEANUP-91667 Remove shipped limited-mode experiment from Statsig config; use fixed document
+  thresholds in editor-common for limited-mode detection.
+- [`85699a44bd1f8`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/85699a44bd1f8) -
+  Add Confluence short-link URL expansion for native embeds. When a Confluence short link
+  (`/wiki/x/<token>`) is pasted, it is resolved to its canonical page URL via the Object Resolver
+  Service before matching against registered experience manifests, gated behind
+  `platform-native-embeds-short-link-expansion`.
+  - `NativeEmbedFacade`: new `expandShortLink`, `getExperienceIdFromUrlAsync`, and `setCardClient`
+    methods; `createExperienceForUrl` now expands short links before manifest matching.
+  - `editor-plugin-card`: exposes `resolveShortLinkUrl` action; `replaceQueuedUrlWithCard` supports
+    async `EmbedCardNodeTransformer` return values.
+  - `editor-plugin-native-embeds`: wires `cardClient` from config and passes `api` to
+    `cardToNativeEmbedNode` for async short-link resolution.
+  - `editor-common`: `EmbedCardNodeTransformer` type updated to allow `Promise` return;
+    `CardPluginActions` extended with `resolveShortLinkUrl`.
+
+### Patch Changes
+
+- Updated dependencies
+
+## 114.6.2
+
+### Patch Changes
+
+- Updated dependencies
+
+## 114.6.1
+
+### Patch Changes
+
+- [`2b9e7ab19dd7b`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/2b9e7ab19dd7b) -
+  Update the "Always show title" action label in the native embeds More menu to "Show embed title"
+  to make it clearer that the toggle controls the embed's title visibility (not the page title).
+  Content fix surfaced by content design.
+- Updated dependencies
+
 ## 114.6.0
 
 ### Minor Changes

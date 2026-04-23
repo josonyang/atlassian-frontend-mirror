@@ -1,4 +1,5 @@
 import { waitUntil } from '@atlaskit/elements-test-helpers';
+import { ffTest } from '@atlassian/feature-flags-test-utils';
 import type {
 	OnProviderChange,
 	SecurityOptions,
@@ -262,6 +263,58 @@ describe('UploadingEmojiResource', () => {
 						expect('Should not error').toEqual('but it did');
 					});
 			});
+
+			ffTest('increase-emoji-client-upload-timeout',
+				() => {
+					const siteEmojiResource = sinon.createStubInstance(SiteEmojiResource) as any;
+					const hasUploadTokenStub = siteEmojiResource.hasUploadToken;
+					hasUploadTokenStub.returns(Promise.resolve(true));
+					const uploadEmojiStub = siteEmojiResource.uploadEmoji;
+
+					uploadEmojiStub.returns(
+						new Promise((resolve) => {
+							setTimeout(() => {
+								resolve(mediaEmoji);
+							}, 12000 * 2);
+						}),
+					);
+
+					const emojiResource = new TestUploadingEmojiResource(siteEmojiResource);
+					emojiResource.fetchEmojiProvider();
+					return emojiResource
+						.uploadCustomEmoji(upload, false)
+						.then((emoji) => {
+							expect(emoji).toEqual(mediaEmoji);
+						})
+						.catch(() => {
+							expect('Should not error').toEqual('but it did');
+						});
+				}, () => {
+					const siteEmojiResource = sinon.createStubInstance(SiteEmojiResource) as any;
+					const hasUploadTokenStub = siteEmojiResource.hasUploadToken;
+					hasUploadTokenStub.returns(Promise.resolve(true));
+					const uploadEmojiStub = siteEmojiResource.uploadEmoji;
+
+					uploadEmojiStub.returns(
+						new Promise((resolve) => {
+							setTimeout(() => {
+								resolve(mediaEmoji);
+							}, 12000 * 2);
+						}),
+					);
+
+					const emojiResource = new TestUploadingEmojiResource(siteEmojiResource);
+					emojiResource.fetchEmojiProvider();
+					return emojiResource
+						.uploadCustomEmoji(upload, false)
+						.then(() => {
+							expect('Should not succeed').toEqual('but it did');
+						})
+						.catch((err) => {
+							expect(err.message).toEqual('uploadCustomEmoji timed out');
+						});
+				}
+			)
 		});
 	});
 
@@ -291,7 +344,7 @@ describe('UploadingEmojiResource', () => {
 			emojiResource.fetchEmojiProvider();
 			emojiResource.prepareForUpload();
 			const deleteStub = siteEmojiResource.deleteEmoji;
-			deleteStub.returns(new Promise(() => {}));
+			deleteStub.returns(new Promise(() => { }));
 			emojiResource.deleteSiteEmoji(mediaEmoji);
 			return waitUntil(() => deleteStub.called).then(() => {
 				expect(deleteStub.called).toEqual(true);
@@ -382,12 +435,12 @@ describe('helpers', () => {
 		findInCategory = (_categoryId: string) => Promise.resolve([]);
 		getSelectedTone = () => -1;
 		getMediaEmojiDescriptionURLWithInlineToken = () => Promise.resolve(evilburnsEmoji);
-		setSelectedTone = (_tone: ToneSelection) => {};
+		setSelectedTone = (_tone: ToneSelection) => { };
 		deleteSiteEmoji = (_emoji: EmojiDescription) => Promise.resolve(false);
 		getCurrentUser = () => undefined;
-		filter = (_query?: string, _options?: SearchOptions) => {};
-		subscribe = (_onChange: OnProviderChange<EmojiSearchResult, any, void>) => {};
-		unsubscribe = (_onChange: OnProviderChange<EmojiSearchResult, any, void>) => {};
+		filter = (_query?: string, _options?: SearchOptions) => { };
+		subscribe = (_onChange: OnProviderChange<EmojiSearchResult, any, void>) => { };
+		unsubscribe = (_onChange: OnProviderChange<EmojiSearchResult, any, void>) => { };
 		loadMediaEmoji = () => undefined;
 		optimisticMediaRendering = () => false;
 		getFrequentlyUsed = (_options?: SearchOptions) => Promise.resolve([]);

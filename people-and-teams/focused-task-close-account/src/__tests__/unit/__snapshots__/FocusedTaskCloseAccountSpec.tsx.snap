@@ -13,7 +13,7 @@ exports[`isOpen snapshot 1`] = `
       />
     </DrawerSidebar>
     <DrawerContent>
-      <Styled(div)>
+      <DrawerInner>
         a
         <Footer
           currentScreenIdx={0}
@@ -42,7 +42,7 @@ exports[`isOpen snapshot 1`] = `
             />
           }
         />
-      </Styled(div)>
+      </DrawerInner>
     </DrawerContent>
   </Drawer>
 </injectIntl(MessagesIntlProvider)>

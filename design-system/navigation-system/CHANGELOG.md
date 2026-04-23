@@ -1,5 +1,31 @@
 # @atlassian/navigation-system
 
+## 8.2.0
+
+### Minor Changes
+
+- [`0535fe6d19c87`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/0535fe6d19c87) -
+  Cleans up the `platform_dst_nav4_side_nav_resize_tooltip_feedback` feature gate. The
+  `SideNavPanelSplitter` tooltip now has improved visuals.
+
+### Patch Changes
+
+- Updated dependencies
+
+## 8.1.0
+
+### Minor Changes
+
+- [`6a19433e19f86`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/6a19433e19f86) -
+  Changes to skip links behind the `platform_dst_nav4_skip_link_a11y_1` feature gate:
+  - Visual improvements
+  - Removes skip links for `Banner`, `TopNav`, `Aside` and `Panel` slots
+  - Renames default skip link label for `Main` to 'Main content' (from 'Main Content')
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 8.0.0
 
 ### Major Changes

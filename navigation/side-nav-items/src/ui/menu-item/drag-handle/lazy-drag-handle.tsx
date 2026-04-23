@@ -1,9 +1,10 @@
 import React, { type ComponentType, lazy, Suspense, useEffect, useState } from 'react';
 
+// Remove LazyDragHandle when "navx-4718-inline-drag-handle" is cleaned up.
 /**
  * A wrapper around `React.lazy` that defers rendering until after the component has mounted.
  *
- * This avoids hydration errors because:
+ * We think this avoids hydration errors because:
  * - On the server: `Component` is `null`, so nothing is rendered.
  * - On the first client render (hydration): `Component` is still `null`, matching the server HTML.
  * - After mount: `useEffect` fires, sets the lazy component, and triggers a re-render
@@ -15,6 +16,9 @@ import React, { type ComponentType, lazy, Suspense, useEffect, useState } from '
  *
  * By deferring to after mount, both server and initial client render agree on `null`,
  * and the lazy import + Suspense only kicks in after hydration is complete.
+ *
+ * @private
+ * @deprecated - use DragHandle instead.
  */
 export function LazyDragHandle(): React.JSX.Element | null {
 	const [Component, setComponent] = useState<ComponentType | null>(null);

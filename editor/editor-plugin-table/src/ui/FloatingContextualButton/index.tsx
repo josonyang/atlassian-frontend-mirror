@@ -69,7 +69,6 @@ const FloatingContextualButtonInner = React.memo((props: Props & WrappedComponen
 		tableWrapper,
 		targetCellPosition,
 		isCellMenuOpenByKeyboard,
-		isDragAndDropEnabled,
 		intl: { formatMessage },
 	} = props; //  : Props & WrappedComponentProps
 
@@ -137,7 +136,7 @@ const FloatingContextualButtonInner = React.memo((props: Props & WrappedComponen
 	if (
 		parentStickyNative &&
 		targetCellRef.nodeName === 'TH' &&
-		isNativeStickySupported(isDragAndDropEnabled ?? false) &&
+		isNativeStickySupported() &&
 		expValEquals('platform_editor_table_sticky_header_improvements', 'cohort', 'test_with_overflow')
 	) {
 		/* We need to default to checking the anchor style because there may be a conflict with the block controls

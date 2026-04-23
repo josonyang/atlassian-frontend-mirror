@@ -10,7 +10,6 @@ import { flushPromises } from '@atlaskit/link-test-helpers';
 import { InvokeError, SmartLinkActionType } from '@atlaskit/linking-types/smart-link-actions';
 import { Text } from '@atlaskit/primitives/compiled';
 import { skipAutoA11yFile } from '@atlassian/a11y-jest-testing';
-import { ffTest } from '@atlassian/feature-flags-test-utils';
 
 import extractLozengeActionItems from '../../../../../../../../extractors/action/extract-lozenge-action-items';
 import { ActionName } from '../../../../../../../../index';
@@ -1001,23 +1000,11 @@ describe('LozengeAction', () => {
 		expect(onAfterChanged).toHaveBeenCalledTimes(1);
 	});
 
-	ffTest.on('platform_navx_flex_card_status_dropdown_a11y_fix', '', async () => {
-		it('should render aria-label when feature flag is enabled', async () => {
-			renderComponent();
+	it('should render aria-label', async () => {
+		renderComponent();
 
-			const element = await screen.findByTestId(triggerTestId);
+		const element = await screen.findByTestId(triggerTestId);
 
-			expect(element).toHaveAttribute('aria-label', `Change status: ${text}`);
-		});
-	});
-
-	ffTest.off('platform_navx_flex_card_status_dropdown_a11y_fix', '', async () => {
-		it('should not render aria-label when feature flag is disabled', async () => {
-			renderComponent();
-
-			const element = await screen.findByTestId(triggerTestId);
-
-			expect(element).not.toHaveAttribute('aria-label');
-		});
+		expect(element).toHaveAttribute('aria-label', `Change status: ${text}`);
 	});
 });

@@ -78,7 +78,7 @@ export const tableHeaderView = (options: TableCellViewOptions) => {
 export const tableRowView = (options: TableCellViewOptions) => {
 	return (node: PMNode, view: EditorView, getPos: () => number | undefined) => {
 		if (
-			isNativeStickySupported(options.isDragAndDropEnabled ?? false) &&
+			isNativeStickySupported() &&
 			expValEquals(
 				'platform_editor_table_sticky_header_improvements',
 				'cohort',

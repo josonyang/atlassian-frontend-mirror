@@ -145,6 +145,23 @@ export const handleMouseOver = (
 		isNativeAnchorSupported ? getDefaultNodeSelector() : `[data-drag-handler-anchor-name]`,
 	);
 
+	// Fallback for table nodes in view mode: the table-anchor-names plugin sets data-node-anchor on
+	// the first <tr> element.
+	// - When platform_editor_native_anchor_with_dnd is disabled, the primary closest() uses
+	//   [data-drag-handler-anchor-name] and misses table rows. Try data-node-anchor via closest().
+	// - For wide/max breakout tables, hovering in the left/right margin area of the full-viewport-
+	//   width breakout wrapper (ak-editor-breakout-mark) sets event.target to the wrapper div, which
+	//   has no anchor attribute. Use querySelector to find the [data-node-anchor] descendant inside.
+	// Both cases apply only in view mode with right-side remix controls.
+	if (!rootElement && isViewMode && rightSideControlsEnabled) {
+		rootElement =
+			target?.closest(`[${NODE_ANCHOR_ATTR_NAME}]`) ??
+			(target instanceof HTMLElement
+				? (target.querySelector(`[${NODE_ANCHOR_ATTR_NAME}]`) as HTMLElement | null)
+				: null) ??
+			null;
+	}
+
 	// When hovering over the right-edge button (rendered in a portal outside the block), resolve the
 	// block from the container's anchor so activeNode stays set and the button remains visible.
 	if (
@@ -263,6 +280,10 @@ export const handleMouseOver = (
 			// Ignored via go/ees005
 			// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 			anchorName = rootElement.getAttribute(getAnchorAttrName())!;
+			// Fallback for table nodes that only have data-node-anchor (not data-drag-handler-anchor-name).
+			if (!anchorName) {
+				anchorName = rootElement.getAttribute(NODE_ANCHOR_ATTR_NAME) ?? anchorName;
+			}
 		}
 
 		// No need to update handle position if its already there
@@ -329,17 +350,25 @@ export const handleMouseOver = (
 			if (targetPos !== rootPos) {
 				const rootDOM = view.nodeDOM(rootPos);
 				if (rootDOM instanceof HTMLElement) {
-					rootAnchorName = rootDOM.getAttribute(getAnchorAttrName()) ?? undefined;
+					rootAnchorName =
+						rootDOM.getAttribute(getAnchorAttrName()) ??
+						rootDOM.getAttribute(NODE_ANCHOR_ATTR_NAME) ??
+						undefined;
 					rootNodeType = isNativeAnchorSupported
 						? getTypeNameFromDom(rootDOM)
-						: rootDOM.getAttribute('data-drag-handler-node-type');
+						: // Fallback: breakout mark wrappers have no data-drag-handler-node-type;
+							// use data-prosemirror-node-name instead.
+							(rootDOM.getAttribute('data-drag-handler-node-type') ??
+							getTypeNameFromDom(rootDOM));
 				}
 			}
 		}
 
 		const nodeType = isNativeAnchorSupported
 			? getTypeNameFromDom(rootElement)
-			: rootElement.getAttribute('data-drag-handler-node-type');
+			: // Fallback for table nodes: tr has data-prosemirror-node-name but not data-drag-handler-node-type.
+				(rootElement.getAttribute('data-drag-handler-node-type') ??
+				getTypeNameFromDom(rootElement));
 
 		if (nodeType) {
 			// platform_editor_controls note: enables quick insert

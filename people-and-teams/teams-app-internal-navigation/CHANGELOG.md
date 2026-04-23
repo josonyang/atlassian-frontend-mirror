@@ -1,5 +1,12 @@
 # @atlaskit/teams-app-internal-navigation
 
+## 1.8.6
+
+### Patch Changes
+
+- [`64567ac32f48f`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/64567ac32f48f) -
+  Fall through to navigation if opening the preview panel fails
+
 ## 1.8.5
 
 ### Patch Changes

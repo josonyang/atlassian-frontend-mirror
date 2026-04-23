@@ -1,5 +1,29 @@
 # @atlaskit/top-layer
 
+## 0.2.0
+
+### Minor Changes
+
+- [`997849983979b`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/997849983979b) -
+  Add `placement.offset = { gap, crossAxisShift }`.
+  - `gap` is the distance from the trigger along the placement axis (default
+    `token('space.100', '8px')`).
+  - `crossAxisShift` is a perpendicular nudge with `{ value, direction: 'forwards' | 'backwards' }`.
+  - Both accept numbers or CSS length strings (tokens, `calc()`, `var()`, etc).
+
+  The JS fallback path now also honours `gap` and `crossAxisShift`. CSS length strings are resolved
+  to pixels per measurement via a hidden DOM probe (the popover stays at `opacity: 0` until the
+  first measurement completes, so there is no flash). Previously, the JS fallback applied a fixed
+  8px gap and ignored `crossAxisShift`.
+
+  The standalone `Popup.Content` `offset` prop is removed in favour of `placement.offset`.
+  `fromLegacyPlacement` continues to accept a popper-style `[along, away]` tuple for migrations and
+  now produces the new field names internally.
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 0.1.5
 
 ### Patch Changes

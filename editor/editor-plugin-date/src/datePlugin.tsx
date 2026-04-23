@@ -31,7 +31,6 @@ import { findDomRefAtPos } from '@atlaskit/editor-prosemirror/utils';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import CommentIcon from '@atlaskit/icon/core/comment';
 import { fg } from '@atlaskit/platform-feature-flags';
-import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 import type { DatePlugin } from './datePluginType';
 import { closeDatePicker, closeDatePickerWithAnalytics, createDate } from './pm-plugins/actions';
@@ -112,7 +111,7 @@ function ContentComponent({
 			autoFocus={focusDateInput}
 			// eslint-disable-next-line @atlassian/perf-linting/no-unstable-inline-props -- Ignored via go/ees017 (to be fixed)
 			onDelete={() => {
-				if (expValEquals('platform_editor_hydratable_ui', 'isEnabled', true) && !editorView) {
+				if (!editorView) {
 					return;
 				}
 				dependencyApi?.core?.actions.execute(deleteDateCommand(dependencyApi));
@@ -127,7 +126,7 @@ function ContentComponent({
 				if (date === undefined || date === null) {
 					return;
 				}
-				if (expValEquals('platform_editor_hydratable_ui', 'isEnabled', true) && !editorView) {
+				if (!editorView) {
 					return;
 				}
 				dependencyApi?.core?.actions.execute(

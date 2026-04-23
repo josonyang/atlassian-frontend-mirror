@@ -10,7 +10,6 @@ import {
 	ANCHOR_VARIABLE_NAME,
 	DRAG_HANDLE_WIDTH,
 	isCSSAnchorSupported,
-	tableControlsSpacing,
 } from '@atlaskit/editor-common/styles';
 import { areToolbarFlagsEnabled } from '@atlaskit/editor-common/toolbar-flag-check';
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
@@ -23,10 +22,8 @@ import {
 	akEditorGutterPaddingDynamic,
 	akEditorGutterPaddingReduced,
 } from '@atlaskit/editor-shared-styles';
-import { layers } from '@atlaskit/theme/constants';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
-import { token } from '@atlaskit/tokens';
 
 import type { BlockControlsPlugin } from '../blockControlsPluginType';
 
@@ -379,91 +376,6 @@ const globalStyles = () =>
 			},
 	});
 
-const quickInsertStyles = () =>
-	css({
-		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
-		'.blocks-quick-insert-button': {
-			backgroundColor: 'transparent',
-			top: `var(--top-override,8px)`,
-			position: 'sticky',
-			boxSizing: 'border-box',
-			display: 'flex',
-			flexDirection: 'column',
-			justifyContent: 'center',
-			alignItems: 'center',
-			height: token('space.300'),
-			width: token('space.300'),
-			border: 'none',
-			borderRadius: token('radius.full'),
-			zIndex: layers.card(),
-			outline: 'none',
-			cursor: 'pointer',
-			color: token('color.icon.subtle'),
-		},
-		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors
-		'[data-blocks-quick-insert-container]:has(~ [data-prosemirror-node-name="table"] .pm-table-with-controls tr.sticky) &':
-			{
-				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values
-				'--top-override': `${tableControlsSpacing}px`,
-			},
-		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors
-		'[data-prosemirror-mark-name="breakout"]:has([data-blocks-quick-insert-container]):has(~ [data-prosemirror-node-name="table"] .pm-table-with-controls tr.sticky) &':
-			{
-				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values
-				'--top-override': `${tableControlsSpacing}px`,
-			},
-		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
-		'.blocks-quick-insert-button:hover': {
-			backgroundColor: token('color.background.neutral.subtle.hovered'),
-		},
-		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
-		'.blocks-quick-insert-button:active': {
-			backgroundColor: token('color.background.neutral.subtle.pressed'),
-		},
-		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
-		'.blocks-quick-insert-button:focus': {
-			outline: `${token('border.width.focused')} solid ${token('color.border.focused')}`,
-		},
-		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
-		'.blocks-quick-insert-visible-container': {
-			transition: 'opacity 0.1s ease-in-out, visibility 0.1s ease-in-out',
-			opacity: 1,
-			visibility: 'visible',
-		},
-		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
-		'.blocks-quick-insert-invisible-container': {
-			transition: 'opacity 0.1s ease-in-out, visibility 0.1s ease-in-out',
-			opacity: 0,
-			visibility: 'hidden',
-		},
-		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
-		'.blocks-quick-insert-tooltip': {
-			zIndex: layers.tooltip(),
-			borderRadius: token('radius.small'),
-			padding: `${token('space.050')} 0`,
-			boxSizing: 'border-box',
-			maxWidth: '240px',
-			backgroundColor: token('color.background.neutral.bold'),
-			color: token('color.text.inverse'),
-			font: token('font.body.small'),
-			insetBlockStart: token('space.0'),
-			insetInlineStart: token('space.0'),
-			overflowWrap: 'break-word',
-			paddingBlockEnd: token('space.025'),
-			paddingBlockStart: token('space.025'),
-			paddingInlineEnd: token('space.075'),
-			paddingInlineStart: token('space.075'),
-			wordWrap: 'break-word',
-			pointerEvents: 'none',
-			userSelect: 'none',
-			// Based on: platform/packages/design-system/motion/src/entering/keyframes-motion.tsx
-			transition: 'opacity .1s ease-in-out, transform .1s ease-in-out, visibility .1s ease-in-out',
-			'@media (prefers-reduced-motion: reduce)': {
-				transition: 'none',
-			},
-		},
-	});
-
 const topLevelNodeMarginStyles = css({
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors -- Ignored via go/DSP-18766
 	'.ProseMirror': {
@@ -712,9 +624,6 @@ export const GlobalStylesWrapper = ({
 					: undefined,
 				// platform_editor_controls note: this allows drag handles to render on empty lines
 				toolbarFlagsEnabled ? undefined : withInlineNodeStyle,
-				editorExperiment('platform_editor_block_control_optimise_render', true)
-					? quickInsertStyles
-					: undefined,
 				withDeleteLinesStyleFix,
 				withMediaSingleStyleFix,
 				legacyBreakoutWideLayoutStyle,

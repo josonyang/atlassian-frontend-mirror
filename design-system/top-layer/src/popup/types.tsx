@@ -4,7 +4,7 @@ import { type StrictXCSSProp } from '@atlaskit/css';
 
 import { type TAnimationPreset } from '../animations/types';
 import { type TArrowPreset } from '../arrow/types';
-import { type TPlacement } from '../internal/resolve-placement';
+import { type TPlacementOptions } from '../internal/resolve-placement';
 import {
 	type TRoleRequiringAccessibleName,
 	type TRoleWithImplicitName,
@@ -12,35 +12,26 @@ import {
 import { type TPopoverCloseReason } from '../popover/types';
 
 /**
- * Describes where to position a popover relative to its trigger.
+ * Describes where to position a popover relative to its trigger. All fields
+ * are optional. The default `{}` means "below the trigger, centered, with a
+ * `space.100` token gap" (equivalent to Popper.js `'bottom'`).
  *
- * - `axis` — which axis the popover appears along (`'block'` = above/below, `'inline'` = left/right).
- *   Defaults to `'block'`.
- * - `edge` — which end of the axis (`'start'` = above/left in LTR, `'end'` = below/right in LTR).
- *   Defaults to `'end'`.
- * - `align` — where to align on the cross-axis (`'start'`, `'center'`, `'end'`).
- *   Defaults to `'center'`. Can be written explicitly for clarity.
- *
- * All fields are optional. The default `{}` means "below the trigger, centered"
- * (equivalent to Popper.js `'bottom'`).
+ * - `axis`: `'block'` (above/below, default) or `'inline'` (left/right)
+ * - `edge`: `'start'` or `'end'` (default)
+ * - `align`: `'start'`, `'center'` (default), or `'end'`
+ * - `offset.gap`: distance from the trigger toward the popover (default `token('space.100', '8px')`, accepts number or CSS string)
+ * - `offset.crossAxisShift.value`: cross-axis shift (default `0`)
+ * - `offset.crossAxisShift.direction`: `'forwards'` (default) or `'backwards'`
  *
  * @example
  * ```ts
- * // Below trigger, centered (all defaults)
- * placement={{}}
- * placement={{ axis: 'block', edge: 'end', align: 'center' }}
- *
- * // Below trigger, aligned to the start (left in LTR)
- * placement={{ align: 'start' }}
- *
- * // Above trigger, aligned to the end (right in LTR)
- * placement={{ edge: 'start', align: 'end' }}
- *
- * // Right of trigger, centered
- * placement={{ axis: 'inline' }}
+ * placement={{ align: 'start' }} // Below trigger, aligned to start
+ * placement={{ axis: 'inline' }} // Right of trigger, centered
+ * placement={{ offset: { gap: 4 } }} // Tooltip-like gap
+ * placement={{ offset: { crossAxisShift: { value: 4, direction: 'backwards' } } }}
  * ```
  */
-export type TPlacementOptions = Partial<TPlacement>;
+export { type TPlacementOptions } from '../internal/resolve-placement';
 
 export type TPopupProps = {
 	/**
@@ -186,11 +177,6 @@ type TPopupContentBaseProps = {
 	 * Test ID applied to the popover content element.
 	 */
 	testId?: string;
-	/**
-	 * Gap between the popover and its trigger, in pixels.
-	 * Defaults to 8 (design token `space.100`). Tooltip uses 4.
-	 */
-	offset?: number;
 	/**
 	 * Forces the JavaScript positioning fallback even when the browser
 	 * supports CSS Anchor Positioning. Useful for testing fallback

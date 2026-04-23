@@ -1,5 +1,33 @@
 # @atlaskit/smart-card
 
+## 44.3.6
+
+### Patch Changes
+
+- Updated dependencies
+
+## 44.3.5
+
+### Patch Changes
+
+- Updated dependencies
+
+## 44.3.4
+
+### Patch Changes
+
+- [`34380f9e645b4`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/34380f9e645b4) -
+  Always render an aria-label on the flexible card lozenge action trigger so the status dropdown
+  announces the current status to assistive technology.
+- Updated dependencies
+
+## 44.3.3
+
+### Patch Changes
+
+- [`d2102caf5dde7`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/d2102caf5dde7) -
+  [ux] Change post auth SL experiment "Key highlights" prompt to "Highlight what's relevant"
+
 ## 44.3.2
 
 ### Patch Changes

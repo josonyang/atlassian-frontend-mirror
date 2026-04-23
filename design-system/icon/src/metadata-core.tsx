@@ -3,7 +3,7 @@
  *
  * To change the format of this file, modify `createIconDocsNew` in icon-build-process/src/create-icon-docs.tsx.
  *
- * @codegen <<SignedSource::89369dad254e55137adbee199ee40d7d>>
+ * @codegen <<SignedSource::638714566d3dddabbc912d1a9dcdb312>>
  * @codegenCommand yarn build:icon-glyphs
  */
 interface metadata {
@@ -2988,6 +2988,15 @@ const metadata: Record<string, metadata> = {
 		package: '@atlaskit/icon/core/question-circle',
 		categorization: 'multi-purpose',
 		usage: 'Multi purpose - Known uses: help, tip.',
+		team: 'Design System Team',
+		status: 'published',
+	},
+	'quotation-block': {
+		keywords: ['quotation-block', 'quotationblock', 'icon', 'quotation marks', 'blockquote'],
+		componentName: 'QuotationBlockIcon',
+		package: '@atlaskit/icon/core/quotation-block',
+		categorization: 'multi-purpose',
+		usage: 'Preferred for representing block quotes and quote text style in Confluence',
 		team: 'Design System Team',
 		status: 'published',
 	},

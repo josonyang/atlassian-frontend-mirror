@@ -11,7 +11,6 @@ import { isSSR } from '@atlaskit/editor-common/core-utils';
 import { openHelp, tooltip } from '@atlaskit/editor-common/keymaps';
 import { toolbarInsertBlockMessages as messages } from '@atlaskit/editor-common/messages';
 import QuestionCircleIcon from '@atlaskit/icon/core/question-circle';
-import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 import type { HelpDialogPlugin, HelpDialogPluginOptions } from './helpDialogPluginType';
 import { closeHelpAction, openHelpAction } from './pm-plugins/actions';
@@ -86,19 +85,14 @@ export const helpDialogPlugin: HelpDialogPlugin = ({ config, api }) => {
 		},
 
 		contentComponent({ editorView }) {
-			if (
-				expValEquals('platform_editor_hydratable_ui', 'isEnabled', true) &&
-				(!editorView || isSSR())
-			) {
+			if (!editorView || isSSR()) {
 				return null;
 			}
 
 			return (
 				<HelpDialogLoader
 					pluginInjectionApi={api}
-					// temp non null assertion until platform_editor_hydratable_ui cleaned up
-					// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-					editorView={editorView!}
+					editorView={editorView}
 					quickInsertEnabled={!!api?.quickInsert}
 				/>
 			);

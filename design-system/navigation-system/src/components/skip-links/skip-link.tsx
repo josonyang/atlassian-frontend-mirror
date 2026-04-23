@@ -8,6 +8,7 @@ import { jsx } from '@compiled/react';
 import { bind } from 'bind-event-listener';
 
 import { cssMap } from '@atlaskit/css';
+import { fg } from '@atlaskit/platform-feature-flags';
 // eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives -- to be migrated to @atlaskit/primitives/compiled – go/akcss
 import { Anchor } from '@atlaskit/primitives/compiled';
 import { token } from '@atlaskit/tokens';
@@ -17,6 +18,9 @@ import type { SkipLinkData } from '../../context/skip-links/types';
 const styles = cssMap({
 	skipLinkListItem: {
 		marginBlockStart: token('space.0'),
+	},
+	skipLinkListItemNew: {
+		paddingBlock: token('space.100'),
 	},
 });
 
@@ -129,7 +133,12 @@ export const SkipLink: ({
 	);
 
 	return (
-		<li css={styles.skipLinkListItem}>
+		<li
+			css={[
+				styles.skipLinkListItem,
+				fg('platform_dst_nav4_skip_link_a11y_1') && styles.skipLinkListItemNew,
+			]}
+		>
 			<Anchor
 				/**
 				 * It looks like Safari handles link clicks during `pointerdown` unless it has an explicit `tabIndex={0}` :/

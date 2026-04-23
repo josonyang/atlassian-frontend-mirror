@@ -64,10 +64,7 @@ const PluginSlot = ({
 	wrapperElement,
 	pluginHooks,
 }: Props) => {
-	if (
-		(!items && !pluginHooks) ||
-		(!editorView && !expVal('platform_editor_hydratable_ui', 'isEnabled', false))
-	) {
+	if (!items && !pluginHooks) {
 		return null;
 	}
 

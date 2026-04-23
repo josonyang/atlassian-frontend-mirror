@@ -172,8 +172,10 @@ These are documented, intentional improvements or accepted trade-offs:
 ### Other
 
 - **popup**: `along` offset dropped (CSS Anchor Positioning doesn't support it)
+  _[superseded 2026-04-21: cross-axis shift restored as `placement.offset.crossAxisShift`; see `placement-offset.md`]_
 - **popup**: `aria-haspopup` default changed from `'true'` to `'dialog'`
 - **spotlight**: Along-axis offset silently dropped
+  _[superseded 2026-04-21: cross-axis shift now forwarded via `fromLegacyPlacement` on the CSS path; see `placement-offset.md` and `spotlight-migration.md`]_
 - **tooltip**: `aria-controls` not wired in standalone `Popup.Content` mode
 - **modal-dialog**: Exit animation via CSS `@starting-style` instead of `@atlaskit/motion`
 
@@ -219,8 +221,9 @@ popupComponent open/close, placement conversion coverage, focus management defau
 role mapping, trigger re-render memoization.
 
 **Behavior differences (6):** aria-haspopup default change ('true' → 'dialog'), along offset
-dropped, no portal rendering, z-index replaced by top-layer, shouldUseCaptureOnOutsideClick replaced
-by native light dismiss, content stays near trigger in DOM.
+dropped _[superseded 2026-04-21: now `placement.offset.crossAxisShift`]_, no portal rendering, z-index
+replaced by top-layer, shouldUseCaptureOnOutsideClick replaced by native light dismiss, content
+stays near trigger in DOM.
 
 ---
 
@@ -305,7 +308,9 @@ configurable hide delay, canAppear gating, isScreenReaderAnnouncementDisabled, t
 placement variants, dismiss control interaction, popover="manual" mode verification.
 
 **Remaining gaps:** No browser test for keyboard interaction with card actions (WCAG 2.1.1),
-focus-visible indicators (2.4.7), multi-step tour navigation, along-axis offset being ignored.
+focus-visible indicators (2.4.7), multi-step tour navigation.
+_[2026-04-21 update: along-axis offset is no longer dropped; spotlight forwards the legacy tuple
+as `placement.offset.crossAxisShift` + `placement.offset.gap`. See `spotlight-migration.md`.]_
 
 ---
 

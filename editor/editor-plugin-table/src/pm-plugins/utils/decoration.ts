@@ -53,7 +53,6 @@ export const createControlsHoverDecoration = (
 	cells: Cell[],
 	type: 'row' | 'column' | 'table',
 	tr: Transaction | ReadonlyTransaction,
-	isDragAndDropEnable: boolean | undefined,
 	hoveredIndexes: number[],
 	danger?: boolean,
 	selected?: boolean,
@@ -110,19 +109,9 @@ export const createControlsHoverDecoration = (
 			classes.push(ClassName.SELECTED_CELL);
 		}
 
-		if (isDragAndDropEnable) {
-			if (type === 'column' || type === 'row') {
-				classes.pop();
-				classes.push(ClassName.HOVERED_NO_HIGHLIGHT);
-			}
-		} else {
-			classes.push(
-				type === 'column'
-					? ClassName.HOVERED_COLUMN
-					: type === 'row'
-						? ClassName.HOVERED_ROW
-						: ClassName.HOVERED_TABLE,
-			);
+		if (type === 'column' || type === 'row') {
+			classes.pop();
+			classes.push(ClassName.HOVERED_NO_HIGHLIGHT);
 		}
 
 		let key: TableDecorations;
@@ -503,7 +492,6 @@ export const createResizeHandleDecoration = (
 export const createColumnLineResize = (
 	selection: Selection,
 	cellColumnPositioning: Omit<CellColumnPositioning, 'left'>,
-	isDragAndDropEnabled?: boolean,
 ): Decoration[] => {
 	const table = findTable(selection);
 	if (!table || cellColumnPositioning.right === null) {
@@ -517,13 +505,9 @@ export const createColumnLineResize = (
 	if (isLastColumn) {
 		columnIndex -= 1;
 	}
-	const decorationClassName = isDragAndDropEnabled
-		? isLastColumn
-			? ClassName.WITH_DRAG_RESIZE_LINE_LAST_COLUMN
-			: ClassName.WITH_DRAG_RESIZE_LINE
-		: isLastColumn
-			? ClassName.WITH_RESIZE_LINE_LAST_COLUMN
-			: ClassName.WITH_RESIZE_LINE;
+	const decorationClassName = isLastColumn
+		? ClassName.WITH_DRAG_RESIZE_LINE_LAST_COLUMN
+		: ClassName.WITH_DRAG_RESIZE_LINE;
 
 	const cellPositions = makeArray(map.height)
 		.map((rowIndex) => map.map[map.width * rowIndex + columnIndex])

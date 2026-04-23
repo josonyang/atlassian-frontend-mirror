@@ -7,7 +7,6 @@ import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import type { ReadonlyTransaction } from '@atlaskit/editor-prosemirror/state';
 import { PluginKey } from '@atlaskit/editor-prosemirror/state';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
-import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import VisuallyHidden from '@atlaskit/visually-hidden';
 
 import type {
@@ -44,10 +43,7 @@ export const accessibilityUtilsPlugin: AccessibilityUtilsPlugin = ({ api }) => {
 			},
 		},
 		contentComponent: () => {
-			if (
-				!editorView ||
-				(isSSR() && expValEquals('platform_editor_hydratable_ui', 'isEnabled', true))
-			) {
+			if (!editorView || isSSR()) {
 				return null;
 			}
 			return <ContentComponent api={api} />;

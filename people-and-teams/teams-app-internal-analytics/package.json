@@ -49,9 +49,11 @@
 	"devDependencies": {
 		"@af/integration-testing": "workspace:^",
 		"@af/visual-regression": "workspace:^",
+		"@atlaskit/button": "workspace:^",
 		"@atlaskit/ssr": "workspace:^",
 		"@atlassian/ptc-test-utils": "workspace:^",
 		"@atlassian/react-compiler-gating": "workspace:^",
+		"@atlassian/teams-app-internal-playground": "workspace:^",
 		"@testing-library/react": "root:*",
 		"@testing-library/user-event": "root:*",
 		"react-dom": "root:*"
@@ -95,7 +97,7 @@
 		}
 	},
 	"name": "@atlaskit/teams-app-internal-analytics",
-	"version": "1.27.4",
+	"version": "1.27.5",
 	"description": "A package used by the teams app and platform packages to handle people and teams analytics",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",

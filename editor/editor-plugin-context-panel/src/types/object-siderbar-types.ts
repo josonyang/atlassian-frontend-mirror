@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import type { FC } from 'react';
 
-import type { MessageDescriptor } from 'react-intl-next';
+import type { MessageDescriptor } from 'react-intl';
 
 // Below type is copied from confluence/next/packages/object-sidebar-api/src/useObjectSidebar.tsx
 export type ObjectSidebarBehavior = 'push' | 'cover';

@@ -58,9 +58,6 @@ snapshot(TooltipPosition, {
 		},
 	],
 	drawsOutsideBounds: true,
-	featureFlags: {
-		platform_dst_nav4_side_nav_resize_tooltip_feedback: [true, false],
-	},
 });
 
 snapshot(TooltipPositionMouseExample, {
@@ -74,9 +71,6 @@ snapshot(TooltipPositionMouseExample, {
 		},
 	],
 	drawsOutsideBounds: true,
-	featureFlags: {
-		platform_dst_nav4_side_nav_resize_tooltip_feedback: [true, false],
-	},
 });
 
 snapshot(TooltipPositionMouseExample, {
@@ -90,9 +84,6 @@ snapshot(TooltipPositionMouseExample, {
 		},
 	],
 	drawsOutsideBounds: true,
-	featureFlags: {
-		platform_dst_nav4_side_nav_resize_tooltip_feedback: [true, false],
-	},
 });
 
 // While we intend on removing the `truncate` prop in the future, we still need a VR test for it to prevent regressions.

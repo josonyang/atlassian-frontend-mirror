@@ -3,7 +3,7 @@
  *
  * Metadata for generation of `@atlaskit/ads-mcp` and https://atlassian.design/llms-tokens.txt.
  *
- * @codegen <<SignedSource::cc165f5e3a3a334da8899d36a5cd4535>>
+ * @codegen <<SignedSource::84f21045f3136acc13a56a289840c82a>>
  * @codegenCommand yarn build tokens
  */
 export interface Token {
@@ -18,6 +18,391 @@ export interface Token {
 }
 
 export const tokens: Token[] = [
+	{
+		name: 'motion.avatar.enter',
+		path: ['motion', 'avatar', 'enter'],
+		description: 'Use for avatar group enter transitions.',
+		exampleValue:
+			'150ms cubic-bezier(0.4, 1, 0.6, 1) ScaleIn80to100, 150ms cubic-bezier(0.4, 1, 0.6, 1) FadeIn0to100',
+		usageGuidelines: { usage: '', cssProperties: [] },
+	},
+	{
+		name: 'motion.avatar.exit',
+		path: ['motion', 'avatar', 'exit'],
+		description: 'Use for avatar group exit transitions.',
+		exampleValue:
+			'100ms cubic-bezier(0.6, 0, 0.8, 0.6) ScaleOut100to80, 100ms cubic-bezier(0.6, 0, 0.8, 0.6) FadeOut100to0',
+		usageGuidelines: { usage: '', cssProperties: [] },
+	},
+	{
+		name: 'motion.avatar.hovered',
+		path: ['motion', 'avatar', 'hovered'],
+		description: 'Use for hover state on avatar elements.',
+		exampleValue:
+			'transform 250ms linear(0, 0.021, 0.058, 0.107, 0.164, 0.227, 0.292, 0.359, 0.425, 0.49, 0.552, 0.61, 0.664, 0.714, 0.759, 0.8, 0.837, 0.869, 0.898, 0.922, 0.943, 0.961, 0.976, 0.988, 0.998, 1.006, 1.013, 1.017, 1.02, 1.023, 1.024, 1.024, 1.024, 1.024, 1.023, 1.022, 1.02, 1.019, 1.017, 1.015, 1.014, 1.012, 1.011, 1.009, 1.008, 1.007, 1.006, 1.005, 1.004, 1.003, 1.002, 1.002, 1.001, 1.001, 1.001, 1, 1, 1, 1, 1, 0.999, 0.999, 0.999, 0.999, 1)',
+		usageGuidelines: { usage: '', cssProperties: [] },
+	},
+	{
+		name: 'motion.blanket.enter',
+		path: ['motion', 'blanket', 'enter'],
+		description: 'Use for blanket enter transitions.',
+		exampleValue: '250ms cubic-bezier(0.4, 0, 0, 1) FadeIn0to100',
+		usageGuidelines: { usage: '', cssProperties: [] },
+	},
+	{
+		name: 'motion.blanket.exit',
+		path: ['motion', 'blanket', 'exit'],
+		description: 'Use for blanket exit transitions.',
+		exampleValue: '200ms cubic-bezier(0.6, 0, 0.8, 0.6) FadeOut100to0',
+		usageGuidelines: { usage: '', cssProperties: [] },
+	},
+	{
+		name: 'motion.duration.instant',
+		path: ['motion', 'duration', 'instant'],
+		description:
+			'Use for instant feedback with no perceptible delay, such as list item hover, selected and focus states.',
+		exampleValue: '0ms',
+		usageGuidelines: { usage: '', cssProperties: [] },
+	},
+	{
+		name: 'motion.duration.long',
+		path: ['motion', 'duration', 'long'],
+		description: 'Use for medium entrance transitions, such as modal enter and flag enter.',
+		exampleValue: '250ms',
+		usageGuidelines: { usage: '', cssProperties: [] },
+	},
+	{
+		name: 'motion.duration.medium',
+		path: ['motion', 'duration', 'medium'],
+		description: 'Use for medium exit transitions, such as modal exit and flag exit.',
+		exampleValue: '200ms',
+		usageGuidelines: { usage: '', cssProperties: [] },
+	},
+	{
+		name: 'motion.duration.short',
+		path: ['motion', 'duration', 'short'],
+		description:
+			'Use for interactive state emphasis and small entrances, such as button hover and pressed states, popup enter, and avatar appear.',
+		exampleValue: '150ms',
+		usageGuidelines: { usage: '', cssProperties: [] },
+	},
+	{
+		name: 'motion.duration.xlong',
+		path: ['motion', 'duration', 'xlong'],
+		description:
+			'Use for large transitions, such as panel enter/exit, page transitions, and full-screen overlays.',
+		exampleValue: '400ms',
+		usageGuidelines: { usage: '', cssProperties: [] },
+	},
+	{
+		name: 'motion.duration.xshort',
+		path: ['motion', 'duration', 'xshort'],
+		description:
+			'Use for subtle pressed states and quick exits, such as component press feedback, popup dismiss, and avatar transitions.',
+		exampleValue: '100ms',
+		usageGuidelines: { usage: '', cssProperties: [] },
+	},
+	{
+		name: 'motion.duration.xxlong',
+		path: ['motion', 'duration', 'xxlong'],
+		description: 'Use for large transitions, such as onboarding steps and full-screen overlays.',
+		exampleValue: '600ms',
+		usageGuidelines: { usage: '', cssProperties: [] },
+	},
+	{
+		name: 'motion.duration.xxshort',
+		path: ['motion', 'duration', 'xxshort'],
+		description: 'Use for instant feedback, such as list item hover, selected and focus states.',
+		exampleValue: '50ms',
+		usageGuidelines: { usage: '', cssProperties: [] },
+	},
+	{
+		name: 'motion.easing.in.practical',
+		path: ['motion', 'easing', 'in', 'practical'],
+		description:
+			'Starts slowly and accelerates away. Best for exit transitions where elements leaving the screen should feel like they are getting out of the way.',
+		exampleValue: 'cubic-bezier(0.6, 0, 0.8, 0.6)',
+		usageGuidelines: { usage: '', cssProperties: [] },
+	},
+	{
+		name: 'motion.easing.inout.bold',
+		path: ['motion', 'easing', 'inout', 'bold'],
+		description:
+			'The bold in-out curve pairs naturally with scale and repositioning of elements. It controls both the start and end of the motion.',
+		exampleValue: 'cubic-bezier(0.4, 0, 0, 1)',
+		usageGuidelines: { usage: '', cssProperties: [] },
+	},
+	{
+		name: 'motion.easing.out.practical',
+		path: ['motion', 'easing', 'out', 'practical'],
+		description:
+			'A practical, everyday enter curve. Less dramatic than the bold variant, good for subtle transitions like content swaps, tab changes, and list reordering.',
+		exampleValue: 'cubic-bezier(0.4, 1, 0.6, 1)',
+		usageGuidelines: { usage: '', cssProperties: [] },
+	},
+	{
+		name: 'motion.easing.out.bold',
+		path: ['motion', 'easing', 'out', 'bold'],
+		description:
+			'Elements arrive quickly and decelerate to a stop. The fast start grabs attention and the gentle landing feels controlled.',
+		exampleValue: 'cubic-bezier(0, 0.4, 0, 1)',
+		usageGuidelines: { usage: '', cssProperties: [] },
+	},
+	{
+		name: 'motion.easing.spring',
+		path: ['motion', 'easing', 'spring'],
+		description:
+			'A spring curve that overshoots slightly before settling. Use for playful, tactile feedback on small branded elements such as avatar hover, where the slight overshoot reinforces a sense of life.',
+		exampleValue:
+			'linear(0, 0.021, 0.058, 0.107, 0.164, 0.227, 0.292, 0.359, 0.425, 0.49, 0.552, 0.61, 0.664, 0.714, 0.759, 0.8, 0.837, 0.869, 0.898, 0.922, 0.943, 0.961, 0.976, 0.988, 0.998, 1.006, 1.013, 1.017, 1.02, 1.023, 1.024, 1.024, 1.024, 1.024, 1.023, 1.022, 1.02, 1.019, 1.017, 1.015, 1.014, 1.012, 1.011, 1.009, 1.008, 1.007, 1.006, 1.005, 1.004, 1.003, 1.002, 1.002, 1.001, 1.001, 1.001, 1, 1, 1, 1, 1, 0.999, 0.999, 0.999, 0.999, 1)',
+		usageGuidelines: { usage: '', cssProperties: [] },
+	},
+	{
+		name: 'motion.flag.enter',
+		path: ['motion', 'flag', 'enter'],
+		description: 'Use for flag enter transitions.',
+		exampleValue:
+			'250ms cubic-bezier(0, 0.4, 0, 1) SlideIn50PercentLeft, 250ms cubic-bezier(0, 0.4, 0, 1) FadeIn0to100',
+		usageGuidelines: { usage: '', cssProperties: [] },
+	},
+	{
+		name: 'motion.flag.exit',
+		path: ['motion', 'flag', 'exit'],
+		description: 'Use for flag exit transitions.',
+		exampleValue:
+			'200ms cubic-bezier(0.6, 0, 0.8, 0.6) SlideOut15PercentLeft, 200ms cubic-bezier(0.6, 0, 0.8, 0.6) FadeOut100to0',
+		usageGuidelines: { usage: '', cssProperties: [] },
+	},
+	{
+		name: 'motion.flag.reposition',
+		path: ['motion', 'flag', 'reposition'],
+		description: 'Use for repositioning flag elements.',
+		exampleValue: 'transform 250ms cubic-bezier(0.4, 0, 0, 1)',
+		usageGuidelines: { usage: '', cssProperties: [] },
+	},
+	{
+		name: 'motion.keyframe.fade.in',
+		path: ['motion', 'keyframe', 'fade', 'in'],
+		description:
+			'Use for fade-in transitions where an element goes from fully transparent to fully opaque.',
+		exampleValue: 'FadeIn0to100',
+		usageGuidelines: { usage: '', cssProperties: [] },
+	},
+	{
+		name: 'motion.keyframe.fade.out',
+		path: ['motion', 'keyframe', 'fade', 'out'],
+		description:
+			'Use for fade-out transitions where an element goes from fully opaque to fully transparent.',
+		exampleValue: 'FadeOut100to0',
+		usageGuidelines: { usage: '', cssProperties: [] },
+	},
+	{
+		name: 'motion.keyframe.scale.in.medium',
+		path: ['motion', 'keyframe', 'scale', 'in', 'medium'],
+		description:
+			'Use for medium scale-in transitions where an element grows from 80% to full size on enter.',
+		exampleValue: 'ScaleIn80to100',
+		usageGuidelines: { usage: '', cssProperties: [] },
+	},
+	{
+		name: 'motion.keyframe.scale.in.small',
+		path: ['motion', 'keyframe', 'scale', 'in', 'small'],
+		description:
+			'Use for small scale-in transitions where an element grows from 95% to full size on enter.',
+		exampleValue: 'ScaleIn95to100',
+		usageGuidelines: { usage: '', cssProperties: [] },
+	},
+	{
+		name: 'motion.keyframe.scale.out.medium',
+		path: ['motion', 'keyframe', 'scale', 'out', 'medium'],
+		description:
+			'Use for medium scale-out transitions where an element shrinks from full size to 80% on exit.',
+		exampleValue: 'ScaleOut100to80',
+		usageGuidelines: { usage: '', cssProperties: [] },
+	},
+	{
+		name: 'motion.keyframe.scale.out.small',
+		path: ['motion', 'keyframe', 'scale', 'out', 'small'],
+		description:
+			'Use for small scale-out transitions where an element shrinks from full size to 95% on exit.',
+		exampleValue: 'ScaleOut100to95',
+		usageGuidelines: { usage: '', cssProperties: [] },
+	},
+	{
+		name: 'motion.keyframe.slide.in.bottom.short',
+		path: ['motion', 'keyframe', 'slide', 'in', 'bottom', 'short'],
+		description:
+			'Use for short slide-in transitions where an element enters from below its final position by 8px.',
+		exampleValue: 'SlideInBottom8px',
+		usageGuidelines: { usage: '', cssProperties: [] },
+	},
+	{
+		name: 'motion.keyframe.slide.in.left.half',
+		path: ['motion', 'keyframe', 'slide', 'in', 'left', 'half'],
+		description:
+			'Use for slide-in transitions where an element enters from the left of its final position by 50%.',
+		exampleValue: 'SlideIn50PercentLeft',
+		usageGuidelines: { usage: '', cssProperties: [] },
+	},
+	{
+		name: 'motion.keyframe.slide.in.left.short',
+		path: ['motion', 'keyframe', 'slide', 'in', 'left', 'short'],
+		description:
+			'Use for short slide-in transitions where an element enters from the left of its final position by 8px.',
+		exampleValue: 'SlideInLeft8px',
+		usageGuidelines: { usage: '', cssProperties: [] },
+	},
+	{
+		name: 'motion.keyframe.slide.in.right.short',
+		path: ['motion', 'keyframe', 'slide', 'in', 'right', 'short'],
+		description:
+			'Use for short slide-in transitions where an element enters from the right of its final position by 8px.',
+		exampleValue: 'SlideInRight8px',
+		usageGuidelines: { usage: '', cssProperties: [] },
+	},
+	{
+		name: 'motion.keyframe.slide.in.top.short',
+		path: ['motion', 'keyframe', 'slide', 'in', 'top', 'short'],
+		description:
+			'Use for short slide-in transitions where an element enters from above its final position by 8px.',
+		exampleValue: 'SlideInTop8px',
+		usageGuidelines: { usage: '', cssProperties: [] },
+	},
+	{
+		name: 'motion.keyframe.slide.out.bottom.short',
+		path: ['motion', 'keyframe', 'slide', 'out', 'bottom', 'short'],
+		description:
+			'Use for short slide-out transitions where an element exits downward by 8px from its starting position.',
+		exampleValue: 'SlideOutBottom8px',
+		usageGuidelines: { usage: '', cssProperties: [] },
+	},
+	{
+		name: 'motion.keyframe.slide.out.left.half',
+		path: ['motion', 'keyframe', 'slide', 'out', 'left', 'half'],
+		description:
+			'Use for slide-out transitions where an element exits to the left of its starting position by 15%.',
+		exampleValue: 'SlideOut15PercentLeft',
+		usageGuidelines: { usage: '', cssProperties: [] },
+	},
+	{
+		name: 'motion.keyframe.slide.out.left.short',
+		path: ['motion', 'keyframe', 'slide', 'out', 'left', 'short'],
+		description:
+			'Use for short slide-out transitions where an element exits to the left by 8px from its starting position.',
+		exampleValue: 'SlideOutLeft8px',
+		usageGuidelines: { usage: '', cssProperties: [] },
+	},
+	{
+		name: 'motion.keyframe.slide.out.right.short',
+		path: ['motion', 'keyframe', 'slide', 'out', 'right', 'short'],
+		description:
+			'Use for short slide-out transitions where an element exits to the right by 8px from its starting position.',
+		exampleValue: 'SlideOutRight8px',
+		usageGuidelines: { usage: '', cssProperties: [] },
+	},
+	{
+		name: 'motion.keyframe.slide.out.top.short',
+		path: ['motion', 'keyframe', 'slide', 'out', 'top', 'short'],
+		description:
+			'Use for short slide-out transitions where an element exits upward by 8px from its starting position.',
+		exampleValue: 'SlideOutTop8px',
+		usageGuidelines: { usage: '', cssProperties: [] },
+	},
+	{
+		name: 'motion.modal.enter',
+		path: ['motion', 'modal', 'enter'],
+		description: 'Use for modal enter transitions.',
+		exampleValue: '250ms cubic-bezier(0.4, 0, 0, 1) ScaleIn95to100',
+		usageGuidelines: { usage: '', cssProperties: [] },
+	},
+	{
+		name: 'motion.modal.exit',
+		path: ['motion', 'modal', 'exit'],
+		description: 'Use for modal exit transitions.',
+		exampleValue: '200ms cubic-bezier(0.6, 0, 0.8, 0.6) ScaleOut100to95',
+		usageGuidelines: { usage: '', cssProperties: [] },
+	},
+	{
+		name: 'motion.popup.enter.bottom',
+		path: ['motion', 'popup', 'enter', 'bottom'],
+		description: 'Use for popup enter from the bottom.',
+		exampleValue:
+			'150ms cubic-bezier(0.4, 1, 0.6, 1) SlideInBottom8px, 150ms cubic-bezier(0.4, 1, 0.6, 1) FadeIn0to100',
+		usageGuidelines: { usage: '', cssProperties: [] },
+	},
+	{
+		name: 'motion.popup.enter.left',
+		path: ['motion', 'popup', 'enter', 'left'],
+		description: 'Use for popup enter from the left.',
+		exampleValue:
+			'150ms cubic-bezier(0.4, 1, 0.6, 1) SlideInLeft8px, 150ms cubic-bezier(0.4, 1, 0.6, 1) FadeIn0to100',
+		usageGuidelines: { usage: '', cssProperties: [] },
+	},
+	{
+		name: 'motion.popup.enter.right',
+		path: ['motion', 'popup', 'enter', 'right'],
+		description: 'Use for popup enter from the right.',
+		exampleValue:
+			'150ms cubic-bezier(0.4, 1, 0.6, 1) SlideInRight8px, 150ms cubic-bezier(0.4, 1, 0.6, 1) FadeIn0to100',
+		usageGuidelines: { usage: '', cssProperties: [] },
+	},
+	{
+		name: 'motion.popup.enter.top',
+		path: ['motion', 'popup', 'enter', 'top'],
+		description:
+			'Use for popup enter from the top: popup, tooltip, dropdown, inline message, inline dialog.',
+		exampleValue:
+			'150ms cubic-bezier(0.4, 1, 0.6, 1) SlideInTop8px, 150ms cubic-bezier(0.4, 1, 0.6, 1) FadeIn0to100',
+		usageGuidelines: { usage: '', cssProperties: [] },
+	},
+	{
+		name: 'motion.popup.exit.bottom',
+		path: ['motion', 'popup', 'exit', 'bottom'],
+		description: 'Use for popup exit toward the bottom.',
+		exampleValue:
+			'100ms cubic-bezier(0.6, 0, 0.8, 0.6) SlideOutBottom8px, 100ms cubic-bezier(0.6, 0, 0.8, 0.6) FadeOut100to0',
+		usageGuidelines: { usage: '', cssProperties: [] },
+	},
+	{
+		name: 'motion.popup.exit.left',
+		path: ['motion', 'popup', 'exit', 'left'],
+		description: 'Use for popup exit toward the left.',
+		exampleValue:
+			'100ms cubic-bezier(0.6, 0, 0.8, 0.6) SlideOutLeft8px, 100ms cubic-bezier(0.6, 0, 0.8, 0.6) FadeOut100to0',
+		usageGuidelines: { usage: '', cssProperties: [] },
+	},
+	{
+		name: 'motion.popup.exit.right',
+		path: ['motion', 'popup', 'exit', 'right'],
+		description: 'Use for popup exit toward the right.',
+		exampleValue:
+			'100ms cubic-bezier(0.6, 0, 0.8, 0.6) SlideOutRight8px, 100ms cubic-bezier(0.6, 0, 0.8, 0.6) FadeOut100to0',
+		usageGuidelines: { usage: '', cssProperties: [] },
+	},
+	{
+		name: 'motion.popup.exit.top',
+		path: ['motion', 'popup', 'exit', 'top'],
+		description: 'Use for popup exit toward the top.',
+		exampleValue:
+			'100ms cubic-bezier(0.6, 0, 0.8, 0.6) SlideOutTop8px, 100ms cubic-bezier(0.6, 0, 0.8, 0.6) FadeOut100to0',
+		usageGuidelines: { usage: '', cssProperties: [] },
+	},
+	{
+		name: 'motion.spotlight.enter',
+		path: ['motion', 'spotlight', 'enter'],
+		description: 'Use for spotlight enter transitions.',
+		exampleValue:
+			'250ms cubic-bezier(0.4, 0, 0, 1) ScaleIn95to100, 250ms cubic-bezier(0.4, 0, 0, 1) FadeIn0to100',
+		usageGuidelines: { usage: '', cssProperties: [] },
+	},
+	{
+		name: 'motion.spotlight.exit',
+		path: ['motion', 'spotlight', 'exit'],
+		description: 'Use for spotlight exit transitions.',
+		exampleValue:
+			'200ms cubic-bezier(0.6, 0, 0.8, 0.6) ScaleOut100to95, 200ms cubic-bezier(0.6, 0, 0.8, 0.6) FadeOut100to0',
+		usageGuidelines: { usage: '', cssProperties: [] },
+	},
 	{
 		name: 'color.text',
 		path: ['color', 'text', '[default]'],

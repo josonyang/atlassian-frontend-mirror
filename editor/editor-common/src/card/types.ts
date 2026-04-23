@@ -81,11 +81,16 @@ export type EmbedCardTransformAttrs = {
  * an alternative ProseMirror Node (e.g. a native embed extension node).
  *
  * Returns undefined if the URL is not supported or transformation is not possible.
+ *
+ * May return a Promise when the transformation requires async work, such as
+ * resolving a Confluence short-link URL via the Object Resolver Service before
+ * matching against a registered experience manifest. Callers that support async
+ * transformation should check for a Promise return value and await it.
  */
 export type EmbedCardNodeTransformer = (
 	schema: Schema,
 	attrs: EmbedCardTransformAttrs,
-) => Node | undefined;
+) => Node | undefined | Promise<Node | undefined>;
 
 /**
  * Options for creating a transform command that replaces a selected card node
@@ -116,6 +121,15 @@ export interface EmbedCardTransformers {
 }
 
 export type CardPluginActions = {
+	/**
+	 * Resolves a URL via the Object Resolver Service and returns the canonical
+	 * expanded URL. Useful for expanding Confluence short-link URLs
+	 * (`/wiki/x/<token>`) before matching against experience manifests.
+	 *
+	 * Returns `undefined` if the URL cannot be resolved or ORS returns no
+	 * usable URL in its response data.
+	 */
+	resolveShortLinkUrl: (url: string) => Promise<string | undefined>;
 	getEndingToolbarItems: GetEndingToolbarItems;
 	getStartingToolbarItems: GetStartingToolbarItems;
 	hideLinkToolbar: HideLinkToolbarAction;

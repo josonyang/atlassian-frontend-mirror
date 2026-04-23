@@ -112,6 +112,8 @@ function MyModal() {
 
 CSS anchor positioning hook. Positions a popover relative to an anchor element. Includes a
 JavaScript fallback for browsers without CSS Anchor Positioning support (~6% of users).
+For the full positioning model (placement, offset, fallbacks, arrow integration) see
+[architecture/positioning.md](./positioning.md).
 
 ### `useArrowNavigation`
 

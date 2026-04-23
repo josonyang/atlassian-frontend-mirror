@@ -146,6 +146,7 @@ export type EditorContextPayloadData =
 			};
 			dynamicUiType?: string;
 			isViewMode?: boolean;
+			isDraftLockedForEditing?: boolean;
 			useGenericEditorSkill?: boolean;
 			additionalContext?: Record<string, unknown>;
 	  }

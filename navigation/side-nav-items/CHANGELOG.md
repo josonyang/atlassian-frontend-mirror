@@ -1,5 +1,13 @@
 # @atlaskit/side-nav-items
 
+## 1.13.4
+
+### Patch Changes
+
+- [`c8202594b3c09`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/c8202594b3c09) -
+  Preparing to deprecate LazyDragHandle in favour of inline this code, to avoid React hydration
+  complications
+
 ## 1.13.3
 
 ### Patch Changes

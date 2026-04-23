@@ -1,36 +1,13 @@
 import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
-import { expVal } from '@atlaskit/tmp-editor-statsig/expVal';
 
 import { isEmptyDocument } from '../utils';
 
 import { DynamicBitArray } from './dynamic-bit-array';
-
-/**
- * Gets a numeric experiment param, returning undefined if the value is not a valid number.
- * This guards against test overrides returning booleans or strings for numeric params.
- */
-const getNumericExperimentParam = (
-	paramName: 'nodeCountThreshold' | 'docSizeThreshold',
-	fallbackValue: number,
-): number | undefined => {
-	const rawValue = expVal('cc_editor_limited_mode_expanded', paramName, fallbackValue);
-
-	if (typeof rawValue === 'number') {
-		return rawValue;
-	}
-
-	// Handle string values from test overrides
-	if (typeof rawValue === 'string') {
-		const parsed = parseInt(rawValue, 10);
-
-		if (!isNaN(parsed)) {
-			return parsed;
-		}
-	}
-
-	return undefined;
-};
+import {
+	LIMITED_MODE_DEFAULT_DOC_SIZE_THRESHOLD,
+	LIMITED_MODE_DEFAULT_NODE_COUNT_THRESHOLD,
+} from './limited-mode-document-thresholds';
 
 export class NodeAnchorProvider {
 	private cache = new WeakMap<object, string>();
@@ -109,94 +86,56 @@ export class NodeAnchorProvider {
 
 const nodeIdProviderMap = new WeakMap<EditorView, NodeAnchorProvider>();
 
-const LIMITED_MODE_NODE_SIZE_THRESHOLD = 40000;
-
-/**
- * Calculates custom document size including LCM ADF lengths (for non-expanded path).
- * This function can be removed when cc_editor_limited_mode_expanded is cleaned up.
- */
-const getCustomDocSize = (doc: PMNode): number => {
-	let lcmAdfLength = 0;
-
-	doc.descendants((node: PMNode) => {
-		if (node.attrs?.extensionKey === 'legacy-content') {
-			lcmAdfLength += node.attrs?.parameters?.adf?.length ?? 0;
-		}
-	});
-
-	return doc.nodeSize + lcmAdfLength;
-};
-
 /**
  * Determines whether limited mode should be enabled.
  * This logic mirrors the limited mode plugin implementation, but lives here to avoid a circular dependency.
  * If it changes, update the matching logic in `editor-plugin-limited-mode/src/pm-plugins/main.ts`.
  *
- * Under the expanded gate, limited mode is activated when ANY of the following conditions are met:
- * 1. Document size exceeds `docSizeThreshold` (if defined) - checked first as O(1)
- * 2. Node count exceeds `nodeCountThreshold` (if defined)
- * 3. Document contains a legacy-content macro (LCM) (if `includeLcmInThreshold` is true)
+ * Limited mode is activated when ANY of the following conditions are met:
+ * 1. Document size exceeds `LIMITED_MODE_DEFAULT_DOC_SIZE_THRESHOLD` — checked first as O(1)
+ * 2. Node count exceeds `LIMITED_MODE_DEFAULT_NODE_COUNT_THRESHOLD`
+ * 3. Document contains a legacy-content macro (LCM)
  *
  * Performance optimisations:
  * - Doc size is checked first (O(1)) - if it exceeds threshold, we skip traversal entirely.
- * - If `includeLcmInThreshold` is enabled and we find an LCM, we exit traversal early.
- * - If neither node count nor LCM conditions are configured, we skip traversal entirely.
+ * - If we find an LCM during traversal, we exit early since limited mode will be enabled.
  */
 const isLimitedModeEnabled = (editorView: EditorView): boolean => {
 	const doc = editorView.state.doc;
+	const nodeCountThreshold = LIMITED_MODE_DEFAULT_NODE_COUNT_THRESHOLD;
+	const docSizeThreshold = LIMITED_MODE_DEFAULT_DOC_SIZE_THRESHOLD;
 
-	if (expVal('cc_editor_limited_mode_expanded', 'isEnabled', false)) {
-		const nodeCountThreshold = getNumericExperimentParam('nodeCountThreshold', 5000);
-		const docSizeThreshold = getNumericExperimentParam('docSizeThreshold', 30000);
-		const includeLcmInThreshold = Boolean(
-			expVal('cc_editor_limited_mode_expanded', 'includeLcmInThreshold', false),
-		);
+	// Early exit: doc size exceeds threshold - O(1), no traversal needed
+	if (doc.nodeSize > docSizeThreshold) {
+		return true;
+	}
 
-		// Early exit: doc size exceeds threshold - O(1), no traversal needed
-		if (docSizeThreshold !== undefined && doc.nodeSize > docSizeThreshold) {
-			return true;
-		}
+	// Single traversal for node count and LCM detection
+	let nodeCount = 0;
+	let hasLcm = false;
 
-		// Early exit: no traversal needed if neither condition is configured
-		const needNodeCount = nodeCountThreshold !== undefined;
+	doc.descendants((node: PMNode) => {
+		nodeCount += 1;
 
-		if (!needNodeCount && !includeLcmInThreshold) {
+		if (node.attrs?.extensionKey === 'legacy-content') {
+			hasLcm = true;
+
+			// Early exit: LCM found — limited mode will be enabled
 			return false;
 		}
+	});
 
-		// Single traversal for node count and/or LCM detection
-		let nodeCount = 0;
-		let hasLcm = false;
-
-		doc.descendants((node: PMNode) => {
-			nodeCount += 1;
-
-			if (node.attrs?.extensionKey === 'legacy-content') {
-				hasLcm = true;
-
-				// Early exit: LCM found and condition is enabled - no need to continue counting
-				if (includeLcmInThreshold) {
-					return false;
-				}
-			}
-		});
-
-		// LCM condition takes precedence (if we early exited traversal, this is why)
-		if (includeLcmInThreshold && hasLcm) {
-			return true;
-		}
-
-		// Check node count threshold
-		if (needNodeCount && nodeCount > nodeCountThreshold) {
-			return true;
-		}
-
-		return false;
-	} else {
-		const customDocSize = getCustomDocSize(doc);
-
-		return customDocSize > LIMITED_MODE_NODE_SIZE_THRESHOLD;
+	// LCM condition takes precedence (if we early exited traversal, this is why)
+	if (hasLcm) {
+		return true;
 	}
+
+	// Check node count threshold
+	if (nodeCount > nodeCountThreshold) {
+		return true;
+	}
+
+	return false;
 };
 
 // Get the NodeIdProvider for a specific EditorView instance.

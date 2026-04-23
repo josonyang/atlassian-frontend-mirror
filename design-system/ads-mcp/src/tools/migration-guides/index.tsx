@@ -4,11 +4,8 @@ import { z } from 'zod';
 
 import { zodToJsonSchema } from '../../helpers';
 
-import {
-	getAvailableMigrationIds,
-	getAvailableMigrationsDescription,
-	migrationRegistry,
-} from './registry';
+import { migrationRegistry } from './migration-registry';
+import { getAvailableMigrationIds, getAvailableMigrationsDescription } from './registry';
 
 // Build the enum dynamically from the registry
 const migrationIds = getAvailableMigrationIds();

@@ -1,5 +1,27 @@
 # @atlaskit/icon
 
+## 34.3.0
+
+### Minor Changes
+
+- [`a8a1708dfe5e6`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/a8a1708dfe5e6) -
+  This release adds and updates icons in `@atlaskit/icon`.
+
+  ### Added:
+
+  **`@atlaskit/icon/core`**
+  - `quotation-block`
+
+  ### Updated:
+
+  **`@atlaskit/icon/core`**
+  - `chart-pie`
+  - `markdown`
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 34.2.0
 
 ### Minor Changes

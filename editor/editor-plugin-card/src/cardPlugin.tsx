@@ -165,6 +165,52 @@ export const cardPlugin: CardPlugin = ({ config: options = {} as CardPluginOptio
 			registerEmbedCardTransformer: (transformers) => {
 				instanceEmbedCardTransformers = transformers;
 			},
+			resolveShortLinkUrl: async (url: string) => {
+				if (!options.provider) {
+					return undefined;
+				}
+				try {
+					const provider = await options.provider;
+					// EditorCardProvider holds a CardClient instance internally. We access it
+					// directly to call fetchData, which gives us the raw ORS JSON-LD response
+					// including the canonical url field — something provider.resolve() does not
+					// surface. This is intentionally a structural cast rather than a typed
+					// dependency on EditorCardProvider's private API.
+					const clientHolder = provider as unknown as {
+						cardClient?: { fetchData: (url: string) => Promise<{ data?: unknown }> };
+					};
+					const client = clientHolder.cardClient;
+					if (!client) {
+						return undefined;
+					}
+					const response = await client.fetchData(url);
+					// ORS returns a JsonLd.Response whose data union includes BaseData,
+					// BaseCollectionData, and BaseCollectionPage. We only care about the
+					// `url` field which is present on BaseData (Primitives.Object). Cast
+					// to a minimal shape rather than accessing through the full union type.
+					const data = response?.data as { url?: unknown } | undefined;
+					if (!data) {
+						return undefined;
+					}
+					const urlField = data.url;
+					// Property<string | Link> can be a string, a Link object, or an array.
+					// Short-link responses always return a plain string URL.
+					if (typeof urlField === 'string' && urlField !== url) {
+						return urlField;
+					}
+					// Fallback: Link object shape with href or @id
+					if (urlField && typeof urlField === 'object' && !Array.isArray(urlField)) {
+						const linkObj = urlField as Record<string, unknown>;
+						const id = linkObj['@id'] ?? linkObj['href'];
+						if (typeof id === 'string' && id !== url) {
+							return id;
+						}
+					}
+				} catch {
+					// Swallow errors — callers handle undefined
+				}
+				return undefined;
+			},
 			getStartingToolbarItems: getStartingToolbarItems(options, api),
 			getEndingToolbarItems: getEndingToolbarItems(options, api),
 		},

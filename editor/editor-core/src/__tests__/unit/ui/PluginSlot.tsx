@@ -34,7 +34,7 @@ const defaultProps = {
 
 describe('PluginSlot Component', () => {
 	it('should not render anything when items and pluginHooks are empty and editorView is missing', async () => {
-		const { container } = render(<PluginSlot {...defaultProps} editorView={undefined} />);
+		const { container } = render(<PluginSlot {...defaultProps} items={undefined} pluginHooks={undefined} editorView={undefined} />);
 		expect(container.firstChild).toBeNull();
 
 		await expect(document.body).toBeAccessible();

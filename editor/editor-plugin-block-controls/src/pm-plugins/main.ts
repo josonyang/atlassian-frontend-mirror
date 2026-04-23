@@ -1,6 +1,7 @@
 import rafSchedule from 'raf-schd';
 import type { IntlShape } from 'react-intl';
 
+import { getDocument } from '@atlaskit/browser-apis';
 import {
 	ACTION,
 	ACTION_SUBJECT,
@@ -95,7 +96,7 @@ const destroyFn = (
 	api: ExtractInjectionAPI<BlockControlsPlugin> | undefined,
 	editorView?: EditorView,
 ) => {
-	const scrollable = document.querySelector('.fabric-editor-popup-scroll-parent');
+	const scrollable = getDocument()?.querySelector('.fabric-editor-popup-scroll-parent') ?? null;
 
 	const cleanupFn: CleanupFn[] = [];
 
@@ -293,7 +294,7 @@ const getDecorationAtPos = (
 	const findNewNodeDecs = findNodeDecs(
 		state,
 		decorations,
-		editorExperiment('platform_editor_block_control_optimise_render', true) ? pos : pos - 1,
+		pos - 1,
 		to,
 	);
 
@@ -389,7 +390,7 @@ export const apply = (
 		/**
 		 * INFO: This if statement is a duplicate of the logic in destroy(). When the threshold is breached and we enter limited mode, we want to trigger the cleanup logic in destroy().
 		 */
-		const editorContentArea = document.querySelector('.fabric-editor-popup-scroll-parent');
+		const editorContentArea = getDocument()?.querySelector('.fabric-editor-popup-scroll-parent') ?? null;
 
 		if (editorContentArea && resizeObserverWidth) {
 			resizeObserverWidth.unobserve(editorContentArea);
@@ -515,9 +516,7 @@ export const apply = (
 				const findNewNodeDecs = findNodeDecs(
 					newState,
 					decorations,
-					editorExperiment('platform_editor_block_control_optimise_render', true)
-						? latestActiveNode.pos
-						: latestActiveNode.pos - 1,
+					latestActiveNode.pos - 1,
 					to,
 				);
 
@@ -610,6 +609,16 @@ export const apply = (
 	if (flags.toolbarFlagsEnabled) {
 		// Remove handle dec when editor is blurred
 		shouldRemoveHandle = shouldRemoveHandle || meta?.editorBlurred;
+	}
+
+	// In view mode with right-side controls, remove any lingering drag handle decorations
+	// (they may carry over from edit mode). Only remove drag handles specifically, not
+	// the remix button decorations (those are managed separately via showInViewMode).
+	if (isViewMode && rightSideControlsEnabled) {
+		const allHandleDecs = findHandleDec(decorations, 0, newState.doc.content.size);
+		if (allHandleDecs.length > 0) {
+			decorations = decorations.remove(allHandleDecs);
+		}
 	}
 
 	if (shouldRemoveHandle) {
@@ -1081,7 +1090,20 @@ export const createPlugin = (
 						return;
 					}
 				}
-				return key.getState(state)?.decorations;
+				let decorationSet = key.getState(state)?.decorations;
+				// In view mode with right-side controls, remove any lingering drag-handle decorations
+				// (created in edit mode) that may not have been cleaned up on mode switch.
+				if (
+					decorationSet &&
+					rightSideControlsEnabled &&
+					api?.editorViewMode?.sharedState.currentState()?.mode === 'view'
+				) {
+					const handleDecs = findHandleDec(decorationSet, 0, state.doc.content.size);
+					if (handleDecs.length > 0) {
+						decorationSet = decorationSet.remove(handleDecs);
+					}
+				}
+				return decorationSet;
 			},
 			handleDOMEvents: {
 				drop(view: EditorView, event: DragEvent) {

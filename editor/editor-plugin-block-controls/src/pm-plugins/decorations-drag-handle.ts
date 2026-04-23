@@ -70,17 +70,11 @@ export const dragHandleDecoration = ({
 	anchorRectCache,
 	editorState,
 }: DragHandleDecorationParams): Decoration => {
-	if (
-		!editorExperiment('platform_editor_block_control_optimise_render', true, {
-			exposure: true,
-		})
-	) {
-		unmountDecorations(
-			nodeViewPortalProviderAPI,
-			'data-blocks-drag-handle-container',
-			'data-blocks-drag-handle-key',
-		);
-	}
+	unmountDecorations(
+		nodeViewPortalProviderAPI,
+		'data-blocks-drag-handle-container',
+		'data-blocks-drag-handle-key',
+	);
 
 	let unbind: UnbindFn;
 	// eslint-disable-next-line @atlaskit/platform/prefer-crypto-random-uuid -- Use crypto.randomUUID instead
@@ -102,13 +96,6 @@ export const dragHandleDecoration = ({
 					: getActiveBlockMarks(editorState, pos),
 				destroy: (node: Node) => {
 					unbind && unbind();
-
-					if (
-						editorExperiment('platform_editor_block_control_optimise_render', true) &&
-						node instanceof HTMLElement
-					) {
-						ReactDOM.unmountComponentAtNode(node);
-					}
 				},
 			}
 		: {
@@ -123,13 +110,6 @@ export const dragHandleDecoration = ({
 						: undefined,
 				destroy: (node: Node) => {
 					unbind && unbind();
-
-					if (
-						editorExperiment('platform_editor_block_control_optimise_render', true) &&
-						node instanceof HTMLElement
-					) {
-						ReactDOM.unmountComponentAtNode(node);
-					}
 				},
 			};
 

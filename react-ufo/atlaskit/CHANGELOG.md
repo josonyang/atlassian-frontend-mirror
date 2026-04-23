@@ -1,5 +1,13 @@
 # @atlaskit/ufo-interaction-ignore
 
+## 5.16.2
+
+### Patch Changes
+
+- [`15a457271c73b`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/15a457271c73b) -
+  Cleanup `platform_ufo_validate_timing_name_length` feature gate. Long timing names are now always
+  truncated to 255 characters.
+
 ## 5.16.1
 
 ### Patch Changes

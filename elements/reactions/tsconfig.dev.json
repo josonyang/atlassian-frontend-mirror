@@ -36,11 +36,7 @@
 		"./extract-react-type/*.ts",
 		"./*.ts"
 	],
-	"exclude": [
-		"./dist/**/*",
-		"./build/**/*",
-		"./node_modules/**/*"
-	],
+	"exclude": ["./dist/**/*", "./build/**/*", "./node_modules/**/*"],
 	"compilerOptions": {
 		"composite": true,
 		"outDir": "../../../tsDist/@atlaskit__reactions/dev",
@@ -73,9 +69,6 @@
 		},
 		{
 			"path": "../../design-system/link/tsconfig.app.json"
-		},
-		{
-			"path": "../../platform/feature-flags/tsconfig.app.json"
 		},
 		{
 			"path": "../../design-system/popper/tsconfig.app.json"

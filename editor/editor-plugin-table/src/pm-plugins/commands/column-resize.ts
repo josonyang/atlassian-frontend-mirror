@@ -65,7 +65,6 @@ const updateResizeHandleAndStatePosition =
 		const {
 			pluginConfig: { allowColumnResizing },
 			getIntl,
-			isDragAndDropEnabled,
 		} = getPluginState(state);
 
 		const fakeDispatch = (tr: Transaction) => {
@@ -95,7 +94,6 @@ const updateResizeHandleAndStatePosition =
 				{
 					right: columnIndex,
 				},
-				isDragAndDropEnabled,
 			),
 			TableDecorations.COLUMN_RESIZING_HANDLE_LINE,
 		);

@@ -9,12 +9,12 @@ export const isAnchorSupported = memorizeOne((): boolean => {
 	return false;
 });
 
-export const isNativeStickySupported = (isDragAndDropEnabled: boolean): boolean => {
+export const isNativeStickySupported = (): boolean => {
 	const safariVersion = getBrowserInfo().safari_version;
 	const isBrowserSafari = !Number.isNaN(safariVersion);
 
 	return (
 		// Safari has a bug with position: sticky and content editable, so we don't support it
-		!isBrowserSafari && isAnchorSupported() && isDragAndDropEnabled
+		!isBrowserSafari && isAnchorSupported()
 	);
 };

@@ -1,7 +1,6 @@
 import React from 'react';
 import { IntlProvider } from 'react-intl';
-// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
-import styled from '@emotion/styled';
+import { styled } from '@compiled/react';
 import Button from '@atlaskit/button/new';
 import { Checkbox } from '@atlaskit/checkbox';
 import { token } from '@atlaskit/tokens';

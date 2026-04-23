@@ -127,12 +127,24 @@ Converts Popper.js placement strings (e.g. `'bottom-start'`) to the top-layer ob
 
 ### Offset conversion
 
-Legacy offset is a `[along, away]` tuple. Top-layer uses a single `away` number. The `along` offset
-is not supported in CSS Anchor Positioning natively — only the `away` (second) value is forwarded.
+Legacy offset is the popper `[along, away]` tuple. Top-layer now supports both. The mapping is:
 
 ```ts
-const topLayerOffset = offsetProp ? offsetProp[1] : undefined;
+const along = offsetProp ? offsetProp[0] : 0;
+const away = offsetProp ? offsetProp[1] : undefined;
+
+const newOffset = {
+  gap: away,
+  shift: {
+    value: Math.abs(along),
+    direction: along >= 0 ? 'forwards' : 'backwards',
+  },
+};
 ```
+
+This preserves the legacy first value by splitting positive/negative into `direction`. See
+`placement-offset.md` for the full design rationale and how cross-axis shift is implemented via
+CSS custom properties and JS fallback deltas.
 
 ---
 
@@ -247,8 +259,12 @@ owns its own styling.
    `popupComponent` receives empty `style={{}}` and no `zIndex` — stacking is managed by the top
    layer.
 
-5. **`along` offset dropped**: CSS Anchor Positioning doesn't natively support along-axis offset.
-   Only the `away` (second element) of the `[along, away]` tuple is forwarded.
+5. **Cross-axis shift preserved**: The legacy first element of the popper `[along, away]` tuple is
+   now restored via `placement.offset.crossAxisShift`. The CSS path uses four explicit custom properties
+   (`--ds-cross-axis-shift-margin-*`) to apply cross-axis margin; the JS fallback resolves CSS length strings
+   to pixels via a hidden DOM probe (`resolveCssLengthToPixels`) and applies a signed cross-axis
+   coordinate delta with the same per-`align` and per-`direction` sign rules as the CSS path.
+   This restores full parity with popper-era APIs on both runtime paths. See `placement-offset.md`.
 
 6. **Synthetic events for `onClose`**: Top-layer's `onClose({ reason })` is bridged to legacy
    `onClose(event)` by synthesizing DOM events. This preserves backward compatibility for consumers
@@ -260,7 +276,6 @@ owns its own styling.
 
 | Gap                     | Impact                                                                                                                                                                                                                                                                                   |
 | ----------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `along` offset          | **Deprecated.** First element of `[along, away]` tuple is ignored. CSS Anchor Positioning does not support along-axis offset. Decision (2026-03-17 audit): Drop entirely. Mark as `@private` `@deprecated`. We are leaning into the platform. Consumers should find alternative layouts. |
 | `UNSAFE_modal-below-sm` | Appearance-based responsive behavior not implemented                                                                                                                                                                                                                                     |
 | `fallbackPlacements`    | Accepted but not yet wired to CSS `position-try-fallbacks`                                                                                                                                                                                                                               |
 | Screen reader testing   | JAWS/NVDA/VoiceOver matrix not conducted                                                                                                                                                                                                                                                 |
@@ -312,13 +327,11 @@ unchanged.
 
 When rolling out `platform-dst-top-layer=true`, expect these breaking changes:
 
-1. **`along` offset dropped** — first element of `[along, away]` tuple ignored; only `away` offset
-   forwarded
-2. **`UNSAFE_modal-below-sm`** not implemented (appearance-based responsive behavior)
-3. **`fallbackPlacements`** accepted but not wired to CSS `position-try-fallbacks`
-4. **Synthetic `onClose` events** may not match the original DOM event type (e.g., `MouseEvent` vs
+1. **`UNSAFE_modal-below-sm`** not implemented (appearance-based responsive behavior)
+2. **`fallbackPlacements`** accepted but not wired to CSS `position-try-fallbacks`
+3. **Synthetic `onClose` events** may not match the original DOM event type (e.g., `MouseEvent` vs
    `KeyboardEvent`)
-5. **`aria-haspopup` default changed** from `'true'` to `'dialog'` (affects semantic meaning)
+4. **`aria-haspopup` default changed** from `'true'` to `'dialog'` (affects semantic meaning)
 
 ### Test confidence
 

@@ -130,13 +130,6 @@ export const editorExperimentsConfig: {
 		productKeys?: ProductKeys;
 		typeGuard: IsBooleanType;
 	};
-	// Added 2026-01-19
-	cc_editor_limited_mode_expanded: {
-		defaultValue: boolean;
-		param: string;
-		productKeys?: ProductKeys;
-		typeGuard: IsBooleanType;
-	};
 	// new format to avoid collisions with other users when updating the file
 	// Editor Platform experiments
 	// lwoollard experiments
@@ -380,13 +373,6 @@ export const editorExperimentsConfig: {
 		productKeys?: ProductKeys;
 		typeGuard: IsBooleanType;
 	};
-	// Added 2025-06-02
-	platform_editor_block_control_optimise_render: {
-		defaultValue: boolean;
-		param: string;
-		productKeys?: ProductKeys;
-		typeGuard: IsBooleanType;
-	};
 	// Added 2026-17-03
 	platform_editor_media_name_fallback: {
 		defaultValue: boolean;
@@ -548,13 +534,6 @@ export const editorExperimentsConfig: {
 	};
 	// Added 2025-08-04
 	platform_editor_floating_toolbar_button_aria_label: {
-		defaultValue: boolean;
-		param: string;
-		productKeys?: ProductKeys;
-		typeGuard: IsBooleanType;
-	};
-	// Added 2025-09-03
-	platform_editor_hydratable_ui: {
 		defaultValue: boolean;
 		param: string;
 		productKeys?: ProductKeys;
@@ -1073,6 +1052,13 @@ export const editorExperimentsConfig: {
 		typeGuard: IsBooleanType;
 	};
 	platform_editor_fix_cross_origin_editor_focus: {
+		defaultValue: boolean;
+		param: string;
+		productKeys?: ProductKeys;
+		typeGuard: IsBooleanType;
+	};
+	// Added 2026-04-23
+	platform_editor_fix_scrolling_popup_position: {
 		defaultValue: boolean;
 		param: string;
 		productKeys?: ProductKeys;
@@ -1753,6 +1739,14 @@ export const editorExperimentsConfig: {
 		productKeys?: ProductKeys;
 		typeGuard: IsBooleanType;
 	};
+
+	// Added 2026-04-23
+	platform_editor_ai_chromeless_akEditor_class: {
+		defaultValue: boolean;
+		param: string;
+		productKeys?: ProductKeys;
+		typeGuard: IsBooleanType;
+	};
 } = {
 	// new format to avoid collisions with other users when updating the file
 
@@ -1976,14 +1970,6 @@ export const editorExperimentsConfig: {
 		defaultValue: false,
 	}),
 
-	// Added 2025-06-02
-	platform_editor_block_control_optimise_render: createBooleanExperiment({
-		productKeys: {
-			confluence: 'platform_editor_block_control_optimise_render',
-		},
-		param: 'isEnabled',
-		defaultValue: false,
-	}),
 	// Added 2024-08-08
 	'example-boolean': createBooleanExperiment({
 		productKeys: {
@@ -2158,14 +2144,6 @@ export const editorExperimentsConfig: {
 		param: 'cohort',
 		values: ['control', 'variant1'],
 		defaultValue: 'control',
-	}),
-	// Added 2025-09-03
-	platform_editor_hydratable_ui: createBooleanExperiment({
-		productKeys: {
-			confluence: 'platform_editor_hydratable_ui',
-		},
-		param: 'isEnabled',
-		defaultValue: false,
 	}),
 	// Added 2026-03-02
 	platform_editor_inline_card_dispatch_guard: createBooleanExperiment({
@@ -2477,14 +2455,6 @@ export const editorExperimentsConfig: {
 	platform_editor_blocktaskitem_patch_1: createBooleanExperiment({
 		productKeys: {
 			confluence: 'platform_editor_blocktaskitem_patch_1',
-		},
-		param: 'isEnabled',
-		defaultValue: false,
-	}),
-	// Added 2026-01-19
-	cc_editor_limited_mode_expanded: createBooleanExperiment({
-		productKeys: {
-			confluence: 'cc_editor_limited_mode_expanded',
 		},
 		param: 'isEnabled',
 		defaultValue: false,
@@ -2973,6 +2943,15 @@ export const editorExperimentsConfig: {
 	platform_editor_renderer_toolbar_updates: createBooleanExperiment({
 		productKeys: {
 			confluence: 'platform_editor_renderer_toolbar_updates',
+		},
+		param: 'isEnabled',
+		defaultValue: false,
+	}),
+	// Added 2026-04-23
+	platform_editor_fix_scrolling_popup_position: createBooleanExperiment({
+		productKeys: {
+			confluence: 'platform_editor_fix_scrolling_popup_position',
+			jira: 'platform_editor_fix_scrolling_popup_position',
 		},
 		param: 'isEnabled',
 		defaultValue: false,
@@ -3771,6 +3750,15 @@ export const editorExperimentsConfig: {
 	cc_dnd_smart_link_changeboard_po_template: createBooleanExperiment({
 		productKeys: {
 			confluence: 'cc_dnd_smart_link_changeboard_po_template',
+		},
+		param: 'isEnabled',
+		defaultValue: false,
+	}),
+	// Added 2026-04-23
+	platform_editor_ai_chromeless_akEditor_class: createBooleanExperiment({
+		productKeys: {
+			confluence: 'platform_editor_ai_chromeless_akEditor_class',
+			jira: 'platform_editor_ai_chromeless_akEditor_class',
 		},
 		param: 'isEnabled',
 		defaultValue: false,

@@ -1,5 +1,20 @@
 # @atlaskit/modal-dialog
 
+## 14.18.0
+
+### Minor Changes
+
+- [`d182ea0a08b1f`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/d182ea0a08b1f) -
+  Added temporary `UNSAFE_shouldDisableMotionUplift` prop to override the
+  `platform-dst-motion-uplift` feature gate and disable the motion uplift
+
+## 14.17.0
+
+### Minor Changes
+
+- [`b4ee8f6b3265c`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/b4ee8f6b3265c) -
+  Clean up flag to prepare for boolean autoFocus removal.
+
 ## 14.16.0
 
 ### Minor Changes

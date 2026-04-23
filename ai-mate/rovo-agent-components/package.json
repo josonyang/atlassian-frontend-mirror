@@ -97,7 +97,7 @@
 		"@testing-library/user-event": "root:*",
 		"@types/relay-test-utils": "root:*",
 		"react-intl": "root:*",
-		"relay-test-utils": "^14.1.0",
+		"relay-test-utils": "root:*",
 		"wait-for-expect": "root:*"
 	},
 	"peerDependencies": {

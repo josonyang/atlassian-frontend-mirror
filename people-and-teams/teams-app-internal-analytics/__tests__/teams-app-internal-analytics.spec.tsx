@@ -2,25 +2,142 @@ import React from 'react';
 
 import { act, screen } from '@testing-library/react';
 
-import { AnalyticsContext } from '@atlaskit/analytics-next';
+import type { EventType } from '@atlaskit/analytics-gas-types';
+import {
+	AnalyticsContext,
+	useAnalyticsEvents,
+	withAnalyticsEvents,
+	type WithAnalyticsEventsProps,
+} from '@atlaskit/analytics-next';
+import type { CreateUIAnalyticsEvent } from '@atlaskit/analytics-next/types';
+import Button from '@atlaskit/button/new';
 import {
 	createMockAnalyticsClient,
 	renderWithAnalyticsListener,
 } from '@atlassian/ptc-test-utils/analytics';
 
-import { ButtonWithAnalytics as ButtonWithPTCHookAnalytics } from '../examples/helpers/button-with-analytics';
-import { ButtonWithAnalytics as ButtonWithNextHOCAnalytics } from '../examples/helpers/button-with-analytics-next-hoc';
-import { ButtonWithAnalytics as ButtonWithNextHookAnalytics } from '../examples/helpers/button-with-analytics-next-hook';
-import {
-	operationalExampleEvent,
-	screenExampleEvent,
-	trackExampleEvent,
-	uiExampleEvent,
-} from '../examples/helpers/utils';
+import { EVENT_CHANNEL } from '../src/common/utils/constants';
+import { useAnalyticsEvents as usePTCAnalyticsEvents } from '../src/common/utils/generated/use-analytics-events';
 import {
 	defaultAnalyticsContextData as defaultPeopleAndTeamsContextBaseAttributes,
 	TeamsAppAnalyticsContext,
 } from '../src/ui/analytics-context';
+
+const uiExampleEvent = {
+	action: 'clicked',
+	actionSubject: 'button',
+	actionSubjectId: 'analyticsExample',
+	attributes: {
+		testAttribute: 'testValue',
+	},
+};
+
+const operationalExampleEvent = {
+	action: 'fired',
+	actionSubject: 'automation',
+	actionSubjectId: 'analyticsExample',
+	attributes: {
+		testAttribute: 'testValue',
+	},
+};
+
+const trackExampleEvent = {
+	action: 'triggered',
+	actionSubject: 'automation',
+	actionSubjectId: 'analyticsExample',
+	attributes: {
+		testAttribute: 'testValue',
+	},
+};
+
+const screenExampleEvent = {
+	name: 'analyticsExampleScreen',
+	attributes: {
+		testAttribute: 'testValue',
+	},
+};
+
+type ButtonProps = {
+	eventType: EventType;
+};
+
+function fireAnalyticsEvent(
+	createAnalyticsEvent: CreateUIAnalyticsEvent | undefined,
+	eventType: string,
+	body: Record<string, unknown>,
+) {
+	if (!createAnalyticsEvent) {
+		return;
+	}
+	createAnalyticsEvent({ eventType, ...body }).fire(EVENT_CHANNEL);
+}
+
+function getEventPayload(eventType: EventType) {
+	switch (eventType) {
+		case 'operational':
+			return { eventType: 'operational', ...operationalExampleEvent };
+		case 'track':
+			return { eventType: 'track', ...trackExampleEvent };
+		case 'screen':
+			return { eventType: 'screen', ...screenExampleEvent };
+		case 'ui':
+		default:
+			return { eventType: 'ui', ...uiExampleEvent };
+	}
+}
+
+function ButtonWithPTCHookAnalytics({ eventType }: ButtonProps) {
+	const { fireEvent } = usePTCAnalyticsEvents();
+	const onClick = () => {
+		switch (eventType) {
+			case 'operational':
+				fireEvent('operational.automation.fired.analyticsExample', { testAttribute: 'testValue' });
+				break;
+			case 'track':
+				fireEvent('track.automation.triggered.analyticsExample', { testAttribute: 'testValue' });
+				break;
+			case 'screen':
+				fireEvent('screen.analyticsExampleScreen.viewed', { testAttribute: 'testValue' });
+				break;
+			case 'ui':
+			default:
+				fireEvent('ui.button.clicked.analyticsExample', { testAttribute: 'testValue' });
+				break;
+		}
+	};
+	return (
+		<Button onClick={onClick} testId="button-with-analytics">
+			{`Fire ${eventType} Analytics Event`}
+		</Button>
+	);
+}
+
+function ButtonWithNextHookAnalytics({ eventType }: ButtonProps) {
+	const { createAnalyticsEvent } = useAnalyticsEvents();
+	const onClick = () => {
+		const payload = getEventPayload(eventType);
+		fireAnalyticsEvent(createAnalyticsEvent, payload.eventType, payload);
+	};
+	return (
+		<Button onClick={onClick} testId="button-with-analytics">
+			{`Fire ${eventType} Analytics Event`}
+		</Button>
+	);
+}
+
+const ButtonWithNextHOCAnalytics = withAnalyticsEvents()(
+	({ eventType, createAnalyticsEvent }: ButtonProps & WithAnalyticsEventsProps) => {
+		const onClick = () => {
+			const payload = getEventPayload(eventType);
+			fireAnalyticsEvent(createAnalyticsEvent, payload.eventType, payload);
+		};
+		return (
+			<Button onClick={onClick} testId="button-with-analytics">
+				{`Fire ${eventType} Analytics Event`}
+			</Button>
+		);
+	},
+);
 
 const mockClient = createMockAnalyticsClient();
 

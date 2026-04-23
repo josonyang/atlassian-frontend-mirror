@@ -12,7 +12,6 @@ import type {
 import { usePluginStateEffect } from '@atlaskit/editor-common/use-plugin-state-effect';
 import type { Selection } from '@atlaskit/editor-prosemirror/state';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
-import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
 import { insertAdfAtEndOfDoc } from './pm-plugins/actions/insertAdfAtEndOfDoc';
@@ -145,7 +144,7 @@ export const selectionExtensionPlugin: SelectionExtensionPlugin = ({ api, config
 		},
 		usePluginHook: () => {
 			usePluginStateEffect(api, ['selection'], () => {
-				if (expValEquals('platform_editor_hydratable_ui', 'isEnabled', true) && isSSR()) {
+				if (isSSR()) {
 					return;
 				}
 
@@ -155,10 +154,7 @@ export const selectionExtensionPlugin: SelectionExtensionPlugin = ({ api, config
 			});
 		},
 		contentComponent: ({ editorView }) => {
-			if (
-				!editorView ||
-				(expValEquals('platform_editor_hydratable_ui', 'isEnabled', true) && isSSR())
-			) {
+			if (!editorView || isSSR()) {
 				return null;
 			}
 

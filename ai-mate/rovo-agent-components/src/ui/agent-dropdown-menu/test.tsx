@@ -68,7 +68,7 @@ describe('AgentDropdownMenu', () => {
 		await user.click(moreActions());
 
 		const viewAgentButton = screen.queryByRole('menuitem', {
-			name: 'View Agent',
+			name: 'View agent',
 		});
 		expect(viewAgentButton).toBeNull();
 	});
@@ -83,7 +83,7 @@ describe('AgentDropdownMenu', () => {
 		await user.click(moreActions());
 
 		const viewAgentButton = screen.queryByRole('menuitem', {
-			name: 'View Agent',
+			name: 'View agent',
 		});
 		expect(viewAgentButton).toBeVisible();
 
@@ -130,7 +130,7 @@ describe('AgentDropdownMenu', () => {
 		await user.click(moreActions());
 
 		const duplicateAgentButton = screen.queryByRole('menuitem', {
-			name: 'Duplicate Agent',
+			name: 'Duplicate agent',
 		});
 		expect(duplicateAgentButton).toBeNull();
 	});
@@ -145,7 +145,7 @@ describe('AgentDropdownMenu', () => {
 		await user.click(moreActions());
 
 		const duplicateAgentButton = screen.queryByRole('menuitem', {
-			name: 'Duplicate Agent',
+			name: 'Duplicate agent',
 		});
 		expect(duplicateAgentButton).toBeVisible();
 
@@ -161,7 +161,7 @@ describe('AgentDropdownMenu', () => {
 		});
 		await user.click(moreActions());
 		const duplicateAgentButton = screen.queryByRole('menuitem', {
-			name: 'Duplicate Agent',
+			name: 'Duplicate agent',
 		});
 		expect(duplicateAgentButton).toBeNull();
 	});
@@ -252,7 +252,7 @@ describe('AgentDropdownMenu', () => {
 		await user.click(moreActions());
 
 		const editButton = screen.queryByRole('menuitem', {
-			name: 'Edit Agent',
+			name: 'Edit agent',
 		});
 		expect(editButton).toBeVisible();
 
@@ -273,7 +273,7 @@ describe('AgentDropdownMenu', () => {
 		await user.click(moreActions());
 
 		const editButton = screen.queryByRole('menuitem', {
-			name: 'Edit Agent',
+			name: 'Edit agent',
 		});
 		expect(editButton).toBeNull();
 	});
@@ -291,7 +291,7 @@ describe('AgentDropdownMenu', () => {
 		await user.click(moreActions());
 
 		const deleteButton = screen.queryByRole('menuitem', {
-			name: 'Delete Agent',
+			name: 'Delete agent',
 		});
 		expect(deleteButton).toBeVisible();
 
@@ -312,7 +312,7 @@ describe('AgentDropdownMenu', () => {
 		await user.click(moreActions());
 
 		const deleteButton = screen.queryByRole('menuitem', {
-			name: 'Delete Agent',
+			name: 'Delete agent',
 		});
 		expect(deleteButton).toBeNull();
 	});

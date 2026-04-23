@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::148f2f6a72e79c38e027eeed3b58d3ac>>
+ * @codegen <<SignedSource::f86ddd91a5d48fe256274c50f5d73493>>
  * @codegenCommand yarn build tokens
  */
 
@@ -55,9 +55,9 @@ const tokens: Token[] = [
   {
     "attributes": {
       "group": "motion",
-      "state": "experimental",
+      "state": "active",
       "introduced": "11.2.0",
-      "description": ""
+      "description": "Use for avatar group enter transitions."
     },
     "value": {
       "duration": 150,
@@ -72,9 +72,9 @@ const tokens: Token[] = [
     "original": {
       "attributes": {
         "group": "motion",
-        "state": "experimental",
+        "state": "active",
         "introduced": "11.2.0",
-        "description": ""
+        "description": "Use for avatar group enter transitions."
       },
       "value": {
         "duration": "Duration150",
@@ -96,9 +96,9 @@ const tokens: Token[] = [
   {
     "attributes": {
       "group": "motion",
-      "state": "experimental",
+      "state": "active",
       "introduced": "11.2.0",
-      "description": ""
+      "description": "Use for avatar group exit transitions."
     },
     "value": {
       "duration": 100,
@@ -113,9 +113,9 @@ const tokens: Token[] = [
     "original": {
       "attributes": {
         "group": "motion",
-        "state": "experimental",
+        "state": "active",
         "introduced": "11.2.0",
-        "description": ""
+        "description": "Use for avatar group exit transitions."
       },
       "value": {
         "duration": "Duration100",
@@ -137,9 +137,9 @@ const tokens: Token[] = [
   {
     "attributes": {
       "group": "motion",
-      "state": "experimental",
+      "state": "active",
       "introduced": "11.2.0",
-      "description": ""
+      "description": "Use for hover state on avatar elements."
     },
     "value": {
       "duration": 250,
@@ -153,9 +153,9 @@ const tokens: Token[] = [
     "original": {
       "attributes": {
         "group": "motion",
-        "state": "experimental",
+        "state": "active",
         "introduced": "11.2.0",
-        "description": ""
+        "description": "Use for hover state on avatar elements."
       },
       "value": {
         "duration": "Duration250",
@@ -176,9 +176,9 @@ const tokens: Token[] = [
   {
     "attributes": {
       "group": "motion",
-      "state": "experimental",
+      "state": "active",
       "introduced": "11.5.0",
-      "description": ""
+      "description": "Use for blanket enter transitions."
     },
     "value": {
       "duration": 250,
@@ -192,9 +192,9 @@ const tokens: Token[] = [
     "original": {
       "attributes": {
         "group": "motion",
-        "state": "experimental",
+        "state": "active",
         "introduced": "11.5.0",
-        "description": ""
+        "description": "Use for blanket enter transitions."
       },
       "value": {
         "duration": "Duration250",
@@ -215,9 +215,9 @@ const tokens: Token[] = [
   {
     "attributes": {
       "group": "motion",
-      "state": "experimental",
+      "state": "active",
       "introduced": "11.5.0",
-      "description": ""
+      "description": "Use for blanket exit transitions."
     },
     "value": {
       "duration": 200,
@@ -231,9 +231,9 @@ const tokens: Token[] = [
     "original": {
       "attributes": {
         "group": "motion",
-        "state": "experimental",
+        "state": "active",
         "introduced": "11.5.0",
-        "description": ""
+        "description": "Use for blanket exit transitions."
       },
       "value": {
         "duration": "Duration200",
@@ -254,9 +254,9 @@ const tokens: Token[] = [
   {
     "attributes": {
       "group": "motionDuration",
-      "state": "experimental",
+      "state": "active",
       "introduced": "11.5.0",
-      "description": ""
+      "description": "Use for instant feedback with no perceptible delay, such as list item hover, selected and focus states."
     },
     "value": "0ms",
     "filePath": "schema/themes/atlassian-motion/motion-duration.tsx",
@@ -264,9 +264,9 @@ const tokens: Token[] = [
     "original": {
       "attributes": {
         "group": "motionDuration",
-        "state": "experimental",
+        "state": "active",
         "introduced": "11.5.0",
-        "description": ""
+        "description": "Use for instant feedback with no perceptible delay, such as list item hover, selected and focus states."
       },
       "value": "Duration000"
     },
@@ -281,9 +281,9 @@ const tokens: Token[] = [
   {
     "attributes": {
       "group": "motionDuration",
-      "state": "experimental",
+      "state": "active",
       "introduced": "11.5.0",
-      "description": ""
+      "description": "Use for medium entrance transitions, such as modal enter and flag enter."
     },
     "value": "250ms",
     "filePath": "schema/themes/atlassian-motion/motion-duration.tsx",
@@ -291,9 +291,9 @@ const tokens: Token[] = [
     "original": {
       "attributes": {
         "group": "motionDuration",
-        "state": "experimental",
+        "state": "active",
         "introduced": "11.5.0",
-        "description": ""
+        "description": "Use for medium entrance transitions, such as modal enter and flag enter."
       },
       "value": "Duration250"
     },
@@ -308,9 +308,9 @@ const tokens: Token[] = [
   {
     "attributes": {
       "group": "motionDuration",
-      "state": "experimental",
+      "state": "active",
       "introduced": "11.5.0",
-      "description": ""
+      "description": "Use for medium exit transitions, such as modal exit and flag exit."
     },
     "value": "200ms",
     "filePath": "schema/themes/atlassian-motion/motion-duration.tsx",
@@ -318,9 +318,9 @@ const tokens: Token[] = [
     "original": {
       "attributes": {
         "group": "motionDuration",
-        "state": "experimental",
+        "state": "active",
         "introduced": "11.5.0",
-        "description": ""
+        "description": "Use for medium exit transitions, such as modal exit and flag exit."
       },
       "value": "Duration200"
     },
@@ -335,9 +335,9 @@ const tokens: Token[] = [
   {
     "attributes": {
       "group": "motionDuration",
-      "state": "experimental",
+      "state": "active",
       "introduced": "11.5.0",
-      "description": ""
+      "description": "Use for interactive state emphasis and small entrances, such as button hover and pressed states, popup enter, and avatar appear."
     },
     "value": "150ms",
     "filePath": "schema/themes/atlassian-motion/motion-duration.tsx",
@@ -345,9 +345,9 @@ const tokens: Token[] = [
     "original": {
       "attributes": {
         "group": "motionDuration",
-        "state": "experimental",
+        "state": "active",
         "introduced": "11.5.0",
-        "description": ""
+        "description": "Use for interactive state emphasis and small entrances, such as button hover and pressed states, popup enter, and avatar appear."
       },
       "value": "Duration150"
     },
@@ -362,9 +362,9 @@ const tokens: Token[] = [
   {
     "attributes": {
       "group": "motionDuration",
-      "state": "experimental",
+      "state": "active",
       "introduced": "11.5.0",
-      "description": ""
+      "description": "Use for large transitions, such as panel enter/exit, page transitions, and full-screen overlays."
     },
     "value": "400ms",
     "filePath": "schema/themes/atlassian-motion/motion-duration.tsx",
@@ -372,9 +372,9 @@ const tokens: Token[] = [
     "original": {
       "attributes": {
         "group": "motionDuration",
-        "state": "experimental",
+        "state": "active",
         "introduced": "11.5.0",
-        "description": ""
+        "description": "Use for large transitions, such as panel enter/exit, page transitions, and full-screen overlays."
       },
       "value": "Duration400"
     },
@@ -389,9 +389,9 @@ const tokens: Token[] = [
   {
     "attributes": {
       "group": "motionDuration",
-      "state": "experimental",
+      "state": "active",
       "introduced": "11.5.0",
-      "description": ""
+      "description": "Use for subtle pressed states and quick exits, such as component press feedback, popup dismiss, and avatar transitions."
     },
     "value": "100ms",
     "filePath": "schema/themes/atlassian-motion/motion-duration.tsx",
@@ -399,9 +399,9 @@ const tokens: Token[] = [
     "original": {
       "attributes": {
         "group": "motionDuration",
-        "state": "experimental",
+        "state": "active",
         "introduced": "11.5.0",
-        "description": ""
+        "description": "Use for subtle pressed states and quick exits, such as component press feedback, popup dismiss, and avatar transitions."
       },
       "value": "Duration100"
     },
@@ -416,9 +416,9 @@ const tokens: Token[] = [
   {
     "attributes": {
       "group": "motionDuration",
-      "state": "experimental",
+      "state": "active",
       "introduced": "11.5.0",
-      "description": ""
+      "description": "Use for large transitions, such as onboarding steps and full-screen overlays."
     },
     "value": "600ms",
     "filePath": "schema/themes/atlassian-motion/motion-duration.tsx",
@@ -426,9 +426,9 @@ const tokens: Token[] = [
     "original": {
       "attributes": {
         "group": "motionDuration",
-        "state": "experimental",
+        "state": "active",
         "introduced": "11.5.0",
-        "description": ""
+        "description": "Use for large transitions, such as onboarding steps and full-screen overlays."
       },
       "value": "Duration600"
     },
@@ -443,9 +443,9 @@ const tokens: Token[] = [
   {
     "attributes": {
       "group": "motionDuration",
-      "state": "experimental",
+      "state": "active",
       "introduced": "11.5.0",
-      "description": ""
+      "description": "Use for instant feedback, such as list item hover, selected and focus states."
     },
     "value": "50ms",
     "filePath": "schema/themes/atlassian-motion/motion-duration.tsx",
@@ -453,9 +453,9 @@ const tokens: Token[] = [
     "original": {
       "attributes": {
         "group": "motionDuration",
-        "state": "experimental",
+        "state": "active",
         "introduced": "11.5.0",
-        "description": ""
+        "description": "Use for instant feedback, such as list item hover, selected and focus states."
       },
       "value": "Duration050"
     },
@@ -470,9 +470,9 @@ const tokens: Token[] = [
   {
     "attributes": {
       "group": "motionEasing",
-      "state": "experimental",
+      "state": "active",
       "introduced": "11.5.0",
-      "description": ""
+      "description": "Starts slowly and accelerates away. Best for exit transitions where elements leaving the screen should feel like they are getting out of the way."
     },
     "value": "cubic-bezier(0.6, 0, 0.8, 0.6)",
     "filePath": "schema/themes/atlassian-motion/motion-easing.tsx",
@@ -480,9 +480,9 @@ const tokens: Token[] = [
     "original": {
       "attributes": {
         "group": "motionEasing",
-        "state": "experimental",
+        "state": "active",
         "introduced": "11.5.0",
-        "description": ""
+        "description": "Starts slowly and accelerates away. Best for exit transitions where elements leaving the screen should feel like they are getting out of the way."
       },
       "value": "EasePracticalIn"
     },
@@ -498,9 +498,9 @@ const tokens: Token[] = [
   {
     "attributes": {
       "group": "motionEasing",
-      "state": "experimental",
+      "state": "active",
       "introduced": "11.5.0",
-      "description": ""
+      "description": "The bold in-out curve pairs naturally with scale and repositioning of elements. It controls both the start and end of the motion."
     },
     "value": "cubic-bezier(0.4, 0, 0, 1)",
     "filePath": "schema/themes/atlassian-motion/motion-easing.tsx",
@@ -508,9 +508,9 @@ const tokens: Token[] = [
     "original": {
       "attributes": {
         "group": "motionEasing",
-        "state": "experimental",
+        "state": "active",
         "introduced": "11.5.0",
-        "description": ""
+        "description": "The bold in-out curve pairs naturally with scale and repositioning of elements. It controls both the start and end of the motion."
       },
       "value": "EaseBoldInOut"
     },
@@ -526,9 +526,9 @@ const tokens: Token[] = [
   {
     "attributes": {
       "group": "motionEasing",
-      "state": "experimental",
+      "state": "active",
       "introduced": "11.5.0",
-      "description": ""
+      "description": "A practical, everyday enter curve. Less dramatic than the bold variant, good for subtle transitions like content swaps, tab changes, and list reordering."
     },
     "value": "cubic-bezier(0.4, 1, 0.6, 1)",
     "filePath": "schema/themes/atlassian-motion/motion-easing.tsx",
@@ -536,9 +536,9 @@ const tokens: Token[] = [
     "original": {
       "attributes": {
         "group": "motionEasing",
-        "state": "experimental",
+        "state": "active",
         "introduced": "11.5.0",
-        "description": ""
+        "description": "A practical, everyday enter curve. Less dramatic than the bold variant, good for subtle transitions like content swaps, tab changes, and list reordering."
       },
       "value": "EasePracticalOut"
     },
@@ -554,9 +554,9 @@ const tokens: Token[] = [
   {
     "attributes": {
       "group": "motionEasing",
-      "state": "experimental",
+      "state": "active",
       "introduced": "11.5.0",
-      "description": ""
+      "description": "Elements arrive quickly and decelerate to a stop. The fast start grabs attention and the gentle landing feels controlled."
     },
     "value": "cubic-bezier(0, 0.4, 0, 1)",
     "filePath": "schema/themes/atlassian-motion/motion-easing.tsx",
@@ -564,9 +564,9 @@ const tokens: Token[] = [
     "original": {
       "attributes": {
         "group": "motionEasing",
-        "state": "experimental",
+        "state": "active",
         "introduced": "11.5.0",
-        "description": ""
+        "description": "Elements arrive quickly and decelerate to a stop. The fast start grabs attention and the gentle landing feels controlled."
       },
       "value": "EaseBoldOut"
     },
@@ -582,9 +582,9 @@ const tokens: Token[] = [
   {
     "attributes": {
       "group": "motionEasing",
-      "state": "experimental",
+      "state": "active",
       "introduced": "11.5.0",
-      "description": ""
+      "description": "A spring curve that overshoots slightly before settling. Use for playful, tactile feedback on small branded elements such as avatar hover, where the slight overshoot reinforces a sense of life."
     },
     "value": "linear(0, 0.021, 0.058, 0.107, 0.164, 0.227, 0.292, 0.359, 0.425, 0.49, 0.552, 0.61, 0.664, 0.714, 0.759, 0.8, 0.837, 0.869, 0.898, 0.922, 0.943, 0.961, 0.976, 0.988, 0.998, 1.006, 1.013, 1.017, 1.02, 1.023, 1.024, 1.024, 1.024, 1.024, 1.023, 1.022, 1.02, 1.019, 1.017, 1.015, 1.014, 1.012, 1.011, 1.009, 1.008, 1.007, 1.006, 1.005, 1.004, 1.003, 1.002, 1.002, 1.001, 1.001, 1.001, 1, 1, 1, 1, 1, 0.999, 0.999, 0.999, 0.999, 1)",
     "filePath": "schema/themes/atlassian-motion/motion-easing.tsx",
@@ -592,9 +592,9 @@ const tokens: Token[] = [
     "original": {
       "attributes": {
         "group": "motionEasing",
-        "state": "experimental",
+        "state": "active",
         "introduced": "11.5.0",
-        "description": ""
+        "description": "A spring curve that overshoots slightly before settling. Use for playful, tactile feedback on small branded elements such as avatar hover, where the slight overshoot reinforces a sense of life."
       },
       "value": "EaseSpring"
     },
@@ -609,9 +609,9 @@ const tokens: Token[] = [
   {
     "attributes": {
       "group": "motion",
-      "state": "experimental",
+      "state": "active",
       "introduced": "11.2.0",
-      "description": ""
+      "description": "Use for flag enter transitions."
     },
     "value": {
       "duration": 250,
@@ -626,9 +626,9 @@ const tokens: Token[] = [
     "original": {
       "attributes": {
         "group": "motion",
-        "state": "experimental",
+        "state": "active",
         "introduced": "11.2.0",
-        "description": ""
+        "description": "Use for flag enter transitions."
       },
       "value": {
         "duration": "Duration250",
@@ -650,9 +650,9 @@ const tokens: Token[] = [
   {
     "attributes": {
       "group": "motion",
-      "state": "experimental",
+      "state": "active",
       "introduced": "11.2.0",
-      "description": ""
+      "description": "Use for flag exit transitions."
     },
     "value": {
       "duration": 200,
@@ -667,9 +667,9 @@ const tokens: Token[] = [
     "original": {
       "attributes": {
         "group": "motion",
-        "state": "experimental",
+        "state": "active",
         "introduced": "11.2.0",
-        "description": ""
+        "description": "Use for flag exit transitions."
       },
       "value": {
         "duration": "Duration200",
@@ -691,9 +691,9 @@ const tokens: Token[] = [
   {
     "attributes": {
       "group": "motion",
-      "state": "experimental",
+      "state": "active",
       "introduced": "11.2.0",
-      "description": ""
+      "description": "Use for repositioning flag elements."
     },
     "value": {
       "duration": 250,
@@ -707,9 +707,9 @@ const tokens: Token[] = [
     "original": {
       "attributes": {
         "group": "motion",
-        "state": "experimental",
+        "state": "active",
         "introduced": "11.2.0",
-        "description": ""
+        "description": "Use for repositioning flag elements."
       },
       "value": {
         "duration": "Duration250",
@@ -730,9 +730,9 @@ const tokens: Token[] = [
   {
     "attributes": {
       "group": "motionKeyframe",
-      "state": "experimental",
+      "state": "active",
       "introduced": "11.5.0",
-      "description": ""
+      "description": "Use for fade-in transitions where an element goes from fully transparent to fully opaque."
     },
     "value": "FadeIn0to100",
     "filePath": "schema/themes/atlassian-motion/motion-keyframe.tsx",
@@ -740,9 +740,9 @@ const tokens: Token[] = [
     "original": {
       "attributes": {
         "group": "motionKeyframe",
-        "state": "experimental",
+        "state": "active",
         "introduced": "11.5.0",
-        "description": ""
+        "description": "Use for fade-in transitions where an element goes from fully transparent to fully opaque."
       },
       "value": "FadeIn0to100"
     },
@@ -758,9 +758,9 @@ const tokens: Token[] = [
   {
     "attributes": {
       "group": "motionKeyframe",
-      "state": "experimental",
+      "state": "active",
       "introduced": "11.5.0",
-      "description": ""
+      "description": "Use for fade-out transitions where an element goes from fully opaque to fully transparent."
     },
     "value": "FadeOut100to0",
     "filePath": "schema/themes/atlassian-motion/motion-keyframe.tsx",
@@ -768,9 +768,9 @@ const tokens: Token[] = [
     "original": {
       "attributes": {
         "group": "motionKeyframe",
-        "state": "experimental",
+        "state": "active",
         "introduced": "11.5.0",
-        "description": ""
+        "description": "Use for fade-out transitions where an element goes from fully opaque to fully transparent."
       },
       "value": "FadeOut100to0"
     },
@@ -786,9 +786,9 @@ const tokens: Token[] = [
   {
     "attributes": {
       "group": "motionKeyframe",
-      "state": "experimental",
+      "state": "active",
       "introduced": "11.5.0",
-      "description": ""
+      "description": "Use for medium scale-in transitions where an element grows from 80% to full size on enter."
     },
     "value": "ScaleIn80to100",
     "filePath": "schema/themes/atlassian-motion/motion-keyframe.tsx",
@@ -796,9 +796,9 @@ const tokens: Token[] = [
     "original": {
       "attributes": {
         "group": "motionKeyframe",
-        "state": "experimental",
+        "state": "active",
         "introduced": "11.5.0",
-        "description": ""
+        "description": "Use for medium scale-in transitions where an element grows from 80% to full size on enter."
       },
       "value": "ScaleIn80to100"
     },
@@ -815,9 +815,9 @@ const tokens: Token[] = [
   {
     "attributes": {
       "group": "motionKeyframe",
-      "state": "experimental",
+      "state": "active",
       "introduced": "11.5.0",
-      "description": ""
+      "description": "Use for small scale-in transitions where an element grows from 95% to full size on enter."
     },
     "value": "ScaleIn95to100",
     "filePath": "schema/themes/atlassian-motion/motion-keyframe.tsx",
@@ -825,9 +825,9 @@ const tokens: Token[] = [
     "original": {
       "attributes": {
         "group": "motionKeyframe",
-        "state": "experimental",
+        "state": "active",
         "introduced": "11.5.0",
-        "description": ""
+        "description": "Use for small scale-in transitions where an element grows from 95% to full size on enter."
       },
       "value": "ScaleIn95to100"
     },
@@ -844,9 +844,9 @@ const tokens: Token[] = [
   {
     "attributes": {
       "group": "motionKeyframe",
-      "state": "experimental",
+      "state": "active",
       "introduced": "11.5.0",
-      "description": ""
+      "description": "Use for medium scale-out transitions where an element shrinks from full size to 80% on exit."
     },
     "value": "ScaleOut100to80",
     "filePath": "schema/themes/atlassian-motion/motion-keyframe.tsx",
@@ -854,9 +854,9 @@ const tokens: Token[] = [
     "original": {
       "attributes": {
         "group": "motionKeyframe",
-        "state": "experimental",
+        "state": "active",
         "introduced": "11.5.0",
-        "description": ""
+        "description": "Use for medium scale-out transitions where an element shrinks from full size to 80% on exit."
       },
       "value": "ScaleOut100to80"
     },
@@ -873,9 +873,9 @@ const tokens: Token[] = [
   {
     "attributes": {
       "group": "motionKeyframe",
-      "state": "experimental",
+      "state": "active",
       "introduced": "11.5.0",
-      "description": ""
+      "description": "Use for small scale-out transitions where an element shrinks from full size to 95% on exit."
     },
     "value": "ScaleOut100to95",
     "filePath": "schema/themes/atlassian-motion/motion-keyframe.tsx",
@@ -883,9 +883,9 @@ const tokens: Token[] = [
     "original": {
       "attributes": {
         "group": "motionKeyframe",
-        "state": "experimental",
+        "state": "active",
         "introduced": "11.5.0",
-        "description": ""
+        "description": "Use for small scale-out transitions where an element shrinks from full size to 95% on exit."
       },
       "value": "ScaleOut100to95"
     },
@@ -902,9 +902,9 @@ const tokens: Token[] = [
   {
     "attributes": {
       "group": "motionKeyframe",
-      "state": "experimental",
+      "state": "active",
       "introduced": "11.5.0",
-      "description": ""
+      "description": "Use for short slide-in transitions where an element enters from below its final position by 8px."
     },
     "value": "SlideInBottom8px",
     "filePath": "schema/themes/atlassian-motion/motion-keyframe.tsx",
@@ -912,9 +912,9 @@ const tokens: Token[] = [
     "original": {
       "attributes": {
         "group": "motionKeyframe",
-        "state": "experimental",
+        "state": "active",
         "introduced": "11.5.0",
-        "description": ""
+        "description": "Use for short slide-in transitions where an element enters from below its final position by 8px."
       },
       "value": "SlideInBottom8px"
     },
@@ -932,9 +932,9 @@ const tokens: Token[] = [
   {
     "attributes": {
       "group": "motionKeyframe",
-      "state": "experimental",
+      "state": "active",
       "introduced": "11.5.0",
-      "description": ""
+      "description": "Use for slide-in transitions where an element enters from the left of its final position by 50%."
     },
     "value": "SlideIn50PercentLeft",
     "filePath": "schema/themes/atlassian-motion/motion-keyframe.tsx",
@@ -942,9 +942,9 @@ const tokens: Token[] = [
     "original": {
       "attributes": {
         "group": "motionKeyframe",
-        "state": "experimental",
+        "state": "active",
         "introduced": "11.5.0",
-        "description": ""
+        "description": "Use for slide-in transitions where an element enters from the left of its final position by 50%."
       },
       "value": "SlideIn50PercentLeft"
     },
@@ -962,9 +962,9 @@ const tokens: Token[] = [
   {
     "attributes": {
       "group": "motionKeyframe",
-      "state": "experimental",
+      "state": "active",
       "introduced": "11.5.0",
-      "description": ""
+      "description": "Use for short slide-in transitions where an element enters from the left of its final position by 8px."
     },
     "value": "SlideInLeft8px",
     "filePath": "schema/themes/atlassian-motion/motion-keyframe.tsx",
@@ -972,9 +972,9 @@ const tokens: Token[] = [
     "original": {
       "attributes": {
         "group": "motionKeyframe",
-        "state": "experimental",
+        "state": "active",
         "introduced": "11.5.0",
-        "description": ""
+        "description": "Use for short slide-in transitions where an element enters from the left of its final position by 8px."
       },
       "value": "SlideInLeft8px"
     },
@@ -992,9 +992,9 @@ const tokens: Token[] = [
   {
     "attributes": {
       "group": "motionKeyframe",
-      "state": "experimental",
+      "state": "active",
       "introduced": "11.5.0",
-      "description": ""
+      "description": "Use for short slide-in transitions where an element enters from the right of its final position by 8px."
     },
     "value": "SlideInRight8px",
     "filePath": "schema/themes/atlassian-motion/motion-keyframe.tsx",
@@ -1002,9 +1002,9 @@ const tokens: Token[] = [
     "original": {
       "attributes": {
         "group": "motionKeyframe",
-        "state": "experimental",
+        "state": "active",
         "introduced": "11.5.0",
-        "description": ""
+        "description": "Use for short slide-in transitions where an element enters from the right of its final position by 8px."
       },
       "value": "SlideInRight8px"
     },
@@ -1022,9 +1022,9 @@ const tokens: Token[] = [
   {
     "attributes": {
       "group": "motionKeyframe",
-      "state": "experimental",
+      "state": "active",
       "introduced": "11.5.0",
-      "description": ""
+      "description": "Use for short slide-in transitions where an element enters from above its final position by 8px."
     },
     "value": "SlideInTop8px",
     "filePath": "schema/themes/atlassian-motion/motion-keyframe.tsx",
@@ -1032,9 +1032,9 @@ const tokens: Token[] = [
     "original": {
       "attributes": {
         "group": "motionKeyframe",
-        "state": "experimental",
+        "state": "active",
         "introduced": "11.5.0",
-        "description": ""
+        "description": "Use for short slide-in transitions where an element enters from above its final position by 8px."
       },
       "value": "SlideInTop8px"
     },
@@ -1052,9 +1052,9 @@ const tokens: Token[] = [
   {
     "attributes": {
       "group": "motionKeyframe",
-      "state": "experimental",
+      "state": "active",
       "introduced": "11.5.0",
-      "description": ""
+      "description": "Use for short slide-out transitions where an element exits downward by 8px from its starting position."
     },
     "value": "SlideOutBottom8px",
     "filePath": "schema/themes/atlassian-motion/motion-keyframe.tsx",
@@ -1062,9 +1062,9 @@ const tokens: Token[] = [
     "original": {
       "attributes": {
         "group": "motionKeyframe",
-        "state": "experimental",
+        "state": "active",
         "introduced": "11.5.0",
-        "description": ""
+        "description": "Use for short slide-out transitions where an element exits downward by 8px from its starting position."
       },
       "value": "SlideOutBottom8px"
     },
@@ -1082,9 +1082,9 @@ const tokens: Token[] = [
   {
     "attributes": {
       "group": "motionKeyframe",
-      "state": "experimental",
+      "state": "active",
       "introduced": "11.5.0",
-      "description": ""
+      "description": "Use for slide-out transitions where an element exits to the left of its starting position by 15%."
     },
     "value": "SlideOut15PercentLeft",
     "filePath": "schema/themes/atlassian-motion/motion-keyframe.tsx",
@@ -1092,9 +1092,9 @@ const tokens: Token[] = [
     "original": {
       "attributes": {
         "group": "motionKeyframe",
-        "state": "experimental",
+        "state": "active",
         "introduced": "11.5.0",
-        "description": ""
+        "description": "Use for slide-out transitions where an element exits to the left of its starting position by 15%."
       },
       "value": "SlideOut15PercentLeft"
     },
@@ -1112,9 +1112,9 @@ const tokens: Token[] = [
   {
     "attributes": {
       "group": "motionKeyframe",
-      "state": "experimental",
+      "state": "active",
       "introduced": "11.5.0",
-      "description": ""
+      "description": "Use for short slide-out transitions where an element exits to the left by 8px from its starting position."
     },
     "value": "SlideOutLeft8px",
     "filePath": "schema/themes/atlassian-motion/motion-keyframe.tsx",
@@ -1122,9 +1122,9 @@ const tokens: Token[] = [
     "original": {
       "attributes": {
         "group": "motionKeyframe",
-        "state": "experimental",
+        "state": "active",
         "introduced": "11.5.0",
-        "description": ""
+        "description": "Use for short slide-out transitions where an element exits to the left by 8px from its starting position."
       },
       "value": "SlideOutLeft8px"
     },
@@ -1142,9 +1142,9 @@ const tokens: Token[] = [
   {
     "attributes": {
       "group": "motionKeyframe",
-      "state": "experimental",
+      "state": "active",
       "introduced": "11.5.0",
-      "description": ""
+      "description": "Use for short slide-out transitions where an element exits to the right by 8px from its starting position."
     },
     "value": "SlideOutRight8px",
     "filePath": "schema/themes/atlassian-motion/motion-keyframe.tsx",
@@ -1152,9 +1152,9 @@ const tokens: Token[] = [
     "original": {
       "attributes": {
         "group": "motionKeyframe",
-        "state": "experimental",
+        "state": "active",
         "introduced": "11.5.0",
-        "description": ""
+        "description": "Use for short slide-out transitions where an element exits to the right by 8px from its starting position."
       },
       "value": "SlideOutRight8px"
     },
@@ -1172,9 +1172,9 @@ const tokens: Token[] = [
   {
     "attributes": {
       "group": "motionKeyframe",
-      "state": "experimental",
+      "state": "active",
       "introduced": "11.5.0",
-      "description": ""
+      "description": "Use for short slide-out transitions where an element exits upward by 8px from its starting position."
     },
     "value": "SlideOutTop8px",
     "filePath": "schema/themes/atlassian-motion/motion-keyframe.tsx",
@@ -1182,9 +1182,9 @@ const tokens: Token[] = [
     "original": {
       "attributes": {
         "group": "motionKeyframe",
-        "state": "experimental",
+        "state": "active",
         "introduced": "11.5.0",
-        "description": ""
+        "description": "Use for short slide-out transitions where an element exits upward by 8px from its starting position."
       },
       "value": "SlideOutTop8px"
     },
@@ -1202,9 +1202,9 @@ const tokens: Token[] = [
   {
     "attributes": {
       "group": "motion",
-      "state": "experimental",
+      "state": "active",
       "introduced": "11.2.0",
-      "description": ""
+      "description": "Use for modal enter transitions."
     },
     "value": {
       "duration": 250,
@@ -1218,9 +1218,9 @@ const tokens: Token[] = [
     "original": {
       "attributes": {
         "group": "motion",
-        "state": "experimental",
+        "state": "active",
         "introduced": "11.2.0",
-        "description": ""
+        "description": "Use for modal enter transitions."
       },
       "value": {
         "duration": "Duration250",
@@ -1241,9 +1241,9 @@ const tokens: Token[] = [
   {
     "attributes": {
       "group": "motion",
-      "state": "experimental",
+      "state": "active",
       "introduced": "11.2.0",
-      "description": ""
+      "description": "Use for modal exit transitions."
     },
     "value": {
       "duration": 200,
@@ -1257,9 +1257,9 @@ const tokens: Token[] = [
     "original": {
       "attributes": {
         "group": "motion",
-        "state": "experimental",
+        "state": "active",
         "introduced": "11.2.0",
-        "description": ""
+        "description": "Use for modal exit transitions."
       },
       "value": {
         "duration": "Duration200",
@@ -1280,9 +1280,9 @@ const tokens: Token[] = [
   {
     "attributes": {
       "group": "motion",
-      "state": "experimental",
+      "state": "active",
       "introduced": "11.2.0",
-      "description": ""
+      "description": "Use for popup enter from the bottom."
     },
     "value": {
       "duration": 150,
@@ -1297,9 +1297,9 @@ const tokens: Token[] = [
     "original": {
       "attributes": {
         "group": "motion",
-        "state": "experimental",
+        "state": "active",
         "introduced": "11.2.0",
-        "description": ""
+        "description": "Use for popup enter from the bottom."
       },
       "value": {
         "duration": "Duration150",
@@ -1322,9 +1322,9 @@ const tokens: Token[] = [
   {
     "attributes": {
       "group": "motion",
-      "state": "experimental",
+      "state": "active",
       "introduced": "11.2.0",
-      "description": ""
+      "description": "Use for popup enter from the left."
     },
     "value": {
       "duration": 150,
@@ -1339,9 +1339,9 @@ const tokens: Token[] = [
     "original": {
       "attributes": {
         "group": "motion",
-        "state": "experimental",
+        "state": "active",
         "introduced": "11.2.0",
-        "description": ""
+        "description": "Use for popup enter from the left."
       },
       "value": {
         "duration": "Duration150",
@@ -1364,9 +1364,9 @@ const tokens: Token[] = [
   {
     "attributes": {
       "group": "motion",
-      "state": "experimental",
+      "state": "active",
       "introduced": "11.2.0",
-      "description": ""
+      "description": "Use for popup enter from the right."
     },
     "value": {
       "duration": 150,
@@ -1381,9 +1381,9 @@ const tokens: Token[] = [
     "original": {
       "attributes": {
         "group": "motion",
-        "state": "experimental",
+        "state": "active",
         "introduced": "11.2.0",
-        "description": ""
+        "description": "Use for popup enter from the right."
       },
       "value": {
         "duration": "Duration150",
@@ -1406,9 +1406,9 @@ const tokens: Token[] = [
   {
     "attributes": {
       "group": "motion",
-      "state": "experimental",
+      "state": "active",
       "introduced": "11.2.0",
-      "description": ""
+      "description": "Use for popup enter from the top: popup, tooltip, dropdown, inline message, inline dialog."
     },
     "value": {
       "duration": 150,
@@ -1423,9 +1423,9 @@ const tokens: Token[] = [
     "original": {
       "attributes": {
         "group": "motion",
-        "state": "experimental",
+        "state": "active",
         "introduced": "11.2.0",
-        "description": ""
+        "description": "Use for popup enter from the top: popup, tooltip, dropdown, inline message, inline dialog."
       },
       "value": {
         "duration": "Duration150",
@@ -1448,9 +1448,9 @@ const tokens: Token[] = [
   {
     "attributes": {
       "group": "motion",
-      "state": "experimental",
+      "state": "active",
       "introduced": "11.2.0",
-      "description": ""
+      "description": "Use for popup exit toward the bottom."
     },
     "value": {
       "duration": 100,
@@ -1465,9 +1465,9 @@ const tokens: Token[] = [
     "original": {
       "attributes": {
         "group": "motion",
-        "state": "experimental",
+        "state": "active",
         "introduced": "11.2.0",
-        "description": ""
+        "description": "Use for popup exit toward the bottom."
       },
       "value": {
         "duration": "Duration100",
@@ -1490,9 +1490,9 @@ const tokens: Token[] = [
   {
     "attributes": {
       "group": "motion",
-      "state": "experimental",
+      "state": "active",
       "introduced": "11.2.0",
-      "description": ""
+      "description": "Use for popup exit toward the left."
     },
     "value": {
       "duration": 100,
@@ -1507,9 +1507,9 @@ const tokens: Token[] = [
     "original": {
       "attributes": {
         "group": "motion",
-        "state": "experimental",
+        "state": "active",
         "introduced": "11.2.0",
-        "description": ""
+        "description": "Use for popup exit toward the left."
       },
       "value": {
         "duration": "Duration100",
@@ -1532,9 +1532,9 @@ const tokens: Token[] = [
   {
     "attributes": {
       "group": "motion",
-      "state": "experimental",
+      "state": "active",
       "introduced": "11.2.0",
-      "description": ""
+      "description": "Use for popup exit toward the right."
     },
     "value": {
       "duration": 100,
@@ -1549,9 +1549,9 @@ const tokens: Token[] = [
     "original": {
       "attributes": {
         "group": "motion",
-        "state": "experimental",
+        "state": "active",
         "introduced": "11.2.0",
-        "description": ""
+        "description": "Use for popup exit toward the right."
       },
       "value": {
         "duration": "Duration100",
@@ -1574,9 +1574,9 @@ const tokens: Token[] = [
   {
     "attributes": {
       "group": "motion",
-      "state": "experimental",
+      "state": "active",
       "introduced": "11.2.0",
-      "description": ""
+      "description": "Use for popup exit toward the top."
     },
     "value": {
       "duration": 100,
@@ -1591,9 +1591,9 @@ const tokens: Token[] = [
     "original": {
       "attributes": {
         "group": "motion",
-        "state": "experimental",
+        "state": "active",
         "introduced": "11.2.0",
-        "description": ""
+        "description": "Use for popup exit toward the top."
       },
       "value": {
         "duration": "Duration100",
@@ -1616,9 +1616,9 @@ const tokens: Token[] = [
   {
     "attributes": {
       "group": "motion",
-      "state": "experimental",
+      "state": "active",
       "introduced": "11.2.0",
-      "description": ""
+      "description": "Use for spotlight enter transitions."
     },
     "value": {
       "duration": 250,
@@ -1633,9 +1633,9 @@ const tokens: Token[] = [
     "original": {
       "attributes": {
         "group": "motion",
-        "state": "experimental",
+        "state": "active",
         "introduced": "11.2.0",
-        "description": ""
+        "description": "Use for spotlight enter transitions."
       },
       "value": {
         "duration": "Duration250",
@@ -1657,9 +1657,9 @@ const tokens: Token[] = [
   {
     "attributes": {
       "group": "motion",
-      "state": "experimental",
+      "state": "active",
       "introduced": "11.2.0",
-      "description": ""
+      "description": "Use for spotlight exit transitions."
     },
     "value": {
       "duration": 200,
@@ -1674,9 +1674,9 @@ const tokens: Token[] = [
     "original": {
       "attributes": {
         "group": "motion",
-        "state": "experimental",
+        "state": "active",
         "introduced": "11.2.0",
-        "description": ""
+        "description": "Use for spotlight exit transitions."
       },
       "value": {
         "duration": "Duration200",

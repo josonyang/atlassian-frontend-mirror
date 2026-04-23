@@ -442,16 +442,8 @@ export function EditorSSRRenderer({
 				aria-describedby={divProps['aria-describedby']}
 				data-editor-id={divProps['data-editor-id']}
 				data-vc-ignore-if-no-layout-shift={true}
-				data-ssr-placeholder={
-					expValEquals('platform_editor_hydratable_ui', 'isEnabled', true)
-						? 'editor-view'
-						: undefined
-				}
-				data-ssr-placeholder-replace={
-					expValEquals('platform_editor_hydratable_ui', 'isEnabled', true)
-						? 'editor-view'
-						: undefined
-				}
+				data-ssr-placeholder="editor-view"
+				data-ssr-placeholder-replace="editor-view"
 				aria-multiline={true}
 				role="textbox"
 				// @ts-expect-error - contenteditable is not exist in div attributes

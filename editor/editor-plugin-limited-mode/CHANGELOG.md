@@ -1,5 +1,23 @@
 # @atlaskit/editor-plugin-limited-mode
 
+## 7.1.0
+
+### Minor Changes
+
+- [`f25ff7f70d948`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/f25ff7f70d948) -
+  FFCLEANUP-91667 Remove shipped limited-mode experiment from Statsig config; use fixed document
+  thresholds in editor-common for limited-mode detection.
+
+### Patch Changes
+
+- Updated dependencies
+
+## 7.0.3
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 7.0.2
 
 ### Patch Changes

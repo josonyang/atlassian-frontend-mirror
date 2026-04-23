@@ -2,7 +2,7 @@ import React from 'react';
 
 // @ts-ignore - TS1192 TypeScript 5.9.2 upgrade
 import fetchMock from 'fetch-mock/cjs/client';
-import { IntlProvider } from 'react-intl-next';
+import { IntlProvider } from 'react-intl';
 
 import Button from '@atlaskit/button/new';
 import { cssMap } from '@atlaskit/css';

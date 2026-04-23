@@ -325,7 +325,6 @@ snapshotInformational(CompositionVR, {
 	variants: [variants.desktop],
 	featureFlags: {
 		'navx-full-height-sidebar': true,
-		platform_dst_nav4_side_nav_resize_tooltip_feedback: true,
 	},
 	prepare: async (page) => {
 		await page.getByTestId('side-nav-panel-splitter').hover();
@@ -341,7 +340,6 @@ snapshotInformational(CompositionNoBannerVR, {
 	variants: [variants.desktop],
 	featureFlags: {
 		'navx-full-height-sidebar': true,
-		platform_dst_nav4_side_nav_resize_tooltip_feedback: true,
 	},
 	prepare: async (page) => {
 		await page.getByTestId('side-nav-panel-splitter').hover();
@@ -358,7 +356,6 @@ snapshotInformational(CompositionVR, {
 	variants: [variants.desktop],
 	featureFlags: {
 		'navx-full-height-sidebar': true,
-		platform_dst_nav4_side_nav_resize_tooltip_feedback: true,
 	},
 	prepare: async (page) => {
 		// Setting the viewport width to between 64rem (1024px) and 48rem (768px) to test the side nav as an overlay.

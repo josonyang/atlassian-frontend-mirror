@@ -1,5 +1,49 @@
 # @atlaskit/editor-statsig-tmp
 
+## 66.1.0
+
+### Minor Changes
+
+- [`019540f8c0a67`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/019540f8c0a67) -
+  Fix editor popup scroll parent detection for chromeless editor in modals.
+
+  When the `platform_editor_fix_scrolling_popup_position` experiment is enabled, the Popup component
+  now prefers an explicitly provided `scrollableElement` prop over the auto-detected DOM ancestor.
+  This fixes popup positioning (code block language selector, table options, selection toolbar) in
+  chromeless editors embedded within modals, where the scroll container uses `overflow: auto` and
+  cannot be found by the existing `findOverflowScrollParent` utility.
+
+  The pre-computed scroll parent is also threaded through to `calculateVerticalStickTop` and
+  `calculateVerticalStickBottom` to avoid redundant DOM traversal and ensure position calculations
+  use the same element as the scroll event listener.
+
+## 66.0.0
+
+### Major Changes
+
+- [`f25ff7f70d948`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/f25ff7f70d948) -
+  FFCLEANUP-91667 Remove shipped limited-mode experiment from Statsig config; use fixed document
+  thresholds in editor-common for limited-mode detection.
+
+### Minor Changes
+
+- [`344eb4664c404`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/344eb4664c404) -
+  Add platform_editor_ai_chromeless_akEditor_class experiment config
+
+## 65.0.0
+
+### Major Changes
+
+- [`e5cdd96dcf4f9`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/e5cdd96dcf4f9) -
+  Clean up platform_editor_hydratable_ui experiment (shipped as enabled)
+
+## 64.1.0
+
+### Minor Changes
+
+- [`64134fd6d8fee`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/64134fd6d8fee) -
+  clean up platform_editor_block_control_optimise_render
+
 ## 64.0.0
 
 ### Major Changes

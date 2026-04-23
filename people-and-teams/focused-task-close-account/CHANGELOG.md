@@ -1,5 +1,13 @@
 # @atlaskit/focused-task-close-account
 
+## 4.0.4
+
+### Patch Changes
+
+- [`b8f76ccba4c09`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/b8f76ccba4c09) -
+  Migrate CSS-in-JS from `@emotion/styled` to `@compiled/react`
+- Updated dependencies
+
 ## 4.0.3
 
 ### Patch Changes

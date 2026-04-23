@@ -8,6 +8,7 @@ import { cssMap, jsx } from '@compiled/react';
 
 import type { StrictXCSSProp } from '@atlaskit/css';
 import { OpenLayerObserver } from '@atlaskit/layering/experimental/open-layer-observer';
+import { fg } from '@atlaskit/platform-feature-flags';
 
 import { SkipLinksProvider } from '../../context/skip-links/skip-links-provider';
 import { TopNavStartProvider } from '../../context/top-nav-start/top-nav-start-context-provider';
@@ -72,7 +73,7 @@ export function Root({
 	children,
 	xcss,
 	UNSAFE_dangerouslyHoistSlotSizes = false,
-	skipLinksLabel = 'Skip to:',
+	skipLinksLabel,
 	testId,
 	defaultSideNavCollapsed,
 	isSideNavShortcutEnabled = false,
@@ -133,6 +134,10 @@ export function Root({
 	 */
 	isSideNavShortcutEnabled?: boolean;
 }): JSX.Element {
+	const resolvedSkipLinksLabel =
+		skipLinksLabel ??
+		(fg('platform_dst_nav4_skip_link_a11y_1') ? 'Skip to' : 'Skip to:');
+
 	const ref = useRef<HTMLDivElement>(null);
 
 	useEffect(() => {
@@ -174,7 +179,7 @@ This message will not be displayed in production.
 						<TopNavStartProvider>
 							<OpenLayerObserver>
 								<DangerouslyHoistSlotSizes.Provider value={UNSAFE_dangerouslyHoistSlotSizes}>
-									<SkipLinksProvider label={skipLinksLabel} testId={testId}>
+									<SkipLinksProvider label={resolvedSkipLinksLabel} testId={testId}>
 										<div
 											ref={ref}
 											css={styles.root}

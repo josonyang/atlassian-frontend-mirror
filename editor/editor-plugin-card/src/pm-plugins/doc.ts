@@ -43,6 +43,7 @@ import type {
 	DatasourceAdfView,
 	InlineCardAdf,
 } from '@atlaskit/linking-common';
+import { fg } from '@atlaskit/platform-feature-flags';
 import { closeHistory } from '@atlaskit/prosemirror-history';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
@@ -141,8 +142,45 @@ export const replaceQueuedUrlWithCard =
 
 		// If an embed card transformer is provided and the resolved card is an embedCard,
 		// attempt to transform it into an alternative node representation first.
-		if (cardData.type === 'embedCard' && embedCardNodeTransformer) {
-			cardAdf = embedCardNodeTransformer(schema, cardData.attrs as EmbedCardTransformAttrs) ?? null;
+		if (
+			cardData.type === 'embedCard' &&
+			embedCardNodeTransformer &&
+			fg('platform-native-embeds-short-link-expansion')
+		) {
+			const transformResult = embedCardNodeTransformer(
+				schema,
+				cardData.attrs as EmbedCardTransformAttrs,
+			);
+			// The transformer may return a Promise for async transformations (e.g. short-link expansion).
+			// When async, we snapshot the current requests and positions now (before any dispatch),
+			// then insert the resolved node and clean up the queue in one transaction once the
+			// Promise settles. This avoids the stale-editorState problem: rather than re-running
+			// replaceQueuedUrlWithCard with an outdated state snapshot, we capture what we need
+			// immediately and apply a targeted insert when ready.
+			if (transformResult instanceof Promise) {
+				// Snapshot requests now, while the queue still contains this URL.
+				const pendingRequests = [...requests];
+				transformResult.then((resolvedNode) => {
+					if (!dispatch) {
+						return;
+					}
+					// Build a fresh transaction (editorState is the snapshot at call-time; positions
+					// are mapped through it). For the async case we fall back to cardData if the
+					// transform returned nothing, mirroring what the sync path would do.
+					const asyncCardAdf = resolvedNode
+						? resolvedNode
+						: (processRawValue(schema, cardData) ?? null);
+					const asyncTr = editorState.tr;
+					if (asyncCardAdf) {
+						pendingRequests.forEach((request) =>
+							replaceLinksToCards(asyncTr, asyncCardAdf, schema, request),
+						);
+					}
+					dispatch(resolveCard(url)(closeHistory(asyncTr)));
+				});
+				return true;
+			}
+			cardAdf = transformResult ?? null;
 		}
 
 		if (!cardAdf) {

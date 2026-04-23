@@ -3,7 +3,7 @@ import { defineMessages } from 'react-intl';
 const _default_1: {
 	readonly chatToAgentButton: {
 		readonly id: 'rovo-chat.view-agent.chat-to-agent-button';
-		readonly defaultMessage: 'Chat to Agent';
+		readonly defaultMessage: 'Chat to agent';
 		readonly description: 'Button to chat to agent';
 	};
 	readonly moreActionsLabel: {
@@ -18,17 +18,17 @@ const _default_1: {
 	};
 	readonly duplicateAgent: {
 		readonly id: 'rovo-chat.view-agent.duplicate-agent';
-		readonly defaultMessage: 'Duplicate Agent';
+		readonly defaultMessage: 'Duplicate agent';
 		readonly description: 'Button to duplicate an agent';
 	};
 	readonly editAgent: {
 		readonly id: 'rovo-chat.view-agent.edit-agent';
-		readonly defaultMessage: 'Edit Agent';
+		readonly defaultMessage: 'Edit agent';
 		readonly description: 'Button to edit an agent';
 	};
 	readonly deleteAgent: {
 		readonly id: 'rovo-chat.view-agent.delete-agent';
-		readonly defaultMessage: 'Delete Agent';
+		readonly defaultMessage: 'Delete agent';
 		readonly description: 'Button to delete an agent';
 	};
 	readonly copyLinkToProfile: {
@@ -43,7 +43,7 @@ const _default_1: {
 	};
 	readonly viewAgent: {
 		readonly id: 'rovo-chat.view-agents.view-agent';
-		readonly defaultMessage: 'View Agent';
+		readonly defaultMessage: 'View agent';
 		readonly description: 'Button to view an agent';
 	};
 	readonly viewAgentFullProfile: {
@@ -59,7 +59,7 @@ const _default_1: {
 } = defineMessages({
 	chatToAgentButton: {
 		id: 'rovo-chat.view-agent.chat-to-agent-button',
-		defaultMessage: 'Chat to Agent',
+		defaultMessage: 'Chat to agent',
 		description: 'Button to chat to agent',
 	},
 	moreActionsLabel: {
@@ -74,17 +74,17 @@ const _default_1: {
 	},
 	duplicateAgent: {
 		id: 'rovo-chat.view-agent.duplicate-agent',
-		defaultMessage: 'Duplicate Agent',
+		defaultMessage: 'Duplicate agent',
 		description: 'Button to duplicate an agent',
 	},
 	editAgent: {
 		id: 'rovo-chat.view-agent.edit-agent',
-		defaultMessage: 'Edit Agent',
+		defaultMessage: 'Edit agent',
 		description: 'Button to edit an agent',
 	},
 	deleteAgent: {
 		id: 'rovo-chat.view-agent.delete-agent',
-		defaultMessage: 'Delete Agent',
+		defaultMessage: 'Delete agent',
 		description: 'Button to delete an agent',
 	},
 	copyLinkToProfile: {
@@ -99,7 +99,7 @@ const _default_1: {
 	},
 	viewAgent: {
 		id: 'rovo-chat.view-agents.view-agent',
-		defaultMessage: 'View Agent',
+		defaultMessage: 'View agent',
 		description: 'Button to view an agent',
 	},
 	viewAgentFullProfile: {

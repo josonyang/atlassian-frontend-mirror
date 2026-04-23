@@ -4,7 +4,6 @@ import { skipA11yAudit } from '@af/accessibility-testing';
 import Button from '@atlaskit/button/new';
 import DropdownMenu, { DropdownItem, DropdownItemGroup } from '@atlaskit/dropdown-menu';
 import noop from '@atlaskit/ds-lib/noop';
-import { ffTest } from '@atlassian/feature-flags-test-utils';
 import { act, fireEvent, render, screen, userEvent, waitFor } from '@atlassian/testing-library';
 
 import { width } from '../../internal/width';
@@ -584,28 +583,14 @@ describe('autoFocus', () => {
 		expect(screen.getByTestId(innerButtonTestId)).toHaveFocus();
 	});
 
-	describe('FF on/off: should focus/should not focus on first element when `autoFocus` is false', () => {
-		ffTest(
-			'platform_dst_autofocus-never-false-2',
-			async () => {
-				const user = userEvent.setup();
-				render(<Jsx autoFocus={false} />);
+	it('should focus on first element when `autoFocus` is false', async () => {
+		const user = userEvent.setup();
+		render(<Jsx autoFocus={false} />);
 
-				expect(screen.queryByTestId(innerButtonTestId)).not.toBeInTheDocument();
-				await user.click(screen.getByTestId(openModalButtonTestId));
-				// Focus should have moved
-				expect(screen.getByTestId(innerButtonTestId)).toHaveFocus();
-			},
-			async () => {
-				const user = userEvent.setup();
-				render(<Jsx autoFocus={false} />);
-
-				expect(screen.queryByTestId(innerButtonTestId)).not.toBeInTheDocument();
-				await user.click(screen.getByTestId(openModalButtonTestId));
-				// Focus should not have moved
-				expect(screen.getByTestId(innerButtonTestId)).not.toHaveFocus();
-			},
-		);
+		expect(screen.queryByTestId(innerButtonTestId)).not.toBeInTheDocument();
+		await user.click(screen.getByTestId(openModalButtonTestId));
+		// Focus should have moved
+		expect(screen.getByTestId(innerButtonTestId)).toHaveFocus();
 	});
 
 	it('should focus on element if `ref` is provided to `autoFocus`', async () => {

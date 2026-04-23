@@ -1,5 +1,13 @@
 # @atlaskit/jql-editor
 
+## 6.2.1
+
+### Patch Changes
+
+- [`42a9772eb71b8`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/42a9772eb71b8) -
+  replace 'react-intl-next' alias with 'react-intl'
+- Updated dependencies
+
 ## 6.2.0
 
 ### Minor Changes

@@ -44,7 +44,6 @@ import {
 import { createCommand, getPluginState } from '../plugin-factory';
 import { fixAutoSizedTable } from '../transforms/fix-tables';
 import {
-	createColumnControlsDecoration,
 	createColumnSelectedDecoration,
 } from '../utils/decoration';
 import {
@@ -75,7 +74,6 @@ export const setTableRef = (ref?: HTMLTableElement) =>
 			const tablePos = ref && foundTable ? foundTable.pos : undefined;
 			const tableWrapperTarget =
 				closestElement(tableRef, `.${ClassName.TABLE_NODE_WRAPPER}`) || undefined;
-			const { isDragAndDropEnabled } = getPluginState(state);
 
 			return {
 				type: 'SET_TABLE_REF',
@@ -87,14 +85,6 @@ export const setTableRef = (ref?: HTMLTableElement) =>
 					isNumberColumnEnabled: checkIfNumberColumnEnabled(state.selection),
 					isHeaderRowEnabled: checkIfHeaderRowEnabled(state.selection),
 					isHeaderColumnEnabled: checkIfHeaderColumnEnabled(state.selection),
-					// decoration set is drawn by the decoration plugin, skip this for DnD as all controls are floating
-					decorationSet: !isDragAndDropEnabled
-						? updatePluginStateDecorations(
-								state,
-								createColumnControlsDecoration(state.selection),
-								TableDecorations.COLUMN_CONTROLS_DECORATIONS,
-							)
-						: undefined,
 					resizeHandleRowIndex: undefined,
 					resizeHandleColumnIndex: undefined,
 				},

@@ -141,14 +141,14 @@ export const ReactionTooltip = ({
 						return <li key={user.id}>{user.displayName}</li>;
 					})}
 					{/* If count of reactions higher than given threshold then render custom message */}
-					{fg('platform_reactions_tooltip_a11y') ? (
-						users.length > maxReactions &&
-						(allowUserDialog && handleOpenReactionsDialog ? (
-							<li>
+					<li css={footerStyle}>
+						{users.length > maxReactions &&
+							(allowUserDialog && handleOpenReactionsDialog ? (
 								<button
 									type="button"
-									css={[footerButtonStyle, footerStyle, underlineStyle]}
+									css={[footerButtonStyle, underlineStyle]}
 									onClick={handleClick}
+									onMouseDown={(e) => e.preventDefault()}
 								>
 									<FormattedMessage
 										{...messages.otherUsers}
@@ -157,35 +157,15 @@ export const ReactionTooltip = ({
 										}}
 									/>
 								</button>
-							</li>
-						) : (
-							<li css={footerStyle}>
+							) : (
 								<FormattedMessage
 									{...messages.otherUsers}
 									values={{
 										count: users.length - maxReactions,
 									}}
 								/>
-							</li>
-						))
-					) : (
-						// eslint-disable-next-line @atlassian/a11y/no-noninteractive-element-interactions, @atlassian/a11y/click-events-have-key-events
-						<li
-							css={[footerStyle, allowUserDialog && underlineStyle]}
-							onMouseDown={handleClick}
-							onClick={handleClick}
-							onKeyDown={fg('platform_suppression_removal_fix_reactions') ? handleClick : undefined}
-						>
-							{users.length > maxReactions && (
-								<FormattedMessage
-									{...messages.otherUsers}
-									values={{
-										count: users.length - maxReactions,
-									}}
-								/>
-							)}
-						</li>
-					)}
+							))}
+					</li>
 				</ul>
 			</div>
 		);

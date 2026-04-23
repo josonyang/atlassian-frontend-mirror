@@ -1,7 +1,5 @@
-import {
-	computeMultiTermFuseAllocation,
-	mergeMultiTermFuseResults,
-} from '../../src/helpers/fuse-multi-term';
+import { computeMultiTermFuseAllocation } from '../../src/helpers/compute-multi-term-fuse-allocation';
+import { mergeMultiTermFuseResults } from '../../src/helpers/fuse-multi-term';
 
 type Item = { name: string };
 

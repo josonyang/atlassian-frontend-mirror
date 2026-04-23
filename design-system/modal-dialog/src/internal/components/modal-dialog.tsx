@@ -194,6 +194,7 @@ const ModalDialog = (props: InternalModalDialogProps): JSX.Element => {
 		label,
 		testId,
 		isFullScreen = false,
+		UNSAFE_shouldDisableMotionUplift = false,
 	} = props;
 
 	const id = useId();
@@ -251,7 +252,7 @@ const ModalDialog = (props: InternalModalDialogProps): JSX.Element => {
 		>
 			<ModalContext.Provider value={modalDialogContext}>
 				<ScrollContext.Provider value={shouldScrollInViewport}>
-					{fg('platform-dst-motion-uplift') ? (
+					{!UNSAFE_shouldDisableMotionUplift && fg('platform-dst-motion-uplift') ? (
 						<Motion
 							enteringAnimation={token('motion.modal.enter')}
 							exitingAnimation={token('motion.modal.exit')}

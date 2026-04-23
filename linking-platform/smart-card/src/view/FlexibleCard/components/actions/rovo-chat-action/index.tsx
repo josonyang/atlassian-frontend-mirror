@@ -163,10 +163,10 @@ const getPromptAction = (
 				},
 			};
 		case RovoChatPromptKey.KEY_HIGHLIGHTS:
-			const label_key_highlights = intl.formatMessage(messages.rovo_prompt_button_key_highlights);
+			const label_key_highlights = intl.formatMessage(messages.rovo_prompt_button_highlight_relevant_content);
 			const html_key_highlights = intl.formatMessage(
-				messages.rovo_prompt_message_key_highlights,
-				{ url },
+				messages.rovo_prompt_message_highlight_relevant_content,
+				{ context: contextLong, url },
 				{ ignoreTag: true },
 			);
 			return {

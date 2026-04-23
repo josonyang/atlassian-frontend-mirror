@@ -1,5 +1,15 @@
 # @atlaskit/rovo-triggers
 
+## 5.43.0
+
+### Minor Changes
+
+- [`d27ebf26e5d58`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/d27ebf26e5d58) -
+  Add isDraftLockedForEditing flag to Rovo bridge context pipeline. When a Confluence page is locked
+  for editing due to an active approval workflow, this flag is now passed through to the Convo AI
+  backend alongside isViewMode, enabling approval-specific messaging in Rovo Chat instead of the
+  generic "no permission" message.
+
 ## 5.42.0
 
 ### Minor Changes

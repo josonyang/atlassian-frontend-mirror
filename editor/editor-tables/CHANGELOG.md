@@ -1,5 +1,19 @@
 # @atlaskit/editor-tables
 
+## 2.9.76
+
+### Patch Changes
+
+- Updated dependencies
+
+## 2.9.75
+
+### Patch Changes
+
+- [`d2c265eaaf495`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/d2c265eaaf495) -
+  Remove isDragAndDropEnabled dead code from pm-plugins - always true (EDITOR-6290)
+- Updated dependencies
+
 ## 2.9.74
 
 ### Patch Changes

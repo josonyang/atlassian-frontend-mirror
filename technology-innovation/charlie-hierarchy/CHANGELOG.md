@@ -1,5 +1,12 @@
 # @atlaskit/charlie-hierarchy
 
+## 0.1.18
+
+### Patch Changes
+
+- [`42a9772eb71b8`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/42a9772eb71b8) -
+  replace 'react-intl-next' alias with 'react-intl'
+
 ## 0.1.17
 
 ### Patch Changes

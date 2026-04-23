@@ -5,6 +5,7 @@ import { FormattedMessage, useIntl } from 'react-intl';
 import Avatar from '@atlaskit/avatar';
 import AvatarGroup, { type AvatarGroupProps } from '@atlaskit/avatar-group';
 import { cssMap, cx } from '@atlaskit/css';
+import { fg } from '@atlaskit/platform-feature-flags';
 import { Box, Pressable } from '@atlaskit/primitives/compiled';
 import { token } from '@atlaskit/tokens';
 
@@ -34,11 +35,22 @@ function getProfileHref(userId: string, profileUrl?: string) {
 }
 
 const styles = cssMap({
+	reportingLinesButtonDEPRECATED: {
+		paddingTop: token('space.0'),
+		paddingRight: token('space.0'),
+		paddingBottom: token('space.0'),
+		paddingLeft: token('space.0'),
+		backgroundColor: token('color.background.neutral.subtle'),
+		'&:hover': {
+			backgroundColor: token('color.background.neutral.subtle.hovered'),
+		},
+	},
 	reportingLinesButton: {
 		paddingTop: token('space.0'),
 		paddingRight: token('space.0'),
 		paddingBottom: token('space.0'),
 		paddingLeft: token('space.0'),
+		borderRadius: token('radius.medium'),
 		backgroundColor: token('color.background.neutral.subtle'),
 		'&:hover': {
 			backgroundColor: token('color.background.neutral.subtle.hovered'),
@@ -138,7 +150,11 @@ const ReportingLinesDetails = (props: ReportingLinesDetailsProps): React.JSX.Ele
 								)
 							}
 							isDisabled={!onReportingLinesClick}
-							xcss={styles.reportingLinesButton}
+							xcss={
+								fg('enable_teams_t26_design_drop_core_experiences')
+									? styles.reportingLinesButton
+									: styles.reportingLinesButtonDEPRECATED
+							}
 							aria-label={formatMessage(messages.viewManagerProfile, {
 								name: manager.pii?.name,
 							})}

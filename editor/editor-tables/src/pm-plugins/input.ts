@@ -155,7 +155,6 @@ export function handleTripleClick(view: EditorView, pos: number): boolean {
 export function handleMouseDown(
 	view: EditorView,
 	event: Event,
-	dragAndDropEnabled: boolean,
 ): boolean {
 	const startEvent = event as MouseEvent;
 	// Prevent right clicks from making a cell selection https://product-fabric.atlassian.net/browse/ED-12527
@@ -183,7 +182,7 @@ export function handleMouseDown(
 				'button.pm-table-drag-handle-button-container, button.pm-table-drag-handle-button-clickable-zone',
 			);
 
-		if (dragAndDropEnabled && isDragHandleElement) {
+		if (isDragHandleElement) {
 			return false;
 		}
 		setCellSelection(view.state.selection.$anchorCell, startEvent);

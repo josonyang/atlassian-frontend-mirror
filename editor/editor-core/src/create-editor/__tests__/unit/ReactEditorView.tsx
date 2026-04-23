@@ -1200,12 +1200,19 @@ describe('@atlaskit/editor-core', () => {
 			});
 
 			it('should render exactly the same HTML container that browser renders', () => {
+				// These attributes are SSR-only markers used for VC measurement/tracking.
+				// They are intentionally added only during SSR and not expected to match
+				// the browser render, so we exclude them from the comparison.
+				const SSR_ONLY_ATTRIBUTES = ['data-ssr-placeholder', 'data-ssr-placeholder-replace'];
+
 				function getAttributesMap(el: Element): Record<string, string> {
 					const map: Record<string, string> = {};
 
 					for (let i = 0; i < el.attributes.length; i++) {
 						const attr = el.attributes[i];
-						map[attr.name.toLowerCase()] = attr.value;
+						if (!SSR_ONLY_ATTRIBUTES.includes(attr.name.toLowerCase())) {
+							map[attr.name.toLowerCase()] = attr.value;
+						}
 					}
 
 					return map;

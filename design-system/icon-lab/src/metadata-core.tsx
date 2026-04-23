@@ -3,7 +3,7 @@
  *
  * To change the format of this file, modify `createIconDocsNew` in icon-build-process/src/create-icon-docs.tsx.
  *
- * @codegen <<SignedSource::41bc5a63cb76bd292f732c2a394b2248>>
+ * @codegen <<SignedSource::034e6be6751940ce0e93994a4f5ee3c0>>
  * @codegenCommand yarn build:icon-glyphs
  */
 interface metadata {
@@ -1323,6 +1323,15 @@ const metadata: Record<string, metadata> = {
 		team: 'Data Experiences',
 		status: 'published',
 	},
+	'data-lake': {
+		keywords: ['data-lake', 'datalake', 'icon', 'icon-lab', 'data lake', 'datalake'],
+		componentName: 'DataLakeIcon',
+		package: '@atlaskit/icon-lab/core/data-lake',
+		categorization: 'single-purpose',
+		usage: 'Reserved for representing Atlassian Data Lake.',
+		team: 'Design System Team',
+		status: 'published',
+	},
 	'data-pivot': {
 		keywords: ['data-pivot', 'datapivot', 'icon', 'icon-lab', 'data pivot', 'column', 'row'],
 		componentName: 'DataPivotIcon',
@@ -1443,6 +1452,22 @@ const metadata: Record<string, metadata> = {
 		team: 'Ecosystem',
 		status: 'published',
 		slackChannel: '#forge-sql',
+	},
+	'deployed-service': {
+		keywords: [
+			'deployed-service',
+			'deployedservice',
+			'icon',
+			'icon-lab',
+			'deployed service',
+			'deployment',
+		],
+		componentName: 'DeployedServiceIcon',
+		package: '@atlaskit/icon-lab/core/deployed-service',
+		categorization: 'single-purpose',
+		usage: 'Reserved for representing a deployed software, capability, or application service.',
+		team: 'JSM',
+		status: 'published',
 	},
 	'diagram-architecture-map': {
 		keywords: [
@@ -3979,6 +4004,34 @@ const metadata: Record<string, metadata> = {
 		team: 'Design System Team',
 		status: 'published',
 	},
+	'file-markdown': {
+		keywords: [
+			'file-markdown',
+			'filemarkdown',
+			'icon',
+			'icon-lab',
+			'md',
+			'markdown',
+			'document',
+			'file',
+			'paper',
+		],
+		componentName: 'FileMarkdownIcon',
+		package: '@atlaskit/icon-lab/core/file-markdown',
+		categorization: 'single-purpose',
+		usage: 'Reserved for representing a Markdown document filetype.',
+		team: 'Confluence',
+		status: 'published',
+	},
+	'file-text': {
+		keywords: ['file-text', 'filetext', 'icon', 'icon-lab', 'text file', 'text document', 'paper'],
+		componentName: 'FileTextIcon',
+		package: '@atlaskit/icon-lab/core/file-text',
+		categorization: 'single-purpose',
+		usage: 'Reserved for representing an agnostic text document filetype.',
+		team: 'Design System Team',
+		status: 'published',
+	},
 	flower: {
 		keywords: ['flower', 'icon', 'icon-lab', 'flower', 'daisy', 'growth', 'plant'],
 		componentName: 'FlowerIcon',
@@ -4380,6 +4433,24 @@ const metadata: Record<string, metadata> = {
 		categorization: 'single-purpose',
 		usage: 'Reserved for representing transferred hardware.',
 		team: 'JSM',
+		status: 'published',
+	},
+	hierarchy: {
+		keywords: [
+			'hierarchy',
+			'icon',
+			'icon-lab',
+			'hierarchy',
+			'heirarchy',
+			'hierachy',
+			'relationship',
+			'tree',
+		],
+		componentName: 'HierarchyIcon',
+		package: '@atlaskit/icon-lab/core/hierarchy',
+		categorization: 'single-purpose',
+		usage: 'Reserved for representing the hierarchical relationship between objects.',
+		team: 'Transformation',
 		status: 'published',
 	},
 	history: {
@@ -7345,6 +7416,25 @@ const metadata: Record<string, metadata> = {
 		categorization: 'single-purpose',
 		usage: 'Reserved for watch later functionality in Loom',
 		team: 'Loom',
+		status: 'published',
+	},
+	'view-split': {
+		keywords: [
+			'view-split',
+			'viewsplit',
+			'icon',
+			'icon-lab',
+			'2 col',
+			'two columns',
+			'split view',
+			'side-by-side',
+			'layout',
+		],
+		componentName: 'ViewSplitIcon',
+		package: '@atlaskit/icon-lab/core/view-split',
+		categorization: 'single-purpose',
+		usage: 'Reserved for representing a 2 column split view.',
+		team: 'Confluence',
 		status: 'published',
 	},
 	'view-type-board-home': {

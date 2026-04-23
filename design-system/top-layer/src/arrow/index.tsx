@@ -84,70 +84,89 @@ const ARROW_CSS = `
  *   inline-end   (right of anchor) → margin-inline-start (left, facing anchor)
  */
 
-/* Single-axis centered */
+/* Each rule sets two margins: the anchor-facing margin for the gap
+   (via --ds-arrow-size) and one cross-axis margin for the shift
+   (via one of --ds-cross-axis-shift-margin-start, --ds-cross-axis-shift-margin-end,
+   --ds-cross-axis-shift-margin-block-start, or --ds-cross-axis-shift-margin-block-end). The
+   side matches the popover's anchored cross-axis edge per align. Only
+   one of the four properties is non-zero at a time; useAnchorPosition
+   picks it. See notes/architecture/positioning.md for details. */
+/* Single-axis centered (align: center) */
 @position-try --ds-arrow-block-start {
   position-area: block-start;
   margin: 0;
   margin-block-end: var(--ds-arrow-size, 8px);
+  margin-inline-start: var(--ds-cross-axis-shift-margin-start, 0px);
 }
 @position-try --ds-arrow-block-end {
   position-area: block-end;
   margin: 0;
   margin-block-start: var(--ds-arrow-size, 8px);
+  margin-inline-start: var(--ds-cross-axis-shift-margin-start, 0px);
 }
 @position-try --ds-arrow-inline-start {
   position-area: inline-start;
   margin: 0;
   margin-inline-end: var(--ds-arrow-size, 8px);
+  margin-block-start: var(--ds-cross-axis-shift-margin-block-start, 0px);
 }
 @position-try --ds-arrow-inline-end {
   position-area: inline-end;
   margin: 0;
   margin-inline-start: var(--ds-arrow-size, 8px);
+  margin-block-start: var(--ds-cross-axis-shift-margin-block-start, 0px);
 }
 
-/* Block edge + inline span */
+/* Block edge + inline span (align: start uses span-inline-end; align: end uses span-inline-start) */
 @position-try --ds-arrow-block-start-span-inline-start {
   position-area: block-start span-inline-start;
   margin: 0;
   margin-block-end: var(--ds-arrow-size, 8px);
+  margin-inline-end: var(--ds-cross-axis-shift-margin-end, 0px);
 }
 @position-try --ds-arrow-block-start-span-inline-end {
   position-area: block-start span-inline-end;
   margin: 0;
   margin-block-end: var(--ds-arrow-size, 8px);
+  margin-inline-start: var(--ds-cross-axis-shift-margin-start, 0px);
 }
 @position-try --ds-arrow-block-end-span-inline-start {
   position-area: block-end span-inline-start;
   margin: 0;
   margin-block-start: var(--ds-arrow-size, 8px);
+  margin-inline-end: var(--ds-cross-axis-shift-margin-end, 0px);
 }
 @position-try --ds-arrow-block-end-span-inline-end {
   position-area: block-end span-inline-end;
   margin: 0;
   margin-block-start: var(--ds-arrow-size, 8px);
+  margin-inline-start: var(--ds-cross-axis-shift-margin-start, 0px);
 }
 
-/* Inline edge + block span */
+/* Inline edge + block span (align: start uses span-block-end; align: end uses span-block-start) */
 @position-try --ds-arrow-inline-start-span-block-start {
   position-area: inline-start span-block-start;
   margin: 0;
   margin-inline-end: var(--ds-arrow-size, 8px);
+  margin-block-end: var(--ds-cross-axis-shift-margin-block-end, 0px);
 }
 @position-try --ds-arrow-inline-start-span-block-end {
   position-area: inline-start span-block-end;
   margin: 0;
   margin-inline-end: var(--ds-arrow-size, 8px);
+  margin-block-start: var(--ds-cross-axis-shift-margin-block-start, 0px);
 }
 @position-try --ds-arrow-inline-end-span-block-start {
   position-area: inline-end span-block-start;
   margin: 0;
   margin-inline-start: var(--ds-arrow-size, 8px);
+  margin-block-end: var(--ds-cross-axis-shift-margin-block-end, 0px);
 }
 @position-try --ds-arrow-inline-end-span-block-end {
   position-area: inline-end span-block-end;
   margin: 0;
   margin-inline-start: var(--ds-arrow-size, 8px);
+  margin-block-start: var(--ds-cross-axis-shift-margin-block-start, 0px);
 }
 `;
 

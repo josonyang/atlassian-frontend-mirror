@@ -1,5 +1,12 @@
 # @atlaskit/tokens
 
+## 13.0.1
+
+### Patch Changes
+
+- [`b5f57321dd863`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/b5f57321dd863) -
+  Transitioned motion design tokens from experimental to active and added usage guidance
+
 ## 13.0.0
 
 ### Major Changes

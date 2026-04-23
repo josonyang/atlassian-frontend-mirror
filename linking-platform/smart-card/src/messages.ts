@@ -31,8 +31,6 @@ export type RovoChatActionMessageKey =
 	| 'rovo_prompt_button_suggest_improvement'
 	| 'rovo_prompt_message_suggest_improvement'
 	| 'rovo_prompt_message_summarize'
-	| 'rovo_prompt_button_key_highlights'
-	| 'rovo_prompt_message_key_highlights'
 	| 'rovo_prompt_button_ask_rovo_anything'
 	| 'rovo_prompt_message_ask_rovo_anything'
 	| 'rovo_prompt_button_highlight_relevant_content'
@@ -1238,19 +1236,6 @@ export const messages: Messages = defineMessages({
 		id: 'fabric.linking.rovo_prompt_message_summarize.non-final',
 		defaultMessage:
 			'<p>Summarize the main ideas and key points of <a>{url}</a> in 3-5 clear, complete sentences.</p><p>Preserve any important details such as names, dates, and key decisions.</p>',
-		description:
-			'The prompt message to send to Rovo Chat. {url} refers to Smart Link that the user triggers this action from. (Please make sure all html tags remain the same.)',
-	},
-	rovo_prompt_button_key_highlights: {
-		id: 'fabric.linking.rovo_prompt_button_key_highlights.non-final',
-		defaultMessage: 'Key highlights',
-		description:
-			'The name of the action to send a key highlights prompt message to Rovo Chat in relation to current Smart Link',
-	},
-	rovo_prompt_message_key_highlights: {
-		id: 'fabric.linking.rovo_prompt_message_key_highlights.non-final',
-		defaultMessage:
-			"<p>Based on <a>{url}</a> and the page or ticket I'm currently viewing, highlight the parts of the linked content that are most relevant to this work. Explain briefly why each part is relevant.</p>",
 		description:
 			'The prompt message to send to Rovo Chat. {url} refers to Smart Link that the user triggers this action from. (Please make sure all html tags remain the same.)',
 	},

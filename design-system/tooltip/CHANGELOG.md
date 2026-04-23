@@ -1,5 +1,14 @@
 # @atlaskit/tooltip
 
+## 21.2.0
+
+### Minor Changes
+
+- [`0535fe6d19c87`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/0535fe6d19c87) -
+  Cleans up the `platform_dst_nav4_side_nav_resize_tooltip_feedback` feature gate. Tooltip now
+  supports the `UNSAFE_shouldRenderToParent` and `UNSAFE_shouldAlwaysFadeIn` props, as well as
+  `mouse-x` and `mouse-y` positions.
+
 ## 21.1.6
 
 ### Patch Changes

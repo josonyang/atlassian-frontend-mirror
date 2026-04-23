@@ -3,7 +3,7 @@
  *
  * To change the format of this file, modify `createVRTest` in icon-build-process/src/create-vr-test.tsx.
  *
- * @codegen <<SignedSource::12d26880b6be1e2eb415de571beedfb2>>
+ * @codegen <<SignedSource::3ee81a49c496b666b13e3bf9ad90dfce>>
  * @codegenCommand yarn build:icon-glyphs
  */
 /* eslint-disable @atlaskit/platform/use-entrypoints-in-examples */
@@ -261,6 +261,7 @@ import ProjectionScreenIcon from '../../../../../core/projection-screen';
 import PullRequestIcon from '../../../../../core/pull-request';
 import PulseIcon from '../../../../../core/pulse';
 import QuestionCircleIcon from '../../../../../core/question-circle';
+import QuotationBlockIcon from '../../../../../core/quotation-block';
 import QuotationMarkIcon from '../../../../../core/quotation-mark';
 import RadioCheckedIcon from '../../../../../core/radio-checked';
 import RadioUncheckedIcon from '../../../../../core/radio-unchecked';
@@ -758,6 +759,7 @@ const Icons = [
 	TableIcon,
 	CheckCircleUncheckedIcon,
 	AiSparkleIcon,
+	QuotationBlockIcon,
 ];
 
 const groupSize = 50;

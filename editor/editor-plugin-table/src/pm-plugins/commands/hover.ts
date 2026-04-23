@@ -56,7 +56,6 @@ export const hoverColumns = (hoveredColumns: number[], isInDanger?: boolean) =>
 		(state) => {
 			const cells = getCellsInColumn(hoveredColumns)(state.tr.selection);
 
-			const { isDragAndDropEnabled } = getPluginState(state);
 			if (!cells) {
 				return false;
 			}
@@ -65,7 +64,6 @@ export const hoverColumns = (hoveredColumns: number[], isInDanger?: boolean) =>
 				cells,
 				'column',
 				state.tr,
-				isDragAndDropEnabled,
 				hoveredColumns,
 				isInDanger,
 			);
@@ -93,12 +91,10 @@ export const hoverRows = (hoveredRows: number[], isInDanger?: boolean) =>
 			if (!cells) {
 				return false;
 			}
-			const { isDragAndDropEnabled } = getPluginState(state);
 			const decorations = createControlsHoverDecoration(
 				cells,
 				'row',
 				state.tr,
-				isDragAndDropEnabled,
 				hoveredRows,
 				isInDanger,
 			);
@@ -133,12 +129,10 @@ export const hoverTable = (isInDanger?: boolean, isSelected?: boolean) =>
 			if (!cells) {
 				return false;
 			}
-			const { isDragAndDropEnabled } = getPluginState(state);
 			const decorations = createControlsHoverDecoration(
 				cells,
 				'table',
 				state.tr,
-				isDragAndDropEnabled,
 				[],
 				isInDanger,
 				isSelected,
@@ -174,14 +168,12 @@ export const clearHoverSelection = () =>
 
 export const showResizeHandleLine = (cellColumnPositioning: CellColumnPositioning) =>
 	createCommand((state) => {
-		const { isDragAndDropEnabled } = getPluginState(state);
-
-		return {
+			return {
 			type: 'SHOW_RESIZE_HANDLE_LINE',
 			data: {
 				decorationSet: updatePluginStateDecorations(
 					state,
-					createColumnLineResize(state.selection, cellColumnPositioning, isDragAndDropEnabled),
+					createColumnLineResize(state.selection, cellColumnPositioning),
 					TableDecorations.COLUMN_RESIZING_HANDLE_LINE,
 				),
 			},

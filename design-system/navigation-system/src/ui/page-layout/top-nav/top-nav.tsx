@@ -11,7 +11,7 @@ import { fg } from '@atlaskit/platform-feature-flags';
 import { componentWithFG } from '@atlaskit/platform-feature-flags-react';
 import { token } from '@atlaskit/tokens';
 
-import { useSkipLink } from '../../../context/skip-links/use-skip-link';
+import { useSkipLinkInternal } from '../../../context/skip-links/use-skip-link-internal';
 import { useIsFhsEnabled } from '../../fhs-rollout/use-is-fhs-enabled';
 import { type CustomTheme } from '../../top-nav-items/themed/get-custom-theme-styles';
 import { HasCustomThemeContext } from '../../top-nav-items/themed/has-custom-theme-context';
@@ -169,7 +169,11 @@ function TopNavOld({
 	const isFhsEnabled = useIsFhsEnabled();
 	const dangerouslyHoistSlotSizes = useContext(DangerouslyHoistSlotSizes);
 	const id = useLayoutId({ providedId });
-	useSkipLink(id, skipLinkLabel);
+	useSkipLinkInternal({
+		id,
+		label: skipLinkLabel,
+		isHidden: fg('platform_dst_nav4_skip_link_a11y_1'),
+	});
 
 	const hasIncreasedDefaultHeight = isFhsEnabled && fg('platform_dst_nav4_top_nav_increase_height');
 	const height = heightProp ?? (hasIncreasedDefaultHeight ? 56 : 48);
@@ -222,7 +226,11 @@ function TopNavNew({
 	const isFhsEnabled = useIsFhsEnabled();
 	const dangerouslyHoistSlotSizes = useContext(DangerouslyHoistSlotSizes);
 	const id = useLayoutId({ providedId });
-	useSkipLink(id, skipLinkLabel);
+	useSkipLinkInternal({
+		id,
+		label: skipLinkLabel,
+		isHidden: fg('platform_dst_nav4_skip_link_a11y_1'),
+	});
 
 	const hasIncreasedDefaultHeight = isFhsEnabled && fg('platform_dst_nav4_top_nav_increase_height');
 	const height = heightProp ?? (hasIncreasedDefaultHeight ? 56 : 48);

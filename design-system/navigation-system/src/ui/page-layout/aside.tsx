@@ -8,6 +8,7 @@ import { cssMap, jsx } from '@compiled/react';
 
 import type { StrictXCSSProp } from '@atlaskit/css';
 import usePreviousValue from '@atlaskit/ds-lib/use-previous-value';
+import { fg } from '@atlaskit/platform-feature-flags';
 import { media } from '@atlaskit/primitives/responsive';
 
 import { useSkipLinkInternal } from '../../context/skip-links/use-skip-link-internal';
@@ -133,11 +134,13 @@ export function Aside({
 	 * Don't show the skip link if the slot has 0 width.
 	 *
 	 * Remove `isHidden` usage after https://jplat.atlassian.net/browse/BLU-3951
+	 *
+	 * TODO: when cleaning up 'platform_dst_nav4_skip_link_a11y_1' remove this call entirely
 	 */
 	useSkipLinkInternal({
 		id,
 		label: skipLinkLabel,
-		isHidden: defaultWidth === 0,
+		isHidden: defaultWidth === 0 || fg('platform_dst_nav4_skip_link_a11y_1'),
 	});
 	const ref = useRef<HTMLDivElement | null>(null);
 	const [width, setWidth] = useState(defaultWidth);

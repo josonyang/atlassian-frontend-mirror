@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/reactions",
-	"version": "34.0.0",
+	"version": "34.0.1",
 	"description": "Reactions component",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -132,9 +132,6 @@
 			"type": "boolean"
 		},
 		"platform_suppression_removal_fix_reactions": {
-			"type": "boolean"
-		},
-		"platform_reactions_tooltip_a11y": {
 			"type": "boolean"
 		}
 	},

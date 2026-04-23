@@ -1,5 +1,12 @@
 # @atlaskit/teams-app-internal-analytics
 
+## 1.27.5
+
+### Patch Changes
+
+- [`decd539deebf1`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/decd539deebf1) -
+  Migrate to use the playground package
+
 ## 1.27.4
 
 ### Patch Changes

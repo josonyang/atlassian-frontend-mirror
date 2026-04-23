@@ -102,11 +102,7 @@ function ContentComponent({
 		'taskDecision.hasEditPermission',
 	);
 
-	if (expValEquals('platform_editor_hydratable_ui', 'isEnabled', true) && !editorView) {
-		return null;
-	}
-
-	if (hasEditPermission || !openRequestToEditPopupAt) {
+	if (!editorView || hasEditPermission || !openRequestToEditPopupAt) {
 		return null;
 	}
 

@@ -489,7 +489,6 @@ const tablePlugin: TablePlugin = ({ config, api }) => {
 									eventType: EVENT_TYPE.TRACK,
 								})(tr);
 							},
-							dragAndDropEnabled: true,
 						}) as SafePlugin;
 					},
 				},

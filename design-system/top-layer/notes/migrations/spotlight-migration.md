@@ -139,17 +139,16 @@ semantics that the legacy path silently ignored.
 | overlaying-ui     | `top-end` / `bottom-end` | Both cards shift right (though only one is visible — see below) |
 | all-placements    | all 10                   | 8 of 10 differ; `top-center` and `bottom-center` unchanged      |
 
-### Along-axis offset not supported (known gap)
+### Cross-axis shift now supported
 
-The legacy path passes `offset` as `[along, away]` to Popper, where the "along" component slides the
-card along the target's edge. The top-layer path uses only `offset[1]` (the "away" distance) and
-ignores `offset[0]` (the "along" distance). The default offset `[0, 2]` is unaffected because the
-along component is 0. Any consumer that passes a non-zero along value (e.g. `offset={[400, 40]}`)
-will lose the along-axis shift.
-
-`useAnchorPosition` does not currently support an along-axis offset. If this becomes needed, it
-would require extending `useAnchorPosition` to accept a cross-axis margin in addition to the edge
-margin.
+The legacy path passes `offset` to Popper as the `[along, away]` tuple, where `along` slides the
+card along the target's edge and `away` controls distance from the target. The top-layer path now
+forwards both values via `fromLegacyPlacement`: `along` becomes `placement.offset.crossAxisShift` (mapped
+to a positive `value` plus a `direction: 'forwards' | 'backwards'`), and `away` becomes
+`placement.offset.gap`. Consumers passing a non-zero `along` value (e.g. `offset={[400, 40]}`)
+keep their cross-axis shift on both the CSS Anchor Positioning path and the JS fallback path
+(the JS fallback resolves CSS length strings via a hidden DOM probe; see
+`notes/decisions/placement-offset.md`).
 
 ### Card rendering identical
 
@@ -166,7 +165,7 @@ unchanged.
 | -------- | ------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | Medium   | Top-layer / non-top-layer interlacing | A portal-rendered overlay could appear behind the spotlight when the flag is on                                                                                                                             |
 | Low      | Placement alignment change            | Non-center placements (`bottom-end`, `top-start`, etc.) now correctly align instead of centering — small positional shift relative to target                                                                |
-| Low      | Along-axis offset ignored             | **Deprecated.** `offset[0]` (the "along" component) is dropped. Decision (2026-03-17 audit): along-axis offset is deprecated — we are leaning into the platform. Consumers should find alternative layouts. |
+| Low      | Cross-axis shift in JS fallback       | Both the CSS Anchor Positioning path and the JS fallback now forward `offset[0]` (shift) and `offset[1]` (gap). The JS fallback resolves CSS length strings via a hidden DOM probe. See `notes/decisions/placement-offset.md`. |
 | Low      | Synthetic events for dismiss          | Consumers that inspect `dismiss` event type see a synthetic `KeyboardEvent` (Escape) or `MouseEvent` (click-outside) rather than the original browser event                                                 |
 
 ---
@@ -323,13 +322,13 @@ the top-layer migration. They exist in both the legacy and top-layer paths:
   - This is expected and intentional; documented in "Placement alignment now correct (intentional)"
   - **Impact:** 8 of 10 placements differ visually; `top-center` and `bottom-center` unchanged
 
-- **Along-axis offset dropped** (intentional; deprecated)
-  - `offset[0]` (the "along" component) is ignored on top-layer path
-  - `offset[1]` (the "away" distance) is respected
-  - **Decision (2026-03-17 audit):** Along-axis offset is deprecated; consumers should find
-    alternative layouts
-  - **Impact:** Consumers passing non-default along values (e.g. `offset={[400, 40]}`) will lose the
-    along-axis shift
+- **Cross-axis shift now forwarded** (reverses the 2026-03-17 deprecation)
+  - `offset[0]` (cross-axis shift) is forwarded as `placement.offset.crossAxisShift` on the CSS path
+  - `offset[1]` (gap) is forwarded as `placement.offset.gap` on the CSS path
+  - **JS fallback path** (less than 6% of users) intentionally uses a fixed 8px gap and no shift
+    (see `notes/decisions/placement-offset.md`)
+  - **Impact:** Consumers passing non-default values (e.g. `offset={[400, 40]}`) keep their shift
+    on supporting browsers; on the JS fallback they fall back to defaults
 
 - **Synthetic events for dismiss** (intentional design)
   - Spotlight creates synthetic `KeyboardEvent` (Escape) or `MouseEvent` (click-outside) for
@@ -359,5 +358,5 @@ the top-layer migration. They exist in both the legacy and top-layer paths:
 **Summary:** All existing legacy tests pass. 8 new unit tests added for top-layer path. Browser
 tests confirm accessibility on top-layer path. VR tests confirm placement alignment changes are
 intentional and card rendering is identical. Residual risks are very low (inert context field,
-type-only narrowing, comment changes). Known risks (placement alignment, along-axis offset,
-synthetic events, interlacing) are documented and intentional. |
+type-only narrowing, comment changes). Known risks (placement alignment, JS fallback offset
+behavior, synthetic events, interlacing) are documented and intentional. |

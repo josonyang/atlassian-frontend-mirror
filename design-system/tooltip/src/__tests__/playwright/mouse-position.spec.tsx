@@ -59,16 +59,13 @@ test.describe('Tooltip mouse positioning', () => {
 		expect(tooltipBox.y).toBe(expectedTooltipPosition.y);
 	});
 
-	test('should position tooltip at mouse coordinates with position="mouse" (platform_dst_nav4_side_nav_resize_tooltip_feedback)', async ({
+	test('should position tooltip at mouse coordinates with position="mouse"', async ({
 		page,
 	}) => {
 		await page.visitExample<typeof import('../../../examples/position-mouse.tsx')>(
 			'design-system',
 			'tooltip',
 			'position-mouse',
-			{
-				featureFlag: 'platform_dst_nav4_side_nav_resize_tooltip_feedback',
-			},
 		);
 
 		const trigger = page.getByTestId('trigger-mouse');
@@ -115,9 +112,6 @@ test.describe('Tooltip mouse positioning', () => {
 			'design-system',
 			'tooltip',
 			'position-mouse',
-			{
-				featureFlag: 'platform_dst_nav4_side_nav_resize_tooltip_feedback',
-			},
 		);
 
 		const trigger = page.getByTestId('trigger-mouse-y');
@@ -166,9 +160,6 @@ test.describe('Tooltip mouse positioning', () => {
 			'design-system',
 			'tooltip',
 			'position-mouse',
-			{
-				featureFlag: 'platform_dst_nav4_side_nav_resize_tooltip_feedback',
-			},
 		);
 
 		const trigger = page.getByTestId('trigger-mouse-x');

@@ -1,5 +1,24 @@
 # @atlaskit/editor-core
 
+## 219.1.1
+
+### Patch Changes
+
+- [`344eb4664c404`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/344eb4664c404) -
+  Add akEditor className to chromeless editor behind experiment gate
+- Updated dependencies
+
+## 219.1.0
+
+### Minor Changes
+
+- [`e5cdd96dcf4f9`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/e5cdd96dcf4f9) -
+  Clean up platform_editor_hydratable_ui experiment (shipped as enabled)
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 219.0.6
 
 ### Patch Changes

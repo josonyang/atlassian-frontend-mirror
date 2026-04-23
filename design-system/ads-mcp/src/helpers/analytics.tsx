@@ -1,16 +1,14 @@
 /* eslint-disable no-console */
-import { userInfo } from 'node:os';
 
 import type { AnalyticsClient } from '@atlassiansox/analytics-node-client';
+
+import { configPath } from './config-path';
+import { staffId } from './staff-id';
 
 // eslint-disable-next-line import/no-extraneous-dependencies -- this uses require because not all node versions this package supports use the same import assertions/attributes
 const pkgJson = require('@atlaskit/ads-mcp/package.json');
 
 const version = pkgJson.version || '0.0.0-unknown';
-
-// Get staff ID using the same logic as @repo-feature-flags-statsig
-export const staffId: string =
-	process.env.STAFF_ID || process.env.USER || process.env.ATLAS_USER || userInfo().username;
 
 /**
  * This is a user-passed value via environment to define what agent we may be running in.
@@ -20,14 +18,6 @@ export const staffId: string =
 type AGENT = 'cursor' | 'vscode' | 'rovodev' | 'codelassian' | string;
 
 export const agent: AGENT = (process.env.ADSMCP_AGENT as AGENT) || 'unknown';
-
-/**
- * The path to the MCP config file that is being used to run the MCP server
- * e.g. 'mcp.json', 'jira/.cursor/mcp.json', 'platform/.vscode/mcp.json' or 'unknown'
- * This could be anything, do not rely on it!
- * @default `'unknown'`
- */
-export const configPath: string = process.env.ADSMCP_CONFIG_PATH || 'unknown';
 
 // Check if user has opted out of analytics
 const isAnalyticsOptedOut =
@@ -105,3 +95,6 @@ export function sendOperationalEvent({
 		console.error('Error sending operational event to analytics');
 	}
 }
+
+export { staffId } from './staff-id';
+export { configPath } from './config-path';

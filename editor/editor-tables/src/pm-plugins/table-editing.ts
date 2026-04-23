@@ -28,11 +28,9 @@ type PluginState = number | null;
 
 export function tableEditing({
 	allowTableNodeSelection = false,
-	dragAndDropEnabled = false,
 	reportFixedTable,
 }: {
 	allowTableNodeSelection?: boolean;
-	dragAndDropEnabled?: boolean;
 	reportFixedTable?: ReportFixedTable;
 } = {}): Plugin<PluginState> {
 	return new Plugin({
@@ -64,7 +62,7 @@ export function tableEditing({
 
 			handleDOMEvents: {
 				mousedown: (view: EditorView, event: Event) => {
-					handleMouseDown(view, event, dragAndDropEnabled);
+					handleMouseDown(view, event);
 				},
 			},
 

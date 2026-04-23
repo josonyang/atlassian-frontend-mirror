@@ -561,8 +561,7 @@ function SideNavInternal({
 				openLayerObserver.getCount({
 					namespace: openLayerObserverTopNavStartNamespace,
 					type: 'popup',
-				}) > 0 &&
-				fg('platform_dst_nav4_side_nav_resize_tooltip_feedback')
+				}) > 0
 			) {
 				return;
 			}

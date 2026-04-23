@@ -1,5 +1,12 @@
 # @atlaskit/editor-plugin-connectivity
 
+## 10.0.1
+
+### Patch Changes
+
+- [`42a9772eb71b8`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/42a9772eb71b8) -
+  replace 'react-intl-next' alias with 'react-intl'
+
 ## 10.0.0
 
 ### Patch Changes

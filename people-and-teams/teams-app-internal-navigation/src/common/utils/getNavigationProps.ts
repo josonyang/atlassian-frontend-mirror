@@ -127,13 +127,17 @@ export function getNavigationProps(input: NavigationInput): NavigationByIntent {
 			if (e.button === 0 && isModified(e)) return;
 
 			if (previewPanelProps && context.openPreviewPanel) {
-				e.preventDefault();
-				context.openPreviewPanel({
-					ari: previewPanelProps.ari,
-					name: previewPanelProps.name,
-					url: href,
-				});
-				return;
+				try {
+					context.openPreviewPanel({
+						ari: previewPanelProps.ari,
+						name: previewPanelProps.name,
+						url: href,
+					});
+					e.preventDefault();
+					return;
+				} catch {
+					// Fall through to navigation below if opening the preview panel fails
+				}
 			}
 
 			// Handle left-clicks without modifier keys

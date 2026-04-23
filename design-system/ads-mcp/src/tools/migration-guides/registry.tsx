@@ -7,21 +7,7 @@
  * 3. The tool will automatically include it in the available options
  */
 
-import {
-	onboardingJiraSpotlight,
-	onboardingMultiStep,
-	onboardingSingleStep,
-	onboardingWithMotion,
-} from './migrations/onboarding-to-spotlight';
-import type { MigrationRegistry } from './types';
-
-export const migrationRegistry: MigrationRegistry = {
-	[onboardingJiraSpotlight.id]: onboardingJiraSpotlight,
-	[onboardingSingleStep.id]: onboardingSingleStep,
-	[onboardingMultiStep.id]: onboardingMultiStep,
-	[onboardingWithMotion.id]: onboardingWithMotion,
-};
-
+import { migrationRegistry } from './migration-registry';
 /**
  * Get all available migration IDs for use in the tool schema
  */
@@ -36,3 +22,5 @@ export const getAvailableMigrationIds = (): string[] => {
 export const getAvailableMigrationsDescription = (): string[] => {
 	return Object.values(migrationRegistry).map((m) => `- "${m.id}": ${m.description}`);
 };
+
+export { migrationRegistry } from './migration-registry';

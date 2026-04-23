@@ -7,8 +7,6 @@ import {
 	toggleBold,
 	tooltip,
 } from '@atlaskit/editor-common/keymaps';
-import { eeTest } from '@atlaskit/tmp-editor-statsig/editor-experiments-test-utils';
-
 // Mock getBrowserInfo
 jest.mock('@atlaskit/editor-common/browser', () => ({
 	getBrowserInfo: jest.fn(),
@@ -17,105 +15,103 @@ jest.mock('@atlaskit/editor-common/browser', () => ({
 const mockGetBrowserInfo = getBrowserInfo as jest.MockedFunction<typeof getBrowserInfo>;
 
 describe('keymaps', () => {
-	eeTest.describe('platform_editor_hydratable_ui', 'new browser util enabled').variant(true, () => {
-		[true, false].forEach((isMac) => {
-			const os = isMac ? 'mac' : 'windows';
+	[true, false].forEach((isMac) => {
+		const os = isMac ? 'mac' : 'windows';
 
-			describe(`when on ${os}`, () => {
-				beforeEach(() => {
-					mockGetBrowserInfo.mockReturnValue({
-						mac: isMac,
-						// Add other browser info properties as needed
-						chrome: false,
-						firefox: false,
-						safari: false,
-						ie: false,
-						edge: false,
-					});
+		describe(`when on ${os}`, () => {
+			beforeEach(() => {
+				mockGetBrowserInfo.mockReturnValue({
+					mac: isMac,
+					// Add other browser info properties as needed
+					chrome: false,
+					firefox: false,
+					safari: false,
+					ie: false,
+					edge: false,
 				});
-				describe('tooltip', () => {
-					it('returns tooltip', () => {
-						const keymap = {
-							description: 'A keymap',
-							windows: 'Ctrl-Shift-Alt-K',
-							mac: 'Cmd-Shift-Alt-K',
-							common: 'Mod-Shift-Alt-K',
-						};
+			});
+			describe('tooltip', () => {
+				it('returns tooltip', () => {
+					const keymap = {
+						description: 'A keymap',
+						windows: 'Ctrl-Shift-Alt-K',
+						mac: 'Cmd-Shift-Alt-K',
+						common: 'Mod-Shift-Alt-K',
+					};
 
-						if (getBrowserInfo().mac) {
-							expect(tooltip(keymap)).toEqual('⌘⇧⌥K');
-						} else {
-							expect(tooltip(keymap)).toEqual('Ctrl+Shift+Alt+K');
-						}
-					});
-
-					it('returns tooltip with unicode arrow', () => {
-						const keymap = {
-							description: 'A keymap',
-							windows: 'Ctrl-Shift-Alt-ArrowUp',
-							mac: 'Cmd-Shift-Alt-ArrowUp',
-							common: 'Mod-Shift-Alt-ArrowUp',
-						};
-
-						if (getBrowserInfo().mac) {
-							expect(tooltip(keymap)).toEqual('⌘⇧⌥↑');
-						} else {
-							expect(tooltip(keymap)).toEqual('Ctrl+Shift+Alt+↑');
-						}
-					});
+					if (getBrowserInfo().mac) {
+						expect(tooltip(keymap)).toEqual('⌘⇧⌥K');
+					} else {
+						expect(tooltip(keymap)).toEqual('Ctrl+Shift+Alt+K');
+					}
 				});
 
-				describe('findShortcutByDescription', () => {
-					it('should return matched shortcut for Quote if found', () => {
-						if (getBrowserInfo().mac) {
-							expect(findShortcutByDescription('Quote')).toEqual('Cmd-Shift-9');
-						} else {
-							expect(findShortcutByDescription('Quote')).toEqual('Ctrl-Shift-9');
-						}
-					});
+				it('returns tooltip with unicode arrow', () => {
+					const keymap = {
+						description: 'A keymap',
+						windows: 'Ctrl-Shift-Alt-ArrowUp',
+						mac: 'Cmd-Shift-Alt-ArrowUp',
+						common: 'Mod-Shift-Alt-ArrowUp',
+					};
 
-					it('should return matched shortcut for Redo if found', () => {
-						if (getBrowserInfo().mac) {
-							expect(findShortcutByDescription('Redo')).toEqual('Cmd-Shift-z');
-						} else {
-							expect(findShortcutByDescription('Redo')).toEqual('Ctrl-y');
-						}
-					});
+					if (getBrowserInfo().mac) {
+						expect(tooltip(keymap)).toEqual('⌘⇧⌥↑');
+					} else {
+						expect(tooltip(keymap)).toEqual('Ctrl+Shift+Alt+↑');
+					}
+				});
+			});
 
-					it('should return undefined if shortcut not found', () => {
-						expect(findShortcutByDescription('random')).toBe(undefined);
-					});
+			describe('findShortcutByDescription', () => {
+				it('should return matched shortcut for Quote if found', () => {
+					if (getBrowserInfo().mac) {
+						expect(findShortcutByDescription('Quote')).toEqual('Cmd-Shift-9');
+					} else {
+						expect(findShortcutByDescription('Quote')).toEqual('Ctrl-Shift-9');
+					}
 				});
 
-				describe('findKeymapByDescription', () => {
-					it('should return keymap when keymap is found', () => {
-						expect(findKeymapByDescription('Bold')).toEqual(toggleBold);
-					});
-
-					it('should return undefined when keymap is not found', () => {
-						expect(findKeymapByDescription('random')).toBe(undefined);
-					});
+				it('should return matched shortcut for Redo if found', () => {
+					if (getBrowserInfo().mac) {
+						expect(findShortcutByDescription('Redo')).toEqual('Cmd-Shift-z');
+					} else {
+						expect(findShortcutByDescription('Redo')).toEqual('Ctrl-y');
+					}
 				});
 
-				describe('makeKeyMapWithCommon', () => {
-					it('replaces Mod with Ctrl for Windows and Cmd for Mac', () => {
-						expect(makeKeyMapWithCommon('Undo', 'Mod-z')).toEqual({
-							common: 'Mod-z',
-							description: 'Undo',
-							mac: 'Cmd-z',
-							windows: 'Ctrl-z',
-						});
-					});
+				it('should return undefined if shortcut not found', () => {
+					expect(findShortcutByDescription('random')).toBe(undefined);
+				});
+			});
+
+			describe('findKeymapByDescription', () => {
+				it('should return keymap when keymap is found', () => {
+					expect(findKeymapByDescription('Bold')).toEqual(toggleBold);
 				});
 
-				describe('makeKeyMap', () => {
-					it('replaces Mod with Ctrl for Windows and Cmd for Mac', () => {
-						expect(makeKeymap('Redo', 'Ctrl-y', 'Mod-Shift-z')).toEqual({
-							common: undefined,
-							description: 'Redo',
-							mac: 'Cmd-Shift-z',
-							windows: 'Ctrl-y',
-						});
+				it('should return undefined when keymap is not found', () => {
+					expect(findKeymapByDescription('random')).toBe(undefined);
+				});
+			});
+
+			describe('makeKeyMapWithCommon', () => {
+				it('replaces Mod with Ctrl for Windows and Cmd for Mac', () => {
+					expect(makeKeyMapWithCommon('Undo', 'Mod-z')).toEqual({
+						common: 'Mod-z',
+						description: 'Undo',
+						mac: 'Cmd-z',
+						windows: 'Ctrl-z',
+					});
+				});
+			});
+
+			describe('makeKeyMap', () => {
+				it('replaces Mod with Ctrl for Windows and Cmd for Mac', () => {
+					expect(makeKeymap('Redo', 'Ctrl-y', 'Mod-Shift-z')).toEqual({
+						common: undefined,
+						description: 'Redo',
+						mac: 'Cmd-Shift-z',
+						windows: 'Ctrl-y',
 					});
 				});
 			});

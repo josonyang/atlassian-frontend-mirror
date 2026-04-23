@@ -16,6 +16,12 @@ Object.defineProperty(exports, "light", {
     return _atlassianLight.default;
   }
 });
+Object.defineProperty(exports, "motion", {
+  enumerable: true,
+  get: function get() {
+    return _atlassianMotion.default;
+  }
+});
 Object.defineProperty(exports, "shape", {
   enumerable: true,
   get: function get() {
@@ -39,3 +45,4 @@ var _atlassianDark = _interopRequireDefault(require("../artifacts/tokens-raw/atl
 var _atlassianSpacing = _interopRequireDefault(require("../artifacts/tokens-raw/atlassian-spacing"));
 var _atlassianTypography = _interopRequireDefault(require("../artifacts/tokens-raw/atlassian-typography"));
 var _atlassianShape = _interopRequireDefault(require("../artifacts/tokens-raw/atlassian-shape"));
+var _atlassianMotion = _interopRequireDefault(require("../artifacts/tokens-raw/atlassian-motion"));

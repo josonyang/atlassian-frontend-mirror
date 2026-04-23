@@ -84,7 +84,7 @@ describe('ErrorMessage', () => {
 	it('should fire the delete agent button event', async () => {
 		const { user, expectEventToBeFired } = renderAgentActions();
 		await user.click(screen.getByTestId('agent-dropdown-menu--trigger'));
-		await user.click(screen.getByText('Delete Agent'));
+		await user.click(screen.getByText('Delete agent'));
 		expectEventToBeFired('ui', event);
 	});
 

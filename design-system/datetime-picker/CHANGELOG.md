@@ -1,5 +1,12 @@
 # @atlaskit/datetime-picker
 
+## 17.7.0
+
+### Minor Changes
+
+- [`eba257fabc979`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/eba257fabc979) -
+  Clean up flag to improve value calculation in datetime picker.
+
 ## 17.6.5
 
 ### Patch Changes

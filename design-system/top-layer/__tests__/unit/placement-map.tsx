@@ -32,6 +32,56 @@ describe('placement-map', () => {
 		});
 	});
 
+	describe('fromLegacyPlacement with legacy offset tuple', () => {
+		it('includes offset in the returned placement when offset is provided', () => {
+			const result = fromLegacyPlacement({ legacy: 'bottom', offset: [0, 8] });
+			expect(result.offset).toEqual({
+				gap: 8,
+				crossAxisShift: { value: 0, direction: 'forwards' },
+			});
+		});
+
+		it('maps positive shift offset to forwards direction', () => {
+			const result = fromLegacyPlacement({ legacy: 'bottom', offset: [4, 8] });
+			expect(result.offset?.crossAxisShift).toEqual({ value: 4, direction: 'forwards' });
+		});
+
+		it('maps negative shift offset to backwards direction with absolute value', () => {
+			const result = fromLegacyPlacement({ legacy: 'bottom', offset: [-4, 8] });
+			expect(result.offset?.crossAxisShift).toEqual({ value: 4, direction: 'backwards' });
+		});
+
+		it('handles zero gap offset', () => {
+			const result = fromLegacyPlacement({ legacy: 'bottom', offset: [4, 0] });
+			expect(result.offset?.gap).toBe(0);
+		});
+
+		it('omits offset field when offset is not provided', () => {
+			const result = fromLegacyPlacement({ legacy: 'bottom' });
+			expect(result.offset).toBeUndefined();
+		});
+
+		it('applies offset tuple to different placements', () => {
+			const offsetTuple: [number, number] = [2, 16];
+
+			const blockStartResult = fromLegacyPlacement({ legacy: 'top', offset: offsetTuple });
+			expect(blockStartResult).toEqual({
+				axis: 'block',
+				edge: 'start',
+				align: 'center',
+				offset: { gap: 16, crossAxisShift: { value: 2, direction: 'forwards' } },
+			});
+
+			const inlineStartResult = fromLegacyPlacement({ legacy: 'left', offset: offsetTuple });
+			expect(inlineStartResult).toEqual({
+				axis: 'inline',
+				edge: 'start',
+				align: 'center',
+				offset: { gap: 16, crossAxisShift: { value: 2, direction: 'forwards' } },
+			});
+		});
+	});
+
 	describe('placementMapping', () => {
 		it('contains all 17 legacy placements (including top-center, bottom-center for spotlight)', () => {
 			expect(Object.keys(placementMapping)).toHaveLength(17);

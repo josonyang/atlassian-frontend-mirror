@@ -7,6 +7,7 @@ import { useContext } from 'react';
 import { cssMap, jsx } from '@compiled/react';
 
 import type { StrictXCSSProp } from '@atlaskit/css';
+import { fg } from '@atlaskit/platform-feature-flags';
 
 import { useSkipLinkInternal } from '../../context/skip-links/use-skip-link-internal';
 import { useIsFhsEnabled } from '../fhs-rollout/use-is-fhs-enabled';
@@ -71,11 +72,13 @@ export function Banner({
 
 	/**
 	 * Don't show the skip link if the slot has 0 height.
+	 *
+	 * TODO: when cleaning up 'platform_dst_nav4_skip_link_a11y_1' remove this call entirely
 	 */
 	useSkipLinkInternal({
 		id,
 		label: skipLinkLabel,
-		isHidden: height === 0,
+		isHidden: height === 0 || fg('platform_dst_nav4_skip_link_a11y_1'),
 	});
 
 	return (

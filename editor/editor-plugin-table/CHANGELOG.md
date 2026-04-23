@@ -1,5 +1,24 @@
 # @atlaskit/editor-plugin-table
 
+## 22.2.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 22.2.0
+
+### Minor Changes
+
+- [`e5cdd96dcf4f9`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/e5cdd96dcf4f9) -
+  Clean up platform_editor_hydratable_ui experiment (shipped as enabled)
+
+### Patch Changes
+
+- [`d2c265eaaf495`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/d2c265eaaf495) -
+  Remove isDragAndDropEnabled dead code from pm-plugins - always true (EDITOR-6290)
+- Updated dependencies
+
 ## 22.1.4
 
 ### Patch Changes

@@ -38,7 +38,7 @@ const expectedIconResults: [string[], string[]][] = [
 	],
 	[
 		['file', 'image'],
-		['FileIcon', 'ImageStrikethroughIcon'],
+		['FileIcon', 'ImageStrikethroughIcon', 'FileMarkdownIcon'],
 	],
 ];
 

@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-import { IntlProvider } from 'react-intl-next';
+import { IntlProvider } from 'react-intl';
 
 import { DevTools } from '@af/editor-examples-helpers/utils';
 import Button from '@atlaskit/button/new';

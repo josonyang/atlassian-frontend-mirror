@@ -5,6 +5,7 @@
 import { useMemo } from 'react';
 
 import { cssMap, jsx } from '@atlaskit/css';
+import { fg } from '@atlaskit/platform-feature-flags';
 import { Text } from '@atlaskit/primitives/compiled';
 import { token } from '@atlaskit/tokens';
 
@@ -16,14 +17,10 @@ const styles = cssMap({
 	root: {
 		display: 'flex',
 		flexDirection: 'column',
-		gap: token('space.050'),
-		paddingBlock: token('space.150'),
-		paddingInline: token('space.150'),
 		position: 'fixed',
 		insetInlineStart: token('space.250'),
 		insetBlockStart: token('space.250'),
 		backgroundColor: token('elevation.surface.overlay'),
-		borderRadius: token('radius.small'),
 		boxShadow: token('elevation.shadow.overlay'),
 		/**
 		 * Hiding the element while it has no focus within
@@ -40,14 +37,32 @@ const styles = cssMap({
 			pointerEvents: 'auto',
 		},
 	},
+	rootOld: {
+		gap: token('space.050'),
+		paddingBlock: token('space.150'),
+		paddingInline: token('space.150'),
+		borderRadius: token('radius.small'),
+	},
+	rootNew: {
+		paddingBlock: token('space.100'),
+		paddingInline: token('space.200'),
+		borderRadius: token('radius.large'),
+	},
+	label: {
+		font: token('font.heading.xxsmall'),
+		color: token('color.text.subtle'),
+		paddingBlock: token('space.100'),
+	},
 	skipLinkList: {
 		display: 'flex',
 		flexDirection: 'column',
-		gap: token('space.050'),
 		listStylePosition: 'outside',
 		listStyleType: 'none',
 		marginBlockStart: token('space.0'),
 		paddingInlineStart: token('space.0'),
+	},
+	skipLinkListOld: {
+		gap: token('space.050'),
 	},
 });
 
@@ -145,15 +160,34 @@ export function SkipLinksContainer({
 		// eslint-disable-next-line @atlassian/a11y/no-static-element-interactions
 		<div
 			onKeyDown={closeOnEscape}
-			css={[styles.root]}
+			css={[
+				styles.root,
+				fg('platform_dst_nav4_skip_link_a11y_1') ? styles.rootNew : styles.rootOld,
+			]}
 			data-testid={testId ? `${testId}--skip-links-container` : undefined}
 		>
-			{!isEmptyLabel && (
-				<Text weight="bold" testId={testId ? `${testId}--skip-links-container--label` : undefined}>
-					{label}
-				</Text>
-			)}
-			<ol css={[styles.skipLinkList]}>
+			{!isEmptyLabel &&
+				(fg('platform_dst_nav4_skip_link_a11y_1') ? (
+					<div
+						css={styles.label}
+						data-testid={testId ? `${testId}--skip-links-container--label` : undefined}
+					>
+						{label}
+					</div>
+				) : (
+					<Text
+						weight="bold"
+						testId={testId ? `${testId}--skip-links-container--label` : undefined}
+					>
+						{label}
+					</Text>
+				))}
+			<ol
+				css={[
+					styles.skipLinkList,
+					!fg('platform_dst_nav4_skip_link_a11y_1') && styles.skipLinkListOld,
+				]}
+			>
 				{sortedLinks.map(({ id, label, onBeforeNavigate }: SkipLinkData) => (
 					<SkipLink key={id} id={id} onBeforeNavigate={onBeforeNavigate}>
 						{label}

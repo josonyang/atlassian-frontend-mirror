@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { hierarchy } from '@visx/hierarchy';
-import { IntlProvider } from 'react-intl-next';
+import { IntlProvider } from 'react-intl';
 
 import { ProfileCard } from '@atlaskit/profilecard';
 import { token } from '@atlaskit/tokens';

@@ -4,29 +4,21 @@ jest.mock('@atlaskit/editor-common/core-utils', () => ({
 	isSSR: jest.fn(),
 }));
 
-jest.mock('@atlaskit/tmp-editor-statsig/exp-val-equals', () => ({
-	expValEquals: jest.fn(),
-}));
-
 import { isSSR } from '@atlaskit/editor-common/core-utils';
-import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { render, screen } from '@atlassian/testing-library';
 
 import ExcludeFromHydration from '../../../ui/ExcludeFromHydration';
 
 const mockIsSSR = isSSR as jest.MockedFunction<typeof isSSR>;
-const mockExpValEquals = expValEquals as jest.MockedFunction<typeof expValEquals>;
 
 // eslint-disable-next-line @atlassian/a11y/require-jest-coverage
 describe('ExcludeFromHydration', () => {
 	beforeEach(() => {
 		jest.clearAllMocks();
 		mockIsSSR.mockReturnValue(false);
-		mockExpValEquals.mockReturnValue(false);
 	});
 
-	it('should render children after hydration when feature flag is disabled and not SSR', () => {
-		mockExpValEquals.mockReturnValue(false);
+	it('should render children after hydration when not SSR', () => {
 		mockIsSSR.mockReturnValue(false);
 
 		render(
@@ -39,8 +31,7 @@ describe('ExcludeFromHydration', () => {
 		expect(screen.getByTestId('child-content')).toBeInTheDocument();
 	});
 
-	it('should render children after hydration when feature flag is disabled', () => {
-		mockExpValEquals.mockReturnValue(false);
+	it('should render children after rerender', () => {
 		mockIsSSR.mockReturnValue(false);
 
 		const { rerender } = render(
@@ -49,33 +40,18 @@ describe('ExcludeFromHydration', () => {
 			</ExcludeFromHydration>,
 		);
 
-		// After useLayoutEffect runs, it should render
 		rerender(
 			<ExcludeFromHydration>
 				<div data-testid="child-content">Test Content</div>
 			</ExcludeFromHydration>,
 		);
 
-		// The component should eventually render children
+		// The component should render children
 		expect(screen.getByTestId('child-content')).toBeInTheDocument();
 	});
 
-	it('should render children immediately when feature flag is enabled', () => {
-		mockExpValEquals.mockReturnValue(true);
-		mockIsSSR.mockReturnValue(false);
-
-		render(
-			<ExcludeFromHydration>
-				<div data-testid="child-content">Test Content</div>
-			</ExcludeFromHydration>,
-		);
-
-		expect(screen.getByTestId('child-content')).toBeInTheDocument();
-	});
-
-	it('should not trigger state update during SSR', () => {
+	it('should not render children during SSR (isSSR returns true)', () => {
 		mockIsSSR.mockReturnValue(true);
-		mockExpValEquals.mockReturnValue(false);
 
 		render(
 			<ExcludeFromHydration>
@@ -83,30 +59,12 @@ describe('ExcludeFromHydration', () => {
 			</ExcludeFromHydration>,
 		);
 
-		// During SSR, children should now be rendered
-		expect(screen.getByTestId('child-content')).toBeInTheDocument();
+		// During SSR, shouldRender stays false so children are not rendered
+		expect(screen.queryByTestId('child-content')).not.toBeInTheDocument();
 		expect(mockIsSSR).toHaveBeenCalled();
 	});
 
-	it('should call expValEquals with correct parameters', () => {
-		mockExpValEquals.mockReturnValue(false);
-		mockIsSSR.mockReturnValue(false);
-
-		render(
-			<ExcludeFromHydration>
-				<div>Test</div>
-			</ExcludeFromHydration>,
-		);
-
-		expect(mockExpValEquals).toHaveBeenCalledWith(
-			'platform_editor_hydratable_ui',
-			'isEnabled',
-			true,
-		);
-	});
-
 	it('should render multiple children correctly', () => {
-		mockExpValEquals.mockReturnValue(true);
 		mockIsSSR.mockReturnValue(false);
 
 		render(
@@ -121,7 +79,6 @@ describe('ExcludeFromHydration', () => {
 	});
 
 	it('should handle null children gracefully', () => {
-		mockExpValEquals.mockReturnValue(true);
 		mockIsSSR.mockReturnValue(false);
 
 		const { container } = render(<ExcludeFromHydration>{null}</ExcludeFromHydration>);
@@ -130,8 +87,7 @@ describe('ExcludeFromHydration', () => {
 	});
 
 	describe('fallback prop', () => {
-		it('should render fallback when feature flag is enabled and not yet hydrated', () => {
-			mockExpValEquals.mockReturnValue(true);
+		it('should render fallback when not yet hydrated (SSR)', () => {
 			mockIsSSR.mockReturnValue(true); // Simulate SSR where useEffect hasn't run
 
 			const { container } = render(
@@ -140,14 +96,13 @@ describe('ExcludeFromHydration', () => {
 				</ExcludeFromHydration>,
 			);
 
-			// During SSR with feature flag enabled, fallback should be rendered
+			// During SSR, fallback should be rendered
 			expect(screen.queryByTestId('fallback')).toBeInTheDocument();
 			expect(screen.queryByTestId('child-content')).not.toBeInTheDocument();
 			expect(container).toBeInTheDocument();
 		});
 
 		it('should render children instead of fallback after hydration', () => {
-			mockExpValEquals.mockReturnValue(true);
 			mockIsSSR.mockReturnValue(false);
 
 			render(
@@ -161,22 +116,7 @@ describe('ExcludeFromHydration', () => {
 			expect(screen.queryByTestId('fallback')).not.toBeInTheDocument();
 		});
 
-		it('should render children when feature flag is disabled regardless of fallback', () => {
-			mockExpValEquals.mockReturnValue(false);
-			mockIsSSR.mockReturnValue(false);
-
-			render(
-				<ExcludeFromHydration fallback={<div data-testid="fallback">Placeholder</div>}>
-					<div data-testid="child-content">Test Content</div>
-				</ExcludeFromHydration>,
-			);
-
-			expect(screen.getByTestId('child-content')).toBeInTheDocument();
-			expect(screen.queryByTestId('fallback')).not.toBeInTheDocument();
-		});
-
-		it('should render null when no fallback provided and feature flag enabled during SSR', () => {
-			mockExpValEquals.mockReturnValue(true);
+		it('should render null when no fallback provided during SSR', () => {
 			mockIsSSR.mockReturnValue(true);
 
 			const { container } = render(

@@ -3,7 +3,7 @@ import { defineMessages } from 'react-intl';
 export const nativeEmbedToolbarMessages = defineMessages({
 	alwaysShowTitle: {
 		id: 'fabric.editor.alwaysShowTitle.non-final',
-		defaultMessage: 'Always show title',
+		defaultMessage: 'Show embed title',
 		description:
 			'Label for the toggle to enable or disable the behaviour of always showing the title of the embed.',
 	},

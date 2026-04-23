@@ -111,7 +111,7 @@ const TableFloatingColumnControls = ({
 
 	let anchorStyles = {};
 	if (
-		isNativeStickySupported(isDragAndDropEnabled ?? false) &&
+		isNativeStickySupported() &&
 		expValEquals('platform_editor_table_sticky_header_improvements', 'cohort', 'test_with_overflow')
 	) {
 		const rowAnchorName = tableRef.querySelector('tr')?.style.getPropertyValue('anchor-name');

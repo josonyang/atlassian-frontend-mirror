@@ -2,12 +2,10 @@ import type React from 'react';
 import { useEffect, useState } from 'react';
 
 import { isSSR } from '@atlaskit/editor-common/core-utils';
-import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 /**
  * ExcludeFromHydration component delays rendering of its children until after the initial
- * hydration phase, based on a feature flag check. If the feature flag is disabled,
- * it will render children immediately after hydration.
+ * hydration phase. It renders the fallback during SSR/hydration and children after.
  * @param children - The content to render after hydration
  * @param fallback - Optional fallback content to render during hydration (e.g., a placeholder to prevent layout shift)
  * @returns
@@ -28,7 +26,7 @@ function ExcludeFromHydration({
 		setShouldRender(true);
 	}, []);
 
-	if (expValEquals('platform_editor_hydratable_ui', 'isEnabled', true) && !shouldRender) {
+	if (!shouldRender) {
 		return fallback ?? null;
 	}
 
