@@ -1,6 +1,4 @@
-import { type EslintNode, isNodeOfType } from 'eslint-codemod-utils';
 
-import { shape as shapeTokens } from '@atlaskit/tokens/tokens-raw';
 
 const shapeProperties = [
 	'borderTopLeftRadius',
@@ -25,27 +23,6 @@ const borderSizeProperties = [
 	'borderBlockWidth',
 ];
 
-export const radiusValueToToken: any = Object.fromEntries(
-	shapeTokens
-		.filter((t) => t.name.startsWith('radius'))
-		.map((t) => {
-			return [t.value, t.cleanName];
-		})
-		// add in extra entries to resolve 3px, 50%, and 100% to tokens
-		.concat([
-			['3px', 'radius.small'],
-			['50%', 'radius.full'],
-			['100%', 'radius.full'],
-		]),
-);
-
-export const borderWidthValueToToken: any = Object.fromEntries(
-	shapeTokens
-		.filter((t) => t.name.startsWith('border.width'))
-		.map((t) => [t.value, t.cleanName])
-		.concat([['2px', 'border.width']]),
-);
-
 export function isRadiusProperty(propertyName: string): boolean {
 	return shapeProperties.includes(propertyName);
 }
@@ -58,10 +35,6 @@ export function isShapeProperty(propertyName: string): boolean {
 	return isRadiusProperty(propertyName) || isBorderSizeProperty(propertyName);
 }
 
-export function isBorderRadius(node: EslintNode): boolean {
-	return (
-		isNodeOfType(node, 'CallExpression') &&
-		isNodeOfType(node.callee, 'Identifier') &&
-		(node.callee.name === 'borderRadius' || node.callee.name === 'getBorderRadius')
-	);
-}
+export { radiusValueToToken } from './radius-value-to-token';
+export { borderWidthValueToToken } from './border-width-value-to-token';
+export { isBorderRadius } from './is-border-radius';

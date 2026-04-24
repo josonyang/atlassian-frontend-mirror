@@ -28,7 +28,10 @@ import { findNodePosByFragmentLocalIds } from '../utils/nodes-by-localIds';
 
 import { isEmptyDocument } from './temp-is-empty-document';
 import { findNodePosByLocalIds } from './temp-nodes-by-localids';
+// eslint-disable-next-line import/order
 import { toJSON } from './temp-to-json';
+// eslint-disable-next-line import/order
+import type { JSONDocNode } from '@atlaskit/editor-json-transformer';
 
 // Please, do not copy or use this kind of code below
 // @ts-ignore
@@ -64,7 +67,7 @@ export default class EditorActions<T = any> implements EditorActionsOptions<T> {
 	private eventDispatcher?: EventDispatcher;
 	private listeners: Array<ContextUpdateHandler> = [];
 
-	static from<T>(view: EditorView, eventDispatcher: EventDispatcher, transformer?: Transformer<T>) {
+	static from<T>(view: EditorView, eventDispatcher: EventDispatcher, transformer?: Transformer<T>): EditorActions<T> {
 		const editorActions = new EditorActions<T>();
 		editorActions._privateRegisterEditor(view, eventDispatcher, transformer);
 		return editorActions;
@@ -183,7 +186,7 @@ export default class EditorActions<T = any> implements EditorActionsOptions<T> {
 	 *
 	 * WARNING: this may be called repeatedly, async with care
 	 */
-	async getValue() {
+	async getValue(): Promise<JSONDocNode | T | undefined> {
 		const { editorView } = this;
 		if (!editorView) {
 			return;

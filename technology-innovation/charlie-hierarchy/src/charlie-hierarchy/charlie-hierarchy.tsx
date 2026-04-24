@@ -125,7 +125,7 @@ export interface CharlieHierarchyProps<Datum> extends Omit<TreeProps<Datum>, 'ch
 	stackingSpacing?: number;
 }
 
-export const CharlieHierarchy = <Datum,>(props: CharlieHierarchyProps<Datum>) => {
+export const CharlieHierarchy = <Datum,>(props: CharlieHierarchyProps<Datum>): JSX.Element => {
 	const [isSuspending, startSuspending] = React.useTransition();
 
 	const styles = {

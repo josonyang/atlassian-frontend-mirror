@@ -1,11 +1,7 @@
-import { type Context, createContext, type Provider } from 'react';
+import { type Provider } from 'react';
 
-import { defaultTheme } from './themes';
+import { ThemeContext } from './theme-context';
 import type { NavigationTheme } from './types';
-
-// Internal only
-// eslint-disable-next-line @repo/internal/react/require-jsdoc
-export const ThemeContext: Context<NavigationTheme> = createContext(defaultTheme);
 
 /**
  * __Theme provider__
@@ -13,3 +9,5 @@ export const ThemeContext: Context<NavigationTheme> = createContext(defaultTheme
  * A provider for the theme context used by all navigation components.
  */
 export const ThemeProvider: Provider<NavigationTheme> = ThemeContext.Provider;
+
+export { ThemeContext } from './theme-context';

@@ -6,6 +6,15 @@
 import { css, jsx } from '@emotion/react';
 // eslint-disable-line no-console
 import React from 'react';
+import { setBooleanFeatureFlagResolver } from '@atlaskit/platform-feature-flags';
+
+// eslint-disable-next-line @atlaskit/platform/no-module-level-eval
+setBooleanFeatureFlagResolver((flag) => {
+	if (flag === 'platform_editor_maui_edit') {
+		return true;
+	}
+	return false;
+});
 import { atlassianLogoUrl, tallImage, wideTransparentImage } from '@atlaskit/media-test-helpers';
 import { token } from '@atlaskit/tokens';
 import { Checkbox } from '@atlaskit/checkbox';
@@ -70,9 +79,11 @@ interface State {
 	shouldRenderCard: boolean;
 	withBgColorAndIcon: boolean;
 	withTransparency: boolean;
+	isAIGenerating: boolean;
 	error: string;
 }
 
+// eslint-disable-next-line @typescript-eslint/ban-types
 class Example extends React.Component<{}, State> {
 	state: State = {
 		disableOverlay: false,
@@ -87,6 +98,7 @@ class Example extends React.Component<{}, State> {
 		shouldRenderCard: true,
 		withBgColorAndIcon: false,
 		withTransparency: false,
+		isAIGenerating: false,
 		error: '',
 	};
 
@@ -213,6 +225,13 @@ class Example extends React.Component<{}, State> {
 							onChange={this.onCheckboxChange}
 							name="withTransparency"
 						/>
+						<Checkbox
+							value="isAIGenerating"
+							label="Is AI generating?"
+							isChecked={this.state.isAIGenerating}
+							onChange={this.onCheckboxChange}
+							name="isAIGenerating"
+						/>
 					</div>
 					<table css={styledTableStyles}>
 						<thead>
@@ -303,6 +322,7 @@ class Example extends React.Component<{}, State> {
 			isExternalImage,
 			withBgColorAndIcon,
 			withTransparency,
+			isAIGenerating,
 			error,
 		} = this.state;
 		const actions: CardAction[] = [
@@ -323,7 +343,7 @@ class Example extends React.Component<{}, State> {
 							icon: <EditIcon color="currentColor" spacing="spacious" label="edit-icon" />,
 							label: 'Replace',
 						},
-					]
+				  ]
 				: []),
 		];
 
@@ -353,11 +373,11 @@ class Example extends React.Component<{}, State> {
 					status={status}
 					mediaItemType="file"
 					metadata={withMetadata ? metadata : undefined}
-					onClick={(e: React.MouseEvent) => {
+					onClick={(_e: React.MouseEvent) => {
 						setSelected(!selected);
 						console.log('mouse click!');
 					}}
-					onMouseEnter={(e: React.MouseEvent) => console.log('mouse enter!')}
+					onMouseEnter={(_e: React.MouseEvent) => console.log('mouse enter!')}
 					resizeMode="crop"
 					progress={0.5}
 					disableOverlay={disableOverlay}
@@ -368,6 +388,7 @@ class Example extends React.Component<{}, State> {
 					dimensions={dimensions}
 					titleBoxBgColor={withBgColorAndIcon ? '#FFF0B3' : undefined}
 					titleBoxIcon={withBgColorAndIcon ? 'LockFilledIcon' : undefined}
+					isAIGenerating={isAIGenerating}
 					error={mediaCardErrorState(error)}
 					identifier={{
 						id: 'some-file-id',

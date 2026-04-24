@@ -5,7 +5,7 @@ import ChevronDownIcon from '@atlaskit/icon/core/chevron-down';
 import ChevronUpIcon from '@atlaskit/icon/core/chevron-up';
 import CrossIcon from '@atlaskit/icon/core/cross';
 
-import { flagTextColorToken } from '../theme';
+import { flagTextColorToken } from '../flag-text-color-token';
 import { type AppearanceTypes } from '../types';
 
 interface DismissButtonProps {

@@ -9,11 +9,13 @@ import {
 import { getDeclaredVariables, getSourceCode } from '@atlaskit/eslint-utils/context-compat';
 
 import { createLintRule } from '../utils/create-rule';
-import { isCssInJsObjectNode, isCssInJsTemplateNode } from '../utils/is-node';
+import { isCssInJsTemplateNode } from '../utils/is-css-in-js-template-node';
+import { isCssInJsObjectNode } from '../utils/is-node';
 
 import fixJsx from './fix-jsx';
 import fixVanilla from './fix-vanilla';
-import { countMatchingKeyValues, getObjectLikeness, makeTemplateLiteralIntoEntries } from './utils';
+import { makeTemplateLiteralIntoEntries } from './make-template-literal-into-entries';
+import { countMatchingKeyValues, getObjectLikeness } from './utils';
 
 const THEME_IMPORT_NAMES = ['visuallyHidden', 'assistive'];
 

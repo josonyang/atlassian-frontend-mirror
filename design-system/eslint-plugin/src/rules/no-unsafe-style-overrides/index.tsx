@@ -3,7 +3,7 @@ import { isNodeOfType, type Node } from 'eslint-codemod-utils';
 import { getSourceCode } from '@atlaskit/eslint-utils/context-compat';
 
 import { createLintRule } from '../utils/create-rule';
-import { getModuleOfIdentifier } from '../utils/get-import-node-by-source';
+import { getModuleOfIdentifier } from '../utils/get-module-of-identifier';
 import { getJSXElementName } from '../utils/jsx';
 
 const unsafeOverrides = ['css', 'className', 'theme', 'cssFn', 'styles'];

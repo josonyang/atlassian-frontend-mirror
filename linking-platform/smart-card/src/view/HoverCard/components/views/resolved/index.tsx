@@ -58,6 +58,7 @@ const actionBlockCss = css({
 });
 
 const HoverCardResolvedView = ({
+	actionOptions,
 	cardState,
 	extensionKey,
 	flexibleCardProps,
@@ -73,6 +74,7 @@ const HoverCardResolvedView = ({
 	const { isEnabled: InlineActionNudgeExperimentValue } = useInlineActionNudgeExperiment(
 		flexibleCardProps.url,
 		true,
+		actionOptions,
 	);
 
 	// We want to fire exposure event only for those cases when user otherwise can see the experiment which would be controlled

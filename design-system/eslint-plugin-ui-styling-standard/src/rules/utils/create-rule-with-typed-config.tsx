@@ -7,7 +7,7 @@ import type {
 	LintRuleMeta as BaseLintRuleMeta,
 } from '@atlaskit/eslint-utils/create-rule';
 
-import { getRuleUrl } from './create-rule';
+import { getRuleUrl } from './get-rule-url';
 
 export interface LintRule<Schema extends JSONSchema, Config> extends Omit<
 	BaseLintRule,

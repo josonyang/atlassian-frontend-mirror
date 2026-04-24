@@ -5,7 +5,7 @@ import type { SerializedStyles } from '@emotion/react';
 import { token } from '@atlaskit/tokens';
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
-export const textHighlightPaddingStyles = css({
+export const textHighlightPaddingStyles: SerializedStyles = css({
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors -- Ignored via go/DSP-18766
 	'.fabric-background-color-mark:has(.background-color-padding-left)': {
 		paddingLeft: token('space.025'),

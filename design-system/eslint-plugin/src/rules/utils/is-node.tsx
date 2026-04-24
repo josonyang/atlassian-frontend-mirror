@@ -1,50 +1,8 @@
-import type { Rule, Scope } from 'eslint';
-import {
-	type CallExpression,
-	type EslintNode,
-	type Expression,
-	isNodeOfType,
-	type Property,
-	type TaggedTemplateExpression,
-} from 'eslint-codemod-utils';
+import type { Rule } from 'eslint';
+import { type CallExpression, type Expression, isNodeOfType, type Property } from 'eslint-codemod-utils';
 
-import { getSourceCode } from '@atlaskit/eslint-utils/context-compat';
-import { isXcss } from '@atlaskit/eslint-utils/is-supported-import';
-
-import { Root } from '../../ast-nodes';
-
-export const isDecendantOfGlobalToken = (node: EslintNode): boolean => {
-	if (
-		isNodeOfType(node, 'CallExpression') &&
-		isNodeOfType(node.callee, 'Identifier') &&
-		(node.callee.name === 'token' || node.callee.name === 'getTokenValue')
-	) {
-		return true;
-	}
-
-	if (node.parent) {
-		return isDecendantOfGlobalToken(node.parent);
-	}
-
-	return false;
-};
-
-export const isDecendantOfType = (
-	node: Rule.Node,
-	type: Rule.Node['type'],
-	skipNode = true,
-): boolean => {
-	if (!skipNode && node.type === type) {
-		return true;
-	}
-
-	if (node.parent) {
-		return isDecendantOfType(node.parent, type, false);
-	}
-
-	return false;
-};
-
+import { isCssInJsTemplateNode } from './is-css-in-js-template-node';
+import { isDecendantOfType } from './is-decendant-of-type';
 export const isPropertyKey = (node: Rule.Node): boolean => {
 	if (isNodeOfType(node, 'Identifier') && isDecendantOfType(node, 'Property')) {
 		const parent = node.parent as Property;
@@ -53,67 +11,7 @@ export const isPropertyKey = (node: Rule.Node): boolean => {
 	return false;
 };
 
-export const isDecendantOfStyleJsxAttribute = (node: Rule.Node): boolean => {
-	if (isNodeOfType(node, 'JSXAttribute')) {
-		return true;
-	}
-
-	if (node.parent) {
-		return isDecendantOfStyleJsxAttribute(node.parent);
-	}
-
-	return false;
-};
-
-export const isDecendantOfSvgElement = (node: Rule.Node): boolean => {
-	if (isNodeOfType(node, 'JSXElement')) {
-		// @ts-ignore
-		if (node.openingElement.name.name === 'svg') {
-			return true;
-		}
-	}
-
-	if (node.parent) {
-		return isDecendantOfSvgElement(node.parent);
-	}
-
-	return false;
-};
-
-export const isDecendantOfPrimitive = (node: Rule.Node, context: Rule.RuleContext): boolean => {
-	const primitivesToCheck = ['Box', 'Text', 'Tile'];
-
-	if (isNodeOfType(node, 'JSXElement')) {
-		// @ts-ignore
-		if (primitivesToCheck.includes(node.openingElement.name.name)) {
-			const importDeclaration = Root.findImportsByModule(getSourceCode(context).ast.body, [
-				'@atlaskit/primitives',
-				'@atlaskit/primitives/box',
-				'@atlaskit/primitives/text',
-				'@atlaskit/primitives/compiled',
-				'@atlaskit/tile',
-			]);
-
-			if (importDeclaration.length) {
-				return true;
-			}
-		}
-	}
-
-	if (node.parent) {
-		return isDecendantOfPrimitive(node.parent, context);
-	}
-
-	return false;
-};
-
 const cssInJsCallees = ['css', 'styled', 'styled2'];
-
-export const isCssInJsTemplateNode = (node?: Expression | null): node is TaggedTemplateExpression =>
-	node?.type === 'TaggedTemplateExpression' &&
-	node.tag.type === 'MemberExpression' &&
-	node.tag.object.type === 'Identifier' &&
-	node.tag.object.name === 'styled';
 
 export const isCssInJsCallNode = (node?: Expression | null): node is CallExpression =>
 	node?.type === 'CallExpression' &&
@@ -125,23 +23,6 @@ export const isCssInJsObjectNode = (node?: Expression | null): node is CallExpre
 	node.callee.type === 'MemberExpression' &&
 	node.callee.object.type === 'Identifier' &&
 	cssInJsCallees.includes(node.callee.object.name);
-
-export const isDecendantOfXcssBlock = (
-	node: Rule.Node,
-	referencesInScope: Scope.Reference[],
-	importSources: string[],
-): boolean => {
-	// xcss contains types for all properties that accept tokens, so ignore xcss for linting as it will report false positives
-	if (node.type === 'CallExpression' && isXcss(node.callee, referencesInScope, importSources)) {
-		return true;
-	}
-
-	if (node.parent) {
-		return isDecendantOfXcssBlock(node.parent, referencesInScope, importSources);
-	}
-
-	return false;
-};
 
 export const isDecendantOfStyleBlock = (node: Rule.Node): boolean => {
 	if (node.type === 'VariableDeclarator') {
@@ -195,5 +76,11 @@ export const isDecendantOfStyleBlock = (node: Rule.Node): boolean => {
 	return false;
 };
 
-export const isChildOfType = (node: Rule.Node, type: Rule.Node['type']): boolean =>
-	isNodeOfType(node.parent, type);
+export { isDecendantOfGlobalToken } from './is-decendant-of-global-token';
+export { isDecendantOfType } from './is-decendant-of-type';
+export { isDecendantOfStyleJsxAttribute } from './is-decendant-of-style-jsx-attribute';
+export { isDecendantOfSvgElement } from './is-decendant-of-svg-element';
+export { isDecendantOfPrimitive } from './is-decendant-of-primitive';
+export { isCssInJsTemplateNode } from './is-css-in-js-template-node';
+export { isDecendantOfXcssBlock } from './is-decendant-of-xcss-block';
+export { isChildOfType } from './is-child-of-type';

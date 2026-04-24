@@ -8,8 +8,7 @@ import {
 	type SpreadElement,
 } from 'eslint-codemod-utils';
 
-export const SPREAD_SYNTAX: unique symbol = Symbol('SPREAD_SYNTAX');
-
+import { SPREAD_SYNTAX } from './spread-syntax';
 type Token = {
 	tokenName: string; // TODO: this could be more strict
 	fallbackValue: string | undefined;
@@ -84,3 +83,5 @@ export const convertASTObjectExpressionToJSObject: (
 
 	return styleObj;
 };
+
+export { SPREAD_SYNTAX } from './spread-syntax';

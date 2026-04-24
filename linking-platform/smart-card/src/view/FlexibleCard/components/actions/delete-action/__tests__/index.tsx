@@ -2,10 +2,10 @@ import '@atlaskit/link-test-helpers/jest';
 
 import React from 'react';
 
-import { render, screen } from '@testing-library/react';
 import { IntlProvider } from 'react-intl';
 
 import { AnalyticsListener } from '@atlaskit/analytics-next';
+import { render, screen } from '@atlassian/testing-library';
 
 import mockContext from '../../../../../../__fixtures__/flexible-ui-data-context';
 import { ANALYTICS_CHANNEL } from '../../../../../../utils/analytics';

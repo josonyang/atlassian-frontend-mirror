@@ -1,12 +1,11 @@
 import React from 'react';
 
-import { render } from '@testing-library/react';
-import userEvent from '@testing-library/user-event';
 import { IntlProvider } from 'react-intl';
 
 import { AnalyticsListener } from '@atlaskit/analytics-next';
 import { SmartCardProvider } from '@atlaskit/link-provider';
 import { type CardState } from '@atlaskit/linking-common';
+import { render, userEvent } from '@atlassian/testing-library';
 
 import { ANALYTICS_CHANNEL } from '../../../../utils/analytics';
 import { mocks } from '../../../../utils/mocks';

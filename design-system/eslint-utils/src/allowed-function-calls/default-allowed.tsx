@@ -141,13 +141,4 @@ export const defaultAllowedValues: AllowList = {
 	'styled-components': ['keyframes'],
 };
 
-/**
- * By default these are allowed as keys in style objects.
- *
- * For objects like `media` any of their descendant properties will also be allowed.
- */
-export const defaultAllowedDynamicKeys: AllowList = {
-	'@atlaskit/primitives': ['media'],
-	'@atlaskit/primitives/responsive': ['media'],
-	'@atlaskit/tokens': ['CURRENT_SURFACE_CSS_VAR'],
-};
+export { defaultAllowedDynamicKeys } from './default-allowed-dynamic-keys';

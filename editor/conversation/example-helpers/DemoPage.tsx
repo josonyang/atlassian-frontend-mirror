@@ -190,7 +190,7 @@ export class Demo extends React.Component<
 		};
 	}
 
-	async componentDidMount() {
+	async componentDidMount(): Promise<void> {
 		const { provider } = this.props;
 		// First get a list of all conversations for this page
 		try {
@@ -204,7 +204,7 @@ export class Demo extends React.Component<
 
 	// Ignored via go/ees005
 	// eslint-disable-next-line require-await
-	async componentWillUnmount() {
+	async componentWillUnmount(): Promise<void> {
 		if (this.unsubscribe) {
 			this.unsubscribe();
 		}
@@ -336,7 +336,7 @@ export class Demo extends React.Component<
 	//   );
 	// }
 
-	render() {
+	render(): React.JSX.Element {
 		const { conversations } = this.state;
 		const { provider, dataProviders } = this.props;
 		const prConversations = conversations.filter((c) => !Object.keys(c.meta).length);

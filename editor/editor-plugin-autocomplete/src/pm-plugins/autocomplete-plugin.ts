@@ -25,7 +25,7 @@ import {
 
 const SLOW_LANE_ENDPOINT = '/gateway/api/v1/autocomplete/typeahead-encodings';
 
-export const autocompletePluginKey = new PluginKey('autocomplete');
+export const autocompletePluginKey: PluginKey = new PluginKey('autocomplete');
 
 const DEBOUNCE_MS = 150;
 
@@ -202,7 +202,7 @@ const buildSlowLaneText = (docText: string, context?: AutocompleteContext): stri
 	return lines.join('\n');
 };
 
-export const createAutocompletePlugin = (options?: AutocompletePluginOptions, api?: ExtractInjectionAPI<AutocompletePlugin>) => {
+export const createAutocompletePlugin = (options?: AutocompletePluginOptions, api?: ExtractInjectionAPI<AutocompletePlugin>): SafePlugin<AutocompletePluginState> => {
 	let debounceTimer: ReturnType<typeof setTimeout> | null = null;
 	let hasIngestedPage = false;
 	let resolvedContext: AutocompleteContext | undefined;

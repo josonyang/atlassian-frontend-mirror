@@ -2,7 +2,7 @@ import '@atlaskit/link-test-helpers/jest';
 
 import React from 'react';
 
-import { render, waitFor } from '@testing-library/react';
+import { render, waitFor } from '@atlassian/testing-library';
 
 import withCardIntersectionObserver from '../index';
 

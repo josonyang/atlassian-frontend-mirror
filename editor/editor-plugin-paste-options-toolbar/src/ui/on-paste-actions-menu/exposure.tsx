@@ -54,7 +54,7 @@ export const firePasteActionsMenuExperimentExposure = (
 	pasteEndPos?: number,
 	pastedText?: string,
 	pastedSlice?: Slice,
-) => {
+): void => {
 	if (contentLength < 100 || !pasteStartPos || !pasteEndPos || !pastedText) {
 		return;
 	}

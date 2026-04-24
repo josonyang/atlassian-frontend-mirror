@@ -1,0 +1,63 @@
+---
+title: Motion
+description: A motion primitive for animating the entry and exit of components.
+order: 0
+---
+
+import MotionPrimitiveToken from '../../examples/constellation/motion-primitive-token';
+import MotionPrimitiveCustom from '../../examples/constellation/motion-primitive-custom';
+import MotionPrimitiveCustomKeyframe from '../../examples/constellation/motion-primitive-custom-keyframe';
+
+The Motion primitive is the recommended way to apply entry and exit animations in `@atlaskit/motion`. It
+renders a wrapper around its children — no render-prop pattern required — making it easy to
+compose with any React content, including ADS Primitives.
+
+It supports two approaches for defining animations:
+
+- **Motion tokens** — pass a pre-defined motion token to `enteringAnimation` and `exitingAnimation`
+  for the simplest setup.
+- **Custom xcss styles** — pass `cssMap` styles to `enteringAnimationXcss` and
+  `exitingAnimationXcss` for full control over `animationName`, `animationDuration`,
+  `animationTimingFunction`, and `animationDelay`.
+
+Wrap the Motion primitive with `<ExitingPersistence>` to enable exit animations when elements are
+removed from the DOM.
+
+## Using motion tokens
+
+The simplest way to use the Motion primitive is with pre-defined motion tokens. Pass a motion token to
+`enteringAnimation` and `exitingAnimation` to apply a paired entering and exiting animation.
+
+<Example
+	highlight="9,37-39"
+	packageName="@atlaskit/motion"
+	Component={MotionPrimitiveToken}
+	title="Motion with tokens"
+/>
+
+## Custom animations with token keyframes
+
+For more control, use `enteringAnimationXcss` and `exitingAnimationXcss` with `cssMap` styles that
+set `animationName`, `animationDuration`, and `animationTimingFunction` using motion tokens. Multiple
+keyframes can be composed together by joining them in `animationName` (for example, combining a scale
+and fade animation).
+
+<Example
+	highlight="9,21-25,27-31,50-51"
+	packageName="@atlaskit/motion"
+	Component={MotionPrimitiveCustom}
+	title="Motion with custom animation tokens"
+/>
+
+## Custom keyframes
+
+For animations not covered by the built-in keyframe tokens, define your own CSS keyframes using
+`keyframes()` from `@compiled/react` and reference them directly in the `animationName` property of
+a `cssMap` style alongside token keyframes.
+
+<Example
+	highlight="7,16-19,21-24,34-37,39-42,62-63"
+	packageName="@atlaskit/motion"
+	Component={MotionPrimitiveCustomKeyframe}
+	title="Motion with custom CSS keyframes"
+/>

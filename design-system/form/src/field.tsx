@@ -20,7 +20,8 @@ import { useId } from '@atlaskit/ds-lib/use-id';
 import { token } from '@atlaskit/tokens';
 
 import { FieldId } from './field-id-context';
-import { FormContext, IsDisabledContext } from './form';
+import { FormContext } from './form';
+import { IsDisabledContext } from './is-disabled-context';
 import { Label } from './label';
 import { ErrorMessage, HelperMessage, MessageWrapper, ValidMessage } from './messages';
 import RequiredAsterisk from './required-asterisk';

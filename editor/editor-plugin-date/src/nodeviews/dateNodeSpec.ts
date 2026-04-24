@@ -9,7 +9,6 @@ import { ZERO_WIDTH_SPACE } from '@atlaskit/editor-common/whitespace';
 import type { DOMOutputSpec, Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import type { EditorState } from '@atlaskit/editor-prosemirror/state';
 import { fg } from '@atlaskit/platform-feature-flags';
-import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { token } from '@atlaskit/tokens';
 
 import { getDateInformation } from './utils';
@@ -103,12 +102,8 @@ export const dateToDOM = (
 		'data-prosemirror-content-type': 'node',
 		'data-prosemirror-node-name': 'date',
 		'data-prosemirror-node-inline': 'true',
-		...(expValEquals('platform_editor_copy_paste_issue_fix', 'isEnabled', true)
-			? {
-					'data-node-type': 'date',
-					'data-timestamp': timestamp,
-				}
-			: {}),
+		'data-node-type': 'date',
+		'data-timestamp': timestamp,
 		draggable: 'true',
 	};
 	if (fg('platform_editor_adf_with_localid')) {

@@ -2,8 +2,6 @@ import React from 'react';
 
 import '@atlaskit/link-test-helpers/jest';
 
-import { render, screen } from '@testing-library/react';
-import userEvent from '@testing-library/user-event';
 import { IntlProvider } from 'react-intl';
 
 import { AnalyticsListener } from '@atlaskit/analytics-next';
@@ -11,6 +9,7 @@ import { type CardClient, SmartCardProvider as Provider } from '@atlaskit/link-p
 import { mockSimpleIntersectionObserver } from '@atlaskit/link-test-helpers';
 import * as userAgent from '@atlaskit/linking-common/user-agent';
 import { ffTest } from '@atlassian/feature-flags-test-utils';
+import { render, screen, userEvent } from '@atlassian/testing-library';
 
 import { TitleBlock } from '../../../index';
 import { ANALYTICS_CHANNEL } from '../../../utils/analytics';

@@ -17,16 +17,16 @@ import { token } from '@atlaskit/tokens';
 
 const styles = cssMap({
 	spacer: {
-		marginTop: token('space.100'),
-		marginRight: token('space.100'),
-		marginBottom: token('space.100'),
-		marginLeft: token('space.100'),
+		marginBlockStart: token('space.100'),
+		marginInlineEnd: token('space.100'),
+		marginBlockEnd: token('space.100'),
+		marginInlineStart: token('space.100'),
 	},
 	sizedContent: {
-		paddingTop: token('space.400'),
-		paddingRight: token('space.400'),
-		paddingBottom: token('space.400'),
-		paddingLeft: token('space.400'),
+		paddingBlockStart: token('space.400'),
+		paddingInlineEnd: token('space.400'),
+		paddingBlockEnd: token('space.400'),
+		paddingInlineStart: token('space.400'),
 		alignItems: 'center',
 		overflow: 'auto',
 		textAlign: 'center',

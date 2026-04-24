@@ -829,17 +829,6 @@ export const editorExperimentsConfig: {
 		productKeys?: ProductKeys;
 		typeGuard: IsBooleanType;
 	};
-	// Added 2025-11-27
-	// https://console.statsig.com/LqivKg6ADZZaGczRfBKfX/experiments/platform_sl_3p_unauth_paste_as_block_card/setup
-	platform_sl_3p_unauth_paste_as_block_card: {
-		defaultValue: 'control' | 'card_by_default_only' | 'card_by_default_and_new_design';
-		param: string;
-		productKeys?: ProductKeys;
-		typeGuard: (
-			value: unknown,
-		) => value is 'control' | 'card_by_default_only' | 'card_by_default_and_new_design';
-		values: ('control' | 'card_by_default_only' | 'card_by_default_and_new_design')[];
-	};
 	// Added 2026-03-17 - Experiment to display Rovo Chat actions on Google Smart Link's HoverCard on
 	// Confluence main page renderer. Boolean experiment: use getExperimentValue(..., "isEnabled", false).
 	// https://switcheroo.atlassian.com/ui/gates/c6e2cac7-a7c6-47d4-ac53-ebed74cac406/key/platform_sl_3p_auth_rovo_action
@@ -991,13 +980,6 @@ export const editorExperimentsConfig: {
 	};
 	// Added 2026-01-21
 	platform_editor_copy_link_a11y_inconsistency_fix: {
-		defaultValue: boolean;
-		param: string;
-		productKeys?: ProductKeys;
-		typeGuard: IsBooleanType;
-	};
-	// Added 2026-01-19
-	platform_editor_copy_paste_issue_fix: {
 		defaultValue: boolean;
 		param: string;
 		productKeys?: ProductKeys;
@@ -1220,6 +1202,13 @@ export const editorExperimentsConfig: {
 		productKeys?: ProductKeys;
 		typeGuard: IsBooleanType;
 	};
+	// Added 2026-04-01
+	'cc_page_experiences_editor_image_generation': {
+		defaultValue: boolean;
+		param: string;
+		productKeys?: ProductKeys;
+		typeGuard: IsBooleanType;
+	};
 	// Added 2026-02-23
 	'cc-maui-experiment': {
 		defaultValue: boolean;
@@ -1313,13 +1302,6 @@ export const editorExperimentsConfig: {
 	};
 	// Added 2026-02-26
 	platform_editor_toolbar_update_jira_config: {
-		defaultValue: boolean;
-		param: string;
-		productKeys?: ProductKeys;
-		typeGuard: IsBooleanType;
-	};
-	// Added 2026-02-25
-	platform_editor_a11y_typeahead_tab_keypress: {
 		defaultValue: boolean;
 		param: string;
 		productKeys?: ProductKeys;
@@ -1742,6 +1724,13 @@ export const editorExperimentsConfig: {
 
 	// Added 2026-04-23
 	platform_editor_ai_chromeless_akEditor_class: {
+		defaultValue: boolean;
+		param: string;
+		productKeys?: ProductKeys;
+		typeGuard: IsBooleanType;
+	};
+	// Added 2026-04-23
+	platform_editor_emojis_in_renderer_smart_links: {
 		defaultValue: boolean;
 		param: string;
 		productKeys?: ProductKeys;
@@ -2725,16 +2714,6 @@ export const editorExperimentsConfig: {
 		param: 'isEnabled',
 		defaultValue: false,
 	}),
-	// Added 2025-11-27
-	platform_sl_3p_unauth_paste_as_block_card: createMultivariateExperiment({
-		productKeys: {
-			confluence: 'platform_sl_3p_unauth_paste_as_block_card',
-			jira: 'platform_sl_3p_unauth_paste_as_block_card',
-		},
-		values: ['control', 'card_by_default_only', 'card_by_default_and_new_design'],
-		param: 'cohort',
-		defaultValue: 'control',
-	}),
 	// Added 2026-03-17 - 3P auth Rovo actions on smart link hover card (boolean: isEnabled)
 	platform_sl_3p_auth_rovo_action: createBooleanExperiment({
 		productKeys: {
@@ -2877,14 +2856,6 @@ export const editorExperimentsConfig: {
 	platform_editor_ai_disable_bridge_without_ai: createBooleanExperiment({
 		productKeys: {
 			confluence: 'platform_editor_ai_disable_bridge_without_ai',
-		},
-		param: 'isEnabled',
-		defaultValue: false,
-	}),
-	// Added 2026-01-19
-	platform_editor_copy_paste_issue_fix: createBooleanExperiment({
-		productKeys: {
-			confluence: 'platform_editor_copy_paste_issue_fix',
 		},
 		param: 'isEnabled',
 		defaultValue: false,
@@ -3094,6 +3065,14 @@ export const editorExperimentsConfig: {
 		param: 'isEnabled',
 		defaultValue: false,
 	}),
+	// Added 2026-04-01
+	'cc_page_experiences_editor_image_generation': createBooleanExperiment({
+		productKeys: {
+			confluence: 'cc_page_experiences_editor_image_generation',
+		},
+		param: 'isEnabled',
+		defaultValue: false,
+	}),
 	// Added 2026-02-23
 	'cc-maui-experiment': createBooleanExperiment({
 		productKeys: {
@@ -3221,14 +3200,6 @@ export const editorExperimentsConfig: {
 	platform_editor_toolbar_update_jira_config: createBooleanExperiment({
 		productKeys: {
 			jira: 'platform_editor_toolbar_update_jira_config',
-		},
-		param: 'isEnabled',
-		defaultValue: false,
-	}),
-	// Added 2026-02-25
-	platform_editor_a11y_typeahead_tab_keypress: createBooleanExperiment({
-		productKeys: {
-			confluence: 'platform_editor_a11y_typeahead_tab_keypress',
 		},
 		param: 'isEnabled',
 		defaultValue: false,
@@ -3759,6 +3730,14 @@ export const editorExperimentsConfig: {
 		productKeys: {
 			confluence: 'platform_editor_ai_chromeless_akEditor_class',
 			jira: 'platform_editor_ai_chromeless_akEditor_class',
+		},
+		param: 'isEnabled',
+		defaultValue: false,
+	}),
+	// Added 2026-04-23
+	platform_editor_emojis_in_renderer_smart_links: createBooleanExperiment({
+		productKeys: {
+			confluence: 'platform_editor_emojis_in_renderer_smart_links',
 		},
 		param: 'isEnabled',
 		defaultValue: false,

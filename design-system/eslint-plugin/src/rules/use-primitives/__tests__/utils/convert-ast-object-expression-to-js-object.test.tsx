@@ -1,9 +1,7 @@
 import j from 'jscodeshift';
 
-import {
-	convertASTObjectExpressionToJSObject,
-	SPREAD_SYNTAX,
-} from '../../utils/convert-ast-object-expression-to-js-object';
+import { convertASTObjectExpressionToJSObject } from '../../utils/convert-ast-object-expression-to-js-object';
+import { SPREAD_SYNTAX } from '../../utils/spread-syntax';
 
 describe('convertASTObjectExpressionToJSObject', () => {
 	it('gets single property', () => {

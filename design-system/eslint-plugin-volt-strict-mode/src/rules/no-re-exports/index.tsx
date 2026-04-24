@@ -4,7 +4,8 @@ import type { Node as ESTreeNode } from 'estree';
 import { getScope } from '@atlaskit/eslint-utils/context-compat';
 
 import { createLintRule } from '../utils/create-rule';
-import { isImportBinding, lookupVariable } from '../utils/scope-utils';
+import { isImportBinding } from '../utils/is-import-binding';
+import { lookupVariable } from '../utils/lookup-variable';
 
 function unwrapToIdentifier(expression: TSESTree.Expression): TSESTree.Identifier | null {
 	if (expression.type === AST_NODE_TYPES.Identifier) {

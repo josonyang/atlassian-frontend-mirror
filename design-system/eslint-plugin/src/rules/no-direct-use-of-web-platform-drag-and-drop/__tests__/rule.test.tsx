@@ -1,6 +1,7 @@
 import { tester } from '../../__tests__/utils/_tester';
 import rule from '../index';
-import { blockedEventNameLookup, blockedJSXAttributeLookup } from '../shared/blocked';
+import { blockedEventNameLookup } from '../shared/blocked-event-name-lookup';
+import { blockedJSXAttributeLookup } from '../shared/blocked-jsx-attribute-lookup';
 
 const blockedEventNames = Array.from(blockedEventNameLookup);
 const blockedJSXAttributes = Array.from(blockedJSXAttributeLookup);

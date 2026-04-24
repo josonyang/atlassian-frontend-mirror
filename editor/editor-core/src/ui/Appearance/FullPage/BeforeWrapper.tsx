@@ -20,7 +20,7 @@ type ReactComponents = ReactElement | ReactElement[];
 // only in `FullPageToolbar` to decouple the plugin from the main toolbar
 export const BeforePrimaryToolbarWrapper = (props: {
 	beforePrimaryToolbarComponents: ReactComponents | undefined;
-}) => (
+}): jsx.JSX.Element => (
 	<div
 		css={beforePrimaryToolbarPluginWrapperStyles}
 		data-testid={'before-primary-toolbar-components-plugin'}

@@ -69,7 +69,7 @@ export const emojiStyles: SerializedStyles = css({
 });
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles
-export const scaledEmojiStyles = css({
+export const scaledEmojiStyles: SerializedStyles = css({
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/ui-styling-standard/no-imported-style-values
 	[`.ProseMirror .${EmojiSharedCssClassName.EMOJI_CONTAINER}`]: {
 		display: 'inline-block',

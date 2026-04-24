@@ -4,10 +4,10 @@
  */
 import '@testing-library/jest-dom';
 import { css, jsx } from '@compiled/react';
-import { render, screen } from '@testing-library/react';
 import { IntlProvider } from 'react-intl';
 
 import { SmartLinkActionType } from '@atlaskit/linking-types';
+import { render, screen } from '@atlassian/testing-library';
 
 import * as useInvoke from '../../../../../../../state/hooks/use-invoke';
 import * as useResolve from '../../../../../../../state/hooks/use-resolve';

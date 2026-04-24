@@ -206,7 +206,7 @@ export function createDefaultPreset(options: DefaultPresetPluginOptions): Defaul
  * @param props
  * @example
  */
-export function useDefaultPreset(props: DefaultPresetPluginOptions) {
+export function useDefaultPreset(props: DefaultPresetPluginOptions): DefaultPresetBuilder[] {
 	const preset = createDefaultPreset(props);
 	return [preset];
 }

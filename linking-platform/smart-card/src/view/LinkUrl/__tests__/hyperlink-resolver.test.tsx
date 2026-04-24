@@ -1,10 +1,10 @@
 import React from 'react';
 
-import { render } from '@testing-library/react';
 
 import FeatureGates from '@atlaskit/feature-gate-js-client';
 import AKLink from '@atlaskit/link';
 import { CardClient, SmartCardProvider } from '@atlaskit/link-provider';
+import { render } from '@atlassian/testing-library';
 
 import * as UseAnalyticsEventsExports from '../../../common/analytics/generated/use-analytics-events';
 import * as UseSmartCardActionsExports from '../../../state/actions';

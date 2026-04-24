@@ -1,5 +1,5 @@
 import type { Rule } from 'eslint';
-import type { CallExpression, ObjectExpression, Property } from 'estree';
+import type { ObjectExpression, Property } from 'estree';
 
 import {
 	type AllowList,
@@ -10,20 +10,6 @@ import { getSourceCode } from '@atlaskit/eslint-utils/context-compat';
 import { findVariable } from '@atlaskit/eslint-utils/find-variable';
 
 type Reporter = Rule.RuleContext['report'];
-
-export const getCssMapObject = (node: CallExpression): ObjectExpression | undefined => {
-	// We assume the argument `node` is already a cssMap() call.
-
-	// Things like the number of arguments to cssMap and the type of
-	// cssMap's argument are handled by the TypeScript compiler, so
-	// we don't bother with creating eslint errors for these here
-
-	if (node.arguments.length !== 1 || node.arguments[0].type !== 'ObjectExpression') {
-		return;
-	}
-
-	return node.arguments[0];
-};
 
 export class CssMapObjectChecker {
 	private readonly allowedFunctionCalls: AllowList;
@@ -134,3 +120,5 @@ export class CssMapObjectChecker {
 		this.checkCssMapObject(this.cssMapObject);
 	}
 }
+
+export { getCssMapObject } from './get-css-map-object';

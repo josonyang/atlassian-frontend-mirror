@@ -1,5 +1,18 @@
 # @atlaskit/modal-dialog
 
+## 14.18.2
+
+### Patch Changes
+
+- Updated dependencies
+
+## 14.18.1
+
+### Patch Changes
+
+- [`a5e997ea70aac`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/a5e997ea70aac) -
+  Remove unnecessary boolean casting in if statement.
+
 ## 14.18.0
 
 ### Minor Changes

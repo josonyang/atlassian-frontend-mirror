@@ -254,7 +254,7 @@ export class EditorCardProvider
 		}
 	}
 
-	refreshCache(node: CardNode | PMNode) {
+	refreshCache(node: CardNode | PMNode): void {
 		if (this.getCacheStatusForNode(node) !== 'network') {
 			this.getData(node, () => {});
 		}
@@ -658,25 +658,12 @@ export class EditorCardProvider
 					);
 				}
 
-				if (
-					isEmbedFriendlyLocationEvaluated &&
-					!userPreference &&
-					fg('platform_sl_3p_unauth_paste_as_block_card_gate')
-				) {
+				if (isEmbedFriendlyLocationEvaluated && !userPreference) {
 					const authStatus = await this.getAuthStatusFromResolveResponse(url);
 					if (authStatus) {
 						const { access } = authStatus;
 						if (access === 'unauthorized') {
-							const isUnauthPasteAsBlockCardEnabled = !expValEquals(
-								'platform_sl_3p_unauth_paste_as_block_card',
-								'cohort',
-								'control',
-								'control',
-							);
-
-							if (isUnauthPasteAsBlockCardEnabled) {
-								return this.transformer.toSmartlinkAdf(url, 'block');
-							}
+							return this.transformer.toSmartlinkAdf(url, 'block');
 						}
 					}
 				}

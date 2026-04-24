@@ -3,7 +3,7 @@ import { isNodeOfType } from 'eslint-codemod-utils';
 
 import { createLintRule } from '../utils/create-rule';
 
-import { physicalLogicalMap } from './logical-physical-map';
+import { physicalLogicalMap } from './physical-logical-map';
 
 const rule: Rule.RuleModule = createLintRule({
 	meta: {

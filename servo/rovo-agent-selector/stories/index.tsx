@@ -76,7 +76,7 @@ function BasicTemplateComponent() {
 	);
 }
 
-export const Story = () => {
+export const Story = (): JSX.Element => {
 	return <BasicTemplateComponent />;
 };
 

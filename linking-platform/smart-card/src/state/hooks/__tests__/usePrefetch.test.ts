@@ -1,4 +1,4 @@
-import { renderHook } from '@testing-library/react';
+import { renderHook } from '@atlassian/testing-library';
 
 import { mocks } from '../../../utils/mocks';
 import { usePrefetch } from '../usePrefetch';
@@ -63,7 +63,7 @@ describe('usePrefetch', () => {
 	});
 
 	it('triggers client.prefetchData() when new prefetch request is made', async () => {
-		const { result } = renderHook(() => usePrefetch(mockUrl));
+		const result = renderHook(() => usePrefetch(mockUrl));
 		const prefetcher = result.current;
 		await prefetcher();
 
@@ -88,7 +88,7 @@ describe('usePrefetch', () => {
 	});
 
 	it('does not trigger client.prefetchData() when duplicate prefetch requests are made', async () => {
-		const { result } = renderHook(() => usePrefetch(mockUrl));
+		const result = renderHook(() => usePrefetch(mockUrl));
 		const prefetcher = result.current;
 		await prefetcher();
 		await prefetcher();
@@ -121,7 +121,7 @@ describe('usePrefetch', () => {
 			},
 		}));
 
-		const { result } = renderHook(() => usePrefetch(mockUrl));
+		const result = renderHook(() => usePrefetch(mockUrl));
 		const prefetcher = result.current;
 		await prefetcher();
 
@@ -136,7 +136,7 @@ describe('usePrefetch', () => {
 			throw new Error();
 		});
 
-		const { result } = renderHook(() => usePrefetch(mockUrl));
+		const result = renderHook(() => usePrefetch(mockUrl));
 		const prefetcher = result.current;
 		await prefetcher();
 
@@ -152,7 +152,7 @@ describe('usePrefetch', () => {
 			connections: undefined,
 		}));
 
-		const { result } = renderHook(() => usePrefetch(mockUrl));
+		const result = renderHook(() => usePrefetch(mockUrl));
 		const prefetcher = result.current;
 		await prefetcher();
 

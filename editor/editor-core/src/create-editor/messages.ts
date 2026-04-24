@@ -1,5 +1,15 @@
 import { defineMessages } from 'react-intl';
-export const editorMessages = defineMessages({
+export const editorMessages: {
+    editorAssistiveLabel: {
+        id: string;
+        defaultMessage: string;
+        description: string;
+    }; fullPageEditorAssistiveLabel: {
+        id: string;
+        defaultMessage: string;
+        description: string;
+    };
+} = defineMessages({
 	editorAssistiveLabel: {
 		id: 'fabric.editor.editorAssistiveLabel',
 		defaultMessage: 'Main content area, start typing to enter text.',

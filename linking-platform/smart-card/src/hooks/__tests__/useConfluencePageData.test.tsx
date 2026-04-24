@@ -1,6 +1,6 @@
-import { renderHook } from '@testing-library/react';
-
 import { setGlobalTheme } from '@atlaskit/tokens';
+import { renderHook } from '@atlassian/testing-library';
+
 
 import { CONFLUENCE_EXTENSION_KEYS, useConfluencePageData } from '../useConfluencePageData';
 
@@ -18,7 +18,7 @@ describe('useConfluencePageData', () => {
 		const directConfluenceUrl =
 			'https://hello.atlassian.net/wiki/spaces/ABC123/pages/12345/Page-Title?parentProduct=confluence&userId=user123&userInfo=atlassianUser&enableInlineComments=true&enablePageComments=false&themeState=colorMode:light';
 
-		const { result } = renderHook(() =>
+		const result = renderHook(() =>
 			useConfluencePageData(directConfluenceUrl, CONFLUENCE_EXTENSION_KEYS.PAGE),
 		);
 
@@ -28,7 +28,7 @@ describe('useConfluencePageData', () => {
 	it('should return undefined for an invalid URL', () => {
 		const invalidUrl = 'invalid-url';
 
-		const { result } = renderHook(() =>
+		const result = renderHook(() =>
 			useConfluencePageData(invalidUrl, CONFLUENCE_EXTENSION_KEYS.PAGE),
 		);
 
@@ -38,7 +38,7 @@ describe('useConfluencePageData', () => {
 	it('should return undefined for empty URL', () => {
 		const emptyUrl = '';
 
-		const { result } = renderHook(() =>
+		const result = renderHook(() =>
 			useConfluencePageData(emptyUrl, CONFLUENCE_EXTENSION_KEYS.PAGE),
 		);
 
@@ -49,7 +49,7 @@ describe('useConfluencePageData', () => {
 		const invalidProtocolUrl =
 			'ftp://lp-cc-embed.prod-east.frontend.public.atl-paas.net/?hostname=hello.atlassian.net&contentId=123';
 
-		const { result } = renderHook(() =>
+		const result = renderHook(() =>
 			useConfluencePageData(invalidProtocolUrl, CONFLUENCE_EXTENSION_KEYS.PAGE),
 		);
 
@@ -59,7 +59,7 @@ describe('useConfluencePageData', () => {
 	it('should return undefined for URLs without lp-cc-embed', () => {
 		const urlWithMissingParams = 'https://hello.atlassian.net/wiki/invalid-path';
 
-		const { result } = renderHook(() =>
+		const result = renderHook(() =>
 			useConfluencePageData(urlWithMissingParams, CONFLUENCE_EXTENSION_KEYS.PAGE),
 		);
 
@@ -70,7 +70,7 @@ describe('useConfluencePageData', () => {
 		const lpCcEmbedUrl =
 			'https://lp-cc-embed.prod-east.frontend.public.atl-paas.net/?hostname=hello.atlassian.net&contentId=1604155950&parentProduct=smartlink&enablePageComments=true&enableInlineComments=true&userId=712020%3A8e8a67f1-cbd8-41d5-a141-48827e5897c3&userInfo=atlassianAccount&spaceKey=GDAY&themeState=colorMode:dark';
 
-		const { result } = renderHook(() =>
+		const result = renderHook(() =>
 			useConfluencePageData(lpCcEmbedUrl, CONFLUENCE_EXTENSION_KEYS.PAGE),
 		);
 
@@ -117,7 +117,7 @@ describe('useConfluencePageData', () => {
 		const lpCcEmbedUrl =
 			'https://lp-cc-embed.stg-east.frontend.public.atl-paas.net/?hostname=pug.jira-dev.com&contentId=4522249092&parentProduct=smartlink&enablePageComments=true&enableInlineComments=true&userId=5e6...';
 
-		const { result } = renderHook(() =>
+		const result = renderHook(() =>
 			useConfluencePageData(lpCcEmbedUrl, CONFLUENCE_EXTENSION_KEYS.PAGE),
 		);
 
@@ -150,7 +150,7 @@ describe('useConfluencePageData', () => {
 		const invalidLpCcEmbedUrl =
 			'https://lp-cc-embed.prod-east.frontend.public.atl-paas.net/?hostname=hello.atlassian.net';
 
-		const { result } = renderHook(() =>
+		const result = renderHook(() =>
 			useConfluencePageData(invalidLpCcEmbedUrl, CONFLUENCE_EXTENSION_KEYS.PAGE),
 		);
 
@@ -161,7 +161,7 @@ describe('useConfluencePageData', () => {
 		const invalidLpCcEmbedUrl =
 			'https://lp-cc-embed.prod-east.frontend.public.atl-paas.net/?contentId=123456';
 
-		const { result } = renderHook(() =>
+		const result = renderHook(() =>
 			useConfluencePageData(invalidLpCcEmbedUrl, CONFLUENCE_EXTENSION_KEYS.PAGE),
 		);
 
@@ -172,7 +172,7 @@ describe('useConfluencePageData', () => {
 		const fedrampUrl =
 			'https://lp-cc-embed.frontend.cdn.atlassian-us-gov-mod.com/?hostname=hello.atlassian.net&contentId=123456&spaceKey=TEST';
 
-		const { result } = renderHook(() =>
+		const result = renderHook(() =>
 			useConfluencePageData(fedrampUrl, CONFLUENCE_EXTENSION_KEYS.PAGE),
 		);
 
@@ -200,7 +200,7 @@ describe('useConfluencePageData', () => {
 			'https://lp-cc-embed.prod-east.frontend.public.atl-paas.net/?hostname=hello.atlassian.net&contentId=1604155950&spaceKey=GDAY';
 		const invalidExtensionKey = 'invalid-extension-key';
 
-		const { result } = renderHook(() => useConfluencePageData(lpCcEmbedUrl, invalidExtensionKey));
+		const result = renderHook(() => useConfluencePageData(lpCcEmbedUrl, invalidExtensionKey));
 
 		expect(result.current).toBeUndefined();
 	});
@@ -210,7 +210,7 @@ describe('useConfluencePageData', () => {
 			'https://lp-cc-embed.prod-east.frontend.public.atl-paas.net/?hostname=hello.atlassian.net&contentId=1604155950&spaceKey=GDAY';
 		const emptyExtensionKey = '';
 
-		const { result } = renderHook(() => useConfluencePageData(lpCcEmbedUrl, emptyExtensionKey));
+		const result = renderHook(() => useConfluencePageData(lpCcEmbedUrl, emptyExtensionKey));
 
 		expect(result.current).toBeUndefined();
 	});
@@ -219,7 +219,7 @@ describe('useConfluencePageData', () => {
 		const lpCcEmbedUrl =
 			'https://lp-cc-embed.prod-east.frontend.public.atl-paas.net/?hostname=hello.atlassian.net&contentId=1604155950&spaceKey=GDAY';
 
-		const { result } = renderHook(() =>
+		const result = renderHook(() =>
 			useConfluencePageData(lpCcEmbedUrl, CONFLUENCE_EXTENSION_KEYS.PAGE),
 		);
 
@@ -231,7 +231,7 @@ describe('useConfluencePageData', () => {
 		const lpCcEmbedUrl =
 			'https://lp-cc-embed.prod-east.frontend.public.atl-paas.net/?hostname=hello.atlassian.net&contentId=1604155950&spaceKey=GDAY';
 
-		const { result } = renderHook(() =>
+		const result = renderHook(() =>
 			useConfluencePageData(lpCcEmbedUrl, CONFLUENCE_EXTENSION_KEYS.CANVAS),
 		);
 

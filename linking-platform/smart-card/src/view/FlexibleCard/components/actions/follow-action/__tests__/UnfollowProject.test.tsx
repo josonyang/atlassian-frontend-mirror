@@ -1,10 +1,9 @@
 import React from 'react';
 
-import { render, screen } from '@testing-library/react';
-import userEvent from '@testing-library/user-event';
 import { FormattedMessage, IntlProvider } from 'react-intl';
 
 import { SmartCardProvider } from '@atlaskit/link-provider';
+import { render, screen, userEvent } from '@atlassian/testing-library';
 
 import { messages } from '../../../../../../messages';
 import FollowAction from '../index';

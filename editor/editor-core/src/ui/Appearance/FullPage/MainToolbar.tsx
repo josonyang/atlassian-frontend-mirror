@@ -46,7 +46,7 @@ const mainToolbarFirstChildTowLine = () => {
 	});
 };
 
-export const mainToolbarFirstChildStyle = (twoLineEditorToolbar: boolean) => [
+export const mainToolbarFirstChildStyle = (twoLineEditorToolbar: boolean): (false | SerializedStyles | (() => SerializedStyles))[] => [
 	mainToolbarFirstChild,
 	twoLineEditorToolbar && mainToolbarFirstChildTowLine,
 ];
@@ -71,7 +71,7 @@ const mainToolbarSecondChildTwoLine = () => {
 	});
 };
 
-export const mainToolbarSecondChildStyle = (twoLineEditorToolbar: boolean) => [
+export const mainToolbarSecondChildStyle = (twoLineEditorToolbar: boolean): (false | SerializedStyles | (() => SerializedStyles))[] => [
 	mainToolbarSecondChild,
 	twoLineEditorToolbar && mainToolbarSecondChildTwoLine,
 ];

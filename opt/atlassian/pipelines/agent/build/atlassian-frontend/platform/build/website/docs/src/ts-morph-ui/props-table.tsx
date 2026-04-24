@@ -2,7 +2,7 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
-import { memo, type ReactNode } from 'react';
+import { memo, type MemoExoticComponent, type ReactNode } from 'react';
 
 import { jsx, keyframes } from '@compiled/react';
 
@@ -212,7 +212,7 @@ export const PropTable = ({
 	type: any;
 	typeValue: any;
 	componentDisplayName?: string;
-}) => {
+}): JSX.Element => {
 	const titleId =
 		componentDisplayName && typeof componentDisplayName === 'string'
 			? `${componentDisplayName}-${name}`
@@ -292,7 +292,7 @@ export const PropTable = ({
  * - [Code](https://atlassian.design/components/{packageName}/code)
  * - [Usage](https://atlassian.design/components/{packageName}/usage)
  */
-const PropsLayoutRenderer = memo((props: any) => (
+const PropsLayoutRenderer: MemoExoticComponent<(props: any) => JSX.Element> = memo((props: any): JSX.Element => (
 	<LayoutRenderer
 		requiredPropsFirst
 		{...props}

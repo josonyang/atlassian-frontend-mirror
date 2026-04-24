@@ -576,7 +576,6 @@ export default class ReactSerializer implements Serializer<JSX.Element> {
 		const isInsideOfBlockNode = insideBlockNode(path, node.type.schema);
 		const isInsideMultiBodiedExtension = insideMultiBodiedExtension(path, node.type.schema);
 		const isInsideOfTable = insideTable(path, node.type.schema);
-
 		const isStickySafeCenteringEnabled = expValEquals(
 			'platform_editor_flex_based_centering',
 			'isEnabled',

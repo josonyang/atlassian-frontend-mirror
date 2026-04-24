@@ -1,14 +1,14 @@
 import React from 'react';
 
-import { renderHook } from '@testing-library/react';
-
 import { SmartCardProvider } from '@atlaskit/link-provider';
+import { renderHook } from '@atlassian/testing-library';
+
 
 import useRovoConfig from '../index';
 
 describe('useRovoConfig', () => {
 	it('returns Rovo config set on SmartCardProvider', () => {
-		const { result } = renderHook(() => useRovoConfig(), {
+		const result = renderHook(() => useRovoConfig(), {
 			wrapper: ({ children }) => (
 				<SmartCardProvider rovoOptions={{ isRovoEnabled: true, isRovoLLMEnabled: true }}>
 					{children}
@@ -20,7 +20,7 @@ describe('useRovoConfig', () => {
 	});
 
 	it('returns undefined when Rovo config is not set on SmartCardProvider', () => {
-		const { result } = renderHook(() => useRovoConfig(), {
+		const result = renderHook(() => useRovoConfig(), {
 			wrapper: ({ children }) => <SmartCardProvider>{children}</SmartCardProvider>,
 		});
 

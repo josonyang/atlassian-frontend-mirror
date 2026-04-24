@@ -2,12 +2,9 @@ import format from '@af/formatting/sync';
 import { CURRENT_SURFACE_CSS_VAR } from '@atlaskit/tokens';
 import { light as tokens } from '@atlaskit/tokens/tokens-raw';
 
-import {
-	capitalize,
-	constructTokenFunctionCall,
-	generateTypeDefs,
-	type ShadowDefinition,
-} from './utils';
+import { capitalize } from './capitalize';
+import { generateTypeDefs } from './generate-type-defs';
+import { constructTokenFunctionCall, type ShadowDefinition } from './utils';
 
 type Token = {
 	token: string;

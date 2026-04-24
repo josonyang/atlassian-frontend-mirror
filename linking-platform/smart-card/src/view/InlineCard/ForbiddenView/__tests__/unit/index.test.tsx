@@ -1,9 +1,9 @@
 import React from 'react';
 
-import { fireEvent, render, screen } from '@testing-library/react';
 import { IntlProvider } from 'react-intl';
 
 import { SmartCardProvider as Provider } from '@atlaskit/link-provider';
+import { fireEvent, render, screen } from '@atlassian/testing-library';
 
 import { expectElementWithText } from '../../../../../__tests__/__utils__/unit-helpers';
 import { InlineCardForbiddenView } from '../../index';

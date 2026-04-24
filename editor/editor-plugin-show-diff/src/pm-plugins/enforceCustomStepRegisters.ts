@@ -8,7 +8,7 @@ import * as adfCustomSteps from '@atlaskit/adf-schema/steps';
 import * as atlaskKitCustomSteps from '@atlaskit/custom-steps';
 import { Step } from '@atlaskit/editor-prosemirror/transform';
 
-export const enforceCustomStepRegisters = () => {
+export const enforceCustomStepRegisters = (): void => {
 	const tryToRegisterStep = (obj: Record<string, Step>) => {
 		for (const customStep of Object.values(obj)) {
 			// @ts-expect-error ProseMirror step classes expose jsonID on prototype.

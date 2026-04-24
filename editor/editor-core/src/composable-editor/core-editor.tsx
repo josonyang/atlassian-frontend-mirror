@@ -177,7 +177,7 @@ const useMemoEditorFeatureFlags = (featureFlags?: { [featureFlag: string]: strin
  * @param props
  * @example
  */
-export function CoreEditor(props: EditorNextProps & WithAppearanceComponent) {
+export function CoreEditor(props: EditorNextProps & WithAppearanceComponent): jsx.JSX.Element {
 	// eslint-disable-next-line @atlaskit/platform/prefer-crypto-random-uuid -- Use crypto.randomUUID instead
 	const editorSessionId = useRef(uuid());
 	const data = useMemo(() => {
@@ -204,6 +204,13 @@ export function CoreEditor(props: EditorNextProps & WithAppearanceComponent) {
 			/>
 		</FabricEditorAnalyticsContext>
 	);
+}
+// eslint-disable-next-line @typescript-eslint/no-namespace
+export declare namespace CoreEditor {
+    // eslint-disable-next-line no-var
+    export var propTypes: {
+        minHeight: ({ appearance, minHeight }: Pick<EditorNextProps, "appearance" | "minHeight">) => Error | null;
+    };
 }
 
 CoreEditor.propTypes = {

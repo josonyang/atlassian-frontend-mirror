@@ -1,4 +1,4 @@
-import { renderHook } from '@testing-library/react';
+import { renderHook } from '@atlassian/testing-library';
 
 import { useSmartCardActions } from '../../actions';
 import { useSmartLinkReload } from '../useSmartLinkReload';
@@ -20,7 +20,7 @@ describe(useSmartLinkReload.name, () => {
 		};
 		jest.mocked(useSmartCardActions).mockReturnValue(mockedActions);
 
-		const { result } = renderHook(() => useSmartLinkReload({ url }));
+		const result = renderHook(() => useSmartLinkReload({ url }));
 
 		expect(result.current).toEqual(mockedActions.reload);
 	});

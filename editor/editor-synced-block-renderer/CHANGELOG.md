@@ -1,5 +1,14 @@
 # @atlaskit/editor-synced-block-renderer
 
+## 8.1.2
+
+### Patch Changes
+
+- [`d3b98f06b9def`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/d3b98f06b9def) -
+  [ux] EDITOR-6025 Implement request access flow for synced blocks whose source is a Jira work item
+  the viewer cannot access.
+- Updated dependencies
+
 ## 8.1.1
 
 ### Patch Changes

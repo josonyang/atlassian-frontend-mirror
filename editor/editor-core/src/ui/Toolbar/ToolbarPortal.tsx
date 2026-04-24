@@ -22,7 +22,7 @@ export const ToolbarPortalContextProvider = ({
 	children: React.ReactNode;
 	isActive: boolean;
 	portal: React.ComponentType<{ children: React.ReactNode }>;
-}) => {
+}): JSX.Element => {
 	const value = React.useMemo(() => ({ Portal: portal, isActive }), [portal, isActive]);
 	return <ToolbarPortalContext.Provider value={value}>{children}</ToolbarPortalContext.Provider>;
 };
@@ -30,7 +30,7 @@ export const ToolbarPortalContextProvider = ({
 // NOTE: This doesn't throw on undefined context on purpose, as it is likely that
 // the outer toolbar _won't_ have a context provider as it is unlikely to portal
 // anywhere
-export const useToolbarPortal = () => {
+export const useToolbarPortal = (): ToolbarPortalContextValue | undefined => {
 	return React.useContext(ToolbarPortalContext);
 };
 
@@ -44,7 +44,7 @@ const toolbarPortalStyles = cssMap({
 	},
 });
 
-export const ToolbarPortalMountPoint = () => {
+export const ToolbarPortalMountPoint = (): JSX.Element | null => {
 	const portal = useToolbarPortal();
 
 	// Don't render a mountpoint when we're already inside a portal

@@ -29,7 +29,6 @@ export const testMultivariateOverrides: EditorExperimentOverridesMultivariate = 
 	smart_link_confluence_short_link_analytics: 'control',
 	cc_editor_insm_outlier_events: 'test',
 	platform_editor_table_sticky_header_improvements: 'test_with_overflow',
-	platform_sl_3p_unauth_paste_as_block_card: 'control',
 	cc_fd_db_top_editor_toolbar: 'control',
 	cc_fd_cwr_quick_insert: 'control',
 	cc_fd_cwr_quick_insert_aa: 'control',

@@ -1,4 +1,5 @@
-import { type HTMLElementExtended, type HTMLStyleElementExtended } from './types';
+import { isExtendedElement } from './is-extended-element';
+import { type HTMLStyleElementExtended } from './types';
 
 if (typeof Node !== 'undefined') {
 	/**
@@ -41,14 +42,6 @@ export function isStyleElement(node: Node): node is HTMLStyleElementExtended {
 		isExtendedElement(node) &&
 		node.tagName.toLowerCase() === 'style' &&
 		node.hasAttribute('data-cmpld')
-	);
-}
-
-export function isExtendedElement(node?: Node): node is HTMLElementExtended {
-	return (
-		!!node &&
-		node.nodeType === node.ELEMENT_NODE &&
-		typeof (node as any).textContentOriginal === 'string'
 	);
 }
 
@@ -97,3 +90,5 @@ function removeCssContent(text: string | number | null | undefined, node: Node):
 		text.toString(),
 	);
 }
+
+export { isExtendedElement } from './is-extended-element';

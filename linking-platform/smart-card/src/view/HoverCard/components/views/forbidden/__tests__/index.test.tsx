@@ -1,12 +1,11 @@
 import '@atlaskit/link-test-helpers/jest';
 import React from 'react';
 
-import { render, screen } from '@testing-library/react';
-import userEvent from '@testing-library/user-event';
 import { IntlProvider } from 'react-intl';
 
 import { AnalyticsListener } from '@atlaskit/analytics-next';
 import { SmartCardProvider } from '@atlaskit/link-provider';
+import { render, screen, userEvent } from '@atlassian/testing-library';
 
 import * as analytics from '../../../../../../utils/analytics';
 import { getMockForbiddenDirectAccessResponse } from '../../../../__tests__/__mocks__/mocks';

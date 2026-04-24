@@ -2,8 +2,6 @@ import './success.test.mock';
 
 import React from 'react';
 
-import { fireEvent, render, screen, waitFor } from '@testing-library/react';
-import userEvent from '@testing-library/user-event';
 import * as jestExtendedMatchers from 'jest-extended';
 import { IntlProvider } from 'react-intl';
 // eslint-disable-next-line @atlaskit/platform/prefer-crypto-random-uuid -- Use crypto.randomUUID instead
@@ -14,6 +12,7 @@ import { type CardClient, SmartCardProvider as Provider } from '@atlaskit/link-p
 import { mockSimpleIntersectionObserver } from '@atlaskit/link-test-helpers';
 import { asMock, type JestFunction } from '@atlaskit/media-test-helpers';
 import { ffTest } from '@atlassian/feature-flags-test-utils';
+import { fireEvent, render, screen, waitFor, userEvent } from '@atlassian/testing-library';
 
 import { CardAction, TitleBlock } from '../../../index';
 import * as ufoWrapper from '../../../state/analytics/ufoExperiences';

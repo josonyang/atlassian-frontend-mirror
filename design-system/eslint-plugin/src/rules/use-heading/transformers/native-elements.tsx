@@ -9,7 +9,9 @@ import {
 
 import * as ast from '../../../ast-nodes';
 
-import { allowedAttrs, type MetaData, updateTestIdAttributeFix } from './common';
+import { allowedAttrs } from './allowed-attrs';
+import type { MetaData } from './common';
+import { updateTestIdAttributeFix } from './update-test-id-attribute-fix';
 
 type ValidTags = 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6';
 

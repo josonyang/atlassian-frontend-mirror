@@ -1,8 +1,8 @@
 import React from 'react';
 
-import { fireEvent, screen } from '@testing-library/react';
-
 import { renderWithIntl } from '@atlaskit/link-test-helpers';
+import { fireEvent, screen } from '@atlassian/testing-library';
+
 
 import { ImageIcon, type ImageIconProps } from './ImageIcon';
 

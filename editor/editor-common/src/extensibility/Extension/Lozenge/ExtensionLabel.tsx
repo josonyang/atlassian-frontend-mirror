@@ -2,7 +2,7 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
-import type { CSSProperties } from 'react';
+import { useMemo, type CSSProperties } from 'react';
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled, @typescript-eslint/consistent-type-imports -- Ignored via go/DSP-18766; jsx required at runtime for @jsxRuntime classic
 import { css, jsx } from '@emotion/react';
@@ -209,6 +209,11 @@ export const ExtensionLabel = ({
 		),
 	});
 
+	const memoizedTooltipValues = useMemo(() => ({ macroName: text }), [text]);
+	const tooltipValues = expValEquals('platform_editor_perf_lint_cleanup', 'isEnabled', true)
+		? memoizedTooltipValues
+		: { macroName: text };
+
 	return (
 		// eslint-disable-next-line @atlassian/a11y/no-static-element-interactions, @atlassian/a11y/click-events-have-key-events, @atlassian/a11y/interactive-element-not-keyboard-focusable
 		<div
@@ -242,8 +247,7 @@ export const ExtensionLabel = ({
 						// Ignored via go/ees005
 						// eslint-disable-next-line react/jsx-props-no-spreading
 						{...i18n.configure}
-						// eslint-disable-next-line @atlassian/perf-linting/no-unstable-inline-props -- Ignored via go/ees017 (to be fixed)
-						values={{ macroName: text }}
+						values={tooltipValues}
 					/>
 				}
 				position="top"

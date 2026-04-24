@@ -1,5 +1,30 @@
 # @atlaskit/editor-plugin-media
 
+## 12.2.0
+
+### Minor Changes
+
+- [`a0b1822615d7e`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/a0b1822615d7e) -
+  Refactor inline editor AI image generation loading state to use ProseMirror decorations:
+  - Add AI generating decoration plugin to editor-plugin-media for transient visual state tracking
+    via ProseMirror decorations instead of ADF schema attributes
+  - Remove \_\_isAIGenerating transient attribute from ADF media node schema
+  - Update editor-rovo-bridge to dispatch decoration meta instead of mutating node attributes
+  - Media NodeView reads decoration state and passes isAIGenerating prop to media-card
+  - AIBorder component with pulsing gradient border and translucent blanket during AI image
+    generation
+  - Internationalized AI generating progress bar aria label
+
+### Patch Changes
+
+- Updated dependencies
+
+## 12.1.5
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 12.1.4
 
 ### Patch Changes

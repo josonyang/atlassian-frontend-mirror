@@ -79,6 +79,9 @@
 			"path": "../../design-system/primitives/tsconfig.app.json"
 		},
 		{
+			"path": "../../design-system/progress-bar/tsconfig.app.json"
+		},
+		{
 			"path": "../../react-ufo/atlaskit/tsconfig.app.json"
 		},
 		{

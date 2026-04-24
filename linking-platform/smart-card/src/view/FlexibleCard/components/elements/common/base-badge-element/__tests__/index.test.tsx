@@ -3,8 +3,9 @@
  * @jsx jsx
  */
 import { css, jsx } from '@compiled/react';
-import { render, screen } from '@testing-library/react';
 import { IntlProvider, type MessageFormatElement } from 'react-intl';
+
+import { render, screen } from '@atlassian/testing-library';
 
 import { IconType } from '../../../../../../../constants';
 import { messages } from '../../../../../../../messages';

@@ -298,7 +298,7 @@ const firstWrappedMediaStyles = {
  *
  * This will be used in near future to replace the current editor content styles from index.tsx
  */
-const EditorContentContainer = React.forwardRef<HTMLDivElement, EditorContentContainerProps>(
+const EditorContentContainer: React.ForwardRefExoticComponent<EditorContentContainerProps & React.RefAttributes<HTMLDivElement>> = React.forwardRef<HTMLDivElement, EditorContentContainerProps>(
 	(props, ref) => {
 		const {
 			className,

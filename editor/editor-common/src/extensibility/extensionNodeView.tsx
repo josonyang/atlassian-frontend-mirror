@@ -148,7 +148,7 @@ export class ExtensionNode<AdditionalParams = unknown> extends ReactNodeView<
 	 * Override init() to skip React Portal rendering on first init if we're reusing SSR'd DOM.
 	 * This preserves the SSR content without React unnecessarily re-rendering it.
 	 */
-	init() {
+	init(): this {
 		if (!expValEquals('platform_editor_hydration_skip_react_portal', 'isEnabled', true)) {
 			super.init();
 		} else {

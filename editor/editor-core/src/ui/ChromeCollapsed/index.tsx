@@ -6,7 +6,7 @@ import React, { PureComponent } from 'react';
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled, @typescript-eslint/consistent-type-imports -- Ignored via go/DSP-18766; jsx required at runtime for @jsxRuntime classic
 import { jsx } from '@emotion/react';
-import type { WrappedComponentProps } from 'react-intl';
+import type { WithIntlProps, WrappedComponentProps } from 'react-intl';
 import { injectIntl } from 'react-intl';
 
 import { messages } from './messages';
@@ -61,4 +61,8 @@ class ChromeCollapsed extends PureComponent<Props & WrappedComponentProps, Objec
 	}
 }
 
-export default injectIntl(ChromeCollapsed);
+// eslint-disable-next-line @typescript-eslint/ban-types
+const _default_1: React.FC<WithIntlProps<Props & WrappedComponentProps>> & {
+    WrappedComponent: React.ComponentType<Props & WrappedComponentProps>;
+} = injectIntl(ChromeCollapsed);
+export default _default_1;

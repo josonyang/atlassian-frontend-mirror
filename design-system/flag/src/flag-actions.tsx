@@ -3,7 +3,7 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
-import { type ComponentType, type CSSProperties, type FC } from 'react';
+import { type CSSProperties, type ComponentType, type FC } from 'react';
 
 import { css, jsx } from '@compiled/react';
 
@@ -12,8 +12,9 @@ import type { CustomThemeButtonProps } from '@atlaskit/button/types';
 import { Inline } from '@atlaskit/primitives/compiled';
 import { token } from '@atlaskit/tokens';
 
+import { actionTextColor } from './action-text-color';
 import { DEFAULT_APPEARANCE } from './constants';
-import { actionBackgroundColor, actionTextColor } from './theme';
+import { actionBackgroundColor } from './theme';
 import type { ActionsType, AppearanceTypes } from './types';
 
 type FlagActionsProps = {

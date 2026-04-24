@@ -9,6 +9,6 @@ const provider = new ConversationResource({
 	user: MOCK_USERS[0],
 });
 
-export default function Example() {
+export default function Example(): React.JSX.Element {
 	return <Demo provider={provider} dataProviders={getDataProviderFactory()} />;
 }

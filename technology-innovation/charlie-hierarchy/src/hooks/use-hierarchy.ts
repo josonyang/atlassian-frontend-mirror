@@ -1,4 +1,4 @@
-import { type Action, createContainer, createHook, createStore } from 'react-sweet-state';
+import { type Action, type BoundActions, createContainer, createHook, createStore, type GenericContainerComponent, type HookReturnValue } from 'react-sweet-state';
 
 type State<NodeType extends object> = {
 	addedNodeIdentifiers: Set<string>;
@@ -19,7 +19,7 @@ type State<NodeType extends object> = {
 	parentIdentifierAccessor: (node: NodeType) => string;
 };
 
-export const HierarchyContainer = createContainer();
+export const HierarchyContainer: GenericContainerComponent<unknown> = createContainer();
 
 /**
  * useHierarchyData manages your hierarchal data leveraging
@@ -35,7 +35,15 @@ export const useHierarchyData = <NodeType extends object>({
 	updateChildren: State<NodeType>['updateChildren'];
 	identifierAccessor: State<NodeType>['identifierAccessor'];
 	parentIdentifierAccessor: State<NodeType>['parentIdentifierAccessor'];
-}) => {
+}): HookReturnValue<State<NodeType>, BoundActions<State<NodeType>, {
+        resetRootNode: (root: NodeType) => Action<State<NodeType>>;
+        /** for useHierarchyData, when you add a node it must either be:
+         * - the new root
+         * - parent of the existing root
+         * - descendent of the existing root
+         */
+        addNode: (node: NodeType) => Action<State<NodeType>>;
+    }>> => {
 	const initialState: State<NodeType> = {
 		rootNode: null,
 		addedNodeIdentifiers: new Set(),

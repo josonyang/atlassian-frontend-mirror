@@ -2,13 +2,13 @@ import './card-states.card.test.mock';
 
 import React from 'react';
 
-import { render, screen } from '@testing-library/react';
 import { IntlProvider } from 'react-intl';
 
 import FabricAnalyticsListeners, { type AnalyticsWebClient } from '@atlaskit/analytics-listeners';
 import { type CardClient, SmartCardProvider as Provider } from '@atlaskit/link-provider';
 import { mockSimpleIntersectionObserver } from '@atlaskit/link-test-helpers';
 import type { SmartLinkResponse } from '@atlaskit/linking-types';
+import { render, screen } from '@atlassian/testing-library';
 
 import { fakeFactory, mocks } from '../../../utils/mocks';
 import { Card } from '../../Card';

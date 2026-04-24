@@ -1,7 +1,8 @@
 import { token } from '@atlaskit/tokens';
 
 import { DEFAULT_THEME_NAME, defaultThemeBrandRefresh } from './default-theme';
-import { generateTextColor, getBoxShadow, getContrastColor, hexToRGBA } from './theme-helpers';
+import { getBoxShadow } from './get-box-shadow';
+import { generateTextColor, getContrastColor, hexToRGBA } from './theme-helpers';
 import { type ButtonCSSContext, type GenerateThemeArgs, type NavigationTheme } from './types';
 
 type Colors = {

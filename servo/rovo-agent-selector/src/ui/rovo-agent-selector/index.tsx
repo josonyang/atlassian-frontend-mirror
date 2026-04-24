@@ -55,7 +55,7 @@ export function RovoAgentSelector({
 	selectedAgent,
 	onChange,
 	isLoading: isLoadingOverride,
-}: RovoAgentSelectorProps) {
+}: RovoAgentSelectorProps): JSX.Element | null {
 	const { formatMessage } = useIntl();
 	const isFeatureEnabled = isFeatureEnabledOverride ?? fg('jsm_help_center_one-click_rovo_agent');
 	const [, setSearchInput] = useState<string | null>(null);

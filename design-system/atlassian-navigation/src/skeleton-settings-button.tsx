@@ -42,15 +42,4 @@ export const SkeletonSettingsButton = ({
 	</SkeletonIconButton>
 );
 
-/**
- * __Nav 4 skeleton settings button__
- *
- * A nav 4 skeleton settings button
- */
-export const Nav4SkeletonSettingsButton = ({
-	label = '',
-}: SkeletonSettingsButtonProps): React.JSX.Element => (
-	<SkeletonIconButton>
-		<SettingsIcon label={label} color={token('color.icon')} />
-	</SkeletonIconButton>
-);
+export { Nav4SkeletonSettingsButton } from './nav4-skeleton-settings-button';

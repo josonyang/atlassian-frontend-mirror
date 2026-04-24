@@ -1,11 +1,11 @@
 import React from 'react';
 
-import { render, screen } from '@testing-library/react';
 import { IntlProvider } from 'react-intl';
 
 import { SmartCardProvider } from '@atlaskit/link-provider';
 import { ResolvedClient, ResolvedClientUrl } from '@atlaskit/link-test-helpers';
 import { Box } from '@atlaskit/primitives/compiled';
+import { render, screen } from '@atlassian/testing-library';
 
 import type { CardProps } from '../../../Card';
 import { CardWithUrlContent } from '../../component';

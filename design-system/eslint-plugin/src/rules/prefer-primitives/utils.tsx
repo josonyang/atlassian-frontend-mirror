@@ -6,23 +6,7 @@ import {
 	type JSXText,
 } from 'eslint-codemod-utils';
 
-export const validPrimitiveElements: Set<string> = new Set([
-	'div',
-	'span',
-	'article',
-	'aside',
-	'dialog',
-	'footer',
-	'header',
-	'li',
-	'main',
-	'nav',
-	'ol',
-	'section',
-	'ul',
-	'button',
-]);
-
+import { validPrimitiveElements } from './valid-primitive-elements';
 type JSXChild =
 	| 'JSXElement'
 	| 'JSXExpressionContainer'
@@ -66,3 +50,5 @@ export const shouldSuggest: (node: JSXElement) => boolean = (node: JSXElement): 
 
 	return true;
 };
+
+export { validPrimitiveElements } from './valid-primitive-elements';

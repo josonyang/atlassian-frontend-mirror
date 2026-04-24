@@ -1,7 +1,7 @@
-import { renderHook } from '@testing-library/react';
 
 import { type JsonLd } from '@atlaskit/json-ld-types';
 import { useSmartLinkContext } from '@atlaskit/link-provider';
+import { renderHook } from '@atlassian/testing-library';
 
 import { extractInvokePreviewAction } from '../../../extractors/action/extract-invoke-preview-action';
 import { mocks } from '../../../utils/mocks';
@@ -111,7 +111,7 @@ describe(useSmartLinkActions.name, () => {
 		});
 		mockWithActions();
 
-		const { result } = renderHook(() => useSmartLinkActions({ url, appearance }));
+		const result = renderHook(() => useSmartLinkActions({ url, appearance }));
 
 		expect(result.current).toHaveLength(2);
 	});
@@ -123,7 +123,7 @@ describe(useSmartLinkActions.name, () => {
 		});
 		mockWithActions();
 
-		const { result } = renderHook(() => useSmartLinkActions({ url, appearance }));
+		const result = renderHook(() => useSmartLinkActions({ url, appearance }));
 
 		expect(result.current?.[0]).toMatchObject({ id: 'download-content' });
 	});
@@ -135,7 +135,7 @@ describe(useSmartLinkActions.name, () => {
 		});
 		mockWithActions();
 
-		const { result } = renderHook(() => useSmartLinkActions({ url, appearance }));
+		const result = renderHook(() => useSmartLinkActions({ url, appearance }));
 
 		expect(result.current?.[1]).toMatchObject({ id: 'preview-content' });
 	});
@@ -147,7 +147,7 @@ describe(useSmartLinkActions.name, () => {
 		});
 		const actionHandler = mockWithActions();
 
-		const { result } = renderHook(() => useSmartLinkActions({ url, appearance }));
+		const result = renderHook(() => useSmartLinkActions({ url, appearance }));
 
 		await result.current?.[0].invoke();
 
@@ -161,7 +161,7 @@ describe(useSmartLinkActions.name, () => {
 		});
 		const actionHandler = mockWithActions();
 
-		const { result } = renderHook(() => useSmartLinkActions({ url, appearance }));
+		const result = renderHook(() => useSmartLinkActions({ url, appearance }));
 
 		await result.current?.[1].invoke();
 		expect(actionHandler).toHaveBeenCalledTimes(1);
@@ -174,7 +174,7 @@ describe(useSmartLinkActions.name, () => {
 		});
 		mockWithActions();
 
-		const { result } = renderHook(() =>
+		const result = renderHook(() =>
 			useSmartLinkActions({
 				url,
 				appearance,
@@ -192,7 +192,7 @@ describe(useSmartLinkActions.name, () => {
 		});
 		mockWithActions();
 
-		const { result } = renderHook(() =>
+		const result = renderHook(() =>
 			useSmartLinkActions({
 				url,
 				appearance,
@@ -224,7 +224,7 @@ describe(useSmartLinkActions.name, () => {
 		});
 		mockWithActions();
 
-		const { result } = renderHook(() =>
+		const result = renderHook(() =>
 			useSmartLinkActions({
 				url,
 				appearance,
@@ -257,15 +257,15 @@ describe(useSmartLinkActions.name, () => {
 		});
 		mockLifecycle();
 
-		const { result, rerender } = renderHook(() => useSmartLinkActions({ url, appearance }));
+		const result = renderHook(() => useSmartLinkActions({ url, appearance }));
 
 		// pending state
 		expect(result.current).toEqual([]);
-		rerender();
+		result.update();
 
 		// resolving state
 		expect(result.current).toEqual([]);
-		rerender();
+		result.update();
 
 		// resolved state
 		expect(result.current).toHaveLength(2);
@@ -278,7 +278,7 @@ describe(useSmartLinkActions.name, () => {
 		});
 		mockNoActions();
 
-		const { result } = renderHook(() => useSmartLinkActions({ url, appearance }));
+		const result = renderHook(() => useSmartLinkActions({ url, appearance }));
 
 		expect(result.current).toEqual([]);
 	});
@@ -295,7 +295,7 @@ describe(useSmartLinkActions.name, () => {
 
 			mockWithActions();
 
-			const { result } = renderHook(() => useSmartLinkActions({ url, appearance }));
+			const result = renderHook(() => useSmartLinkActions({ url, appearance }));
 
 			// Just verify that the hook returns some actions when preview panel is available
 			expect(result.current.length).toBeGreaterThan(0);
@@ -311,7 +311,7 @@ describe(useSmartLinkActions.name, () => {
 
 			mockWithActions();
 
-			const { result } = renderHook(() => useSmartLinkActions({ url, appearance }));
+			const result = renderHook(() => useSmartLinkActions({ url, appearance }));
 
 			// Just verify that the hook returns some actions when preview panel is not available
 			expect(result.current.length).toBeGreaterThan(0);
@@ -325,7 +325,7 @@ describe(useSmartLinkActions.name, () => {
 
 			mockWithActions();
 
-			const { result } = renderHook(() => useSmartLinkActions({ url, appearance }));
+			const result = renderHook(() => useSmartLinkActions({ url, appearance }));
 
 			// Just verify that the hook returns some actions when parameters are undefined
 			expect(result.current.length).toBeGreaterThan(0);
@@ -339,7 +339,7 @@ describe(useSmartLinkActions.name, () => {
 
 			mockWithActions();
 
-			const { result } = renderHook(() => useSmartLinkActions({ url, appearance }));
+			const result = renderHook(() => useSmartLinkActions({ url, appearance }));
 
 			// Just verify that the hook returns some actions when parameters are null
 			expect(result.current.length).toBeGreaterThan(0);
@@ -356,7 +356,7 @@ describe(useSmartLinkActions.name, () => {
 
 			mockWithActions();
 
-			const { result } = renderHook(() =>
+			const result = renderHook(() =>
 				useSmartLinkActions({
 					url,
 					appearance,

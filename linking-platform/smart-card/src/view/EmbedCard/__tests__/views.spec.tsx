@@ -1,6 +1,5 @@
 import React from 'react';
 
-import { fireEvent, render, screen } from '@testing-library/react';
 import { IntlProvider } from 'react-intl';
 
 import { SmartCardProvider } from '@atlaskit/link-provider';
@@ -10,6 +9,7 @@ import {
 	renderWithIntl,
 	ResolvedClient,
 } from '@atlaskit/link-test-helpers';
+import { fireEvent, render, screen } from '@atlassian/testing-library';
 
 import useResolve from '../../../state/hooks/use-resolve';
 import { EmbedCardErroredView } from '../../../view/EmbedCard/views/ErroredView';

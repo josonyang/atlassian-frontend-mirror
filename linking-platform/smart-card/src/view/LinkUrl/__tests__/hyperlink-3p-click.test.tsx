@@ -1,9 +1,9 @@
 import React from 'react';
 
-import { fireEvent, render } from '@testing-library/react';
 
 import { CardClient, SmartCardProvider } from '@atlaskit/link-provider';
 import { ffTest } from '@atlassian/feature-flags-test-utils';
+import { fireEvent, render } from '@atlassian/testing-library';
 
 import * as SmartLinkEventsModule from '../../SmartLinkEvents/useSmartLinkEvents';
 import { HyperlinkWithSmartLinkResolver } from '../HyperlinkResolver';

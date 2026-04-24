@@ -6,40 +6,21 @@
  * Shared utilities for TagNew and AvatarTag components.
  * Note: CSS styles cannot be shared due to Compiled CSS static analysis requirements.
  */
-import {
-	type ComponentType,
-	Fragment,
-	type MouseEvent as ReactMouseEvent,
-	type ReactNode,
-	useCallback,
-	useMemo,
-	useRef,
-	useState,
-} from 'react';
+import { type ComponentType, Fragment, type MouseEvent as ReactMouseEvent, type ReactNode, useCallback, useMemo, useState } from 'react';
 
 import { css, jsx } from '@compiled/react';
 
 import { type UIAnalyticsEvent } from '@atlaskit/analytics-next';
-import __noop from '@atlaskit/ds-lib/noop';
-import Link, { type LinkProps } from '@atlaskit/link';
 import { ExitingPersistence, ShrinkOut } from '@atlaskit/motion';
 
 import RemoveButton from '../tag/internal/removable/remove-button';
 
+import { defaultBeforeRemoveAction } from './default-before-remove-action';
+import { TagStatus } from './tag-status';
 // CSS variable names for dynamic color values
 export const iconColorVar = '--ds-tag-icon';
 export const borderTokenVar = '--tag-border-token';
 export const iconTokenVar = '--tag-icon-token';
-
-// Tag status enum
-export enum TagStatus {
-	Showing = 'showing',
-	Removing = 'removing',
-	Removed = 'removed',
-}
-
-export const defaultBeforeRemoveAction: () => boolean = () => true;
-export const noop: typeof __noop = __noop;
 
 /**
  * Stable key so ExitingPersistence can match this child across the remove transition
@@ -95,112 +76,6 @@ export function useTagRemoval(onBeforeRemoveAction: (() => boolean) | undefined)
 		onKeyPress,
 		removingTag,
 		showingTag,
-	};
-}
-
-// useLink hook
-/**
- * Shared hook for link handling
- */
-export function useLink(
-	href: string | undefined,
-	linkComponent: ComponentType<any> | undefined,
-): {
-	isLink: boolean;
-	LinkComponent:
-		| ComponentType<any>
-		| (<RouterLinkConfig extends Record<string, any> = never>(
-				props: LinkProps<RouterLinkConfig> & { ref?: import('react').Ref<HTMLAnchorElement> },
-		  ) => JSX.Element);
-} {
-	const isLink = Boolean(href);
-	const LinkComponent = linkComponent ?? Link;
-
-	return { isLink, LinkComponent };
-}
-/**
- * Hook for tracking link/button hover/focus state (replaces CSS :has() selectors in this component)
- */
-export function useButtonInteraction(): {
-	isLinkHovered: boolean;
-	isOverButton: boolean;
-	isButtonFocused: boolean;
-	isLinkFocused: boolean;
-	buttonHandlers: {
-		onMouseEnter: () => void;
-		onMouseLeave: () => void;
-		onMouseDown: () => void;
-		onFocus: () => void;
-		onBlur: () => void;
-	};
-	linkHandlers: {
-		onMouseEnter: () => void;
-		onMouseLeave: () => void;
-		onMouseDown: () => void;
-		onFocus: () => void;
-		onBlur: () => void;
-	};
-} {
-	const [isLinkHovered, setIsLinkHovered] = useState(false);
-	const [isOverButton, setIsOverButton] = useState(false);
-	const [isButtonFocused, setIsButtonFocused] = useState(false);
-	const [isLinkFocused, setIsLinkFocused] = useState(false);
-	// Track if last interaction was via mouse (to determine keyboard vs mouse focus)
-	const hadMouseDownRef = useRef(false);
-
-	// Button handlers
-	const buttonHandlers = useMemo(
-		() => ({
-			onMouseEnter: (): void => setIsOverButton(true),
-			onMouseLeave: (): void => setIsOverButton(false),
-			onMouseDown: (e?: ReactMouseEvent<HTMLButtonElement>): void => {
-				// Prevent the browser from moving focus to the remove button on mousedown.
-				// Without this, parent composite widgets (e.g. Select) lose input focus when
-				// the user clicks remove, triggering unwanted blur side-effects.
-				e?.preventDefault();
-				hadMouseDownRef.current = true;
-			},
-			onFocus: (): void => {
-				// Only track keyboard focus for focus ring styles
-				// If mousedown happened just before focus, it's mouse focus (not keyboard)
-				if (!hadMouseDownRef.current) {
-					setIsButtonFocused(true);
-				}
-				hadMouseDownRef.current = false;
-			},
-			onBlur: (): void => setIsButtonFocused(false),
-		}),
-		[],
-	);
-
-	// Link handlers - includes hover tracking
-	const linkHandlers = useMemo(
-		() => ({
-			onMouseEnter: (): void => setIsLinkHovered(true),
-			onMouseLeave: (): void => setIsLinkHovered(false),
-			onMouseDown: (): void => {
-				hadMouseDownRef.current = true;
-			},
-			onFocus: (): void => {
-				// Only track keyboard focus for focus ring styles
-				// If mousedown happened just before focus, it's mouse focus (not keyboard)
-				if (!hadMouseDownRef.current) {
-					setIsLinkFocused(true);
-				}
-				hadMouseDownRef.current = false;
-			},
-			onBlur: (): void => setIsLinkFocused(false),
-		}),
-		[],
-	);
-
-	return {
-		isLinkHovered,
-		isOverButton,
-		isButtonFocused,
-		isLinkFocused,
-		buttonHandlers,
-		linkHandlers,
 	};
 }
 
@@ -380,3 +255,9 @@ export function LinkWrapper({
 	}
 	return <Fragment>{children}</Fragment>;
 }
+
+export { TagStatus } from './tag-status';
+export { defaultBeforeRemoveAction } from './default-before-remove-action';
+export { noop } from './noop';
+export { useLink } from './use-link';
+export { useButtonInteraction } from './use-button-interaction';

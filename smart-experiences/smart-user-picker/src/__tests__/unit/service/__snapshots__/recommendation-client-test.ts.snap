@@ -50,6 +50,7 @@ exports[`default-value-hydration-client should translate given context to correc
 exports[`default-value-hydration-client should translate given context to correct fetch request: URS users 1`] = `
 [
   {
+    "appType": undefined,
     "avatarUrl": "https://avatar-management--avatars.us-west-2.prod.public.atl-paas.net",
     "email": "jsmith@atlassian.com",
     "id": "5ee0adc79583380ab0afec31",
@@ -63,6 +64,7 @@ exports[`default-value-hydration-client should translate given context to correc
     "userType": "DEFAULT",
   },
   {
+    "appType": undefined,
     "avatarUrl": "https://avatar-management--avatars.us-west-2.prod.public.atl-paas.net",
     "email": "jsmith@atlassian.com",
     "id": "5ee0adc79583380ab0afec32",

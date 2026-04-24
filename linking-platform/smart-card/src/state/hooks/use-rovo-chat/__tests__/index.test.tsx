@@ -1,10 +1,10 @@
 import React from 'react';
 
-import { act, renderHook } from '@testing-library/react';
 
 import { SmartCardProvider } from '@atlaskit/link-provider';
 import { useRovoPostMessageToPubsub } from '@atlaskit/rovo-triggers/post-message-to-pubsub';
 import type { ChatNewPayload } from '@atlaskit/rovo-triggers/types';
+import { act, renderHook } from '@atlassian/testing-library';
 
 import useRovoChat from '../index';
 
@@ -36,7 +36,7 @@ describe('useRovoChat', () => {
 
 	describe('isRovoChatEnabled', () => {
 		it('should return true if both isRovoEnabled and isRovoLLMEnabled are true', () => {
-			const { result } = renderHook(() => useRovoChat(), {
+			const result = renderHook(() => useRovoChat(), {
 				wrapper: wrapper(),
 			});
 
@@ -44,7 +44,7 @@ describe('useRovoChat', () => {
 		});
 
 		it('should return true if both isRovoEnabled and isRovoLLMEnabled are false', () => {
-			const { result } = renderHook(() => useRovoChat(), {
+			const result = renderHook(() => useRovoChat(), {
 				wrapper: wrapper({ rovoOptions: { isRovoEnabled: false, isRovoLLMEnabled: false } }),
 			});
 
@@ -52,7 +52,7 @@ describe('useRovoChat', () => {
 		});
 
 		it('should return false if isRovoEnabled is false', () => {
-			const { result } = renderHook(() => useRovoChat(), {
+			const result = renderHook(() => useRovoChat(), {
 				wrapper: wrapper({ rovoOptions: { isRovoEnabled: false, isRovoLLMEnabled: true } }),
 			});
 
@@ -60,7 +60,7 @@ describe('useRovoChat', () => {
 		});
 
 		it('should return false if isRovoLLMEnabled is false', () => {
-			const { result } = renderHook(() => useRovoChat(), {
+			const result = renderHook(() => useRovoChat(), {
 				wrapper: wrapper({ rovoOptions: { isRovoEnabled: true, isRovoLLMEnabled: false } }),
 			});
 
@@ -120,7 +120,7 @@ describe('useRovoChat', () => {
 				},
 			],
 		])('should send prompt as %s', (_, expectedName, expectedPrompt) => {
-			const { result } = renderHook(() => useRovoChat(), {
+			const result = renderHook(() => useRovoChat(), {
 				wrapper: wrapper(),
 			});
 

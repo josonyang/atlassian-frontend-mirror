@@ -125,7 +125,10 @@ type ComponentProps = EditorAppearanceComponentProps<
 	]
 >;
 
-export const CommentEditorWithIntl = (props: ComponentProps) => {
+export const CommentEditorWithIntl: {
+    (props: ComponentProps): jsx.JSX.Element;
+    displayName: string;
+} = (props: ComponentProps): jsx.JSX.Element => {
 	const { editorAPI } = props;
 
 	// Get useStandardNodeWidth from block menu plugin shared state

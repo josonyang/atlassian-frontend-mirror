@@ -9,7 +9,7 @@ import { css, jsx, type SerializedStyles } from '@emotion/react';
 
 import { token } from '@atlaskit/tokens';
 
-import { SurfaceContext } from './surface-provider';
+import { SurfaceContext } from './surface-context';
 import { type BasePrimitiveProps } from './types';
 
 const baseStyles = css({

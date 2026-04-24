@@ -42,16 +42,4 @@ export const SkeletonNotificationButton = ({
 	</SkeletonIconButton>
 );
 
-/**
- * __Nav 4 skeleton notification button__
- *
- * A nav 4 skeleton notification button.
- *
- */
-export const Nav4SkeletonNotificationButton = ({
-	label = '',
-}: SkeletonNotificationButtonProps): React.JSX.Element => (
-	<SkeletonIconButton>
-		<NotificationIcon label={label} color={token('color.icon')} />
-	</SkeletonIconButton>
-);
+export { Nav4SkeletonNotificationButton } from './nav4-skeleton-notification-button';

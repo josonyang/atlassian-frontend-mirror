@@ -1,7 +1,8 @@
 import React from 'react';
 
-import { render, screen } from '@testing-library/react';
 import { IntlProvider } from 'react-intl';
+
+import { render, screen } from '@atlassian/testing-library';
 
 import { getContext } from '../../../../../../../examples/utils/flexible-ui';
 import { FlexibleCardContext } from '../../../../../../state/flexible-ui-context';

@@ -1,6 +1,9 @@
 export type {
 	AppearanceType,
-	SizeType,
-	IndicatorSizeType,
 	AvatarClickEventHandler,
+	AvatarSizeMap,
+	IndicatorSizeType,
+	Presence as PresenceType,
+	SizeType,
+	Status as StatusType,
 } from '../types';

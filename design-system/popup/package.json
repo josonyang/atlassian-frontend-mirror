@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/popup",
-	"version": "4.16.5",
+	"version": "4.16.6",
 	"description": "A popup displays brief content in an overlay.",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -26,8 +26,12 @@
 	"atlaskit:src": "src/index.tsx",
 	"exports": {
 		".": "./src/index.tsx",
-		"./types": "./src/types.tsx",
-		"./experimental": "./src/entry-points/experimental/compositional.tsx"
+		"./compositional/popup-content": "./src/entry-points/compositional-popup-content.tsx",
+		"./compositional/popup-trigger": "./src/entry-points/compositional-popup-trigger.tsx",
+		"./compositional/popup": "./src/entry-points/compositional-popup.tsx",
+		"./experimental": "./src/entry-points/experimental/compositional.tsx",
+		"./popup": "./src/entry-points/popup.tsx",
+		"./types": "./src/entry-points/types.tsx"
 	},
 	"atlassian": {
 		"react-compiler": {

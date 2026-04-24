@@ -11,7 +11,7 @@ import { css } from '@atlaskit/css';
 import { token } from '@atlaskit/tokens';
 
 import { GRID_COLUMNS } from './config';
-import { GridContainerContext } from './grid-container';
+import { GridContainerContext } from './grid-container-context';
 import type { BaseGridProps } from './types';
 
 export type GridProps = BaseGridProps;

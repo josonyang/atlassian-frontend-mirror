@@ -1,5 +1,12 @@
 # @atlaskit/theme
 
+## 23.2.0
+
+### Minor Changes
+
+- [`9a636a0cea13f`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/9a636a0cea13f) -
+  Autofix: update explicit package exports
+
 ## 23.1.0
 
 ### Minor Changes

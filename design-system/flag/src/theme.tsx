@@ -1,59 +1,6 @@
-import React, { type ReactElement } from 'react';
-
-import ErrorIcon from '@atlaskit/icon/core/status-error';
-import InformationIcon from '@atlaskit/icon/core/status-information';
-import SuccessIcon from '@atlaskit/icon/core/status-success';
-import WarningIcon from '@atlaskit/icon/core/status-warning';
-import { type BackgroundColor } from '@atlaskit/primitives/compiled';
 import { token } from '@atlaskit/tokens';
 
-import { type AppearanceTypes, type HeadingColor } from './types';
-
-export const flagBackgroundColor: Record<AppearanceTypes, BackgroundColor> = {
-	error: 'color.background.danger.bold',
-	info: 'color.background.neutral.bold',
-	normal: 'elevation.surface.overlay',
-	success: 'color.background.success.bold',
-	warning: 'color.background.warning.bold',
-};
-
-export const flagIconColor: Record<AppearanceTypes, string> = {
-	error: token('color.icon.inverse'),
-	info: token('color.icon.inverse'),
-	normal: token('color.icon.subtle'),
-	success: token('color.icon.inverse'),
-	warning: token('color.icon.warning.inverse'),
-};
-
-export const flagIconGlyph: Record<AppearanceTypes, ReactElement> = {
-	error: <ErrorIcon label="" />,
-	info: <InformationIcon label="" />,
-	normal: <InformationIcon label="" />,
-	success: <SuccessIcon label="" />,
-	warning: <WarningIcon label="" />,
-};
-
-export const flagTextColor: Record<AppearanceTypes, HeadingColor> = {
-	error: 'color.text.inverse',
-	info: 'color.text.inverse',
-	normal: 'color.text',
-	success: 'color.text.inverse',
-	warning: 'color.text.warning.inverse',
-};
-
-export const flagTextColorToken: {
-	error: 'var(--ds-text-inverse)';
-	info: 'var(--ds-text-inverse)';
-	normal: 'var(--ds-text)';
-	success: 'var(--ds-text-inverse)';
-	warning: 'var(--ds-text-warning-inverse)';
-} = {
-	error: token('color.text.inverse'),
-	info: token('color.text.inverse'),
-	normal: token('color.text'),
-	success: token('color.text.inverse'),
-	warning: token('color.text.warning.inverse'),
-};
+import { type AppearanceTypes } from './types';
 
 type ActionBackgroundColor = Record<
 	Exclude<AppearanceTypes, 'normal'>,
@@ -102,10 +49,9 @@ export const actionBackgroundColor: ActionBackgroundColor = {
 	},
 };
 
-export const actionTextColor: Record<AppearanceTypes, string> = {
-	success: token('color.text.inverse'),
-	info: token('color.text.inverse'),
-	error: token('color.text.inverse'),
-	warning: token('color.text.warning.inverse'),
-	normal: token('color.link'),
-};
+export { flagBackgroundColor } from './flag-background-color';
+export { flagIconColor } from './flag-icon-color';
+export { flagIconGlyph } from './flag-icon-glyph';
+export { flagTextColor } from './flag-text-color';
+export { flagTextColorToken } from './flag-text-color-token';
+export { actionTextColor } from './action-text-color';

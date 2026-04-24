@@ -2,7 +2,6 @@ import '@atlaskit/link-test-helpers/jest';
 
 import React from 'react';
 
-import { renderHook } from '@testing-library/react';
 import fetchMock from 'jest-fetch-mock';
 import { IntlProvider } from 'react-intl';
 import TestRenderer from 'react-test-renderer';
@@ -11,6 +10,7 @@ import uuid from 'uuid';
 
 import { AnalyticsListener } from '@atlaskit/analytics-next';
 import { SmartCardProvider } from '@atlaskit/link-provider';
+import { renderHook } from '@atlassian/testing-library';
 
 import { ANALYTICS_CHANNEL } from '../../../../utils/analytics';
 import { mocks } from '../../../../utils/mocks';
@@ -80,7 +80,7 @@ describe('useAISummaryAction', () => {
 		fetchMock.mockResolvedValueOnce({ ok: true, status: 200 } as Response);
 		(readStream as jest.Mock).mockImplementationOnce(aiSummaryMocks.readStreamSuccess);
 
-		const { result } = renderHook(() => useAISummaryAction(url), { wrapper });
+		const result = renderHook(() => useAISummaryAction(url), { wrapper });
 		await act(async () => {
 			await result.current.summariseUrl();
 		});
@@ -91,7 +91,7 @@ describe('useAISummaryAction', () => {
 
 	it('sets status on summariseUrl error response', async () => {
 		fetchMock.mockRejectOnce(new Error('foo'));
-		const { result } = renderHook(() => useAISummaryAction(url), { wrapper });
+		const result = renderHook(() => useAISummaryAction(url), { wrapper });
 		await act(async () => {
 			await result.current.summariseUrl();
 		});
@@ -104,7 +104,7 @@ describe('useAISummaryAction', () => {
 		fetchMock.mockResolvedValueOnce({ ok: true, status: 200 } as Response);
 		(readStream as jest.Mock).mockImplementationOnce(aiSummaryMocks.readStreamError);
 
-		const { result } = renderHook(() => useAISummaryAction(url), { wrapper });
+		const result = renderHook(() => useAISummaryAction(url), { wrapper });
 		await act(async () => {
 			await result.current.summariseUrl();
 		});
@@ -117,7 +117,7 @@ describe('useAISummaryAction', () => {
 		fetchMock.mockResolvedValueOnce({ ok: true, status: 200 } as Response);
 		(readStream as jest.Mock).mockImplementationOnce(aiSummaryMocks.readStreamErrorMulti);
 
-		const { result } = renderHook(() => useAISummaryAction(url), { wrapper });
+		const result = renderHook(() => useAISummaryAction(url), { wrapper });
 		await act(async () => {
 			await result.current.summariseUrl();
 		});
@@ -136,7 +136,7 @@ describe('useAISummaryAction', () => {
 			fetchMock.mockResolvedValueOnce({ ok: true, status: 200 } as Response);
 			(readStream as jest.Mock).mockImplementationOnce(aiSummaryMocks.readStreamSuccess);
 
-			const { result } = renderHook(() => useAISummaryAction(url), { wrapper });
+			const result = renderHook(() => useAISummaryAction(url), { wrapper });
 
 			await act(async () => {
 				await result.current.summariseUrl();
@@ -168,7 +168,7 @@ describe('useAISummaryAction', () => {
 			async (expected: boolean, reason?: string) => {
 				fetchMock.mockRejectOnce(new ChunkProcessingError(reason));
 
-				const { result } = renderHook(() => useAISummaryAction(url), { wrapper });
+				const result = renderHook(() => useAISummaryAction(url), { wrapper });
 				await act(async () => {
 					await result.current.summariseUrl();
 				});

@@ -1,8 +1,9 @@
 import '@testing-library/jest-dom';
 import React from 'react';
 
-import { fireEvent, render, screen } from '@testing-library/react';
 import { IntlProvider } from 'react-intl';
+
+import { fireEvent, render, screen } from '@atlassian/testing-library';
 
 import context from '../../../../../../__fixtures__/flexible-ui-data-context';
 import { getFlexibleCardTestWrapper } from '../../../../../../__tests__/__utils__/unit-testing-library-helpers';

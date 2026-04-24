@@ -2,7 +2,8 @@
 import type { Rule } from 'eslint';
 import { isNodeOfType, type Property } from 'eslint-codemod-utils';
 
-import { isDecendantOfStyleBlock, isDecendantOfType } from '../../utils/is-node';
+import { isDecendantOfType } from '../../utils/is-decendant-of-type';
+import { isDecendantOfStyleBlock } from '../../utils/is-node';
 import type { RuleConfig } from '../config';
 
 interface MetaData {

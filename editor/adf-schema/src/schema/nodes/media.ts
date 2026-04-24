@@ -8,7 +8,10 @@ import { N30 } from '../../utils/colors';
 import type { BorderMarkDefinition } from '../marks/border';
 import type { LinkDefinition } from '../marks/link';
 import type { AnnotationMarkDefinition } from '../marks/annotation';
-import type { MediaInlineNode, MediaNode } from '../../next-schema/generated/nodeTypes';
+import type {
+	MediaInlineNode,
+	MediaNode,
+} from '../../next-schema/generated/nodeTypes';
 import {
 	media as mediaFactory,
 	mediaInline as mediaInlineFactory,
@@ -32,7 +35,9 @@ export interface MediaDefinition {
 	 * Minimum item: 1
 	 */
 	attrs: MediaADFAttrs;
-	marks?: Array<LinkDefinition | BorderMarkDefinition | AnnotationMarkDefinition>;
+	marks?: Array<
+		LinkDefinition | BorderMarkDefinition | AnnotationMarkDefinition
+	>;
 
 	type: 'media';
 }
@@ -87,7 +92,9 @@ export const defaultAttrs:
 	| {
 			[name: string]: AttributeSpec;
 	  }
-	| undefined = mediaFactory({}).attrs;
+	| undefined = {
+	...mediaFactory({}).attrs,
+};
 
 export interface MutableMediaAttributes extends MediaAttributes {
 	[key: string]: string | number | undefined | null | boolean;
@@ -131,8 +138,9 @@ export const createMediaSpec = (
 						// @ts-ignore TS1501: This regular expression flag is only available when targeting 'es6' or later.
 						// eslint-disable-next-line @atlassian/perf-linting/no-expensive-split-replace -- Ignored via go/ees017 (to be fixed)
 						const key = camelCaseToKebabCase(k).replace(/^__/u, '');
-						// eslint-disable-next-line @atlaskit/editor/no-as-casting
-						const value = (dom as HTMLElement).getAttribute(`data-${key}`) || '';
+						const value =
+							// eslint-disable-next-line @atlaskit/editor/no-as-casting
+							(dom as HTMLElement).getAttribute(`data-${key}`) || '';
 
 						if (value) {
 							attrs[k] = value;
@@ -248,8 +256,22 @@ export const mediaWithLocalId: NodeSpec = createMediaSpec(
  * There's no concept of optional property in ProseMirror. It sets value as `null`
  * when there's no use of any property. We are filtering out all private & optional attrs here.
  */
-const optionalAttributes = ['occurrenceKey', 'width', 'height', 'url', 'alt', 'localId'];
-const externalOnlyAttributes = ['type', 'url', 'width', 'height', 'alt', 'localId'];
+const optionalAttributes = [
+	'occurrenceKey',
+	'width',
+	'height',
+	'url',
+	'alt',
+	'localId',
+];
+const externalOnlyAttributes = [
+	'type',
+	'url',
+	'width',
+	'height',
+	'alt',
+	'localId',
+];
 
 export const toJSON = (
 	node: PMNode,
@@ -262,7 +284,10 @@ export const toJSON = (
 		.filter((key) => !(key[0] === '_' && key[1] === '_'))
 		// eslint-disable-next-line @typescript-eslint/no-explicit-any
 		.reduce<Record<string, any>>((obj, key) => {
-			if (node.attrs.type === 'external' && externalOnlyAttributes.indexOf(key) === -1) {
+			if (
+				node.attrs.type === 'external' &&
+				externalOnlyAttributes.indexOf(key) === -1
+			) {
 				return obj;
 			}
 			if (

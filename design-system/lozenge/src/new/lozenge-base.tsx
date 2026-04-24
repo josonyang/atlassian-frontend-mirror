@@ -7,7 +7,7 @@ import { forwardRef, memo, type Ref, useLayoutEffect, useRef, useState } from 'r
 import Badge, { type BadgeNewProps } from '@atlaskit/badge';
 import { cssMap, cx, jsx } from '@atlaskit/css';
 import ChevronDownIcon from '@atlaskit/icon/core/chevron-down';
-import { useResizingWidth } from '@atlaskit/motion/resizing-width';
+import { useResizing } from '@atlaskit/motion/resizing';
 import { fg } from '@atlaskit/platform-feature-flags';
 import Pressable from '@atlaskit/primitives/pressable';
 import Spinner from '@atlaskit/spinner';
@@ -575,7 +575,8 @@ const LozengeBase: import('react').MemoExoticComponent<
 		) => {
 			const [resizing, setResizing] = useState<boolean>(false);
 			const onFinishMotion = () => setResizing(false);
-			const resizingWidth = useResizingWidth({
+			const resizingWidth = useResizing({
+				dimension: 'width',
 				duration: token('motion.duration.medium'),
 				easing: token('motion.easing.inout.bold'),
 				onFinishMotion,

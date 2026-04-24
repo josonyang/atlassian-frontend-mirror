@@ -126,10 +126,10 @@ const components = {
 	Button: ExpandCollapseButton,
 };
 
-export default function Props(props: Record<string, unknown>) {
+export default function Props(props: Record<string, unknown>): JSX.Element {
 	return <PrettyProps components={components} {...props} />;
 }
 
-export function PropsTable(props: Record<string, unknown>) {
+export function PropsTable(props: Record<string, unknown>): JSX.Element {
 	return <PT shouldCollapse components={components} {...props} />;
 }

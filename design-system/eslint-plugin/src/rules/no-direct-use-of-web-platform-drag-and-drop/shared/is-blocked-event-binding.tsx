@@ -1,6 +1,6 @@
 import { isNodeOfType, type Property, type SpreadElement } from 'eslint-codemod-utils';
 
-import { blockedEventNameLookup } from './blocked';
+import { blockedEventNameLookup } from './blocked-event-name-lookup';
 
 export function isBlockedEventBinding(property: Property | SpreadElement): boolean {
 	if (!isNodeOfType(property, 'Property')) {

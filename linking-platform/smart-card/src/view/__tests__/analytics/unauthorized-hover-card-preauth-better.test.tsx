@@ -3,8 +3,6 @@ import './unauthorized.test.mock';
 
 import React from 'react';
 
-import { render, screen, waitFor } from '@testing-library/react';
-import userEvent from '@testing-library/user-event';
 import * as jestExtendedMatchers from 'jest-extended';
 import { IntlProvider } from 'react-intl';
 // eslint-disable-next-line @atlaskit/platform/prefer-crypto-random-uuid -- Use crypto.randomUUID instead
@@ -18,6 +16,7 @@ import { asMockFunction, type JestFunction } from '@atlaskit/media-test-helpers'
 import { auth } from '@atlaskit/outbound-auth-flow-client';
 import { eeTest } from '@atlaskit/tmp-editor-statsig/editor-experiments-test-utils';
 import { ffTest } from '@atlassian/feature-flags-test-utils';
+import { render, screen, waitFor, userEvent } from '@atlassian/testing-library';
 
 import { fakeFactory, mocks } from '../../../utils/mocks';
 import { Card } from '../../Card';

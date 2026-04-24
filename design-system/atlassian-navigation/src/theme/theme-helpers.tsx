@@ -1,12 +1,10 @@
 import chromatism from 'chromatism';
 
 export const hexToRGBA = (hex: string, opacity: number = 1) => {
-	const rgba = { ...chromatism.convert(hex).rgb, ...{ a: opacity } };
+	const rgba = { ...chromatism.convert(hex).rgb,  a: opacity };
 
 	return `rgba(${Object.values(rgba).join(', ')})`;
 };
-
-export const getBoxShadow = (color: string) => `0 0 0 2px ${color}`;
 
 const hex = '[a-z0-9]';
 const shortHandHexColorPattern = new RegExp(`#(${hex})(${hex})(${hex})`, 'i');
@@ -52,3 +50,5 @@ export const getContrastColor = (
 	opacityValue: number,
 	color: string,
 ): string => hexToRGBA(chromatism.contrast(contrastValue, color).hex, opacityValue);
+
+export { getBoxShadow } from './get-box-shadow';

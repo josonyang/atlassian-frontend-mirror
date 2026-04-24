@@ -311,7 +311,7 @@ export default class ReactNodeView<P = ReactComponentProps> implements NodeView 
 		});
 	}
 
-	get dom() {
+	get dom(): HTMLElement {
 		// Only return reference if domRef is defined
 		if (this.domRef === undefined) {
 			//raise an error

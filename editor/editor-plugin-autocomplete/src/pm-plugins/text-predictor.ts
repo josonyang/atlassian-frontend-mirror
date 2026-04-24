@@ -20,6 +20,7 @@ import l3VocabularyData from './data/l3_vocabulary.json';
 import vocabularyData from './data/vocabulary_10k.json';
 import wordIndexData from './data/word_index_10k.json';
 // import { rankCandidates, isGrammarAllowed } from './scoring-pipeline';
+import { isAutocompleteDebugEnabled } from './debug-mode';
 import { rankCandidates, STAGE1_WEIGHT, STAGE2_WEIGHT, MIN_STAGE1_SCORE } from './scoring-pipeline';
 import type { ScoringCandidate } from './scoring-pipeline';
 import { getStoredContextVector, getStoredLmLogits } from './slow-lane-client';
@@ -183,7 +184,7 @@ export const initL3Vocabulary = (l3Words: string[]): void => {
 		// loses to any domain word in Stage 1, but still scores above 0.
 		l3Trie.insert(word, L3_BASELINE_FREQ, 0, 0);
 	}
-	if (debugMode) {
+	if (isAutocompleteDebugEnabled()) {
 		// eslint-disable-next-line no-console
 		console.log(`[text-predictor] L3 General English loaded: ${l3Words.length} words`);
 	}
@@ -199,8 +200,6 @@ let vectorStore: VectorStore | null = null;
 
 let vectorsLoadStarted = false;
 
-let debugMode = true;
-
 let lastPredictionDebug: {
 	contextWords: string[];
 	currentWord: string;
@@ -215,8 +214,6 @@ let lastPredictionDebug: {
 		word: string;
 	}>;
 } | null = null;
-
-let hasLoggedSemanticActive = false;
 
 /** Get vector for a word from the store. */
 const getWordVector = (word: string): Float32Array | null => {
@@ -306,18 +303,6 @@ const extractPreviousWord = (text: string): string => {
 
 // ─── Debug Helpers ───────────────────────────────────────────────────────────
 
-/** Enable or disable debug logging. Also checks localStorage key `autocomplete-debug`. */
-export const setDebugMode = (enabled: boolean): void => {
-	debugMode = enabled;
-};
-
-/** Check localStorage for autocomplete-debug on first access. */
-const ensureDebugModeFromStorage = (): void => {
-	if (typeof localStorage !== 'undefined' && localStorage.getItem('autocomplete-debug') === '1') {
-		debugMode = true;
-	}
-};
-
 /**
  * Get predictor status for debugging.
  * vectorsLoaded: true when semantic scoring is active
@@ -329,7 +314,6 @@ export const getPredictorStatus = (): {
 	vectorsLoadStarted: boolean;
 	wordCount: number;
 } => {
-	ensureDebugModeFromStorage();
 	return {
 		vectorsLoaded: vectorStore !== null,
 		wordCount: vectorStore ? Object.keys(vectorStore.wordIndex).length : 0,
@@ -356,7 +340,6 @@ export const getLastPredictionDebug = (): {
 		word: string;
 	}>;
 } | null => {
-	ensureDebugModeFromStorage();
 	return lastPredictionDebug;
 };
 
@@ -401,7 +384,7 @@ export const ingestDocumentPage = (pageContent: string | undefined): void => {
 		}
 	}
 
-	if (debugMode && validBoostedWords.size > 0) {
+	if (isAutocompleteDebugEnabled() && validBoostedWords.size > 0) {
 		// eslint-disable-next-line no-console
 		console.groupCollapsed(
 			`%c[L1 Session] %cPrimed ${validBoostedWords.size} valid dictionary words from page`,
@@ -416,8 +399,6 @@ export const ingestDocumentPage = (pageContent: string | undefined): void => {
 };
 
 export const predict = (textBefore: string): string | null => {
-	ensureDebugModeFromStorage();
-
 	if (!isInitialized) {
 		loadDefaultVocabulary();
 	}
@@ -506,7 +487,7 @@ export const predict = (textBefore: string): string | null => {
 	const lmLogits = getStoredLmLogits();
 
 	// Raw LM Output Logger
-	if (debugMode && lmLogits && Object.keys(lmLogits).length > 0) {
+	if (isAutocompleteDebugEnabled() && lmLogits && Object.keys(lmLogits).length > 0) {
 		const rawLmTop = Object.entries(lmLogits)
 			.sort((a, b) => b[1] - a[1])
 			.slice(0, 5)
@@ -519,10 +500,6 @@ export const predict = (textBefore: string): string | null => {
 	}
 
 	const mode: 'cold' | 'warm' = contextVector ? 'warm' : 'cold';
-
-	if (debugMode && contextVector && !hasLoggedSemanticActive) {
-		hasLoggedSemanticActive = true;
-	}
 
 	// Build ScoringCandidate array from TrieNodes
 	const scoringCandidates: ScoringCandidate[] = candidates.map(({ word, node }) => ({
@@ -556,7 +533,7 @@ export const predict = (textBefore: string): string | null => {
 	const suggestion =
 		best && best.finalScore >= MIN_SCORE_THRESHOLD ? best.word.slice(currentWord.length) : null;
 
-	if (debugMode) {
+	if (isAutocompleteDebugEnabled()) {
 		const latencyMs = performance.now() - t0;
 		const tokens = tokenize(trimmed);
 		const contextWords = tokens.slice(-CONTEXT_WORDS);
@@ -772,8 +749,7 @@ export const loadVectorsAsync = async (options?: {
 		const dim = float32.length / nWords;
 
 		vectorStore = { float32, wordIndex, dim };
-		ensureDebugModeFromStorage();
-		if (debugMode) {
+		if (isAutocompleteDebugEnabled()) {
 			// eslint-disable-next-line no-console
 			console.log('[text-predictor] Vectors loaded:', {
 				wordCount: nWords,

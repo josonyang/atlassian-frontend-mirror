@@ -7,7 +7,7 @@ type AppearancePluginState = {
 	appearance: EditorAppearance | undefined;
 };
 
-export const appearancePluginKey = new PluginKey<AppearancePluginState>('appearancePlugin');
+export const appearancePluginKey: PluginKey<AppearancePluginState> = new PluginKey<AppearancePluginState>('appearancePlugin');
 
 const DEFAULT_APPEARANCE: EditorAppearance = 'comment';
 

@@ -4,14 +4,17 @@ description: A set of utilities to apply motion in your application.
 order: 0
 ---
 
+import Link from '@atlaskit/link';
 import SectionMessage from '@atlaskit/section-message';
+import MotionResizingWidth from '../../examples/constellation/motion-resizing-width';
+import MotionResizingHeightNew from '../../examples/constellation/motion-resizing-height-new';
+import MotionResizingBoth from '../../examples/constellation/motion-resizing-both';
 import MotionResizingHeight from '../../examples/constellation/motion-resizing-height';
 
-## Default
 
 <SectionMessage appearance="warning">
 	<p>
-		This example demonstrates how to animate height which is{' '}
+		This page demonstrates how to animate width, height or both which is{' '}
 		<a
 			target="_blank"
 			rel="noopener noreferrer"
@@ -22,6 +25,43 @@ import MotionResizingHeight from '../../examples/constellation/motion-resizing-h
 		. <strong>Test your app over low powered devices</strong>, you may want to avoid this if you can
 		see it impacting FPS.
 	</p>
+</SectionMessage>
+
+## useResizing
+### Width
+
+Animates the container width as items are added or removed horizontally.
+
+<Example
+	packageName="@atlaskit/motion"
+	Component={MotionResizingWidth}
+	title="Resizing width"
+/>
+
+### Height
+
+Animates the container height as items are added or removed vertically.
+
+<Example
+	packageName="@atlaskit/motion"
+	Component={MotionResizingHeightNew}
+	title="Resizing height"
+/>
+
+### Width and Height
+
+Animates both width and height simultaneously as the grid grows or shrinks.
+
+<Example
+	packageName="@atlaskit/motion"
+	Component={MotionResizingBoth}
+	title="Resizing both"
+/>
+
+## useResizingHeight
+
+<SectionMessage appearance="warning" title="Caution">
+	We are planning on deprecating useResizingHeight. Please use the <Link href="#useresizing">useResizing</Link> hook instead.
 </SectionMessage>
 
 <Example

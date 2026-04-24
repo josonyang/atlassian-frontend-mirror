@@ -1,10 +1,10 @@
 import React from 'react';
 
-import { screen } from '@testing-library/react';
 import { injectable } from 'react-magnetic-di';
 
 import { Field } from '@atlaskit/form';
 import { skipAutoA11yFile } from '@atlassian/a11y-jest-testing';
+import { screen } from '@atlassian/testing-library';
 
 import { createGenericComponent, renderWithDi } from '../../common/test-utils';
 import { type UserInputSelectPrompt, UserInputType } from '../../common/types';

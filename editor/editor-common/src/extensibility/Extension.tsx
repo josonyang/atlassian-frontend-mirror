@@ -99,7 +99,7 @@ export class Extension extends Component<Props, any> {
 	render(): React.JSX.Element {
 		return (
 			<WithProviders
-				// eslint-disable-next-line @atlassian/perf-linting/no-unstable-inline-props -- Ignored via go/ees017 (to be fixed)
+				// eslint-disable-next-line @atlassian/perf-linting/no-unstable-inline-props -- there seems to be an existing bug where the Extension component can't be resized if this is memoised because it doesn't rerender so this can't be memoised without a larger refactor
 				providers={['extensionProvider']}
 				providerFactory={this.providerFactory}
 				renderNode={this.renderWithProvider}

@@ -3,53 +3,10 @@ import { isNodeOfType, type JSXAttribute, type JSXElement } from 'eslint-codemod
 
 import { getSourceCode } from '@atlaskit/eslint-utils/context-compat';
 
-import * as ast from '../../ast-nodes';
-import { Import } from '../../ast-nodes/import';
+import { getCssMapKey } from './get-css-map-key';
+import { getStaticAttributeValue } from './get-static-attribute-value';
 
-export const FLEX_IMPORT_MODULE = '@atlaskit/primitives/compiled';
-export const FLEX_IMPORT_MODULE_NON_COMPILED = '@atlaskit/primitives';
-export const TOKEN_IMPORT_MODULE = '@atlaskit/tokens';
-export const CSS_IMPORT_MODULE = '@atlaskit/css';
 export const CSSMAP_VARIABLE_NAME = 'iconSpacingStyles';
-
-/**
- * Padding token mapping based on icon size and spacing value.
- * Same mapping as the codemod `icon-spacing-to-box-primitive`.
- */
-export const SPACING_TO_PADDING: Record<string, Record<string, string>> = {
-	medium: { compact: 'space.050', spacious: 'space.050' },
-	small: { compact: 'space.025', spacious: 'space.075' },
-};
-
-/**
- * Maps a padding token to a cssMap key name.
- * e.g. 'space.050' → 'space050'
- */
-export function getCssMapKey(paddingToken: string): string {
-	return paddingToken.replace('space.', 'space');
-}
-
-/**
- * Returns the `spacing` JSXAttribute from an icon element, or undefined.
- */
-export function getSpacingAttribute(node: JSXElement): JSXAttribute | undefined {
-	if (!isNodeOfType(node.openingElement, 'JSXOpeningElement')) {
-		return undefined;
-	}
-	return node.openingElement.attributes.find(
-		(a): a is JSXAttribute => a.type === 'JSXAttribute' && a.name.name === 'spacing',
-	);
-}
-
-/**
- * Returns the static string value of a JSXAttribute, or undefined if dynamic.
- */
-export function getStaticAttributeValue(attr: JSXAttribute): string | undefined {
-	if (attr.value && attr.value.type === 'Literal' && typeof attr.value.value === 'string') {
-		return attr.value.value;
-	}
-	return undefined;
-}
 
 /**
  * Returns the static `size` prop value, defaulting to 'medium' if not present.
@@ -68,168 +25,6 @@ export function getIconSize(node: JSXElement): string | undefined {
 	}
 
 	return getStaticAttributeValue(sizeAttr);
-}
-
-/**
- * Returns true if the element has any JSXSpreadAttribute.
- */
-export function hasSpreadProps(node: JSXElement): boolean {
-	return node.openingElement.attributes.some((a) => a.type === 'JSXSpreadAttribute');
-}
-
-/**
- * Upserts `Flex` from `@atlaskit/primitives/compiled`, handling:
- * 1. Already imported from `/compiled` → add Flex if missing
- * 2. Import from `@atlaskit/primitives` (non-compiled) → migrate path + add Flex
- * 3. No import → insert new `import { Flex } from '@atlaskit/primitives/compiled'`
- */
-export function upsertFlexImport(
-	context: Rule.RuleContext,
-	fixer: Rule.RuleFixer,
-): Rule.Fix | undefined {
-	const root = getSourceCode(context).ast.body;
-
-	const findExactImports = (module: string) =>
-		root.filter(
-			(node): node is import('eslint-codemod-utils').ImportDeclaration =>
-				node.type === 'ImportDeclaration' && node.source.value === module,
-		);
-
-	const compiledImports = findExactImports(FLEX_IMPORT_MODULE);
-	if (compiledImports.length > 0) {
-		const decl = compiledImports[0];
-		if (Import.containsNamedSpecifier(decl, 'Flex')) {
-			return undefined;
-		}
-		const specifiers = decl.specifiers
-			.filter((s) => s.type === 'ImportSpecifier')
-			.map((s) => s.local.name);
-		specifiers.push('Flex');
-		specifiers.sort();
-		return fixer.replaceText(
-			decl,
-			`import { ${specifiers.join(', ')} } from '${FLEX_IMPORT_MODULE}';`,
-		);
-	}
-
-	const nonCompiledImports = findExactImports(FLEX_IMPORT_MODULE_NON_COMPILED);
-	if (nonCompiledImports.length > 0) {
-		const decl = nonCompiledImports[0];
-		const specifiers = decl.specifiers
-			.filter((s) => s.type === 'ImportSpecifier')
-			.map((s) => s.local.name);
-		if (!specifiers.includes('Flex')) {
-			specifiers.push('Flex');
-		}
-		specifiers.sort();
-		return fixer.replaceText(
-			decl,
-			`import { ${specifiers.join(', ')} } from '${FLEX_IMPORT_MODULE}';`,
-		);
-	}
-
-	return ast.Root.upsertNamedImportDeclaration(
-		{ module: FLEX_IMPORT_MODULE, specifiers: ['Flex'] },
-		context,
-		fixer,
-	);
-}
-
-/**
- * Upserts `cssMap` from `@atlaskit/css`, handling:
- * 1. Already imported → no-op
- * 2. `@atlaskit/css` exists but missing `cssMap` → add specifier
- * 3. No import → insert new `import { cssMap } from '@atlaskit/css'`
- */
-export function upsertCssMapImport(
-	context: Rule.RuleContext,
-	fixer: Rule.RuleFixer,
-): Rule.Fix | undefined {
-	const root = getSourceCode(context).ast.body;
-
-	const cssImports = root.filter(
-		(node): node is import('eslint-codemod-utils').ImportDeclaration =>
-			node.type === 'ImportDeclaration' && node.source.value === CSS_IMPORT_MODULE,
-	);
-
-	if (cssImports.length > 0) {
-		const decl = cssImports[0];
-		const hasCssMap = Import.containsNamedSpecifier(decl, 'cssMap');
-
-		if (hasCssMap) {
-			return undefined;
-		}
-
-		const specifiers = decl.specifiers
-			.filter((s) => s.type === 'ImportSpecifier')
-			.map((s) => s.local.name);
-		specifiers.push('cssMap');
-		specifiers.sort();
-
-		return fixer.replaceText(
-			decl,
-			`import { ${specifiers.join(', ')} } from '${CSS_IMPORT_MODULE}';`,
-		);
-	}
-
-	// If cssMap is already imported from another package (e.g. @compiled/react), don't add a duplicate
-	const cssMapAlreadyImported = root.some(
-		(node) =>
-			node.type === 'ImportDeclaration' &&
-			(node as import('eslint-codemod-utils').ImportDeclaration).specifiers.some(
-				(s) => s.type === 'ImportSpecifier' && s.local.name === 'cssMap',
-			),
-	);
-
-	if (cssMapAlreadyImported) {
-		return undefined;
-	}
-
-	return ast.Root.upsertNamedImportDeclaration(
-		{ module: CSS_IMPORT_MODULE, specifiers: ['cssMap'] },
-		context,
-		fixer,
-	);
-}
-
-/**
- * Upserts `token` from `@atlaskit/tokens`, handling:
- * 1. Already imported → no-op
- * 2. `@atlaskit/tokens` exists but missing `token` → add specifier
- * 3. No import → insert new `import { token } from '@atlaskit/tokens'`
- */
-export function upsertTokenImport(
-	context: Rule.RuleContext,
-	fixer: Rule.RuleFixer,
-): Rule.Fix | undefined {
-	const root = getSourceCode(context).ast.body;
-
-	const tokenImports = root.filter(
-		(node): node is import('eslint-codemod-utils').ImportDeclaration =>
-			node.type === 'ImportDeclaration' && node.source.value === TOKEN_IMPORT_MODULE,
-	);
-
-	if (tokenImports.length > 0) {
-		const decl = tokenImports[0];
-		if (Import.containsNamedSpecifier(decl, 'token')) {
-			return undefined;
-		}
-		const specifiers = decl.specifiers
-			.filter((s) => s.type === 'ImportSpecifier')
-			.map((s) => s.local.name);
-		specifiers.push('token');
-		specifiers.sort();
-		return fixer.replaceText(
-			decl,
-			`import { ${specifiers.join(', ')} } from '${TOKEN_IMPORT_MODULE}';`,
-		);
-	}
-
-	return ast.Root.upsertNamedImportDeclaration(
-		{ module: TOKEN_IMPORT_MODULE, specifiers: ['token'] },
-		context,
-		fixer,
-	);
 }
 
 /**
@@ -289,3 +84,12 @@ export function upsertCssMapVariable(
 
 	return undefined;
 }
+
+export { SPACING_TO_PADDING } from './spacing-to-padding';
+export { getCssMapKey } from './get-css-map-key';
+export { getSpacingAttribute } from './get-spacing-attribute';
+export { getStaticAttributeValue } from './get-static-attribute-value';
+export { hasSpreadProps } from './has-spread-props';
+export { upsertFlexImport } from './upsert-flex-import';
+export { upsertCssMapImport } from './upsert-css-map-import';
+export { upsertTokenImport } from './upsert-token-import';

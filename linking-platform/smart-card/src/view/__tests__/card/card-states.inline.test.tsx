@@ -2,7 +2,6 @@ import './card-states.card.test.mock';
 
 import React, { type ReactNode, useEffect, useState } from 'react';
 
-import { act, render, screen, waitFor as waitForElement } from '@testing-library/react';
 import { IntlProvider } from 'react-intl';
 
 import FabricAnalyticsListeners, { type AnalyticsWebClient } from '@atlaskit/analytics-listeners';
@@ -14,6 +13,7 @@ import {
 import { mockSimpleIntersectionObserver } from '@atlaskit/link-test-helpers';
 import { eeTest } from '@atlaskit/tmp-editor-statsig/editor-experiments-test-utils';
 import { ffTest } from '@atlassian/feature-flags-test-utils';
+import { act, render, screen, waitFor as waitForElement } from '@atlassian/testing-library';
 
 import { fakeFactory, mocks, waitFor } from '../../../utils/mocks';
 import { Card } from '../../Card';
@@ -458,7 +458,15 @@ describe('smart-card: card states, inline', () => {
 							render(
 								<IntlProvider locale="en">
 									<Provider client={mockClient} rovoOptions={rovoOptions}>
-										<Card appearance="inline" url={mockUrl} showHoverPreview />
+										<Card
+											appearance="inline"
+											url={mockUrl}
+											showHoverPreview
+											actionOptions={{
+												hide: false,
+												rovoChatAction: { optIn: true },
+											}}
+										/>
 									</Provider>
 								</IntlProvider>,
 							);
@@ -469,6 +477,29 @@ describe('smart-card: card states, inline', () => {
 						});
 
 						it('does not render rovo action button when supportedFeature does not include RovoActions', async () => {
+							render(
+								<IntlProvider locale="en">
+									<Provider client={mockClient} rovoOptions={rovoOptions}>
+										<Card
+											appearance="inline"
+											url={mockUrl}
+											showHoverPreview
+											actionOptions={{
+												hide: false,
+												rovoChatAction: { optIn: true },
+											}}
+										/>
+									</Provider>
+								</IntlProvider>,
+							);
+							expect(await screen.findByTestId('inline-card-resolved-view')).toBeInTheDocument();
+							expect(
+								screen.queryByTestId('inline-card-resolved-view-rovo-actions-cta'),
+							).not.toBeInTheDocument();
+						});
+
+						it('does not render rovo action button when actionOptions.rovoChatAction.optIn is not set', async () => {
+							mockFetch.mockImplementation(() => Promise.resolve(mockSuccessWithRovoActions));
 							render(
 								<IntlProvider locale="en">
 									<Provider client={mockClient} rovoOptions={rovoOptions}>

@@ -27,6 +27,7 @@ import { SyncedBlockUnpublishedError } from './SyncedBlockUnpublishedError';
 const getForbiddenErrorContent = (
 	resourceId?: string,
 	fireAnalyticsEvent?: (payload: RendererSyncBlockEventPayload) => void,
+	getAccountId?: () => string | null,
 ) => {
 	try {
 		if (!resourceId) {
@@ -38,6 +39,7 @@ const getForbiddenErrorContent = (
 			<SyncedBlockPermissionDenied
 				sourceContentId={sourceContentId}
 				sourceProduct={sourceProduct}
+				accountId={getAccountId?.() ?? null}
 			/>
 		);
 	} catch (error) {
@@ -56,9 +58,11 @@ export const SyncedBlockErrorComponent = ({
 	resourceId,
 	fireAnalyticsEvent,
 	sourceURL,
+	getAccountId,
 }: {
 	error: SyncBlockInstance['error'];
 	fireAnalyticsEvent?: (payload: RendererSyncBlockEventPayload) => void;
+	getAccountId?: () => string | null;
 	isLoading?: boolean;
 	onRetry?: () => void;
 	resourceId?: string;
@@ -84,7 +88,7 @@ export const SyncedBlockErrorComponent = ({
 			case SyncBlockError.Offline:
 				return <SyncedBlockOfflineError />;
 			case SyncBlockError.Forbidden:
-				return getForbiddenErrorContent(resourceId, fireAnalyticsEvent);
+				return getForbiddenErrorContent(resourceId, fireAnalyticsEvent, getAccountId);
 			case SyncBlockError.NotFound:
 				return <SyncedBlockNotFoundError reason={error.reason} sourceAri={error.sourceAri} />;
 			case SyncBlockError.Unpublished:
@@ -96,7 +100,7 @@ export const SyncedBlockErrorComponent = ({
 			default:
 				return <SyncedBlockGenericError />;
 		}
-	}, [error, isLoading, onRetry, resourceId, fireAnalyticsEvent, sourceURL]);
+	}, [error, isLoading, onRetry, resourceId, fireAnalyticsEvent, sourceURL, getAccountId]);
 
 	return (
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop

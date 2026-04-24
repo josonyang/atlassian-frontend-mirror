@@ -31,7 +31,7 @@ interface SimpleMarkdownRendererProps {
  * - It doesn't render MDX (markdown with JSX)
  * - It isn't intended for use in main content areas, because it doesn't support heading section links
  */
-const SimpleMarkdownRenderer = ({ children }: SimpleMarkdownRendererProps) => {
+const SimpleMarkdownRenderer = ({ children }: SimpleMarkdownRendererProps): React.JSX.Element => {
 	return (
 		<Markdown
 			components={components}

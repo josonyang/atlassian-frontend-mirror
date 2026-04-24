@@ -84,7 +84,8 @@
 		}
 	},
 	"exports": {
-		"./types": "./src/types.tsx",
-		".": "./src/index.tsx"
+		".": "./src/index.tsx",
+		"./empty-state": "./src/entry-points/empty-state.tsx",
+		"./types": "./src/entry-points/types.tsx"
 	}
 }

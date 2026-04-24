@@ -1,7 +1,8 @@
 import React from 'react';
 
-import { render } from '@testing-library/react';
 import { FormattedMessage, injectIntl, IntlProvider } from 'react-intl';
+
+import { render } from '@atlassian/testing-library';
 
 import { messages } from '../../../../messages';
 import withIntlProvider from '../index';

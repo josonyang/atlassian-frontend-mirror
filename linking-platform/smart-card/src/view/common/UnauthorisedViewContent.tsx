@@ -8,7 +8,6 @@ import { Anchor } from '@atlaskit/primitives/compiled';
 import { useAnalyticsEvents } from '../../common/analytics/generated/use-analytics-events';
 import { CONTENT_URL_3P_ACCOUNT_AUTH, CONTENT_URL_SECURITY_AND_PERMISSIONS } from '../../constants';
 import { messages } from '../../messages';
-import { isNewBlockcardUnauthorizedRefreshExperimentEnabled } from '../../utils/experiments';
 
 type UnauthorisedViewContentProps = {
 	/**
@@ -52,11 +51,8 @@ const UnauthorisedViewContent = ({
 			: messages.learn_more_about_connecting_account
 		: messages.learn_more_about_smart_links;
 
-	const unauthorizedAccountDescriptionMessage = isNewBlockcardUnauthorizedRefreshExperimentEnabled()
-		? messages.learn_more_about_connecting_account_experiment_shorter
-		: fg('product-terminology-refresh')
-			? messages.connect_unauthorised_account_description_appify
-			: messages.connect_unauthorised_account_description;
+	const unauthorizedAccountDescriptionMessage =
+		messages.learn_more_about_connecting_account_experiment_shorter;
 
 	return (
 		<>
@@ -72,7 +68,7 @@ const UnauthorisedViewContent = ({
 						: messages.connect_unauthorised_account_description_no_provider)}
 				/>
 			)}
-			{isNewBlockcardUnauthorizedRefreshExperimentEnabled() ? <br /> : ' '}
+			<br />
 			<Anchor
 				href={
 					isProductIntegrationSupported

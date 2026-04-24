@@ -2,7 +2,7 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
-import { type CSSProperties, Fragment, type ReactNode, useRef, useState } from 'react';
+import { type CSSProperties, type ReactNode, useRef, useState } from 'react';
 
 import { jsx } from '@compiled/react';
 
@@ -123,14 +123,15 @@ const styles = cssMap({
 		color: token('color.text'),
 		fontVariantNumeric: 'tabular-nums',
 	},
-	controlAnchor: {
+	// The control panel is pinned to the viewport corner using the
+	// "fixed-position popover" recipe documented in
+	// `notes/decisions/fixed-position-popover.md`: a `<Popover mode="manual">`
+	// with a `position: fixed` child and logical `inset-*` tokens. No anchor
+	// element, no `useAnchorPosition`.
+	controlPanelPin: {
 		position: 'fixed',
 		insetBlockStart: token('space.300'),
 		insetInlineEnd: token('space.300'),
-		width: '1px',
-		height: '1px',
-		pointerEvents: 'none',
-		opacity: 0,
 	},
 	controlPanel: {
 		width: '280px',
@@ -599,36 +600,12 @@ function ControlPanel({
 }: {
 	children: ReactNode;
 }) {
-	const anchorRef = useRef<HTMLDivElement>(null);
-	const popoverRef = useRef<HTMLDivElement>(null);
-
-	const placement: TPlacementOptions = {
-		axis: 'block',
-		edge: 'end',
-		align: 'start',
-		offset: { gap: 0 },
-	};
-
-	useAnchorPosition({
-		anchorRef,
-		popoverRef,
-		placement,
-	});
-
 	return (
-		<Fragment>
-			<div ref={anchorRef} css={styles.controlAnchor} aria-hidden="true" />
-			<Popover
-				ref={popoverRef}
-				role="dialog"
-				mode="manual"
-				isOpen
-				placement={placement}
-				label="Offset controls"
-			>
+		<Popover role="dialog" mode="manual" isOpen label="Offset controls">
+			<div css={styles.controlPanelPin}>
 				<div css={styles.controlPanel}>{children}</div>
-			</Popover>
-		</Fragment>
+			</div>
+		</Popover>
 	);
 }
 

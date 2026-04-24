@@ -1,15 +1,5 @@
 import React, { type ReactElement } from 'react';
 
-import {
-	render,
-	screen,
-	type ByRoleMatcher,
-	type ByRoleOptions,
-	type Matcher,
-	type MatcherOptions,
-	type waitForOptions,
-} from '@testing-library/react';
-import userEvent, { type UserEvent } from '@testing-library/user-event';
 import { IntlProvider } from 'react-intl';
 
 import FabricAnalyticsListeners, { type AnalyticsWebClient } from '@atlaskit/analytics-listeners';
@@ -20,6 +10,7 @@ import type { ProductType } from '@atlaskit/linking-common';
 import { Box } from '@atlaskit/primitives/compiled';
 import { Card, type CardProps } from '@atlaskit/smart-card';
 import { setGlobalTheme } from '@atlaskit/tokens';
+import { render, screen, userEvent, type Matcher } from '@atlassian/testing-library';
 
 import * as analytics from '../../../../utils/analytics/analytics';
 import { fakeFactory } from '../../../../utils/mocks';
@@ -60,36 +51,7 @@ export const setup = async ({
 	storeOptions,
 	userEventOptions = { delay: null },
 	product,
-}: SetUpParams = {}): Promise<{
-	container: HTMLElement;
-	findAllByTestId: (
-		id: Matcher,
-		options?: MatcherOptions | undefined,
-		waitForElementOptions?: waitForOptions | undefined,
-	) => Promise<HTMLElement[]>;
-	findByTestId: (
-		id: Matcher,
-		options?: MatcherOptions | undefined,
-		waitForElementOptions?: waitForOptions | undefined,
-	) => Promise<HTMLElement>;
-	queryByTestId: (id: Matcher, options?: MatcherOptions | undefined) => HTMLElement | null;
-	findByRole: (
-		role: ByRoleMatcher,
-		options?: ByRoleOptions | undefined,
-		waitForElementOptions?: waitForOptions | undefined,
-	) => Promise<HTMLElement>;
-	queryByRole: (role: ByRoleMatcher, options?: ByRoleOptions | undefined) => HTMLElement | null;
-	element: HTMLElement;
-	analyticsSpy: jest.Mock<any, any, any>;
-	dateSpy: jest.SpyInstance<number, [], any>;
-	event: UserEvent;
-	mockAnalyticsClient: {
-		sendUIEvent: jest.Mock<any, any, any>;
-		sendOperationalEvent: jest.Mock<any, any, any>;
-		sendTrackEvent: jest.Mock<any, any, any>;
-		sendScreenEvent: jest.Mock<any, any, any>;
-	};
-}> => {
+}: SetUpParams = {}) => {
 	const mockClient = new (fakeFactory(mockFetch))();
 	const analyticsSpy = jest.fn();
 	const mockAnalyticsClient = {

@@ -46,7 +46,7 @@ const config = {
 	],
 } satisfies PlaygroundConfig;
 
-export default function TeamAvatarExample() {
+export default function TeamAvatarExample(): React.JSX.Element {
 	return (
 		<Playground config={config}>
 			{({ size, imageSource }) => (

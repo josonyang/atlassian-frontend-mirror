@@ -210,7 +210,7 @@ export const MainToolbar = ({
 	twoLineEditorToolbar,
 	children,
 	isNewToolbarEnabled,
-}: MainToolbarProps) => {
+}: MainToolbarProps): jsx.JSX.Element => {
 	if (useStickyToolbar) {
 		return (
 			<StickyToolbar

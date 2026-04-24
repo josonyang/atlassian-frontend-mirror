@@ -1,9 +1,9 @@
 import React from 'react';
 
-import { screen } from '@testing-library/react';
 
 import { SmartCardProvider } from '@atlaskit/link-provider';
 import { renderWithIntl } from '@atlaskit/link-test-helpers';
+import { screen } from '@atlassian/testing-library';
 
 import { EmbedCardResolvedView, type EmbedCardResolvedViewProps } from './ResolvedView';
 

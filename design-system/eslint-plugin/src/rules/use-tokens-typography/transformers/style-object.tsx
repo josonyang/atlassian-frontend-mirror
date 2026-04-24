@@ -11,28 +11,19 @@ import {
 import { getSourceCode } from '@atlaskit/eslint-utils/context-compat';
 
 import { Object as ASTObject, ObjectEntry, Root } from '../../../ast-nodes';
-import { getValueForPropertyNode, normaliseValue } from '../../ensure-design-token-usage/utils';
-import {
-	isDecendantOfGlobalToken,
-	isDecendantOfStyleBlock,
-	isDecendantOfType,
-} from '../../utils/is-node';
+import { normaliseValue } from '../../ensure-design-token-usage/normalise-value';
+import { getValueForPropertyNode } from '../../ensure-design-token-usage/utils';
+import { isDecendantOfGlobalToken } from '../../utils/is-decendant-of-global-token';
+import { isDecendantOfType } from '../../utils/is-decendant-of-type';
+import { isDecendantOfStyleBlock } from '../../utils/is-node';
 import type { RuleConfig } from '../config';
-import {
-	convertPropertyNodeToStringableNode,
-	defaultFontWeight,
-	findFontWeightTokenForValue,
-	findTypographyTokenForValues,
-	type FontWeightMap,
-	fontWeightMap,
-	getLiteralProperty,
-	getTokenProperty,
-	insertTokensImport,
-	isValidPropertyNode,
-	isValidTypographyToken,
-	notUndefined,
-	type TokenValueMap,
-} from '../utils';
+import { convertPropertyNodeToStringableNode } from '../convert-property-node-to-stringable-node';
+import { getLiteralProperty } from '../get-literal-property';
+import { insertTokensImport } from '../insert-tokens-import';
+import { isValidPropertyNode } from '../is-valid-property-node';
+import { isValidTypographyToken } from '../is-valid-typography-token';
+import { notUndefined } from '../not-undefined';
+import { defaultFontWeight, findFontWeightTokenForValue, findTypographyTokenForValues, type FontWeightMap, fontWeightMap, getTokenProperty, type TokenValueMap } from '../utils';
 
 interface MetaData {
 	context: Rule.RuleContext;

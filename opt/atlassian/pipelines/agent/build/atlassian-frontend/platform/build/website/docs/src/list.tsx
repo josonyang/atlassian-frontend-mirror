@@ -21,7 +21,7 @@ export function List({
 }: {
 	children: React.ReactNode;
 	type: 'bullet' | 'ordered';
-}) {
+}): JSX.Element {
 	return (
 		<Box as={type === 'ordered' ? 'ol' : 'ul'} xcss={styles.root}>
 			{children}

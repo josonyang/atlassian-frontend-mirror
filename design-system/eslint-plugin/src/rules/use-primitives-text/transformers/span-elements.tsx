@@ -6,13 +6,11 @@ import { getSourceCode } from '@atlaskit/eslint-utils/context-compat';
 
 import * as ast from '../../../ast-nodes';
 
-import {
-	addColorInheritAttributeFix,
-	allowedAttrs,
-	hasTextChildrenOnly,
-	type MetaData,
-	updateTestIdAttributeFix,
-} from './common';
+import { addColorInheritAttributeFix } from './add-color-inherit-attribute-fix';
+import { allowedAttrs } from './allowed-attrs';
+import type { MetaData } from './common';
+import { hasTextChildrenOnly } from './has-text-children-only';
+import { updateTestIdAttributeFix } from './update-test-id-attribute-fix';
 
 type CheckResult = { success: boolean; autoFixable?: boolean };
 

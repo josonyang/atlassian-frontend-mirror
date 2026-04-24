@@ -49,9 +49,10 @@
 		}
 	},
 	"exports": {
-		"./types": "./src/entry-points/types.tsx",
+		".": "./src/index.tsx",
+		"./badge": "./src/entry-points/badge.tsx",
 		"./new": "./src/entry-points/new.tsx",
-		".": "./src/index.tsx"
+		"./types": "./src/entry-points/types.tsx"
 	},
 	"dependencies": {
 		"@atlaskit/platform-feature-flags": "workspace:^",

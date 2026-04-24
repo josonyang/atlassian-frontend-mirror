@@ -18,7 +18,7 @@ import { CSS_IN_JS_IMPORTS } from '@atlaskit/eslint-utils/is-supported-import';
 import { Import } from '../../ast-nodes';
 import { createLintRule } from '../utils/create-rule';
 import { getFirstSupportedImport } from '../utils/get-first-supported-import';
-import { getModuleOfIdentifier } from '../utils/get-import-node-by-source';
+import { getModuleOfIdentifier } from '../utils/get-module-of-identifier';
 
 import type { RuleConfig } from './types';
 

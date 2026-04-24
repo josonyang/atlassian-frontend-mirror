@@ -1,10 +1,9 @@
 import React from 'react';
 
-import { render, screen } from '@testing-library/react';
-import user from '@testing-library/user-event';
 
 import FeatureGates from '@atlaskit/feature-gate-js-client';
 import { CardClient, SmartCardProvider } from '@atlaskit/link-provider';
+import { render, screen, userEvent as user } from '@atlassian/testing-library';
 
 import { HyperlinkWithSmartLinkResolver } from '../index';
 

@@ -1,69 +1,14 @@
-import type { Rule } from 'eslint';
-import {
-	type CallExpression,
-	callExpression,
-	type Directive,
-	type EslintNode,
-	type Expression,
-	type Identifier,
-	identifier,
-	isNodeOfType,
-	literal,
-	type MemberExpression,
-	memberExpression,
-	type ModuleDeclaration,
-	type Property,
-	property,
-	type SpreadElement,
-	type Statement,
-	type StringableASTNode,
-} from 'eslint-codemod-utils';
+import { callExpression, type Expression, type Identifier, identifier, literal, type MemberExpression, memberExpression, type Property, property, type SpreadElement, type StringableASTNode } from 'eslint-codemod-utils';
 
 import { typographyPalette } from '@atlaskit/tokens/palettes-raw';
 import { typography as typographyTokens } from '@atlaskit/tokens/tokens-raw';
 
-import { Root } from '../../ast-nodes';
-
-export const typographyProperties: string[] = [
-	'fontSize',
-	'fontWeight',
-	'fontFamily',
-	'lineHeight',
-];
-
+import { typographyProperties } from './typography-properties';
 export const isTypographyProperty: (propertyName: string) => boolean = (
 	propertyName: string,
 ): boolean => {
 	return typographyProperties.includes(propertyName);
 };
-
-export const isFontSize: (node: EslintNode) => node is CallExpression = (
-	node: EslintNode,
-): node is CallExpression =>
-	isNodeOfType(node, 'CallExpression') &&
-	isNodeOfType(node.callee, 'Identifier') &&
-	(node.callee.name === 'fontSize' || node.callee.name === 'getFontSize');
-
-export const isFontSizeSmall: (node: EslintNode) => node is CallExpression = (
-	node: EslintNode,
-): node is CallExpression =>
-	isNodeOfType(node, 'CallExpression') &&
-	isNodeOfType(node.callee, 'Identifier') &&
-	node.callee.name === 'fontSizeSmall';
-
-export const isFontFamily: (node: EslintNode) => node is CallExpression = (
-	node: EslintNode,
-): node is CallExpression =>
-	isNodeOfType(node, 'CallExpression') &&
-	isNodeOfType(node.callee, 'Identifier') &&
-	(node.callee.name === 'fontFamily' || node.callee.name === 'getFontFamily');
-
-export const isCodeFontFamily: (node: EslintNode) => node is CallExpression = (
-	node: EslintNode,
-): node is CallExpression =>
-	isNodeOfType(node, 'CallExpression') &&
-	isNodeOfType(node.callee, 'Identifier') &&
-	(node.callee.name === 'codeFontFamily' || node.callee.name === 'getCodeFontFamily');
 
 export type TokenValueMap = {
 	tokenName: string;
@@ -109,57 +54,6 @@ export const typographyValueToToken: TokenValueMap[] = typographyTokens
 			values: individualValues,
 		};
 	});
-
-export function isValidTypographyToken(tokenName: string):
-	| {
-			value: string;
-			filePath: string;
-			isSource: boolean;
-			attributes: {
-				group: string;
-				state: string;
-				introduced: string;
-				description: string;
-				suggest?: string[];
-				deprecated?: string;
-				replacement?: string;
-			};
-			original: {
-				value:
-					| string
-					| {
-							fontWeight: string;
-							fontSize: string;
-							lineHeight: string;
-							fontFamily: string;
-							fontStyle: string;
-							letterSpacing: string;
-					  };
-				attributes: {
-					group: string;
-					state: string;
-					introduced: string;
-					description: string;
-					suggest?: string[];
-					deprecated?: string;
-					replacement?: string;
-				};
-			};
-			name: string;
-			path: string[];
-			cleanName: string;
-	  }
-	| undefined {
-	return typographyTokens
-		.filter((t) => t.attributes.group === 'typography')
-		.filter(
-			(t) =>
-				t.cleanName.includes('font.heading') ||
-				t.cleanName.includes('font.body') ||
-				t.cleanName.includes('font.code'),
-		)
-		.find((t) => t.cleanName === tokenName);
-}
 
 export function findTypographyTokenForValues(
 	fontSize: string,
@@ -222,37 +116,6 @@ export type FontWeightMap = {
 
 export const defaultFontWeight: string = fontWeightMap.regular;
 
-export function findFontFamilyTokenForValue(
-	value: string,
-):
-	| 'font.family.brand.heading'
-	| 'font.family.brand.body'
-	| 'font.family.body'
-	| 'font.family.code'
-	| undefined {
-	if (/charlie[\s-]?display/i.test(value)) {
-		return 'font.family.brand.heading';
-	} else if (/charlie[\s-]?text/i.test(value)) {
-		return 'font.family.brand.body';
-	} else if (/sans[\s-]?serif/i.test(value)) {
-		return 'font.family.body';
-	} else if (/monospace/i.test(value)) {
-		return 'font.family.code';
-	}
-}
-
-export function notUndefined<V>(value: V | undefined): value is V {
-	return value !== undefined;
-}
-
-export function isValidPropertyNode(node: Property): boolean {
-	if (!isNodeOfType(node.key, 'Identifier') && !isNodeOfType(node.key, 'Literal')) {
-		return false;
-	}
-
-	return true;
-}
-
 function getTokenNode(
 	tokenName: string,
 	fallbackValue?: string,
@@ -305,33 +168,15 @@ export function getTokenProperty(
 	});
 }
 
-export function getLiteralProperty(
-	propertyName: string,
-	propertyValue: string,
-): StringableASTNode<Property> {
-	return property({
-		key: identifier(propertyName),
-		value: literal(propertyValue),
-	});
-}
-
-export function convertPropertyNodeToStringableNode(node: Property): StringableASTNode<Property> {
-	return property({
-		key: node.key,
-		value: node.value,
-	});
-}
-
-export function insertTokensImport(
-	root: (Directive | Statement | ModuleDeclaration)[],
-	fixer: Rule.RuleFixer,
-): Rule.Fix {
-	return Root.insertImport(
-		root,
-		{
-			module: '@atlaskit/tokens',
-			specifiers: ['token'],
-		},
-		fixer,
-	);
-}
+export { typographyProperties } from './typography-properties';
+export { isFontSize } from './is-font-size';
+export { isFontSizeSmall } from './is-font-size-small';
+export { isFontFamily } from './is-font-family';
+export { isCodeFontFamily } from './is-code-font-family';
+export { isValidTypographyToken } from './is-valid-typography-token';
+export { findFontFamilyTokenForValue } from './find-font-family-token-for-value';
+export { notUndefined } from './not-undefined';
+export { isValidPropertyNode } from './is-valid-property-node';
+export { getLiteralProperty } from './get-literal-property';
+export { convertPropertyNodeToStringableNode } from './convert-property-node-to-stringable-node';
+export { insertTokensImport } from './insert-tokens-import';

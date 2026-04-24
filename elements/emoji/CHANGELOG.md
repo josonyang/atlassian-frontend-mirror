@@ -1,5 +1,19 @@
 # @atlaskit/emoji
 
+## 70.2.2
+
+### Patch Changes
+
+- Updated dependencies
+
+## 70.2.1
+
+### Patch Changes
+
+- [`245a43ebad095`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/245a43ebad095) -
+  [EDITOR-4550] prevent inline emojis inside smart links from scaling with fontsize
+- Updated dependencies
+
 ## 70.2.0
 
 ### Minor Changes

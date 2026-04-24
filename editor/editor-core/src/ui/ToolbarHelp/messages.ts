@@ -1,6 +1,12 @@
 import { defineMessages } from 'react-intl';
 
-export const messages = defineMessages({
+export const messages: {
+    toolbarHelpTitle: {
+        id: string;
+        defaultMessage: string;
+        description: string;
+    };
+} = defineMessages({
 	toolbarHelpTitle: {
 		id: 'fabric.editor.headingLink.toolbarHelpTitle',
 		defaultMessage: 'Open help dialog',

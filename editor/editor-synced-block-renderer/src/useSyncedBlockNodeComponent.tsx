@@ -22,6 +22,7 @@ import type { SyncedBlockNodeProps } from './ui/SyncedBlockNodeComponentRenderer
 
 export type GetSyncedBlockNodeComponentProps = {
 	fireAnalyticsEvent?: (payload: AnalyticsEventPayload) => void;
+	getAccountId?: () => string | null;
 	getPrefetchedData?: () => SyncBlockPrefetchData | undefined;
 	syncBlockNodes: SyncBlockNode[];
 	syncBlockProvider: SyncedBlockProvider;
@@ -44,6 +45,7 @@ export const useMemoizedSyncedBlockNodeComponent = ({
 	syncBlockProvider,
 	syncBlockRendererOptions,
 	fireAnalyticsEvent,
+	getAccountId,
 	getPrefetchedData,
 }: GetSyncedBlockNodeComponentProps): ((props: SyncedBlockNodeProps) => React.JSX.Element) => {
 	const syncBlockStoreManager = useMemoizedSyncBlockStoreManager(
@@ -86,10 +88,11 @@ export const useMemoizedSyncedBlockNodeComponent = ({
 						nodeProps={props}
 						syncBlockStoreManager={syncBlockStoreManager}
 						rendererOptions={syncBlockRendererOptions}
+						getAccountId={getAccountId}
 					/>
 				</SyncBlockActionsProvider>
 			</ErrorBoundary>
 		),
-		[syncBlockStoreManager, syncBlockRendererOptions, fireAnalyticsEvent],
+		[syncBlockStoreManager, syncBlockRendererOptions, fireAnalyticsEvent, getAccountId],
 	);
 };

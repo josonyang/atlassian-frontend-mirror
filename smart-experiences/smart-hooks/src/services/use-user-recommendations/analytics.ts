@@ -1,9 +1,11 @@
 import { type EventType, TRACK_EVENT_TYPE } from '@atlaskit/analytics-gas-types';
 import { FabricChannel } from '@atlaskit/analytics-listeners';
+// eslint-disable-next-line @typescript-eslint/consistent-type-imports
 import {
 	type AnalyticsEventPayload,
 	createAndFireEvent,
 	type CreateUIAnalyticsEvent,
+    UIAnalyticsEvent,
 } from '@atlaskit/analytics-next';
 import { type UserSearchItem } from '@atlaskit/smart-common';
 
@@ -28,7 +30,7 @@ const createEvent = (
 	},
 });
 
-export const findUserPosition = (loadedUsers: UserSearchItem[], userId: string) => {
+export const findUserPosition = (loadedUsers: UserSearchItem[], userId: string): number => {
 	return loadedUsers.findIndex((val) => val.id === userId);
 };
 
@@ -37,7 +39,7 @@ export const createDefaultAttributes = (
 	renderId: string,
 	sessionId: string,
 	query: string,
-) => {
+): { context: string; childObjectId: string | undefined; containerId: string | undefined; includeTeams: boolean | undefined; maxNumberOfResults: number | undefined; objectId: string | undefined; preload: boolean | undefined; principalId: string | undefined; productKey: string; queryLength: number; renderId: string; sessionId: string; tenantId: string; } => {
 	const {
 		fieldId,
 		objectId,
@@ -71,7 +73,7 @@ export const createDefaultAttributes = (
 export const fireUserSelectedEvent = (
 	createAnalyticsEvent: CreateUIAnalyticsEvent,
 	payloadAttributes: AnalyticsEventPayload,
-) =>
+): UIAnalyticsEvent =>
 	createAndFireEventInElementsChannel(
 		createEvent(TRACK_EVENT_TYPE, 'selected', 'user', payloadAttributes),
 	)(createAnalyticsEvent);

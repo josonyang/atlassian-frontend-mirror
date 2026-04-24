@@ -3,7 +3,7 @@ import { type CallExpression, isNodeOfType } from 'eslint-codemod-utils';
 
 import { getSourceCode } from '@atlaskit/eslint-utils/context-compat';
 
-import { getModuleOfIdentifier } from '../../utils/get-import-node-by-source';
+import { getModuleOfIdentifier } from '../../utils/get-module-of-identifier';
 import { isBlockedEventBinding } from '../shared/is-blocked-event-binding';
 
 export function isBlockedBindAll(context: Rule.RuleContext, node: CallExpression): boolean {

@@ -1,11 +1,10 @@
 import React from 'react';
 
 import '@testing-library/jest-dom';
-import { fireEvent, render, screen } from '@testing-library/react';
-import userEvent from '@testing-library/user-event';
 import { IntlProvider } from 'react-intl';
 
 import { skipAutoA11yFile } from '@atlassian/a11y-jest-testing';
+import { fireEvent, render, screen, userEvent } from '@atlassian/testing-library';
 
 import { type ActionProps } from '../action/types';
 import { DeleteAction, EditAction } from '../index';

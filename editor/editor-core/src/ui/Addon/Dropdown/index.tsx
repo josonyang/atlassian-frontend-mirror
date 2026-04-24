@@ -22,7 +22,7 @@ export interface Props {
 // Ignored via go/ees005
 // eslint-disable-next-line @repo/internal/react/no-class-components
 export default class DropdownWrapper extends React.Component<Props> {
-	render() {
+	render(): jsx.JSX.Element {
 		// adding onClick handler to each DropdownItem component
 		const children = React.Children.map(this.props.children, (child) =>
 			React.cloneElement(child as React.ReactElement, {

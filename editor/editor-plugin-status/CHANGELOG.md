@@ -1,5 +1,19 @@
 # @atlaskit/editor-plugin-status
 
+## 11.0.6
+
+### Patch Changes
+
+- Updated dependencies
+
+## 11.0.5
+
+### Patch Changes
+
+- [`f7d7098ecbcbf`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/f7d7098ecbcbf) -
+  Cleanup exp platform_editor_copy_paste_issue_fix
+- Updated dependencies
+
 ## 11.0.4
 
 ### Patch Changes

@@ -42,6 +42,7 @@ import {
 import { token } from '@atlaskit/tokens';
 
 import { TableStickyScrollbar } from './TableStickyScrollbar';
+import { useRendererContext } from '../../renderer-context';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { isTableInContentMode } from '@atlaskit/editor-common/table';
 import { isContentModeSupported } from './table/content-mode';
@@ -217,6 +218,55 @@ export interface TableState {
 	stickyMode: StickyMode;
 	wrapperWidth: number;
 }
+
+/**
+ * Fake left/right borders rendered as direct children of TABLE_CONTAINER
+ * (the non-scrolling parent of the horizontally scrolling TABLE_NODE_WRAPPER).
+ *
+ * The visible styling for these divs lives in `tableFakeBorderStyles`
+ * (`renderer/src/ui/Renderer/RendererStyleContainer.tsx`), which is itself
+ * gated on `editorExperiment('platform_synced_block', true)` AND
+ * `isInsideSyncBlock` AND `fg('platform_synced_block_patch_9')`.
+ *
+ * Shared between `renderer/src/react/nodes/table.tsx` and
+ * `renderer/src/react/nodes/tableNew.tsx` so the two stay in sync.
+ */
+const TableFakeBorders = ({ isNumberColumnEnabled }: { isNumberColumnEnabled?: boolean }) => (
+	<>
+		<div
+			className={TableSharedCssClassName.TABLE_LEFT_BORDER}
+			data-with-numbered-table={isNumberColumnEnabled ? 'true' : undefined}
+			data-testid="table-left-border"
+		/>
+		<div
+			className={TableSharedCssClassName.TABLE_RIGHT_BORDER}
+			data-with-numbered-table={isNumberColumnEnabled ? 'true' : undefined}
+			data-testid="table-right-border"
+		/>
+	</>
+);
+
+/**
+ * Reads `nestedRendererType` from RendererContext and renders the fake left/right
+ * borders only when the current renderer is the nested renderer for a reference
+ * synced block.
+ */
+export const RefSyncBlockFakeBorders = ({
+	isNumberColumnEnabled,
+}: {
+	isNumberColumnEnabled: boolean;
+}): React.JSX.Element | null => {
+	const { nestedRendererType } = useRendererContext();
+	const isInsideOfRefSyncBlock = nestedRendererType === 'syncedBlock';
+	if (
+		!isInsideOfRefSyncBlock ||
+		!editorExperiment('platform_synced_block', true) ||
+		!fg('platform_synced_block_patch_9')
+	) {
+		return null;
+	}
+	return <TableFakeBorders isNumberColumnEnabled={isNumberColumnEnabled} />;
+};
 
 /**
  * TableContainer renders tables using only CSS-based rules
@@ -745,6 +795,7 @@ export class TableContainer extends React.Component<
 							data-testid="sticky-scrollbar-sentinel-bottom"
 						/>
 					)}
+					<RefSyncBlockFakeBorders isNumberColumnEnabled={isNumberColumnEnabled} />
 				</div>
 			</>
 		);

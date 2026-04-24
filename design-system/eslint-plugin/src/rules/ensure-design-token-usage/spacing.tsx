@@ -7,21 +7,13 @@ import {
 	type Property,
 } from 'eslint-codemod-utils';
 
+import { getRawExpression } from './get-raw-expression';
+import { insertTokensImport } from './insert-tokens-import';
+import { isAuto } from './is-auto';
+import { isZero } from './is-zero';
+import { splitShorthandValues } from './split-shorthand-values';
 import type { RuleConfig } from './types';
-import {
-	emToPixels,
-	findTokenNameByPropertyValue,
-	getRawExpression,
-	getTokenNodeForValue,
-	getTokenReplacement,
-	getValue,
-	insertTokensImport,
-	isAuto,
-	isCalc,
-	isValidSpacingValue,
-	isZero,
-	splitShorthandValues,
-} from './utils';
+import { emToPixels, findTokenNameByPropertyValue, getTokenNodeForValue, getTokenReplacement, getValue, isCalc, isValidSpacingValue } from './utils';
 
 export const lintObjectForSpacing = (
 	node: Property,

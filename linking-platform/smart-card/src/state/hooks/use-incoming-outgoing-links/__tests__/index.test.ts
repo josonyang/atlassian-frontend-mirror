@@ -1,5 +1,6 @@
 import 'jest-extended';
-import { renderHook } from '@testing-library/react';
+
+import { renderHook } from '@atlassian/testing-library';
 
 import useIncomingOutgoingAri from '../index';
 import { queryIncomingOutgoingLinks } from '../query';
@@ -9,9 +10,7 @@ describe('useIncomingOutgoingLinks', () => {
 
 	const setup = () => {
 		const {
-			result: {
-				current: { getIncomingOutgoingAris },
-			},
+			current: { getIncomingOutgoingAris },
 		} = renderHook(() => useIncomingOutgoingAri());
 		return { getIncomingOutgoingAris };
 	};

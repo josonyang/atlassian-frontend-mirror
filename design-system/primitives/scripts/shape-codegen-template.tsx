@@ -1,7 +1,9 @@
 import format from '@af/formatting/sync';
 import { shape as shapeTokens } from '@atlaskit/tokens/tokens-raw';
 
-import { capitalize, constructTokenFunctionCall, generateTypeDefs } from './utils';
+import { capitalize } from './capitalize';
+import { generateTypeDefs } from './generate-type-defs';
+import { constructTokenFunctionCall } from './utils';
 
 type Token = {
 	token: string;

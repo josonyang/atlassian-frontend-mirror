@@ -6,9 +6,11 @@ import { getSourceCode } from '@atlaskit/eslint-utils/context-compat';
 
 import { Root } from '../../../ast-nodes';
 import { getNodeSource } from '../../utils/get-node-source';
-import { isDecendantOfStyleBlock, isDecendantOfType } from '../../utils/is-node';
+import { isDecendantOfType } from '../../utils/is-decendant-of-type';
+import { isDecendantOfStyleBlock } from '../../utils/is-node';
 import type { RuleConfig } from '../config';
-import { findFontFamilyTokenForValue, insertTokensImport } from '../utils';
+import { findFontFamilyTokenForValue } from '../find-font-family-token-for-value';
+import { insertTokensImport } from '../insert-tokens-import';
 
 interface MetaData {
 	context: Rule.RuleContext;

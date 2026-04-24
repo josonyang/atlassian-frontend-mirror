@@ -52,7 +52,8 @@ export type QuickInsertItemId =
 	| 'fourcolumnslayout'
 	| 'fivecolumnslayout'
 	| 'syncBlock'
-	| 'aiSpeechToText';
+	| 'aiSpeechToText'
+	| 'aiImageGeneration';
 
 export type QuickInsertItem = TypeAheadItem & {
 	/**

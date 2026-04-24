@@ -2,7 +2,6 @@ import '@atlaskit/link-test-helpers/jest';
 
 import React from 'react';
 
-import { fireEvent, render, waitFor } from '@testing-library/react';
 import * as jestExtendedMatchers from 'jest-extended';
 // eslint-disable-next-line @atlaskit/platform/prefer-crypto-random-uuid -- Use crypto.randomUUID instead
 import uuid from 'uuid';
@@ -11,6 +10,7 @@ import FabricAnalyticsListeners, { type AnalyticsWebClient } from '@atlaskit/ana
 import { type JsonLd } from '@atlaskit/json-ld-types';
 import { type CardClient, SmartCardProvider as Provider } from '@atlaskit/link-provider';
 import { mockSimpleIntersectionObserver } from '@atlaskit/link-test-helpers';
+import { fireEvent, render, waitFor } from '@atlassian/testing-library';
 
 import { ActionName, Card, TitleBlock } from '../../../index';
 import * as ufo from '../../../state/analytics/ufoExperiences';

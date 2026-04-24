@@ -7,7 +7,8 @@ import { getTokenId } from '@atlaskit/tokens/token-ids';
 import tokens from '@atlaskit/tokens/token-names';
 
 import { createLintRule } from '../utils/create-rule';
-import { isDecendantOfStyleBlock, isDecendantOfStyleJsxAttribute } from '../utils/is-node';
+import { isDecendantOfStyleJsxAttribute } from '../utils/is-decendant-of-style-jsx-attribute';
+import { isDecendantOfStyleBlock } from '../utils/is-node';
 import { isToken } from '../utils/is-token';
 
 type PluginConfig = {

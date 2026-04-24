@@ -1,5 +1,12 @@
 # @atlaskit/logo
 
+## 20.1.0
+
+### Minor Changes
+
+- [`1b6e8b426b9fe`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/1b6e8b426b9fe) -
+  Autofix: add explicit package exports (barrel removal)
+
 ## 20.0.2
 
 ### Patch Changes

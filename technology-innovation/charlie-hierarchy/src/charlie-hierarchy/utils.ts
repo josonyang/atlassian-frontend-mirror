@@ -95,7 +95,10 @@ export const updateNodeLayout = <Datum>(
 	top: number,
 	left: number,
 	node: HierarchyPointNode<Datum>,
-) => {
+): {
+        top: number;
+        left: number;
+    } => {
 	if (index <= stackingThreshold) {
 		if (index > 0) {
 			left = calculateNodePosition(

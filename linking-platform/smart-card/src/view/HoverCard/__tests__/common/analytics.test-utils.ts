@@ -1,9 +1,8 @@
-import { act, screen, within } from '@testing-library/react';
 
 import { type CardStore } from '@atlaskit/linking-common';
 import { eeTest } from '@atlaskit/tmp-editor-statsig/editor-experiments-test-utils';
-import * as exp from '@atlaskit/tmp-editor-statsig/exp-val-equals-no-exposure';
 import { ffTest } from '@atlassian/feature-flags-test-utils';
+import { act, screen, within } from '@atlassian/testing-library';
 
 import MockAtlasProject from '../../../../__fixtures__/atlas-project';
 import { closeEmbedModal } from '../../../../__tests__/__utils__/unit-helpers';
@@ -404,14 +403,6 @@ export const analyticsTests = (
 								};
 								const rovoOptions = { isRovoEnabled: true, isRovoLLMEnabled: true };
 								const actionOptions = { hide: false, rovoChatAction: { optIn: true } };
-
-								beforeEach(() => {
-									jest.spyOn(exp, 'expValEqualsNoExposure');
-								});
-
-								afterEach(() => {
-									expect(exp.expValEqualsNoExposure).toHaveBeenCalled();
-								});
 
 								describe.each<[string, SetUpParams | undefined]>([
 									['default', { mock }],

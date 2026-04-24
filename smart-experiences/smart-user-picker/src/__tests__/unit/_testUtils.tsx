@@ -9,7 +9,7 @@ import {
 	ExperiencePerformanceTypes,
 } from '@atlaskit/ufo';
 
-export const flushPromises = () => {
+export const flushPromises = (): Promise<void> => {
 	// eslint-disable-next-line @atlaskit/platform/no-set-immediate
 	return new Promise((resolve) => setImmediate(resolve));
 };
@@ -81,21 +81,21 @@ export class MockConcurrentExperienceInstance extends UFOExperience {
 		this.transitions.push(this.state.id);
 	}
 
-	async success() {
+	async success(): Promise<null> {
 		super.success();
 		this.successSpy();
 		this.transitions.push(this.state.id);
 		return null;
 	}
 
-	async failure() {
+	async failure(): Promise<null> {
 		super.failure();
 		this.failureSpy();
 		this.transitions.push(this.state.id);
 		return null;
 	}
 
-	async abort() {
+	async abort(): Promise<null> {
 		super.abort();
 		this.abortSpy();
 		this.transitions.push(this.state.id);

@@ -34,6 +34,7 @@ export const BulletedListButton = ({ api, parents }: BulletedListType): React.JS
 				isSelected={isSelected}
 				isDisabled={isDisabled}
 				ariaKeyshortcuts={getAriaKeyshortcuts(toggleBulletListKeymap)}
+				label={bulletMessage}
 			/>
 		</ToolbarTooltip>
 	);

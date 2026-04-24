@@ -1,5 +1,12 @@
 # @atlaskit/rovo-agent-components
 
+## 4.3.0
+
+### Minor Changes
+
+- [`892d2b5b986db`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/892d2b5b986db) -
+  casing change for agent operations
+
 ## 4.2.0
 
 ### Minor Changes

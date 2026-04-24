@@ -3,8 +3,8 @@ import { isNodeOfType, type JSXAttribute } from 'eslint-codemod-utils';
 
 import { getSourceCode } from '@atlaskit/eslint-utils/context-compat';
 
-import { getModuleOfIdentifier } from '../../utils/get-import-node-by-source';
-import { blockedJSXAttributeLookup } from '../shared/blocked';
+import { getModuleOfIdentifier } from '../../utils/get-module-of-identifier';
+import { blockedJSXAttributeLookup } from '../shared/blocked-jsx-attribute-lookup';
 
 function getJSXElementNameFromAttribute(
 	attribute: JSXAttribute & Partial<Rule.NodeParentExtension>,

@@ -21,7 +21,7 @@ import {
 } from '@atlaskit/css';
 import { token } from '@atlaskit/tokens';
 
-import { SurfaceContext } from '../../utils/surface-provider';
+import { SurfaceContext } from '../../utils/surface-context';
 import type { BackgroundColorToken, SVGElements } from '../../utils/types';
 
 import type { BasePrimitiveProps, PaddingToken, StyleProp, SurfaceColorToken } from './types';

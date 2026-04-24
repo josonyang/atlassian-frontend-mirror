@@ -1,4 +1,4 @@
-export const TEAM_FALLBACK_AVATAR_DATA_URI = `data:image/svg+xml;utf8,${encodeURIComponent(
+export const TEAM_FALLBACK_AVATAR_DATA_URI: string = `data:image/svg+xml;utf8,${encodeURIComponent(
 	`<svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
 <g clip-path="url(#clip0_2032_552)">
 <rect width="32" height="32" rx="4" fill="#DCDFE4"/>

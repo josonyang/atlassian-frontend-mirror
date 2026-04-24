@@ -1,4 +1,4 @@
-import userEvent from '@testing-library/user-event';
+import { userEvent } from '@atlassian/testing-library';
 
 import { ActionName, CardAction } from '../../../index';
 import { TEST_RESPONSE, TEST_URL } from '../../common/__mocks__/jsonld';

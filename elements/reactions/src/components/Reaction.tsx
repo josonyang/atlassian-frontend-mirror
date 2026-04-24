@@ -113,6 +113,11 @@ export interface ReactionProps {
 	 * Optional prop for controlling if the reaction displayed is a default one and should not have a border
 	 */
 	showSubtleStyle?: boolean;
+	/**
+	 * Optional URL to optimistically render the emoji image before the catalogue arrives.
+	 * When provided, the emoji will render immediately without waiting for the emoji provider to resolve.
+	 */
+	optimisticImageURL?: string;
 }
 
 /**
@@ -131,6 +136,7 @@ export const Reaction = ({
 	handleOpenReactionsDialog,
 	isViewOnly = false,
 	showSubtleStyle,
+	optimisticImageURL,
 }: ReactionProps): JSX.Element => {
 	const intl = useIntl();
 	const hoverStart = useRef<number>();
@@ -203,6 +209,7 @@ export const Reaction = ({
 					emojiProvider={emojiProvider}
 					emojiId={emojiId}
 					fitToHeight={RESOURCED_EMOJI_COMPACT_HEIGHT}
+					optimisticImageURL={optimisticImageURL}
 				/>
 			</div>
 			<Counter value={reaction.count} highlight={!isViewOnly && reaction.reacted} />
@@ -229,7 +236,11 @@ export const Reaction = ({
 			as={fg('jfp_a11y_team_comment_actions_semantic') ? 'li' : undefined}
 		>
 			{showParticleEffect && (
-				<ReactionParticleEffect emojiId={emojiId} emojiProvider={emojiProvider} />
+				<ReactionParticleEffect
+					emojiId={emojiId}
+					emojiProvider={emojiProvider}
+					optimisticImageURL={optimisticImageURL}
+				/>
 			)}
 			<ReactionTooltip
 				emojiName={emojiName}

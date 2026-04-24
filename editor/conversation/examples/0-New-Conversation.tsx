@@ -11,7 +11,7 @@ const provider = new ConversationResource({
 	user: MOCK_USERS[3],
 });
 
-export default function Example() {
+export default function Example(): React.JSX.Element {
 	return (
 		<Conversation
 			objectId="ari:cloud:platform::conversation/demo"

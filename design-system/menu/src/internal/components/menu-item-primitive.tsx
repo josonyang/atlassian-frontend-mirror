@@ -12,11 +12,8 @@ import { token } from '@atlaskit/tokens';
 
 import type { MenuItemPrimitiveProps, RenderFunction } from '../../types';
 
-import {
-	SELECTION_STYLE_CONTEXT_DO_NOT_USE,
-	SpacingContext,
-	type SpacingMode,
-} from './menu-context';
+import { SpacingContext, type SpacingMode } from './menu-context';
+import { SELECTION_STYLE_CONTEXT_DO_NOT_USE } from './selection-style-context-do-not-use';
 
 const renderTitle: RenderFunction = (Component, props) => (
 	// eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props

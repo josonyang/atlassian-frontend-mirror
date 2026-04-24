@@ -1,8 +1,8 @@
 import React from 'react';
 
-import { renderHook } from '@testing-library/react';
-
 import { CardClient, SmartCardProvider } from '@atlaskit/link-provider';
+import { renderHook } from '@atlassian/testing-library';
+
 
 import { useAISummaryConfig } from '../index';
 
@@ -13,7 +13,7 @@ describe('useAISummaryConfig', () => {
 		const product = 'JSM';
 
 		const client = new CardClient(envKey, baseUrl);
-		const { result } = renderHook(() => useAISummaryConfig(), {
+		const result = renderHook(() => useAISummaryConfig(), {
 			wrapper: ({ children }) => (
 				<SmartCardProvider client={client} isAdminHubAIEnabled={true} product={product}>
 					{children}

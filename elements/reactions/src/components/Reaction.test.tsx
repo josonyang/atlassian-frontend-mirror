@@ -79,6 +79,7 @@ const renderReaction = ({
 	isViewOnly = false,
 	showSubtleStyle = false,
 	optimistic = false,
+	optimisticImageURL,
 }: {
 	count: number;
 	enableFlash?: boolean;
@@ -87,6 +88,7 @@ const renderReaction = ({
 	onEvent?: (event: UIAnalyticsEvent, channel?: string) => void;
 	onMouseEnter?: ReactionMouseEnter;
 	optimistic?: boolean;
+	optimisticImageURL?: string;
 	reacted: boolean;
 	showOpaqueBackground?: boolean;
 	showParticleEffect?: boolean;
@@ -105,6 +107,7 @@ const renderReaction = ({
 				showOpaqueBackground={showOpaqueBackground}
 				isViewOnly={isViewOnly}
 				showSubtleStyle={showSubtleStyle}
+				optimisticImageURL={optimisticImageURL}
 			/>
 		</AnalyticsListener>,
 	);
@@ -118,9 +121,10 @@ describe('@atlaskit/reactions/components/Reaction', () => {
 		const reacted = false;
 		renderReaction({ reacted, count });
 
-		const emojiButton = await screen.findByTestId(RENDER_REACTION_TESTID);
-		expect(emojiButton).toBeInTheDocument();
-		expect(emojiButton).toHaveAttribute('data-emoji-id', grinning.id);
+		// Reaction renders RENDER_REACTION_TESTID in two places (isListItem and default paths)
+		const emojiButtons = await screen.findAllByTestId(RENDER_REACTION_TESTID);
+		expect(emojiButtons[0]).toBeInTheDocument();
+		expect(emojiButtons[0]).toHaveAttribute('data-emoji-id', grinning.id);
 	});
 
 	it('should call onClick on click', async () => {

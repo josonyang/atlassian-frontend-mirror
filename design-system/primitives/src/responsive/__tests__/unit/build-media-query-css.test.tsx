@@ -1,7 +1,5 @@
-import {
-	UNSAFE_buildAboveMediaQueryCSS,
-	UNSAFE_buildBelowMediaQueryCSS,
-} from '../../build-media-query-css';
+import { UNSAFE_buildAboveMediaQueryCSS } from '../../unsafe-build-above-media-query-css';
+import { UNSAFE_buildBelowMediaQueryCSS } from '../../unsafe-build-below-media-query-css';
 
 describe('UNSAFE_buildAboveMediaQueryCSS', () => {
 	it('builds a map of breakpoints and css({}) outputs', () => {

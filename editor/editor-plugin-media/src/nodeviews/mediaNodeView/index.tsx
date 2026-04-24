@@ -32,6 +32,7 @@ import { getAttrsFromUrl } from '@atlaskit/media-client';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 import type { MediaNextEditorPluginType } from '../../mediaPluginType';
+import { hasAIGeneratingDecoration } from '../../pm-plugins/ai-generating-decoration';
 import { updateCurrentMediaNodeAttrs } from '../../pm-plugins/commands/helpers';
 import { isMediaBlobUrlFromAttrs } from '../../pm-plugins/utils/media-common';
 import type {
@@ -92,6 +93,7 @@ function isMediaDecorationSpec(decoration: Decoration): decoration is Decoration
 
 class MediaNodeView extends SelectionBasedNodeView<MediaNodeViewProps> {
 	private isSelected = false;
+	private isAIGenerating = false;
 	private hasBeenResized = false;
 	private resizeListenerBinding?: () => void;
 
@@ -178,6 +180,12 @@ class MediaNodeView extends SelectionBasedNodeView<MediaNodeViewProps> {
 
 		if (this.isSelected !== hasMediaNodeSelectedDecoration) {
 			this.isSelected = hasMediaNodeSelectedDecoration;
+			return true;
+		}
+
+		const aiGenerating = hasAIGeneratingDecoration(decorations);
+		if (this.isAIGenerating !== aiGenerating) {
+			this.isAIGenerating = aiGenerating;
 			return true;
 		}
 
@@ -345,6 +353,7 @@ class MediaNodeView extends SelectionBasedNodeView<MediaNodeViewProps> {
 							?.mode === 'view'
 					}
 					pluginInjectionApi={this.reactComponentProps.pluginInjectionApi}
+					isAIGenerating={this.isAIGenerating}
 				/>
 			);
 		};

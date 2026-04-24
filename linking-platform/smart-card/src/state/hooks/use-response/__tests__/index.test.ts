@@ -1,11 +1,11 @@
 // eslint-disable-next-line import/order
 import * as testMocks from '../../use-resolve/__tests__/index.test.mock';
 
-import { renderHook } from '@testing-library/react';
 
 import { type CardContext, useSmartLinkContext } from '@atlaskit/link-provider';
 import { APIError, type CardState } from '@atlaskit/linking-common';
 import { asMockFunction } from '@atlaskit/media-test-helpers';
+import { renderHook } from '@atlassian/testing-library';
 
 import { mocks } from '../../../../utils/mocks';
 import useResponse from '../index';
@@ -32,7 +32,7 @@ describe('useResponse', () => {
 
 	describe('handleResolvedLinkResponse', () => {
 		it('should dispatch resolved response on link success', () => {
-			const { handleResolvedLinkResponse } = renderHook(() => useResponse()).result.current;
+			const { handleResolvedLinkResponse } = renderHook(() => useResponse()).current;
 			handleResolvedLinkResponse(url, mocks.success, false, false);
 
 			expect(mockContext.store.dispatch).toHaveBeenCalledTimes(2);
@@ -58,7 +58,7 @@ describe('useResponse', () => {
 		});
 
 		it('should dispatch reloading response on link success when isReloading is true', () => {
-			const { handleResolvedLinkResponse } = renderHook(() => useResponse()).result.current;
+			const { handleResolvedLinkResponse } = renderHook(() => useResponse()).current;
 			handleResolvedLinkResponse(url, mocks.success, true, false);
 
 			expect(mockContext.store.dispatch).toHaveBeenCalledTimes(2);
@@ -89,7 +89,7 @@ describe('useResponse', () => {
 					authFlow: 'disabled',
 				},
 			};
-			const { handleResolvedLinkResponse } = renderHook(() => useResponse()).result.current;
+			const { handleResolvedLinkResponse } = renderHook(() => useResponse()).current;
 			handleResolvedLinkResponse(url, mocks.forbidden, false, false);
 
 			expect(mockContext.store.dispatch).toHaveBeenCalledTimes(1);
@@ -111,7 +111,7 @@ describe('useResponse', () => {
 					authFlow: 'disabled',
 				},
 			};
-			const { handleResolvedLinkResponse } = renderHook(() => useResponse()).result.current;
+			const { handleResolvedLinkResponse } = renderHook(() => useResponse()).current;
 			handleResolvedLinkResponse(url, mocks.unauthorized, false, false);
 
 			expect(mockContext.store.dispatch).toHaveBeenCalledTimes(1);
@@ -140,7 +140,7 @@ describe('useResponse', () => {
 		};
 
 		it('should throw fatal error and dispatch error for an undefined response', () => {
-			const { handleResolvedLinkResponse } = renderHook(() => useResponse()).result.current;
+			const { handleResolvedLinkResponse } = renderHook(() => useResponse()).current;
 
 			expectToThrowAndDispatchError(() => {
 				handleResolvedLinkResponse(url, undefined, false, false);
@@ -148,7 +148,7 @@ describe('useResponse', () => {
 		});
 
 		it('should dispatch metadata error if isMetadataRequest is true and is an error', () => {
-			const { handleResolvedLinkResponse } = renderHook(() => useResponse()).result.current;
+			const { handleResolvedLinkResponse } = renderHook(() => useResponse()).current;
 			handleResolvedLinkResponse(url, mocks.notFound, false, true);
 
 			expect(mockContext.store.dispatch).toHaveBeenCalledTimes(1);
@@ -167,7 +167,7 @@ describe('useResponse', () => {
 	describe('handleResolvedLinkError', () => {
 		it('should return error metadata status if isMetadataRequest is true', () => {
 			const apiError = new APIError('error', 'hostname', 'errormessage');
-			const { handleResolvedLinkError } = renderHook(() => useResponse()).result.current;
+			const { handleResolvedLinkError } = renderHook(() => useResponse()).current;
 			handleResolvedLinkError(url, apiError, undefined, true);
 
 			expect(mockContext.store.dispatch).toHaveBeenCalledTimes(1);
@@ -203,7 +203,7 @@ describe('useResponse', () => {
 				},
 			};
 			mockState(state);
-			const { handleResolvedLinkError } = renderHook(() => useResponse()).result.current;
+			const { handleResolvedLinkError } = renderHook(() => useResponse()).current;
 			const apiError = new APIError('fatal', 'hostname', 'this is an error message');
 			handleResolvedLinkError(url, apiError, undefined, false);
 

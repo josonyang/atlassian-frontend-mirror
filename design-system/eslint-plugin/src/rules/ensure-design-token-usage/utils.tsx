@@ -5,8 +5,6 @@ import {
 	type CallExpression,
 	type EslintNode,
 	identifier,
-	insertAtStartOfFile,
-	insertImportDeclaration,
 	isNodeOfType,
 	literal,
 	type ObjectExpression,
@@ -17,21 +15,23 @@ import {
 	type TaggedTemplateExpression,
 } from 'eslint-codemod-utils';
 
-import { getScope, getSourceCode } from '@atlaskit/eslint-utils/context-compat';
+import { getScope } from '@atlaskit/eslint-utils/context-compat';
 import { spacing as spacingScale } from '@atlaskit/tokens/tokens-raw';
 
 import { findIdentifierInParentScope } from '../utils/find-in-parent';
-import { isColorCssPropertyName, isCurrentSurfaceCustomPropertyName } from '../utils/is-color';
+import { isColorCssPropertyName } from '../utils/is-color';
+import { isCurrentSurfaceCustomPropertyName } from '../utils/is-current-surface-custom-property-name';
 
-import {
-	borderWidthValueToToken,
-	isBorderRadius,
-	isBorderSizeProperty,
-	isShapeProperty,
-	radiusValueToToken,
-} from './shape';
+import { borderWidthValueToToken } from './border-width-value-to-token';
+import { cleanComments } from './clean-comments';
+import { getRawExpression } from './get-raw-expression';
+import { isBorderRadius } from './is-border-radius';
+import { normaliseValue } from './normalise-value';
+import { radiusValueToToken } from './radius-value-to-token';
+import { isBorderSizeProperty, isShapeProperty } from './shape';
+import { splitCssProperties } from './split-css-properties';
+import { splitShorthandValues } from './split-shorthand-values';
 import type { Domains } from './types';
-
 const properties = [
 	'padding',
 	'paddingBlock',
@@ -79,27 +79,8 @@ const spacingValueToToken = Object.fromEntries(
 	spacingScale.map((token) => [token.value, token.cleanName]),
 );
 
-export function insertTokensImport(fixer: Rule.RuleFixer): Rule.Fix {
-	return insertAtStartOfFile(fixer, `${insertImportDeclaration('@atlaskit/tokens', ['token'])}\n`);
-}
-
 export const isSpacingProperty = (propertyName: string): boolean => {
 	return properties.includes(propertyName);
-};
-
-/**
- * Accomplishes split str by whitespace but preserves expressions in between ${...}
- * even if they might have whitepaces or nested brackets
- * @param str
- * @returns string[]
- * @example
- * Regex has two parts, first attempts to capture anything in between `${...}` in a capture group
- * Whilst allowing nested brackets and non empty characters leading or traling wrapping expression e.g `${gridSize}`, `-${gridSize}px`
- * second part is a white space delimiter
- * For input `-${gridSize / 2}px ${token(...)} 18px -> [`-${gridSize / 2}px`, `${token(...)}`, `18px`]
- */
-export const splitShorthandValues = (str: string): string[] => {
-	return str.split(/(\S*\$\{[^{}]*(?:\{[^{}]*\}[^{}]*)*\}\S*)|\s+/g).filter(Boolean);
 };
 
 export const getValueFromShorthand = (str: unknown): (string | number)[] => {
@@ -217,28 +198,6 @@ export const getValue = (
 	}
 
 	return null;
-};
-
-export const getRawExpression = (node: EslintNode, context: Rule.RuleContext): string | null => {
-	if (
-		!(
-			// if not one of our recognized types or doesn't have a range prop, early return
-			(
-				isNodeOfType(node, 'Literal') ||
-				isNodeOfType(node, 'Identifier') ||
-				isNodeOfType(node, 'BinaryExpression') ||
-				isNodeOfType(node, 'UnaryExpression') ||
-				isNodeOfType(node, 'TemplateLiteral') ||
-				isNodeOfType(node, 'CallExpression')
-			)
-		) ||
-		!Array.isArray(node.range)
-	) {
-		return null;
-	}
-	const [start, end] = node.range;
-
-	return getSourceCode(context).getText().substring(start, end).replaceAll('\n', '');
 };
 
 const getValueFromIdentifier = (
@@ -440,53 +399,6 @@ export const isCalc = (
 	return false;
 };
 
-export const isZero = (
-	value: string | number | boolean | RegExp | null | undefined | any[] | bigint,
-): boolean => {
-	if (typeof value === 'string') {
-		if (value === '0px' || value === '0') {
-			return true;
-		}
-	}
-	if (typeof value === 'number') {
-		if (value === 0) {
-			return true;
-		}
-	}
-	return false;
-};
-
-export const isAuto = (
-	value: string | number | boolean | RegExp | null | undefined | any[] | bigint,
-): boolean => {
-	if (typeof value === 'string') {
-		if (value === 'auto') {
-			return true;
-		}
-	}
-	return false;
-};
-
-// convert line-height to lineHeight
-export const convertHyphenatedNameToCamelCase = (prop: string): string => {
-	return prop.replace(/-./g, (m) => m[1].toUpperCase());
-};
-
-/**
- * @param node
- * @returns The furthest parent node that is on the same line as the input node.
- */
-export const findParentNodeForLine = (node: Rule.Node): Rule.Node => {
-	if (!node.parent) {
-		return node;
-	}
-	if (node.loc?.start.line !== node.parent.loc?.start.line) {
-		return node;
-	} else {
-		return findParentNodeForLine(node.parent);
-	}
-};
-
 /**
  * Returns an array of domains that are relevant to the provided property based on the rule options.
  * @param propertyName camelCase CSS property
@@ -516,14 +428,6 @@ export function getDomainsForProperty(propertyName: string, targetOptions: Domai
 	}
 
 	return domains;
-}
-
-/**
- * Function that removes JS comments from a string of code,
- * sometimes makers will have single or multiline comments in their tagged template literals styles, this can mess with our parsing logic.
- */
-export function cleanComments(str: string): string {
-	return str.replace(/\/\*([\s\S]*?)\*\//g, '').replace(/\/\/(.*)/g, '');
 }
 
 /**
@@ -618,70 +522,6 @@ export function getFontSizeValueInScope(cssProperties: ProcessedCSSLines): numbe
 	return getValueFromShorthand(fontSizeValue)[0] as number;
 }
 
-/**
- * Attempts to remove all non-essential words & characters from a style block.
- * Including selectors and queries.
- * @param styleString string of css properties
- */
-export function splitCssProperties(styleString: string): string[] {
-	return (
-		styleString
-			.split('\n')
-			.filter((line) => !line.trim().startsWith('@'))
-			// sometimes makers will end a css line with `;` that's output from a function expression
-			// since we'll rely on `;` to split each line, we need to ensure it's there
-			.map((line) => (line.endsWith(';') ? line : `${line};`))
-			.join('\n')
-			.replace(/\n/g, '')
-			.split(/;|(?<!\$){|(?<!\${.+?)}/) // don't split on template literal expressions i.e. `${...}`
-			// filters lines that are completely null, this could be from function expressions that output both property and value
-			.filter((line) => line.trim() !== 'null' && line.trim() !== 'null;')
-			.map((el) => el.trim() || '')
-			// we won't be able to reason about lines that don't have colon (:)
-			.filter((line) => line.split(':').length === 2)
-			.filter(Boolean)
-	);
-}
-
-/**
- * Returns whether the current string is a token value.
- * @param originalVaue string representing a css property value e.g 1em, 12px.
- */
-export function isTokenValueString(originalValue: string): boolean {
-	return originalValue.startsWith('${token(') && originalValue.endsWith('}');
-}
-
-export function includesTokenString(originalValue: string): boolean {
-	return originalValue.includes('${token(');
-}
-
-/**
- * Translate a raw value into the same value format for further parsing:
- *
- * -> for pixels this '8px'
- * -> for weights     '400'
- * -> for family      'Arial'.
- *
- * @internal
- */
-export function normaliseValue(propertyName: string, value: string | number): string {
-	const isFontStringProperty = /fontWeight|fontFamily|fontStyle/.test(propertyName);
-	const isLineHeight = /lineHeight/.test(propertyName);
-	const propertyValue = typeof value === 'string' ? value.trim() : value;
-
-	let lookupValue;
-
-	if (isFontStringProperty) {
-		lookupValue = `${propertyValue}`;
-	} else if (isLineHeight) {
-		lookupValue = value === 1 ? `${propertyValue}` : `${propertyValue}px`;
-	} else {
-		lookupValue = typeof propertyValue === 'string' ? propertyValue : `${propertyValue}px`;
-	}
-
-	return lookupValue;
-}
-
 export function findTokenNameByPropertyValue(
 	propertyName: string,
 	value: string,
@@ -752,3 +592,16 @@ export function getValueForPropertyNode(
 
 	return propertyValue;
 }
+
+export { insertTokensImport } from './insert-tokens-import';
+export { splitShorthandValues } from './split-shorthand-values';
+export { getRawExpression } from './get-raw-expression';
+export { isZero } from './is-zero';
+export { isAuto } from './is-auto';
+export { convertHyphenatedNameToCamelCase } from './convert-hyphenated-name-to-camel-case';
+export { findParentNodeForLine } from './find-parent-node-for-line';
+export { cleanComments } from './clean-comments';
+export { splitCssProperties } from './split-css-properties';
+export { isTokenValueString } from './is-token-value-string';
+export { includesTokenString } from './includes-token-string';
+export { normaliseValue } from './normalise-value';

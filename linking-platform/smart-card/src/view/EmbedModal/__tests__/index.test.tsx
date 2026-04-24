@@ -1,14 +1,5 @@
 import React, { useEffect } from 'react';
 
-import {
-	render,
-	type RenderOptions,
-	screen,
-	waitFor,
-	waitForElementToBeRemoved,
-	within,
-} from '@testing-library/react';
-import userEvent from '@testing-library/user-event';
 import * as jestExtendedMatchers from 'jest-extended';
 import { IntlProvider } from 'react-intl';
 // eslint-disable-next-line @atlaskit/platform/prefer-crypto-random-uuid -- Use crypto.randomUUID instead
@@ -18,6 +9,14 @@ import FabricAnalyticsListeners, { type AnalyticsWebClient } from '@atlaskit/ana
 import { AnalyticsContext } from '@atlaskit/analytics-next';
 import { flushPromises } from '@atlaskit/link-test-helpers';
 import { skipAutoA11yFile } from '@atlassian/a11y-jest-testing';
+import {
+	render,
+	screen,
+	userEvent,
+	waitFor,
+	waitForElementToBeRemoved,
+	within,
+} from '@atlassian/testing-library';
 
 import { useAnalyticsEvents } from '../../../common/analytics/generated/use-analytics-events';
 import { ActionName } from '../../../index';
@@ -115,7 +114,7 @@ describe('EmbedModal', () => {
 		resourceType: 'spaghetti-resource',
 	};
 
-	const wrapper: RenderOptions['wrapper'] = ({ children }) => (
+	const wrapper = ({ children }: { children: React.ReactNode }) => (
 		<IntlProvider locale="en">
 			<FabricAnalyticsListeners client={mockAnalyticsClient}>
 				<AnalyticsContext data={{ attributes: context }}>
@@ -140,7 +139,7 @@ describe('EmbedModal', () => {
 				fireEvent={fireEvent}
 				id={id}
 				iframeName="iframe-name"
-				onClose={() => {}}
+				onClose={() => { }}
 				showModal={true}
 				testId={testId}
 				{...incomingProps}
@@ -182,7 +181,7 @@ describe('EmbedModal', () => {
 	it('should capture and report a11y violations', async () => {
 		const { container } = render(
 			<IntlProvider locale="en">
-				<EmbedModal iframeName="iframe-name" onClose={() => {}} showModal={true} testId={testId} />
+				<EmbedModal iframeName="iframe-name" onClose={() => { }} showModal={true} testId={testId} />
 			</IntlProvider>,
 		);
 
@@ -198,7 +197,7 @@ describe('EmbedModal', () => {
 	it('renders embed modal without analytics', async () => {
 		render(
 			<IntlProvider locale="en">
-				<EmbedModal iframeName="iframe-name" onClose={() => {}} showModal={true} testId={testId} />
+				<EmbedModal iframeName="iframe-name" onClose={() => { }} showModal={true} testId={testId} />
 			</IntlProvider>,
 		);
 		const modal = await screen.findByTestId(testId);

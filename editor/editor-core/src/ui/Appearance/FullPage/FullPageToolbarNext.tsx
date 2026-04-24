@@ -179,7 +179,7 @@ export const FullPageToolbarNext = ({
 	showKeyline,
 	customPrimaryToolbarComponents,
 	disabled,
-}: FullPageToolbarNextProps) => {
+}: FullPageToolbarNextProps): JSX.Element => {
 	const components = editorAPI?.toolbar?.actions.getComponents();
 	const contextualFormattingEnabled = editorAPI?.toolbar?.actions.contextualFormattingMode();
 	const intl = useIntl();

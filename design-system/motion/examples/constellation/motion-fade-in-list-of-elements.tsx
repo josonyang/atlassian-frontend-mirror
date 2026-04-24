@@ -8,6 +8,7 @@ import { useState } from 'react';
 import { css, jsx } from '@compiled/react';
 
 import Button from '@atlaskit/button/new';
+import { cssMap } from '@atlaskit/css';
 import {
 	BitbucketIcon,
 	ConfluenceIcon,
@@ -16,10 +17,23 @@ import {
 	StatuspageIcon,
 	TrelloIcon,
 } from '@atlaskit/logo';
-import { FadeIn, StaggeredEntrance } from '@atlaskit/motion';
+import { ExitingPersistence, Motion, StaggeredEntrance } from '@atlaskit/motion';
 import { token } from '@atlaskit/tokens';
 
 import { Block } from '../utils';
+
+const styles = cssMap({
+	entering: {
+		animationDuration: token('motion.duration.xlong'),
+		animationTimingFunction: token('motion.easing.out.practical'),
+		animationName: `${token('motion.keyframe.scale.in.medium')}, ${token('motion.keyframe.fade.in')}`,
+	},
+	exiting: {
+		animationDuration: token('motion.duration.long'),
+		animationTimingFunction: token('motion.easing.in.practical'),
+		animationName: `${token('motion.keyframe.scale.out.medium')}, ${token('motion.keyframe.fade.out')}`,
+	},
+});
 
 const MotionFadeInListOfElementsExample = (): JSX.Element => {
 	const [items, setItems] = useState(logos);
@@ -30,27 +44,27 @@ const MotionFadeInListOfElementsExample = (): JSX.Element => {
 			<Button onClick={() => setItems(logos)}>Reset</Button>
 			<ul css={listStyles}>
 				<StaggeredEntrance>
+					<ExitingPersistence>
 					{items.map((logo) => (
 						// Gotcha #1 set propery keys YO
-						<FadeIn key={logo[1] as string}>
-							{(props) => (
-								<li
-									ref={props.ref}
-									// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop
-									className={props.className}
-									style={props.style}
-									css={listItemStyles}
-								>
-									<Block css={blockStyles}>
-										<div css={logoContainerStyles}>
-											{logo[0]}
-											<h3 css={headerStyles}>{logo[1]}</h3>
-										</div>
-									</Block>
-								</li>
-							)}
-						</FadeIn>
+						<Motion
+							enteringAnimationXcss={styles.entering}
+							exitingAnimationXcss={styles.exiting}
+							key={logo[1] as string}
+						>
+							<li
+								css={listItemStyles}
+							>
+								<Block css={blockStyles}>
+									<div css={logoContainerStyles}>
+										{logo[0]}
+										<h3 css={headerStyles}>{logo[1]}</h3>
+									</div>
+								</Block>
+							</li>
+						</Motion>
 					))}
+					</ExitingPersistence>
 				</StaggeredEntrance>
 			</ul>
 		</div>

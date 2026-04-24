@@ -13,7 +13,6 @@ import {
 import { fg } from '@atlaskit/platform-feature-flags';
 
 import { type FlexibleUiDataContext } from '../../state/flexible-ui-context/types';
-import { isNewBlockcardUnauthorizedRefreshExperimentEnabled } from '../../utils/experiments';
 import { type ExtractFlexibleUiDataContextParams } from '../../view/FlexibleCard/types';
 import { extractSmartLinkSummary } from '../common/primitives/extractSummary';
 
@@ -154,9 +153,7 @@ const extractFlexibleUiContext = ({
 			resourceType: extractMetaResourceType(meta),
 			tenantId: extractMetaTenantId(meta),
 		},
-		...(isNewBlockcardUnauthorizedRefreshExperimentEnabled() && {
-			hostName: extractHostName(response),
-		}),
+		hostName: extractHostName(response),
 	};
 };
 

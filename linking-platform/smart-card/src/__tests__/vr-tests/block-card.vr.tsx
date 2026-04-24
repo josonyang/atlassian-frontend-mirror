@@ -24,7 +24,7 @@ import BlockCardResolvedIconVariations from '../../../examples/vr-block-card/vr-
 import { BlockCardJira } from '../../../examples/vr-block-card/vr-block-card-resolved-jira';
 import { BlockCardTrello } from '../../../examples/vr-block-card/vr-block-card-resolved-trello-image-preview';
 import { BlockCardUnauthorisedView } from '../../../examples/vr-block-card/vr-block-card-unauthorised';
-import { BlockCardUnauthorisedNewDesign } from '../../../examples/vr-block-card/vr-block-card-unauthorised-new-design';
+import { BlockCardUnauthorisedMultipleProviders } from '../../../examples/vr-block-card/vr-block-card-unauthorised-multiple-providers';
 import { BlockCardUnauthorisedViewWithNoAuth } from '../../../examples/vr-block-card/vr-block-card-unauthorised-no-auth';
 import { VRBlockProfileCard } from '../../../examples/vr-block-card/vr-block-profile-card';
 import { BlockCardForbiddenViews } from '../../../examples/vr-block-card/vr-flexible-block-card-variants-of-forbidden-views';
@@ -70,21 +70,14 @@ snapshot(BlockCardUnauthorisedView, {
 	featureFlags: {},
 	waitForReactLazy: true,
 });
-snapshot(BlockCardUnauthorisedNewDesign, {
-	description: 'block card unauthorised view with experiment',
-	featureFlags: {
-		platform_sl_3p_unauth_paste_as_block_card: [
-			'control',
-			'card_by_default_only',
-			'card_by_default_and_new_design',
-		],
-	},
+snapshot(BlockCardUnauthorisedMultipleProviders, {
+	description: 'block card unauthorised multiple providers',
+	featureFlags: {},
 	waitForReactLazy: true,
 });
-snapshot(BlockCardUnauthorisedNewDesign, {
+snapshot(BlockCardUnauthorisedMultipleProviders, {
 	description: 'block card unauthorised view better hovercard killswitch enabled',
 	featureFlags: {
-		platform_sl_3p_unauth_paste_as_block_card: 'card_by_default_and_new_design',
 		platform_sl_3p_preauth_better_hovercard_killswitch: true,
 		platform_sl_3p_preauth_better_hovercard: true,
 	},

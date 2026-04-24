@@ -5,7 +5,7 @@ import type { Primitive } from '@sentry/types';
 // eslint-disable-next-line @atlaskit/platform/prefer-crypto-random-uuid -- Use crypto.randomUUID instead
 import uuid from 'uuid';
 
-import { default as AnalyticsReactContext } from '@atlaskit/analytics-next-stable-react-context';
+import { default as AnalyticsReactContext, type AnalyticsReactContextInterface } from '@atlaskit/analytics-next-stable-react-context';
 import type { CreateUIAnalyticsEvent } from '@atlaskit/analytics-next/types';
 import type { ErrorEventAttributes, ErrorEventPayload } from '@atlaskit/editor-common/analytics';
 import {
@@ -183,7 +183,7 @@ export class ErrorBoundaryWithEditorView extends React.Component<
 }
 
 export class ErrorBoundaryWithEditorViewWithAnalyticsReactContext extends ErrorBoundaryWithEditorView {
-	static contextType = AnalyticsReactContext;
+	static contextType: React.Context<AnalyticsReactContextInterface> = AnalyticsReactContext;
 	context!: React.ContextType<typeof AnalyticsReactContext>;
 
 	constructor(props: ErrorBoundaryProps) {
@@ -198,8 +198,12 @@ export class ErrorBoundaryWithEditorViewWithAnalyticsReactContext extends ErrorB
 	};
 }
 
-export default componentWithCondition(
-	() => fg('platform_editor_sentry_breadcrumbs'),
-	WithEditorView(ErrorBoundaryWithEditorViewWithAnalyticsReactContext),
-	WithEditorView(ErrorBoundaryWithEditorView),
+// eslint-disable-next-line @typescript-eslint/ban-types
+const _default_1: React.FC<Omit<ErrorBoundaryProps, "editorView"> & {
+    children?: React.ReactNode | undefined;
+}> = componentWithCondition(
+    () => fg('platform_editor_sentry_breadcrumbs'),
+    WithEditorView(ErrorBoundaryWithEditorViewWithAnalyticsReactContext),
+    WithEditorView(ErrorBoundaryWithEditorView)
 );
+export default _default_1;

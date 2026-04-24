@@ -34,6 +34,7 @@ interface Dimensions {
 	height: number;
 }
 
+/* eslint-disable @repo/internal/deprecations/deprecation-ticket-required */
 /**
  * `useResizingHeight` animates height changes over state changes. If the height hasn't changed nothing will happen.
  *
@@ -42,6 +43,9 @@ interface Dimensions {
  * Test your app over low powered devices, you may want to avoid this if you can see it impacting FPS.
  *
  * See [examples](https://atlaskit.atlassian.com/packages/design-system/motion/docs/resizing-motions).
+ *
+ * @deprecated Use `useResizing` from `@atlaskit/motion/resizing` instead. Pass `dimension: 'height'`
+ * to animate height changes. The new hook supports `'width'`, `'height'`, or `'both'`.
  */
 export const useResizingHeight = ({
 	duration: calcDuration = () => durations.medium,
@@ -124,6 +128,9 @@ export const useResizingHeight = ({
  * Component which consumes the useResizingHook() under-the-hood. Its props are the same as the hooks opts.
  *
  * See [examples](https://atlaskit.atlassian.com/packages/design-system/motion/docs/resizing-motions).
+ *
+ * @deprecated Use `Resizing` from `@atlaskit/motion/resizing` instead. Pass `dimension="height"`
+ * to animate height changes. The new component supports `'width'`, `'height'`, or `'both'`.
  */
 export const ResizingHeight = ({
 	children,
@@ -134,3 +141,4 @@ export const ResizingHeight = ({
 	const resizing = useResizingHeight(props);
 	return <Fragment>{children(resizing)}</Fragment>;
 };
+/* eslint-enable @repo/internal/deprecations/deprecation-ticket-required */

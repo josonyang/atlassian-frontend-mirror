@@ -10,7 +10,7 @@ import { List } from './list';
 import { MarkdownLink } from './markdown-link';
 
 // Tweak the styling
-export const md = defaultMD.customize({
+export const md: any = defaultMD.customize({
 	renderers: {
 		// Add a darker background to code elements
 		code: (props: { children: React.ReactNode }) => <Code>{props.children}</Code>,

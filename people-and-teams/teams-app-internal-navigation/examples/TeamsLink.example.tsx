@@ -33,7 +33,7 @@ const config = {
 	],
 } satisfies PlaygroundConfig;
 
-export default function TeamsLinkExample() {
+export default function TeamsLinkExample(): React.JSX.Element {
 	return (
 		<Playground config={config}>
 			{({ href, intent }) => (

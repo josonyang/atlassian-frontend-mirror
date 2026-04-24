@@ -70,6 +70,9 @@
 			"path": "../../../design-system/primitives/afm-cc/tsconfig.json"
 		},
 		{
+			"path": "../../../design-system/progress-bar/afm-cc/tsconfig.json"
+		},
+		{
 			"path": "../../../react-ufo/atlaskit/afm-cc/tsconfig.json"
 		},
 		{

@@ -36,6 +36,8 @@ import { ProgressBar } from './ui/progressBar/progressBar';
 import { PlayButton } from './ui/playButton/playButton';
 import { TickBox } from './ui/tickBox/tickBox';
 import { Blanket } from './ui/blanket/blanket';
+import { TransparentProgressBar } from '@atlaskit/progress-bar';
+import { AIBorder } from './ui/aiBorder/aiBorder';
 import { ActionsBar } from './ui/actionsBar/actionsBar';
 import { IconWrapper } from './ui/iconWrapper/iconWrapper';
 import {
@@ -61,6 +63,12 @@ const i18n = defineMessages({
 		defaultMessage: 'Use Trace ID {traceId} when reaching out to support.',
 		description:
 			'Tooltip content showing the trace identifier for troubleshooting file preview errors',
+	},
+	aiGeneratingImage: {
+		id: 'fabric.media.ai_generating_image',
+		defaultMessage: 'AI generating image',
+		description:
+			'Accessible label for the progress bar shown while AI is generating an image on the media card',
 	},
 });
 
@@ -104,6 +112,8 @@ export interface CardViewProps {
 	disableAnimation?: boolean;
 	shouldHideTooltip?: boolean;
 	overriddenCreationDate?: number;
+	// When true, shows an animated rainbow border instead of a progress bar during upload
+	readonly isAIGenerating?: boolean;
 }
 
 export type CardViewBaseProps = CardViewProps & WithAnalyticsEventsProps;
@@ -120,12 +130,22 @@ export interface RenderConfigByStatus {
 	renderBlanket?: boolean;
 	isFixedBlanket?: boolean;
 	renderProgressBar?: boolean;
+	renderAIBorder?: boolean;
 	renderSpinner?: boolean;
 	renderFailedTitleBox?: boolean;
 	renderTickBox?: boolean;
 	customTitleMessage?: MessageDescriptor;
 	traceTooltipVariant?: TraceTooltipVariant;
 }
+
+const aiProgressBarWrapperStyle: React.CSSProperties = {
+	position: 'absolute',
+	top: '50%',
+	left: '50%',
+	transform: 'translate(-50%, -50%)',
+	width: '60%',
+	zIndex: 2,
+};
 
 export const CardViewBase = ({
 	identifier,
@@ -160,7 +180,10 @@ export const CardViewBase = ({
 	overriddenCreationDate,
 	onSvgError,
 	onSvgLoad,
+
 	traceId,
+
+	isAIGenerating,
 }: CardViewBaseProps): React.JSX.Element => {
 	const intl = useIntl();
 	const [didSvgRender, setDidSvgRender] = useState<boolean>(false);
@@ -236,7 +259,7 @@ export const CardViewBase = ({
 					...defaultConfig,
 					renderBlanket: !disableOverlay || mediaType !== 'video',
 					isFixedBlanket: true,
-					renderProgressBar: true,
+					renderProgressBar: !isAIGenerating,
 				};
 			case 'processing':
 				return {
@@ -319,6 +342,11 @@ export const CardViewBase = ({
 		customTitleMessage,
 		traceTooltipVariant,
 	} = getRenderConfigByStatus();
+
+	// When AI is generating, always show the AI border.
+	// The AI generating decoration is cleared when the replacement upload completes,
+	// so we don't need to check status here.
+	const renderAIBorderOverride = !!isAIGenerating && fg('platform_editor_maui_edit');
 	const shouldDisplayBackground =
 		!cardPreview || !disableOverlay || status === 'error' || status === 'failed-processing';
 	const isPlayButtonClickable = shouldRenderPlayButton() && !!disableOverlay;
@@ -417,7 +445,20 @@ export const CardViewBase = ({
 						<PlayButton />
 					</IconWrapper>
 				)}
-				{renderBlanket && <Blanket isFixed={isFixedBlanket} />}
+				{renderAIBorderOverride ? (
+					<>
+						<Blanket isFixed />
+						{/* eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Feature-gated temporary AI loading styles */}
+						<div style={aiProgressBarWrapperStyle}>
+							<TransparentProgressBar
+								isIndeterminate
+								ariaLabel={intl.formatMessage(i18n.aiGeneratingImage)}
+							/>
+						</div>
+					</>
+				) : (
+					renderBlanket && <Blanket isFixed={isFixedBlanket} />
+				)}
 				{renderTitleBox && (
 					<TitleBox
 						name={name}
@@ -440,6 +481,7 @@ export const CardViewBase = ({
 				)}
 				{renderTickBox && <TickBox selected={selected} />}
 			</ImageContainer>
+			{renderAIBorderOverride && <AIBorder />}
 			{disableOverlay || !actions || actions.length === 0 ? null : (
 				<ActionsBar filename={name} actions={actionsWithDetails} />
 			)}

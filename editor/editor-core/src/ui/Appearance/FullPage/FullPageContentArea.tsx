@@ -9,7 +9,7 @@ import React, { useImperativeHandle, useRef } from 'react';
 import { css, jsx, useTheme } from '@emotion/react';
 import type { Theme } from '@emotion/react';
 import classnames from 'classnames';
-import type { WrappedComponentProps } from 'react-intl';
+import type { WithIntlProps, WrappedComponentProps } from 'react-intl';
 import { injectIntl } from 'react-intl';
 
 import { decisionListSelector, taskListSelector } from '@atlaskit/adf-schema';
@@ -452,4 +452,7 @@ const Content = React.forwardRef<
 	);
 });
 
-export const FullPageContentArea = injectIntl(Content, { forwardRef: true });
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export const FullPageContentArea: React.ForwardRefExoticComponent<Omit<WithIntlProps<React.PropsWithChildren<FullPageEditorContentAreaProps & WrappedComponentProps & React.RefAttributes<ScrollContainerRefs>>>, "ref"> & React.RefAttributes<any>> & {
+    WrappedComponent: React.ComponentType<FullPageEditorContentAreaProps & WrappedComponentProps & React.RefAttributes<ScrollContainerRefs>>;
+} = injectIntl(Content, { forwardRef: true });

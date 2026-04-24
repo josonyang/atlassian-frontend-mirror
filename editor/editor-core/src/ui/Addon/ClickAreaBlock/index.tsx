@@ -23,7 +23,7 @@ export interface Props {
 	editorView?: EditorView;
 }
 
-export const ClickAreaBlock = ({ editorView, editorDisabled, children }: Props) => {
+export const ClickAreaBlock = ({ editorView, editorDisabled, children }: Props): jsx.JSX.Element => {
 	const handleMouseDown = React.useCallback(
 		(event: React.MouseEvent<HTMLDivElement>) => {
 			if (!editorView) {

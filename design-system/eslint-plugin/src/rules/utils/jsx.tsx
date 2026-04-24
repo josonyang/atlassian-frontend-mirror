@@ -1,18 +1,4 @@
-import type {
-	JSXAttribute,
-	JSXElement,
-	JSXIdentifier,
-	JSXMemberExpression,
-	JSXOpeningElement,
-} from 'eslint-codemod-utils';
-
-export function findProp(jsx: JSXElement, propName: string): JSXAttribute | undefined {
-	const labelProp = jsx.openingElement.attributes.find(
-		(attr): attr is JSXAttribute => attr.type === 'JSXAttribute' && attr.name.name === propName,
-	);
-
-	return labelProp;
-}
+import type { JSXIdentifier, JSXMemberExpression, JSXOpeningElement } from 'eslint-codemod-utils';
 
 function unrollMemberExpression(exp: JSXMemberExpression | JSXIdentifier): string {
 	if (exp.type === 'JSXIdentifier') {
@@ -34,3 +20,5 @@ export function getJSXElementName(jsx: JSXOpeningElement): string {
 			return jsx.name.namespace.name;
 	}
 }
+
+export { findProp } from './find-prop';

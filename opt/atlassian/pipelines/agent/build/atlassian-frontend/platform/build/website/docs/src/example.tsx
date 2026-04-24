@@ -129,7 +129,7 @@ export function Example({
 	isDefaultSourceVisible = false,
 	appearance = 'showcase-and-source',
 	onToggleSource,
-}: Props) {
+}: Props): JSX.Element {
 	const [isSourceVisible, setIsSourceVisible] = useState(isDefaultSourceVisible);
 
 	const handleToggleSource = useCallback(() => {

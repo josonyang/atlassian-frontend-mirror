@@ -1,6 +1,6 @@
 import { getBrowserInfo } from '@atlaskit/editor-common/browser';
 
-export function getUAPrefix() {
+export function getUAPrefix(): "" | "ua-chrome" | "ua-ie" | "ua-firefox" | "ua-safari" {
 	const browser = getBrowserInfo();
 	if (browser.chrome) {
 		return 'ua-chrome';

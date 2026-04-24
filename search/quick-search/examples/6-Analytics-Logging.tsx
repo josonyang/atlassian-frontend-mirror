@@ -7,7 +7,7 @@ import ObjectResult from '../src/components/Results/ObjectResult';
 
 // eslint-disable-next-line import/no-anonymous-default-export
 export default class extends React.Component {
-	onEvent = (eventName: string, eventData: object) => {
+	onEvent = (eventName: string, eventData: object): void => {
 		const event = {
 			name: eventName,
 			data: eventData,
@@ -16,7 +16,7 @@ export default class extends React.Component {
 		console.log('Analytics Event:', event);
 	};
 
-	render() {
+	render(): React.JSX.Element {
 		return (
 			<AnalyticsListener onEvent={this.onEvent} matchPrivate>
 				<QuickSearch isLoading={false}>

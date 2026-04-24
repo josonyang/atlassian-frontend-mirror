@@ -81,6 +81,11 @@ export type MediaNextEditorPluginType = NextEditorPlugin<
 			setProvider: (provider: Promise<MediaProvider>) => boolean;
 		};
 		commands: {
+			/**
+			 * Clears the AI-generating decoration for a specific media node identified by
+			 * `mediaId`. Removes the AI border from that media node.
+			 */
+			clearAIGenerating: (mediaId: string) => EditorCommand;
 			hideMediaViewer: EditorCommand;
 			/**
 			 * Inserts a media node as a media single.
@@ -95,6 +100,14 @@ export type MediaNextEditorPluginType = NextEditorPlugin<
 				inputMethod: InputMethodInsertMedia,
 				insertMediaVia?: InsertMediaVia,
 			) => EditorCommand;
+			/**
+			 * Sets the AI-generating decoration on a media node identified by `mediaId`.
+			 * Renders an AI border around the media node while AI is generating/replacing it.
+			 *
+			 * Decorations live in the view layer only and never affect the document model
+			 * or undo/redo history.
+			 */
+			setAIGenerating: (mediaId: string) => EditorCommand;
 			showMediaViewer: (media: MediaADFAttrs) => EditorCommand;
 			trackMediaPaste: (attrs: MediaADFAttrs) => EditorCommand;
 		};

@@ -26,7 +26,7 @@ const config = {
 	],
 } satisfies PlaygroundConfig;
 
-export default function TeamsNavigationProviderExample() {
+export default function TeamsNavigationProviderExample(): React.JSX.Element {
 	return (
 		<Playground config={config}>
 			{({ forceExternalIntent, useSpaNavigation }) => (

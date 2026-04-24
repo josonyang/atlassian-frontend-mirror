@@ -115,7 +115,7 @@ export class PluginPerformanceObserver implements PerformanceObserver {
 		}
 	}
 
-	public takeRecords() {
+	public takeRecords(): PerformanceEntryList {
 		return this.observer.takeRecords();
 	}
 }

@@ -45,7 +45,7 @@ export const getQuickInsertConfig = (
 				id: 'syncBlock',
 				title: formatMessage(blockTypeMessages.syncedBlock),
 				description: formatMessage(blockTypeMessages.syncedBlockDescription),
-				priority: 800,
+				priority: fg('platform_synced_block_patch_10') ? 400 : 800,
 				keywords: [
 					'synced',
 					'block',
@@ -56,6 +56,7 @@ export const getQuickInsertConfig = (
 					'update',
 					'excerpt',
 					'connect',
+					...(fg('platform_synced_block_patch_10') ? ['create'] : []),
 				],
 				isDisabledOffline: true,
 				keyshortcut: '',

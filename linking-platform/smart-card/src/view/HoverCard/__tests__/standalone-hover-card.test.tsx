@@ -1,8 +1,6 @@
 import '@atlaskit/link-test-helpers/jest';
 import React, { useState } from 'react';
 
-import { act, fireEvent, render, screen } from '@testing-library/react';
-import userEvent from '@testing-library/user-event';
 import { IntlProvider } from 'react-intl';
 
 import Heading from '@atlaskit/heading';
@@ -15,6 +13,7 @@ import {
 } from '@atlaskit/smart-card/hover-card';
 import { skipAutoA11yFile } from '@atlassian/a11y-jest-testing';
 import { ffTest } from '@atlassian/feature-flags-test-utils';
+import { act, fireEvent, render, screen, userEvent } from '@atlassian/testing-library';
 
 import * as useSmartCardActions from '../../../state/actions';
 import { fakeFactory } from '../../../utils/mocks';

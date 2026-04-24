@@ -8,6 +8,7 @@ import { cloneElement, useState } from 'react';
 import { css, jsx } from '@compiled/react';
 
 import Button from '@atlaskit/button/new';
+import { cssMap } from '@atlaskit/css';
 import {
 	BitbucketIcon,
 	ConfluenceIcon,
@@ -19,10 +20,23 @@ import {
 	StatuspageIcon,
 	TrelloIcon,
 } from '@atlaskit/logo';
-import { FadeIn, StaggeredEntrance } from '@atlaskit/motion';
+import { Motion, StaggeredEntrance } from '@atlaskit/motion';
 import { token } from '@atlaskit/tokens';
 
 import { Block, RetryContainer } from '../utils';
+
+const styles = cssMap({
+	entering: {
+		animationDuration: token('motion.duration.xlong'),
+		animationTimingFunction: token('motion.easing.out.practical'),
+		animationName: `${token('motion.keyframe.scale.in.medium')}, ${token('motion.keyframe.fade.in')}`,
+	},
+	exiting: {
+		animationDuration: token('motion.duration.long'),
+		animationTimingFunction: token('motion.easing.in.practical'),
+		animationName: `${token('motion.keyframe.scale.out.medium')}, ${token('motion.keyframe.fade.out')}`,
+	},
+});
 
 const MotionFadeInGridOfElementsExample = (): JSX.Element => {
 	const [state, setState] = useState(() => ({
@@ -55,24 +69,21 @@ const MotionFadeInGridOfElementsExample = (): JSX.Element => {
 						{Array(state.numOfChildren)
 							.fill(undefined)
 							.map((_, index) => (
-								<FadeIn key={index}>
-									{(props) => (
-										<li
-											ref={props.ref}
-											// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop
-											className={props.className}
-											style={props.style}
-											css={listItemStyles}
-										>
-											<Block appearance={state.size}>
-												{/* eslint-disable-next-line @repo/internal/react/no-clone-element */}
-												{cloneElement(logos[index % logos.length], {
-													size: state.numOfChildren > 9 ? 'small' : 'xlarge',
-												})}
-											</Block>
-										</li>
-									)}
-								</FadeIn>
+								<Motion
+									enteringAnimationXcss={styles.entering}
+									exitingAnimationXcss={styles.exiting}
+								>
+									<li
+										css={listItemStyles}
+									>
+										<Block appearance={state.size}>
+											{/* eslint-disable-next-line @repo/internal/react/no-clone-element */}
+											{cloneElement(logos[index % logos.length], {
+												size: state.numOfChildren > 9 ? 'small' : 'xlarge',
+											})}
+										</Block>
+									</li>
+								</Motion>
 							))}
 					</StaggeredEntrance>
 				</ul>

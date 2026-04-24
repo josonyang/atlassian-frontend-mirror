@@ -3,7 +3,8 @@
  * @jsx jsx
  */
 import { css, jsx } from '@compiled/react';
-import { render, screen } from '@testing-library/react';
+
+import { render, screen } from '@atlassian/testing-library';
 
 import AtlaskitElementBadge from '../index';
 

@@ -1,9 +1,9 @@
+import '@atlaskit/link-test-helpers/jest';
+
 import React from 'react';
 
-import { renderHook } from '@testing-library/react';
-
-import '@atlaskit/link-test-helpers/jest';
 import { AnalyticsListener } from '@atlaskit/analytics-next';
+import { renderHook } from '@atlassian/testing-library';
 
 import { ANALYTICS_CHANNEL } from '../../../utils/analytics';
 import { useDispatchAnalytics } from '../useDispatchAnalytics';
@@ -18,7 +18,7 @@ describe('useDispatchAnalytics', () => {
 
 	it('should return the `handler` if provided as `dispatchAnalytics`', () => {
 		const dispatch = jest.fn();
-		const { result } = renderHook(() => useDispatchAnalytics(dispatch));
+		const result = renderHook(() => useDispatchAnalytics(dispatch));
 		const { dispatchAnalytics } = result.current;
 
 		dispatchAnalytics(payload);
@@ -30,7 +30,7 @@ describe('useDispatchAnalytics', () => {
 	it('should return a function that fires an event using `createAnalyticsEvents` on `media` channel if no `handler` is provided', () => {
 		const spy = jest.fn();
 
-		const { result } = renderHook(() => useDispatchAnalytics(), {
+		const result = renderHook(() => useDispatchAnalytics(), {
 			wrapper: ({ children }) => (
 				<AnalyticsListener onEvent={spy} channel={ANALYTICS_CHANNEL}>
 					{children}

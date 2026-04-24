@@ -9,7 +9,7 @@ import React from 'react';
 import { css, jsx } from '@emotion/react';
 import type { SerializedStyles } from '@emotion/react';
 import { injectIntl } from 'react-intl';
-import type { IntlShape } from 'react-intl';
+import type { IntlShape, WithIntlProps } from 'react-intl';
 import Transition from 'react-transition-group/Transition';
 
 import { ContextPanelConsumer } from '@atlaskit/editor-common/context-panel';
@@ -229,9 +229,12 @@ class SwappableContentAreaInner extends React.PureComponent<SwappableContentArea
 	}
 }
 
-export const SwappableContentArea = injectIntl(SwappableContentAreaInner);
+// eslint-disable-next-line @typescript-eslint/ban-types
+export const SwappableContentArea: React.FC<WithIntlProps<SwappableContentAreaProps>> & {
+    WrappedComponent: React.ComponentType<SwappableContentAreaProps>;
+} = injectIntl(SwappableContentAreaInner);
 
-export function ContextPanel(props: Props) {
+export function ContextPanel(props: Props): jsx.JSX.Element {
 	const contextPanelContents = useSharedPluginStateWithSelector(
 		props.editorAPI,
 		['contextPanel'],

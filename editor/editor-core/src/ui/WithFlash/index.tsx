@@ -59,7 +59,7 @@ export interface Props {
 export default class WithFlash extends React.Component<Props> {
 	private toggle = false;
 
-	render() {
+	render(): jsx.JSX.Element {
 		const { animate, children } = this.props;
 		this.toggle = animate && !this.toggle;
 

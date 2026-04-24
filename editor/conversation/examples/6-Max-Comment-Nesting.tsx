@@ -57,7 +57,7 @@ const ComposableEditorWrapper = ({
 	return <Editor preset={universalPreset} {...props} />;
 };
 
-export default () => {
+export default (): React.JSX.Element | null => {
 	const [maxCommentNesting, setMaxCommentNesting] = useState(1);
 	const [shouldAutoMention, setShouldAutoMention] = useState(true);
 	const [conversationId, setConversationId] = useState<string | undefined>(undefined);

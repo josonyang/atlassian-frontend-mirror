@@ -4,19 +4,15 @@ import { createIsFromImportSourceFor } from '../../common/is-from-import-source'
 import { createLintRule } from '../utils/create-rule';
 import { errorBoundary } from '../utils/error-boundary';
 
-import {
-	CSSMAP_VARIABLE_NAME,
-	getCssMapKey,
-	getIconSize,
-	getSpacingAttribute,
-	getStaticAttributeValue,
-	hasSpreadProps,
-	SPACING_TO_PADDING,
-	upsertCssMapImport,
-	upsertCssMapVariable,
-	upsertFlexImport,
-	upsertTokenImport,
-} from './helpers';
+import { getCssMapKey } from './get-css-map-key';
+import { getSpacingAttribute } from './get-spacing-attribute';
+import { getStaticAttributeValue } from './get-static-attribute-value';
+import { hasSpreadProps } from './has-spread-props';
+import { CSSMAP_VARIABLE_NAME, getIconSize, upsertCssMapVariable } from './helpers';
+import { SPACING_TO_PADDING } from './spacing-to-padding';
+import { upsertCssMapImport } from './upsert-css-map-import';
+import { upsertFlexImport } from './upsert-flex-import';
+import { upsertTokenImport } from './upsert-token-import';
 
 const rule: Rule.RuleModule = createLintRule({
 	meta: {

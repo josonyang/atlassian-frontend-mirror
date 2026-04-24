@@ -1,7 +1,7 @@
 import { isNodeOfType } from 'eslint-codemod-utils';
 
 import { createLintRule } from '../utils/create-rule';
-import { findProp } from '../utils/jsx';
+import { findProp } from '../utils/find-prop';
 
 const elements = [
 	'AkButton',

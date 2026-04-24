@@ -1,4 +1,3 @@
-import { renderHook } from '@testing-library/react';
 import * as jestExtendedMatchers from 'jest-extended';
 
 import { useSmartLinkClientExtension } from '@atlaskit/link-client-extension';
@@ -6,6 +5,7 @@ import {
 	type InvokeRequest,
 	SmartLinkActionType,
 } from '@atlaskit/linking-types/smart-link-actions';
+import { renderHook } from '@atlassian/testing-library';
 
 import useInvoke from '../index';
 
@@ -40,7 +40,7 @@ describe('useInvoke', () => {
 			invoke: mockInvoke,
 		});
 
-		const { result } = renderHook(() => useInvoke());
+		const result = renderHook(() => useInvoke());
 
 		await result.current(request);
 
@@ -55,7 +55,7 @@ describe('useInvoke', () => {
 			invoke: mockInvoke,
 		});
 
-		const { result } = renderHook(() => useInvoke());
+		const result = renderHook(() => useInvoke());
 
 		const response = await result.current(request);
 
@@ -69,7 +69,7 @@ describe('useInvoke', () => {
 			invoke: jest.fn().mockResolvedValueOnce({ a: 'invoke-response' }),
 		});
 
-		const { result } = renderHook(() => useInvoke());
+		const result = renderHook(() => useInvoke());
 
 		const response = await result.current(request, callback);
 

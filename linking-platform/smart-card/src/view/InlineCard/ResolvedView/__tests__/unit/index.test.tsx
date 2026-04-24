@@ -1,11 +1,11 @@
 import React from 'react';
 
-import { render, screen } from '@testing-library/react';
 import { IntlProvider } from 'react-intl';
 
 import { SmartCardProvider as Provider } from '@atlaskit/link-provider';
 import { token } from '@atlaskit/tokens';
 import { ffTest } from '@atlassian/feature-flags-test-utils';
+import { render, screen } from '@atlassian/testing-library';
 
 import { type LozengeProps } from '../../../../../types';
 import { InlineCardResolvedView } from '../../index';

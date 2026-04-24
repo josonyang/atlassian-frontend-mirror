@@ -6,9 +6,6 @@ import { setBooleanFeatureFlagResolver } from '@atlaskit/platform-feature-flags'
 type FeatureGateConfig = Parameters<(typeof FeatureGates)['overrideConfig']>[1];
 
 const experimentConfig: Record<string, FeatureGateConfig> = {
-	platform_sl_3p_unauth_paste_as_block_card: {
-		cohort: 'card_by_default_and_new_design',
-	},
 	platform_sl_3p_preauth_better_hovercard: {
 		isEnabled: true,
 	},

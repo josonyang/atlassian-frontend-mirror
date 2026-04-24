@@ -1,5 +1,37 @@
 # @atlaskit/editor-statsig-tmp
 
+## 68.1.0
+
+### Minor Changes
+
+- [`4b61b018db494`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/4b61b018db494) -
+  [ux] Adds AI image generation to the editor by introducing a new plugin for image generation in
+  the editor with the functionalities to create AI images with a prompt and style choice. The plugin
+  is gated behind a feature experiment.
+
+## 68.0.0
+
+### Major Changes
+
+- [`6655b2d3fda01`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/6655b2d3fda01) -
+  NAVX-4681: Remove platform_sl_3p_unauth_paste_as_block_card experiment (winning:
+  card_by_default_and_new_design), platform_sl_3p_unauth_paste_as_block_card_gate, and
+  platform_sl_3p_unauth_experiment_gate feature flags
+
+## 67.0.0
+
+### Major Changes
+
+- [`e6835136c4227`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/e6835136c4227) -
+  [FFCLEANUP-98435] remove stale experiment `platform_editor_a11y_typeahead_tab_keypress`
+- [`f7d7098ecbcbf`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/f7d7098ecbcbf) -
+  Cleanup exp platform_editor_copy_paste_issue_fix
+
+### Minor Changes
+
+- [`245a43ebad095`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/245a43ebad095) -
+  [EDITOR-4550] add new experiment to config
+
 ## 66.1.0
 
 ### Minor Changes

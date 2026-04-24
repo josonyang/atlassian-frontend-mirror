@@ -21,13 +21,12 @@ const styles = cssMap({
 		position: 'relative',
 	},
 	title: {
-		top: token('space.500'),
+		insetBlockStart: token('space.500'),
 		position: 'absolute',
-		paddingTop: token('space.025'),
-		paddingRight: token('space.300'),
-		paddingBottom: token('space.025'),
-		paddingLeft: token('space.300'),
-		textTransform: 'uppercase',
+		paddingBlockStart: token('space.025'),
+		paddingInlineEnd: token('space.300'),
+		paddingBlockEnd: token('space.025'),
+		paddingInlineStart: token('space.300'),
 	},
 	customClose: {
 		position: 'absolute',

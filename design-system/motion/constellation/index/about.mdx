@@ -4,22 +4,79 @@ description: A set of utilities to apply motion in your application.
 order: 0
 ---
 
-## Library Considerations
+import SectionMessage from '@atlaskit/section-message';
 
-### CSS over Javascript
+## Library considerations
 
-Where possible this library will use CSS exclusively, and only use Javascript when it is impossible
-otherwise. This is primarily for **Performance**, but also for allowing us to have motion run
-without waiting for Javascript to execute on initial load (very important for our SSR rendered
-apps).
+### Entry/Exit animations
 
-What this boils down to is:
+The recommended way to apply entry and exit animations is with the [Motion primitive](/components/motion/motion-primitive) component. Pass
+pre-defined motion tokens to `enteringAnimation` and `exitingAnimation`, or supply custom `cssMap`
+styles via `enteringAnimationXcss` and `exitingAnimationXcss` for full control.
 
-- Use CSS animation/transitions over animation engines unless there is no possible alternative
-- Avoid any client side calculations to power motion if it can be done with CSS
-- Emulating any spring styled motions with CSS animation
-- Highly interactive and/or gestural motions would be contenders for using an animation engine, but
-  we're not there yet
+```tsx
+import { ExitingPersistence, Motion } from '@atlaskit/motion';
+import { token } from '@atlaskit/tokens';
+
+<ExitingPersistence appear>
+  {isVisible && (
+    <Motion
+      enteringAnimation={token('motion.modal.enter')}
+      exitingAnimation={token('motion.modal.exit')}
+    >
+      <MyComponent />
+    </Motion>
+  )}
+</ExitingPersistence>
+```
+
+### CSS over JavaScript
+
+Where possible this library uses CSS exclusively, and only falls back to JavaScript when there is no
+alternative. This is primarily for **performance**, and to allow motion to run without waiting for
+JavaScript to execute on initial load — important for SSR-rendered apps.
+
+In practice this means:
+
+- CSS animations and transitions are preferred over animation engines
+- Client-side calculations to drive motion are avoided where CSS can do the same job
+- Spring-style motions are emulated with CSS animation curves
+- Highly interactive or gestural motions may warrant an animation engine, but these are handled
+  case-by-case
+
+For new CSS-based animations that are not entry or exit animations, use the `motion.duration.*` and `motion.easing.*` design tokens to define animation and transition CSS properties:
+
+* `animation-timing-function`
+* `animation-duration`
+* `animation-delay`
+* `transition-timing-function`
+* `transition-duration`
+* `transition-delay`
+
+### Motion abstractions
+
+We want you to use the provided abstractions to power your motion and not worry about the underlying
+implementation. We _also_ want a consistent motion experience across all our apps. If you need a
+particular motion that doesn't exist yet, consider contributing motion design tokens to `@atlaskit/tokens` so every app
+at Atlassian can benefit.
+
+### Reduced motion support
+
+While motion is used to create relationships, highlight what matters, and create delight, it's
+equally important to allow users to opt out. Every motion component and custom animation should
+respect the user's reduced-motion preference. See
+[Accessibility](/components/motion/accessibility) for the utilities available.
+
+
+## Legacy entering-motion components
+
+<SectionMessage appearance="warning" title="Caution">
+  <p>
+    FadeIn, SlideIn, ZoomIn and ShrinkOut are legacy components and are planned for deprecation.
+    For new work, use the{' '}<a href="/components/motion/motion-primitive">Motion primitive</a> component
+    instead.
+  </p>
+</SectionMessage>
 
 ### Not rendering markup
 
@@ -72,16 +129,5 @@ const ComponentWithSlideIn = ({ children }: { children: ReactNode }) => (
 );
 ```
 
-### Motion abstractions
-
-We want you to use abstractions (atoms) to power your motion and to not worry about underlying tech.
-We _also_ want a consistent experience across our apps. Need a particular motion that doesn't exist
-yet?
-
-Think about contributing to `@atlaskit/motion` so all apps at Atlassian can benefit.
-
-### Reduced motion support
-
-While motion is utilised to create relationships, show the most important thing on the page, and
-create delight, it's also important to allow our users to opt out of it. Every motion component
-should use the provided utilities (see: [Accessibility](/components/motion/accessibility)).
+If you are maintaining existing code that uses these components, see
+[Entering motions](/components/motion/entering-motions) for their full API reference.

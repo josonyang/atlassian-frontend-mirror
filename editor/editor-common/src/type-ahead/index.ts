@@ -12,7 +12,6 @@ export enum SelectItemMode {
 	ENTER = 'enter',
 	SPACE = 'space',
 	SELECTED = 'selected',
-	TAB = 'tab',
 }
 
 export { typeAheadListMessages } from './messages';

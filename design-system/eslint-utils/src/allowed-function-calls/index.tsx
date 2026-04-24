@@ -17,7 +17,8 @@
 import type { Variable } from 'eslint-scope';
 import merge from 'lodash/merge';
 
-import { defaultAllowedDynamicKeys, defaultAllowedValues } from './default-allowed';
+import { defaultAllowedValues } from './default-allowed';
+import { defaultAllowedDynamicKeys } from './default-allowed-dynamic-keys';
 import type { AllowList } from './types';
 
 export type { AllowList } from './types';

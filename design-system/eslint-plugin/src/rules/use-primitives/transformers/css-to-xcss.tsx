@@ -12,7 +12,6 @@ import {
 
 import { getScope } from '@atlaskit/eslint-utils/context-compat';
 
-import { allSpaceMap, positiveSpaceMap } from '../../../common/token-maps.partial';
 import {
 	getAttributeValueIdentifier,
 	getFunctionArgumentAtPos,
@@ -20,6 +19,9 @@ import {
 	getVariableDefinitionValue,
 } from '../utils';
 
+import { dimensionsMap } from './dimensions-map';
+import { spaceTokenMap } from './space-token-map';
+import { spaceTokenPositiveMap } from './space-token-positive-map';
 export const cssToXcssTransformer = (
 	node: JSXElement,
 	context: Rule.RuleContext,
@@ -115,13 +117,6 @@ export const styledObjectToXcssTokens = (
 	});
 };
 
-export const spaceTokenMap: { [key: string]: string } = allSpaceMap;
-export const spaceTokenPositiveMap: { [key: string]: string } = positiveSpaceMap;
-
-export const dimensionsMap: { [key: string]: string } = {
-	'100%': '100%',
-};
-
 export const supportedDimensionAttributesMap: {
 	[key: string]: typeof spaceTokenMap;
 } = {
@@ -158,3 +153,7 @@ export const supportedStylesMap: { [key: string]: typeof spaceTokenMap } = {
 	marginTop: spaceTokenMap,
 	...supportedDimensionAttributesMap,
 };
+
+export { spaceTokenMap } from './space-token-map';
+export { spaceTokenPositiveMap } from './space-token-positive-map';
+export { dimensionsMap } from './dimensions-map';

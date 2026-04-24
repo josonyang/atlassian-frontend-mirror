@@ -1,5 +1,26 @@
 # @atlaskit/editor-plugin-synced-block
 
+## 8.0.9
+
+### Patch Changes
+
+- [`c9d88dc997d4a`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/c9d88dc997d4a) -
+  Improve quick insert ranking for synced block when searching 'create'
+  (platform_synced_block_patch_10)
+- Updated dependencies
+
+## 8.0.8
+
+### Patch Changes
+
+- Updated dependencies
+
+## 8.0.7
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 8.0.6
 
 ### Patch Changes

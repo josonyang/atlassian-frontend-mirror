@@ -39,13 +39,23 @@
 		}
 	},
 	"exports": {
-		"./AvatarItem": "./src/entry-points/avatar-item.tsx",
+		".": "./src/index.tsx",
+		"./avatar": "./src/entry-points/avatar.tsx",
 		"./Avatar": "./src/entry-points/avatar.tsx",
-		"./Presence": "./src/entry-points/presence.tsx",
+		"./avatar-content": "./src/entry-points/avatar-content.tsx",
+		"./avatar-context": "./src/entry-points/avatar-context.tsx",
+		"./avatar-item": "./src/entry-points/avatar-item.tsx",
+		"./AvatarItem": "./src/entry-points/avatar-item.tsx",
+		"./constants": "./src/entry-points/constants.tsx",
+		"./get-appearance": "./src/entry-points/get-appearance.tsx",
+		"./presence": "./src/entry-points/presence.tsx",
+		"./Presence": "./src/entry-points/presence-old.tsx",
+		"./skeleton": "./src/entry-points/skeleton.tsx",
 		"./Skeleton": "./src/entry-points/skeleton.tsx",
-		"./Status": "./src/entry-points/status.tsx",
+		"./status": "./src/entry-points/status.tsx",
+		"./Status": "./src/entry-points/status-old.tsx",
 		"./types": "./src/entry-points/types.tsx",
-		".": "./src/index.tsx"
+		"./use-avatar-context": "./src/entry-points/use-avatar-context.tsx"
 	},
 	"dependencies": {
 		"@atlaskit/analytics-next": "workspace:^",

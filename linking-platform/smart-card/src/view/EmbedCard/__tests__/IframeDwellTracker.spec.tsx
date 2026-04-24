@@ -1,10 +1,11 @@
 import React from 'react';
 
-import { act, render, type RenderResult } from '@testing-library/react';
-
 import { type JestFunction } from '@atlaskit/media-test-helpers';
+import { act, render } from '@atlassian/testing-library';
 
 import { IframeDwellTracker, type IframeDwellTrackerProps } from '../components/IframeDwellTracker';
+
+type RenderResult = ReturnType<typeof render>;
 
 describe('Iframe Dwell Tracker', () => {
 	let iframeTracker: RenderResult;

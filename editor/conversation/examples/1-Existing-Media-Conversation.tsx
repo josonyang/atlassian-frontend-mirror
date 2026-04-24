@@ -18,7 +18,7 @@ export default class ExistingConversation extends React.Component<{}, { conversa
 		conversationId: undefined,
 	};
 
-	async componentDidMount() {
+	async componentDidMount(): Promise<void> {
 		const conversations = await provider.getConversations();
 
 		this.setState({
@@ -26,7 +26,7 @@ export default class ExistingConversation extends React.Component<{}, { conversa
 		});
 	}
 
-	render() {
+	render(): React.JSX.Element | null {
 		const { conversationId } = this.state;
 		if (!conversationId) {
 			return null;

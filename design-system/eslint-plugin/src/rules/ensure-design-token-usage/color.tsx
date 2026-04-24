@@ -4,23 +4,22 @@ import { node as generate, isNodeOfType, type Property } from 'eslint-codemod-ut
 import { getScope, getSourceCode } from '@atlaskit/eslint-utils/context-compat';
 
 import { getIsException } from '../utils/get-is-exception';
+import { isChildOfType } from '../utils/is-child-of-type';
 import {
 	includesHardCodedColor,
 	isHardCodedColor,
 	isLegacyColor,
 	isLegacyNamedColor,
 } from '../utils/is-color';
+import { isDecendantOfGlobalToken } from '../utils/is-decendant-of-global-token';
+import { isDecendantOfPrimitive } from '../utils/is-decendant-of-primitive';
+import { isDecendantOfSvgElement } from '../utils/is-decendant-of-svg-element';
 import { isLegacyElevation } from '../utils/is-elevation';
-import {
-	isChildOfType,
-	isDecendantOfGlobalToken,
-	isDecendantOfPrimitive,
-	isDecendantOfStyleBlock,
-	isDecendantOfSvgElement,
-} from '../utils/is-node';
+import { isDecendantOfStyleBlock } from '../utils/is-node';
 
+
+import { getElevationTokenExample } from './get-elevation-token-example';
 import type { RuleConfig } from './types';
-
 type Suggestion = {
 	shouldReturnSuggestion: boolean;
 } & Rule.SuggestionReportDescriptor;
@@ -379,17 +378,6 @@ export const lintJSXIdentifierForColor = (
 	}
 };
 
-export const getElevationTokenExample = (
-	elevation: Exclude<ReturnType<typeof isLegacyElevation>, false>,
-) => `\`\`\`
-import { token } from '@atlaskit/tokens';
-
-css({
-  backgroundColor: token('${elevation.background}');
-  boxShadow: token('${elevation.shadow}');
-});
-\`\`\``;
-
 export const getTokenSuggestion = (
 	node: Rule.Node,
 	reference: string,
@@ -423,3 +411,5 @@ export const getTokenSuggestion = (
 const filterSuggestion = ({ shouldReturnSuggestion }: Suggestion) => shouldReturnSuggestion;
 
 const getNodeColumn = (node: Rule.Node) => (node.loc ? node.loc.start.column : 0);
+
+export { getElevationTokenExample } from './get-elevation-token-example';

@@ -45,7 +45,7 @@ const fillScreenStyles = css({
 const allowlistElements = (element: HTMLElement, callback?: (element: HTMLElement) => boolean) => {
 	// Allow focus to reach elements outside the modal:
 	// if AUI dialog is allowListed and visible
-	if (!!document.querySelector('.aui-blanket:not([hidden])')) {
+	if (document.querySelector('.aui-blanket:not([hidden])')) {
 		return false;
 	}
 	// allows to pass a callback function to allow elements be ignored by focus lock

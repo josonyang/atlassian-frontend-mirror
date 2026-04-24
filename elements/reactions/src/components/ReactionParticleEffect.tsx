@@ -85,11 +85,16 @@ interface ReactionParticleEffectProps {
 	 * Provider for loading emojis
 	 */
 	emojiProvider: Promise<EmojiProvider>;
+	/**
+	 * Optional URL to optimistically render the emoji image before the catalogue arrives.
+	 */
+	optimisticImageURL?: string;
 }
 
 export const ReactionParticleEffect = ({
 	emojiProvider,
 	emojiId,
+	optimisticImageURL,
 }: ReactionParticleEffectProps): JSX.Element => (
 	<div css={containerStyle}>
 		{[...Array(PARTICLE_COUNT)].map((_, index) => {
@@ -99,6 +104,7 @@ export const ReactionParticleEffect = ({
 						emojiProvider={emojiProvider}
 						emojiId={emojiId}
 						fitToHeight={RESOURCED_EMOJI_COMPACT_HEIGHT}
+						optimisticImageURL={optimisticImageURL}
 					/>
 				</div>
 			);

@@ -311,7 +311,8 @@ const props = {
 	],
 };
 
-export default md`
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+const _default_1: any = md`
   ${(<AtlassianInternalWarning />)}
 
   The Conversation component is a drop-in component for adding conversations in any context. Consumers are responsible for providing their own storage.
@@ -331,39 +332,37 @@ export default md`
   ${code`import { Conversation, ConversationResource } from '@atlaskit/conversation';`}
   
   ${(
-		<Example
-			// Ignored via go/ees005
-			// eslint-disable-next-line import/no-commonjs
-			Component={require('../examples/0-New-Conversation').default}
-			title="New Conversation Example"
-			source={newConversationSource}
-		/>
-	)}
+        <Example
+            // Ignored via go/ees005
+            // eslint-disable-next-line import/no-commonjs
+            Component={require('../examples/0-New-Conversation').default}
+            title="New Conversation Example"
+            source={newConversationSource} />
+    )}
 
   Omitting the \`id\`-prop means that a new conversation will be created. Of course, in most cases you'll want to render existing conversations on a page as well. The provider let's you fetch all conversations for a container by calling \`.getConversations()\`.
 
   ${(
-		<Example
-			// Ignored via go/ees005
-			// eslint-disable-next-line import/no-commonjs
-			Component={require('../examples/1-Existing-Conversation').default}
-			title="Existing Conversation Example"
-			source={existingConversationSource}
-		/>
-	)}
+        <Example
+            // Ignored via go/ees005
+            // eslint-disable-next-line import/no-commonjs
+            Component={require('../examples/1-Existing-Conversation').default}
+            title="Existing Conversation Example"
+            source={existingConversationSource} />
+    )}
 
   The rendering of the editor can be customized by using the \`renderEditor\` prop. Here's an example using "saveOnEnter":
 
   ${(
-		<Example
-			// Ignored via go/ees005
-			// eslint-disable-next-line import/no-commonjs
-			Component={require('../examples/2-Customized-Editor').default}
-			title="Customized Editor"
-			source={customEditorSource}
-		/>
-	)}
+        <Example
+            // Ignored via go/ees005
+            // eslint-disable-next-line import/no-commonjs
+            Component={require('../examples/2-Customized-Editor').default}
+            title="Customized Editor"
+            source={customEditorSource} />
+    )}
 
   ${(<Props props={props} />)}
 
 `;
+export default _default_1;

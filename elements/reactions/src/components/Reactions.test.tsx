@@ -688,4 +688,42 @@ describe('@atlaskit/reactions/components/Reactions', () => {
 			expect(summaryView).not.toBeInTheDocument();
 		});
 	});
+
+	describe('platform_reactions_optimistic_url feature gate', () => {
+		const getOptimisticImageURL = jest.fn((emojiId: string) => `https://cdn.example.com/emoji/${emojiId}.png`);
+
+		afterEach(() => {
+			getOptimisticImageURL.mockClear();
+		});
+
+		ffTest.on(
+			'platform_reactions_optimistic_url',
+			'should pass optimisticImageURL to Reaction components when gate is on',
+			() => {
+				it('should call getOptimisticImageURL for each reaction', async () => {
+					renderReactions({ getOptimisticImageURL });
+
+					// Reactions render asynchronously after the emoji provider resolves
+					const reactionButtons = await screen.findAllByTestId(RENDER_REACTION_TESTID);
+					expect(reactionButtons.length).toBeGreaterThan(0);
+					expect(getOptimisticImageURL).toHaveBeenCalled();
+				});
+			},
+		);
+
+		ffTest.off(
+			'platform_reactions_optimistic_url',
+			'should not call getOptimisticImageURL when gate is off',
+			() => {
+				it('should not call getOptimisticImageURL', async () => {
+					renderReactions({ getOptimisticImageURL });
+
+					// Reactions render asynchronously after the emoji provider resolves
+					const reactionButtons = await screen.findAllByTestId(RENDER_REACTION_TESTID);
+					expect(reactionButtons.length).toBeGreaterThan(0);
+					expect(getOptimisticImageURL).not.toHaveBeenCalled();
+				});
+			},
+		);
+	});
 });

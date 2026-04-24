@@ -73,6 +73,7 @@ describe('extractFlexibleUiContext', () => {
 				resourceType: 'pull',
 				tenantId: 'bitbucket-tenant',
 			},
+			hostName: 'link-url',
 			teamMemberCount: 0,
 			userAttributes: undefined,
 		});
@@ -173,6 +174,7 @@ describe('extractFlexibleUiContext', () => {
 				resourceType: 'scorecard-v2',
 				tenantId: 'compass-tenant',
 			},
+		hostName: 'ben-just-jwm.jira-dev.com',
 		});
 	});
 
@@ -234,6 +236,7 @@ describe('extractFlexibleUiContext', () => {
 				resourceType: 'page',
 				tenantId: 'confluence-tenant',
 			},
+			hostName: 'confluence-url',
 			teamMemberCount: 0,
 			userAttributes: undefined,
 		});
@@ -298,6 +301,7 @@ describe('extractFlexibleUiContext', () => {
 				resourceType: 'blog',
 				tenantId: 'confluence-tenant',
 			},
+			hostName: 'confluence-url',
 			teamMemberCount: 0,
 			userAttributes: undefined,
 		});
@@ -339,6 +343,7 @@ describe('extractFlexibleUiContext', () => {
 				resourceType: 'space',
 				tenantId: 'confluence-tenant',
 			},
+			hostName: 'confluence-url',
 			teamMemberCount: 0,
 			userAttributes: undefined,
 		});
@@ -387,6 +392,7 @@ describe('extractFlexibleUiContext', () => {
 				resourceType: 'template',
 				tenantId: 'confluence-tenant',
 			},
+			hostName: 'confluence-url',
 			teamMemberCount: 0,
 			userAttributes: undefined,
 		});
@@ -422,6 +428,7 @@ describe('extractFlexibleUiContext', () => {
 				resourceType: 'issue',
 				tenantId: 'jira-tenant',
 			},
+			hostName: 'jira-url',
 			teamMemberCount: 0,
 			userAttributes: undefined,
 		});
@@ -478,6 +485,7 @@ describe('extractFlexibleUiContext', () => {
 				resourceType: 'roadmap',
 				tenantId: 'jira-tenant',
 			},
+			hostName: 'jira-url',
 			teamMemberCount: 0,
 			userAttributes: undefined,
 		});
@@ -534,6 +542,7 @@ describe('extractFlexibleUiContext', () => {
 				resourceType: 'roadmap',
 				tenantId: 'jira-tenant',
 			},
+			hostName: 'jira-url',
 			teamMemberCount: 0,
 			userAttributes: undefined,
 		});
@@ -602,6 +611,7 @@ describe('extractFlexibleUiContext', () => {
 				resourceType: undefined,
 				tenantId: 'atlas-tenant',
 			},
+			hostName: 'link-url',
 			modifiedOn: '2023-03-05T08:00:00.861423',
 			provider: { label: 'Atlas', url: 'https://icon-url' },
 			snippet: 'The journey to discover the real identity of Superman?',
@@ -668,6 +678,7 @@ describe('extractFlexibleUiContext', () => {
 				resourceType: 'file',
 				tenantId: 'figma-tenant',
 			},
+			hostName: 'figma-url',
 			teamMemberCount: 0,
 			userAttributes: undefined,
 		});
@@ -728,6 +739,7 @@ describe('extractFlexibleUiContext', () => {
 				resourceType: 'youtube',
 				tenantId: 'youtube-tenant',
 			},
+			hostName: 'youtube-url',
 			teamMemberCount: 0,
 			userAttributes: undefined,
 		});
@@ -794,6 +806,7 @@ describe('extractFlexibleUiContext', () => {
 				resourceType: 'sharedFile',
 				tenantId: 'dropbox-tenant',
 			},
+			hostName: 'link-url',
 			teamMemberCount: 0,
 			userAttributes: undefined,
 		});
@@ -891,6 +904,7 @@ describe('extractFlexibleUiContext', () => {
 						resourceType: 'file',
 						tenantId: 'figma-tenant',
 					},
+				hostName: 'figma-url',
 				}),
 			);
 		});

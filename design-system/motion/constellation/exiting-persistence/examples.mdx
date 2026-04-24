@@ -1,0 +1,36 @@
+---
+title: Exiting persistence
+description: Enable elements to animate out when removed from the DOM.
+order: 0
+---
+
+import MotionFadeBetweenElements from '../../examples/constellation/motion-fade-between-elements';
+import MotionFadeOutListOfElements from '../../examples/constellation/motion-fade-out-list-of-elements';
+
+Exiting persistence keeps elements mounted and plays their exit animation before they are
+removed from the DOM. Without it, elements are removed immediately and no exit animation plays.
+
+It works with both the recommended [Motion](/components/motion/motion-primitive) component and the [legacy entering-motion](/components/motion/entering-motions/examples) components.
+
+Set the `appear` prop to also trigger the entering animation when the component first mounts (not
+just on subsequent renders).
+
+## Single element
+
+<Example
+	highlight="7,79-81,34-45,21-22"
+	packageName="@atlaskit/motion"
+	Component={MotionFadeBetweenElements}
+	title="Single element"
+	featureFlagDefaults={{ 'platform-dst-motion-uplift': true }}
+/>
+
+## List of elements
+
+<Example
+	highlight="13,50-54,89-92"
+	packageName="@atlaskit/motion"
+	Component={MotionFadeOutListOfElements}
+	title="List of elements"
+	featureFlagDefaults={{ 'platform-dst-motion-uplift': true }}
+/>

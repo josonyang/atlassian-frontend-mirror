@@ -906,9 +906,10 @@ describe('smart-card: card states, block', () => {
 				);
 				const unauthView = await screen.findByTestId('smart-block-unauthorized-view-content');
 				expect(unauthView).toBeInTheDocument();
-				const resolvedViewName = await screen.findByText('I love cheese');
+				const titleLink = await screen.findByText(mockUrl);
 				const unauthorizedLinkButton = screen.queryByRole('button');
-				expect(resolvedViewName).toBeInTheDocument();
+				expect(titleLink).toBeInTheDocument();
+				expect(titleLink.closest('a')?.getAttribute('href')).toEqual(mockUrl);
 				expect(unauthorizedLinkButton).not.toBeInTheDocument();
 				expect(mockFetch).toHaveBeenCalledTimes(1);
 			});

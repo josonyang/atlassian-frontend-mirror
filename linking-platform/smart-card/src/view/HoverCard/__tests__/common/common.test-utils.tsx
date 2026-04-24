@@ -1,9 +1,9 @@
-import { act, fireEvent, screen, within } from '@testing-library/react';
 
 import type { JsonLd } from '@atlaskit/json-ld-types';
 import { mocks } from '@atlaskit/link-test-helpers';
 import type { CardStore, CardType } from '@atlaskit/linking-common';
 import type { SmartLinkResponse } from '@atlaskit/linking-types';
+import { act, fireEvent, screen, within } from '@atlassian/testing-library';
 
 import { closeEmbedModal } from '../../../../__tests__/__utils__/unit-helpers';
 import { PROVIDER_KEYS_WITH_THEMING } from '../../../../extractors/constants';

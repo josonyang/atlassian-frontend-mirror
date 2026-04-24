@@ -6,7 +6,8 @@
 import { cssMap, jsx } from '@compiled/react';
 import { render, screen } from '@testing-library/react';
 
-import { isExtendedElement, isStyleElement } from '../../src/test-utils/inline-css';
+import { isStyleElement } from '../../src/test-utils/inline-css';
+import { isExtendedElement } from '../../src/test-utils/is-extended-element';
 import {
 	type HTMLElementExtended,
 	type HTMLStyleElementExtended,

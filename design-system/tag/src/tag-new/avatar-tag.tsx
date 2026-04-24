@@ -19,14 +19,9 @@ import StatusVerifiedIcon from '@atlaskit/icon/core/status-verified';
 import type { TeamAvatarProps } from '@atlaskit/teams-avatar';
 import { token } from '@atlaskit/tokens';
 
-import {
-	LinkWrapper,
-	RemovableWrapper,
-	useButtonInteraction,
-	useLink,
-	useRemoveButton,
-	useTagRemoval,
-} from './shared';
+import { LinkWrapper, RemovableWrapper, useRemoveButton, useTagRemoval } from './shared';
+import { useButtonInteraction } from './use-button-interaction';
+import { useLink } from './use-link';
 
 /**
  * The type values that AvatarTag accepts.

@@ -39,7 +39,12 @@ const VRInlineCardResolvedRovoActions: {
 				client={new ProviderClient()}
 				rovoOptions={{ isRovoEnabled: true, isRovoLLMEnabled: true }}
 			>
-				<Card appearance="inline" url={SlackMessage.data.url} showHoverPreview={true} />
+				<Card
+					appearance="inline"
+					url={SlackMessage.data.url}
+					showHoverPreview={true}
+					actionOptions={{ hide: false, rovoChatAction: { optIn: true } }}
+				/>
 			</SmartCardProvider>
 		</ExampleContainer>
 	);

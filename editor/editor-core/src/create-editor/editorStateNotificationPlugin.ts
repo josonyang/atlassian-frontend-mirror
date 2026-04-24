@@ -19,7 +19,7 @@ export const createEditorStateNotificationPlugin = (
 		callback: (props: EditorViewStateUpdatedCallbackProps) => void;
 		pluginName: string;
 	}>,
-) => {
+): SafePlugin<EditorStateNotificationPluginState> => {
 	const transactions: ReadonlyTransaction[] = [];
 	return new SafePlugin<EditorStateNotificationPluginState>({
 		key: key,

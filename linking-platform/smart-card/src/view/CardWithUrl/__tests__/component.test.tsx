@@ -2,7 +2,6 @@ import '@atlaskit/link-test-helpers/jest';
 
 import React from 'react';
 
-import { act, render, waitFor } from '@testing-library/react';
 import { IntlProvider } from 'react-intl';
 
 import { AnalyticsListener } from '@atlaskit/analytics-next';
@@ -14,6 +13,7 @@ import {
 	ResolvingClient,
 } from '@atlaskit/link-test-helpers';
 import { ffTest } from '@atlassian/feature-flags-test-utils';
+import { act, render, waitFor } from '@atlassian/testing-library';
 
 import { ANALYTICS_CHANNEL } from '../../../utils/analytics';
 import { CardWithUrl } from '../component';

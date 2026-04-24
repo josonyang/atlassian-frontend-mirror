@@ -1,5 +1,12 @@
 # @atlaskit/forge-react-types
 
+## 1.0.9
+
+### Patch Changes
+
+- [`0a6cd98a2280c`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/0a6cd98a2280c) -
+  Add ADS hasInlinePadding prop to ModalBody component
+
 ## 1.0.8
 
 ### Patch Changes

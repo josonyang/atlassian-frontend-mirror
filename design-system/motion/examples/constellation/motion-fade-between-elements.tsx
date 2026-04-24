@@ -8,10 +8,25 @@ import { css, jsx } from '@compiled/react';
 
 import ButtonGroup from '@atlaskit/button/button-group';
 import Button from '@atlaskit/button/new';
+import { cssMap } from '@atlaskit/css';
 import { ConfluenceIcon, JiraServiceManagementIcon } from '@atlaskit/logo';
-import { ExitingPersistence, FadeIn } from '@atlaskit/motion';
+import { ExitingPersistence, Motion } from '@atlaskit/motion';
+import { token } from '@atlaskit/tokens';
 
 import { Block, Centered, RetryContainer } from '../utils';
+
+const styles = cssMap({
+	entering: {
+		animationDuration: token('motion.duration.xlong'),
+		animationTimingFunction: token('motion.easing.out.practical'),
+		animationName: `${token('motion.keyframe.scale.in.medium')}, ${token('motion.keyframe.fade.in')}`,
+	},
+	exiting: {
+		animationDuration: token('motion.duration.long'),
+		animationTimingFunction: token('motion.easing.in.practical'),
+		animationName: `${token('motion.keyframe.scale.out.medium')}, ${token('motion.keyframe.fade.out')}`,
+	},
+});
 
 const MotionFadeBetweenElements = (): JSX.Element => {
 	const [index, setIndex] = useState(0);
@@ -42,7 +57,7 @@ const MotionFadeBetweenElements = (): JSX.Element => {
 				<Centered>
 					<div css={centeredPositionStyles}>
 						<ExitingPersistence appear={appear} exitThenEnter={exitThenEnter}>
-							<div key={index}>{elements[index](exitThenEnter)}</div>
+							<div key={index}>{elements[index]}</div>
 						</ExitingPersistence>
 					</div>
 				</Centered>
@@ -53,41 +68,30 @@ const MotionFadeBetweenElements = (): JSX.Element => {
 
 const EnteringBlock = ({
 	children,
-	exitThenEnter,
 }: {
 	children: ReactNode;
-	exitThenEnter?: boolean;
 }) => (
-	<FadeIn>
-		{(props, state) => (
+	<Motion
+		enteringAnimationXcss={styles.entering}
+		exitingAnimationXcss={styles.exiting}
+	>
 			<Block
-				css={[
-					blockStyles,
-					{
-						position: state === 'entering' || exitThenEnter ? 'static' : 'absolute',
-					},
-				]}
-				ref={props.ref}
-				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop
-				className={props.className}
+				css={blockStyles}
 			>
 				{children}
 			</Block>
-		)}
-	</FadeIn>
+	</Motion>
 );
 
 const elements = [
-	(exitThenEnter: boolean) => (
-		<EnteringBlock exitThenEnter={exitThenEnter}>
-			<ConfluenceIcon size="xlarge" />
-		</EnteringBlock>
-	),
-	(exitThenEnter: boolean) => (
-		<EnteringBlock exitThenEnter={exitThenEnter}>
-			<JiraServiceManagementIcon size="xlarge" />
-		</EnteringBlock>
-	),
+	<EnteringBlock>
+		<ConfluenceIcon size="xlarge" />
+	</EnteringBlock>
+	,
+	<EnteringBlock>
+		<JiraServiceManagementIcon size="xlarge" />
+	</EnteringBlock>
+	,
 ];
 
 const blockStyles = css({

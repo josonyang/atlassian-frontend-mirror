@@ -1,5 +1,17 @@
 # @atlaskit/motion
 
+## 6.0.0
+
+### Major Changes
+
+- [`88696c5e1a75c`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/88696c5e1a75c) -
+  Replaced experimental `useResizingWidth` / `ResizingWidth` with a new generic `useResizing` /
+  `Resizing` exported from `@atlaskit/motion/resizing`.
+
+  The new hook accepts a `dimension: 'width' | 'height' | 'both'` argument so callers can animate
+  either axis (or both) with a single API. The `duration`, `easing`, and `onFinishMotion` options
+  are unchanged.
+
 ## 5.7.0
 
 ### Minor Changes

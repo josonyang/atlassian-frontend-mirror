@@ -5,11 +5,10 @@
 import { PureComponent } from 'react';
 
 import { css, jsx } from '@compiled/react';
-import { fireEvent, render, screen } from '@testing-library/react';
-import userEvent from '@testing-library/user-event';
 
 import type { GlyphProps } from '@atlaskit/icon/types';
 import { ffTest } from '@atlassian/feature-flags-test-utils';
+import { fireEvent, render, screen, userEvent } from '@atlassian/testing-library';
 
 import {
 	makeCustomActionItem,

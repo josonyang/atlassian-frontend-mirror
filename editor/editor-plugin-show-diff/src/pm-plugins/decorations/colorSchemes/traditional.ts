@@ -208,7 +208,7 @@ export const traditionalDeletedDecorationMarkerVariableActive: string = convertT
 	'--diff-decoration-marker-ring-width': '4px',
 });
 
-export const traditionalAddedCellOverlayStyle = convertToInlineCss({
+export const traditionalAddedCellOverlayStyle: string = convertToInlineCss({
 	position: 'absolute',
 	top: 0,
 	left: 0,
@@ -220,7 +220,7 @@ export const traditionalAddedCellOverlayStyle = convertToInlineCss({
 	pointerEvents: 'none',
 });
 
-export const traditionalAddedCellOverlayStyleNew = convertToInlineCss({
+export const traditionalAddedCellOverlayStyleNew: string = convertToInlineCss({
 	position: 'absolute',
 	top: 0,
 	left: 0,
@@ -232,7 +232,7 @@ export const traditionalAddedCellOverlayStyleNew = convertToInlineCss({
 	pointerEvents: 'none',
 });
 
-export const deletedTraditionalCellOverlayStyle = convertToInlineCss({
+export const deletedTraditionalCellOverlayStyle: string = convertToInlineCss({
 	position: 'absolute',
 	top: 0,
 	left: 0,

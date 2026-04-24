@@ -1,6 +1,6 @@
 import type { LintRuleMeta } from '@atlaskit/eslint-utils/create-rule';
 
-import { getRuleUrl } from './utils/create-rule';
+import { getRuleUrl } from './utils/get-rule-url';
 
 /**
  * External rules must be scoped, have a display name, and external urls.

@@ -7,6 +7,7 @@ import type {
 import type { EditorCommand } from '@atlaskit/editor-common/types';
 
 import { ACTIONS } from '../pm-plugins/actions';
+import { setAIGeneratingMeta, clearAIGeneratingMeta } from '../pm-plugins/ai-generating-decoration';
 import { stateKey } from '../pm-plugins/plugin-key';
 import { getIdentifier } from '../pm-plugins/utils/media-common';
 
@@ -42,6 +43,27 @@ export const trackMediaPaste =
 		});
 		return tr;
 	};
+
+/**
+ * Sets the AI-generating decoration on a media node identified by `mediaId`.
+ * The decoration triggers the AI border visual on the media's NodeView.
+ *
+ * Decorations live in the view layer only and never affect the document model
+ * or undo/redo history.
+ */
+export const setAIGenerating =
+	(mediaId: string): EditorCommand =>
+	({ tr }) =>
+		setAIGeneratingMeta(tr, mediaId);
+
+/**
+ * Clears the AI-generating decoration for a specific media node identified by
+ * `mediaId`. Removes the AI border visual from that media's NodeView.
+ */
+export const clearAIGenerating =
+	(mediaId: string): EditorCommand =>
+	({ tr }) =>
+		clearAIGeneratingMeta(tr, mediaId);
 
 export const insertMediaAsMediaSingleCommand =
 	(editorAnalyticsAPI?: EditorAnalyticsAPI, allowPixelResizing?: boolean) =>

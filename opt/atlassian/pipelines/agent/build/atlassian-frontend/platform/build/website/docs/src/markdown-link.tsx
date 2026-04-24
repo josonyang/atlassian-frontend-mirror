@@ -5,7 +5,7 @@ function isRelativePath(path: string): boolean {
 	return path?.startsWith('./') || path?.startsWith('/') || path?.startsWith('#');
 }
 
-export function MarkdownLink({ children, href, ...otherProps }: LinkProps) {
+export function MarkdownLink({ children, href, ...otherProps }: LinkProps): React.JSX.Element {
 	return (
 		<Link
 			// For relative links, we don't set a target.

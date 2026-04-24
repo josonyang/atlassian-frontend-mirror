@@ -70,7 +70,7 @@ export default class Editor extends React.Component<EditorPropsWithInitialPlugin
 		editorDeprecationWarnings(props);
 	}
 
-	render() {
+	render(): jsx.JSX.Element {
 		return (
 			<ComposableEditorWrapper
 				props={this.props}

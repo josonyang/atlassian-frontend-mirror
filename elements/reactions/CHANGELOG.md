@@ -1,5 +1,20 @@
 # @atlaskit/reactions
 
+## 34.0.3
+
+### Patch Changes
+
+- Updated dependencies
+
+## 34.0.2
+
+### Patch Changes
+
+- [`64e0668502293`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/64e0668502293) -
+  Add getOptimisticImageURL prop to Reactions and optimisticImageURL prop to Reaction and
+  ReactionParticleEffect components, enabling reaction emoji to render immediately without waiting
+  for the catalogue to load
+
 ## 34.0.1
 
 ### Patch Changes

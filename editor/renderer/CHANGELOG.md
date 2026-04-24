@@ -1,5 +1,25 @@
 # @atlaskit/renderer
 
+## 130.2.10
+
+### Patch Changes
+
+- Updated dependencies
+
+## 130.2.9
+
+### Patch Changes
+
+- [`245a43ebad095`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/245a43ebad095) -
+  [EDITOR-4550] prevent inline emojis inside smart links from scaling with fontsize
+- [`1a060960612e2`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/1a060960612e2) -
+  [ux] [ED-16212] Render fake left/right table border divs (`pm-table-left-border`,
+  `pm-table-right-border`) inside `pm-table-container` so the table's vertical edges remain visible
+  regardless of horizontal scroll position. Mirrors the editor-plugin-table behavior. Fixes the
+  missing right border on overflowing tables inside reference synced blocks. Gated by
+  `platform_synced_block_patch_9`.
+- Updated dependencies
+
 ## 130.2.8
 
 ### Patch Changes

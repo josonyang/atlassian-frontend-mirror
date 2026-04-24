@@ -3,12 +3,12 @@ import { md, Example, Props, code, AtlassianInternalWarning } from '@atlaskit/do
 import SectionMessage from '@atlaskit/section-message';
 import { Code } from '@atlaskit/code';
 
-export default md`
+const _default_1: any = md`
   ${(
-		<SectionMessage appearance="error" title="@atlaskit/quick-search is deprecated">
-			This package has been deprecated. Please use <Code>@atlassian/search-dialog</Code> instead.
-		</SectionMessage>
-	)}
+        <SectionMessage appearance="error" title="@atlaskit/quick-search is deprecated">
+            This package has been deprecated. Please use <Code>@atlassian/search-dialog</Code> instead.
+        </SectionMessage>
+    )}
 
 	<br />
 
@@ -41,13 +41,13 @@ export default md`
   `}
 
   ${(
-		<Example
-			Component={require('../examples/1-Object-Results').default}
-			title="Objects"
-			source={require('!!raw-loader!../examples/1-Object-Results')}
-		/>
-	)}
+        <Example
+            Component={require('../examples/1-Object-Results').default}
+            title="Objects"
+            source={require('!!raw-loader!../examples/1-Object-Results')} />
+    )}
 
   ${(<Props props={require('!!extract-react-types-loader!../src/components/QuickSearch')} />)}
 
 `;
+export default _default_1;

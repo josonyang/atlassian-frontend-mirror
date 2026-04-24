@@ -1,5 +1,9 @@
-import { act, screen, waitForElementToBeRemoved } from '@testing-library/react';
-import type userEvent from '@testing-library/user-event';
+import {
+	act,
+	screen,
+	waitForElementToBeRemoved,
+	type userEvent,
+} from '@atlassian/testing-library';
 
 /**
  * This function checks for an exact string match across all children elements.

@@ -464,7 +464,8 @@ export class QuickSearch extends React.Component<Props, State> {
  * `withAnalytics` - Injects analytics firing methods that are picked up by
  * @atlaskit/analytics/AnalyticsListener.
  */
-export default decorateWithAnalyticsData(
-	// @ts-ignore
-	withAnalytics<typeof QuickSearch>(QuickSearch, {}, {}),
+const _default_1: React.ComponentClass<Props> = decorateWithAnalyticsData(
+    // @ts-ignore
+    withAnalytics<typeof QuickSearch>(QuickSearch, {}, {})
 );
+export default _default_1;

@@ -1,6 +1,6 @@
 import React from 'react';
 
-import type { WrappedComponentProps } from 'react-intl';
+import type { WithIntlProps, WrappedComponentProps } from 'react-intl';
 import { injectIntl } from 'react-intl';
 
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
@@ -76,4 +76,8 @@ const TooltipHelpTrigger = ({
 	);
 };
 
-export default injectIntl(TooltipHelpTrigger);
+// eslint-disable-next-line @typescript-eslint/ban-types
+const _default_1: React.FC<WithIntlProps<Props & WrappedComponentProps>> & {
+    WrappedComponent: React.ComponentType<Props & WrappedComponentProps>;
+} = injectIntl(TooltipHelpTrigger);
+export default _default_1;

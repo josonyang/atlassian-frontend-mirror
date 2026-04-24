@@ -24,6 +24,7 @@ import type { StrictXCSSProp, XCSSAllProperties, XCSSAllPseudos } from '@atlaski
 import forwardRefWithGeneric from '@atlaskit/ds-lib/forward-ref-with-generic';
 import mergeRefs from '@atlaskit/ds-lib/merge-refs';
 
+import { IsDisabledContext } from './is-disabled-context';
 import { type OnSubmitHandler } from './types';
 import { getFirstErrorField } from './utils';
 
@@ -61,13 +62,6 @@ export const FormContext: React.Context<{
 		return () => {};
 	},
 });
-
-/**
- * __Is disabled context__
- *
- * An is disabled context creates the context for when a value is disabled.
- */
-export const IsDisabledContext: React.Context<boolean> = createContext(false);
 
 interface FormChildrenProps {
 	ref: React.RefObject<HTMLFormElement> | ((value: HTMLFormElement | null) => void);
@@ -364,3 +358,5 @@ const Form: <FormValues extends Record<string, any>>(
 ) => React.ReactElement | null = forwardRefWithGeneric(FormBase);
 
 export default Form;
+
+export { IsDisabledContext } from './is-disabled-context';

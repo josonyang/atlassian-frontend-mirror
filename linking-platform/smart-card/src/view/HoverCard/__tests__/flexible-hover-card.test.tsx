@@ -14,7 +14,6 @@ jest.mock('react-render-image', () => ({ src, errored, onError }: any) => {
 import '@atlaskit/link-test-helpers/jest';
 import React from 'react';
 
-import { act, fireEvent, screen } from '@testing-library/react';
 
 import {
 	ActionName,
@@ -25,6 +24,7 @@ import {
 } from '@atlaskit/smart-card';
 import { skipAutoA11yFile } from '@atlassian/a11y-jest-testing';
 import { ffTest } from '@atlassian/feature-flags-test-utils';
+import { act, fireEvent, screen } from '@atlassian/testing-library';
 
 import { analyticsTests } from './common/analytics.test-utils';
 import {

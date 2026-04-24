@@ -27,7 +27,6 @@ import {
 	type PreviewActionData,
 } from '../../../../../../state/flexible-ui-context/types';
 import { isProfileType } from '../../../../../../utils';
-import { isNewBlockcardUnauthorizedRefreshExperimentEnabled } from '../../../../../../utils/experiments';
 import AtlaskitIcon from '../../../common/atlaskit-icon';
 import ImageIcon from '../../../common/image-icon';
 import { type ImageIconProps } from '../../../common/image-icon/types';
@@ -356,9 +355,7 @@ const IconElement = ({
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop
 			className={className}
 		>
-			{isTiledIcon &&
-			(fg('platform_sl_3p_preauth_better_hovercard_killswitch') ||
-				isNewBlockcardUnauthorizedRefreshExperimentEnabled()) ? (
+			{isTiledIcon ? (
 				<Tile size={size} hasBorder backgroundColor="white" label={label} testId={`${testId}-tile`}>
 					{element}
 				</Tile>

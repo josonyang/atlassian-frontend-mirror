@@ -17,8 +17,8 @@ export type TeamAvatarProps = Omit<AvatarPropTypes, 'appearance'> & {
 	compact?: boolean;
 };
 
-export const ICON_BACKGROUND = token('color.icon.inverse');
-export const ICON_COLOR = token('color.icon.subtle');
+export const ICON_BACKGROUND: "var(--ds-icon-inverse)" = token('color.icon.inverse');
+export const ICON_COLOR: "var(--ds-icon-subtle)" = token('color.icon.subtle');
 
 export default function TeamAvatar({
 	testId,

@@ -268,11 +268,11 @@ describe('Element: Icon', () => {
 		});
 
 		ffTest.off('platform_sl_3p_preauth_better_hovercard_killswitch', '', () => {
-			it('does not render Tile when flag is disabled', () => {
+			it('renders Tile when killswitch is disabled', () => {
 				render(<IconElement isTiledIcon icon={IconType.Document} />);
 
-				expect(screen.queryByTestId('smart-element-icon-tile')).not.toBeInTheDocument();
-				expect(screen.getByTestId('smart-element-icon-box')).toBeInTheDocument();
+				expect(screen.getByTestId('smart-element-icon-tile')).toBeInTheDocument();
+				expect(screen.queryByTestId('smart-element-icon-box')).not.toBeInTheDocument();
 			});
 		});
 	});
@@ -314,13 +314,10 @@ describe('Element: Icon', () => {
 		});
 
 		ffTest.off('platform_sl_3p_preauth_better_hovercard_killswitch', '', () => {
-			it('does not use tile sizing when killswitch is disabled', () => {
+			it('uses tile sizing when killswitch is disabled', () => {
 				render(<IconElement isTiledIcon icon={IconType.Document} size={SmartLinkSize.Large} />);
 
-				expect(screen.getByTestId('smart-element-icon-box')).toHaveStyle({
-					width: token('space.300'),
-					height: token('space.300'),
-				});
+				expect(screen.getByTestId('smart-element-icon-tile')).toBeInTheDocument();
 			});
 		});
 	});

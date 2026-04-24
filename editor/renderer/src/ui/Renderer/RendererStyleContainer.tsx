@@ -61,6 +61,7 @@ import {
 	EmojiSharedCssClassName,
 	defaultEmojiHeight,
 	defaultDenseEmojiHeight,
+	defaultInlineEmojiHeight,
 	scaledEmojiHeightH1,
 	scaledEmojiHeightH2,
 	scaledEmojiHeightH3,
@@ -2774,6 +2775,56 @@ const scaledDenseEmojiStyles = css({
 		},
 });
 
+// this is gated behind `platform_editor_emojis_in_renderer_smart_links`
+const scaledDenseEmojiStylesNew = css({
+	[`.${EmojiSharedCssClassName.EMOJI_IMAGE}`]: {
+		height: `${defaultDenseEmojiHeight}px`,
+		minHeight: `${defaultDenseEmojiHeight}px`,
+		minWidth: `${defaultDenseEmojiHeight}px`,
+		maxHeight: `${denseEmojiHeightH1}px`,
+		maxWidth: `${denseEmojiHeightH1}px`,
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
+		img: {
+			width: '100%',
+			height: '100%',
+			objectFit: 'contain',
+		},
+	},
+	[`h1 :is(.${EmojiSharedCssClassName.EMOJI_IMAGE}, .${EmojiSharedCssClassName.EMOJI_SPRITE}, .${EmojiSharedCssClassName.EMOJI_PLACEHOLDER})`]:
+		{
+			height: `${denseEmojiHeightH1}px`,
+			width: `${denseEmojiHeightH1}px`,
+		},
+	[`h2 :is(.${EmojiSharedCssClassName.EMOJI_IMAGE}, .${EmojiSharedCssClassName.EMOJI_SPRITE}, .${EmojiSharedCssClassName.EMOJI_PLACEHOLDER})`]:
+		{
+			height: `${denseEmojiHeightH2}px`,
+			width: `${denseEmojiHeightH2}px`,
+		},
+	[`h3 :is(.${EmojiSharedCssClassName.EMOJI_IMAGE}, .${EmojiSharedCssClassName.EMOJI_SPRITE}, .${EmojiSharedCssClassName.EMOJI_PLACEHOLDER})`]:
+		{
+			height: `${denseEmojiHeightH3}px`,
+			width: `${denseEmojiHeightH3}px`,
+		},
+	[`h4 :is(.${EmojiSharedCssClassName.EMOJI_IMAGE}, .${EmojiSharedCssClassName.EMOJI_SPRITE}, .${EmojiSharedCssClassName.EMOJI_PLACEHOLDER})`]:
+		{
+			height: `${denseEmojiHeightH4}px`,
+			width: `${denseEmojiHeightH4}px`,
+		},
+	[`:is(h5, h6, p) :is(.${EmojiSharedCssClassName.EMOJI_IMAGE}, .${EmojiSharedCssClassName.EMOJI_SPRITE}, .${EmojiSharedCssClassName.EMOJI_PLACEHOLDER})`]:
+		{
+			height: `${defaultDenseEmojiHeight}px`,
+			width: `${defaultDenseEmojiHeight}px`,
+		},
+	// sync with platform/packages/linking-platform/smart-card/src/view/InlineCard/IconAndTitleLayout/index.tsx
+	[`[data-testid="icon-wrapper"] :is(.${EmojiSharedCssClassName.EMOJI_IMAGE}, .${EmojiSharedCssClassName.EMOJI_SPRITE}, .${EmojiSharedCssClassName.EMOJI_PLACEHOLDER})`]:
+		{
+			minHeight: `${defaultInlineEmojiHeight}px`,
+			minWidth: `${defaultInlineEmojiHeight}px`,
+			height: `${defaultInlineEmojiHeight}px`,
+			width: `${defaultInlineEmojiHeight}px`,
+		},
+});
+
 const scaledEmojiStyles = css({
 	[`.${EmojiSharedCssClassName.EMOJI_IMAGE}`]: {
 		height: `${defaultEmojiHeight}px`,
@@ -2812,6 +2863,56 @@ const scaledEmojiStyles = css({
 		{
 			height: `${defaultEmojiHeight}px`,
 			width: `${defaultEmojiHeight}px`,
+		},
+});
+
+// this is gated behind `platform_editor_emojis_in_renderer_smart_links`
+const scaledEmojiStylesNew = css({
+	[`.${EmojiSharedCssClassName.EMOJI_IMAGE}`]: {
+		height: `${defaultEmojiHeight}px`,
+		minHeight: `${defaultEmojiHeight}px`,
+		minWidth: `${defaultEmojiHeight}px`,
+		maxHeight: `${scaledEmojiHeightH1}px`,
+		maxWidth: `${scaledEmojiHeightH1}px`,
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
+		img: {
+			width: '100%',
+			height: '100%',
+			objectFit: 'contain',
+		},
+	},
+	[`h1 :is(.${EmojiSharedCssClassName.EMOJI_IMAGE}, .${EmojiSharedCssClassName.EMOJI_SPRITE}, .${EmojiSharedCssClassName.EMOJI_PLACEHOLDER})`]:
+		{
+			height: `${scaledEmojiHeightH1}px`,
+			width: `${scaledEmojiHeightH1}px`,
+		},
+	[`h2 :is(.${EmojiSharedCssClassName.EMOJI_IMAGE}, .${EmojiSharedCssClassName.EMOJI_SPRITE}, .${EmojiSharedCssClassName.EMOJI_PLACEHOLDER})`]:
+		{
+			height: `${scaledEmojiHeightH2}px`,
+			width: `${scaledEmojiHeightH2}px`,
+		},
+	[`h3 :is(.${EmojiSharedCssClassName.EMOJI_IMAGE}, .${EmojiSharedCssClassName.EMOJI_SPRITE}, .${EmojiSharedCssClassName.EMOJI_PLACEHOLDER})`]:
+		{
+			height: `${scaledEmojiHeightH3}px`,
+			width: `${scaledEmojiHeightH3}px`,
+		},
+	[`h4 :is(.${EmojiSharedCssClassName.EMOJI_IMAGE}, .${EmojiSharedCssClassName.EMOJI_SPRITE}, .${EmojiSharedCssClassName.EMOJI_PLACEHOLDER})`]:
+		{
+			height: `${scaledEmojiHeightH4}px`,
+			width: `${scaledEmojiHeightH4}px`,
+		},
+	[`:is(h5, h6, p) :is(.${EmojiSharedCssClassName.EMOJI_IMAGE}, .${EmojiSharedCssClassName.EMOJI_SPRITE}, .${EmojiSharedCssClassName.EMOJI_PLACEHOLDER})`]:
+		{
+			height: `${defaultEmojiHeight}px`,
+			width: `${defaultEmojiHeight}px`,
+		},
+	// sync with platform/packages/linking-platform/smart-card/src/view/InlineCard/IconAndTitleLayout/index.tsx
+	[`[data-testid="icon-wrapper"] :is(.${EmojiSharedCssClassName.EMOJI_IMAGE}, .${EmojiSharedCssClassName.EMOJI_SPRITE}, .${EmojiSharedCssClassName.EMOJI_PLACEHOLDER})`]:
+		{
+			minHeight: `${defaultInlineEmojiHeight}px`,
+			minWidth: `${defaultInlineEmojiHeight}px`,
+			height: `${defaultInlineEmojiHeight}px`,
+			width: `${defaultInlineEmojiHeight}px`,
 		},
 });
 
@@ -2880,6 +2981,55 @@ const syncBlockRendererStyles = css({
 	margin: 0,
 	maxWidth: 'none',
 	padding: 0,
+});
+
+/**
+ * Fake left/right table borders.
+ *
+ * Adapted from the editor-plugin-table behavior (see editor-common's
+ * `tableSharedStyle()` in `editor-common/src/styles/shared/table.ts`). The
+ * visible vertical edges of the table are painted by these absolutely-positioned
+ * 1px divs that live inside the (non-scrolling) TABLE_CONTAINER, while the real
+ * <table> left/right borders are made `transparent`. Because the divs are not
+ * inside the horizontally scrolling TABLE_NODE_WRAPPER, they remain visible
+ * regardless of scroll position — fixing the missing right border when an
+ * overflowing table inside a reference synced block is scrolled all the way to
+ * the left.
+ *
+ * The `height` formula adjusted for table in renderer
+ */
+const tableFakeBorderStyles = css({
+	[`.${TableSharedCssClassName.TABLE_CONTAINER}`]: {
+		// Mirror the editor's tableSharedStyle() rule from
+		// `editor-common/src/styles/shared/table.ts` (lines 142-150). The fake
+		// borders are absolutely positioned inside pm-table-container;
+		// their height is adjusted for renderer to `100% - space.300 - space.250` so the border runs from
+		// the top of the table to the bottom of the container
+		[`.${TableSharedCssClassName.TABLE_RIGHT_BORDER},
+		.${TableSharedCssClassName.TABLE_LEFT_BORDER}`]: {
+			display: 'block',
+			width: '1px',
+			height: `calc(100% - ${token('space.300')} - ${token('space.250')})`,
+			background: token('color.background.accent.gray.subtler'),
+			position: 'absolute',
+			top: token('space.300'),
+		},
+		[`.${TableSharedCssClassName.TABLE_RIGHT_BORDER}`]: {
+			right: 0,
+		},
+		[`.${TableSharedCssClassName.TABLE_LEFT_BORDER},
+		.${TableSharedCssClassName.TABLE_LEFT_BORDER}[data-with-numbered-table='true']`]: {
+			left: 0,
+		},
+	},
+	// Make the real left/right table borders transparent so the fake border
+	// divs above are the only painted vertical edges. Top/bottom borders on the
+	// <table> element remain visible.
+	[`.${TableSharedCssClassName.TABLE_NODE_WRAPPER} > table,
+	.${TableSharedCssClassName.TABLE_STICKY_WRAPPER} > table`]: {
+		borderLeftColor: 'transparent',
+		borderRightColor: 'transparent',
+	},
 });
 
 const syncBlockStyles = css({
@@ -3125,9 +3275,13 @@ export const RendererStyleContainer = (props: RendererStyleContainerProps) => {
 							expValEquals('confluence_max_width_content_appearance', 'isEnabled', true)))) &&
 					responsiveBreakoutWidthFullWidth,
 				expValEquals('platform_editor_lovability_emoji_scaling', 'isEnabled', true)
-					? isCompactModeEnabled
-						? scaledDenseEmojiStyles
-						: scaledEmojiStyles
+					? expValEquals('platform_editor_emojis_in_renderer_smart_links', 'isEnabled', true)
+						? isCompactModeEnabled
+							? scaledDenseEmojiStylesNew
+							: scaledEmojiStylesNew
+						: isCompactModeEnabled
+							? scaledDenseEmojiStyles
+							: scaledEmojiStyles
 					: isCompactModeEnabled
 						? denseStyles
 						: undefined,
@@ -3138,6 +3292,10 @@ export const RendererStyleContainer = (props: RendererStyleContainerProps) => {
 				fg('platform_synced_block_patch_9')
 					? syncBlockRendererStyles
 					: null,
+				isInsideSyncBlock &&
+					editorExperiment('platform_synced_block', true) &&
+					fg('platform_synced_block_patch_9') &&
+					tableFakeBorderStyles,
 				expValEquals('platform_editor_hide_extension_renderer_support', 'isEnabled', true) &&
 					hideExtensionStyles,
 			]}

@@ -1,9 +1,9 @@
 import React from 'react';
 
-import { fireEvent, screen } from '@testing-library/react';
 import { act } from 'react-dom/test-utils';
 
 import { skipAutoA11yFile } from '@atlassian/a11y-jest-testing';
+import { fireEvent, screen } from '@atlassian/testing-library';
 
 import { mockTransformedRules } from '../common/mocks';
 import { renderWithDi } from '../common/test-utils';

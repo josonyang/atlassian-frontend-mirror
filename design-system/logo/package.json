@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/logo",
-	"version": "20.0.2",
+	"version": "20.1.0",
 	"description": "A logo is a visual representation of a brand or app. It can be a word, an image, or a combination of both.",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -105,20 +105,30 @@
 		}
 	},
 	"exports": {
-		"./raw-icons": "./src/artifacts/raw-icons/index.tsx",
+		".": "./src/index.tsx",
+		"./atlas-icon": "./src/exports/atlas-icon.tsx",
+		"./atlassian-access/icon": "./src/exports/atlassian-access-icon.tsx",
+		"./atlassian-access/logo": "./src/exports/atlassian-access-logo.tsx",
 		"./atlassian-icon": "./src/exports/atlassian-icon.tsx",
+		"./atlassian-marketplace/icon": "./src/exports/atlassian-marketplace-icon.tsx",
+		"./atlassian-marketplace/logo": "./src/exports/atlassian-marketplace-logo.tsx",
+		"./atlassian/logo": "./src/exports/atlassian-logo.tsx",
 		"./bitbucket-icon": "./src/exports/bitbucket-icon.tsx",
 		"./confluence-icon": "./src/exports/confluence-icon.tsx",
+		"./constants": "./src/exports/constants.tsx",
 		"./jira-icon": "./src/exports/jira-icon.tsx",
 		"./jira-service-management-icon": "./src/exports/jira-service-management-icon.tsx",
+		"./jira-software-icon": "./src/exports/jira-software.tsx",
+		"./jira-software/logo": "./src/exports/jira-software-logo.tsx",
+		"./jira-work-management/icon": "./src/exports/jira-work-management-icon.tsx",
+		"./jira-work-management/logo": "./src/exports/jira-work-management-logo.tsx",
+		"./logo": "./src/exports/logo.tsx",
 		"./opsgenie-icon": "./src/exports/opsgenie.tsx",
+		"./raw-icons": "./src/exports/raw-icons.tsx",
 		"./statuspage-icon": "./src/exports/statuspage-icon.tsx",
 		"./trello-icon": "./src/exports/trello-icon.tsx",
-		"./jira-software-icon": "./src/exports/jira-software.tsx",
-		"./atlas-icon": "./src/exports/atlas-icon.tsx",
-		"./constants": "./src/constants.tsx",
-		"./Wrapper": "./src/wrapper.tsx",
-		".": "./src/index.tsx"
+		"./types": "./src/exports/types.tsx",
+		"./Wrapper": "./src/exports/wrapper.tsx"
 	},
 	"platform-feature-flags": {
 		"platform-logo-rebrand": {

@@ -1,7 +1,8 @@
 import format from '@af/formatting/sync';
 import { spacing as tokens } from '@atlaskit/tokens/tokens-raw';
 
-import { constructTokenFunctionCall, generateTypeDefs } from './utils';
+import { generateTypeDefs } from './generate-type-defs';
+import { constructTokenFunctionCall } from './utils';
 
 const spacingTokenPrefix = 'space.';
 const negativeSuffix = '.negative';

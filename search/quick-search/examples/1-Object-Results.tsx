@@ -12,7 +12,7 @@ const dummyAvatarComponent = <Avatar src={randomConfluenceIconUrl()} appearance=
 
 // eslint-disable-next-line import/no-anonymous-default-export
 export default class extends React.Component {
-	render() {
+	render(): React.JSX.Element {
 		return (
 			<div>
 				<h3>Objects</h3>

@@ -86,7 +86,7 @@ export function InlineCardResolvedViewFunctionalWithRovoActions({
 	hideIconLoadingSkeleton,
 	lozenge,
 }: InlineCardResolvedViewFunctionalProps): React.JSX.Element {
-	const { isEnabled } = useInlineActionNudgeExperiment(link, showHoverPreview);
+	const { isEnabled } = useInlineActionNudgeExperiment(link, showHoverPreview, actionOptions);
 
 	// TODO https://hello.jira.atlassian.cloud/browse/NAVX-4436: fire analytics with cohort
 	const frame = (

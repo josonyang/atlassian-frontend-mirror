@@ -8,7 +8,8 @@ import { jsx } from '@compiled/react';
 
 import __noop from '@atlaskit/ds-lib/noop';
 
-import { colorMapping, TagDropdownTriggerComponent } from './tag-new';
+import { colorMapping } from './color-mapping';
+import { TagDropdownTriggerComponent } from './tag-new';
 import { type TagDropdownTriggerProps } from './types';
 
 /**

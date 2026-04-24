@@ -1,5 +1,13 @@
 # @atlassian/smart-user-picker
 
+## 10.0.2
+
+### Patch Changes
+
+- [`a95470b46e97e`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/a95470b46e97e) -
+  Map `appType` field from the recommendation service response through `users-transformer` so that
+  agent principals correctly expose `appType` on the resulting `OptionData` object.
+
 ## 10.0.1
 
 ### Patch Changes

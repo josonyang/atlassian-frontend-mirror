@@ -1,6 +1,5 @@
 import React from 'react';
 
-import { render, screen, waitFor } from '@testing-library/react';
 
 import FabricAnalyticsListeners, { type AnalyticsWebClient } from '@atlaskit/analytics-listeners';
 import { type JsonLd } from '@atlaskit/json-ld-types';
@@ -8,6 +7,7 @@ import { CardClient, SmartCardProvider as Provider } from '@atlaskit/link-provid
 import { mockSimpleIntersectionObserver } from '@atlaskit/link-test-helpers';
 import { APIError } from '@atlaskit/linking-common';
 import { ffTest } from '@atlassian/feature-flags-test-utils';
+import { render, screen, waitFor } from '@atlassian/testing-library';
 
 import { ChunkLoadError } from '../../../utils/__tests__/index.test';
 import { mocks } from '../../../utils/mocks';

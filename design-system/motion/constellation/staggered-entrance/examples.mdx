@@ -1,0 +1,30 @@
+---
+title: Staggered entrance
+description: Stagger the entrance of multiple elements in sequence.
+order: 0
+---
+
+import MotionFadeInListOfElements from '../../examples/constellation/motion-fade-in-list-of-elements';
+import MotionFadeInGridOfElements from '../../examples/constellation/motion-fade-in-grid-of-elements';
+
+Staggers the entering animation of its child motion elements in sequence,
+creating a cascading effect. It works with both the recommended [Motion](/components/motion/motion-primitive)
+component and the [legacy entering-motion](/components/motion/entering-motions/examples) components.
+
+## List of elements
+
+<Example
+	highlight="11,35-38,40,63-66"
+	packageName="@atlaskit/motion"
+	Component={MotionFadeInListOfElements}
+	title="List of elements"
+/>
+
+## Grid of elements
+
+<Example
+	highlight="16,68,87,72,85"
+	packageName="@atlaskit/motion"
+	Component={MotionFadeInGridOfElements}
+	title="Staggered entrance with fade in"
+/>

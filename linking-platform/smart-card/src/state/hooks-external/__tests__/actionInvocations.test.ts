@@ -1,8 +1,8 @@
-import { renderHook } from '@testing-library/react';
 
 import { SmartCardProvider } from '@atlaskit/link-provider';
 import { fg } from '@atlaskit/platform-feature-flags';
 import { ffTest } from '@atlassian/feature-flags-test-utils';
+import { renderHook } from '@atlassian/testing-library';
 
 import {
 	TEST_RESPONSE_WITH_DOWNLOAD,
@@ -70,7 +70,7 @@ describe('actions', () => {
 
 		jest.mocked(useSmartCardState).mockReturnValueOnce(state);
 
-		const { result } = renderHook(() => useSmartLinkActions({ url, appearance }), {
+		const result = renderHook(() => useSmartLinkActions({ url, appearance }), {
 			wrapper: SmartCardProvider,
 		});
 
@@ -89,7 +89,7 @@ describe('actions', () => {
 		};
 
 		jest.mocked(useSmartCardState).mockReturnValueOnce(state);
-		const { result } = renderHook(() => useSmartLinkActions({ url, appearance }), {
+		const result = renderHook(() => useSmartLinkActions({ url, appearance }), {
 			wrapper: SmartCardProvider,
 		});
 
@@ -113,7 +113,7 @@ describe('actions', () => {
 				};
 
 				jest.mocked(useSmartCardState).mockReturnValueOnce(state);
-				const { result } = renderHook(() => useSmartLinkActions({ url, appearance, origin }), {
+				const result = renderHook(() => useSmartLinkActions({ url, appearance, origin }), {
 					wrapper: SmartCardProvider,
 				});
 				const previewAction = result.current?.[0];
@@ -161,7 +161,7 @@ describe('actions', () => {
 				};
 
 				jest.mocked(useSmartCardState).mockReturnValueOnce(state);
-				const { result } = renderHook(
+				const result = renderHook(
 					() =>
 						useSmartLinkActions({
 							url,

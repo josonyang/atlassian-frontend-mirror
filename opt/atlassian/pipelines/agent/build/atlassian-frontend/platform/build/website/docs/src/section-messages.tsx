@@ -14,7 +14,7 @@ const wrapperStyles = cssMap({
 	},
 });
 
-export const AtlassianInternalWarning = () => (
+export const AtlassianInternalWarning = (): JSX.Element => (
 	<div css={wrapperStyles.root}>
 		<SectionMessage
 			title="Note: This component is designed for internal Atlassian development."
@@ -28,7 +28,7 @@ export const AtlassianInternalWarning = () => (
 	</div>
 );
 
-export const DevPreviewWarning = () => (
+export const DevPreviewWarning = (): JSX.Element => (
 	<div css={wrapperStyles.root}>
 		<SectionMessage
 			title="Note: This component is currently in developer preview."

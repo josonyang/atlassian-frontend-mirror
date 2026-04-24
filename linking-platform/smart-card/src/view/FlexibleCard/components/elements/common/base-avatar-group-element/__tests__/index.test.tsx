@@ -4,9 +4,10 @@
  */
 import '@testing-library/jest-dom';
 import { css, jsx } from '@compiled/react';
-import { fireEvent, screen } from '@testing-library/react';
 
 import { renderWithIntl } from '@atlaskit/media-test-helpers/renderWithIntl';
+import { fireEvent, screen } from '@atlassian/testing-library';
+
 
 import { ElementName } from '../../../../../../../constants';
 import AvatarGroup from '../index';

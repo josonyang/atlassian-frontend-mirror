@@ -1,4 +1,24 @@
-export const adfMediaSingle = {
+export const adfMediaSingle: {
+    version: number; type: string; content: {
+        type: string;
+        attrs: {
+            width: null;
+            layout: string;
+        };
+        content: {
+            type: string;
+            attrs: {
+                id: string;
+                type: string;
+                collection: string;
+                occurrenceKey: null;
+                alt: string;
+                width: number;
+                height: number;
+            };
+        }[];
+    }[];
+} = {
 	version: 1,
 	type: 'doc',
 	content: [
@@ -26,7 +46,61 @@ export const adfMediaSingle = {
 	],
 };
 
-export const wrappedMediaInsideTable = {
+export const wrappedMediaInsideTable: {
+    version: number; type: string; content: {
+        type: string;
+        attrs: {
+            isNumberColumnEnabled: boolean;
+            layout: string;
+        };
+        content: {
+            type: string;
+            content: {
+                type: string;
+                attrs: {
+                    colwidth: number[];
+                };
+                content: ({
+                    type: string;
+                    attrs: {
+                        width: number;
+                        layout: string;
+                    };
+                    content: {
+                        type: string;
+                        attrs: {
+                            id: string;
+                            type: string;
+                            collection: string;
+                            width: number;
+                            height: number;
+                        };
+                    }[];
+                } | {
+                    type: string;
+                    attrs: {
+                        layout: string;
+                        width?: undefined;
+                    };
+                    content: {
+                        type: string;
+                        attrs: {
+                            id: string;
+                            type: string;
+                            collection: string;
+                            width: number;
+                            height: number;
+                        };
+                    }[];
+                } | {
+                    type: string;
+                    content: never[];
+                    attrs?: undefined;
+                })[];
+            }[];
+        }[];
+    }[];
+} = {
 	version: 1,
 	type: 'doc',
 	content: [

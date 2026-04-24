@@ -72,7 +72,7 @@ const ElementBrowserComp = () => {
 
 	return <ElementBrowserWithIntl getItems={getItems} />;
 };
-export const ElementBrowserModal = () => (
+export const ElementBrowserModal = (): jsx.JSX.Element => (
 	<div css={hideEnterKey}>
 		<EditorContext>
 			<ElementBrowserComp />
@@ -115,7 +115,7 @@ const ElementBrowserCompWithDisabled = () => {
 
 	return <ElementBrowserWithIntl getItems={getItems} />;
 };
-export const ElementBrowserModalWithDisabled = () => (
+export const ElementBrowserModalWithDisabled = (): jsx.JSX.Element => (
 	<div css={hideEnterKey}>
 		<EditorContext>
 			<ElementBrowserCompWithDisabled />

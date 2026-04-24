@@ -3,7 +3,6 @@ import { convertToInlineCss } from '@atlaskit/editor-common/lazy-node-view';
 import { ZERO_WIDTH_SPACE } from '@atlaskit/editor-common/whitespace';
 import type { DOMOutputSpec, Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import { fg } from '@atlaskit/platform-feature-flags';
-import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 // eg. Version/4.0 Chrome/95.0.4638.50
 const isAndroidChromium =
@@ -20,13 +19,9 @@ export const statusToDOM = (node: PMNode): DOMOutputSpec => {
 		'data-prosemirror-node-name': 'status',
 		localid: localId,
 		// Required for parseDOM to correctly parse status when NodeView DOM is copied directly
-		...(expValEquals('platform_editor_copy_paste_issue_fix', 'isEnabled', true)
-			? {
-					'data-node-type': 'status',
-					'data-color': color,
-					'data-text': text, // Text stored as attribute for parseDOM extraction
-				}
-			: {}),
+		'data-node-type': 'status',
+		'data-color': color,
+		'data-text': text, // Text stored as attribute for parseDOM extraction
 	};
 
 	const statusElementAttrs = {

@@ -55,11 +55,19 @@ export const panelAttrsToDom = (
 				? `background-color: ${panelBackgroundColor};`
 				: ''
 		}`,
-		`${!hasIcon && !fg('platform_editor_nested_dnd_styles_changes') ? `padding-left: 12px;padding-right: 12px;` : ''}`,
+		`${
+			!hasIcon && !fg('platform_editor_nested_dnd_styles_changes')
+				? `padding-left: 12px;padding-right: 12px;`
+				: ''
+		}`,
 	].join('');
 
 	let panelAttrs: DomPanelAtrrs = {
-		class: `${PanelSharedCssClassName.prefix}${!hasIcon && fg('platform_editor_nested_dnd_styles_changes') ? ` ${PanelSharedCssClassName.noIcon}` : ''}`,
+		class: `${PanelSharedCssClassName.prefix}${
+			!hasIcon && fg('platform_editor_nested_dnd_styles_changes')
+				? ` ${PanelSharedCssClassName.noIcon}`
+				: ''
+		}`,
 		'data-panel-type': panelType || PanelType.INFO,
 		'data-testid': 'panel-node-view',
 		style,
@@ -74,7 +82,7 @@ export const panelAttrsToDom = (
 	}
 	// Required for parseDOM to correctly parse custom panel when NodeView DOM is copied directly
 	// Schema's parseDOM expects data-panel-icon on all custom panels, not just ones with color
-	if (isCustomPanel && expValEquals('platform_editor_copy_paste_issue_fix', 'isEnabled', true)) {
+	if (isCustomPanel) {
 		panelAttrs = {
 			...panelAttrs,
 			'data-panel-icon': panelIcon,
@@ -153,7 +161,7 @@ export const panelContentCheck = (newState: EditorState, oldState: EditorState):
 	);
 	return Boolean(
 		isNodeSelection &&
-		isParentTypePanel?.node.childCount === 1 &&
-		(isparentTypeDecision?.node.childCount === 1 || isNodeTypeRuleOrCodeBlock),
+			isParentTypePanel?.node.childCount === 1 &&
+			(isparentTypeDecision?.node.childCount === 1 || isNodeTypeRuleOrCodeBlock),
 	);
 };

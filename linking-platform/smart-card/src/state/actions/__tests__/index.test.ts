@@ -1,13 +1,13 @@
 // eslint-disable-next-line import/order
 import * as testMocks from './index.test.mock';
 
-import { renderHook } from '@testing-library/react';
 
 import { type JsonLd } from '@atlaskit/json-ld-types';
 import { type CardContext, useSmartLinkContext } from '@atlaskit/link-provider';
 import { ACTION_RESOLVING, APIError, type APIErrorKind } from '@atlaskit/linking-common';
 import { asMockFunction } from '@atlaskit/media-test-helpers/jestHelpers';
 import { auth } from '@atlaskit/outbound-auth-flow-client';
+import { renderHook } from '@atlassian/testing-library';
 
 import { mocks } from '../../../utils/mocks';
 import { type CardState } from '../../types';
@@ -54,7 +54,7 @@ describe('Smart Card: Actions', () => {
 		it('dispatches pending action if card not in store', async () => {
 			mockFetchData(Promise.resolve(mocks.success));
 
-			const { result } = renderHook(() => {
+			const result = renderHook(() => {
 				return useSmartCardActions(id, url);
 			});
 			await result.current.register();
@@ -77,7 +77,7 @@ describe('Smart Card: Actions', () => {
 				details: undefined,
 			});
 
-			const { result } = renderHook(() => {
+			const result = renderHook(() => {
 				return useSmartCardActions(id, url);
 			});
 			const promise = result.current.register();
@@ -107,7 +107,7 @@ describe('Smart Card: Actions', () => {
 				details: undefined,
 			});
 
-			const { result } = renderHook(() => {
+			const result = renderHook(() => {
 				return useSmartCardActions(id, url);
 			});
 			await result.current.register();
@@ -129,7 +129,7 @@ describe('Smart Card: Actions', () => {
 				details: mocks.success,
 			});
 
-			const { result } = renderHook(() => {
+			const result = renderHook(() => {
 				return useSmartCardActions(id, url);
 			});
 
@@ -147,7 +147,7 @@ describe('Smart Card: Actions', () => {
 				details: mocks.success,
 			});
 
-			const { result } = renderHook(() => {
+			const result = renderHook(() => {
 				return useSmartCardActions(id, url);
 			});
 
@@ -174,7 +174,7 @@ describe('Smart Card: Actions', () => {
 				details: undefined,
 			});
 
-			const { result } = renderHook(() => {
+			const result = renderHook(() => {
 				return useSmartCardActions(id, url);
 			});
 			const promise = result.current.register();
@@ -218,7 +218,7 @@ describe('Smart Card: Actions', () => {
 				details: undefined,
 			});
 
-			const { result } = renderHook(() => {
+			const result = renderHook(() => {
 				return useSmartCardActions(id, url);
 			});
 
@@ -249,7 +249,7 @@ describe('Smart Card: Actions', () => {
 				details: undefined,
 			});
 
-			const { result } = renderHook(() => {
+			const result = renderHook(() => {
 				return useSmartCardActions(id, url);
 			});
 
@@ -273,7 +273,7 @@ describe('Smart Card: Actions', () => {
 				details: undefined,
 			});
 
-			const { result } = renderHook(() => {
+			const result = renderHook(() => {
 				return useSmartCardActions(id, url);
 			});
 
@@ -302,7 +302,7 @@ describe('Smart Card: Actions', () => {
 		it('dispatches resolved metadata state for a success response', async () => {
 			mockFetchData(Promise.resolve(mocks.success));
 
-			const { result } = renderHook(() => {
+			const result = renderHook(() => {
 				return useSmartCardActions(id, url);
 			});
 
@@ -342,7 +342,7 @@ describe('Smart Card: Actions', () => {
 				const mockError = new APIError(errorKind, url, 'error-message');
 				mockFetchData(Promise.reject(mockError));
 
-				const { result } = renderHook(() => {
+				const result = renderHook(() => {
 					return useSmartCardActions(id, url);
 				});
 
@@ -378,7 +378,7 @@ describe('Smart Card: Actions', () => {
 			async (name, responseKind) => {
 				mockFetchData(Promise.resolve(responseKind));
 
-				const { result } = renderHook(() => {
+				const result = renderHook(() => {
 					return useSmartCardActions(id, url);
 				});
 
@@ -407,7 +407,7 @@ describe('Smart Card: Actions', () => {
 		it('dispatches error metadata status if response is undefined', async () => {
 			mockFetchData(Promise.resolve(undefined));
 
-			const { result } = renderHook(() => {
+			const result = renderHook(() => {
 				return useSmartCardActions(id, url);
 			});
 

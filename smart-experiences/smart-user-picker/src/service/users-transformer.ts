@@ -36,6 +36,7 @@ interface ServerUser extends ServerItem {
 	email?: string;
 	attributes?: Record<string, string>;
 	nonLicensedUser?: boolean;
+	appType?: string | null;
 }
 
 type ServerTeamState = 'ACTIVE' | 'DISBANDED' | 'PURGED';
@@ -115,6 +116,7 @@ const transformUser = (
 			tooltip: user.name,
 			isExternal: Boolean(user.nonLicensedUser),
 			sources: user.nonLicensedUser ? ['other-atlassian'] : undefined,
+			appType: user.appType !== undefined ? user.appType : user.attributes?.appType,
 		};
 	}
 

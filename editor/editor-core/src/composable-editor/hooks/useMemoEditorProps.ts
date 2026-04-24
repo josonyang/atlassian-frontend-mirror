@@ -9,7 +9,7 @@ export type Complete<T> = {
 
 export const useMemoEditorProps = (
 	passedProps: EditorProps & EditorNextProps & WithAppearanceComponent,
-) => {
+): EditorProps & EditorNextProps & WithAppearanceComponent => {
 	const memodProps: EditorProps & EditorNextProps & WithAppearanceComponent = useMemo(() => {
 		type All = Complete<Omit<EditorNextProps, 'trackValidTransactions'>> &
 			Complete<Omit<EditorProps, 'trackValidTransactions'>> &

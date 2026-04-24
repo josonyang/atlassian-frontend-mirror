@@ -17,3 +17,4 @@ export {
 	denseEmojiHeightH3,
 	denseEmojiHeightH4,
 } from '@atlaskit/emoji';
+export { defaultInlineEmojiHeight } from '@atlaskit/emoji/utils';

@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/reactions",
-	"version": "34.0.1",
+	"version": "34.0.3",
 	"description": "Reactions component",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -122,6 +122,9 @@
 		"start:edge": "cd ../../ && PROXY_TARGET_ENV=edge yarn start:webpack reactions --proxy ./packages/elements/reactions/proxy.ts"
 	},
 	"platform-feature-flags": {
+		"platform_reactions_optimistic_url": {
+			"type": "boolean"
+		},
 		"platform-component-visual-refresh": {
 			"type": "boolean"
 		},

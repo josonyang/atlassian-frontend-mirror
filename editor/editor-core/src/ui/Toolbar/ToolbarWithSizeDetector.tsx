@@ -24,7 +24,7 @@ const toolbar = css({
 	position: 'relative',
 });
 
-export const ToolbarWithSizeDetector = (props: ToolbarWithSizeDetectorProps) => {
+export const ToolbarWithSizeDetector = (props: ToolbarWithSizeDetectorProps): jsx.JSX.Element => {
 	const ref = React.useRef<HTMLDivElement>(null);
 	const [width, setWidth] = React.useState<number | undefined>(undefined);
 	const elementWidth = useElementWidth(ref, {

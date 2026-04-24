@@ -148,7 +148,7 @@ export function createPMPlugins(config: PMPluginCreateConfig): SafePlugin[] {
 	return pmPlugins;
 }
 
-export function createErrorReporter(errorReporterHandler?: ErrorReportingHandler) {
+export function createErrorReporter(errorReporterHandler?: ErrorReportingHandler): ErrorReporter {
 	const errorReporter = new ErrorReporter();
 	if (errorReporterHandler) {
 		errorReporter.handler = errorReporterHandler;

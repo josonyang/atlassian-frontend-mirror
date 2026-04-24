@@ -270,11 +270,15 @@ const HoverCardContent = ({
 				return <HoverCardForbiddenView flexibleCardProps={flexibleCardProps} />;
 			}
 
+			const is3PInlinePostAuthActionsEnabled =
+				fg('rovogrowth-640-inline-action-nudge-fg') &&
+				expValEqualsNoExposure('rovogrowth-640-inline-action-nudge-exp', 'isEnabled', true);
+
 			if (isResolved) {
 				return (
 					<HoverCardResolvedView
 						{...(fg('platform_sl_3p_auth_rovo_action_kill_switch') ||
-						fg('rovogrowth-640-inline-action-nudge-fg')
+						is3PInlinePostAuthActionsEnabled
 							? { actionOptions, showRovoResolvedView }
 							: undefined)}
 						cardState={cardState}
@@ -340,11 +344,15 @@ const HoverCardContent = ({
 				return <HoverCardForbiddenView flexibleCardProps={flexibleCardProps} />;
 			}
 
+			const is3PInlinePostAuthActionsEnabled =
+				fg('rovogrowth-640-inline-action-nudge-fg') &&
+				expValEqualsNoExposure('rovogrowth-640-inline-action-nudge-exp', 'isEnabled', true);
+
 			if (cardState.status === 'resolved') {
 				return (
 					<HoverCardResolvedView
 						{...(fg('platform_sl_3p_auth_rovo_action_kill_switch') ||
-						fg('rovogrowth-640-inline-action-nudge-fg')
+							(is3PInlinePostAuthActionsEnabled)
 							? { actionOptions, showRovoResolvedView }
 							: undefined)}
 						cardState={cardState}

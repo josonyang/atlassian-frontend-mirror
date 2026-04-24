@@ -30,7 +30,7 @@ export const PasteOptionsDropdownButton = ({
 	label: string;
 	testId?: string;
 	tooltipContent?: string;
-}) => {
+}): JSX.Element => {
 	const trigger = useCallback(
 		(triggerProps: CustomTriggerProps<HTMLButtonElement>) => {
 			const button = (

@@ -16,18 +16,6 @@ function isImportDeclaration(node: ESTree.Node): node is ESTree.ImportDeclaratio
 	return node.type === 'ImportDeclaration';
 }
 
-export function isImportSpecifier(specifier: ESTree.Node): specifier is ESTree.ImportSpecifier {
-	return specifier.type === 'ImportSpecifier';
-}
-
-export function isImportDefaultSpecifier(
-	specifier: ESTree.Node,
-): specifier is ESTree.ImportDefaultSpecifier {
-	return specifier.type === 'ImportDefaultSpecifier';
-}
-
-export function isImportNamespaceSpecifier(
-	specifier: ESTree.Node,
-): specifier is ESTree.ImportNamespaceSpecifier {
-	return specifier.type === 'ImportNamespaceSpecifier';
-}
+export { isImportSpecifier } from './is-import-specifier';
+export { isImportDefaultSpecifier } from './is-import-default-specifier';
+export { isImportNamespaceSpecifier } from './is-import-namespace-specifier';

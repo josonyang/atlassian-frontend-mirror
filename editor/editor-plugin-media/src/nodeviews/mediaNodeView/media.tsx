@@ -50,6 +50,7 @@ export interface MediaNodeProps extends ReactNodeProps, ImageLoaderProps {
 	api?: ExtractInjectionAPI<MediaNextEditorPluginType>;
 	contextIdentifierProvider?: Promise<ContextIdentifierProvider>;
 	getPos: ProsemirrorGetPosHandler;
+	isAIGenerating?: boolean;
 	isLoading?: boolean;
 	isMediaSingle?: boolean;
 	isViewOnly?: boolean;
@@ -103,6 +104,7 @@ export class MediaNode extends Component<MediaNodeProps, MediaNodeState> {
 			this.props.selected !== nextProps.selected ||
 			this.props.node.attrs.id !== nextProps.node.attrs.id ||
 			this.props.node.attrs.collection !== nextProps.node.attrs.collection ||
+			this.props.isAIGenerating !== nextProps.isAIGenerating ||
 			this.props.maxDimensions.height !== nextProps.maxDimensions.height ||
 			this.props.maxDimensions.width !== nextProps.maxDimensions.width ||
 			this.props.contextIdentifierProvider !== nextProps.contextIdentifierProvider ||
@@ -351,14 +353,14 @@ export class MediaNode extends Component<MediaNodeProps, MediaNodeState> {
 						dataURI: url!,
 						name: url,
 						mediaItemType: 'external-image',
-					}
+				  }
 				: {
 						id,
 						mediaItemType: 'file',
 						// Ignored via go/ees005
 						// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 						collectionName: collection!,
-					};
+				  };
 
 		const resolvedViewAndUploadMediaClientConfig = fg('platform_media_video_captions')
 			? viewAndUploadMediaClientConfig
@@ -371,7 +373,7 @@ export class MediaNode extends Component<MediaNodeProps, MediaNodeState> {
 			viewMediaClientConfig || {
 				// Ignored via go/ees005
 				// eslint-disable-next-line @typescript-eslint/no-explicit-any
-				authProvider: () => ({}) as any,
+				authProvider: () => ({} as any),
 			};
 
 		const ssr: SSR = process.env.REACT_SSR ? 'server' : 'client';
@@ -410,6 +412,7 @@ export class MediaNode extends Component<MediaNodeProps, MediaNodeState> {
 						videoControlsWrapperRef={this.videoControlsWrapperRef}
 						ssr={ssr}
 						mediaSettings={this.getMediaSettings(viewAndUploadMediaClientConfig)}
+						isAIGenerating={!!this.props.isAIGenerating}
 						onError={
 							expValEquals('platform_editor_media_error_analytics', 'isEnabled', true)
 								? this.onError

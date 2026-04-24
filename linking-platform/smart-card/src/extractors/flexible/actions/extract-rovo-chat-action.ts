@@ -2,6 +2,7 @@ import type { JsonLd } from '@atlaskit/json-ld-types';
 import { extractSmartLinkUrl } from '@atlaskit/link-extractors';
 import type { ProductType } from '@atlaskit/linking-common';
 import { fg } from '@atlaskit/platform-feature-flags';
+import { expValEqualsNoExposure } from '@atlaskit/tmp-editor-statsig/exp-val-equals-no-exposure';
 
 import { ActionName } from '../../../constants';
 import type { RovoChatActionData } from '../../../state/flexible-ui-context/types';
@@ -46,11 +47,14 @@ const extractRovoChatAction = ({
 	const is3PAuthRovoActionEnabled =
 		isGoogleProvider && fg('platform_sl_3p_auth_rovo_action_kill_switch');
 	const is3PInlinePostAuthActionsEnabled =
-		!isGoogleProvider && fg('rovogrowth-640-inline-action-nudge-fg');
+		supportsRovoActions &&
+		!isGoogleProvider &&
+		fg('rovogrowth-640-inline-action-nudge-fg') &&
+		expValEqualsNoExposure('rovogrowth-640-inline-action-nudge-exp', 'isEnabled', true);
     const is3PBlockPostAuthActionsEnabled = supportsRovoActions && fg('platform_sl_3p_auth_rovo_block_card_kill_switch')
 
 	const isSupportedFeature =
-		(supportsRovoActions && is3PInlinePostAuthActionsEnabled) || is3PAuthRovoActionEnabled || is3PBlockPostAuthActionsEnabled;
+		is3PInlinePostAuthActionsEnabled || is3PAuthRovoActionEnabled || is3PBlockPostAuthActionsEnabled;
 	const isOptIn = actionOptions?.rovoChatAction?.optIn === true;
 
 	const url = extractSmartLinkUrl(response);

@@ -1,10 +1,10 @@
 import React from 'react';
 
-import { fireEvent, render, screen } from '@testing-library/react';
 import { IntlProvider } from 'react-intl';
 
 import WarningIcon from '@atlaskit/icon/core/status-warning';
 import { SmartCardProvider as Provider } from '@atlaskit/link-provider';
+import { fireEvent, render, screen } from '@atlassian/testing-library';
 
 import { InlineCardErroredView } from '../../index';
 

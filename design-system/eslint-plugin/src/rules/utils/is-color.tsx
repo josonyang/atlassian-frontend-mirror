@@ -1,4 +1,3 @@
-import { CURRENT_SURFACE_CSS_VAR } from '@atlaskit/tokens';
 
 const namedColors = new Set([
 	'black',
@@ -504,5 +503,4 @@ const kebabize = (str: string) =>
 export const isColorCssPropertyName = (value: string): boolean =>
 	validColorPropertyNames.has(kebabize(value));
 
-export const isCurrentSurfaceCustomPropertyName = (value: string): boolean =>
-	value === 'CURRENT_SURFACE_CSS_VAR' || value === CURRENT_SURFACE_CSS_VAR;
+export { isCurrentSurfaceCustomPropertyName } from './is-current-surface-custom-property-name';

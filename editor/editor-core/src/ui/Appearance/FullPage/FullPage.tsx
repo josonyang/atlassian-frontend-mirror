@@ -98,7 +98,7 @@ const hasCustomComponents = (components?: PrimaryToolbarComponents) => {
 	return true;
 };
 
-export const FullPageEditor = (props: ComponentProps) => {
+export const FullPageEditor = (props: ComponentProps): jsx.JSX.Element => {
 	// Should be always the first statement in the component
 	const firstRenderStartTimestampRef = useRef(performance.now());
 

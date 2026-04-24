@@ -1,6 +1,6 @@
 import { type CallExpression, isNodeOfType } from 'eslint-codemod-utils';
 
-import { blockedEventNameLookup } from '../shared/blocked';
+import { blockedEventNameLookup } from '../shared/blocked-event-name-lookup';
 
 export function isBlockedAddEventListener(node: CallExpression): boolean {
 	const callee = node.callee;

@@ -40,11 +40,14 @@ import { mediaSpecWithFixedToDOM } from './nodeviews/toDOM-fixes/media';
 import { mediaGroupSpecWithFixedToDOM } from './nodeviews/toDOM-fixes/mediaGroup';
 import { mediaInlineSpecWithFixedToDOM } from './nodeviews/toDOM-fixes/mediaInline';
 import { mediaSingleSpecWithFixedToDOM } from './nodeviews/toDOM-fixes/mediaSingle';
+import { createAIGeneratingDecorationPlugin } from './pm-plugins/ai-generating-decoration';
 import { createPlugin as createMediaAltTextPlugin } from './pm-plugins/alt-text';
 import keymapMediaAltTextPlugin from './pm-plugins/alt-text/keymap';
 import {
+	clearAIGenerating,
 	hideMediaViewer,
 	insertMediaAsMediaSingleCommand,
+	setAIGenerating,
 	showMediaViewer,
 	trackMediaPaste,
 } from './pm-plugins/commands';
@@ -230,6 +233,8 @@ export const mediaPlugin: MediaNextEditorPluginType = ({ config: options = {}, a
 			showMediaViewer,
 			hideMediaViewer,
 			trackMediaPaste,
+			setAIGenerating,
+			clearAIGenerating,
 			insertMediaSingle: insertMediaAsMediaSingleCommand(
 				api?.analytics?.actions,
 				options.allowPixelResizing,
@@ -397,6 +402,11 @@ export const mediaPlugin: MediaNextEditorPluginType = ({ config: options = {}, a
 					plugin: createMediaPixelResizingPlugin,
 				});
 			}
+
+			pmPlugins.push({
+				name: 'mediaAIGeneratingDecoration',
+				plugin: () => createAIGeneratingDecorationPlugin(),
+			});
 
 			pmPlugins.push({
 				name: 'mediaSelectionHandler',

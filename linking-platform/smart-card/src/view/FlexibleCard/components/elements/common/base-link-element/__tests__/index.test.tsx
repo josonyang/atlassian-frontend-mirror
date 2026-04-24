@@ -4,7 +4,8 @@
  */
 import '@testing-library/jest-dom';
 import { css, jsx } from '@compiled/react';
-import { fireEvent, render, screen } from '@testing-library/react';
+
+import { fireEvent, render, screen } from '@atlassian/testing-library';
 
 import { SmartLinkSize, SmartLinkTheme } from '../../../../../../../constants';
 import BaseLinkElement from '../index';

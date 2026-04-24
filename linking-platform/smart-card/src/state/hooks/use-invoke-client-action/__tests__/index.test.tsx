@@ -1,11 +1,11 @@
 import React from 'react';
 
-import { renderHook } from '@testing-library/react';
 // eslint-disable-next-line @atlaskit/platform/prefer-crypto-random-uuid -- Use crypto.randomUUID instead
 import uuid from 'uuid';
 
 import FabricAnalyticsListeners, { type AnalyticsWebClient } from '@atlaskit/analytics-listeners';
 import { SmartCardProvider } from '@atlaskit/link-provider';
+import { renderHook } from '@atlassian/testing-library';
 
 import type { FireEventFunction } from '../../../../common/analytics/types';
 import { CardDisplay } from '../../../../constants';
@@ -48,7 +48,7 @@ describe('useInvokeClientAction', () => {
 		const storeOptions = {
 			initialState: { [url]: { details, status: 'resolved' as const } },
 		};
-		const { result } = renderHook(() => useInvokeClientAction({ fireEvent }), {
+		const result = renderHook(() => useInvokeClientAction({ fireEvent }), {
 			wrapper: ({ children }) => (
 				<FabricAnalyticsListeners client={mockAnalyticsClient}>
 					<SmartCardProvider storeOptions={storeOptions}>

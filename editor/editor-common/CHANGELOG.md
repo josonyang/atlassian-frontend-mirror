@@ -1,5 +1,49 @@
 # @atlaskit/editor-common
 
+## 114.10.0
+
+### Minor Changes
+
+- [`4b61b018db494`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/4b61b018db494) -
+  [ux] Adds AI image generation to the editor by introducing a new plugin for image generation in
+  the editor with the functionalities to create AI images with a prompt and style choice. The plugin
+  is gated behind a feature experiment.
+
+### Patch Changes
+
+- [`edc25b2fd6660`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/edc25b2fd6660) -
+  Fix editor popup not respecting scrollableElement changes when editor is re-parented.
+
+  When the `platform_editor_fix_scrolling_popup_position` experiment is enabled, the Popup component
+  now detects when the `scrollableElement` prop changes (e.g. the editor instance is moved into a
+  different container) and re-initialises the scroll event listener and ResizeObserver to track the
+  new scroll parent. Previously, the scroll element was resolved only once on mount, so subsequent
+  changes were silently ignored and popups would lose scroll tracking.
+
+- Updated dependencies
+
+## 114.9.0
+
+### Minor Changes
+
+- [`46c5125fd06d8`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/46c5125fd06d8) -
+  Perf-linting cleanup: fix performance linting violations in editor-common, gated behind
+  platform_editor_perf_lint_cleanup experiment
+
+### Patch Changes
+
+- Updated dependencies
+
+## 114.8.1
+
+### Patch Changes
+
+- [`e6835136c4227`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/e6835136c4227) -
+  [FFCLEANUP-98435] remove stale experiment `platform_editor_a11y_typeahead_tab_keypress`
+- [`245a43ebad095`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/245a43ebad095) -
+  [EDITOR-4550] prevent inline emojis inside smart links from scaling with fontsize
+- Updated dependencies
+
 ## 114.8.0
 
 ### Minor Changes

@@ -10,7 +10,7 @@ type EditorContextInternal = {
 
 export type EditorContextProps = React.PropsWithChildren<EditorContextInternal>;
 
-export const useEditorContext = () => React.useContext<EditorContextProps>(EditorContext);
+export const useEditorContext = (): EditorContextProps => React.useContext<EditorContextProps>(EditorContext);
 
 // Ignored via go/ees005
 // eslint-disable-next-line @repo/internal/react/no-class-components, react/prefer-stateless-function
@@ -23,7 +23,7 @@ export class LegacyEditorContext extends React.Component<EditorContextProps, Obj
 	private editorActions: EditorActions;
 	private contextValue: EditorContextProps;
 
-	render() {
+	render(): React.JSX.Element {
 		return (
 			<EditorContext.Provider value={this.contextValue}>
 				{this.props.children}
@@ -32,6 +32,6 @@ export class LegacyEditorContext extends React.Component<EditorContextProps, Obj
 	}
 }
 
-export default (props: EditorContextProps) => (
+export default (props: EditorContextProps): React.JSX.Element => (
 	<LegacyEditorContext editorActions={props.editorActions}>{props.children}</LegacyEditorContext>
 );

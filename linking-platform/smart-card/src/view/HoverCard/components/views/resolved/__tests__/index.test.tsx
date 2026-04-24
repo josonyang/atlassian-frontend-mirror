@@ -1,6 +1,5 @@
 import React from 'react';
 
-import { act, fireEvent, render, screen, type RenderOptions, within } from '@testing-library/react';
 import { IntlProvider } from 'react-intl';
 
 import FabricAnalyticsListeners, { type AnalyticsWebClient } from '@atlaskit/analytics-listeners';
@@ -10,6 +9,7 @@ import { SmartCardProvider } from '@atlaskit/link-provider';
 import { GoogleDoc } from '@atlaskit/link-test-helpers';
 import type { CardState, ProductType } from '@atlaskit/linking-common';
 import { ffTest } from '@atlassian/feature-flags-test-utils';
+import { act, fireEvent, render, screen, within } from '@atlassian/testing-library';
 
 import { getCardState } from '../../../../../../../examples/utils/flexible-ui';
 import MockAtlasProject from '../../../../../../__fixtures__/atlas-project';
@@ -65,7 +65,7 @@ describe('HoverCardResolvedView', () => {
 		sendScreenEvent: jest.fn().mockResolvedValue(undefined),
 	} satisfies AnalyticsWebClient;
 
-	const wrapper: RenderOptions['wrapper'] = ({ children }) => (
+	const wrapper = ({ children }: { children: React.ReactNode }) => (
 		<IntlProvider locale="en">
 			<FabricAnalyticsListeners client={mockAnalyticsClient}>
 				<SmartCardProvider

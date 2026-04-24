@@ -3,7 +3,6 @@ import '@atlaskit/link-test-helpers/jest';
 
 import React, { useState } from 'react';
 
-import { fireEvent, render, screen, waitFor } from '@testing-library/react';
 
 import FabricAnalyticsListeners, { type AnalyticsWebClient } from '@atlaskit/analytics-listeners';
 import { type JsonLd } from '@atlaskit/json-ld-types';
@@ -15,6 +14,7 @@ import {
 import { mockSimpleIntersectionObserver } from '@atlaskit/link-test-helpers';
 import { APIError } from '@atlaskit/linking-common';
 import { flushPromises } from '@atlaskit/media-test-helpers';
+import { fireEvent, render, screen, waitFor } from '@atlassian/testing-library';
 
 import { fakeFactory, mockByUrl, mocks } from '../../../utils/mocks';
 import { Card, type CardAppearance } from '../../Card';

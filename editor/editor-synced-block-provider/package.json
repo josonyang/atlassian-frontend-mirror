@@ -26,6 +26,7 @@
 	"exports": {
 		".": "./src/index.ts",
 		"./fetchJiraMediaToken": "./src/clients/jira/fetchMediaToken.ts",
+		"./requestJiraIssueAccess": "./src/clients/jira/requestJiraIssueAccess.ts",
 		"./tokenRouting": "./src/clients/tokenRouting.ts"
 	},
 	"dependencies": {
@@ -86,7 +87,7 @@
 		}
 	},
 	"name": "@atlaskit/editor-synced-block-provider",
-	"version": "6.1.4",
+	"version": "6.2.2",
 	"description": "Synced Block Provider for @atlaskit/editor-plugin-synced-block",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",

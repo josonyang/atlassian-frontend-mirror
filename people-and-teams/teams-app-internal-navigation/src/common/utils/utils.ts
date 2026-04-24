@@ -12,13 +12,13 @@ export const isAbsoluteLink = (url: string): boolean => {
 /**
  * Checks if a mouse event is modified.
  */
-export const isModified = (event: React.MouseEvent<HTMLElement>) =>
+export const isModified = (event: React.MouseEvent<HTMLElement>): boolean =>
 	Boolean(event.metaKey || event.altKey || event.ctrlKey || event.shiftKey);
 
 /**
  * Checks if a URL is a Teams app route.
  */
-export const isTeamsAppRoute = (url: string) => {
+export const isTeamsAppRoute = (url: string): boolean => {
 	try {
 		const path = getRoutePathFromUrl(url);
 		const hostname = new URL(url).hostname;
@@ -55,7 +55,7 @@ export const prefixWithContextEntryPoint = (path: string, contextEntryPoint = ''
  * Takes an absolute URL `url` and returns the pathname.
  * Returns input `url` if it is not absolute.
  */
-export const getRoutePathFromUrl = (url: string) => {
+export const getRoutePathFromUrl = (url: string): string => {
 	try {
 		const parsedUrl = new URL(url, window.location.origin);
 		return parsedUrl.pathname;
@@ -79,7 +79,22 @@ export function buildNavigationInput({
 	context,
 	onBeforeNavigate,
 	...intentProps
-}: BuildNavigationInputArgs) {
+}: BuildNavigationInputArgs): {
+    href: string;
+    intent: "action";
+    previewPanelProps: {
+        ari: string;
+        name: string;
+    } | undefined;
+    context: NavigationContext;
+    onClick: ((...args: any[]) => void) | undefined;
+} | {
+    href: string;
+    intent: "navigation" | "reference" | "external" | "unknown";
+    context: NavigationContext;
+    onClick: ((...args: any[]) => void) | undefined;
+    previewPanelProps?: undefined;
+} {
 	return intentProps.intent === 'action'
 		? {
 				href,

@@ -31,6 +31,8 @@ export const denseEmojiHeightH4 = 18.25;
 export const defaultEmojiHeight = 20;
 export const defaultDenseEmojiHeight = 16.25;
 
+export const defaultInlineEmojiHeight = 16;
+
 export type EmojiPickerWidth = 350;
 export const emojiPickerWidth: EmojiPickerWidth = 350;
 

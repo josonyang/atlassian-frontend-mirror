@@ -4,10 +4,8 @@
  */
 import { css, jsx } from '@compiled/react';
 
-import {
-	SELECTION_STYLE_CONTEXT_DO_NOT_USE,
-	SpacingContext,
-} from '../internal/components/menu-context';
+import { SpacingContext } from '../internal/components/menu-context';
+import { SELECTION_STYLE_CONTEXT_DO_NOT_USE } from '../internal/components/selection-style-context-do-not-use';
 import type { MenuGroupProps } from '../types';
 
 const baseStyles = css({

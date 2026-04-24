@@ -1,9 +1,9 @@
 import React from 'react';
 
-import { render, screen } from '@testing-library/react';
 
 import { SmartCardProvider } from '@atlaskit/link-provider';
 import { type CardState } from '@atlaskit/linking-common';
+import { render, screen } from '@atlassian/testing-library';
 
 import { getCardTestWrapper } from '../../../__tests__/__utils__/unit-testing-library-helpers';
 import { SmartLinkStatus } from '../../../constants';

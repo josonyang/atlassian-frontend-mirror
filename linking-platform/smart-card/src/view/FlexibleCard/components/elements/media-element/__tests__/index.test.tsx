@@ -3,8 +3,9 @@
  * @jsx jsx
  */
 import { css, jsx } from '@compiled/react';
-import { render, screen } from '@testing-library/react';
 import { IntlProvider } from 'react-intl';
+
+import { render, screen } from '@atlassian/testing-library';
 
 import { MediaType } from '../../../../../../constants';
 import MediaElement from '../index';

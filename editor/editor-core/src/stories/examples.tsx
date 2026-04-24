@@ -82,4 +82,4 @@ const Template = (args: EditorProps): React.JSX.Element => (
 	/>
 );
 
-export const EditorExample = Template.bind({});
+export const EditorExample: (args: EditorProps) => React.JSX.Element = Template.bind({});

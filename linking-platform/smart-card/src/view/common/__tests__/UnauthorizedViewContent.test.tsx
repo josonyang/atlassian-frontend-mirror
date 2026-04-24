@@ -1,9 +1,9 @@
 import React from 'react';
 
-import { render, screen } from '@testing-library/react';
 import { IntlProvider } from 'react-intl';
 
 import { fg } from '@atlaskit/platform-feature-flags';
+import { render, screen } from '@atlassian/testing-library';
 
 import UnauthorisedViewContent from '../UnauthorisedViewContent';
 
@@ -54,33 +54,17 @@ describe('UnauthorisedViewContent', () => {
 		render(<TestComponent providerName="Google" />);
 
 		expect(
-			screen.getByText(
-				'Connect your Google account to collaborate on work across Atlassian products.',
-			),
+			screen.getByText('Turn your URLs into rich, interactive previews.'),
 		).toBeInTheDocument();
 	});
 
 	describe('product-terminology-refresh feature flag logic', () => {
 		describe('with provider name', () => {
-			it('shows "products" terminology when feature flag is OFF', () => {
-				mockFg.mockReturnValue(false);
+			it('shows the short description', () => {
 				render(<TestComponent providerName="Google" />);
 
 				expect(
-					screen.getByText(
-						'Connect your Google account to collaborate on work across Atlassian products.',
-					),
-				).toBeInTheDocument();
-			});
-
-			it('shows "apps" terminology when feature flag is ON', () => {
-				mockFg.mockReturnValue(true);
-				render(<TestComponent providerName="Google" />);
-
-				expect(
-					screen.getByText(
-						'Connect your Google account to collaborate on work across Atlassian apps.',
-					),
+					screen.getByText('Turn your URLs into rich, interactive previews.'),
 				).toBeInTheDocument();
 			});
 		});

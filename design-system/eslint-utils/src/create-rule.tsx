@@ -65,9 +65,4 @@ export const getCreateLintRule: (
 		return rule as Rule.RuleModule;
 	};
 
-/**
- * If it's a nested rule, ensure the url is clean and safe for urls, file paths, etc.
- */
-export function getPathSafeName(ruleName: string): string {
-	return ruleName.replace('/', '-');
-}
+export { getPathSafeName } from './get-path-safe-name';

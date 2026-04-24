@@ -30,7 +30,7 @@ export class ToolbarInner extends React.Component<ToolbarInnerProps> {
 		return !isEqual(nextProps, this.props);
 	}
 
-	render() {
+	render(): jsx.JSX.Element | null {
 		const {
 			appearance,
 			editorView,

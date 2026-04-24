@@ -7,6 +7,8 @@
  *   Response: { semantic_vector: number[], lm_logits: Record<string, number> }
  */
 
+import { isAutocompleteDebugEnabled } from './debug-mode';
+
 // ─── Types ───────────────────────────────────────────────────────────────────
 
 /** Request payload for typeahead-encodings endpoint. */
@@ -95,19 +97,20 @@ export const createSlowLaneClient = (
 			session_id: sessionId,
 		};
 
-		// Log the exact payload being sent so the comment/reply structure is visible
-		// eslint-disable-next-line no-console
-		console.groupCollapsed(
-			`%c[SlowLane] %c📤 Sending context | ${text.length} chars`,
-			'color: #9c27b0; font-weight: bold;',
-			'color: inherit;',
-		);
-		text.split('\n').forEach((line, i, arr) => {
+		if (isAutocompleteDebugEnabled()) {
 			// eslint-disable-next-line no-console
-			console.log(`  ${i === arr.length - 1 ? '▶' : ' '} ${line}`);
-		});
-		// eslint-disable-next-line no-console
-		console.groupEnd();
+			console.groupCollapsed(
+				`%c[SlowLane] %c📤 Sending context | ${text.length} chars`,
+				'color: #9c27b0; font-weight: bold;',
+				'color: inherit;',
+			);
+			text.split('\n').forEach((line, i, arr) => {
+				// eslint-disable-next-line no-console
+				console.log(`  ${i === arr.length - 1 ? '▶' : ' '} ${line}`);
+			});
+			// eslint-disable-next-line no-console
+			console.groupEnd();
+		}
 
 		try {
 			const res = await fetchFn(url, {
@@ -119,12 +122,14 @@ export const createSlowLaneClient = (
 			if (!res.ok) {
 				storedContextVector = null;
 				storedLmLogits = null;
-				// eslint-disable-next-line no-console
-				console.log(
-					`%c[SlowLane] %c❌ Request failed (${res.status})`,
-					'color: #9c27b0; font-weight: bold;',
-					'color: #f44336;',
-				);
+				if (isAutocompleteDebugEnabled()) {
+					// eslint-disable-next-line no-console
+					console.log(
+						`%c[SlowLane] %c❌ Request failed (${res.status})`,
+						'color: #9c27b0; font-weight: bold;',
+						'color: #f44336;',
+					);
+				}
 				return;
 			}
 
@@ -142,7 +147,7 @@ export const createSlowLaneClient = (
 				storedLmLogits = null;
 			}
 
-			// Log what came back so it can be correlated with the next prediction group
+		if (isAutocompleteDebugEnabled()) {
 			// eslint-disable-next-line no-console
 			console.groupCollapsed(
 				`%c[SlowLane] %c📥 Response received`,
@@ -163,6 +168,7 @@ export const createSlowLaneClient = (
 			);
 			// eslint-disable-next-line no-console
 			console.groupEnd();
+		}
 
 			onUpdate?.({
 				textLength: text.length,
@@ -171,8 +177,9 @@ export const createSlowLaneClient = (
 			});
 			// eslint-disable-next-line no-unused-vars
 		} catch (e) {
-			storedContextVector = null;
-			storedLmLogits = null;
+		storedContextVector = null;
+		storedLmLogits = null;
+		if (isAutocompleteDebugEnabled()) {
 			// eslint-disable-next-line no-console
 			console.log(
 				'%c[SlowLane] %c❌ Network error — context cleared',
@@ -180,6 +187,7 @@ export const createSlowLaneClient = (
 				'color: #f44336;',
 			);
 		}
+	}
 	};
 
 	const updateContextDebounced = (text: string): void => {

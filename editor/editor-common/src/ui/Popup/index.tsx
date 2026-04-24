@@ -1,5 +1,6 @@
 import React from 'react';
 
+import { bind } from 'bind-event-listener';
 import type { FocusTrap, Options as FocusTrapOptions } from 'focus-trap';
 import createFocusTrap from 'focus-trap';
 import rafSchedule from 'raf-schd';
@@ -67,6 +68,7 @@ export interface State {
 // eslint-disable-next-line @repo/internal/react/no-class-components
 export default class Popup extends React.Component<Props, State> {
 	scrollElement: undefined | false | HTMLElement;
+	private unbindScroll?: () => void;
 	rafIds: Set<number> = new Set();
 	static defaultProps: {
 		allowOutOfBound: boolean;
@@ -329,8 +331,44 @@ export default class Popup extends React.Component<Props, State> {
 		}
 	}
 
+	/**
+	 * Idempotent scroll element setup — tears down any previous listener/observer
+	 * then attaches to the current scroll parent.
+	 */
+	private initScrollElement(): void {
+		const { stick, target, scrollableElement } = this.props;
+
+		this.unbindScroll?.();
+		if (this.scrollElement && this.resizeObserver) {
+			this.resizeObserver.unobserve(this.scrollElement);
+		}
+
+		this.scrollElement = scrollableElement;
+
+		if (stick && !this.scrollElement && target) {
+			this.scrollElement = findOverflowScrollParent(target);
+		}
+
+		if (this.scrollElement) {
+			if (this.resizeObserver) {
+				this.resizeObserver.observe(this.scrollElement);
+			}
+			this.unbindScroll = bind(this.scrollElement, {
+				type: 'scroll',
+				listener: this.onResize,
+			});
+		}
+	}
+
 	componentDidUpdate(prevProps: Props): void {
 		this.handleChangedFocusTrapProp(prevProps);
+
+		if (
+			expValEquals('platform_editor_fix_scrolling_popup_position', 'isEnabled', true) &&
+			prevProps.scrollableElement !== this.props.scrollableElement
+		) {
+			this.initScrollElement();
+		}
 
 		if (this.props !== prevProps) {
 			this.scheduledUpdatePosition(prevProps);
@@ -341,22 +379,19 @@ export default class Popup extends React.Component<Props, State> {
 		// Ignored via go/ees005
 		// eslint-disable-next-line @repo/internal/dom-events/no-unsafe-event-listeners
 		window.addEventListener('resize', this.onResize);
+
+		if (expValEquals('platform_editor_fix_scrolling_popup_position', 'isEnabled', true)) {
+			this.initScrollElement();
+			return;
+		}
+
 		const { stick } = this.props;
 
 		// Ignored via go/ees005
 		// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 		const target = this.props.target!;
 
-		// Resolve the effective scroll parent: prefer the explicitly provided scrollableElement
-		// prop over the auto-detected ancestor. Allows product consumers to provide the correct
-		// scroll container (e.g. a modal body) when auto-detection can't find it.
-		const scrollParentElement = expValEquals(
-			'platform_editor_fix_scrolling_popup_position',
-			'isEnabled',
-			true,
-		)
-			? this.props.scrollableElement || findOverflowScrollParent(target)
-			: findOverflowScrollParent(target);
+		const scrollParentElement = findOverflowScrollParent(target);
 
 		if (scrollParentElement && this.resizeObserver) {
 			this.resizeObserver.observe(scrollParentElement);
@@ -378,6 +413,7 @@ export default class Popup extends React.Component<Props, State> {
 		// Ignored via go/ees005
 		// eslint-disable-next-line @repo/internal/dom-events/no-unsafe-event-listeners
 		window.removeEventListener('resize', this.onResize);
+		this.unbindScroll?.();
 		if (this.scrollElement) {
 			// Ignored via go/ees005
 			// eslint-disable-next-line @repo/internal/dom-events/no-unsafe-event-listeners

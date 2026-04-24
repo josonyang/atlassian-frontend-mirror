@@ -16,6 +16,7 @@ import { SyncedBlockLoadingState } from './SyncedBlockLoadingState';
 export type RenderSyncedBlockContentParams = {
 	error?: SyncBlockInstance['error'];
 	fireAnalyticsEvent?: (payload: RendererSyncBlockEventPayload) => void;
+	getAccountId?: () => string | null;
 	isLoading: boolean;
 	isOffline?: boolean;
 	providerFactory: ProviderFactory | undefined;
@@ -42,6 +43,7 @@ export function renderSyncedBlockContent({
 	resourceId,
 	isOffline,
 	error,
+	getAccountId,
 }: RenderSyncedBlockContentParams): { element: React.JSX.Element; isSuccess: boolean } {
 	const isSSRMode = isSSR();
 
@@ -82,6 +84,7 @@ export function renderSyncedBlockContent({
 					onRetry={reloadData}
 					isLoading={isLoading}
 					fireAnalyticsEvent={fireAnalyticsEvent}
+					getAccountId={getAccountId}
 				/>
 			),
 			isSuccess: false,
@@ -97,6 +100,7 @@ export function renderSyncedBlockContent({
 					resourceId={resourceId}
 					sourceURL={syncBlockInstance.data?.sourceURL}
 					fireAnalyticsEvent={fireAnalyticsEvent}
+					getAccountId={getAccountId}
 				/>
 			),
 			isSuccess: false,

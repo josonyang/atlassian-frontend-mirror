@@ -12,13 +12,10 @@ import { createLintRule } from '../utils/create-rule';
 import { getImportName } from '../utils/get-import-name';
 import type { Fix } from '../utils/types';
 
-import {
-	getUniqueButtonItemName,
-	hasImportOfName,
-	hrefHasInvalidValue,
-	insertButtonItemDefaultImport,
-	insertButtonItemImport,
-} from './utils';
+import { hasImportOfName } from './has-import-of-name';
+import { insertButtonItemDefaultImport } from './insert-button-item-default-import';
+import { insertButtonItemImport } from './insert-button-item-import';
+import { getUniqueButtonItemName, hrefHasInvalidValue } from './utils';
 
 export const hrefRequiredSuggestionText = 'Convert LinkItem to ButtonItem';
 

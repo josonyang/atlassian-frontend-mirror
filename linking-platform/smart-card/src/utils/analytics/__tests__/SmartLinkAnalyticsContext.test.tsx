@@ -1,12 +1,12 @@
 import React, { useEffect } from 'react';
 
-import { render, renderHook } from '@testing-library/react';
 
 import FabricAnalyticsListeners, { type AnalyticsWebClient } from '@atlaskit/analytics-listeners';
 import { useAnalyticsEvents } from '@atlaskit/analytics-next';
 import FeatureGates from '@atlaskit/feature-gate-js-client';
 import { SmartCardProvider } from '@atlaskit/link-provider';
 import type { CardState } from '@atlaskit/linking-common';
+import { render, renderHook } from '@atlassian/testing-library';
 
 import { mockByUrl, mocks } from '../../mocks';
 import { context } from '../analytics';
@@ -275,7 +275,7 @@ describe('SL analytics context', () => {
 		};
 
 		it('returns analytics context based on url', async () => {
-			const { result } = setup(resolvedCardState);
+			const result = setup(resolvedCardState);
 
 			expect(result.current).toEqual({
 				source,
@@ -307,7 +307,7 @@ describe('SL analytics context', () => {
 		});
 
 		it('returns minimal analytics context if url is not in the store', async () => {
-			const { result } = setup();
+			const result = setup();
 
 			expect(result.current).toEqual({
 				source,
@@ -339,7 +339,7 @@ describe('SL analytics context', () => {
 		});
 
 		it('returns pending analytics context if url is not in the store', async () => {
-			const { result } = setup({ status: 'pending' });
+			const result = setup({ status: 'pending' });
 
 			expect(result.current).toEqual({
 				source,
@@ -371,7 +371,7 @@ describe('SL analytics context', () => {
 		});
 
 		it('returns forbidden analytics context', async () => {
-			const { result } = setup({ details: mocks.forbidden, status: 'pending' });
+			const result = setup({ details: mocks.forbidden, status: 'pending' });
 
 			expect(result.current).toEqual({
 				source,
@@ -403,7 +403,7 @@ describe('SL analytics context', () => {
 		});
 
 		it('returns unauthorized analytics context', async () => {
-			const { result } = setup({ details: mocks.unauthorized, status: 'pending' });
+			const result = setup({ details: mocks.unauthorized, status: 'pending' });
 
 			expect(result.current).toEqual({
 				source,
@@ -452,7 +452,7 @@ describe('SL analytics context', () => {
 				});
 			};
 
-			const { result } = setupWithUrlDisplay(resolvedCardState);
+			const result = setupWithUrlDisplay(resolvedCardState);
 
 			expect(result.current).toEqual({
 				source,
@@ -504,7 +504,7 @@ describe('SL analytics context', () => {
 				);
 			};
 
-			const { result } = setupWithInlineDisplay(resolvedCardState);
+			const result = setupWithInlineDisplay(resolvedCardState);
 
 			expect(result.current).toEqual({
 				source,

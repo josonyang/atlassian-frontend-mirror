@@ -29,7 +29,7 @@ const key = new PluginKey('editorNativeAnchorSupportPlugin');
 // Internal plugin to enable native anchor support in the editor.
 // This plugin injects node views for specific node types (e.g., 'paragraph', 'heading')
 // that do not already have a nodeView, allowing them to be rendered with native anchors when needed.
-export const createEditorNativeAnchorSupportPlugin = (schema: Schema) => {
+export const createEditorNativeAnchorSupportPlugin = (schema: Schema): SafePlugin => {
 	const nodeViewEntries: [string, NodeViewConstructor][] = [];
 
 	const injectList =

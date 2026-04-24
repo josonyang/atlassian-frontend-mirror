@@ -12,7 +12,7 @@ type Props = {
 	};
 };
 
-export function TSProps(params: Props) {
+export function TSProps(params: Props): React.JSX.Element {
 	const { props, filter } = params;
 
 	// Filter the props if required

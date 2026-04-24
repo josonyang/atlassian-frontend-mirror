@@ -1,12 +1,12 @@
 // eslint-disable-next-line import/order
 import * as testMocks from './index.test.mock';
 
-import { renderHook } from '@testing-library/react';
 
 import { type JsonLd } from '@atlaskit/json-ld-types';
 import { type CardContext, useSmartLinkContext } from '@atlaskit/link-provider';
 import { APIError, type CardState } from '@atlaskit/linking-common';
 import { asMockFunction } from '@atlaskit/media-test-helpers';
+import { renderHook } from '@atlassian/testing-library';
 
 import { mocks } from '../../../../utils/mocks';
 import useResolve from '../index';
@@ -49,7 +49,7 @@ describe('useResolve', () => {
 			details: undefined,
 		});
 
-		const resolve = renderHook(() => useResolve()).result.current;
+		const resolve = renderHook(() => useResolve()).current;
 		await resolve(url, false, false, id);
 
 		expect(mockContext.connections.client.fetchData).toHaveBeenCalledWith(url, false);
@@ -84,7 +84,7 @@ describe('useResolve', () => {
 			},
 		});
 
-		const resolve = renderHook(() => useResolve()).result.current;
+		const resolve = renderHook(() => useResolve()).current;
 		await resolve(url, false, false, id);
 
 		expect(mockContext.connections.client.fetchData).not.toHaveBeenCalledWith(url, false);
@@ -97,7 +97,7 @@ describe('useResolve', () => {
 			details: undefined,
 		});
 
-		const resolve = renderHook(() => useResolve()).result.current;
+		const resolve = renderHook(() => useResolve()).current;
 		await resolve(url, false, false, id);
 
 		expect(mockContext.connections.client.fetchData).toHaveBeenCalledWith(url, false);
@@ -130,7 +130,7 @@ describe('useResolve', () => {
 			details: mocks.success,
 		});
 
-		const resolve = renderHook(() => useResolve()).result.current;
+		const resolve = renderHook(() => useResolve()).current;
 		await resolve(url, true, false, id);
 
 		expect(mockContext.connections.client.fetchData).toHaveBeenCalledWith(url, true);
@@ -160,7 +160,7 @@ describe('useResolve', () => {
 			details: mocks.success,
 		});
 
-		const resolve = renderHook(() => useResolve()).result.current;
+		const resolve = renderHook(() => useResolve()).current;
 		await resolve(url, false, true, id);
 
 		expect(mockContext.connections.client.fetchData).toHaveBeenCalledWith(url, false);
@@ -194,7 +194,7 @@ describe('useResolve', () => {
 			details: undefined,
 		});
 
-		const resolve = renderHook(() => useResolve()).result.current;
+		const resolve = renderHook(() => useResolve()).current;
 		const promise = resolve(url, false, false, id);
 		await expect(promise).rejects.toThrow(Error);
 		await expect(promise).rejects.toHaveProperty('kind', 'fatal');
@@ -219,7 +219,7 @@ describe('useResolve', () => {
 			details: undefined,
 		});
 
-		const resolve = renderHook(() => useResolve()).result.current;
+		const resolve = renderHook(() => useResolve()).current;
 		const promise = resolve(url, false, false, id);
 		await expect(promise).resolves.toBeUndefined();
 
@@ -260,7 +260,7 @@ describe('useResolve', () => {
 			details: undefined,
 		});
 
-		const resolve = renderHook(() => useResolve()).result.current;
+		const resolve = renderHook(() => useResolve()).current;
 		const promise = resolve(url, false, false, id);
 		await expect(promise).resolves.toBeUndefined();
 
@@ -287,7 +287,7 @@ describe('useResolve', () => {
 			details: undefined,
 		});
 
-		const resolve = renderHook(() => useResolve()).result.current;
+		const resolve = renderHook(() => useResolve()).current;
 		const promise = resolve(url, false, false, id);
 		await expect(promise).resolves.toBeUndefined();
 
@@ -307,7 +307,7 @@ describe('useResolve', () => {
 			details: undefined,
 		});
 
-		const resolve = renderHook(() => useResolve()).result.current;
+		const resolve = renderHook(() => useResolve()).current;
 		const promise = resolve(url, false, false, id);
 
 		expect(mockContext.connections.client.fetchData).toHaveBeenCalledWith(url, false);

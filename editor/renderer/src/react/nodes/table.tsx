@@ -47,7 +47,7 @@ import { token } from '@atlaskit/tokens';
 
 import { TableStickyScrollbar } from './TableStickyScrollbar';
 
-import { TableProcessorWithContainerStyles } from './tableNew';
+import { TableProcessorWithContainerStyles, RefSyncBlockFakeBorders } from './tableNew';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { isTableInContentMode } from '@atlaskit/editor-common/table';
 import { isContentModeSupported } from './table/content-mode';
@@ -249,9 +249,7 @@ export interface TableState {
 	headerRowHeight: number;
 	stickyMode: StickyMode;
 	wrapperWidth: number;
-}
-
-/**
+} /**
  *
  */
 // Ignored via go/ees005
@@ -829,6 +827,7 @@ export class TableContainer extends React.Component<
 							data-testid="sticky-scrollbar-sentinel-bottom"
 						/>
 					)}
+					<RefSyncBlockFakeBorders isNumberColumnEnabled={isNumberColumnEnabled} />
 				</div>
 			</>
 		);
@@ -1062,7 +1061,7 @@ const _default_1: {
 		// eslint-disable-next-line @typescript-eslint/no-empty-object-type, @typescript-eslint/no-explicit-any
 		setState: <K extends never>(
 			state: // eslint-disable-next-line @typescript-eslint/no-empty-object-type
-				| {}
+			| {}
 				| ((
 						// eslint-disable-next-line @typescript-eslint/no-empty-object-type
 						prevState: Readonly<{}>,
@@ -1159,7 +1158,7 @@ const _default_1: {
 		// eslint-disable-next-line @typescript-eslint/no-empty-object-type, @typescript-eslint/no-explicit-any
 		setState: <K extends never>(
 			state: // eslint-disable-next-line @typescript-eslint/no-empty-object-type
-				| {}
+			| {}
 				| ((
 						// eslint-disable-next-line @typescript-eslint/no-empty-object-type
 						prevState: Readonly<{}>,

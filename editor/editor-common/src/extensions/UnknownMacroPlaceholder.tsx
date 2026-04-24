@@ -2,10 +2,13 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
+import { useMemo } from 'react';
+
 import { css } from '@compiled/react';
 import { useIntl } from 'react-intl';
 
 import { jsx } from '@atlaskit/css';
+import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { token } from '@atlaskit/tokens';
 
 import { messages } from './messages';
@@ -58,6 +61,13 @@ interface UnknownMacroPlaceholderProps {
 	extensionNode: ExtensionParams<Parameters>;
 }
 
+const formatParam = (key: string, param: { value?: string } | undefined): string => {
+	const value = String(param?.value ?? '').trim();
+	return `${key} = ${value}`;
+};
+
+const EMPTY_MACRO_PARAMS = {};
+
 export function UnknownMacroPlaceholder({
 	extensionNode,
 }: UnknownMacroPlaceholderProps): JSX.Element {
@@ -66,16 +76,27 @@ export function UnknownMacroPlaceholder({
 	const macroTitle = extensionNode.parameters?.macroMetadata?.title || extensionNode.extensionKey;
 	const bodyContent = extensionNode.parameters?.macroParams?.__bodyContent?.value;
 
-	const macroParams = extensionNode.parameters?.macroParams ?? {};
-	const formatParam = (key: string, param: { value?: string } | undefined): string => {
+	const macroParamsOld = extensionNode.parameters?.macroParams ?? {};
+	const macroParams = extensionNode.parameters?.macroParams ?? EMPTY_MACRO_PARAMS;
+	const formatParamInline = (key: string, param: { value?: string } | undefined): string => {
 		const value = String(param?.value ?? '').trim();
 		return `${key} = ${value}`;
 	};
-	// eslint-disable-next-line @atlassian/perf-linting/no-expensive-computations-in-render -- Ignored via go/ees017 (to be fixed)
-	const visibleParams = Object.entries(macroParams)
-		.filter(([key]) => !key.startsWith('_'))
-		.map(([key, param]) => formatParam(key, param as { value?: string }))
-		.join(' | ');
+	const memoizedVisibleParams = useMemo(
+		() =>
+			Object.entries(macroParams)
+				.filter(([key]) => !key.startsWith('_'))
+				.map(([key, param]) => formatParam(key, param as { value?: string }))
+				.join(' | '),
+		[macroParams],
+	);
+	const visibleParams = expValEquals('platform_editor_perf_lint_cleanup', 'isEnabled', true)
+		? memoizedVisibleParams
+		: // eslint-disable-next-line @atlassian/perf-linting/no-expensive-computations-in-render -- intentional fallback for experiment off path
+		  Object.entries(macroParamsOld)
+				.filter(([key]) => !key.startsWith('_'))
+				.map(([key, param]) => formatParamInline(key, param as { value?: string }))
+				.join(' | ');
 
 	const headerText = visibleParams
 		? `${intl.formatMessage(messages.unknownMacroHeader, { macroTitle })} | ${visibleParams}`

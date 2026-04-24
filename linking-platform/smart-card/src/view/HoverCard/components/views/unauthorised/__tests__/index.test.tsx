@@ -1,9 +1,9 @@
 import React from 'react';
 
-import { render, screen } from '@testing-library/react';
 import { IntlProvider } from 'react-intl';
 
 import { mockSimpleIntersectionObserver } from '@atlaskit/link-test-helpers';
+import { render, screen } from '@atlassian/testing-library';
 
 import { getCardState } from '../../../../../../../examples/utils/flexible-ui';
 import {
@@ -86,7 +86,7 @@ describe('Unauthorised Hover Card', () => {
 		expect(iconElement).toBeTruthy();
 		expect(titleElement).toHaveTextContent('Connect your Google account');
 		expect(mainContentElement).toHaveTextContent(
-			'Connect your Google account to collaborate on work across Atlassian products. Learn more about Smart Links.',
+			'Turn your URLs into rich, interactive previews.Learn more about Smart Links.',
 		);
 		expect(buttonElement).toHaveTextContent('Connect to Google');
 	});
@@ -118,7 +118,7 @@ describe('Unauthorised Hover Card', () => {
 		expect(iconElement).toBeTruthy();
 		expect(titleElement).toHaveTextContent('Connect your Google account');
 		expect(mainContentElement).toHaveTextContent(
-			'Connect your Google account to collaborate on work across Atlassian products. Learn more about connecting your account to Atlassian products.',
+			'Turn your URLs into rich, interactive previews.Learn more about connecting your account to Atlassian products.',
 		);
 		expect(buttonElement).toHaveTextContent('Connect to Google');
 	});

@@ -2,13 +2,14 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
-import { createContext, type FC } from 'react';
+import { type FC } from 'react';
 
 import { cssMap, jsx } from '@compiled/react';
 
 import { css } from '@atlaskit/css';
 import { token } from '@atlaskit/tokens';
 
+import { GridContainerContext } from './grid-container-context';
 import type { BaseGridProps } from './types';
 
 const containerBaseStyles = css({
@@ -73,14 +74,6 @@ const gridMaxWidthMap = cssMap({
 });
 
 /**
- * __Grid container context__
- *
- * A grid container context used to detect to detect wether a component is inside a grid container.
- *
- */
-export const GridContainerContext: import('react').Context<boolean> = createContext(false);
-
-/**
  * __GridContainer__
  *
  * A grid container is a grid with one column whith the purpose of stacking grids on top of each other
@@ -123,3 +116,5 @@ export const GridContainer: FC<BaseGridProps> = ({
 		</div>
 	);
 };
+
+export { GridContainerContext } from './grid-container-context';

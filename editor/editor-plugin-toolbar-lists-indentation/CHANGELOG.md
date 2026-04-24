@@ -1,5 +1,28 @@
 # @atlaskit/editor-plugin-toolbar-lists-indentation
 
+## 11.0.7
+
+### Patch Changes
+
+- Updated dependencies
+
+## 11.0.6
+
+### Patch Changes
+
+- Updated dependencies
+
+## 11.0.5
+
+### Patch Changes
+
+- [`d008d482e881a`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/d008d482e881a) -
+  [ux] Add accessible name (`aria-label`) to the bulleted-list toolbar button. The icon-only button
+  previously had only `aria-keyshortcuts="Control+Shift+8"` and no `aria-label`, causing axe
+  `button-name` violations and an unannounced control for screen-reader users. The localized
+  `bulletMessage` (already used for the tooltip) is now passed as the `label` prop on
+  `ToolbarButton`.
+
 ## 11.0.4
 
 ### Patch Changes

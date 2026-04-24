@@ -1,4 +1,4 @@
-import { renderHook } from '@testing-library/react';
+import { renderHook } from '@atlassian/testing-library';
 
 import { useEmbedResolvePostMessageListener } from '../useEmbedResolvePostMessageListener';
 

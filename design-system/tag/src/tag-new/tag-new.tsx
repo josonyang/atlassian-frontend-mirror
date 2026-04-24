@@ -7,51 +7,20 @@ import { forwardRef, memo, useCallback } from 'react';
 import { cssMap as cssMapUnbound, cx, jsx } from '@compiled/react';
 
 import { type UIAnalyticsEvent } from '@atlaskit/analytics-next';
-import __noop from '@atlaskit/ds-lib/noop';
 import ChevronDownIcon from '@atlaskit/icon/core/chevron-down';
 import { Pressable } from '@atlaskit/primitives/compiled';
 import Spinner from '@atlaskit/spinner';
 import { token } from '@atlaskit/tokens';
 
-import {
-	LinkWrapper,
-	RemovableWrapper,
-	useButtonInteraction,
-	useLink,
-	useRemoveButton,
-	useTagRemoval,
-} from './shared';
+import { colorMapping } from './color-mapping';
+import { LinkWrapper, RemovableWrapper, useRemoveButton, useTagRemoval } from './shared';
 import SwatchBefore from './swatch-before';
-import { type NewTagColor, type TagDropdownTriggerProps, type TagNewProps } from './types';
+import { type TagDropdownTriggerProps, type TagNewProps } from './types';
+import { useButtonInteraction } from './use-button-interaction';
+import { useLink } from './use-link';
 
 // CSS variable name for icon color - must be used as literal string in cssMap due to Compiled CSS static analysis
 const iconColorVar = '--ds-tag-icon' as const;
-
-// Color mapping from old color names to new color names
-export const colorMapping: Record<string, NewTagColor> = {
-	standard: 'gray',
-	grey: 'gray',
-	blue: 'blue',
-	green: 'green',
-	red: 'red',
-	yellow: 'yellow',
-	purple: 'purple',
-	lime: 'lime',
-	magenta: 'magenta',
-	orange: 'orange',
-	teal: 'teal',
-	// Light variants map to same as their non-light counterparts
-	greyLight: 'gray',
-	blueLight: 'blue',
-	greenLight: 'green',
-	redLight: 'red',
-	yellowLight: 'yellow',
-	purpleLight: 'purple',
-	limeLight: 'lime',
-	magentaLight: 'magenta',
-	orangeLight: 'orange',
-	tealLight: 'teal',
-};
 
 const styles = cssMapUnbound({
 	baseStyles: {
@@ -562,3 +531,5 @@ const TagNew: import('react').MemoExoticComponent<
 > = memo(TagNewComponent);
 
 export default TagNew;
+
+export { colorMapping } from './color-mapping';

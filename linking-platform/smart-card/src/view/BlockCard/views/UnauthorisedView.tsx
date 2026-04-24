@@ -16,7 +16,6 @@ import { ElementName, SmartLinkDirection, SmartLinkSize, SmartLinkWidth } from '
 import { messages } from '../../../messages';
 import { useFlexibleCardContext } from '../../../state/flexible-ui-context';
 import { hasAuthScopeOverrides } from '../../../state/helpers';
-import { isNewBlockcardUnauthorizedRefreshExperimentEnabled } from '../../../utils/experiments';
 import UnauthorisedViewContent from '../../common/UnauthorisedViewContent';
 import FlexibleCard from '../../FlexibleCard';
 import ActionGroup from '../../FlexibleCard/components/blocks/action-group';
@@ -29,18 +28,11 @@ import { AuthorizeAction } from '../actions/AuthorizeAction';
 
 import unauthIllustrationGeneral from './assets/general@2x.png';
 import { type FlexibleBlockCardProps } from './types';
-import UnresolvedView from './unresolved-view';
-import type { UnresolvedViewProps } from './unresolved-view/types';
+import { type UnresolvedViewProps } from './unresolved-view/types';
 import { FlexibleCardUiOptions, titleBlockOptions } from './utils';
 import { withFlexibleUIBlockCardStyle } from './utils/withFlexibleUIBlockCardStyle';
 
 const contentStyles = css({
-	color: token('color.text'),
-	marginTop: token('space.100'),
-	font: token('font.body.small'),
-});
-
-const newContentStyles = css({
 	color: token('color.text'),
 	marginTop: token('space.100'),
 	font: token('font.body'),
@@ -158,15 +150,19 @@ const getBetterTitle = (url: string) => {
 		const { pathname, search } = new URL(url);
 		if (pathname.length > 1) {
 			return pathname.substring(1);
-		} else {
+		}
+		if (search) {
 			return search;
 		}
+		// Fall back to the full URL when there is no useful path/search to display,
+		// so the title (and the underlying link) always has accessible text.
+		return url;
 	} catch {
 		return url;
 	}
 };
 
-const NewUnauthorisedBlock = ({
+const UnauthorisedBlock = ({
 	actions,
 	children,
 	url,
@@ -300,35 +296,31 @@ const UnauthorisedView = ({
 		[handleAuthorize, onAuthorize, providerName],
 	);
 
-	if (isNewBlockcardUnauthorizedRefreshExperimentEnabled(true)) {
-		return (
-			<FlexibleCard
-				appearance="block"
-				onAuthorize={onAuthorize}
-				origin="smartLinkCard"
+	return (
+		<FlexibleCard
+			appearance="block"
+			onAuthorize={onAuthorize}
+			origin="smartLinkCard"
+			testId={testId}
+			ui={FlexibleCardUiOptions}
+			{...props}
+		>
+			<UnauthorisedBlock
+				actions={actions}
+				cardState={props.cardState}
+				CompetitorPrompt={props.CompetitorPrompt}
 				testId={testId}
-				ui={FlexibleCardUiOptions}
-				{...props}
+				url={props.url}
 			>
-				<NewUnauthorisedBlock {...props} actions={actions} testId={testId}>
-					<div
-						css={[newContentStyles, actions.length > 0 ? contentAdditionalStyles : undefined]}
-						data-testid={`${testId}-content`}
-					>
-						{content}
-					</div>
-				</NewUnauthorisedBlock>
-			</FlexibleCard>
-		);
-	} else {
-		return (
-			<UnresolvedView {...props} actions={actions} testId={testId}>
-				<div css={[contentStyles]} data-testid={`${testId}-content`}>
+				<div
+					css={[contentStyles, actions.length > 0 ? contentAdditionalStyles : undefined]}
+					data-testid={`${testId}-content`}
+				>
 					{content}
 				</div>
-			</UnresolvedView>
-		);
-	}
+			</UnauthorisedBlock>
+		</FlexibleCard>
+	);
 };
 
 const _default_1: (props: FlexibleBlockCardProps) => JSX.Element =

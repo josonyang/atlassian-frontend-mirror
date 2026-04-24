@@ -1,10 +1,10 @@
 import type { Rule, SourceCode } from 'eslint';
 import { closestOfType } from 'eslint-codemod-utils';
 
-import { getImportedNodeBySource } from '../utils/get-import-node-by-source';
+import { getImportedNodeBySource } from '../utils/get-imported-node-by-source';
 
 import { IMPORT_NAME, VISUALLY_HIDDEN_IMPORT, VISUALLY_HIDDEN_SOURCE } from './constants';
-import { getFirstImport } from './utils';
+import { getFirstImport } from './get-first-import';
 
 const fixJsx: (source: SourceCode, node: Rule.Node) => (fixer: Rule.RuleFixer) => Rule.Fix[] =
 	(source: SourceCode, node: Rule.Node) => (fixer: Rule.RuleFixer) => {

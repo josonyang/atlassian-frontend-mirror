@@ -2,7 +2,6 @@ import React, { type FC, type ReactNode, useCallback, useEffect, useRef, useStat
 
 import { bind } from 'bind-event-listener';
 
-import __noop from '@atlaskit/ds-lib/noop';
 import { useLayering } from '@atlaskit/layering';
 
 import { type FocusableElementRef } from '../../types';

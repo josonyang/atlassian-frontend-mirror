@@ -1,10 +1,10 @@
 import React from 'react';
 
-import { render, screen } from '@testing-library/react';
 
 import FeatureGates from '@atlaskit/feature-gate-js-client';
 import AKLink from '@atlaskit/link';
 import { SmartCardProvider } from '@atlaskit/link-provider';
+import { render, screen } from '@atlassian/testing-library';
 
 import LinkUrl from '../index';
 import * as UseLinkWarningModalExports from '../LinkWarningModal/hooks/use-link-warning-modal';

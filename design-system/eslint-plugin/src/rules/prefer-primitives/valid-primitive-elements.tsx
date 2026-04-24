@@ -1,0 +1,16 @@
+export const validPrimitiveElements: Set<string> = new Set([
+	'div',
+	'span',
+	'article',
+	'aside',
+	'dialog',
+	'footer',
+	'header',
+	'li',
+	'main',
+	'nav',
+	'ol',
+	'section',
+	'ul',
+	'button',
+]);

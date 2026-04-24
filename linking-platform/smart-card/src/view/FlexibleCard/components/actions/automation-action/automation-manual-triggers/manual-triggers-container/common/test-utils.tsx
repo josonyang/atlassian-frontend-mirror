@@ -1,11 +1,15 @@
 import React, { Component, type ComponentProps, Fragment, type ReactElement } from 'react';
 
 // eslint-disable-next-line import/no-extraneous-dependencies
-import { render, type RenderOptions, type RenderResult } from '@testing-library/react';
 import { IntlProvider } from 'react-intl';
 import { DiProvider } from 'react-magnetic-di';
 
+import { render } from '@atlassian/testing-library';
+
 import type { Ari, Environment, InvocationResponse, InvocationResult, UserInputs } from './types';
+
+type RenderOptions = NonNullable<Parameters<typeof render>[1]>;
+type RenderResult = ReturnType<typeof render>;
 
 /**
  * Creates a stubbed invocation API call for triggering rules. Will return

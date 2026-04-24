@@ -1,8 +1,9 @@
-import type { Rule, Scope } from 'eslint';
+import type { Scope } from 'eslint';
 import { type ImportDeclaration, isNodeOfType, type JSXAttribute } from 'eslint-codemod-utils';
 
 import { findIdentifierInParentScope } from '../utils/find-in-parent';
 
+import { hasImportOfName } from './has-import-of-name';
 const invalidHrefValues = ['', '#', null, undefined];
 
 export const hrefHasInvalidValue: (
@@ -64,25 +65,6 @@ export const hrefHasInvalidValue: (
 	return false;
 };
 
-export const hasImportOfName: (node: ImportDeclaration, name: string) => boolean = (
-	node: ImportDeclaration,
-	name: string,
-): boolean => {
-	return node.specifiers.some(
-		// This should not be an `any`. This is an array of `ImportSpecifier |
-		// ImportDefaultSpecifier`. For some reason, filtering this way still
-		// results in an error of `specifier.imported` doesn't exist on
-		// ImportDefaultSpecifier, which is exactly what I'm filtering for
-		(specifier: any) => specifier?.imported?.name === name,
-	);
-};
-
-export const insertButtonItemDefaultImport: (
-	fixer: Rule.RuleFixer,
-	node: ImportDeclaration,
-) => Rule.Fix = (fixer: Rule.RuleFixer, node: ImportDeclaration) =>
-	fixer.insertTextBefore(node, `import ButtonItem from '@atlaskit/menu/button-item';\n`);
-
 export const getUniqueButtonItemName: (
 	menuNode: ImportDeclaration | null,
 	importDeclarations: ImportDeclaration[],
@@ -115,15 +97,6 @@ export const getUniqueButtonItemName: (
 	}
 };
 
-export const insertButtonItemImport: (
-	fixer: Rule.RuleFixer,
-	node: ImportDeclaration,
-	uniqueButtonItemName: string,
-) => Rule.Fix = (fixer: Rule.RuleFixer, node: ImportDeclaration, uniqueButtonItemName: string) => {
-	const insertedImport =
-		uniqueButtonItemName !== 'ButtonItem'
-			? `, ButtonItem as ${uniqueButtonItemName}`
-			: ', ButtonItem';
-
-	return fixer.insertTextAfter(node.specifiers.slice(-1)[0], insertedImport);
-};
+export { hasImportOfName } from './has-import-of-name';
+export { insertButtonItemDefaultImport } from './insert-button-item-default-import';
+export { insertButtonItemImport } from './insert-button-item-import';

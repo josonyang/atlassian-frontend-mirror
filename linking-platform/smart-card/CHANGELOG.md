@@ -1,5 +1,35 @@
 # @atlaskit/smart-card
 
+## 44.3.9
+
+### Patch Changes
+
+- [`6655b2d3fda01`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/6655b2d3fda01) -
+  NAVX-4681: Remove platform_sl_3p_unauth_paste_as_block_card experiment (winning:
+  card_by_default_and_new_design), platform_sl_3p_unauth_paste_as_block_card_gate, and
+  platform_sl_3p_unauth_experiment_gate feature flags
+- [`6655b2d3fda01`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/6655b2d3fda01) -
+  NAVX-4681: Fix UnauthorisedView prop typing and ensure title always has accessible text after
+  platform_sl_3p_unauth_paste_as_block_card experiment cleanup
+- Updated dependencies
+
+## 44.3.8
+
+### Patch Changes
+
+- Updated dependencies
+
+## 44.3.7
+
+### Patch Changes
+
+- [`0633bc5742435`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/0633bc5742435) -
+  Tightening the FG/EXP checks for post auth inline SL Experiment so there is no contanimation from
+  related gates/exp
+- [`a16758c61f0ac`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/a16758c61f0ac) -
+  [ux] Adds rovoChatAction: { optIn: true } for Confluence smart card provider when
+  rovogrowth-640-inline-action-nudge-fg killswitch enabled.
+
 ## 44.3.6
 
 ### Patch Changes

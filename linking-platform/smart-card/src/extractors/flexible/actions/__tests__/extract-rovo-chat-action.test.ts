@@ -1,4 +1,5 @@
 import type { JsonLd } from '@atlaskit/json-ld-types';
+import { eeTest } from '@atlaskit/tmp-editor-statsig/editor-experiments-test-utils';
 import { ffTest } from '@atlassian/feature-flags-test-utils';
 
 import { CardAction } from '../../../../view/Card/types';
@@ -53,64 +54,96 @@ describe('extractRovoChatAction', () => {
 		'rovogrowth-640-inline-action-nudge-fg',
 		'returns Rovo Chat action for non-Google provider',
 		() => {
-			it('returns Rovo Chat action for non-Google provider with RovoActions', () => {
-				const nonGoogleResponse: JsonLd.Response = {
-					data: TEST_DOCUMENT,
-					meta: {
-						...TEST_RESOLVED_META_DATA,
-						definitionId: 'd1',
-						key: 'slack-object-provider',
-						resourceType: 'r1',
-						supportedFeature: ['RovoActions'],
-					},
-				};
+			eeTest
+				.describe('rovogrowth-640-inline-action-nudge-exp', 'inline action nudge experiment on')
+				.variant(true, () => {
+					it('returns Rovo Chat action for non-Google provider with RovoActions', () => {
+						const nonGoogleResponse: JsonLd.Response = {
+							data: TEST_DOCUMENT,
+							meta: {
+								...TEST_RESOLVED_META_DATA,
+								definitionId: 'd1',
+								key: 'slack-object-provider',
+								resourceType: 'r1',
+								supportedFeature: ['RovoActions'],
+							},
+						};
 
-				const action = extractRovoChatAction({
-					actionOptions,
-					appearance: 'hoverCardPreview',
-					product: 'JSM',
-					id: 'uid',
-					response: nonGoogleResponse,
-					rovoConfig,
+						const action = extractRovoChatAction({
+							actionOptions,
+							appearance: 'hoverCardPreview',
+							product: 'JSM',
+							id: 'uid',
+							response: nonGoogleResponse,
+							rovoConfig,
+						});
+
+						expect(action).toEqual({
+							invokeAction: {
+								actionSubjectId: 'rovoChatPrompt',
+								actionType: 'RovoChatAction',
+								definitionId: 'd1',
+								display: 'hoverCardPreview',
+								extensionKey: 'slack-object-provider',
+								id: 'uid',
+								resourceType: 'r1',
+							},
+							product: 'JSM',
+							url: 'https://my.url.com',
+						});
+					});
+
+					it('does not return Rovo Chat action for non-Google provider without RovoActions', () => {
+						const nonGoogleResponse: JsonLd.Response = {
+							data: TEST_DOCUMENT,
+							meta: {
+								...TEST_RESOLVED_META_DATA,
+								definitionId: 'd1',
+								key: 'slack-object-provider',
+								resourceType: 'r1',
+							},
+						};
+
+						const action = extractRovoChatAction({
+							actionOptions,
+							appearance: 'hoverCardPreview',
+							product: 'JSM',
+							id: 'uid',
+							response: nonGoogleResponse,
+							rovoConfig,
+						});
+
+						expect(action).toBeUndefined();
+					});
 				});
 
-				expect(action).toEqual({
-					invokeAction: {
-						actionSubjectId: 'rovoChatPrompt',
-						actionType: 'RovoChatAction',
-						definitionId: 'd1',
-						display: 'hoverCardPreview',
-						extensionKey: 'slack-object-provider',
-						id: 'uid',
-						resourceType: 'r1',
-					},
-					product: 'JSM',
-					url: 'https://my.url.com',
+			eeTest
+				.describe('rovogrowth-640-inline-action-nudge-exp', 'inline action nudge experiment off')
+				.variant(false, () => {
+					it('does not return Rovo Chat action for non-Google provider when experiment is off', () => {
+						const nonGoogleResponse: JsonLd.Response = {
+							data: TEST_DOCUMENT,
+							meta: {
+								...TEST_RESOLVED_META_DATA,
+								definitionId: 'd1',
+								key: 'slack-object-provider',
+								resourceType: 'r1',
+								supportedFeature: ['RovoActions'],
+							},
+						};
+
+						const action = extractRovoChatAction({
+							actionOptions,
+							appearance: 'hoverCardPreview',
+							product: 'JSM',
+							id: 'uid',
+							response: nonGoogleResponse,
+							rovoConfig,
+						});
+
+						expect(action).toBeUndefined();
+					});
 				});
-			});
-
-			it('does not returns Rovo Chat action for non-Google provider without RovoActions', () => {
-				const nonGoogleResponse: JsonLd.Response = {
-					data: TEST_DOCUMENT,
-					meta: {
-						...TEST_RESOLVED_META_DATA,
-						definitionId: 'd1',
-						key: 'slack-object-provider',
-						resourceType: 'r1',
-					},
-				};
-
-				const action = extractRovoChatAction({
-					actionOptions,
-					appearance: 'hoverCardPreview',
-					product: 'JSM',
-					id: 'uid',
-					response: nonGoogleResponse,
-					rovoConfig,
-				});
-
-				expect(action).toBeUndefined();
-			});
 		},
 	);
 
@@ -160,6 +193,98 @@ describe('extractRovoChatAction', () => {
 
 				expect(action).toBeUndefined();
 			});
+		},
+	);
+
+	// Isolation: platform_sl_3p_auth_rovo_action_kill_switch must not affect non-Google links
+	ffTest.on(
+		'platform_sl_3p_auth_rovo_action_kill_switch',
+		'platform_sl_3p_auth_rovo_action_kill_switch on - isolation: does not affect non-Google links',
+		() => {
+			it('does not show Rovo actions for non-Google links even when platform_sl_3p_auth_rovo_action_kill_switch is on', () => {
+				const nonGoogleResponse: JsonLd.Response = {
+					data: TEST_DOCUMENT,
+					meta: {
+						...TEST_RESOLVED_META_DATA,
+						definitionId: 'd1',
+						key: 'slack-object-provider',
+						resourceType: 'r1',
+						supportedFeature: ['RovoActions'],
+					},
+				};
+
+				const action = extractRovoChatAction({
+					actionOptions,
+					appearance: 'hoverCardPreview',
+					product: 'JSM',
+					id: 'uid',
+					response: nonGoogleResponse,
+					rovoConfig,
+				});
+
+				// Waanya's KS only applies to google-object-provider
+				expect(action).toBeUndefined();
+			});
+		},
+	);
+
+	// Isolation: rovogrowth-640-inline-action-nudge-fg + exp must not affect Google links
+	ffTest.on(
+		'rovogrowth-640-inline-action-nudge-fg',
+		'rovogrowth-640-inline-action-nudge-fg on - isolation: does not affect Google links',
+		() => {
+			eeTest
+				.describe('rovogrowth-640-inline-action-nudge-exp', 'rovogrowth-640-inline-action-nudge-exp on')
+				.variant(true, () => {
+					it('does not show Rovo actions for Google links even when rovogrowth-640-inline-action-nudge-fg and exp are on', () => {
+						const action = extractRovoChatAction({
+							actionOptions,
+							appearance: 'hoverCardPreview',
+							product: 'JSM',
+							id: 'uid',
+							response, // google-object-provider
+							rovoConfig,
+						});
+
+						// My experiment only applies to non-Google providers
+						expect(action).toBeUndefined();
+					});
+				});
+		},
+	);
+
+	// rovogrowth-640-inline-action-nudge-exp alone is not sufficient without the FG (rows 2, 6, 10, 14)
+	ffTest.off(
+		'rovogrowth-640-inline-action-nudge-fg',
+		'rovogrowth-640-inline-action-nudge-fg off + rovogrowth-640-inline-action-nudge-exp on: exp alone does not enable non-Google Rovo actions',
+		() => {
+			eeTest
+				.describe('rovogrowth-640-inline-action-nudge-exp', 'rovogrowth-640-inline-action-nudge-exp on')
+				.variant(true, () => {
+					it('does not show Rovo actions for non-Google links when rovogrowth-640-inline-action-nudge-fg is off even if exp is on', () => {
+						const nonGoogleResponse: JsonLd.Response = {
+							data: TEST_DOCUMENT,
+							meta: {
+								...TEST_RESOLVED_META_DATA,
+								definitionId: 'd1',
+								key: 'slack-object-provider',
+								resourceType: 'r1',
+								supportedFeature: ['RovoActions'],
+							},
+						};
+
+						const action = extractRovoChatAction({
+							actionOptions,
+							appearance: 'hoverCardPreview',
+							product: 'JSM',
+							id: 'uid',
+							response: nonGoogleResponse,
+							rovoConfig,
+						});
+
+						expect(action).toBeUndefined();
+					});
+				});
 		},
 	);
 

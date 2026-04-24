@@ -90,7 +90,7 @@ function isDefined<TValue>(value: TValue | undefined): value is TValue {
 export const sortDecorationsByPositionAndSide = (
 	a: { from: number; value: { startSide: number } },
 	b: { from: number; value: { startSide: number } },
-) => a.from - b.from || a.value.startSide - b.value.startSide;
+): number => a.from - b.from || a.value.startSide - b.value.startSide;
 
 /**
  * Creates CodeMirror versions of the decorations provided by ProseMirror.

@@ -3,14 +3,14 @@ title: Motion
 description: A set of utilities to apply motion in your application.
 order: 1
 props:
-  packageName: '@atlaskit/motion'
+  packageName: '@atlaskit/motion/resizing'
   exports:
-    - ResizingHeight
+    - Resizing
 ---
 
 import SectionMessage from '@atlaskit/section-message';
 
-## useResizingHeight()
+## useResizing()
 
 <SectionMessage
 	title="Use with caution. There are known performance issues with this hook."
@@ -29,10 +29,10 @@ import SectionMessage from '@atlaskit/section-message';
 	</p>
 </SectionMessage>
 
-This hook will animate `height` changes over state changes. If the height hasn't changed nothing
-will happen.
+This hook will animate `width`, `height`, or both dimensions simultaneously as
+content changes. Pass the returned `ref` to the element you want to animate.
 
-<TSMorphProps exportName="ResizingHeight" packageName="@atlaskit/motion" />
+<TSMorphProps exportName="Resizing" packageName="@atlaskit/motion/resizing" />
 
 ### Optimizations
 
@@ -50,19 +50,28 @@ get worse performance.
 
 ```
 import React, { memo } from 'react';
-import { useResizingHeight } from '@atlaskit/motion';
+import { useResizing } from '@atlaskit/motion/resizing';
+import { token } from '@atlaskit/tokens';
 
-export default memo(({ title }) => (
-  <div {...useResizingHeight()}>
-    {title}
-  </div>
-));
+export default memo(({ title }) => {
+	const resizingProps = useResizing({
+		dimension: 'width',
+		duration: token('motion.duration.short'),
+		easing: token('motion.easing.out.practical'),
+	});
+
+	return (
+		<div {...resizingProps}>
+			{title}
+		</div>
+	)
+});
 ```
 
-## `<ResizingHeight />`
+## `<Resizing />`
 
 Component which consumes the
-[useResizingHeight](/components/motion/resizing-motions/code#useresizingheight) under-the-hood. Its
+[useResizing](/components/motion/resizing-motions/code#useresizing) under-the-hood. Its
 props are the same as the hooks options.
 
 ```

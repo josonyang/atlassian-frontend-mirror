@@ -106,7 +106,7 @@ export function HeadingWithSectionLink({
 }: {
 	level: HeadingLevel;
 	children: React.ReactNode;
-}) {
+}): JSX.Element {
 	const headingId = getHeadingId(children);
 
 	return (

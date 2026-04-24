@@ -12,12 +12,10 @@ import { getImportSources } from '@atlaskit/eslint-utils/is-supported-import';
 import { createLintRule } from '../utils/create-rule';
 import { errorBoundary } from '../utils/error-boundary';
 import { includesHardCodedColor } from '../utils/is-color';
-import {
-	isDecendantOfGlobalToken,
-	isDecendantOfStyleBlock,
-	isDecendantOfType,
-	isDecendantOfXcssBlock,
-} from '../utils/is-node';
+import { isDecendantOfGlobalToken } from '../utils/is-decendant-of-global-token';
+import { isDecendantOfType } from '../utils/is-decendant-of-type';
+import { isDecendantOfXcssBlock } from '../utils/is-decendant-of-xcss-block';
+import { isDecendantOfStyleBlock } from '../utils/is-node';
 
 import {
 	lintJSXIdentifierForColor,
@@ -26,29 +24,17 @@ import {
 	lintObjectForColor,
 	lintTemplateIdentifierForColor,
 } from './color';
+import { convertHyphenatedNameToCamelCase } from './convert-hyphenated-name-to-camel-case';
+import { includesTokenString } from './includes-token-string';
+import { insertTokensImport } from './insert-tokens-import';
+import { isAuto } from './is-auto';
+import { isTokenValueString } from './is-token-value-string';
+import { isZero } from './is-zero';
 import ruleMeta from './rule-meta';
 import { lintObjectForSpacing } from './spacing';
+import { splitShorthandValues } from './split-shorthand-values';
 import type { RuleConfig } from './types';
-import {
-	convertHyphenatedNameToCamelCase,
-	emToPixels,
-	getDomainsForProperty,
-	getFontSizeValueInScope,
-	getPropertyNodeFromParent,
-	getTokenReplacement,
-	getValueForPropertyNode,
-	getValueFromShorthand,
-	getValueFromTemplateLiteralRaw,
-	includesTokenString,
-	insertTokensImport,
-	isAuto,
-	isCalc,
-	isTokenValueString,
-	isValidSpacingValue,
-	isZero,
-	processCssNode,
-	splitShorthandValues,
-} from './utils';
+import { emToPixels, getDomainsForProperty, getFontSizeValueInScope, getPropertyNodeFromParent, getTokenReplacement, getValueForPropertyNode, getValueFromShorthand, getValueFromTemplateLiteralRaw, isCalc, isValidSpacingValue, processCssNode } from './utils';
 
 const defaultConfig: RuleConfig = {
 	domains: ['color', 'spacing'],

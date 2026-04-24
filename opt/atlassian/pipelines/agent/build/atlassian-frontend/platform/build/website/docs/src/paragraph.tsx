@@ -14,7 +14,7 @@ const wrapper = cssMap({
 	},
 });
 
-export function Paragraph({ children }: { children: React.ReactNode }) {
+export function Paragraph({ children }: { children: React.ReactNode }): JSX.Element {
 	return (
 		<div css={wrapper.root}>
 			<Text as="p">{children}</Text>

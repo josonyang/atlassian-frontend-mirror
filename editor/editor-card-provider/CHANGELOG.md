@@ -1,5 +1,21 @@
 # @atlaskit/editor-card-provider
 
+## 6.7.4
+
+### Patch Changes
+
+- [`6655b2d3fda01`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/6655b2d3fda01) -
+  NAVX-4681: Remove platform_sl_3p_unauth_paste_as_block_card experiment (winning:
+  card_by_default_and_new_design), platform_sl_3p_unauth_paste_as_block_card_gate, and
+  platform_sl_3p_unauth_experiment_gate feature flags
+- Updated dependencies
+
+## 6.7.3
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 6.7.2
 
 ### Patch Changes

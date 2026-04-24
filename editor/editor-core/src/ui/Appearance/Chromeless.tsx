@@ -166,7 +166,7 @@ export default class Editor extends React.Component<AppearanceProps> {
 		);
 	};
 
-	render() {
+	render(): jsx.JSX.Element {
 		return (
 			<RenderWithPluginState editorAPI={this.props.editorAPI} renderChrome={this.renderChrome} />
 		);
@@ -206,7 +206,7 @@ export function ChromelessEditorContainer({
 	minHeight,
 	children,
 	containerRef,
-}: ChromelessEditorContainerProps) {
+}: ChromelessEditorContainerProps): jsx.JSX.Element {
 	return (
 		<div
 			css={[chromelessEditorStylesNew, scrollbarStylesNew]}

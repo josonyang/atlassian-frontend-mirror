@@ -1,5 +1,19 @@
 # @atlaskit/editor-plugin-type-ahead
 
+## 10.0.6
+
+### Patch Changes
+
+- Updated dependencies
+
+## 10.0.5
+
+### Patch Changes
+
+- [`e6835136c4227`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/e6835136c4227) -
+  [FFCLEANUP-98435] remove stale experiment `platform_editor_a11y_typeahead_tab_keypress`
+- Updated dependencies
+
 ## 10.0.4
 
 ### Patch Changes

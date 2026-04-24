@@ -2,12 +2,11 @@ import '@atlaskit/link-test-helpers/jest';
 
 import React from 'react';
 
-import { render, screen } from '@testing-library/react';
-import userEvent from '@testing-library/user-event';
 import { IntlProvider } from 'react-intl';
 
 import { AnalyticsListener } from '@atlaskit/analytics-next';
 import { ffTest } from '@atlassian/feature-flags-test-utils';
+import { render, screen, userEvent } from '@atlassian/testing-library';
 
 import mockContext from '../../../../../../__fixtures__/flexible-ui-data-context';
 import { closeEmbedModal } from '../../../../../../__tests__/__utils__/unit-helpers';

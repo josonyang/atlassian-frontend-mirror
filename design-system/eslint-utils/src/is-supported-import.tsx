@@ -2,29 +2,12 @@ import type { Rule, Scope } from 'eslint';
 import { isNodeOfType } from 'eslint-codemod-utils';
 import type { CallExpression } from 'estree';
 
+import { CSS_IN_JS_IMPORTS } from './css-in-js-imports';
 import { findIdentifierNode } from './find-identifier-node';
 
 type Definition = Scope.Definition;
 type Callee = CallExpression['callee'];
 type Reference = Scope.Reference;
-
-export const CSS_IN_JS_IMPORTS: {
-	readonly compiled: '@compiled/react';
-	readonly emotionReact: '@emotion/react';
-	readonly emotionCore: '@emotion/core';
-	readonly emotionStyled: '@emotion/styled';
-	readonly styledComponents: 'styled-components';
-	readonly atlaskitCss: '@atlaskit/css';
-	readonly atlaskitPrimitives: '@atlaskit/primitives';
-} = {
-	compiled: '@compiled/react',
-	emotionReact: '@emotion/react',
-	emotionCore: '@emotion/core',
-	emotionStyled: '@emotion/styled',
-	styledComponents: 'styled-components',
-	atlaskitCss: '@atlaskit/css',
-	atlaskitPrimitives: '@atlaskit/primitives',
-} as const;
 
 // A CSS-in-JS library an import of a valid css, cx, cssMap, etc.
 // function might originate from, e.g. @compiled/react, @emotion/core.
@@ -255,3 +238,5 @@ export const isAtlasKitCSS: (
 	referencesInScope: Reference[],
 	importSources?: ImportSource[] | null,
 ) => boolean = isImportedFrom('@atlaskit/css', false);
+
+export { CSS_IN_JS_IMPORTS } from './css-in-js-imports';

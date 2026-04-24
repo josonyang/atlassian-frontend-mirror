@@ -1,7 +1,5 @@
 import React from 'react';
 
-import { screen, within } from '@testing-library/react';
-import userEvent from '@testing-library/user-event';
 
 import { AnalyticsListener } from '@atlaskit/analytics-next';
 import { type JsonLd } from '@atlaskit/json-ld-types';
@@ -14,6 +12,7 @@ import {
 import { renderWithIntl } from '@atlaskit/media-test-helpers/renderWithIntl';
 import { setGlobalTheme } from '@atlaskit/tokens';
 import { skipAutoA11yFile } from '@atlassian/a11y-jest-testing';
+import { screen, within, userEvent } from '@atlassian/testing-library';
 
 import {
 	CONTENT_URL_3P_ACCOUNT_AUTH,
@@ -340,7 +339,7 @@ describe('EmbedCard view component', () => {
 
 			const description = getByTestId(descriptionTestId);
 			expect(description).toHaveTextContent(
-				'Connect your 3P account to collaborate on work across Atlassian products. Learn more about Smart Links.',
+				'Turn your URLs into rich, interactive previews.Learn more about Smart Links.',
 			);
 
 			const action = getByTestId(buttonTestId);
@@ -370,7 +369,7 @@ describe('EmbedCard view component', () => {
 
 			const description = getByTestId(descriptionTestId);
 			expect(description).toHaveTextContent(
-				'Connect your 3P account to collaborate on work across Atlassian products. Learn more about connecting your account to Atlassian products.',
+				'Turn your URLs into rich, interactive previews.Learn more about connecting your account to Atlassian products.',
 			);
 
 			const action = getByTestId(buttonTestId);

@@ -267,6 +267,10 @@ export interface ReactionsProps
 	 */
 	summaryGetOptimisticImageURL?: (emojiId: string) => string;
 	/**
+	 * Optional function to get an optimistic image URL for a reaction emoji, used to render immediately without waiting for the catalogue.
+	 */
+	getOptimisticImageURL?: (emojiId: string) => string;
+	/**
 	 * Enables a summary view for displaying reactions. If enabled and the number of reactions meets or exceeds the summaryViewThreshold, reactions will be shown in a more aggregated format.
 	 */
 	summaryViewEnabled?: boolean;
@@ -357,6 +361,7 @@ export const Reactions: React.MemoExoticComponent<
 		hoverableSummaryView,
 		isListItem,
 		summaryGetOptimisticImageURL,
+		getOptimisticImageURL,
 		reactionPickerPlacement,
 		summaryButtonIconAfter,
 		renderParticleEffectOnSummaryView,
@@ -405,6 +410,7 @@ export const Reactions: React.MemoExoticComponent<
 		hoverableSummaryView = false,
 		isListItem = false,
 		summaryGetOptimisticImageURL,
+		getOptimisticImageURL,
 		reactionPickerPlacement,
 		summaryButtonIconAfter,
 		renderParticleEffectOnSummaryView = false,
@@ -693,6 +699,7 @@ export const Reactions: React.MemoExoticComponent<
 										handleOpenReactionsDialog={handleOpenReactionsDialog}
 										isViewOnly={isViewOnly}
 										showSubtleStyle={showSubtleDefaultReactions && reactions.length === 0}
+										optimisticImageURL={fg('platform_reactions_optimistic_url') ? getOptimisticImageURL?.(reaction.emojiId) : undefined}
 									/>
 								))}
 							</ul>
@@ -713,6 +720,7 @@ export const Reactions: React.MemoExoticComponent<
 										handleOpenReactionsDialog={handleOpenReactionsDialog}
 										isViewOnly={isViewOnly}
 										showSubtleStyle={showSubtleDefaultReactions && reactions.length === 0}
+										optimisticImageURL={fg('platform_reactions_optimistic_url') ? getOptimisticImageURL?.(reaction.emojiId) : undefined}
 									/>
 								))}
 							</>

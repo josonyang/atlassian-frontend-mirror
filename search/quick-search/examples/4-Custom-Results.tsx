@@ -10,7 +10,7 @@ const defaultProps = {
 
 // eslint-disable-next-line import/no-anonymous-default-export
 export default class extends React.Component {
-	render() {
+	render(): React.JSX.Element {
 		return (
 			<div>
 				<h3>Custom result types</h3>

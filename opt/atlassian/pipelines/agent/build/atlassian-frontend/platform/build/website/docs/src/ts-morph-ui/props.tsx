@@ -25,7 +25,7 @@ const propsStyles = css({
  *
  * By having a wrapper we can have a single source of truth for both locations.
  */
-const Props = (props: any) => {
+const Props = (props: any): JSX.Element => {
 	return (
 		<div css={propsStyles}>
 			<PropsLayoutRenderer {...props} />
@@ -109,7 +109,7 @@ export const TSMorphProps = ({
 	props: PropDefinition[];
 	filter?: PropFilter;
 	componentDisplayName?: string;
-}) => (
+}): JSX.Element => (
 	<div css={propsStyles} data-testid="tsmorph-props--container">
 		{/* TODO Add conditional rendering for different types */}
 		{props

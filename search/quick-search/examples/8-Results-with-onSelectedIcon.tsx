@@ -13,7 +13,7 @@ import ResultItemGroup from '../src/components/ResultItem/ResultItemGroup';
 
 // eslint-disable-next-line import/no-anonymous-default-export
 export default class extends React.Component {
-	render() {
+	render(): React.JSX.Element {
 		return (
 			<QuickSearch isLoading={false}>
 				<div>

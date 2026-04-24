@@ -12,7 +12,7 @@ const dummyAvatarComponent = <Avatar src={getContainerAvatarUrl(4)} appearance="
 
 // eslint-disable-next-line import/no-anonymous-default-export
 export default class extends React.Component {
-	render() {
+	render(): React.JSX.Element {
 		return (
 			<div>
 				<h3>Containers</h3>

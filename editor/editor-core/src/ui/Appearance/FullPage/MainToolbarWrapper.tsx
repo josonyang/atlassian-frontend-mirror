@@ -71,7 +71,7 @@ export const MainToolbarWrapper = ({
 	twoLineEditorToolbar,
 	children,
 	'data-testid': testId,
-}: MainToolbarWrapperProps) => {
+}: MainToolbarWrapperProps): jsx.JSX.Element => {
 	return (
 		<div
 			// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage

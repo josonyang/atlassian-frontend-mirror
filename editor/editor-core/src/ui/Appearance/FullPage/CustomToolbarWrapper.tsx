@@ -60,7 +60,7 @@ export const MainToolbarForFirstChildWrapper = ({
 	role,
 	'aria-label': ariaLabel,
 	'data-testid': testId,
-}: ChildWrapperProps) => (
+}: ChildWrapperProps): jsx.JSX.Element => (
 	<div
 		css={[firstChildStaticBase, twoLineEditorToolbar && firstChildStaticTwoLine]}
 		role={role}
@@ -78,7 +78,7 @@ export const MainToolbarForSecondChildWrapper = ({
 	role,
 	'aria-label': ariaLabel,
 	'data-testid': testId,
-}: ChildWrapperProps) => (
+}: ChildWrapperProps): jsx.JSX.Element => (
 	<div
 		css={[secondChildStaticBase, twoLineEditorToolbar && secondChildStaticTwoLine]}
 		role={role}

@@ -15,7 +15,7 @@ export type TeamsLinkProps = BaseLinkProps & NavigationIntentProps;
 /**
  * Drop-in replacement for an ADS Link that uses the intent-based navigation system to resolve `target` automatically.
  */
-export const TeamsLink = (props: TeamsLinkProps) => {
+export const TeamsLink = (props: TeamsLinkProps): React.JSX.Element => {
 	const { href, onClick, children, ...rest } = props;
 	const context = useTeamsNavigationContext();
 	const input = buildNavigationInput({

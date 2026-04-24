@@ -22,6 +22,7 @@ export interface SyncedBlockProps {
 export type SyncedBlockNodeProps = NodeProps<SyncedBlockProps>;
 
 export type SyncedBlockNodeComponentRendererProps = {
+	getAccountId?: () => string | null;
 	nodeProps: SyncedBlockNodeProps;
 	rendererOptions: SyncedBlockRendererOptions | undefined;
 	syncBlockStoreManager: SyncBlockStoreManager;
@@ -31,6 +32,7 @@ export const SyncedBlockNodeComponentRenderer = ({
 	nodeProps,
 	syncBlockStoreManager,
 	rendererOptions,
+	getAccountId,
 }: SyncedBlockNodeComponentRendererProps): React.JSX.Element => {
 	const { resourceId, localId, fireAnalyticsEvent } = nodeProps;
 
@@ -93,6 +95,7 @@ export const SyncedBlockNodeComponentRenderer = ({
 		fireAnalyticsEvent,
 		resourceId,
 		error: errorForDisplay,
+		getAccountId,
 	});
 	if (result.isSuccess) {
 		return (

@@ -1,5 +1,14 @@
 # @atlaskit/lozenge
 
+## 13.7.1
+
+### Patch Changes
+
+- [`88696c5e1a75c`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/88696c5e1a75c) -
+  Switched from experimental `useResizingWidth` to the new generic `useResizing` hook from
+  `@atlaskit/motion/resizing`. No behavioural change.
+- Updated dependencies
+
 ## 13.7.0
 
 ### Minor Changes

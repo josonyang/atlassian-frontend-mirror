@@ -1,13 +1,12 @@
 /* eslint-disable testing-library/no-unnecessary-act */
 import React from 'react';
 
-import { act, render, screen } from '@testing-library/react';
-import userEvent from '@testing-library/user-event';
 import { IntlProvider } from 'react-intl';
 
 import FabricAnalyticsListeners, { type AnalyticsWebClient } from '@atlaskit/analytics-listeners';
 import { flushPromises } from '@atlaskit/link-test-helpers';
 import { SmartLinkActionType } from '@atlaskit/linking-types/smart-link-actions';
+import { act, render, screen, userEvent } from '@atlassian/testing-library';
 
 import * as useInvoke from '../../../../../../../state/hooks/use-invoke';
 import * as useResolve from '../../../../../../../state/hooks/use-resolve';

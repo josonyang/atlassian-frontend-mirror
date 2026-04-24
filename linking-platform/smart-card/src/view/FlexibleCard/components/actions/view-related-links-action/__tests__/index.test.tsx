@@ -2,13 +2,12 @@ import '@atlaskit/link-test-helpers/jest';
 
 import React from 'react';
 
-import { render, waitForElementToBeRemoved } from '@testing-library/react';
-import userEvent from '@testing-library/user-event';
 import { IntlProvider } from 'react-intl';
 
 import { AnalyticsListener } from '@atlaskit/analytics-next';
 import { SmartCardProvider } from '@atlaskit/link-provider';
 import { ffTest } from '@atlassian/feature-flags-test-utils';
+import { render, waitForElementToBeRemoved, userEvent } from '@atlassian/testing-library';
 
 import mockContextDefault from '../../../../../../__fixtures__/flexible-ui-data-context';
 import { useFlexibleUiContext } from '../../../../../../state/flexible-ui-context';

@@ -11,7 +11,7 @@ export interface EditorAPIContextType {
 	setEditorApi?: SetEditorAPI;
 }
 
-export const EditorAPIContext = React.createContext<EditorAPIContextType>({});
+export const EditorAPIContext: React.Context<EditorAPIContextType> = React.createContext<EditorAPIContextType>({});
 
 interface EditorAPIProviderProps {
 	children: React.ReactNode;
@@ -34,7 +34,7 @@ export function usePresetContext<
 	return editorApi as PublicPluginAPI<Plugins>;
 }
 
-export const useSetPresetContext = () => {
+export const useSetPresetContext = (): SetEditorAPI | undefined => {
 	const { setEditorApi } = useContext(EditorAPIContext);
 	return setEditorApi;
 };
