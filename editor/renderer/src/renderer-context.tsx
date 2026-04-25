@@ -17,6 +17,8 @@ export type RendererContextProps = {
 
 const RendererContext = React.createContext({});
 
-export const useRendererContext = () => React.useContext<RendererContextProps>(RendererContext);
+export const useRendererContext = (): RendererContextProps =>
+	React.useContext<RendererContextProps>(RendererContext);
 
-export const RendererContextProvider = RendererContext.Provider;
+// eslint-disable-next-line @typescript-eslint/no-empty-object-type
+export const RendererContextProvider: React.Provider<{}> = RendererContext.Provider;

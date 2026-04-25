@@ -86,7 +86,7 @@ const calcScalePercent = ({
 		: maxScale;
 };
 
-export const colWidthSum = (columnWidths: number[]) =>
+export const colWidthSum = (columnWidths: number[]): number =>
 	columnWidths.reduce((prev, curr) => curr + prev, 0);
 
 /**

@@ -1,10 +1,10 @@
-import type { StickyPluginState } from './types';
+import type { RowStickyState, StickyPluginState } from './types';
 
 // only worry about the first row for now
 export const findStickyHeaderForTable = (
 	state: StickyPluginState,
 	tablePos: number | undefined,
-) => {
+): RowStickyState | undefined => {
 	if (!state || tablePos === undefined) {
 		return undefined;
 	}

@@ -145,6 +145,7 @@ import {
 	PASTE_RICH_TEXT_MENU_ITEM,
 	PASTE_MARKDOWN_MENU_ITEM,
 	PASTE_PLAIN_TEXT_MENU_ITEM,
+	VIEW_MODE_TOGGLE_SECTION,
 } from './keys';
 
 export const TOOLBAR_RANK: {
@@ -160,6 +161,7 @@ export const TOOLBAR_RANK: {
 	readonly 'track-changes-section': 700;
 	readonly 'overflow-section': 800;
 	readonly 'pin-section': 900;
+	readonly 'view-mode-toggle-section': 950;
 	readonly 'overflow-section-primary-toolbar': 1000;
 } = {
 	[AI_SECTION.key]: 100,
@@ -174,6 +176,10 @@ export const TOOLBAR_RANK: {
 	[TRACK_CHANGES_SECTION.key]: 700,
 	[OVERFLOW_SECTION.key]: 800,
 	[PIN_SECTION.key]: 900,
+	/* Sits between PIN (900) and OVERFLOW_SECTION_PRIMARY_TOOLBAR (1000)
+	 * so the markdown view-mode toggle renders to the right of all formatting
+	 * controls but still to the left of the overflow `…` menu. */
+	[VIEW_MODE_TOGGLE_SECTION.key]: 950,
 	[OVERFLOW_SECTION_PRIMARY_TOOLBAR.key]: 1000,
 } as const;
 

@@ -75,7 +75,6 @@ const isConfluenceWhiteboard: UrlChecker = (url) =>
 const isConfluenceDatabase: UrlChecker = (url) =>
 	url.match(/\/wiki\/spaces\/~?[\d\w]+\/database\/\d+(\?.*)?$/);
 
-
 const isYoutubeVideo: UrlChecker = (url) =>
 	url.match(/^https:\/\/(.*?\.)?(youtube\..*?\/(watch\?|v\/|shorts\/)|youtu\.be)/);
 
@@ -624,17 +623,17 @@ export class EditorCardProvider
 				let preferredAppearance =
 					shouldForceAppearance === undefined
 						? // Ignore both User and provider's appearances if older editor that doesn't send shouldForceAppearance
-						  hardCodedAppearance || appearance
+							hardCodedAppearance || appearance
 						: // User preferred appearance. It would be either one that has matching domain/path pattern OR
-						  // if user's default choice is NOT "inline" (so, block or embed at this point, url was dealt with above)
-						  (userPreference as CardAppearance) ||
-						  // If user's default choice is "inline" or user hasn't specified preferences at all,
-						  // we check whatever one of the hardcoded providers match url (jira /timeline, polaris, etc)
-						  (isEmbedFriendlyLocationEvaluated && hardCodedAppearance) ||
-						  // If non match, we see if this provider has default appearance for this particular regexp
-						  providerDefaultAppearance ||
-						  // If not, we pick what editor (or any other client) requested
-						  appearance;
+							// if user's default choice is NOT "inline" (so, block or embed at this point, url was dealt with above)
+							(userPreference as CardAppearance) ||
+							// If user's default choice is "inline" or user hasn't specified preferences at all,
+							// we check whatever one of the hardcoded providers match url (jira /timeline, polaris, etc)
+							(isEmbedFriendlyLocationEvaluated && hardCodedAppearance) ||
+							// If non match, we see if this provider has default appearance for this particular regexp
+							providerDefaultAppearance ||
+							// If not, we pick what editor (or any other client) requested
+							appearance;
 
 				if (preferredAppearance === userPreference && userPreference === 'embed') {
 					const canItBeEmbed = await this.canBeResolvedAsEmbed(url);

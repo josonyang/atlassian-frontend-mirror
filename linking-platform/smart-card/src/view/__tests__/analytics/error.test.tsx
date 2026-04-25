@@ -1,6 +1,5 @@
 import React from 'react';
 
-
 import FabricAnalyticsListeners, { type AnalyticsWebClient } from '@atlaskit/analytics-listeners';
 import { type JsonLd } from '@atlaskit/json-ld-types';
 import { CardClient, SmartCardProvider as Provider } from '@atlaskit/link-provider';

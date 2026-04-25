@@ -8,19 +8,20 @@ import {
 
 import { generateRendererComponent } from '../__helpers/rendererComponents';
 
-export const NestedTableRenderer = generateRendererComponent({
+export const NestedTableRenderer: React.ComponentType<any> = generateRendererComponent({
 	document: adfNestedTableInsideTable,
 	appearance: 'full-page',
 	allowColumnSorting: true,
 });
 
-export const NestedTableNumberedColumnRenderer = generateRendererComponent({
-	document: adfNestedTableInsideTableWithNumberedColumn,
-	appearance: 'full-page',
-	allowColumnSorting: true,
-});
+export const NestedTableNumberedColumnRenderer: React.ComponentType<any> =
+	generateRendererComponent({
+		document: adfNestedTableInsideTableWithNumberedColumn,
+		appearance: 'full-page',
+		allowColumnSorting: true,
+	});
 
-export const NestedTableWithOverflowRenderer = generateRendererComponent({
+export const NestedTableWithOverflowRenderer: React.ComponentType<any> = generateRendererComponent({
 	document: adfNestedTableWithLotsOfRows,
 	appearance: 'full-page',
 	stickyHeaders: true,

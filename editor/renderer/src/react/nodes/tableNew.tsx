@@ -153,7 +153,8 @@ export const addSortableColumn = (
 	rows: React.ReactElement<any>[],
 	tableOrderStatus: TableOrderStatus | undefined,
 	onSorting: (columnIndex: number, sortOrder: SortOrder) => void,
-) => {
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
+): React.ReactElement<any, string | React.JSXElementConstructor<any>>[] => {
 	return React.Children.map(rows, (row, index) => {
 		if (index === 0) {
 			return React.cloneElement(React.Children.only(row), {
@@ -285,13 +286,13 @@ export class TableContainer extends React.Component<
 		wrapperWidth: 0,
 		headerRowHeight: 0,
 	};
-	tableRef = React.createRef<HTMLTableElement>();
-	stickyHeaderRef = React.createRef<HTMLElement>();
-	stickyScrollbarRef = React.createRef<HTMLDivElement>();
+	tableRef: React.RefObject<HTMLTableElement> = React.createRef<HTMLTableElement>();
+	stickyHeaderRef: React.RefObject<HTMLElement> = React.createRef<HTMLElement>();
+	stickyScrollbarRef: React.RefObject<HTMLDivElement> = React.createRef<HTMLDivElement>();
 
 	// used for sync scroll + copying wrapper width to sticky header
-	stickyWrapperRef = React.createRef<HTMLDivElement>();
-	wrapperRef = React.createRef<HTMLDivElement>();
+	stickyWrapperRef: React.RefObject<HTMLDivElement> = React.createRef<HTMLDivElement>();
+	wrapperRef: React.RefObject<HTMLDivElement> = React.createRef<HTMLDivElement>();
 	stickyScrollbar?: TableStickyScrollbar;
 
 	nextFrame: number | undefined;
@@ -457,7 +458,7 @@ export class TableContainer extends React.Component<
 	/**
 	 *
 	 */
-	get pinTop() {
+	get pinTop(): number | undefined {
 		if (!this.tableRef.current || !this.stickyHeaderRef.current) {
 			return;
 		}
@@ -473,7 +474,7 @@ export class TableContainer extends React.Component<
 	/**
 	 *
 	 */
-	get shouldAddOverflowParentOffsetTop_DO_NOT_USE() {
+	get shouldAddOverflowParentOffsetTop_DO_NOT_USE(): boolean | null | undefined {
 		// IF the StickyHeaderConfig specifies that the default scroll root offsetTop should be added
 		// AND the StickyHeaderConfig specifies a default scroll root id
 		// AND the OverflowParent is the corresponding element
@@ -490,7 +491,7 @@ export class TableContainer extends React.Component<
 	/**
 	 *
 	 */
-	get stickyTop() {
+	get stickyTop(): number | undefined {
 		switch (this.state.stickyMode) {
 			case 'pin-bottom':
 				return this.pinTop;

@@ -1,14 +1,16 @@
 import React from 'react';
 
+import BlogIconGlyph from '@atlaskit/icon-object/glyph/blog/16';
+import LiveDocumentIconGlyph from '@atlaskit/icon-object/glyph/page-live-doc/16';
 import DocumentFilledIcon from '@atlaskit/icon/core/file';
 import { isConfluenceGenerator } from '@atlaskit/link-extractors';
 import { fg } from '@atlaskit/platform-feature-flags';
 
-import BlogIcon from '../../../common/ui/icons/blog-icon';
+import BlogIconWrapped from '../../../common/ui/icons/blog-icon';
 import PresentationIcon from '../../../common/ui/icons/chart-bar-icon';
 import FileIcon from '../../../common/ui/icons/file-icon';
 import SpreadsheetIcon from '../../../common/ui/icons/list-bullet-icon';
-import LiveDocumentIcon from '../../../common/ui/icons/live-document-icon';
+import LiveDocumentIconWrapped from '../../../common/ui/icons/live-document-icon';
 import DocumentIcon from '../../../common/ui/icons/page-icon';
 import { getIconForFileType } from '../../../utils';
 
@@ -67,7 +69,11 @@ const documentLabel = (opts: IconOpts, label: string) => {
 const documentTypeToIcon = (type: DocumentType, opts: IconOpts): React.ReactNode | undefined => {
 	switch (type) {
 		case 'schema:BlogPosting':
-			return <BlogIcon label={documentLabel(opts, 'blog')} testId="blog-icon" />;
+			return fg('platform_sl_icons_refactor') ? (
+				<BlogIconGlyph label={documentLabel(opts, 'blog')} testId="blog-icon" />
+			) : (
+				<BlogIconWrapped label={documentLabel(opts, 'blog')} testId="blog-icon" />
+			);
 		case 'schema:DigitalDocument':
 			return digitalDocumentToIcon(opts);
 		case 'schema:TextDigitalDocument':
@@ -103,7 +109,14 @@ const documentTypeToIcon = (type: DocumentType, opts: IconOpts): React.ReactNode
  */
 const digitalDocumentToIcon = (opts: IconOpts): React.ReactNode => {
 	if (opts.provider?.id && isConfluenceGenerator(opts.provider.id)) {
-		return <LiveDocumentIcon label={documentLabel(opts, 'live document')} testId="live-doc-icon" />;
+		return fg('platform_sl_icons_refactor') ? (
+			<LiveDocumentIconGlyph label={documentLabel(opts, 'live document')} testId="live-doc-icon" />
+		) : (
+			<LiveDocumentIconWrapped
+				label={documentLabel(opts, 'live document')}
+				testId="live-doc-icon"
+			/>
+		);
 	} else {
 		return <FileIcon label={documentLabel(opts, 'file')} testId="file-icon" />;
 	}

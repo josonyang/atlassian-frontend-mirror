@@ -767,78 +767,78 @@ describe('Tooltip', () => {
 	});
 
 	it('should never show immediately if UNSAFE_shouldAlwaysFadeIn is true', async () => {
-			const user = createUser();
-			const onShow = jest.fn();
-			const wrapped = (
-				<div>
-					<Tooltip testId="tooltip-a" content="Tooltip" onShow={onShow} delay={1000}>
-						<button data-testid="trigger-a" type="button">
+		const user = createUser();
+		const onShow = jest.fn();
+		const wrapped = (
+			<div>
+				<Tooltip testId="tooltip-a" content="Tooltip" onShow={onShow} delay={1000}>
+					<button data-testid="trigger-a" type="button">
+						click me
+					</button>
+				</Tooltip>
+				<Tooltip
+					testId="tooltip-b"
+					content="Tooltip"
+					onShow={onShow}
+					delay={1000}
+					UNSAFE_shouldAlwaysFadeIn
+				>
+					<button data-testid="trigger-b" type="button">
+						click me
+					</button>
+				</Tooltip>
+			</div>
+		);
+		const renderProp = (
+			<div>
+				<Tooltip testId="tooltip-a" content="Tooltip" onShow={onShow} delay={1000}>
+					{(tooltipProps) => (
+						<button {...tooltipProps} data-testid="trigger-a" type="button">
 							click me
 						</button>
-					</Tooltip>
-					<Tooltip
-						testId="tooltip-b"
-						content="Tooltip"
-						onShow={onShow}
-						delay={1000}
-						UNSAFE_shouldAlwaysFadeIn
-					>
-						<button data-testid="trigger-b" type="button">
+					)}
+				</Tooltip>
+				<Tooltip
+					testId="tooltip-b"
+					content="Tooltip"
+					onShow={onShow}
+					delay={1000}
+					UNSAFE_shouldAlwaysFadeIn
+				>
+					{(tooltipProps) => (
+						<button {...tooltipProps} data-testid="trigger-b" type="button">
 							click me
 						</button>
-					</Tooltip>
-				</div>
-			);
-			const renderProp = (
-				<div>
-					<Tooltip testId="tooltip-a" content="Tooltip" onShow={onShow} delay={1000}>
-						{(tooltipProps) => (
-							<button {...tooltipProps} data-testid="trigger-a" type="button">
-								click me
-							</button>
-						)}
-					</Tooltip>
-					<Tooltip
-						testId="tooltip-b"
-						content="Tooltip"
-						onShow={onShow}
-						delay={1000}
-						UNSAFE_shouldAlwaysFadeIn
-					>
-						{(tooltipProps) => (
-							<button {...tooltipProps} data-testid="trigger-b" type="button">
-								click me
-							</button>
-						)}
-					</Tooltip>
-				</div>
-			);
+					)}
+				</Tooltip>
+			</div>
+		);
 
-			for (const jsx of [wrapped, renderProp]) {
-				const { unmount } = render(jsx);
+		for (const jsx of [wrapped, renderProp]) {
+			const { unmount } = render(jsx);
 
-				await user.hover(screen.getByTestId('trigger-a'));
+			await user.hover(screen.getByTestId('trigger-a'));
 
-				act(() => {
-					jest.runAllTimers();
-				});
-				expect(onShow).toHaveBeenCalledTimes(1);
-				expect(screen.getByTestId('tooltip-a')).toBeInTheDocument();
-				onShow.mockClear();
+			act(() => {
+				jest.runAllTimers();
+			});
+			expect(onShow).toHaveBeenCalledTimes(1);
+			expect(screen.getByTestId('tooltip-a')).toBeInTheDocument();
+			onShow.mockClear();
 
-				// With UNSAFE_shouldAlwaysFadeIn prop, the tooltip should not show immediately
-				await user.hover(screen.getByTestId('trigger-b'));
-				expect(onShow).not.toHaveBeenCalled();
-				expect(screen.queryByTestId('tooltip-b')).not.toBeInTheDocument();
+			// With UNSAFE_shouldAlwaysFadeIn prop, the tooltip should not show immediately
+			await user.hover(screen.getByTestId('trigger-b'));
+			expect(onShow).not.toHaveBeenCalled();
+			expect(screen.queryByTestId('tooltip-b')).not.toBeInTheDocument();
 
-				// The tooltip should still show after the delay
-				act(() => {
-					jest.runAllTimers();
-				});
-				expect(onShow).toHaveBeenCalledTimes(1);
-				expect(screen.getByTestId('tooltip-b')).toBeInTheDocument();
+			// The tooltip should still show after the delay
+			act(() => {
+				jest.runAllTimers();
+			});
+			expect(onShow).toHaveBeenCalledTimes(1);
+			expect(screen.getByTestId('tooltip-b')).toBeInTheDocument();
 
-				unmount();
+			unmount();
 			onShow.mockClear();
 		}
 	});

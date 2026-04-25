@@ -206,7 +206,7 @@ export const listsStylesSafariFix: SerializedStyles = css({
 });
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values
-export const EDITOR_LIST_DENSE_GAP: "max(0px, calc((var(--ak-editor-base-font-size, 16px) - 13px) * (4 / 3)))" = `max(0px, calc((var(--ak-editor-base-font-size, ${akEditorFullPageDefaultFontSize}px) - ${akEditorFullPageDenseFontSize}px) * (4 / 3)))`;
+export const EDITOR_LIST_DENSE_GAP: 'max(0px, calc((var(--ak-editor-base-font-size, 16px) - 13px) * (4 / 3)))' = `max(0px, calc((var(--ak-editor-base-font-size, ${akEditorFullPageDefaultFontSize}px) - ${akEditorFullPageDenseFontSize}px) * (4 / 3)))`;
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles
 export const getDenseListStyles = (baseFontSize?: number): SerializedStyles => {

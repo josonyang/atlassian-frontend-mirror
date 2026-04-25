@@ -4,8 +4,8 @@
  */
 import { Fragment, useCallback } from 'react';
 
-// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
-import { css, jsx } from '@emotion/react';
+/* eslint-disable @typescript-eslint/consistent-type-imports, @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766; jsx required at runtime for @jsxRuntime classic */
+import { jsx, css } from '@emotion/react';
 
 import type { TableColumnOrdering } from '@atlaskit/custom-steps';
 import { getBrowserInfo } from '@atlaskit/editor-common/browser';
@@ -81,7 +81,9 @@ export const TableFloatingControls = ({
 	tableWrapperWidth,
 	api,
 	isChromelessEditor,
-}: TableFloatingControlsProps & { api?: ExtractInjectionAPI<TablePlugin> }) => {
+}: TableFloatingControlsProps & {
+	api?: ExtractInjectionAPI<TablePlugin>;
+}): jsx.JSX.Element | null => {
 	const _selectRow = useCallback(
 		(row: number, expand: boolean) => {
 			const { state, dispatch } = editorView;

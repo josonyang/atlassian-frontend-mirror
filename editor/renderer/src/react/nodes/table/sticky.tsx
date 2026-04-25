@@ -3,10 +3,8 @@
  * @jsx jsx
  */
 import React from 'react';
-// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
-import type { SerializedStyles } from '@emotion/react';
-// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
-import { css, jsx } from '@emotion/react';
+/* eslint-disable @typescript-eslint/consistent-type-imports, @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766; jsx required at runtime for @jsxRuntime classic */
+import { jsx, type SerializedStyles, css } from '@emotion/react';
 
 import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 
@@ -149,7 +147,7 @@ export const StickyTable = ({
 	allowTableResizing,
 	fixTableSSRResizing = false,
 	allowFixedColumnWidthOption,
-}: StickyTableProps) => {
+}: StickyTableProps): jsx.JSX.Element => {
 	let styles;
 	/* eslint-disable @atlaskit/design-system/ensure-design-token-usage */
 	if (allowTableResizing) {
@@ -273,7 +271,7 @@ export class OverflowParent {
 	 * @param defaultScrollRootId
 	 * @example
 	 */
-	static fromElement(el: HTMLElement | null, defaultScrollRootId?: string) {
+	static fromElement(el: HTMLElement | null, defaultScrollRootId?: string): OverflowParent {
 		return new OverflowParent(
 			findHorizontalOverflowScrollParent(el, defaultScrollRootId) || window,
 		);
@@ -300,7 +298,7 @@ export class OverflowParent {
 	/**
 	 *
 	 */
-	get top() {
+	get top(): number {
 		if (this.ref instanceof HTMLElement) {
 			return this.ref.getBoundingClientRect().top;
 		}

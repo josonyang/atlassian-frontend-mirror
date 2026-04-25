@@ -5,8 +5,8 @@ import memoizeOne, { type MemoizedFn } from 'memoize-one';
 function useFunctionUsageTracking<InputFunctionType extends (...any: any) => any>(
 	trackedFunction: InputFunctionType,
 ): {
-    isUsed: boolean;
-    trackingFunction: MemoizedFn<() => InputFunctionType>;
+	isUsed: boolean;
+	trackingFunction: MemoizedFn<() => InputFunctionType>;
 } {
 	const [isUsed, setIsUsed] = useState(false);
 

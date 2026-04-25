@@ -690,7 +690,9 @@ describe('@atlaskit/reactions/components/Reactions', () => {
 	});
 
 	describe('platform_reactions_optimistic_url feature gate', () => {
-		const getOptimisticImageURL = jest.fn((emojiId: string) => `https://cdn.example.com/emoji/${emojiId}.png`);
+		const getOptimisticImageURL = jest.fn(
+			(emojiId: string) => `https://cdn.example.com/emoji/${emojiId}.png`,
+		);
 
 		afterEach(() => {
 			getOptimisticImageURL.mockClear();

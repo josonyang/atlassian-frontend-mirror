@@ -14,7 +14,7 @@ export const isCell = (node: HTMLElement | null): boolean => {
 export const isCornerButton = (node: HTMLElement | null): boolean =>
 	containsClassName(node, ClassName.CONTROLS_CORNER_BUTTON);
 
-export const isInsertRowButton = (node: HTMLElement | null) =>
+export const isInsertRowButton = (node: HTMLElement | null): boolean | HTMLElement | null =>
 	containsClassName(node, ClassName.CONTROLS_INSERT_ROW) ||
 	closestElement(node, `.${ClassName.CONTROLS_INSERT_ROW}`) ||
 	(containsClassName(node, ClassName.CONTROLS_BUTTON_OVERLAY) &&

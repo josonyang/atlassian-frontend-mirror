@@ -26,7 +26,7 @@ export function createPlugin(
 	editorAnalyticsAPI?: EditorAnalyticsAPI,
 	isTableScalingEnabled?: boolean,
 	isCommentEditor?: boolean,
-) {
+): SafePlugin<ColumnResizingPluginState> {
 	return new SafePlugin({
 		key: pluginKey,
 		state: createPluginState(dispatch, {

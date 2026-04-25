@@ -51,6 +51,8 @@ type InsertButtonProps = {
 	horizontalRuleEnabled?: boolean;
 	insertMenuItems?: MenuItem[];
 	isFullPageAppearance?: boolean;
+	/** @see InsertBlockPluginOptions.itemFilter */
+	itemFilter?: (item: MenuItem) => boolean;
 	nativeStatusSupported?: boolean;
 	numberOfButtons?: number;
 	onInsertBlockType?: (name: string) => Command;
@@ -69,6 +71,7 @@ export const InsertButton = ({
 	horizontalRuleEnabled,
 	expandEnabled,
 	insertMenuItems,
+	itemFilter,
 	numberOfButtons,
 	onInsertBlockType,
 	toolbarConfig,
@@ -97,6 +100,7 @@ export const InsertButton = ({
 		editorView: editorView || undefined,
 		horizontalRuleEnabled,
 		insertMenuItems,
+		itemFilter,
 		nativeStatusSupported,
 		numberOfButtons,
 		tableSelectorSupported,

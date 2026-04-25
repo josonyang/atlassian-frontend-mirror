@@ -1,6 +1,5 @@
 import React from 'react';
 
-
 import { SmartCardProvider } from '@atlaskit/link-provider';
 import { type CardState } from '@atlaskit/linking-common';
 import { renderWithIntl } from '@atlaskit/media-test-helpers/renderWithIntl';

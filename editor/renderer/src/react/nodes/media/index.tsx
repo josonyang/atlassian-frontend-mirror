@@ -5,7 +5,7 @@
  */
 import type { PropsWithChildren, SyntheticEvent } from 'react';
 import React, { PureComponent, Fragment, useEffect, useState, useMemo } from 'react';
-// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
+/* eslint-disable @typescript-eslint/consistent-type-imports, @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766; jsx required at runtime for @jsxRuntime classic */
 import { jsx, css } from '@emotion/react';
 import { AnalyticsContext } from '@atlaskit/analytics-next';
 import { MEDIA_CONTEXT } from '@atlaskit/analytics-namespaced-context';
@@ -310,7 +310,7 @@ const CommentBadgeWrapper = ({
 
 // Ignored via go/ees005
 // eslint-disable-next-line @repo/internal/react/no-class-components
-class Media extends PureComponent<MediaProps, Object> {
+class Media extends PureComponent<MediaProps, object> {
 	constructor(props: MediaProps) {
 		super(props);
 		this.handleMediaLinkClickFn = this.handleMediaLinkClick.bind(this);
@@ -445,7 +445,7 @@ class Media extends PureComponent<MediaProps, Object> {
 	}
 }
 
-const MediaWithDraftAnnotation = (props: PropsWithChildren<MediaProps>) => {
+const MediaWithDraftAnnotation = (props: PropsWithChildren<MediaProps>): jsx.JSX.Element => {
 	const { hoverDraftDocumentPosition: draftPosition } = useAnnotationRangeState();
 
 	const { dataAttributes } = props;

@@ -491,6 +491,13 @@ export const editorExperimentsConfig: {
 		productKeys?: ProductKeys;
 		typeGuard: IsBooleanType;
 	};
+	// Added 2026-04-23
+	'cc-markdown-mode': {
+		defaultValue: boolean;
+		param: string;
+		productKeys?: ProductKeys;
+		typeGuard: IsBooleanType;
+	};
 	// Added 2024-09-07
 	platform_editor_exp_lazy_node_views: {
 		defaultValue: boolean;
@@ -1096,14 +1103,6 @@ export const editorExperimentsConfig: {
 		typeGuard: (value: unknown) => value is 'control' | 'slot-four' | 'slot-two';
 		values: ('control' | 'slot-four' | 'slot-two')[];
 	};
-	// Added 2026-04-13
-	cc_fd_cwr_quick_insert_aa: {
-		defaultValue: 'control' | 'slot-four' | 'slot-two';
-		param: string;
-		productKeys?: ProductKeys;
-		typeGuard: (value: unknown) => value is 'control' | 'slot-four' | 'slot-two';
-		values: ('control' | 'slot-four' | 'slot-two')[];
-	};
 	// Added 2026-04-08
 	cc_fd_wb_jira_quick_insert_experiment: {
 		defaultValue: boolean;
@@ -1203,7 +1202,7 @@ export const editorExperimentsConfig: {
 		typeGuard: IsBooleanType;
 	};
 	// Added 2026-04-01
-	'cc_page_experiences_editor_image_generation': {
+	cc_page_experiences_editor_image_generation: {
 		defaultValue: boolean;
 		param: string;
 		productKeys?: ProductKeys;
@@ -1211,13 +1210,6 @@ export const editorExperimentsConfig: {
 	};
 	// Added 2026-02-23
 	'cc-maui-experiment': {
-		defaultValue: boolean;
-		param: string;
-		productKeys?: ProductKeys;
-		typeGuard: IsBooleanType;
-	};
-	// Added 2026-04-06
-	'cc-maui-experiment-phase-2': {
 		defaultValue: boolean;
 		param: string;
 		productKeys?: ProductKeys;
@@ -2983,15 +2975,6 @@ export const editorExperimentsConfig: {
 		values: ['control', 'slot-four', 'slot-two'],
 		defaultValue: 'control',
 	}),
-	// Added 2026-04-13
-	cc_fd_cwr_quick_insert_aa: createMultivariateExperiment({
-		productKeys: {
-			confluence: 'cc_fd_cwr_quick_insert_aa',
-		},
-		param: 'cohort',
-		values: ['control', 'slot-four', 'slot-two'],
-		defaultValue: 'control',
-	}),
 	// Added 2026-02-05 - A11Y-10416
 	editor_a11y_role_textbox: createBooleanExperiment({
 		productKeys: {
@@ -3066,7 +3049,7 @@ export const editorExperimentsConfig: {
 		defaultValue: false,
 	}),
 	// Added 2026-04-01
-	'cc_page_experiences_editor_image_generation': createBooleanExperiment({
+	cc_page_experiences_editor_image_generation: createBooleanExperiment({
 		productKeys: {
 			confluence: 'cc_page_experiences_editor_image_generation',
 		},
@@ -3077,14 +3060,6 @@ export const editorExperimentsConfig: {
 	'cc-maui-experiment': createBooleanExperiment({
 		productKeys: {
 			confluence: 'cc-maui-experiment',
-		},
-		param: 'isEnabled',
-		defaultValue: false,
-	}),
-	// Added 2026-04-06
-	'cc-maui-experiment-phase-2': createBooleanExperiment({
-		productKeys: {
-			confluence: 'cc-maui-experiment-phase-2',
 		},
 		param: 'isEnabled',
 		defaultValue: false,
@@ -3566,6 +3541,14 @@ export const editorExperimentsConfig: {
 	platform_editor_fix_comment_border: createBooleanExperiment({
 		productKeys: {
 			confluence: 'platform_editor_fix_comment_border',
+		},
+		param: 'isEnabled',
+		defaultValue: false,
+	}),
+	// Added 2026-04-23
+	'cc-markdown-mode': createBooleanExperiment({
+		productKeys: {
+			confluence: 'cc-markdown-mode',
 		},
 		param: 'isEnabled',
 		defaultValue: false,

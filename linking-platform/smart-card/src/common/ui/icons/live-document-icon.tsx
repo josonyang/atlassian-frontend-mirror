@@ -1,3 +1,5 @@
+// This file is the FG-OFF fallback for platform_sl_icons_refactor.
+// Delete this file when platform_sl_icons_refactor is cleaned up.
 import type { FC } from 'react';
 
 import LiveDocIconSmall from '@atlaskit/icon-object/glyph/page-live-doc/16';

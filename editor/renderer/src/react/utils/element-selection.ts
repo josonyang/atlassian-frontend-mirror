@@ -44,7 +44,7 @@ export class ElementSelection {
 		return ElementSelection.fromWindow();
 	}
 
-	public static fromWindow(win: Window = window) {
+	public static fromWindow(win: Window = window): ElementSelection {
 		return new ElementSelection(win.getSelection());
 	}
 }

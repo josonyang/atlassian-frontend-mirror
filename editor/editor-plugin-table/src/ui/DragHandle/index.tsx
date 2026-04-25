@@ -4,7 +4,7 @@ import React, { useEffect, useMemo, useRef, useState } from 'react';
 
 import classnames from 'classnames';
 import ReactDOM from 'react-dom';
-import type { WrappedComponentProps } from 'react-intl';
+import type { WithIntlProps, WrappedComponentProps } from 'react-intl';
 import { injectIntl } from 'react-intl';
 
 import { getBrowserInfo } from '@atlaskit/editor-common/browser';
@@ -313,4 +313,7 @@ const DragHandleComponent = ({
 	);
 };
 
-export const DragHandle = injectIntl(DragHandleComponent);
+// eslint-disable-next-line @typescript-eslint/ban-types
+export const DragHandle: React.FC<WithIntlProps<DragHandleProps & WrappedComponentProps>> & {
+	WrappedComponent: React.ComponentType<DragHandleProps & WrappedComponentProps>;
+} = injectIntl(DragHandleComponent);

@@ -2,7 +2,7 @@ import React from 'react';
 
 import classnames from 'classnames';
 import rafSchedule from 'raf-schd';
-import type { IntlShape } from 'react-intl';
+import type { IntlShape, WithIntlProps } from 'react-intl';
 import { injectIntl } from 'react-intl';
 
 import type { TableColumnOrdering } from '@atlaskit/custom-steps';
@@ -169,8 +169,8 @@ class TableComponent extends React.Component<ComponentProps, TableState> {
 
 		this.isNestedInTable = tablePos
 			? getParentOfTypeCount(props.view.state.schema.nodes.table)(
-				props.view.state.doc.resolve(tablePos),
-			) > 0
+					props.view.state.doc.resolve(tablePos),
+				) > 0
 			: false;
 
 		if (!this.updateColGroupFromFullWidthChange) {
@@ -191,10 +191,10 @@ class TableComponent extends React.Component<ComponentProps, TableState> {
 						prev?.tableWrapperHeight === entry.contentRect?.height
 						? prev
 						: {
-							...prev,
-							tableWrapperWidth: entry.contentRect.width,
-							tableWrapperHeight: entry.contentRect.height,
-						};
+								...prev,
+								tableWrapperWidth: entry.contentRect.width,
+								tableWrapperHeight: entry.contentRect.height,
+							};
 				});
 			}
 		});
@@ -1084,7 +1084,7 @@ class TableComponent extends React.Component<ComponentProps, TableState> {
 			);
 			const isOusideOfThreshold =
 				wrapperWidthDiffBetweenRerenders <=
-				NESTED_TABLE_IN_NESTED_PARENT_WIDTH_DIFF_MIN_THRESHOLD ||
+					NESTED_TABLE_IN_NESTED_PARENT_WIDTH_DIFF_MIN_THRESHOLD ||
 				wrapperWidthDiffBetweenRerenders > NESTED_TABLE_IN_NESTED_PARENT_WIDTH_DIFF_MAX_THRESHOLD;
 			// 1. Check isOusideOfThreshold is added to prevent undersired state update.
 			// When table is nested in the extenstion and the table column is being resized,
@@ -1330,4 +1330,8 @@ class TableComponent extends React.Component<ComponentProps, TableState> {
 	private handleWindowResizeNewDebounced = rafSchedule(this.handleWindowResizeNew);
 }
 
-export default injectIntl(TableComponent);
+// eslint-disable-next-line @typescript-eslint/ban-types
+const _default_1: React.FC<WithIntlProps<ComponentProps>> & {
+	WrappedComponent: React.ComponentType<ComponentProps>;
+} = injectIntl(TableComponent);
+export default _default_1;

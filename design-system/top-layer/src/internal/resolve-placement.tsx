@@ -74,10 +74,7 @@ export function getPlacement({ placement }: { placement: TPlacementOptions }): T
 		edge: placement.edge ?? 'end',
 		align: placement.align ?? 'center',
 		offset: {
-			gap:
-				consumerGap === undefined
-					? DEFAULT_GAP
-					: toCssLengthString({ value: consumerGap }),
+			gap: consumerGap === undefined ? DEFAULT_GAP : toCssLengthString({ value: consumerGap }),
 			crossAxisShift: {
 				value: toCssLengthString({
 					value: placement.offset?.crossAxisShift?.value ?? 0,

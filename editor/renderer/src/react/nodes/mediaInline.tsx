@@ -13,7 +13,7 @@ import { MediaClientContext, getMediaClient } from '@atlaskit/media-client-react
 import type { MediaFeatureFlags } from '@atlaskit/media-common';
 import { MediaInlineCardLoadingView } from '@atlaskit/media-ui';
 import React, { useCallback, useEffect, useState, useContext } from 'react';
-import type { IntlShape, WrappedComponentProps } from 'react-intl';
+import type { IntlShape, WithIntlProps, WrappedComponentProps } from 'react-intl';
 import { injectIntl } from 'react-intl';
 import type { ClipboardAttrs } from '../../ui/MediaCard';
 import { getClipboardAttrs, mediaIdentifierMap } from '../../ui/MediaCard';
@@ -234,4 +234,12 @@ const MediaInline = (props: MediaInlineProps & WrappedComponentProps & MediaInli
 	);
 };
 
-export default injectIntl(MediaInline);
+// eslint-disable-next-line @typescript-eslint/ban-types
+const _default_1: React.FC<
+	WithIntlProps<MediaInlineProps & WrappedComponentProps & MediaInlineAttrs>
+> & {
+	WrappedComponent: React.ComponentType<
+		MediaInlineProps & WrappedComponentProps & MediaInlineAttrs
+	>;
+} = injectIntl(MediaInline);
+export default _default_1;

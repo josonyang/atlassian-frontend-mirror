@@ -207,9 +207,7 @@ export default function PlacementExample(): JSX.Element {
 										id="offset-cross-axis-shift-direction"
 										value={crossAxisShiftDirection}
 										onChange={(event) =>
-											setCrossAxisShiftDirection(
-												event.target.value as TCrossAxisShiftDirection,
-											)
+											setCrossAxisShiftDirection(event.target.value as TCrossAxisShiftDirection)
 										}
 										css={styles.select}
 									>
@@ -219,9 +217,9 @@ export default function PlacementExample(): JSX.Element {
 								</label>
 							</Inline>
 							<Text size="small">
-								gap is the distance between the trigger and the popover.
-								cross-axis shift nudges the popover along the perpendicular axis. forwards moves
-								toward the trigger end edge; backwards moves the other way.
+								gap is the distance between the trigger and the popover. cross-axis shift nudges the
+								popover along the perpendicular axis. forwards moves toward the trigger end edge;
+								backwards moves the other way.
 							</Text>
 						</Stack>
 

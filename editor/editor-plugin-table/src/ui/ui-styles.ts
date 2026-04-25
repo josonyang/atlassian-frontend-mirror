@@ -1,6 +1,6 @@
 /* eslint-disable @atlaskit/design-system/no-css-tagged-template-expression -- needs mahual remediation */
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
-import { css } from '@emotion/react';
+import { css, type SerializedStyles } from '@emotion/react';
 
 import {
 	tableCellBorderWidth,
@@ -66,7 +66,7 @@ const Marker = () =>
 		pointerEvents: 'none',
 	});
 
-export const InsertMarker = (cssString?: string) => css`
+export const InsertMarker = (cssString?: string): SerializedStyles => css`
 	.${ClassName.CONTROLS_INSERT_MARKER} {
 		${Marker()};
 		${cssString}
@@ -98,7 +98,7 @@ const Button = (cssString?: string) => css`
 
 // Explicit pixel values required here to ensure classic row controls align correctly
 // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage/preview
-export const HeaderButton = (cssString?: string) => css`
+export const HeaderButton = (cssString?: string): SerializedStyles => css`
 	.${ClassName.CONTROLS_BUTTON} {
 		background: ${tableHeaderCellBackgroundColor};
 		border: 1px solid ${tableBorderColor};
@@ -130,7 +130,7 @@ export const HeaderButton = (cssString?: string) => css`
 	}
 `;
 
-export const HeaderButtonHover = () => css`
+export const HeaderButtonHover = (): SerializedStyles => css`
 	.${ClassName.CONTROLS_BUTTON}:hover {
 		color: ${token('color.icon.inverse')};
 		background-color: ${tableToolbarSelectedColor};
@@ -139,7 +139,7 @@ export const HeaderButtonHover = () => css`
 	}
 `;
 
-export const HeaderButtonDanger = () => css`
+export const HeaderButtonDanger = (): SerializedStyles => css`
 	.${ClassName.HOVERED_CELL_IN_DANGER} .${ClassName.CONTROLS_BUTTON} {
 		background-color: ${tableToolbarDeleteColor};
 		border-color: ${tableBorderDeleteColor};
@@ -181,7 +181,7 @@ const InsertButtonHover = () => css`
 	}
 `;
 
-export const dragInsertButtonWrapper = () => css`
+export const dragInsertButtonWrapper = (): SerializedStyles => css`
 	.${ClassName.DRAG_CONTROLS_INSERT_BUTTON_INNER} {
 		position: absolute;
 		z-index: ${akEditorUnitZIndex + 10};
@@ -222,7 +222,7 @@ export const dragInsertButtonWrapper = () => css`
 
 // Explicit pixel values required here to ensure corner button aligns correctly
 // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage/preview
-export const dragCornerControlButton = () => css`
+export const dragCornerControlButton = (): SerializedStyles => css`
 	.${ClassName.DRAG_CORNER_BUTTON} {
 		width: 15px;
 		height: 15px;
@@ -272,7 +272,7 @@ export const dragCornerControlButton = () => css`
 	}
 `;
 
-export const insertColumnButtonWrapper = () =>
+export const insertColumnButtonWrapper = (): SerializedStyles =>
 	css(
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 		InsertButton(),
@@ -287,7 +287,7 @@ export const insertColumnButtonWrapper = () =>
 		),
 	);
 
-export const insertRowButtonWrapper = () =>
+export const insertRowButtonWrapper = (): SerializedStyles =>
 	css(
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 		InsertButton(),
@@ -304,14 +304,14 @@ export const insertRowButtonWrapper = () =>
 		),
 	);
 
-export const columnControlsLineMarker = () => css`
+export const columnControlsLineMarker = (): SerializedStyles => css`
 	.${ClassName.TABLE_CONTAINER}.${ClassName.WITH_CONTROLS} table tr:first-of-type td,
 	.${ClassName.TABLE_CONTAINER}.${ClassName.WITH_CONTROLS} table tr:first-of-type th {
 		position: relative;
 	}
 `;
 
-export const DeleteButton = () => css`
+export const DeleteButton = (): SerializedStyles => css`
 	.${ClassName.CONTROLS_DELETE_BUTTON_WRAP}, .${ClassName.CONTROLS_DELETE_BUTTON} {
 		height: ${tableDeleteButtonSize}px;
 		width: ${tableDeleteButtonSize}px;
@@ -332,7 +332,7 @@ export const DeleteButton = () => css`
 	}
 `;
 
-export const OverflowShadow = (isDragAndDropEnabled: boolean | undefined) => css`
+export const OverflowShadow = (isDragAndDropEnabled: boolean | undefined): SerializedStyles => css`
 	.${ClassName.TABLE_RIGHT_SHADOW}, .${ClassName.TABLE_LEFT_SHADOW} {
 		display: block;
 		height: calc(100% - ${tableMarginTop}px);
@@ -380,7 +380,9 @@ const overflowShadowWidhoutDnD = (isDragAndDropEnabled: boolean | undefined) => 
 	}
 };
 
-export const OverflowShadowLessPadding = (tableOverflowShadowWidth: number) => css`
+export const OverflowShadowLessPadding = (
+	tableOverflowShadowWidth: number,
+): SerializedStyles => css`
 	.${ClassName.TABLE_LEFT_SHADOW}, .${ClassName.TABLE_RIGHT_SHADOW} {
 		width: ${tableOverflowShadowWidth}px;
 	}
@@ -450,7 +452,7 @@ const getFloatingDotOverrides = () => {
 	`;
 };
 
-export const floatingColumnControls = () => {
+export const floatingColumnControls = (): SerializedStyles => {
 	return css`
 		.${ClassName.DRAG_COLUMN_DROP_TARGET_CONTROLS} {
 			box-sizing: border-box;
@@ -474,7 +476,7 @@ export const floatingColumnControls = () => {
 	`;
 };
 
-export const rowControlsWrapperDotStyle = () => {
+export const rowControlsWrapperDotStyle = (): SerializedStyles => {
 	return css`
 		/* override for DnD controls */
 		div.${ClassName.WITH_CONTROLS}>.${ClassName.DRAG_ROW_CONTROLS_WRAPPER}::after {
@@ -495,7 +497,7 @@ export const rowControlsWrapperDotStyle = () => {
 	`;
 };
 
-export const columnControlsDecoration = () => {
+export const columnControlsDecoration = (): SerializedStyles => {
 	return css`
 		.${ClassName.COLUMN_CONTROLS_DECORATIONS} {
 			display: none;
@@ -613,7 +615,7 @@ export const columnControlsDecoration = () => {
 	`;
 };
 
-export const hoveredDeleteButton = () => css`
+export const hoveredDeleteButton = (): SerializedStyles => css`
 	.${ClassName.TABLE_CONTAINER}.${ClassName.HOVERED_DELETE_BUTTON} {
 		.${ClassName.SELECTED_CELL}, .${ClassName.COLUMN_SELECTED}, .${ClassName.HOVERED_CELL} {
 			border: 1px solid ${tableBorderDeleteColor};
@@ -638,7 +640,7 @@ export const hoveredDeleteButton = () => css`
 	}
 `;
 
-export const hoveredCell = () => css`
+export const hoveredCell = (): SerializedStyles => css`
 	:not(.${ClassName.IS_RESIZING})
 		.${ClassName.TABLE_CONTAINER}:not(.${ClassName.HOVERED_DELETE_BUTTON}) {
 		.${ClassName.HOVERED_CELL} {
@@ -653,7 +655,7 @@ export const hoveredCell = () => css`
 `;
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
-export const hoveredWarningCell = css`
+export const hoveredWarningCell: SerializedStyles = css`
 	:not(.${ClassName.IS_RESIZING})
 		.${ClassName.TABLE_CONTAINER}:not(.${ClassName.HOVERED_DELETE_BUTTON}) {
 		td.${ClassName.HOVERED_CELL_WARNING} {
@@ -739,7 +741,7 @@ const resizeLineStyles = () => {
 	`;
 };
 
-export const resizeHandle = () => css`
+export const resizeHandle = (): SerializedStyles => css`
 	.${ClassName.TABLE_CONTAINER} {
 		.${ClassName.RESIZE_HANDLE_DECORATION} {
 			background-color: transparent;
@@ -830,7 +832,7 @@ const insertLineInactiveColor = css({
 // Explicit pixel values required here to ensure correct positioning of line that is show on row
 // or column drag
 // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage/preview
-export const insertLine = () => css`
+export const insertLine = (): SerializedStyles => css`
 	.${ClassName.TABLE_CONTAINER} {
 		td.${ClassName.WITH_FIRST_COLUMN_INSERT_LINE}::before {
 			${tableCellColumnInsertLineStyles}

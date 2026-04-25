@@ -16,7 +16,7 @@ export interface Props extends MarkDataAttributes {
 	text: string;
 }
 
-export default memo(function MentionItem(props: Props) {
+const _default_1: React.NamedExoticComponent<Props> = memo(function MentionItem(props: Props) {
 	const { eventHandlers, id, providers, text, accessLevel, localId } = props;
 	const inlineAnnotationProps = useInlineAnnotationProps(props);
 
@@ -48,3 +48,4 @@ export default memo(function MentionItem(props: Props) {
 		/>
 	);
 });
+export default _default_1;

@@ -79,22 +79,26 @@ export function buildNavigationInput({
 	context,
 	onBeforeNavigate,
 	...intentProps
-}: BuildNavigationInputArgs): {
-    href: string;
-    intent: "action";
-    previewPanelProps: {
-        ari: string;
-        name: string;
-    } | undefined;
-    context: NavigationContext;
-    onClick: ((...args: any[]) => void) | undefined;
-} | {
-    href: string;
-    intent: "navigation" | "reference" | "external" | "unknown";
-    context: NavigationContext;
-    onClick: ((...args: any[]) => void) | undefined;
-    previewPanelProps?: undefined;
-} {
+}: BuildNavigationInputArgs):
+	| {
+			href: string;
+			intent: 'action';
+			previewPanelProps:
+				| {
+						ari: string;
+						name: string;
+				  }
+				| undefined;
+			context: NavigationContext;
+			onClick: ((...args: any[]) => void) | undefined;
+	  }
+	| {
+			href: string;
+			intent: 'navigation' | 'reference' | 'external' | 'unknown';
+			context: NavigationContext;
+			onClick: ((...args: any[]) => void) | undefined;
+			previewPanelProps?: undefined;
+	  } {
 	return intentProps.intent === 'action'
 		? {
 				href,

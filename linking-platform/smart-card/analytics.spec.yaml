@@ -680,6 +680,10 @@ events:
           required: false
           type: string
           description: The definitionId of the Smart Link resolver invoked.
+        rovoActionsCtaShown:
+          required: false
+          type: boolean
+          description: Whether the Rovo Actions CTA icon was shown for this Smart Link
   - hoverCard dismissed:
       type: ui
       description: fires an event that represents a hover preview being dismissed.
@@ -702,6 +706,10 @@ events:
           required: false
           type: string
           description: The definitionId of the Smart Link resolver invoked.
+        rovoActionsCtaShown:
+          required: false
+          type: boolean
+          description: Whether the Rovo Actions CTA (inline nudge) was shown for this Smart Link
   - button clicked (connectAccount):
       type: ui
       description:
@@ -830,6 +838,10 @@ events:
           required: true
           type: ['inline', 'block', 'embed', 'embedPreview', 'flexible', 'hoverCardPreview']
           description: Whether the card was an Inline, Block, Embed or Flexible UI
+        rovoActionsCtaShown:
+          required: false
+          type: boolean
+          description: Whether the Rovo Actions CTA (inline nudge) was shown for this Smart Link
   - smartLink renderFailed:
       type: ui
       description: fires an event that represents when a Smart Link renders unsuccessfully.

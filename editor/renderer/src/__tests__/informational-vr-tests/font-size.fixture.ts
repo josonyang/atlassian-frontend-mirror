@@ -2,6 +2,7 @@ import type { DocNode } from '@atlaskit/adf-schema';
 import { PanelType } from '@atlaskit/adf-schema/schema';
 
 import { generateRendererComponent } from '../__helpers/rendererComponents';
+import type { ComponentType } from 'react';
 
 const smallTextInNestedBlocksAdf: DocNode = {
 	type: 'doc',
@@ -126,7 +127,7 @@ const smallTextInNestedBlocksAdf: DocNode = {
 	],
 };
 
-export const SmallTextInNestedBlocksRenderer = generateRendererComponent({
+export const SmallTextInNestedBlocksRenderer: ComponentType<any> = generateRendererComponent({
 	document: smallTextInNestedBlocksAdf,
 	appearance: 'full-page',
 });

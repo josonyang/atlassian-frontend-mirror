@@ -126,8 +126,8 @@ type ComponentProps = EditorAppearanceComponentProps<
 >;
 
 export const CommentEditorWithIntl: {
-    (props: ComponentProps): jsx.JSX.Element;
-    displayName: string;
+	(props: ComponentProps): jsx.JSX.Element;
+	displayName: string;
 } = (props: ComponentProps): jsx.JSX.Element => {
 	const { editorAPI } = props;
 

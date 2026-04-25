@@ -3,6 +3,9 @@
  * @jsx jsx
  */
 import { cssMap, jsx } from '@atlaskit/css';
+import { componentWithFG } from '@atlaskit/platform-feature-flags-react';
+
+import { createPriorityIcon } from './priority-icon';
 
 export interface PriorityIconProps {
 	[key: string]: any;
@@ -15,7 +18,7 @@ const style = cssMap({
 	svg: { verticalAlign: 'bottom', maxWidth: '100%', maxHeight: '100%' },
 });
 
-const PriorityLowestIcon: {
+const PriorityLowestIconLegacy: {
 	({ label, testId, ...props }: PriorityIconProps): JSX.Element;
 	displayName: string;
 } = ({ label, testId, ...props }: PriorityIconProps): JSX.Element => (
@@ -40,6 +43,19 @@ const PriorityLowestIcon: {
 	</span>
 );
 
-PriorityLowestIcon.displayName = 'PriorityLowestIcon';
+PriorityLowestIconLegacy.displayName = 'PriorityLowestIcon';
 
-export default PriorityLowestIcon;
+export default componentWithFG(
+	'platform_sl_icons_refactor',
+	createPriorityIcon('PriorityLowestIcon', [
+		{
+			d: 'M18.46 11.936a1 1 0 111.028 1.716l-6.97 4.174a1 1 0 01-1.03-.002L4.581 13.65a1 1 0 011.034-1.711l6.391 3.862 6.454-3.865z',
+			fill: '#0065FF',
+		},
+		{
+			d: 'M12.007 9.798l6.454-3.864a1 1 0 011.027 1.716l-6.97 4.173a1 1 0 01-1.03-.002L4.581 7.648a1 1 0 011.034-1.712l6.391 3.862z',
+			fill: '#2684FF',
+		},
+	]),
+	PriorityLowestIconLegacy,
+);

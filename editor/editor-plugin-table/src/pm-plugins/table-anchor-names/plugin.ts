@@ -87,9 +87,9 @@ const createTableAnchorDecorations = (state: EditorState): DecorationSet => {
 	return DecorationSet.create(state.doc, decs);
 };
 
-export const pluginKey = new PluginKey('tableAnchorNamesPlugin');
+export const pluginKey: PluginKey = new PluginKey('tableAnchorNamesPlugin');
 
-export const createPlugin = () => {
+export const createPlugin = (): SafePlugin<DecorationSet> => {
 	return new SafePlugin({
 		state: {
 			init: (_config, state: EditorState) => {

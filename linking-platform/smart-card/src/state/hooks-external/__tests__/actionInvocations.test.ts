@@ -1,4 +1,3 @@
-
 import { SmartCardProvider } from '@atlaskit/link-provider';
 import { fg } from '@atlaskit/platform-feature-flags';
 import { ffTest } from '@atlassian/feature-flags-test-utils';

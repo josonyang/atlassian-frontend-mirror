@@ -1,6 +1,5 @@
 import React from 'react';
 
-
 import { AnalyticsListener } from '@atlaskit/analytics-next';
 import { ffTest } from '@atlassian/feature-flags-test-utils';
 import { render, waitForElementToBeRemoved, userEvent } from '@atlassian/testing-library';

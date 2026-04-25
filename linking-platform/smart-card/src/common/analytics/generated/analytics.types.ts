@@ -311,12 +311,14 @@ export type HoverCardViewedAttributesType = {
 	previewDisplay: 'card' | 'embed';
 	previewInvokeMethod: 'keyboard' | 'mouse_hover' | 'mouse_click' | null;
 	definitionId: string | null;
+	rovoActionsCtaShown?: boolean;
 };
 export type HoverCardDismissedAttributesType = {
 	previewDisplay: 'card' | 'embed';
 	hoverTime: number;
 	previewInvokeMethod: 'keyboard' | 'mouse_hover' | 'mouse_click' | null;
 	definitionId: string | null;
+	rovoActionsCtaShown?: boolean;
 };
 export type ButtonClickedConnectAccountAttributesType = {
 	display: 'inline' | 'block' | 'embed' | 'embedPreview' | 'flexible' | 'hoverCardPreview' | 'url';
@@ -359,6 +361,7 @@ export type ButtonClickedEmbedPreviewResizeAttributesType = {
 };
 export type SmartLinkRenderSuccessAttributesType = {
 	display: 'inline' | 'block' | 'embed' | 'embedPreview' | 'flexible' | 'hoverCardPreview';
+	rovoActionsCtaShown?: boolean;
 };
 export type SmartLinkRenderFailedAttributesType = {
 	display: 'inline' | 'block' | 'embed' | 'embedPreview' | 'flexible' | 'hoverCardPreview';

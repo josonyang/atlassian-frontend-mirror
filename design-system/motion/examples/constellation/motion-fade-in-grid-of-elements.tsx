@@ -73,9 +73,7 @@ const MotionFadeInGridOfElementsExample = (): JSX.Element => {
 									enteringAnimationXcss={styles.entering}
 									exitingAnimationXcss={styles.exiting}
 								>
-									<li
-										css={listItemStyles}
-									>
+									<li css={listItemStyles}>
 										<Block appearance={state.size}>
 											{/* eslint-disable-next-line @repo/internal/react/no-clone-element */}
 											{cloneElement(logos[index % logos.length], {

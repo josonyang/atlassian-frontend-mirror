@@ -104,7 +104,9 @@ export const getRowClassNames = (
 };
 
 export const copyPreviousRow =
-	(schema: Schema) => (insertNewRowIndex: number) => (tr: Transaction) => {
+	(schema: Schema) =>
+	(insertNewRowIndex: number) =>
+	(tr: Transaction): Transaction => {
 		const table = findTable(tr.selection);
 		if (!table) {
 			return tr;

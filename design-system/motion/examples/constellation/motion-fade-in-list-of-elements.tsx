@@ -45,25 +45,23 @@ const MotionFadeInListOfElementsExample = (): JSX.Element => {
 			<ul css={listStyles}>
 				<StaggeredEntrance>
 					<ExitingPersistence>
-					{items.map((logo) => (
-						// Gotcha #1 set propery keys YO
-						<Motion
-							enteringAnimationXcss={styles.entering}
-							exitingAnimationXcss={styles.exiting}
-							key={logo[1] as string}
-						>
-							<li
-								css={listItemStyles}
+						{items.map((logo) => (
+							// Gotcha #1 set propery keys YO
+							<Motion
+								enteringAnimationXcss={styles.entering}
+								exitingAnimationXcss={styles.exiting}
+								key={logo[1] as string}
 							>
-								<Block css={blockStyles}>
-									<div css={logoContainerStyles}>
-										{logo[0]}
-										<h3 css={headerStyles}>{logo[1]}</h3>
-									</div>
-								</Block>
-							</li>
-						</Motion>
-					))}
+								<li css={listItemStyles}>
+									<Block css={blockStyles}>
+										<div css={logoContainerStyles}>
+											{logo[0]}
+											<h3 css={headerStyles}>{logo[1]}</h3>
+										</div>
+									</Block>
+								</li>
+							</Motion>
+						))}
 					</ExitingPersistence>
 				</StaggeredEntrance>
 			</ul>

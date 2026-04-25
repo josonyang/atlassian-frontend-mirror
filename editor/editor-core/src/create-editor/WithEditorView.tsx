@@ -10,7 +10,9 @@ export interface WithEditorViewInternalProps {
 
 export const WithEditorView = <P extends WithEditorViewInternalProps>(
 	WrappedComponent: React.ComponentType<React.PropsWithChildren<P>>,
-): (props: React.PropsWithChildren<Omit<P, keyof WithEditorViewInternalProps>>) => React.JSX.Element => {
+): ((
+	props: React.PropsWithChildren<Omit<P, keyof WithEditorViewInternalProps>>,
+) => React.JSX.Element) => {
 	const _WithFeatureFlags = (
 		props: React.PropsWithChildren<Omit<P, keyof WithEditorViewInternalProps>>,
 	) => {

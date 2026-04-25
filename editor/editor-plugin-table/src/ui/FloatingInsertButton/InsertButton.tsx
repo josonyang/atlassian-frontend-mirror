@@ -3,7 +3,7 @@ import type { SyntheticEvent } from 'react';
 import React from 'react';
 
 import classnames from 'classnames';
-import type { WrappedComponentProps } from 'react-intl';
+import type { WithIntlProps, WrappedComponentProps } from 'react-intl';
 import { injectIntl } from 'react-intl';
 
 import { addColumnAfter, addRowAfter, ToolTipContent } from '@atlaskit/editor-common/keymaps';
@@ -190,7 +190,12 @@ const InsertButtonForDragAndDrop = ({
 	);
 };
 
-export const DragAndDropInsertButton = injectIntl(InsertButtonForDragAndDrop);
+// eslint-disable-next-line @typescript-eslint/ban-types
+export const DragAndDropInsertButton: React.FC<
+	WithIntlProps<ButtonProps & WrappedComponentProps>
+> & {
+	WrappedComponent: React.ComponentType<ButtonProps & WrappedComponentProps>;
+} = injectIntl(InsertButtonForDragAndDrop);
 
 const InsertButton = ({
 	onMouseDown,
@@ -261,4 +266,8 @@ const InsertButton = ({
 	);
 };
 
-export default injectIntl(InsertButton);
+// eslint-disable-next-line @typescript-eslint/ban-types
+const _default_1: React.FC<WithIntlProps<ButtonProps & WrappedComponentProps>> & {
+	WrappedComponent: React.ComponentType<ButtonProps & WrappedComponentProps>;
+} = injectIntl(InsertButton);
+export default _default_1;

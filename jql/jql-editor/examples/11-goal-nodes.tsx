@@ -2,7 +2,7 @@ import React, { useCallback } from 'react';
 
 import fetchMock from 'fetch-mock/cjs/client';
 
-import FeatureGates from '@atlaskit/feature-gate-js-client'
+import FeatureGates from '@atlaskit/feature-gate-js-client';
 import {
 	type GetAutocompleteInitialData,
 	type GetAutocompleteSuggestions,

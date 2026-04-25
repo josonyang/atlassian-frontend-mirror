@@ -8,7 +8,7 @@ export function renderTextSegments(
 	textHighlighter: TextHighlighter | undefined,
 	marksList: readonly Mark[],
 	startPos: number,
-) {
+): string | React.JSX.Element {
 	const Component = textHighlighter?.component;
 	const marks = new Set(marksList.map((m) => m.type.name));
 

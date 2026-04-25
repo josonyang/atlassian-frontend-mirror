@@ -15,7 +15,6 @@ import '@atlaskit/link-test-helpers/jest';
 
 import React from 'react';
 
-
 import { type CardClient, SmartCardProvider as Provider } from '@atlaskit/link-provider';
 import { eeTest } from '@atlaskit/tmp-editor-statsig/editor-experiments-test-utils';
 import { skipAutoA11yFile } from '@atlassian/a11y-jest-testing';

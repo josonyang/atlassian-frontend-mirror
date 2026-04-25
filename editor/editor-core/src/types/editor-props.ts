@@ -122,7 +122,6 @@ interface EditorBaseProps {
 	 * @deprecated this attribute is not supported outside of Confluence Full Page editors
 	 */
 	contentMode?: 'standard' | 'compact' | undefined;
-
 	contentTransformerProvider?: (schema: Schema) => Transformer<string>;
 
 	// Content to appear in the context panel. Displays as a right sidebar in the full-page appearance.

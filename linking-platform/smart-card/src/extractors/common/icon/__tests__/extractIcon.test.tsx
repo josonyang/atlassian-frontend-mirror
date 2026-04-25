@@ -1,4 +1,3 @@
-
 import { type JsonLd } from '@atlaskit/json-ld-types';
 import { ffTest } from '@atlassian/feature-flags-test-utils';
 import { render, screen } from '@atlassian/testing-library';

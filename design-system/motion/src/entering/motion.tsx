@@ -25,7 +25,10 @@ import { useExitingPersistence } from './exiting-persistence';
 import { useStaggeredEntrance } from './staggered-entrance';
 import { type Transition } from './types';
 
-export type CustomMotionXCSS = XCSSProp<"animationName" | "animationDuration" | "animationTimingFunction" | "animationDelay", never>;
+export type CustomMotionXCSS = XCSSProp<
+	'animationName' | 'animationDuration' | 'animationTimingFunction' | 'animationDelay',
+	never
+>;
 
 type MotionState = 'init' | 'entering' | 'exiting' | 'idle' | 'reanimating';
 
@@ -38,13 +41,13 @@ const styles = cssMap({
 		},
 	},
 	hidden: {
-		visibility: 'hidden'
+		visibility: 'hidden',
 	},
 	entering: {
-		animationFillMode: 'backwards'
+		animationFillMode: 'backwards',
 	},
 	exiting: {
-		animationFillMode: 'forwards'
+		animationFillMode: 'forwards',
 	},
 });
 
@@ -78,7 +81,7 @@ export interface MotionProps {
 	 * Children to be animated.
 	 */
 	children: React.ReactNode;
-	
+
 	/**
 	 * Motion token for the entering animation.
 	 */
@@ -138,7 +141,9 @@ const Motion: React.ForwardRefExoticComponent<
 		const staggeredDelay = isExiting ? 0 : staggered.delay;
 		const staggedIsReady = staggered.isReady;
 
-		const [state, setState] = useState<MotionState>(appear ? staggedIsReady && !staggeredDelay ? 'entering' : 'init' : 'idle');
+		const [state, setState] = useState<MotionState>(
+			appear ? (staggedIsReady && !staggeredDelay ? 'entering' : 'init') : 'idle',
+		);
 
 		const elementRef = useRef<HTMLDivElement>(null);
 		const reanimateRef = useRef<Reanimate>();
@@ -153,7 +158,7 @@ const Motion: React.ForwardRefExoticComponent<
 
 		// Handles staggered entry
 		useEffect(() => {
-			if(state !== 'init') return;
+			if (state !== 'init') return;
 
 			// We delay the entry animation by the stagger delay
 			staggeredEntryRef.current = setTimeout(() => {
@@ -165,7 +170,7 @@ const Motion: React.ForwardRefExoticComponent<
 					clearTimeout(staggeredEntryRef.current);
 				}
 			};
-		}, [state, staggedIsReady, staggeredDelay])
+		}, [state, staggedIsReady, staggeredDelay]);
 
 		/**
 		 * Updates relevant state.
@@ -235,19 +240,21 @@ const Motion: React.ForwardRefExoticComponent<
 			let animationDuration = 0;
 			let animationDelay = 0;
 			if (state === 'entering' || state === 'exiting') {
-				if(elementRef.current) {
-					if(elementRef.current.style.animation) {
+				if (elementRef.current) {
+					if (elementRef.current.style.animation) {
 						// Motion token
-						const animationTimings = getDurationMs(resolveMotionToken(elementRef.current.style.animation));
+						const animationTimings = getDurationMs(
+							resolveMotionToken(elementRef.current.style.animation),
+						);
 						animationDuration = animationTimings.duration;
 						animationDelay = animationTimings.delay;
 					} else {
 						// Custom motion
 						const styles = window.getComputedStyle(elementRef.current);
-						if(styles.animationDuration) {
+						if (styles.animationDuration) {
 							animationDuration = convertToMs(styles.animationDuration);
-						} 
-						if(styles.animationDelay) {
+						}
+						if (styles.animationDelay) {
 							animationDelay = convertToMs(styles.animationDelay);
 						}
 					}
@@ -257,7 +264,7 @@ const Motion: React.ForwardRefExoticComponent<
 			// Queue `onAnimationEnd` for after the animation has finished
 			if (state === 'exiting' && (exitingAnimation || exitingAnimationXcss)) {
 				animationRef.current = setTimeout(
-					() => onAnimationEnd(state, isCancelled), 
+					() => onAnimationEnd(state, isCancelled),
 					animationDuration + animationDelay,
 				);
 			} else if (state === 'entering' && (enteringAnimation || enteringAnimationXcss)) {
@@ -285,7 +292,7 @@ const Motion: React.ForwardRefExoticComponent<
 			exitingAnimationXcss,
 			enteringAnimationXcss,
 			staggeredDelay,
-			staggedIsReady
+			staggedIsReady,
 		]);
 
 		useImperativeHandle(ref, () => ({
@@ -302,16 +309,16 @@ const Motion: React.ForwardRefExoticComponent<
 
 		let style: React.CSSProperties = {};
 		let customAnimation: CustomMotionXCSS | undefined;
-		if(state === 'entering') {
-			if(enteringAnimation) {
+		if (state === 'entering') {
+			if (enteringAnimation) {
 				style.animation = enteringAnimation;
-			} else if(enteringAnimationXcss) {
+			} else if (enteringAnimationXcss) {
 				customAnimation = enteringAnimationXcss;
 			}
-		} else if(state === 'exiting') {
-			if(exitingAnimation) {
+		} else if (state === 'exiting') {
+			if (exitingAnimation) {
 				style.animation = exitingAnimation;
-			} else if(exitingAnimationXcss) {
+			} else if (exitingAnimationXcss) {
 				customAnimation = exitingAnimationXcss;
 			}
 		}

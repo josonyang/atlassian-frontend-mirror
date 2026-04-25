@@ -3,7 +3,7 @@
  * @jsx jsx
  */
 
-// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
+/* eslint-disable @typescript-eslint/consistent-type-imports, @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766; jsx required at runtime for @jsxRuntime classic */
 import { jsx, css } from '@emotion/react';
 
 import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
@@ -44,7 +44,7 @@ type Props = React.PropsWithChildren<{
 	serializer: Serializer<any>;
 }>;
 
-const ExtensionFrame = (props: Props) => {
+const ExtensionFrame = (props: Props): jsx.JSX.Element => {
 	return (
 		<div css={[containerCSS]} data-extension-frame="true">
 			{props.children}

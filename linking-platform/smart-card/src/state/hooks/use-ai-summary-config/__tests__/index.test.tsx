@@ -3,7 +3,6 @@ import React from 'react';
 import { CardClient, SmartCardProvider } from '@atlaskit/link-provider';
 import { renderHook } from '@atlassian/testing-library';
 
-
 import { useAISummaryConfig } from '../index';
 
 describe('useAISummaryConfig', () => {

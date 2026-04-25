@@ -11,7 +11,7 @@ const svgStyles = css({
 	pointerEvents: 'none',
 });
 
-export default () => {
+export default (): JSX.Element => {
 	return (
 		<span data-vc={'icon-editor-googledrive'} aria-hidden={true}>
 			<svg viewBox="0 0 24 24" css={[svgStyles]} aria-label="googledrive-icon" role="img">

@@ -1,6 +1,6 @@
 import React from 'react';
 
-import type { WrappedComponentProps } from 'react-intl';
+import type { WithIntlProps, WrappedComponentProps } from 'react-intl';
 import { injectIntl } from 'react-intl';
 
 import type {
@@ -320,4 +320,8 @@ export class FloatingInsertButton extends React.Component<Props & WrappedCompone
 	}
 }
 
-export default injectIntl(FloatingInsertButton);
+// eslint-disable-next-line @typescript-eslint/ban-types
+const _default_1: React.FC<WithIntlProps<Props & WrappedComponentProps>> & {
+	WrappedComponent: React.ComponentType<Props & WrappedComponentProps>;
+} = injectIntl(FloatingInsertButton);
+export default _default_1;

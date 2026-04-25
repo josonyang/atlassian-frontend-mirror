@@ -1,4 +1,10 @@
-import { identifier, literal, type Property, property, type StringableASTNode } from 'eslint-codemod-utils';
+import {
+	identifier,
+	literal,
+	type Property,
+	property,
+	type StringableASTNode,
+} from 'eslint-codemod-utils';
 
 export function getLiteralProperty(
 	propertyName: string,

@@ -135,7 +135,7 @@ const ColorPickerButton = (props: Props) => {
 					setIsOpenedByKeyboard(false);
 					setIsPopupPositioned(false);
 				}
-		  };
+			};
 
 	const memoizedOnKeyDown = useCallback(
 		(event: React.KeyboardEvent) => {
@@ -155,7 +155,7 @@ const ColorPickerButton = (props: Props) => {
 					togglePopup();
 					setIsOpenedByKeyboard(true);
 				}
-		  };
+			};
 
 	const memoizedPaletteOptions = useMemo(
 		() => ({
@@ -171,7 +171,7 @@ const ColorPickerButton = (props: Props) => {
 				palette: props.colorPalette,
 				hexToPaletteColor: props.hexToPaletteColor,
 				paletteColorTooltipMessages: props.paletteColorTooltipMessages,
-		  };
+			};
 
 	React.useEffect(() => {
 		if (props.setDisableParentScroll) {

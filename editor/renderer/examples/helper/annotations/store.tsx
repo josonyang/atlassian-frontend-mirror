@@ -22,7 +22,7 @@ const initialData: MyData = {
 	'53500c44-4f1e-41eb-b215-9ccfaaa79397': AnnotationMarkStates.RESOLVED,
 };
 
-const annotationsStore = createContext<MyState>({
+const annotationsStore: React.Context<MyState> = createContext<MyState>({
 	state: {},
 	dispatch: () => {},
 });

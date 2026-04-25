@@ -5,49 +5,52 @@ import { overflowCodeblock } from '../__fixtures__/overflow.adf';
 import { nodeToReact as looselyLazyNodes } from '../../react/nodes/loosely-lazy';
 
 import { generateRendererComponent } from '../__helpers/rendererComponents';
+import type { ComponentType } from 'react';
 
-export const CodeBlockRendererCopy = generateRendererComponent({
+export const CodeBlockRendererCopy: ComponentType<any> = generateRendererComponent({
 	document: codeBlockAdf,
 	appearance: 'full-width',
 	allowCopyToClipboard: true,
 });
 
-export const CodeBlockRendererWrap = generateRendererComponent({
+export const CodeBlockRendererWrap: ComponentType<any> = generateRendererComponent({
 	document: codeBlockAdf,
 	appearance: 'full-width',
 	allowWrapCodeBlock: true,
 });
 
-export const CodeBlockRendererCopyWrap = generateRendererComponent({
+export const CodeBlockRendererCopyWrap: ComponentType<any> = generateRendererComponent({
 	document: codeBlockAdf,
 	appearance: 'full-width',
 	allowCopyToClipboard: true,
 	allowWrapCodeBlock: true,
 });
 
-export const CodeBlockRendererTrailingNewline = generateRendererComponent({
+export const CodeBlockRendererTrailingNewline: ComponentType<any> = generateRendererComponent({
 	document: adfTrailingNewline,
 	appearance: 'full-width',
 	allowCopyToClipboard: true,
 });
 
-export const CodeBlockRendererOverflow = generateRendererComponent({
+export const CodeBlockRendererOverflow: ComponentType<any> = generateRendererComponent({
 	document: overflowCodeblock,
 	appearance: 'full-page',
 });
 
-export const CodeBlockWithReactLooselyLazy = generateRendererComponent({
+export const CodeBlockWithReactLooselyLazy: ComponentType<any> = generateRendererComponent({
 	document: overflowCodeblock,
 	appearance: 'full-width',
 	nodeComponents: looselyLazyNodes,
 });
 
-export const CodeBlockRendererWithBreakout = generateRendererComponent({
+export const CodeBlockRendererWithBreakout: ComponentType<any> = generateRendererComponent({
 	document: codeBlockWithBreakoutAdf,
 	appearance: 'full-page',
 });
 
-export const CodeBlockRendererWithBreakoutFullWidth = generateRendererComponent({
-	document: codeBlockWithBreakoutAdf,
-	appearance: 'full-width',
-});
+export const CodeBlockRendererWithBreakoutFullWidth: ComponentType<any> = generateRendererComponent(
+	{
+		document: codeBlockWithBreakoutAdf,
+		appearance: 'full-width',
+	},
+);

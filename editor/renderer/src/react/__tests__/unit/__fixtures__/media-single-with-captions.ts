@@ -1,6 +1,46 @@
 import { createPlaceholderImageDataUrl } from '@atlaskit/editor-test-helpers/placeholder-images';
 
-export const mediaSingleWithCaptionsFixture = {
+export const mediaSingleWithCaptionsFixture: {
+	version: number;
+	type: string;
+	content: (
+		| {
+				type: string;
+				attrs: {
+					width: number;
+					layout: string;
+					widthType: string;
+				};
+				content: (
+					| {
+							type: string;
+							attrs: {
+								id: string;
+								type: string;
+								collection: string;
+								width: number;
+								height: number;
+								url: string;
+							};
+							content?: undefined;
+					  }
+					| {
+							type: string;
+							content: {
+								type: string;
+								text: string;
+							}[];
+							attrs?: undefined;
+					  }
+				)[];
+		  }
+		| {
+				type: string;
+				content: never[];
+				attrs?: undefined;
+		  }
+	)[];
+} = {
 	version: 1,
 	type: 'doc',
 	content: [

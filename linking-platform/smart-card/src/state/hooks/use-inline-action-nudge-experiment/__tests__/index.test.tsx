@@ -1,6 +1,5 @@
 import React from 'react';
 
-
 import { SmartCardProvider } from '@atlaskit/link-provider';
 import type { CardProviderStoreOpts } from '@atlaskit/link-provider';
 import { eeTest } from '@atlaskit/tmp-editor-statsig/editor-experiments-test-utils';

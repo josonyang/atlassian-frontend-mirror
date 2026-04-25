@@ -1,5 +1,10 @@
 import type { Rule } from 'eslint';
-import { type CallExpression, type Expression, isNodeOfType, type Property } from 'eslint-codemod-utils';
+import {
+	type CallExpression,
+	type Expression,
+	isNodeOfType,
+	type Property,
+} from 'eslint-codemod-utils';
 
 import { isCssInJsTemplateNode } from './is-css-in-js-template-node';
 import { isDecendantOfType } from './is-decendant-of-type';

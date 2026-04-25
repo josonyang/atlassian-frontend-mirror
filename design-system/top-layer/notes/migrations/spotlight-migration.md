@@ -143,11 +143,11 @@ semantics that the legacy path silently ignored.
 
 The legacy path passes `offset` to Popper as the `[along, away]` tuple, where `along` slides the
 card along the target's edge and `away` controls distance from the target. The top-layer path now
-forwards both values via `fromLegacyPlacement`: `along` becomes `placement.offset.crossAxisShift` (mapped
-to a positive `value` plus a `direction: 'forwards' | 'backwards'`), and `away` becomes
-`placement.offset.gap`. Consumers passing a non-zero `along` value (e.g. `offset={[400, 40]}`)
-keep their cross-axis shift on both the CSS Anchor Positioning path and the JS fallback path
-(the JS fallback resolves CSS length strings via a hidden DOM probe; see
+forwards both values via `fromLegacyPlacement`: `along` becomes `placement.offset.crossAxisShift`
+(mapped to a positive `value` plus a `direction: 'forwards' | 'backwards'`), and `away` becomes
+`placement.offset.gap`. Consumers passing a non-zero `along` value (e.g. `offset={[400, 40]}`) keep
+their cross-axis shift on both the CSS Anchor Positioning path and the JS fallback path (the JS
+fallback resolves CSS length strings via a hidden DOM probe; see
 `notes/decisions/placement-offset.md`).
 
 ### Card rendering identical
@@ -161,12 +161,12 @@ unchanged.
 
 ## Known risks
 
-| Severity | Risk                                  | Impact                                                                                                                                                                                                      |
-| -------- | ------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| Medium   | Top-layer / non-top-layer interlacing | A portal-rendered overlay could appear behind the spotlight when the flag is on                                                                                                                             |
-| Low      | Placement alignment change            | Non-center placements (`bottom-end`, `top-start`, etc.) now correctly align instead of centering — small positional shift relative to target                                                                |
+| Severity | Risk                                  | Impact                                                                                                                                                                                                                         |
+| -------- | ------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| Medium   | Top-layer / non-top-layer interlacing | A portal-rendered overlay could appear behind the spotlight when the flag is on                                                                                                                                                |
+| Low      | Placement alignment change            | Non-center placements (`bottom-end`, `top-start`, etc.) now correctly align instead of centering — small positional shift relative to target                                                                                   |
 | Low      | Cross-axis shift in JS fallback       | Both the CSS Anchor Positioning path and the JS fallback now forward `offset[0]` (shift) and `offset[1]` (gap). The JS fallback resolves CSS length strings via a hidden DOM probe. See `notes/decisions/placement-offset.md`. |
-| Low      | Synthetic events for dismiss          | Consumers that inspect `dismiss` event type see a synthetic `KeyboardEvent` (Escape) or `MouseEvent` (click-outside) rather than the original browser event                                                 |
+| Low      | Synthetic events for dismiss          | Consumers that inspect `dismiss` event type see a synthetic `KeyboardEvent` (Escape) or `MouseEvent` (click-outside) rather than the original browser event                                                                    |
 
 ---
 
@@ -327,8 +327,8 @@ the top-layer migration. They exist in both the legacy and top-layer paths:
   - `offset[1]` (gap) is forwarded as `placement.offset.gap` on the CSS path
   - **JS fallback path** (less than 6% of users) intentionally uses a fixed 8px gap and no shift
     (see `notes/decisions/placement-offset.md`)
-  - **Impact:** Consumers passing non-default values (e.g. `offset={[400, 40]}`) keep their shift
-    on supporting browsers; on the JS fallback they fall back to defaults
+  - **Impact:** Consumers passing non-default values (e.g. `offset={[400, 40]}`) keep their shift on
+    supporting browsers; on the JS fallback they fall back to defaults
 
 - **Synthetic events for dismiss** (intentional design)
   - Spotlight creates synthetic `KeyboardEvent` (Escape) or `MouseEvent` (click-outside) for

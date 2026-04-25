@@ -1,3 +1,4 @@
+import type { ComponentType } from 'react';
 import {
 	customPanelEmojiAndColoredBackground,
 	customPanelEmojiAndColoredBackgroundAndColoredText,
@@ -14,104 +15,105 @@ import {
 
 import { generateRendererComponent } from '../__helpers/rendererComponents';
 
-export const CustomPanelEmojiAndColoredBackground = generateRendererComponent({
+export const CustomPanelEmojiAndColoredBackground: ComponentType<any> = generateRendererComponent({
 	document: customPanelEmojiAndColoredBackground,
 	appearance: 'full-width',
 });
 
-export const CustomPanelEmojiAndColoredBackgroundAndColoredText = generateRendererComponent({
-	document: customPanelEmojiAndColoredBackgroundAndColoredText,
-	appearance: 'full-width',
-});
+export const CustomPanelEmojiAndColoredBackgroundAndColoredText: ComponentType<any> =
+	generateRendererComponent({
+		document: customPanelEmojiAndColoredBackgroundAndColoredText,
+		appearance: 'full-width',
+	});
 
-export const CustomPanelMissingDefaults = generateRendererComponent({
+export const CustomPanelMissingDefaults: ComponentType<any> = generateRendererComponent({
 	document: customPanelMissingDefaults,
 	appearance: 'full-width',
 });
 
-export const CustomPanelMissingDefaultsFinal = generateRendererComponent({
+export const CustomPanelMissingDefaultsFinal: ComponentType<any> = generateRendererComponent({
 	document: customPanelMissingDefaults,
 	appearance: 'full-width',
 	allowCustomPanels: true,
 });
 
-export const CustomPanelOnlyBackground = generateRendererComponent({
+export const CustomPanelOnlyBackground: ComponentType<any> = generateRendererComponent({
 	document: customPanelOnlyBackground,
 	appearance: 'full-width',
 });
 
-export const CustomPanelOnlyBackgroundFinal = generateRendererComponent({
+export const CustomPanelOnlyBackgroundFinal: ComponentType<any> = generateRendererComponent({
 	document: customPanelOnlyBackground,
 	appearance: 'full-width',
 	allowCustomPanels: true,
 });
 
-export const CustomPanelOnlyEmoji = generateRendererComponent({
+export const CustomPanelOnlyEmoji: ComponentType<any> = generateRendererComponent({
 	document: customPanelOnlyEmoji,
 	appearance: 'full-width',
 });
 
-export const ErrorPanel = generateRendererComponent({
+export const ErrorPanel: ComponentType<any> = generateRendererComponent({
 	document: errorPanel,
 	appearance: 'full-width',
 });
 
-export const ErrorPanelFinal = generateRendererComponent({
+export const ErrorPanelFinal: ComponentType<any> = generateRendererComponent({
 	document: errorPanel,
 	appearance: 'full-width',
 	allowCustomPanels: true,
 });
 
-export const InfoPanel = generateRendererComponent({
+export const InfoPanel: ComponentType<any> = generateRendererComponent({
 	document: infoPanel,
 	appearance: 'full-width',
 });
 
-export const InfoPanelFinal = generateRendererComponent({
+export const InfoPanelFinal: ComponentType<any> = generateRendererComponent({
 	document: infoPanel,
 	appearance: 'full-width',
 	allowCustomPanels: true,
 });
 
-export const NotePanel = generateRendererComponent({
+export const NotePanel: ComponentType<any> = generateRendererComponent({
 	document: notePanel,
 	appearance: 'full-width',
 });
 
-export const NotePanelFinal = generateRendererComponent({
+export const NotePanelFinal: ComponentType<any> = generateRendererComponent({
 	document: notePanel,
 	appearance: 'full-width',
 	allowCustomPanels: true,
 });
 
-export const SuccessPanel = generateRendererComponent({
+export const SuccessPanel: ComponentType<any> = generateRendererComponent({
 	document: successPanel,
 	appearance: 'full-width',
 });
 
-export const SuccessPanelFinal = generateRendererComponent({
+export const SuccessPanelFinal: ComponentType<any> = generateRendererComponent({
 	document: successPanel,
 	appearance: 'full-width',
 	allowCustomPanels: true,
 });
 
-export const SuccessPanelWithColoredText = generateRendererComponent({
+export const SuccessPanelWithColoredText: ComponentType<any> = generateRendererComponent({
 	document: successPanelWithColoredText,
 	appearance: 'full-width',
 });
 
-export const SuccessPanelWithColoredTextFinal = generateRendererComponent({
+export const SuccessPanelWithColoredTextFinal: ComponentType<any> = generateRendererComponent({
 	document: successPanelWithColoredText,
 	appearance: 'full-width',
 	allowCustomPanels: true,
 });
 
-export const WarningPanel = generateRendererComponent({
+export const WarningPanel: ComponentType<any> = generateRendererComponent({
 	document: warningPanel,
 	appearance: 'full-width',
 });
 
-export const WarningPanelFinal = generateRendererComponent({
+export const WarningPanelFinal: ComponentType<any> = generateRendererComponent({
 	document: warningPanel,
 	appearance: 'full-width',
 	allowCustomPanels: true,

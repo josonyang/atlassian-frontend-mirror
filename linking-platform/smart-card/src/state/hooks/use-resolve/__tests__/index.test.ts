@@ -1,7 +1,6 @@
 // eslint-disable-next-line import/order
 import * as testMocks from './index.test.mock';
 
-
 import { type JsonLd } from '@atlaskit/json-ld-types';
 import { type CardContext, useSmartLinkContext } from '@atlaskit/link-provider';
 import { APIError, type CardState } from '@atlaskit/linking-common';

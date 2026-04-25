@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 
-import type { WrappedComponentProps } from 'react-intl';
+import type { WithIntlProps, WrappedComponentProps } from 'react-intl';
 import { injectIntl } from 'react-intl';
 
 import { tableMessages as messages } from '@atlaskit/editor-common/messages';
@@ -131,4 +131,7 @@ class RowControlsComponent extends Component<Props & WrappedComponentProps> {
 	};
 }
 
-export const RowControls = injectIntl(RowControlsComponent);
+// eslint-disable-next-line @typescript-eslint/ban-types
+export const RowControls: React.FC<WithIntlProps<Props & WrappedComponentProps>> & {
+	WrappedComponent: React.ComponentType<Props & WrappedComponentProps>;
+} = injectIntl(RowControlsComponent);

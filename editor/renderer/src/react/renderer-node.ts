@@ -8,7 +8,7 @@ const hasBreakOutMark = (node: Node) => node.marks.some((m) => m.type.name === '
 export const insideBreakoutLayout = (path: Node[]): boolean =>
 	path.some((item) => isLayoutNode(item) && hasBreakOutMark(item));
 
-export const insideBreakoutExpand = (path: Node[]) =>
+export const insideBreakoutExpand = (path: Node[]): boolean =>
 	path.some((item) => isExpandNode(item) && hasBreakOutMark(item));
 
 export const insideBlockNode = (path: Node[], schema: Schema): boolean => {
@@ -45,4 +45,3 @@ export const getNestedUnderNodes = (path: Node[], nodeTypeNames: string[]): stri
 
 	return undefined;
 };
-

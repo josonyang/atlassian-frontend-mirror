@@ -1,5 +1,12 @@
 # @atlaskit/lozenge
 
+## 13.8.0
+
+### Minor Changes
+
+- [`436b89822a386`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/436b89822a386) -
+  Autofix: add explicit package exports (barrel removal)
+
 ## 13.7.1
 
 ### Patch Changes

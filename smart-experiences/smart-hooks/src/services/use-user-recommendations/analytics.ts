@@ -5,7 +5,7 @@ import {
 	type AnalyticsEventPayload,
 	createAndFireEvent,
 	type CreateUIAnalyticsEvent,
-    UIAnalyticsEvent,
+	UIAnalyticsEvent,
 } from '@atlaskit/analytics-next';
 import { type UserSearchItem } from '@atlaskit/smart-common';
 
@@ -39,7 +39,21 @@ export const createDefaultAttributes = (
 	renderId: string,
 	sessionId: string,
 	query: string,
-): { context: string; childObjectId: string | undefined; containerId: string | undefined; includeTeams: boolean | undefined; maxNumberOfResults: number | undefined; objectId: string | undefined; preload: boolean | undefined; principalId: string | undefined; productKey: string; queryLength: number; renderId: string; sessionId: string; tenantId: string; } => {
+): {
+	context: string;
+	childObjectId: string | undefined;
+	containerId: string | undefined;
+	includeTeams: boolean | undefined;
+	maxNumberOfResults: number | undefined;
+	objectId: string | undefined;
+	preload: boolean | undefined;
+	principalId: string | undefined;
+	productKey: string;
+	queryLength: number;
+	renderId: string;
+	sessionId: string;
+	tenantId: string;
+} => {
 	const {
 		fieldId,
 		objectId,

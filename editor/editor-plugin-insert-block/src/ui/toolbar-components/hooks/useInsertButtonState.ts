@@ -24,6 +24,8 @@ interface UseInsertButtonStateProps {
 	expandEnabled?: boolean;
 	horizontalRuleEnabled?: boolean;
 	insertMenuItems?: MenuItem[];
+	/** @see InsertBlockPluginOptions.itemFilter */
+	itemFilter?: (item: MenuItem) => boolean;
 	nativeStatusSupported?: boolean;
 	numberOfButtons?: number;
 	showElementBrowserLink?: boolean;
@@ -43,6 +45,7 @@ export const useInsertButtonState = ({
 	editorView,
 	horizontalRuleEnabled,
 	insertMenuItems,
+	itemFilter,
 	nativeStatusSupported,
 	numberOfButtons,
 	tableSelectorSupported,
@@ -114,6 +117,7 @@ export const useInsertButtonState = ({
 				emojiProvider,
 				availableWrapperBlockTypes,
 				insertMenuItems,
+				itemFilter,
 				schema: editorView?.state.schema,
 				numberOfButtons: numberOfButtons || 0,
 				formatMessage,

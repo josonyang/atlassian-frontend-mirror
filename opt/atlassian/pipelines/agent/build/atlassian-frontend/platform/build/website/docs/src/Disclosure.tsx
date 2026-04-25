@@ -68,7 +68,9 @@ const detailsStyles = cssMap({
 	},
 });
 
-export function Disclosure(props: PropsWithChildren<{ heading: string; isOpen?: boolean }>): JSX.Element {
+export function Disclosure(
+	props: PropsWithChildren<{ heading: string; isOpen?: boolean }>,
+): JSX.Element {
 	const { children, heading, isOpen = false } = props;
 	const [_isOpen, setIsOpen] = useState(isOpen);
 

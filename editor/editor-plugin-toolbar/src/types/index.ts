@@ -30,6 +30,26 @@ export type ToolbarPluginOptions = {
 	 */
 	breakpointPreset?: BreakpointPreset;
 	/**
+	 * EDITOR-6558: Optional predicate applied to every component returned
+	 * from `getComponents` (i.e. evaluated at read time, not registration
+	 * time). Components returning `false` are silently dropped. Used by
+	 * Markdown Mode to hide toolbar buttons / menus whose underlying mark
+	 * or node has no clean GFM round-trip (e.g. text colour, highlight,
+	 * alignment, indentation, font size, etc.), and to hide ALL but the
+	 * view-mode toggle when in source/preview view.
+	 *
+	 * The filter receives the registered component's `key` and `type` so
+	 * consumers can distinguish buttons / menus / sections by their stable
+	 * identifier without poking into component internals.
+	 *
+	 * Because the filter runs on every `getComponents` call, it can read
+	 * mutable runtime state (e.g. via a closure over a sweet-state hook
+	 * value) — but the consumer is responsible for ensuring the React tree
+	 * re-renders when that state changes (e.g. via a parent component that
+	 * subscribes to the same state and propagates re-renders).
+	 */
+	componentFilter?: (component: { key: string; type: string }) => boolean;
+	/**
 	 * Controls which toolbars are available for in the editor.
 	 *
 	 * The contextual formatting toolbar provides text formatting options (bold, italic, links, etc.)
@@ -77,6 +97,22 @@ export type ToolbarPluginOptions = {
 	 * @public
 	 */
 	contextualFormattingEnabled?: ContextualFormattingEnabledOptions;
+
+	/**
+	 * EDITOR-6558: Optional override for the `contextualFormattingMode`.
+	 * When the returned value is non-null it takes precedence over the
+	 * `contextualFormattingEnabled` config (and over the user's saved
+	 * docking preference). Used by Markdown Mode to lock the toolbar to
+	 * `always-pinned` while the floating toolbar would be useless (i.e.
+	 * when the source / preview view is active and there's no ProseMirror
+	 * selection to anchor to).
+	 */
+	contextualFormattingModeOverride?: () =>
+		| 'always-inline'
+		| 'always-pinned'
+		| 'controlled'
+		| undefined;
+
 	/**
 	 * @private
 	 * @deprecated

@@ -2,7 +2,17 @@ export const providerUrl = 'http://provider';
 export const docId = '123';
 export const objectId = 'ari:cloud:demo::document/1';
 
-export const validContent = {
+export const validContent: {
+	type: string;
+	version: number;
+	content: {
+		type: string;
+		content: {
+			type: string;
+			text: string;
+		}[];
+	}[];
+} = {
 	type: 'doc',
 	version: 1,
 	content: [
@@ -18,7 +28,17 @@ export const validContent = {
 	],
 };
 
-export const updatedContent = {
+export const updatedContent: {
+	type: string;
+	version: number;
+	content: {
+		type: string;
+		content: {
+			type: string;
+			text: string;
+		}[];
+	}[];
+} = {
 	type: 'doc',
 	version: 1,
 	content: [
@@ -34,14 +54,51 @@ export const updatedContent = {
 	],
 };
 
-export const validGetResponse = {
+export const validGetResponse: {
+	id: string;
+	objectId: string;
+	createdBy: {};
+	body: {
+		type: string;
+		version: number;
+		content: {
+			type: string;
+			content: {
+				type: string;
+				text: string;
+			}[];
+		}[];
+	};
+} = {
 	id: docId,
 	objectId,
 	createdBy: {},
 	body: validContent,
 };
 
-export const validBatchGetResponse = [
+export const validBatchGetResponse: {
+	id: string;
+	language: {
+		default: {
+			versions: {
+				id: string;
+				objectId: string;
+				createdBy: {};
+				body: {
+					type: string;
+					version: number;
+					content: {
+						type: string;
+						content: {
+							type: string;
+							text: string;
+						}[];
+					}[];
+				};
+			}[];
+		};
+	};
+}[] = [
 	{
 		id: docId,
 		language: {
@@ -52,7 +109,22 @@ export const validBatchGetResponse = [
 	},
 ];
 
-export const validPutResponse = {
+export const validPutResponse: {
+	id: string;
+	objectId: string;
+	createdBy: {};
+	body: {
+		type: string;
+		version: number;
+		content: {
+			type: string;
+			content: {
+				type: string;
+				text: string;
+			}[];
+		}[];
+	};
+} = {
 	id: docId,
 	objectId,
 	createdBy: {},

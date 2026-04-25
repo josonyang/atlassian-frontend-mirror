@@ -228,7 +228,7 @@ export const bulkColumnsResize = (
 	resizeState: ResizeState,
 	columnsIndexes: number[],
 	sourceColumnIndex: number,
-) => {
+): ResizeState => {
 	const currentTableWidth = getTotalWidth(resizeState);
 	const colIndex =
 		columnsIndexes.indexOf(sourceColumnIndex) > -1 ? sourceColumnIndex : sourceColumnIndex + 1;

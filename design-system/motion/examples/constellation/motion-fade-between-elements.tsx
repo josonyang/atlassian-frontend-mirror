@@ -66,32 +66,19 @@ const MotionFadeBetweenElements = (): JSX.Element => {
 	);
 };
 
-const EnteringBlock = ({
-	children,
-}: {
-	children: ReactNode;
-}) => (
-	<Motion
-		enteringAnimationXcss={styles.entering}
-		exitingAnimationXcss={styles.exiting}
-	>
-			<Block
-				css={blockStyles}
-			>
-				{children}
-			</Block>
+const EnteringBlock = ({ children }: { children: ReactNode }) => (
+	<Motion enteringAnimationXcss={styles.entering} exitingAnimationXcss={styles.exiting}>
+		<Block css={blockStyles}>{children}</Block>
 	</Motion>
 );
 
 const elements = [
 	<EnteringBlock>
 		<ConfluenceIcon size="xlarge" />
-	</EnteringBlock>
-	,
+	</EnteringBlock>,
 	<EnteringBlock>
 		<JiraServiceManagementIcon size="xlarge" />
-	</EnteringBlock>
-	,
+	</EnteringBlock>,
 ];
 
 const blockStyles = css({

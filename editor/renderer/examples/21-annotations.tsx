@@ -4,13 +4,19 @@
  */
 import { token } from '@atlaskit/tokens';
 import React, { Fragment } from 'react';
-// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
-import { css, jsx } from '@emotion/react';
+/* eslint-disable @typescript-eslint/consistent-type-imports, @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766; jsx required at runtime for @jsxRuntime classic */
+import { jsx, css } from '@emotion/react';
 //import { exampleDocumentWithComments } from './helper/example-doc-with-comments';
 import { RendererWithAnalytics as Renderer, AnnotationsWrapper } from '../src/';
 import { RendererActionsContext } from '../src/actions';
 import { AnnotationMarkStates, AnnotationTypes } from '@atlaskit/adf-schema';
-import { AnnotationUpdateEmitter, AnnotationUpdateEvent } from '@atlaskit/editor-common/types';
+import {
+	AnnotationUpdateEmitter,
+	AnnotationUpdateEvent,
+	type InlineCommentHoverComponentProps,
+	type InlineCommentSelectionComponentProps,
+	type InlineCommentViewComponentProps,
+} from '@atlaskit/editor-common/types';
 import { annotationsStore, AnnotationsStoreProvider } from './helper/annotations/store';
 import { ExampleSelectionInlineComponent } from './helper/annotations/selection';
 import { ExampleHoverInlineComponent } from './helper/annotations/hover';
@@ -543,7 +549,23 @@ const mainStyles = css({
 	flex: '80%',
 });
 
-export const useAnnotationsProvider = (setDocument: (doc: any) => void) => {
+export const useAnnotationsProvider = (
+	setDocument: (doc: any) => void,
+): {
+	allowCommentsOnMedia: boolean;
+	allowDraftMode: boolean;
+	getState: (annotationIds: AnnotationId[]) => Promise<
+		{
+			annotationType: AnnotationTypes;
+			id: string;
+			state: AnnotationMarkStates;
+		}[]
+	>;
+	hoverComponent: (props: InlineCommentHoverComponentProps) => jsx.JSX.Element;
+	selectionComponent: (props: InlineCommentSelectionComponentProps) => jsx.JSX.Element;
+	updateSubscriber: AnnotationUpdateEmitter;
+	viewComponent: (props: React.PropsWithChildren<InlineCommentViewComponentProps>) => null;
+} => {
 	const { state } = React.useContext(annotationsStore);
 	const createNewAnnotationAndReplaceDocument = React.useCallback(
 		(doc: JSONDocNode) => {
@@ -678,7 +700,7 @@ const App = () => {
 	);
 };
 
-export default function ExampleAnnotationExperiment() {
+export default function ExampleAnnotationExperiment(): jsx.JSX.Element {
 	return (
 		<AnnotationsStoreProvider>
 			<App />

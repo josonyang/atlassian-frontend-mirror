@@ -49,14 +49,23 @@ const mockFg = (ptcOn: boolean, editExternalOn = false) => {
 };
 
 // Convenience wrappers
-const open = (permission: 'FULL_WRITE' | 'FULL_READ' | 'NONE' | undefined, isMember: boolean, isOrgAdmin = false) =>
-	getPermissionMap('OPEN', permission, isMember, isOrgAdmin);
+const open = (
+	permission: 'FULL_WRITE' | 'FULL_READ' | 'NONE' | undefined,
+	isMember: boolean,
+	isOrgAdmin = false,
+) => getPermissionMap('OPEN', permission, isMember, isOrgAdmin);
 
-const memberInvite = (permission: 'FULL_WRITE' | 'FULL_READ' | 'NONE' | undefined, isMember: boolean, isOrgAdmin = false) =>
-	getPermissionMap('MEMBER_INVITE', permission, isMember, isOrgAdmin);
+const memberInvite = (
+	permission: 'FULL_WRITE' | 'FULL_READ' | 'NONE' | undefined,
+	isMember: boolean,
+	isOrgAdmin = false,
+) => getPermissionMap('MEMBER_INVITE', permission, isMember, isOrgAdmin);
 
-const orgAdminManaged = (permission: 'FULL_WRITE' | 'FULL_READ' | 'NONE' | undefined, isMember: boolean, isOrgAdmin = false) =>
-	getPermissionMap('ORG_ADMIN_MANAGED', permission, isMember, isOrgAdmin);
+const orgAdminManaged = (
+	permission: 'FULL_WRITE' | 'FULL_READ' | 'NONE' | undefined,
+	isMember: boolean,
+	isOrgAdmin = false,
+) => getPermissionMap('ORG_ADMIN_MANAGED', permission, isMember, isOrgAdmin);
 
 const disbanded = (
 	settings: 'OPEN' | 'MEMBER_INVITE' | 'EXTERNAL' | 'ORG_ADMIN_MANAGED',
@@ -72,13 +81,13 @@ describe('allPermissions – EDIT_TEAM_TYPE', () => {
 	it('gate OFF: requires isOrgAdmin', () => {
 		mockFg(false);
 		expect(allPermissions(true, true, false).EDIT_TEAM_TYPE).toBe(false); // member, not org admin
-		expect(allPermissions(true, false, true).EDIT_TEAM_TYPE).toBe(true);  // org admin
+		expect(allPermissions(true, false, true).EDIT_TEAM_TYPE).toBe(true); // org admin
 		expect(allPermissions(false, false, true).EDIT_TEAM_TYPE).toBe(false); // org admin but no default
 	});
 
 	it('gate ON: any user with defaultPermission can edit team type', () => {
 		mockFg(true);
-		expect(allPermissions(true, true, false).EDIT_TEAM_TYPE).toBe(true);  // regular member
+		expect(allPermissions(true, true, false).EDIT_TEAM_TYPE).toBe(true); // regular member
 		expect(allPermissions(true, false, false).EDIT_TEAM_TYPE).toBe(true); // non-member
 		expect(allPermissions(false, true, false).EDIT_TEAM_TYPE).toBe(false); // no default permission
 	});
@@ -87,15 +96,15 @@ describe('allPermissions – EDIT_TEAM_TYPE', () => {
 describe('allPermissions – ARCHIVE_TEAM', () => {
 	it('gate OFF: requires isMember', () => {
 		mockFg(false);
-		expect(allPermissions(true, true, false).ARCHIVE_TEAM).toBe(true);   // member
+		expect(allPermissions(true, true, false).ARCHIVE_TEAM).toBe(true); // member
 		expect(allPermissions(true, false, false).ARCHIVE_TEAM).toBe(false); // non-member
 		expect(allPermissions(false, true, false).ARCHIVE_TEAM).toBe(false); // no default
 	});
 
 	it('gate ON: any user with defaultPermission can archive', () => {
 		mockFg(true);
-		expect(allPermissions(true, false, false).ARCHIVE_TEAM).toBe(true);  // non-member
-		expect(allPermissions(true, true, false).ARCHIVE_TEAM).toBe(true);   // member
+		expect(allPermissions(true, false, false).ARCHIVE_TEAM).toBe(true); // non-member
+		expect(allPermissions(true, true, false).ARCHIVE_TEAM).toBe(true); // member
 		expect(allPermissions(false, false, false).ARCHIVE_TEAM).toBe(false); // no default
 	});
 });
@@ -203,10 +212,10 @@ describe('getPermissionMap – OPEN', () => {
 		});
 
 		it('ARCHIVE_TEAM: true for member/orgAdmin with FULL_WRITE, false for non-member non-orgAdmin', () => {
-			expect(open('FULL_WRITE', true, false).ARCHIVE_TEAM).toBe(true);   // member
-			expect(open('FULL_WRITE', false, true).ARCHIVE_TEAM).toBe(true);   // org admin
+			expect(open('FULL_WRITE', true, false).ARCHIVE_TEAM).toBe(true); // member
+			expect(open('FULL_WRITE', false, true).ARCHIVE_TEAM).toBe(true); // org admin
 			expect(open('FULL_WRITE', false, false).ARCHIVE_TEAM).toBe(false); // neither
-			expect(open('FULL_READ', true, false).ARCHIVE_TEAM).toBe(false);   // no FULL_WRITE
+			expect(open('FULL_READ', true, false).ARCHIVE_TEAM).toBe(false); // no FULL_WRITE
 		});
 
 		it('UNARCHIVE_TEAM: always false for active teams', () => {
@@ -368,7 +377,7 @@ describe('getPermissionMap – ORG_ADMIN_MANAGED', () => {
 
 		it('EDIT_TEAM_LINK: true for member OR FULL_WRITE, false for non-member without FULL_WRITE', () => {
 			expect(orgAdminManaged('FULL_WRITE', false).EDIT_TEAM_LINK).toBe(true); // FULL_WRITE
-			expect(orgAdminManaged('FULL_READ', true).EDIT_TEAM_LINK).toBe(true);   // isMember
+			expect(orgAdminManaged('FULL_READ', true).EDIT_TEAM_LINK).toBe(true); // isMember
 			expect(orgAdminManaged('FULL_READ', false).EDIT_TEAM_LINK).toBe(false);
 		});
 
@@ -511,7 +520,9 @@ describe('getPermissionMap – EXTERNAL (legacy path, enable_edit OFF)', () => {
 		beforeEach(() => mockFg(false, false));
 
 		it('ADD_MEMBER_TO_TEAM: always false (allPermissions(false,...))', () => {
-			expect(getPermissionMap('EXTERNAL', 'FULL_WRITE', true, false).ADD_MEMBER_TO_TEAM).toBe(false);
+			expect(getPermissionMap('EXTERNAL', 'FULL_WRITE', true, false).ADD_MEMBER_TO_TEAM).toBe(
+				false,
+			);
 		});
 
 		it('EDIT_DESCRIPTION: true for member or org admin (SCIMSyncTeamPermissions)', () => {
@@ -521,12 +532,18 @@ describe('getPermissionMap – EXTERNAL (legacy path, enable_edit OFF)', () => {
 		});
 
 		it('EDIT_TEAM_NAME: false (gate enable_edit is OFF)', () => {
-			expect(getPermissionMap('EXTERNAL', undefined, false, true, 'ATLASSIAN_GROUP').EDIT_TEAM_NAME).toBe(false);
+			expect(
+				getPermissionMap('EXTERNAL', undefined, false, true, 'ATLASSIAN_GROUP').EDIT_TEAM_NAME,
+			).toBe(false);
 		});
 
 		it('CAN_EDIT_HIERARCHY: true for org admin on ATLASSIAN_GROUP, false on HRIS', () => {
-			expect(getPermissionMap('EXTERNAL', undefined, false, true, 'ATLASSIAN_GROUP').CAN_EDIT_HIERARCHY).toBe(true);
-			expect(getPermissionMap('EXTERNAL', undefined, false, true, 'HRIS').CAN_EDIT_HIERARCHY).toBe(false);
+			expect(
+				getPermissionMap('EXTERNAL', undefined, false, true, 'ATLASSIAN_GROUP').CAN_EDIT_HIERARCHY,
+			).toBe(true);
+			expect(getPermissionMap('EXTERNAL', undefined, false, true, 'HRIS').CAN_EDIT_HIERARCHY).toBe(
+				false,
+			);
 		});
 
 		it('ADD_AGENT_TO_TEAM: true for member or org admin', () => {
@@ -536,9 +553,15 @@ describe('getPermissionMap – EXTERNAL (legacy path, enable_edit OFF)', () => {
 		});
 
 		it('REMOVE_AGENT_FROM_TEAM: true for member or org admin', () => {
-			expect(getPermissionMap('EXTERNAL', undefined, true, false).REMOVE_AGENT_FROM_TEAM).toBe(true);
-			expect(getPermissionMap('EXTERNAL', undefined, false, true).REMOVE_AGENT_FROM_TEAM).toBe(true);
-			expect(getPermissionMap('EXTERNAL', undefined, false, false).REMOVE_AGENT_FROM_TEAM).toBe(false);
+			expect(getPermissionMap('EXTERNAL', undefined, true, false).REMOVE_AGENT_FROM_TEAM).toBe(
+				true,
+			);
+			expect(getPermissionMap('EXTERNAL', undefined, false, true).REMOVE_AGENT_FROM_TEAM).toBe(
+				true,
+			);
+			expect(getPermissionMap('EXTERNAL', undefined, false, false).REMOVE_AGENT_FROM_TEAM).toBe(
+				false,
+			);
 		});
 
 		it('ARCHIVE_TEAM: only org admin can archive', () => {

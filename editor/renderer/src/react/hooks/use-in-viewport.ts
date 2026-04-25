@@ -1,6 +1,9 @@
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useRef, useState, type MutableRefObject } from 'react';
 
-export const useInViewport = <RefType extends Element>() => {
+export const useInViewport = <RefType extends Element>(): {
+	isInViewport: boolean;
+	trackingRef: MutableRefObject<RefType | null>;
+} => {
 	const trackingRef = useRef<RefType | null>(null);
 	const [isInViewport, setIsInViewport] = useState<boolean>(false);
 

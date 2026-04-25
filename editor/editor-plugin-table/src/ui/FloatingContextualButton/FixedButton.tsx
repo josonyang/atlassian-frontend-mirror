@@ -35,14 +35,14 @@ export const calcLeftPos = ({
 	cellRectLeft,
 	cellRefWidth,
 	offset,
-}: CalcLeftPosData) => {
+}: CalcLeftPosData): number => {
 	return cellRectLeft + cellRefWidth - buttonWidth - offset;
 };
 
 export const calcObserverTargetMargin = (
 	tableWrapper: HTMLElement,
 	fixedButtonRefCurrent: HTMLElement,
-) => {
+): number => {
 	const tableWrapperRect = tableWrapper.getBoundingClientRect();
 	const fixedButtonRect = fixedButtonRefCurrent.getBoundingClientRect();
 	const scrollLeft = tableWrapper.scrollLeft;
@@ -58,7 +58,7 @@ export const FixedButton = ({
 	tableWrapper,
 	targetCellPosition,
 	targetCellRef,
-}: Props) => {
+}: Props): React.ReactPortal => {
 	const fixedButtonRef = useRef<HTMLDivElement | null>(null);
 	const observerTargetRef = useRef<HTMLDivElement | null>(null);
 

@@ -4,7 +4,7 @@
  */
 import React, { useCallback, useContext, useState, useEffect, useRef } from 'react';
 import type { ChangeEvent } from 'react';
-// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled
+/* eslint-disable @typescript-eslint/consistent-type-imports, @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766; jsx required at runtime for @jsxRuntime classic */
 import { jsx, css } from '@emotion/react';
 import { IntlProvider } from 'react-intl';
 import type { AnnotationMarkStates, DocNode } from '@atlaskit/adf-schema';
@@ -236,7 +236,7 @@ export function RendererWithAnnotationsAndBodiedExtensions({
 		};
 	};
 	initialDoc: DocNode;
-}) {
+}): jsx.JSX.Element {
 	return (
 		<IntlProvider locale="en">
 			<ExampleAnnotationProductState initialAnnotationState={initialData} initialDoc={initialDoc}>

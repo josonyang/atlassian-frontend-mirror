@@ -1,5 +1,5 @@
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
-import { css } from '@emotion/react';
+import { css, type SerializedStyles } from '@emotion/react';
 
 import { tableBackgroundBorderColor } from '@atlaskit/adf-schema';
 import { token } from '@atlaskit/tokens';
@@ -7,7 +7,7 @@ import { token } from '@atlaskit/tokens';
 import { TableCssClassName as ClassName } from '../../types';
 import { contextualMenuDropdownWidth, contextualMenuDropdownWidthDnD } from '../consts';
 
-export const cellColourPreviewStyles = (selectedColor: string) =>
+export const cellColourPreviewStyles = (selectedColor: string): SerializedStyles =>
 	css({
 		'&::before': {
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
@@ -18,7 +18,7 @@ export const cellColourPreviewStyles = (selectedColor: string) =>
 export const tablePopupStyles = (
 	isDragAndDropEnabled: boolean | undefined,
 	// eslint-disable-next-line @atlaskit/design-system/no-css-tagged-template-expression -- needs manual remediation
-) => css`
+): SerializedStyles => css`
 	.${ClassName.CONTEXTUAL_SUBMENU} {
 		border-radius: ${token('radius.small', '3px')};
 		background: ${token('elevation.surface.overlay')};

@@ -33,7 +33,7 @@ export const getColumnStateFromDOM = (
 	};
 };
 
-export const getFreeSpace = (state: ColumnState) => {
+export const getFreeSpace = (state: ColumnState): number => {
 	return Math.max(state.width - state.minWidth, 0);
 };
 

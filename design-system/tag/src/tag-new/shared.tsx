@@ -6,7 +6,15 @@
  * Shared utilities for TagNew and AvatarTag components.
  * Note: CSS styles cannot be shared due to Compiled CSS static analysis requirements.
  */
-import { type ComponentType, Fragment, type MouseEvent as ReactMouseEvent, type ReactNode, useCallback, useMemo, useState } from 'react';
+import {
+	type ComponentType,
+	Fragment,
+	type MouseEvent as ReactMouseEvent,
+	type ReactNode,
+	useCallback,
+	useMemo,
+	useState,
+} from 'react';
 
 import { css, jsx } from '@compiled/react';
 

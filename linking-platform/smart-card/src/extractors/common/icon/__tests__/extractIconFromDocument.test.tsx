@@ -1,4 +1,3 @@
-
 import { isConfluenceGenerator } from '@atlaskit/link-extractors';
 import { ffTest } from '@atlassian/feature-flags-test-utils';
 import { render, screen } from '@atlassian/testing-library';

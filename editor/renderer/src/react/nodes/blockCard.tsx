@@ -2,8 +2,8 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
-// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
-import { css, jsx } from '@emotion/react';
+/* eslint-disable @typescript-eslint/consistent-type-imports, @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766; jsx required at runtime for @jsxRuntime classic */
+import { jsx, css } from '@emotion/react';
 import { Card } from '@atlaskit/smart-card';
 import { UnsupportedBlock, UnsupportedInline, WidthConsumer } from '@atlaskit/editor-common/ui';
 import type { EventHandlers } from '@atlaskit/editor-common/ui';
@@ -74,7 +74,7 @@ export default function BlockCard(props: {
 	rendererAppearance?: RendererAppearance;
 	smartLinks?: SmartLinksOptions;
 	url?: string;
-}) {
+}): jsx.JSX.Element {
 	const { url, data, eventHandlers, smartLinks, isNodeNested, localId, onSetLinkTarget } = props;
 	const portal = usePortal(props);
 	const { actionOptions } = smartLinks || {};

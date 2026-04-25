@@ -10,7 +10,8 @@ type EditorContextInternal = {
 
 export type EditorContextProps = React.PropsWithChildren<EditorContextInternal>;
 
-export const useEditorContext = (): EditorContextProps => React.useContext<EditorContextProps>(EditorContext);
+export const useEditorContext = (): EditorContextProps =>
+	React.useContext<EditorContextProps>(EditorContext);
 
 // Ignored via go/ees005
 // eslint-disable-next-line @repo/internal/react/no-class-components, react/prefer-stateless-function

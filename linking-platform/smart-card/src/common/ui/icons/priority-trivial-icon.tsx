@@ -3,6 +3,9 @@
  * @jsx jsx
  */
 import { cssMap, jsx } from '@atlaskit/css';
+import { componentWithFG } from '@atlaskit/platform-feature-flags-react';
+
+import { createPriorityIcon } from './priority-icon';
 
 export interface PriorityIconProps {
 	[key: string]: any;
@@ -15,7 +18,7 @@ const style = cssMap({
 	svg: { verticalAlign: 'bottom', maxWidth: '100%', maxHeight: '100%' },
 });
 
-const PriorityTrivialIcon: {
+const PriorityTrivialIconLegacy: {
 	({ label, testId, ...props }: PriorityIconProps): JSX.Element;
 	displayName: string;
 } = ({ label, testId, ...props }: PriorityIconProps): JSX.Element => (
@@ -36,6 +39,15 @@ const PriorityTrivialIcon: {
 	</span>
 );
 
-PriorityTrivialIcon.displayName = 'PriorityTrivialIcon';
+PriorityTrivialIconLegacy.displayName = 'PriorityTrivialIcon';
 
-export default PriorityTrivialIcon;
+export default componentWithFG(
+	'platform_sl_icons_refactor',
+	createPriorityIcon('PriorityTrivialIcon', [
+		{
+			d: 'M12 20a8 8 0 100-16 8 8 0 000 16zm0 2C6.477 22 2 17.523 2 12S6.477 2 12 2s10 4.477 10 10-4.477 10-10 10z',
+			fill: '#7A8699',
+		},
+	]),
+	PriorityTrivialIconLegacy,
+);

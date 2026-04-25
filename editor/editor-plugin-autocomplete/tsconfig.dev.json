@@ -28,7 +28,8 @@
 	"exclude": ["./dist/**/*", "./build/**/*", "./node_modules/**/*"],
 	"compilerOptions": {
 		"composite": true,
-		"outDir": "../../../tsDist/@atlaskit__editor-plugin-autocomplete/dev"
+		"outDir": "../../../tsDist/@atlaskit__editor-plugin-autocomplete/dev",
+		"isolatedDeclarations": true
 	},
 	"references": [
 		{

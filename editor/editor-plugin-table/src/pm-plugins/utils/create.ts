@@ -1,5 +1,5 @@
 import type { TableAttributes } from '@atlaskit/adf-schema';
-import type { Schema } from '@atlaskit/editor-prosemirror/model';
+import type { Node, Schema } from '@atlaskit/editor-prosemirror/model';
 import { createTable } from '@atlaskit/editor-tables/utils';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
@@ -39,7 +39,7 @@ export const createTableWithWidth =
 		isTableResizingEnabled?: boolean;
 		isTableScalingEnabled?: boolean;
 	}) =>
-	(schema: Schema) => {
+	(schema: Schema): Node => {
 		const attrsOverrides: CreateTableOverrides = {};
 		if (isNestedTable) {
 			attrsOverrides.rowsCount = createTableProps?.rowsCount

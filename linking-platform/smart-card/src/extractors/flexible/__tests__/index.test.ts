@@ -174,7 +174,7 @@ describe('extractFlexibleUiContext', () => {
 				resourceType: 'scorecard-v2',
 				tenantId: 'compass-tenant',
 			},
-		hostName: 'ben-just-jwm.jira-dev.com',
+			hostName: 'ben-just-jwm.jira-dev.com',
 		});
 	});
 
@@ -904,7 +904,7 @@ describe('extractFlexibleUiContext', () => {
 						resourceType: 'file',
 						tenantId: 'figma-tenant',
 					},
-				hostName: 'figma-url',
+					hostName: 'figma-url',
 				}),
 			);
 		});

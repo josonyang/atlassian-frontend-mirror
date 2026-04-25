@@ -147,28 +147,28 @@ export const createSlowLaneClient = (
 				storedLmLogits = null;
 			}
 
-		if (isAutocompleteDebugEnabled()) {
-			// eslint-disable-next-line no-console
-			console.groupCollapsed(
-				`%c[SlowLane] %c📥 Response received`,
-				'color: #9c27b0; font-weight: bold;',
-				'color: inherit;',
-			);
-			// eslint-disable-next-line no-console
-			console.log(
-				storedContextVector
-					? `✅ semantic_vector: ${storedContextVector.length} dims`
-					: '❌ No semantic_vector',
-			);
-			// eslint-disable-next-line no-console
-			console.log(
-				storedLmLogits
-					? `✅ lm_logits: ${Object.keys(storedLmLogits).length} tokens`
-					: '❌ No lm_logits',
-			);
-			// eslint-disable-next-line no-console
-			console.groupEnd();
-		}
+			if (isAutocompleteDebugEnabled()) {
+				// eslint-disable-next-line no-console
+				console.groupCollapsed(
+					`%c[SlowLane] %c📥 Response received`,
+					'color: #9c27b0; font-weight: bold;',
+					'color: inherit;',
+				);
+				// eslint-disable-next-line no-console
+				console.log(
+					storedContextVector
+						? `✅ semantic_vector: ${storedContextVector.length} dims`
+						: '❌ No semantic_vector',
+				);
+				// eslint-disable-next-line no-console
+				console.log(
+					storedLmLogits
+						? `✅ lm_logits: ${Object.keys(storedLmLogits).length} tokens`
+						: '❌ No lm_logits',
+				);
+				// eslint-disable-next-line no-console
+				console.groupEnd();
+			}
 
 			onUpdate?.({
 				textLength: text.length,
@@ -177,17 +177,17 @@ export const createSlowLaneClient = (
 			});
 			// eslint-disable-next-line no-unused-vars
 		} catch (e) {
-		storedContextVector = null;
-		storedLmLogits = null;
-		if (isAutocompleteDebugEnabled()) {
-			// eslint-disable-next-line no-console
-			console.log(
-				'%c[SlowLane] %c❌ Network error — context cleared',
-				'color: #9c27b0; font-weight: bold;',
-				'color: #f44336;',
-			);
+			storedContextVector = null;
+			storedLmLogits = null;
+			if (isAutocompleteDebugEnabled()) {
+				// eslint-disable-next-line no-console
+				console.log(
+					'%c[SlowLane] %c❌ Network error — context cleared',
+					'color: #9c27b0; font-weight: bold;',
+					'color: #f44336;',
+				);
+			}
 		}
-	}
 	};
 
 	const updateContextDebounced = (text: string): void => {

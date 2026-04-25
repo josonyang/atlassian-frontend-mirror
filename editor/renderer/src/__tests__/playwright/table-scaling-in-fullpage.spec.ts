@@ -66,6 +66,5 @@ test.describe('numbered column table scaling in full page renderer', () => {
 		const table = renderer.page.getByRole('table');
 		const beforeWidth = (await table.boundingBox())?.width;
 		expect(beforeWidth).toBe(760);
-
 	});
 });

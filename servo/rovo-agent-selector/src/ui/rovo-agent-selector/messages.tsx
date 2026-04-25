@@ -1,19 +1,21 @@
 import { defineMessages } from 'react-intl';
 
 const messages: {
-    selectorLabel: {
-        id: string;
-        defaultMessage: string;
-        description: string;
-    }; rovoAgentPlaceholder: {
-        id: string;
-        defaultMessage: string;
-        description: string;
-    }; noOptionsMessage: {
-        id: string;
-        defaultMessage: string;
-        description: string;
-    };
+	selectorLabel: {
+		id: string;
+		defaultMessage: string;
+		description: string;
+	};
+	rovoAgentPlaceholder: {
+		id: string;
+		defaultMessage: string;
+		description: string;
+	};
+	noOptionsMessage: {
+		id: string;
+		defaultMessage: string;
+		description: string;
+	};
 } = defineMessages({
 	selectorLabel: {
 		id: 'rovo-agent-selector.label',

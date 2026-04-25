@@ -12,7 +12,7 @@ export function getRendererRangeInlineNodeNames({
 	 * where `false` means that the selection is not able to be calculated.
 	 */
 	pos?: { from: number; to: number } | false;
-}) {
+}): string[] | undefined {
 	if (!fg('editor_inline_comments_on_inline_nodes')) {
 		return undefined;
 	}
@@ -37,7 +37,7 @@ export function getRendererRangeAncestorNodeNames({
 	 * where `false` means that the selection is not able to be calculated.
 	 */
 	pos?: { from: number; to: number } | false;
-}) {
+}): string[] | undefined {
 	if (!fg('cc_comments_log_draft_annotation_ancestor_nodes')) {
 		return undefined;
 	}

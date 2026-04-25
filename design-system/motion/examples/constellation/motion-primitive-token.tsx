@@ -26,9 +26,7 @@ const MotionPrimitiveTokenExample = (): JSX.Element => {
 	return (
 		<RetryContainer>
 			<div css={styles.container}>
-				<Button onClick={() => setIsIn((prev) => !prev)}>
-					{isIn ? 'Exit' : 'Enter'}
-				</Button>
+				<Button onClick={() => setIsIn((prev) => !prev)}>{isIn ? 'Exit' : 'Enter'}</Button>
 
 				<Centered css={styles.centered}>
 					<ExitingPersistence appear>

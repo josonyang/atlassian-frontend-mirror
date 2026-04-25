@@ -5,37 +5,38 @@ import {
 import { nodeToReact as looselyLazyNodes } from '../../react/nodes/loosely-lazy';
 
 import { generateRendererComponent } from '../__helpers/rendererComponents';
+import type { ComponentType } from 'react';
 
-export const CodeBlockInBlockquote = generateRendererComponent({
+export const CodeBlockInBlockquote: ComponentType<any> = generateRendererComponent({
 	document: codeBlockInBlockquoteADF(),
 	appearance: 'full-width',
 });
 
-export const CodeBlockOverflowInBlockquote = generateRendererComponent({
+export const CodeBlockOverflowInBlockquote: ComponentType<any> = generateRendererComponent({
 	document: codeBlockOverflowInBlockquoteADF(),
 	appearance: 'full-width',
 });
 
-export const CodeBlockInBlockquoteCopy = generateRendererComponent({
+export const CodeBlockInBlockquoteCopy: ComponentType<any> = generateRendererComponent({
 	document: codeBlockInBlockquoteADF(),
 	appearance: 'full-width',
 	allowCopyToClipboard: true,
 });
 
-export const CodeBlockInBlockquoteWrap = generateRendererComponent({
+export const CodeBlockInBlockquoteWrap: ComponentType<any> = generateRendererComponent({
 	document: codeBlockInBlockquoteADF(),
 	appearance: 'full-width',
 	allowWrapCodeBlock: true,
 });
 
-export const CodeBlockInBlockquoteCopyWrap = generateRendererComponent({
+export const CodeBlockInBlockquoteCopyWrap: ComponentType<any> = generateRendererComponent({
 	document: codeBlockInBlockquoteADF(),
 	appearance: 'full-width',
 	allowCopyToClipboard: true,
 	allowWrapCodeBlock: true,
 });
 
-export const CodeBlockWithReactLooselyLazy = generateRendererComponent({
+export const CodeBlockWithReactLooselyLazy: ComponentType<any> = generateRendererComponent({
 	document: codeBlockInBlockquoteADF(),
 	appearance: 'full-width',
 	nodeComponents: looselyLazyNodes,

@@ -143,10 +143,7 @@ export const noCssPropInObjectSpread: Rule.RuleModule = {
 												fixes.push(fixer.removeRange([(cssProp as Node).range![0], end]));
 											} else if (tokenBefore && tokenBefore.value === ',') {
 												fixes.push(
-													fixer.removeRange([
-														tokenBefore.range![0],
-														(cssProp as Node).range![1],
-													]),
+													fixer.removeRange([tokenBefore.range![0], (cssProp as Node).range![1]]),
 												);
 											} else {
 												fixes.push(fixer.remove(cssProp as Node));

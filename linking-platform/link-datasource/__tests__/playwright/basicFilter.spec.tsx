@@ -5,7 +5,6 @@ import { skipAutoA11yFile } from '@atlassian/a11y-playwright-testing';
 // the next line and associated import. For more information, see go/afm-a11y-tooling:playwright
 skipAutoA11yFile();
 
-
 const basicFilterContainerTestId = 'jlol-basic-filter-container';
 
 const loadExample = (page: Page) =>

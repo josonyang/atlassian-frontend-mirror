@@ -58,6 +58,8 @@ export interface CreateItemsConfig {
 	isEditorOffline?: boolean;
 	isNewMenuEnabled?: boolean;
 	isTypeAheadAllowed?: boolean;
+	/** @see InsertBlockPluginOptions.itemFilter */
+	itemFilter?: (item: MenuItem) => boolean;
 	layoutSectionEnabled?: boolean;
 	linkDisabled?: boolean;
 	linkSupported?: boolean;
@@ -128,6 +130,7 @@ const createInsertBlockItems = (
 		schema,
 		formatMessage,
 		isEditorOffline,
+		itemFilter,
 	} = config;
 
 	const items: MenuItem[] = [];
@@ -370,18 +373,27 @@ const createInsertBlockItems = (
 		items.push(...insertMenuItems);
 	}
 
+	// EDITOR-6558: apply consumer-supplied filter (e.g. Markdown Mode allowlist)
+	// before computing toolbar button / dropdown splits so item counts are
+	// correct downstream.
+	const filteredItems = itemFilter ? items.filter(itemFilter) : items;
+
 	let numButtonsAdjusted = numberOfButtons;
 	if (fg('platform_editor_toolbar_responsive_fixes')) {
-		if (items.slice(0, numButtonsAdjusted).some((item) => item.value.name === 'table selector')) {
+		if (
+			filteredItems
+				.slice(0, numButtonsAdjusted)
+				.some((item) => item.value.name === 'table selector')
+		) {
 			numButtonsAdjusted++;
 		}
 	} else {
 		numButtonsAdjusted =
 			tableSupported && tableSelectorSupported ? numberOfButtons + 1 : numberOfButtons;
 	}
-	const buttonItems = items.slice(0, numButtonsAdjusted).map(buttonToItem);
+	const buttonItems = filteredItems.slice(0, numButtonsAdjusted).map(buttonToItem);
 
-	const remainingItems = items
+	const remainingItems = filteredItems
 		.slice(numButtonsAdjusted)
 		.filter(({ value: { name } }) => name !== 'table selector');
 

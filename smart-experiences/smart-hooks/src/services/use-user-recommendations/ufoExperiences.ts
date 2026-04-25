@@ -2,8 +2,11 @@ import { ConcurrentExperience, ExperiencePerformanceTypes, ExperienceTypes } fro
 
 const COMPONENT_NAME = 'smart-hooks.use-user-recommendations';
 
-export const UsersFetchedUfoExperience: ConcurrentExperience = new ConcurrentExperience('users-fetched', {
-	platform: { component: COMPONENT_NAME },
-	type: ExperienceTypes.Load,
-	performanceType: ExperiencePerformanceTypes.InlineResult,
-});
+export const UsersFetchedUfoExperience: ConcurrentExperience = new ConcurrentExperience(
+	'users-fetched',
+	{
+		platform: { component: COMPONENT_NAME },
+		type: ExperienceTypes.Load,
+		performanceType: ExperiencePerformanceTypes.InlineResult,
+	},
+);

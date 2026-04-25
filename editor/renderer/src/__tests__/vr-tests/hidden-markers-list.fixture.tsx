@@ -1,3 +1,4 @@
+import type { ComponentType } from 'react';
 import { generateRendererComponent } from '../__helpers/rendererComponents';
 
 // Wrapper items ADF - list items that contain only nested lists
@@ -917,12 +918,12 @@ const wrapperItems = {
 	],
 };
 
-export const HiddenMarkersListRenderer = generateRendererComponent({
+export const HiddenMarkersListRenderer: ComponentType<any> = generateRendererComponent({
 	document: wrapperItems,
 	appearance: 'full-page',
 });
 
-export const HiddenMarkersListCommentRenderer = generateRendererComponent({
+export const HiddenMarkersListCommentRenderer: ComponentType<any> = generateRendererComponent({
 	document: wrapperItems,
 	appearance: 'comment',
 });

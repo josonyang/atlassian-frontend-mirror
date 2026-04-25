@@ -7,7 +7,7 @@
  */
 import React, { forwardRef, useMemo } from 'react';
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
-import { css, jsx } from '@emotion/react';
+import { css, jsx, type SerializedStyles } from '@emotion/react';
 
 import {
 	akEditorTableCellMinWidth,
@@ -181,7 +181,7 @@ export const LightWeightCodeBlockCssClassName = {
  * @private
  * @deprecated styles are moved to RendererStyleContainer
  */
-export const getLightWeightCodeBlockStylesForRootRendererStyleSheet = () => {
+export const getLightWeightCodeBlockStylesForRootRendererStyleSheet = (): SerializedStyles => {
 	// We overwrite the rule that clears margin-top for first nested codeblocks, as
 	// our lightweight codeblock dom structure will always nest the codeblock inside
 	// an extra container div which would constantly be targeted. Now, top-level
@@ -198,7 +198,10 @@ export const getLightWeightCodeBlockStylesForRootRendererStyleSheet = () => {
 	`;
 };
 
-const LightWeightCodeBlock = forwardRef(
+const LightWeightCodeBlock: React.ForwardRefExoticComponent<
+	Pick<CodeBlockProps, 'text' | 'className' | 'codeBidiWarningTooltipEnabled'> &
+		React.RefAttributes<HTMLDivElement>
+> = forwardRef(
 	(
 		{
 			text,

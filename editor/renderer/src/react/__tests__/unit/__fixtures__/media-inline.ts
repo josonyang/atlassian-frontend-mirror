@@ -1,4 +1,36 @@
-export const mediaInlineWithAnnotation = {
+export const mediaInlineWithAnnotation: {
+	type: string;
+	content: {
+		type: string;
+		content: (
+			| {
+					type: string;
+					attrs: {
+						width: number;
+						alt: string;
+						id: string;
+						collection: string;
+						type: string;
+						height: number;
+					};
+					marks: {
+						type: string;
+						attrs: {
+							annotationType: string;
+							id: string;
+						};
+					}[];
+					text?: undefined;
+			  }
+			| {
+					text: string;
+					type: string;
+					attrs?: undefined;
+					marks?: undefined;
+			  }
+		)[];
+	}[];
+} = {
 	type: 'doc',
 	content: [
 		{

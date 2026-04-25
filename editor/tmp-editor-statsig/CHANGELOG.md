@@ -1,5 +1,21 @@
 # @atlaskit/editor-statsig-tmp
 
+## 70.0.0
+
+### Major Changes
+
+- [`0224e77302a3e`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/0224e77302a3e) -
+  Replace cc-maui-experiment-phase-2 experiment checks with cc-maui-phase-2 feature gate checks for
+  gating the Ask Rovo toolbar button, and remove the now-unused cc-maui-experiment-phase-2
+  experiment definition.
+
+## 69.0.0
+
+### Major Changes
+
+- [`d1bd1354e626f`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/d1bd1354e626f) -
+  Remove A/A for Create with Rovo via Slash Command experiment
+
 ## 68.1.0
 
 ### Minor Changes

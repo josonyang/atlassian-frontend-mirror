@@ -336,7 +336,8 @@ export const toolbarInsertBlockMessages: {
 	aiImageGenerationPopupAriaLabel: {
 		id: 'fabric.editor.aiImageGeneration.popupAriaLabel',
 		defaultMessage: 'Generate image with AI',
-		description: 'Accessible label announced by screen readers when the AI image generation popup opens.',
+		description:
+			'Accessible label announced by screen readers when the AI image generation popup opens.',
 	},
 	mention: {
 		id: 'fabric.editor.mention',

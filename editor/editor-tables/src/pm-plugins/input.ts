@@ -152,10 +152,7 @@ export function handleTripleClick(view: EditorView, pos: number): boolean {
 	return true;
 }
 
-export function handleMouseDown(
-	view: EditorView,
-	event: Event,
-): boolean {
+export function handleMouseDown(view: EditorView, event: Event): boolean {
 	const startEvent = event as MouseEvent;
 	// Prevent right clicks from making a cell selection https://product-fabric.atlassian.net/browse/ED-12527
 	if (

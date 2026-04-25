@@ -1,6 +1,5 @@
 import React, { useCallback, useEffect } from 'react';
 
-
 import { CardClient, SmartCardContext, useSmartLinkContext } from '@atlaskit/link-provider';
 import { ACTION_RESOLVED, cardAction } from '@atlaskit/linking-common';
 import { fireEvent, render, renderHook, screen } from '@atlassian/testing-library';

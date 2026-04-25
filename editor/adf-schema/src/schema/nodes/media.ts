@@ -8,10 +8,7 @@ import { N30 } from '../../utils/colors';
 import type { BorderMarkDefinition } from '../marks/border';
 import type { LinkDefinition } from '../marks/link';
 import type { AnnotationMarkDefinition } from '../marks/annotation';
-import type {
-	MediaInlineNode,
-	MediaNode,
-} from '../../next-schema/generated/nodeTypes';
+import type { MediaInlineNode, MediaNode } from '../../next-schema/generated/nodeTypes';
 import {
 	media as mediaFactory,
 	mediaInline as mediaInlineFactory,
@@ -35,9 +32,7 @@ export interface MediaDefinition {
 	 * Minimum item: 1
 	 */
 	attrs: MediaADFAttrs;
-	marks?: Array<
-		LinkDefinition | BorderMarkDefinition | AnnotationMarkDefinition
-	>;
+	marks?: Array<LinkDefinition | BorderMarkDefinition | AnnotationMarkDefinition>;
 
 	type: 'media';
 }
@@ -256,22 +251,8 @@ export const mediaWithLocalId: NodeSpec = createMediaSpec(
  * There's no concept of optional property in ProseMirror. It sets value as `null`
  * when there's no use of any property. We are filtering out all private & optional attrs here.
  */
-const optionalAttributes = [
-	'occurrenceKey',
-	'width',
-	'height',
-	'url',
-	'alt',
-	'localId',
-];
-const externalOnlyAttributes = [
-	'type',
-	'url',
-	'width',
-	'height',
-	'alt',
-	'localId',
-];
+const optionalAttributes = ['occurrenceKey', 'width', 'height', 'url', 'alt', 'localId'];
+const externalOnlyAttributes = ['type', 'url', 'width', 'height', 'alt', 'localId'];
 
 export const toJSON = (
 	node: PMNode,
@@ -284,10 +265,7 @@ export const toJSON = (
 		.filter((key) => !(key[0] === '_' && key[1] === '_'))
 		// eslint-disable-next-line @typescript-eslint/no-explicit-any
 		.reduce<Record<string, any>>((obj, key) => {
-			if (
-				node.attrs.type === 'external' &&
-				externalOnlyAttributes.indexOf(key) === -1
-			) {
+			if (node.attrs.type === 'external' && externalOnlyAttributes.indexOf(key) === -1) {
 				return obj;
 			}
 			if (

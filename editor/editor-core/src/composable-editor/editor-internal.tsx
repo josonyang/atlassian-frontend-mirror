@@ -123,9 +123,7 @@ export const EditorInternal: MemoExoticComponent<(props: InternalProps) => JSX.E
 					contextIdentifierProvider={props.contextIdentifierProvider}
 					featureFlags={featureFlags}
 				>
-					<div
-						css={editorContainerStyles}
-					>
+					<div css={editorContainerStyles}>
 						<EditorContext editorActions={editorActions}>
 							<IntlProviderIfMissingWrapper>
 								<Fragment>

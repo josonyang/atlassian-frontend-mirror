@@ -56,11 +56,12 @@ const MotionFadeOutListOfElementsExample = (): JSX.Element => {
 									<Block css={blockStyles}>
 										<div css={logoContainerStyles}>
 											{logo[0]}
-											<Heading as="h3" size="small">{logo[1]}</Heading>
+											<Heading as="h3" size="small">
+												{logo[1]}
+											</Heading>
 										</div>
 									</Block>
 								</li>
-
 							</Motion>
 						))}
 					</ExitingPersistence>
@@ -137,6 +138,5 @@ const logoContainerStyles = css({
 	alignItems: 'center',
 	paddingInlineStart: token('space.100'),
 });
-
 
 export default MotionFadeOutListOfElementsExample;

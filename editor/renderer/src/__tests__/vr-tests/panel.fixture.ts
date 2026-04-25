@@ -2,27 +2,28 @@ import { panelNodeAdf, panelNodeNestedInTableAdf } from '../__fixtures__/full-wi
 import { nodeToReact as looselyLazyNodes } from '../../react/nodes/loosely-lazy';
 
 import { generateRendererComponent } from '../__helpers/rendererComponents';
+import type { ComponentType } from 'react';
 
-export const PanelRenderer = generateRendererComponent({
+export const PanelRenderer: ComponentType<any> = generateRendererComponent({
 	document: panelNodeAdf,
 	appearance: 'full-width',
 	allowCustomPanels: true,
 });
 
-export const PanelRendererWithReactLooselyLazy = generateRendererComponent({
+export const PanelRendererWithReactLooselyLazy: ComponentType<any> = generateRendererComponent({
 	document: panelNodeAdf,
 	appearance: 'full-width',
 	nodeComponents: looselyLazyNodes,
 	allowCustomPanels: true,
 });
 
-export const PanelRendererNestedInTable = generateRendererComponent({
+export const PanelRendererNestedInTable: ComponentType<any> = generateRendererComponent({
 	document: panelNodeNestedInTableAdf,
 	appearance: 'full-width',
 	allowCustomPanels: true,
 });
 
-export const PanelFullPageRenderer = generateRendererComponent({
+export const PanelFullPageRenderer: ComponentType<any> = generateRendererComponent({
 	document: panelNodeAdf,
 	appearance: 'full-page',
 	allowCustomPanels: true,

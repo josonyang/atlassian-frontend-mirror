@@ -24,7 +24,7 @@ type Col = Array<string | { [name: string]: string }>;
  * padding on the .pm-table-wrapper, so all elements need to be the same width to avoid
  * overflow.
  */
-export const getColWidthFix = (colwidth: number, tableColumnCount: number) =>
+export const getColWidthFix = (colwidth: number, tableColumnCount: number): number =>
 	colwidth - 1 / tableColumnCount;
 
 const generateColStyle = (
@@ -76,7 +76,7 @@ export const generateColgroupFromNode = (
 	isNested?: boolean,
 	isTableScalingEnabled?: boolean,
 	shouldUseIncreasedScalingPercent?: boolean,
-) => {
+): Col[] => {
 	const cols: Col[] = [];
 	const map = TableMap.get(table);
 	const isTableHasWidth = !!table.attrs.width;
@@ -166,7 +166,7 @@ export const generateColgroup = (
 	tableRef?: HTMLElement,
 	shouldUseIncreasedScalingPercent?: boolean,
 	isCommentEditor?: boolean,
-) => {
+): Col[] => {
 	const cols: Col[] = [];
 	const map = TableMap.get(table);
 
@@ -262,7 +262,7 @@ export const hasTableBeenResized = (table: PmNode): boolean => {
 	);
 };
 
-export const hasTableColumnBeenResized = hasTableBeenResized;
+export const hasTableColumnBeenResized: (table: PmNode) => boolean = hasTableBeenResized;
 
 /**
  * Check if a table has all the column width set to tableCellMinWidth(48px) or null
@@ -306,7 +306,7 @@ export const getColgroupChildrenLength = (table: PmNode): number => {
 	return map.width;
 };
 
-export const getResizerMinWidth = (node: PmNode) => {
+export const getResizerMinWidth = (node: PmNode): number => {
 	const currentColumnCount = getColgroupChildrenLength(node);
 	const minColumnWidth = Math.min(3, currentColumnCount) * COLUMN_MIN_WIDTH;
 	// add an extra pixel as the scale table logic will scale columns to be tableContainerWidth - 1

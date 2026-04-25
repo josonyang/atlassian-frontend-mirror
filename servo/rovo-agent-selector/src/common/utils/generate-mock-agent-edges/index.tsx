@@ -1,12 +1,14 @@
-export const generateMockAgentEdges = (count: number): {
-    node: {
-        id: string;
-        name: string;
-        externalConfigReference: string;
-        identityAccountId: string;
-        creatorType: "CUSTOMER";
-    };
-    cursor: string;
+export const generateMockAgentEdges = (
+	count: number,
+): {
+	node: {
+		id: string;
+		name: string;
+		externalConfigReference: string;
+		identityAccountId: string;
+		creatorType: 'CUSTOMER';
+	};
+	cursor: string;
 }[] => {
 	const agents = Array.from({ length: count }, (_, i) => ({
 		id: `agent-${i}`,

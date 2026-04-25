@@ -5,5 +5,9 @@ const centerAlignStyle = { display: 'flex', justifyContent: 'center' };
 
 const leftAlignStyle = { display: 'flex', justifyContent: 'flex-start' };
 
-export const getAlignmentStyle = (alignment: AlignmentOptions) =>
-	alignment === ALIGN_START ? leftAlignStyle : centerAlignStyle;
+export const getAlignmentStyle = (
+	alignment: AlignmentOptions,
+): {
+	display: string;
+	justifyContent: string;
+} => (alignment === ALIGN_START ? leftAlignStyle : centerAlignStyle);

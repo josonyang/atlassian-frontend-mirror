@@ -13,7 +13,15 @@ import { isAuto } from './is-auto';
 import { isZero } from './is-zero';
 import { splitShorthandValues } from './split-shorthand-values';
 import type { RuleConfig } from './types';
-import { emToPixels, findTokenNameByPropertyValue, getTokenNodeForValue, getTokenReplacement, getValue, isCalc, isValidSpacingValue } from './utils';
+import {
+	emToPixels,
+	findTokenNameByPropertyValue,
+	getTokenNodeForValue,
+	getTokenReplacement,
+	getValue,
+	isCalc,
+	isValidSpacingValue,
+} from './utils';
 
 export const lintObjectForSpacing = (
 	node: Property,

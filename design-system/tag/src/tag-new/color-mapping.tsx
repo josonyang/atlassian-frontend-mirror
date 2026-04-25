@@ -3,7 +3,6 @@
  * @jsx jsx
  */
 
-
 import { type NewTagColor } from './types';
 
 // Color mapping from old color names to new color names

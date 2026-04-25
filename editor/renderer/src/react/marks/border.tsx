@@ -2,12 +2,12 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
-// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
+/* eslint-disable @typescript-eslint/consistent-type-imports, @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766; jsx required at runtime for @jsxRuntime classic */
 import { jsx } from '@emotion/react';
 import type { BorderMarkAttributes } from '@atlaskit/adf-schema';
 import type { MarkProps } from '../types';
 
-export default function Border(props: MarkProps<BorderMarkAttributes>) {
+export default function Border(props: MarkProps<BorderMarkAttributes>): jsx.JSX.Element {
 	const borderColor = props.color ?? '';
 	const borderSize = props.size ?? 0;
 

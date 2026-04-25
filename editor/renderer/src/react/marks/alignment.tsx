@@ -3,7 +3,7 @@
  * @jsx jsx
  */
 import React from 'react';
-// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
+/* eslint-disable @typescript-eslint/consistent-type-imports, @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766; jsx required at runtime for @jsxRuntime classic */
 import { jsx } from '@emotion/react';
 import type { AlignmentAttributes } from '@atlaskit/adf-schema';
 import { alignmentPositionMap } from '@atlaskit/adf-schema';
@@ -33,7 +33,7 @@ const MarkWrapper = (
 	);
 };
 
-export default function Alignment(props: MarkProps<AlignmentAttributes>) {
+export default function Alignment(props: MarkProps<AlignmentAttributes>): jsx.JSX.Element {
 	return (
 		<MarkWrapper
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766

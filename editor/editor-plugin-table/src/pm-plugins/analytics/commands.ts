@@ -4,12 +4,15 @@ import { AnalyticPluginTypes } from './actions';
 import { createCommand, getPluginState } from './plugin-factory';
 import { pluginKey } from './plugin-key';
 import type { ActionType, RowOrColumnMovedState } from './types';
+// eslint-disable-next-line import/order
 import { getMovedPayload } from './utils/moved-event';
+// eslint-disable-next-line import/order
+import type { Command } from '@atlaskit/editor-common/types';
 
 export const updateRowOrColumnMoved = (
 	nextState: Omit<RowOrColumnMovedState, 'currentActions'>,
 	nextAction: ActionType,
-) =>
+): Command =>
 	createCommand(
 		(state) => {
 			const { rowOrColumnMoved } = getPluginState(state);
@@ -24,17 +27,19 @@ export const updateRowOrColumnMoved = (
 	);
 
 // --- transforms, prefer these over commands to avoid an extra 'dispatch'
-export const resetRowOrColumnMovedTransform = () => (tr: Transaction) => {
-	const payload = {
-		type: AnalyticPluginTypes.RemoveRowOrColumnMovedAction,
-	};
+export const resetRowOrColumnMovedTransform =
+	() =>
+	(tr: Transaction): Transaction => {
+		const payload = {
+			type: AnalyticPluginTypes.RemoveRowOrColumnMovedAction,
+		};
 
-	return tr.setMeta(pluginKey, payload);
-};
+		return tr.setMeta(pluginKey, payload);
+	};
 
 export const updateRowOrColumnMovedTransform =
 	(nextState: Omit<RowOrColumnMovedState, 'currentActions'>, nextAction: ActionType) =>
-	(state: EditorState, tr: Transaction) => {
+	(state: EditorState, tr: Transaction): Transaction => {
 		const { rowOrColumnMoved } = getPluginState(state);
 		const data = getMovedPayload(nextState, nextAction, rowOrColumnMoved);
 

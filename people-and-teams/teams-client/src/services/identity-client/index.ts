@@ -21,11 +21,11 @@ export class IdentityClient extends RestClient {
 	}
 
 	async getUserManageConfig(userId: string): Promise<{
-        mutabilityConstraints: {
-            field: FieldType;
-            reason: string | null;
-        }[];
-    }> {
+		mutabilityConstraints: {
+			field: FieldType;
+			reason: string | null;
+		}[];
+	}> {
 		return this.getResourceCached<MutabilityContraints>(`/${userId}/manage`).then((resp) => {
 			return transformUserManageConfig(resp);
 		});
@@ -36,9 +36,9 @@ export class IdentityClient extends RestClient {
 	 * User fetchUserAvatarInfo instead
 	 */
 	async getMyAvatarUploadedStatus(userId: string): Promise<{
-        uploaded: boolean;
-        url: string;
-    }> {
+		uploaded: boolean;
+		url: string;
+	}> {
 		return this.fetchUserAvatarInfo(userId);
 	}
 
@@ -47,13 +47,16 @@ export class IdentityClient extends RestClient {
 	}
 
 	async fetchUserAvatarInfo(userId: string): Promise<{
-        uploaded: boolean;
-        url: string;
-    }> {
+		uploaded: boolean;
+		url: string;
+	}> {
 		return this.getResource<{ uploaded: boolean; url: string }>(`/${userId}/manage/avatar`);
 	}
 
-	async updateUser({ id, ...user }: Partial<EditableUserFields> & { id: string }): Promise<unknown> {
+	async updateUser({
+		id,
+		...user
+	}: Partial<EditableUserFields> & { id: string }): Promise<unknown> {
 		return this.patchResource(`/${id}/manage/profile`, toManageAPIInput(user));
 	}
 

@@ -32,7 +32,7 @@ export const clearDropTargetWithAnalytics =
 		sourceIndexes: number[] | undefined,
 		status: TABLE_STATUS.CANCELLED | TABLE_STATUS.INVALID,
 		tr?: Transaction,
-	) => {
+	): Command => {
 		return withEditorAnalyticsAPI(({ selection }: EditorState) => {
 			const { totalRowCount, totalColumnCount } = getSelectedTableInfo(selection);
 			return {
@@ -72,7 +72,7 @@ export const moveSourceWithAnalytics =
 		sourceIndexes: number[],
 		targetIndex: number,
 		tr?: Transaction,
-	) => {
+	): Command => {
 		return withEditorAnalyticsAPI(({ selection }: EditorState) => {
 			const direction = sourceIndexes[0] > targetIndex ? -1 : 1;
 			const { totalRowCount, totalColumnCount } = getSelectedTableInfo(selection);
@@ -192,7 +192,7 @@ export const cloneSourceWithAnalytics =
 		targetIndex: number,
 		targetDirection: 'start' | 'end',
 		tr?: Transaction,
-	) => {
+	): Command => {
 		return withEditorAnalyticsAPI(({ selection }: EditorState) => {
 			const direction = sourceIndexes[0] > targetIndex ? -1 : 1;
 			const { totalRowCount, totalColumnCount } = getSelectedTableInfo(selection);
@@ -230,7 +230,7 @@ export const toggleDragMenuWithAnalytics =
 		direction?: TableDirection,
 		index?: number,
 		trigger: TriggerType = 'mouse',
-	) => {
+	): Command => {
 		return withEditorAnalyticsAPI((state) => {
 			const {
 				isDragMenuOpen: previousOpenState,

@@ -1,3 +1,4 @@
+import type { ComponentType } from 'react';
 import { generateRendererComponent } from '../__helpers/rendererComponents';
 
 const hiddenMarkersMixedListAdf = {
@@ -195,12 +196,12 @@ const hiddenMarkersMixedListAdf = {
 	],
 };
 
-export const HiddenMarkersMixedListRenderer = generateRendererComponent({
+export const HiddenMarkersMixedListRenderer: ComponentType<any> = generateRendererComponent({
 	document: hiddenMarkersMixedListAdf,
 	appearance: 'full-page',
 });
 
-export const HiddenMarkersMixedListCommentRenderer = generateRendererComponent({
+export const HiddenMarkersMixedListCommentRenderer: ComponentType<any> = generateRendererComponent({
 	document: hiddenMarkersMixedListAdf,
 	appearance: 'comment',
 });

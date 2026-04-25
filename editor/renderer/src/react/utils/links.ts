@@ -13,7 +13,9 @@ export function isNestedHeaderLinksEnabled(
 	return !!allowNestedHeaderLinks;
 }
 
-export function getActiveHeadingId(allowHeadingAnchorLinks?: HeadingAnchorLinksProps) {
+export function getActiveHeadingId(
+	allowHeadingAnchorLinks?: HeadingAnchorLinksProps,
+): string | undefined {
 	if (!isNestedHeaderLinksEnabled(allowHeadingAnchorLinks)) {
 		return undefined;
 	}

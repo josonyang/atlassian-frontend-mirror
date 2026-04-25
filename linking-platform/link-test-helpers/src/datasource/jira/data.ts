@@ -1231,4 +1231,3 @@ export const defaultInitialVisibleColumnKeys: string[] = [
 	'priority',
 	'daterange',
 ];
-

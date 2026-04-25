@@ -3,7 +3,6 @@ import React from 'react';
 import { Box } from '@atlaskit/primitives/compiled';
 import { render, screen, waitFor, userEvent } from '@atlassian/testing-library';
 
-
 import { expectElementWithText } from '../../../../../__tests__/__utils__/unit-helpers';
 import { ExpandedFrame } from '../../../components/ExpandedFrame';
 

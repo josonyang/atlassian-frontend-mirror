@@ -219,7 +219,28 @@ const getPadding = (containerWidth: number) => {
 		: akEditorGutterPaddingDynamic();
 };
 
-export const ResizableTableContainer = React.memo(
+export const ResizableTableContainer: React.MemoExoticComponent<
+	({
+		children,
+		className,
+		node,
+		containerWidth,
+		lineLength,
+		editorView,
+		getPos,
+		tableRef,
+		isResizing,
+		pluginInjectionApi,
+		tableWrapperHeight,
+		isWholeTableInDanger,
+		isTableScalingEnabled,
+		allowFixedColumnWidthOption,
+		isTableAlignmentEnabled,
+		shouldUseIncreasedScalingPercent,
+		isCommentEditor,
+		isChromelessEditor,
+	}: PropsWithChildren<ResizableTableContainerProps>) => React.JSX.Element
+> = React.memo(
 	({
 		children,
 		className,

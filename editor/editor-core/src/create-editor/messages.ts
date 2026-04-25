@@ -1,14 +1,15 @@
 import { defineMessages } from 'react-intl';
 export const editorMessages: {
-    editorAssistiveLabel: {
-        id: string;
-        defaultMessage: string;
-        description: string;
-    }; fullPageEditorAssistiveLabel: {
-        id: string;
-        defaultMessage: string;
-        description: string;
-    };
+	editorAssistiveLabel: {
+		id: string;
+		defaultMessage: string;
+		description: string;
+	};
+	fullPageEditorAssistiveLabel: {
+		id: string;
+		defaultMessage: string;
+		description: string;
+	};
 } = defineMessages({
 	editorAssistiveLabel: {
 		id: 'fabric.editor.editorAssistiveLabel',

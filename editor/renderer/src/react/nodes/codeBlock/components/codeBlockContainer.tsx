@@ -2,7 +2,7 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
-// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
+/* eslint-disable @typescript-eslint/consistent-type-imports, @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766; jsx required at runtime for @jsxRuntime classic */
 import { jsx, css } from '@emotion/react';
 import type { ReactNode } from 'react';
 import type { CodeBlockButtonContainerProps } from './codeBlockButtonContainer';
@@ -99,7 +99,7 @@ const CodeBlockContainer = ({
 	setWrapLongLines,
 	text,
 	wrapLongLines,
-}: ContainerProps) => {
+}: ContainerProps): jsx.JSX.Element => {
 	return (
 		<div
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766

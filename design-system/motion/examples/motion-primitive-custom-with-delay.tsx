@@ -61,10 +61,7 @@ export default (): React.JSX.Element => {
 			<Box xcss={styles.box}>
 				<ExitingPersistence appear>
 					{isIn && (
-						<Motion
-							enteringAnimationXcss={styles.entering}
-							exitingAnimationXcss={styles.exiting}
-						>
+						<Motion enteringAnimationXcss={styles.entering} exitingAnimationXcss={styles.exiting}>
 							<Block appearance="small" />
 						</Motion>
 					)}

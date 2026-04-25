@@ -15,6 +15,7 @@ import { injectIntl } from 'react-intl';
 import { decisionListSelector, taskListSelector } from '@atlaskit/adf-schema';
 import type { DispatchAnalyticsEvent } from '@atlaskit/editor-common/analytics';
 import type { EventDispatcher } from '@atlaskit/editor-common/event-dispatcher';
+import { useSharedPluginStateWithSelector } from '@atlaskit/editor-common/hooks';
 import { fullPageMessages as messages } from '@atlaskit/editor-common/messages';
 import type { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
 import type {
@@ -41,6 +42,7 @@ import { fg } from '@atlaskit/platform-feature-flags';
 import { expValEqualsNoExposure } from '@atlaskit/tmp-editor-statsig/exp-val-equals-no-exposure';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 import { token } from '@atlaskit/tokens';
+import type { MarkdownModePlugin } from '@atlassian/editor-plugin-markdown-mode';
 
 import type EditorActions from '../../../actions';
 import type { ContentComponents, ReactComponents } from '../../../types';
@@ -83,6 +85,13 @@ const editorContentAreaProsemirrorStyle = css({
 		'> p:last-child': {
 			marginBottom: token('space.300'),
 		},
+	},
+});
+
+const hideEditorContentAreaProsemirrorStyle = css({
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
+	'& .ProseMirror': {
+		display: 'none',
 	},
 });
 
@@ -247,7 +256,12 @@ const contentAreaHeightNoToolbar = css({
 });
 
 type EditorAPI = PublicPluginAPI<
-	[OptionalPlugin<ContextPanelPlugin>, BasePlugin, OptionalPlugin<BlockMenuPlugin>]
+	[
+		OptionalPlugin<ContextPanelPlugin>,
+		BasePlugin,
+		OptionalPlugin<BlockMenuPlugin>,
+		OptionalPlugin<MarkdownModePlugin>,
+	]
 >;
 
 interface FullPageEditorContentAreaProps {
@@ -319,6 +333,18 @@ const Content = React.forwardRef<
 		[],
 	);
 
+	const markdownPluginCurrentView = useSharedPluginStateWithSelector(
+		props.editorAPI,
+		['markdownMode'],
+		(states) => states.markdownModeState?.view,
+	);
+
+	const markdownPluginCurrentIsMarkdownMode = useSharedPluginStateWithSelector(
+		props.editorAPI,
+		['markdownMode'],
+		(states) => states.markdownModeState?.isMarkdownMode,
+	);
+
 	return (
 		<div
 			css={[contentAreaNew, props.isEditorToolbarHidden && contentAreaHeightNoToolbar]}
@@ -349,6 +375,12 @@ const Content = React.forwardRef<
 							css={[
 								editorContentAreaNew,
 								editorContentAreaProsemirrorStyle,
+								// EDITOR-6558: hide ProseMirror when the markdown-mode plugin
+								// reports a non-WYSIWYG view.
+								expValEqualsNoExposure('cc-markdown-mode', 'isEnabled', true) &&
+									markdownPluginCurrentView !== 'wysiwyg' &&
+									markdownPluginCurrentIsMarkdownMode &&
+									hideEditorContentAreaProsemirrorStyle,
 								tableFullPageEditorStylesNew,
 								fullWidthNonChromelessBreakoutBlockTableStyle,
 								// for breakout resizing, there's no need to restrict the width of codeblocks as they're always wrapped in a breakout mark
@@ -452,7 +484,23 @@ const Content = React.forwardRef<
 	);
 });
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-export const FullPageContentArea: React.ForwardRefExoticComponent<Omit<WithIntlProps<React.PropsWithChildren<FullPageEditorContentAreaProps & WrappedComponentProps & React.RefAttributes<ScrollContainerRefs>>>, "ref"> & React.RefAttributes<any>> & {
-    WrappedComponent: React.ComponentType<FullPageEditorContentAreaProps & WrappedComponentProps & React.RefAttributes<ScrollContainerRefs>>;
+export const FullPageContentArea: React.ForwardRefExoticComponent<
+	Omit<
+		WithIntlProps<
+			React.PropsWithChildren<
+				FullPageEditorContentAreaProps &
+					WrappedComponentProps &
+					React.RefAttributes<ScrollContainerRefs>
+			>
+		>,
+		'ref'
+	> &
+		// eslint-disable-next-line @typescript-eslint/no-explicit-any
+		React.RefAttributes<any>
+> & {
+	WrappedComponent: React.ComponentType<
+		FullPageEditorContentAreaProps &
+			WrappedComponentProps &
+			React.RefAttributes<ScrollContainerRefs>
+	>;
 } = injectIntl(Content, { forwardRef: true });

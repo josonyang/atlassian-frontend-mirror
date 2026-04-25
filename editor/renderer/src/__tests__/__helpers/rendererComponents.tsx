@@ -106,7 +106,7 @@ export const generateRendererComponent = (
 	};
 };
 
-export const TableRendererOverflow = generateRendererComponent({
+export const TableRendererOverflow: React.ComponentType<any> = generateRendererComponent({
 	document: overflowTable,
 	appearance: 'full-page',
 	UNSTABLE_allowTableAlignment: true,
@@ -139,57 +139,60 @@ export const TableRendererWithInlineComments = (): React.JSX.Element => (
 	</>
 );
 
-export const PixelWidthGreaterThenDefault = generateRendererComponent({
+export const PixelWidthGreaterThenDefault: React.ComponentType<any> = generateRendererComponent({
 	document: pixelWidthGreaterThenDefault,
 	appearance: 'full-page',
 });
 
-export const PixelWidthGreaterThenDefaultFullWidth = generateRendererComponent({
-	document: pixelWidthGreaterThenDefault,
-	appearance: 'full-width',
-});
+export const PixelWidthGreaterThenDefaultFullWidth: React.ComponentType<any> =
+	generateRendererComponent({
+		document: pixelWidthGreaterThenDefault,
+		appearance: 'full-width',
+	});
 
-export const MediaWithPixelWidthNested = generateRendererComponent({
+export const MediaWithPixelWidthNested: React.ComponentType<any> = generateRendererComponent({
 	document: pixelWidthMediaNested,
 	appearance: 'full-page',
 });
 
-export const MediaWithPixelWidthFullWidthNested = generateRendererComponent({
-	document: pixelWidthMediaNested,
-	appearance: 'full-width',
-});
+export const MediaWithPixelWidthFullWidthNested: React.ComponentType<any> =
+	generateRendererComponent({
+		document: pixelWidthMediaNested,
+		appearance: 'full-width',
+	});
 
-export const MediaImageInlineDefault = generateRendererComponent({
+export const MediaImageInlineDefault: React.ComponentType<any> = generateRendererComponent({
 	document: inlineImageDefault,
 	appearance: 'full-page',
 });
 
-export const MediaImageInlineError = generateRendererComponent({
+export const MediaImageInlineError: React.ComponentType<any> = generateRendererComponent({
 	document: inlineImageError,
 	appearance: 'full-page',
 });
 
-export const MediaImageInlineWithBorders = generateRendererComponent({
+export const MediaImageInlineWithBorders: React.ComponentType<any> = generateRendererComponent({
 	document: inlineImageWithBorders,
 	appearance: 'full-page',
 });
 
-export const MediaImageInlineWithLinks = generateRendererComponent({
+export const MediaImageInlineWithLinks: React.ComponentType<any> = generateRendererComponent({
 	document: inlineImageWithLinks,
 	appearance: 'full-page',
 });
 
-export const MediaImageInlineWithWideLayout = generateRendererComponent({
+export const MediaImageInlineWithWideLayout: React.ComponentType<any> = generateRendererComponent({
 	document: inlineImageWideLayout,
 	appearance: 'full-page',
 });
 
-export const MediaImageInlineWithLinksAndBorders = generateRendererComponent({
-	document: inlineImageWithLinksAndBorders,
-	appearance: 'full-page',
-});
+export const MediaImageInlineWithLinksAndBorders: React.ComponentType<any> =
+	generateRendererComponent({
+		document: inlineImageWithLinksAndBorders,
+		appearance: 'full-page',
+	});
 
-export const DatasourceWithRichTextFullPage = generateRendererComponent(
+export const DatasourceWithRichTextFullPage: React.ComponentType<any> = generateRendererComponent(
 	{
 		document: datasourceWithRichtext,
 		appearance: 'full-page',
@@ -199,7 +202,7 @@ export const DatasourceWithRichTextFullPage = generateRendererComponent(
 	},
 );
 
-export const DatasourceWithRichTextFullWidth = generateRendererComponent(
+export const DatasourceWithRichTextFullWidth: React.ComponentType<any> = generateRendererComponent(
 	{
 		document: datasourceWithRichtext,
 		appearance: 'full-width',
@@ -209,7 +212,7 @@ export const DatasourceWithRichTextFullWidth = generateRendererComponent(
 	},
 );
 
-export const ListInsideBlockquote = generateRendererComponent(
+export const ListInsideBlockquote: React.ComponentType<any> = generateRendererComponent(
 	{
 		document: listInBlockquote,
 		appearance: 'full-width',
@@ -219,7 +222,7 @@ export const ListInsideBlockquote = generateRendererComponent(
 	},
 );
 
-export const MediaInsidePanelFullPage = generateRendererComponent(
+export const MediaInsidePanelFullPage: React.ComponentType<any> = generateRendererComponent(
 	{
 		document: panelWithMedia,
 		appearance: 'full-page',

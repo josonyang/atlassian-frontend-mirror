@@ -1,4 +1,3 @@
-
 import { type JsonLd } from '@atlaskit/json-ld-types';
 import { useSmartLinkContext } from '@atlaskit/link-provider';
 import { renderHook } from '@atlassian/testing-library';

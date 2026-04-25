@@ -1,4 +1,26 @@
-export const helloEmojiAdf = {
+export const helloEmojiAdf: {
+	version: number;
+	type: string;
+	content: {
+		type: string;
+		content: (
+			| {
+					type: string;
+					attrs: {
+						shortName: string;
+						id: string;
+						text: string;
+					};
+					text?: undefined;
+			  }
+			| {
+					type: string;
+					text: string;
+					attrs?: undefined;
+			  }
+		)[];
+	}[];
+} = {
 	version: 1,
 	type: 'doc',
 	content: [
@@ -22,7 +44,17 @@ export const helloEmojiAdf = {
 	],
 };
 
-export const helloAdf = {
+export const helloAdf: {
+	type: string;
+	version: number;
+	content: {
+		type: string;
+		content: {
+			type: string;
+			text: string;
+		}[];
+	}[];
+} = {
 	type: 'doc',
 	version: 1,
 	content: [
@@ -38,7 +70,17 @@ export const helloAdf = {
 	],
 };
 
-export const loremLoremAdf = {
+export const loremLoremAdf: {
+	type: string;
+	version: number;
+	content: {
+		type: string;
+		content: {
+			type: string;
+			text: string;
+		}[];
+	}[];
+} = {
 	type: 'doc',
 	version: 1,
 	content: [
@@ -63,7 +105,37 @@ export const loremLoremAdf = {
 	],
 };
 
-export const decisionListAdf = {
+export const decisionListAdf: {
+	version: number;
+	type: string;
+	content: (
+		| {
+				type: string;
+				attrs: {
+					localId: string;
+				};
+				content: {
+					type: string;
+					attrs: {
+						localId: string;
+						state: string;
+					};
+					content: {
+						type: string;
+						text: string;
+					}[];
+				}[];
+		  }
+		| {
+				type: string;
+				content: {
+					type: string;
+					text: string;
+				}[];
+				attrs?: undefined;
+		  }
+	)[];
+} = {
 	version: 1,
 	type: 'doc',
 	content: [
@@ -100,7 +172,37 @@ export const decisionListAdf = {
 	],
 };
 
-export const taskListAdf = {
+export const taskListAdf: {
+	version: number;
+	type: string;
+	content: (
+		| {
+				type: string;
+				attrs: {
+					localId: string;
+				};
+				content: {
+					type: string;
+					attrs: {
+						localId: string;
+						state: string;
+					};
+					content: {
+						type: string;
+						text: string;
+					}[];
+				}[];
+		  }
+		| {
+				type: string;
+				content: {
+					type: string;
+					text: string;
+				}[];
+				attrs?: undefined;
+		  }
+	)[];
+} = {
 	version: 1,
 	type: 'doc',
 	content: [
@@ -137,7 +239,100 @@ export const taskListAdf = {
 	],
 };
 
-export const bigNestedAdf = {
+export const bigNestedAdf: {
+	version: number;
+	type: string;
+	content: (
+		| {
+				type: string;
+				content: {
+					type: string;
+					text: string;
+				}[];
+				attrs?: undefined;
+		  }
+		| {
+				type: string;
+				content: {
+					type: string;
+					attrs: {
+						width: number;
+					};
+					content: {
+						type: string;
+						content: {
+							type: string;
+							text: string;
+						}[];
+					}[];
+				}[];
+				attrs?: undefined;
+		  }
+		| {
+				type: string;
+				attrs: {
+					isNumberColumnEnabled: boolean;
+					layout: string;
+				};
+				content: (
+					| {
+							type: string;
+							content: {
+								type: string;
+								attrs: {};
+								content: {
+									type: string;
+									attrs: {
+										level: number;
+									};
+									content: {
+										type: string;
+										text: string;
+									}[];
+								}[];
+							}[];
+					  }
+					| {
+							type: string;
+							content: {
+								type: string;
+								attrs: {};
+								content: {
+									type: string;
+									attrs: {
+										panelType: string;
+									};
+									content: {
+										type: string;
+										content: {
+											type: string;
+											content: {
+												type: string;
+												content: {
+													type: string;
+													text: string;
+												}[];
+											}[];
+										}[];
+									}[];
+								}[];
+							}[];
+					  }
+					| {
+							type: string;
+							content: {
+								type: string;
+								attrs: {};
+								content: {
+									type: string;
+									content: never[];
+								}[];
+							}[];
+					  }
+				)[];
+		  }
+	)[];
+} = {
 	version: 1,
 	type: 'doc',
 	content: [
@@ -324,7 +519,29 @@ export const bigNestedAdf = {
 	],
 };
 
-export const helloMateEmojiAdf = {
+export const helloMateEmojiAdf: {
+	version: number;
+	type: string;
+	content: {
+		type: string;
+		content: (
+			| {
+					type: string;
+					text: string;
+					attrs?: undefined;
+			  }
+			| {
+					type: string;
+					attrs: {
+						shortName: string;
+						id: string;
+						text: string;
+					};
+					text?: undefined;
+			  }
+		)[];
+	}[];
+} = {
 	version: 1,
 	type: 'doc',
 	content: [

@@ -1,6 +1,5 @@
 import React from 'react';
 
-
 import { AnalyticsListener } from '@atlaskit/analytics-next';
 import { type JsonLd } from '@atlaskit/json-ld-types';
 import { SmartCardProvider } from '@atlaskit/link-provider';

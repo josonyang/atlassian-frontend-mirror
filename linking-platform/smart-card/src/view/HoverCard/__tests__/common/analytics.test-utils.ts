@@ -1,4 +1,3 @@
-
 import { type CardStore } from '@atlaskit/linking-common';
 import { eeTest } from '@atlaskit/tmp-editor-statsig/editor-experiments-test-utils';
 import { ffTest } from '@atlassian/feature-flags-test-utils';

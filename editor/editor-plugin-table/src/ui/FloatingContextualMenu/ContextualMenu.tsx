@@ -6,9 +6,9 @@
 import React, { Component } from 'react';
 import type { PointerEvent } from 'react';
 
-// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
+/* eslint-disable @typescript-eslint/consistent-type-imports, @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766; jsx required at runtime for @jsxRuntime classic */
 import { jsx } from '@emotion/react';
-import type { WrappedComponentProps } from 'react-intl';
+import type { WithIntlProps, WrappedComponentProps } from 'react-intl';
 import { injectIntl } from 'react-intl';
 
 type DropdownItem = MenuItem & {
@@ -134,7 +134,9 @@ export class ContextualMenu extends Component<Props & WrappedComponentProps, Sta
 		isOpenAllowed: false,
 	};
 
-	static defaultProps = {
+	static defaultProps: {
+		boundariesElement: HTMLElement | undefined;
+	} = {
 		boundariesElement: typeof document !== 'undefined' ? document.body : undefined,
 	};
 	private dropdownMenuRef = React.createRef<HTMLDivElement>();
@@ -163,7 +165,7 @@ export class ContextualMenu extends Component<Props & WrappedComponentProps, Sta
 		}
 	}
 
-	render() {
+	render(): jsx.JSX.Element {
 		const { isOpen, offset, boundariesElement, editorView, isCellMenuOpenByKeyboard, api } =
 			this.props;
 		const { isDragAndDropEnabled } = getPluginState(editorView.state);
@@ -987,4 +989,8 @@ export class ContextualMenu extends Component<Props & WrappedComponentProps, Sta
 	};
 }
 
-export default injectIntl(ContextualMenu);
+// eslint-disable-next-line @typescript-eslint/ban-types
+const _default_1: React.FC<WithIntlProps<Props & WrappedComponentProps>> & {
+	WrappedComponent: React.ComponentType<Props & WrappedComponentProps>;
+} = injectIntl(ContextualMenu);
+export default _default_1;

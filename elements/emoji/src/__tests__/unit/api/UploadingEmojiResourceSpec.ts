@@ -264,7 +264,8 @@ describe('UploadingEmojiResource', () => {
 					});
 			});
 
-			ffTest('increase-emoji-client-upload-timeout',
+			ffTest(
+				'increase-emoji-client-upload-timeout',
 				() => {
 					const siteEmojiResource = sinon.createStubInstance(SiteEmojiResource) as any;
 					const hasUploadTokenStub = siteEmojiResource.hasUploadToken;
@@ -289,7 +290,8 @@ describe('UploadingEmojiResource', () => {
 						.catch(() => {
 							expect('Should not error').toEqual('but it did');
 						});
-				}, () => {
+				},
+				() => {
 					const siteEmojiResource = sinon.createStubInstance(SiteEmojiResource) as any;
 					const hasUploadTokenStub = siteEmojiResource.hasUploadToken;
 					hasUploadTokenStub.returns(Promise.resolve(true));
@@ -313,8 +315,8 @@ describe('UploadingEmojiResource', () => {
 						.catch((err) => {
 							expect(err.message).toEqual('uploadCustomEmoji timed out');
 						});
-				}
-			)
+				},
+			);
 		});
 	});
 
@@ -344,7 +346,7 @@ describe('UploadingEmojiResource', () => {
 			emojiResource.fetchEmojiProvider();
 			emojiResource.prepareForUpload();
 			const deleteStub = siteEmojiResource.deleteEmoji;
-			deleteStub.returns(new Promise(() => { }));
+			deleteStub.returns(new Promise(() => {}));
 			emojiResource.deleteSiteEmoji(mediaEmoji);
 			return waitUntil(() => deleteStub.called).then(() => {
 				expect(deleteStub.called).toEqual(true);
@@ -435,12 +437,12 @@ describe('helpers', () => {
 		findInCategory = (_categoryId: string) => Promise.resolve([]);
 		getSelectedTone = () => -1;
 		getMediaEmojiDescriptionURLWithInlineToken = () => Promise.resolve(evilburnsEmoji);
-		setSelectedTone = (_tone: ToneSelection) => { };
+		setSelectedTone = (_tone: ToneSelection) => {};
 		deleteSiteEmoji = (_emoji: EmojiDescription) => Promise.resolve(false);
 		getCurrentUser = () => undefined;
-		filter = (_query?: string, _options?: SearchOptions) => { };
-		subscribe = (_onChange: OnProviderChange<EmojiSearchResult, any, void>) => { };
-		unsubscribe = (_onChange: OnProviderChange<EmojiSearchResult, any, void>) => { };
+		filter = (_query?: string, _options?: SearchOptions) => {};
+		subscribe = (_onChange: OnProviderChange<EmojiSearchResult, any, void>) => {};
+		unsubscribe = (_onChange: OnProviderChange<EmojiSearchResult, any, void>) => {};
 		loadMediaEmoji = () => undefined;
 		optimisticMediaRendering = () => false;
 		getFrequentlyUsed = (_options?: SearchOptions) => Promise.resolve([]);

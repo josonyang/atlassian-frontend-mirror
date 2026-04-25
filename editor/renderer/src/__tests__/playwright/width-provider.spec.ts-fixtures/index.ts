@@ -1,4 +1,34 @@
-export const tableADF = {
+export const tableADF: {
+	version: number;
+	type: string;
+	content: (
+		| {
+				type: string;
+				attrs: {
+					isNumberColumnEnabled: boolean;
+					layout: string;
+				};
+				content: {
+					type: string;
+					content: {
+						type: string;
+						attrs: {
+							background: string;
+						};
+						content: {
+							type: string;
+							content: never[];
+						}[];
+					}[];
+				}[];
+		  }
+		| {
+				type: string;
+				content: never[];
+				attrs?: undefined;
+		  }
+	)[];
+} = {
 	version: 1,
 	type: 'doc',
 	content: [
@@ -35,7 +65,31 @@ export const tableADF = {
 	],
 };
 
-export const tableWithCustomWidthADF = {
+export const tableWithCustomWidthADF: {
+	version: number;
+	type: string;
+	content: {
+		type: string;
+		attrs: {
+			isNumberColumnEnabled: boolean;
+			layout: string;
+			localId: string;
+			width: number;
+			displayMode: string;
+		};
+		content: {
+			type: string;
+			content: {
+				type: string;
+				attrs: {};
+				content: {
+					type: string;
+					content: never[];
+				}[];
+			}[];
+		}[];
+	}[];
+} = {
 	version: 1,
 	type: 'doc',
 	content: [

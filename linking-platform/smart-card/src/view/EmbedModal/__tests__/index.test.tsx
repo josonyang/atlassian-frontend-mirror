@@ -139,7 +139,7 @@ describe('EmbedModal', () => {
 				fireEvent={fireEvent}
 				id={id}
 				iframeName="iframe-name"
-				onClose={() => { }}
+				onClose={() => {}}
 				showModal={true}
 				testId={testId}
 				{...incomingProps}
@@ -181,7 +181,7 @@ describe('EmbedModal', () => {
 	it('should capture and report a11y violations', async () => {
 		const { container } = render(
 			<IntlProvider locale="en">
-				<EmbedModal iframeName="iframe-name" onClose={() => { }} showModal={true} testId={testId} />
+				<EmbedModal iframeName="iframe-name" onClose={() => {}} showModal={true} testId={testId} />
 			</IntlProvider>,
 		);
 
@@ -197,7 +197,7 @@ describe('EmbedModal', () => {
 	it('renders embed modal without analytics', async () => {
 		render(
 			<IntlProvider locale="en">
-				<EmbedModal iframeName="iframe-name" onClose={() => { }} showModal={true} testId={testId} />
+				<EmbedModal iframeName="iframe-name" onClose={() => {}} showModal={true} testId={testId} />
 			</IntlProvider>,
 		);
 		const modal = await screen.findByTestId(testId);

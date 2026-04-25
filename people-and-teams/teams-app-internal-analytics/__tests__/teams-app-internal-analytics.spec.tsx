@@ -125,19 +125,20 @@ function ButtonWithNextHookAnalytics({ eventType }: ButtonProps) {
 	);
 }
 
-const ButtonWithNextHOCAnalytics = withAnalyticsEvents()(
-	({ eventType, createAnalyticsEvent }: ButtonProps & WithAnalyticsEventsProps) => {
-		const onClick = () => {
-			const payload = getEventPayload(eventType);
-			fireAnalyticsEvent(createAnalyticsEvent, payload.eventType, payload);
-		};
-		return (
-			<Button onClick={onClick} testId="button-with-analytics">
-				{`Fire ${eventType} Analytics Event`}
-			</Button>
-		);
-	},
-);
+const ButtonWithNextHOCAnalytics = withAnalyticsEvents()(({
+	eventType,
+	createAnalyticsEvent,
+}: ButtonProps & WithAnalyticsEventsProps) => {
+	const onClick = () => {
+		const payload = getEventPayload(eventType);
+		fireAnalyticsEvent(createAnalyticsEvent, payload.eventType, payload);
+	};
+	return (
+		<Button onClick={onClick} testId="button-with-analytics">
+			{`Fire ${eventType} Analytics Event`}
+		</Button>
+	);
+});
 
 const mockClient = createMockAnalyticsClient();
 

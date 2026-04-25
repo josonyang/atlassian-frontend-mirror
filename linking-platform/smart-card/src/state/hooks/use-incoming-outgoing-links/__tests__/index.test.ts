@@ -207,24 +207,21 @@ describe('useIncomingOutgoingLinks', () => {
 		it.each([
 			['Jira', JIRA_ARI],
 			['Confluence', CONFLUENCE_ARI],
-		])(
-			'should send X-Query-Context header with siteId extracted from %s ARI',
-			async (_, ari) => {
-				const { getIncomingOutgoingAris } = setup();
-				fetchMock.mockOnce('{}');
-				await getIncomingOutgoingAris(ari);
+		])('should send X-Query-Context header with siteId extracted from %s ARI', async (_, ari) => {
+			const { getIncomingOutgoingAris } = setup();
+			fetchMock.mockOnce('{}');
+			await getIncomingOutgoingAris(ari);
 
-				expect(fetchMock).toHaveBeenCalledTimes(1);
-				expect(fetchMock).toHaveBeenCalledWith(
-					'/gateway/api/graphql',
-					expect.objectContaining({
-						headers: expect.objectContaining({
-							'X-Query-Context': `ari:cloud:platform::site/${EXPECTED_SITE_ID}`,
-						}),
+			expect(fetchMock).toHaveBeenCalledTimes(1);
+			expect(fetchMock).toHaveBeenCalledWith(
+				'/gateway/api/graphql',
+				expect.objectContaining({
+					headers: expect.objectContaining({
+						'X-Query-Context': `ari:cloud:platform::site/${EXPECTED_SITE_ID}`,
 					}),
-				);
-			},
-		);
+				}),
+			);
+		});
 
 		describe.each([
 			['third-party ARI', THIRD_PARTY_ARI],

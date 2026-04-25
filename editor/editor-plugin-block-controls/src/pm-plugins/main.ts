@@ -291,12 +291,7 @@ const getDecorationAtPos = (
 	to: number,
 ) => {
 	// Find the newly minted node decs that touch the active node
-	const findNewNodeDecs = findNodeDecs(
-		state,
-		decorations,
-		pos - 1,
-		to,
-	);
+	const findNewNodeDecs = findNodeDecs(state, decorations, pos - 1, to);
 
 	// Find the specific dec that the active node corresponds to
 	const nodeDecsAtActivePos = findNewNodeDecs.filter((dec: Decoration) => dec?.from === pos);
@@ -390,7 +385,8 @@ export const apply = (
 		/**
 		 * INFO: This if statement is a duplicate of the logic in destroy(). When the threshold is breached and we enter limited mode, we want to trigger the cleanup logic in destroy().
 		 */
-		const editorContentArea = getDocument()?.querySelector('.fabric-editor-popup-scroll-parent') ?? null;
+		const editorContentArea =
+			getDocument()?.querySelector('.fabric-editor-popup-scroll-parent') ?? null;
 
 		if (editorContentArea && resizeObserverWidth) {
 			resizeObserverWidth.unobserve(editorContentArea);
@@ -513,12 +509,7 @@ export const apply = (
 		if (!flags.toolbarFlagsEnabled) {
 			if (latestActiveNode && !isActiveNodeDeleted) {
 				// Find the newly minted node decs that touch the active node
-				const findNewNodeDecs = findNodeDecs(
-					newState,
-					decorations,
-					latestActiveNode.pos - 1,
-					to,
-				);
+				const findNewNodeDecs = findNodeDecs(newState, decorations, latestActiveNode.pos - 1, to);
 
 				// Find the specific dec that the active node corresponds to
 				const nodeDecsAtActivePos = findNewNodeDecs.filter(

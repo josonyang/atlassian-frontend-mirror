@@ -10,24 +10,25 @@ import SectionMessage from '@atlaskit/section-message';
 
 ### Entry/Exit animations
 
-The recommended way to apply entry and exit animations is with the [Motion primitive](/components/motion/motion-primitive) component. Pass
-pre-defined motion tokens to `enteringAnimation` and `exitingAnimation`, or supply custom `cssMap`
-styles via `enteringAnimationXcss` and `exitingAnimationXcss` for full control.
+The recommended way to apply entry and exit animations is with the
+[Motion primitive](/components/motion/motion-primitive) component. Pass pre-defined motion tokens to
+`enteringAnimation` and `exitingAnimation`, or supply custom `cssMap` styles via
+`enteringAnimationXcss` and `exitingAnimationXcss` for full control.
 
 ```tsx
 import { ExitingPersistence, Motion } from '@atlaskit/motion';
 import { token } from '@atlaskit/tokens';
 
 <ExitingPersistence appear>
-  {isVisible && (
-    <Motion
-      enteringAnimation={token('motion.modal.enter')}
-      exitingAnimation={token('motion.modal.exit')}
-    >
-      <MyComponent />
-    </Motion>
-  )}
-</ExitingPersistence>
+	{isVisible && (
+		<Motion
+			enteringAnimation={token('motion.modal.enter')}
+			exitingAnimation={token('motion.modal.exit')}
+		>
+			<MyComponent />
+		</Motion>
+	)}
+</ExitingPersistence>;
 ```
 
 ### CSS over JavaScript
@@ -44,38 +45,38 @@ In practice this means:
 - Highly interactive or gestural motions may warrant an animation engine, but these are handled
   case-by-case
 
-For new CSS-based animations that are not entry or exit animations, use the `motion.duration.*` and `motion.easing.*` design tokens to define animation and transition CSS properties:
+For new CSS-based animations that are not entry or exit animations, use the `motion.duration.*` and
+`motion.easing.*` design tokens to define animation and transition CSS properties:
 
-* `animation-timing-function`
-* `animation-duration`
-* `animation-delay`
-* `transition-timing-function`
-* `transition-duration`
-* `transition-delay`
+- `animation-timing-function`
+- `animation-duration`
+- `animation-delay`
+- `transition-timing-function`
+- `transition-duration`
+- `transition-delay`
 
 ### Motion abstractions
 
 We want you to use the provided abstractions to power your motion and not worry about the underlying
 implementation. We _also_ want a consistent motion experience across all our apps. If you need a
-particular motion that doesn't exist yet, consider contributing motion design tokens to `@atlaskit/tokens` so every app
-at Atlassian can benefit.
+particular motion that doesn't exist yet, consider contributing motion design tokens to
+`@atlaskit/tokens` so every app at Atlassian can benefit.
 
 ### Reduced motion support
 
 While motion is used to create relationships, highlight what matters, and create delight, it's
 equally important to allow users to opt out. Every motion component and custom animation should
-respect the user's reduced-motion preference. See
-[Accessibility](/components/motion/accessibility) for the utilities available.
-
+respect the user's reduced-motion preference. See [Accessibility](/components/motion/accessibility)
+for the utilities available.
 
 ## Legacy entering-motion components
 
 <SectionMessage appearance="warning" title="Caution">
-  <p>
-    FadeIn, SlideIn, ZoomIn and ShrinkOut are legacy components and are planned for deprecation.
-    For new work, use the{' '}<a href="/components/motion/motion-primitive">Motion primitive</a> component
-    instead.
-  </p>
+	<p>
+		FadeIn, SlideIn, ZoomIn and ShrinkOut are legacy components and are planned for deprecation. For
+		new work, use the <a href="/components/motion/motion-primitive">Motion primitive</a> component
+		instead.
+	</p>
 </SectionMessage>
 
 ### Not rendering markup

@@ -35,11 +35,21 @@ export class CardErrorBoundary extends React.PureComponent<
 		}
 	};
 
-	static getDerivedStateFromError(error: Error) {
+	static getDerivedStateFromError(error: Error): {
+		isError: boolean;
+		error: Error;
+	} {
 		return { isError: true, error };
 	}
 
-	render() {
+	render():
+		| string
+		| number
+		| boolean
+		| Iterable<React.ReactNode>
+		| React.JSX.Element
+		| null
+		| undefined {
 		if (this.state.isError) {
 			const {
 				url,

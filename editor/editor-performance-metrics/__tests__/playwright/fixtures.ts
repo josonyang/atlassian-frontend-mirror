@@ -13,7 +13,13 @@ import type { WindowWithEditorPerformanceGlobals } from './window-type';
 // eslint-disable-next-line import/order
 import type { PlaywrightCoverageOptions } from '@af/integration-testing/fixtures';
 // eslint-disable-next-line import/order
-import type { TestType, PlaywrightTestArgs, PlaywrightTestOptions, PlaywrightWorkerArgs, PlaywrightWorkerOptions } from 'playwright/test';
+import type {
+	TestType,
+	PlaywrightTestArgs,
+	PlaywrightTestOptions,
+	PlaywrightWorkerArgs,
+	PlaywrightWorkerOptions,
+} from 'playwright/test';
 
 type TimelineEvents = Array<TimelineEvent>;
 const prepareParams = (params?: { [key: string]: string | boolean }) => {
@@ -56,36 +62,41 @@ const getExampleURL = (props: {
 	return url;
 };
 
-export const test: TestType<PlaywrightTestArgs & PlaywrightTestOptions & {
-    skipAxeCheck: () => void;
-} & PlaywrightCoverageOptions & {
-    examplePage: "vc-observer-next" |
-    "vc-observer-react-remount" |
-    "vc-observer-moving-node" |
-    "vc-observer-placeholder" |
-    "vc-observer-attribute-mutation" |
-    "latency-mouse-events" |
-    "editor-full-page" |
-    "basic-react" |
-    "ttai-with-timers" |
-    "latency-keyboard-events";
-    getMetrics: () => Promise<EditorPerformanceMetrics | null>;
-    getSectionVisibleAt: (sectionTestId: string) => Promise<DOMHighResTimeStamp | null>;
-    getTimeline: () => Promise<Timeline | null>;
-    getTimelineEvents: () => Promise<TimelineEvents>;
-    /**
-     * This fixture allow the tests to get the TTVCTarget value set on the example page.
-     *
-     * ⚠️ Your example needs to manually set the global variable called `__editor_metrics_tests__calculated_ttvc`.
-     */
-    getTTVCTargets: () => Promise<TTVCTargets | null>;
-    resetTicks: () => Promise<void>;
-    viewport: {
-        height: number;
-        width: number;
-    };
-    waitForTicks: (tickNth: number) => Promise<DOMHighResTimeStamp>;
-}, PlaywrightWorkerArgs & PlaywrightWorkerOptions> = base.extend<{
+export const test: TestType<
+	PlaywrightTestArgs &
+		PlaywrightTestOptions & {
+			skipAxeCheck: () => void;
+		} & PlaywrightCoverageOptions & {
+			examplePage:
+				| 'vc-observer-next'
+				| 'vc-observer-react-remount'
+				| 'vc-observer-moving-node'
+				| 'vc-observer-placeholder'
+				| 'vc-observer-attribute-mutation'
+				| 'latency-mouse-events'
+				| 'editor-full-page'
+				| 'basic-react'
+				| 'ttai-with-timers'
+				| 'latency-keyboard-events';
+			getMetrics: () => Promise<EditorPerformanceMetrics | null>;
+			getSectionVisibleAt: (sectionTestId: string) => Promise<DOMHighResTimeStamp | null>;
+			getTimeline: () => Promise<Timeline | null>;
+			getTimelineEvents: () => Promise<TimelineEvents>;
+			/**
+			 * This fixture allow the tests to get the TTVCTarget value set on the example page.
+			 *
+			 * ⚠️ Your example needs to manually set the global variable called `__editor_metrics_tests__calculated_ttvc`.
+			 */
+			getTTVCTargets: () => Promise<TTVCTargets | null>;
+			resetTicks: () => Promise<void>;
+			viewport: {
+				height: number;
+				width: number;
+			};
+			waitForTicks: (tickNth: number) => Promise<DOMHighResTimeStamp>;
+		},
+	PlaywrightWorkerArgs & PlaywrightWorkerOptions
+> = base.extend<{
 	examplePage:
 		| 'vc-observer-next'
 		| 'vc-observer-react-remount'

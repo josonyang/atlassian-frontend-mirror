@@ -8,7 +8,14 @@ import { flushPromises } from '@atlaskit/link-test-helpers';
 import { InvokeError, SmartLinkActionType } from '@atlaskit/linking-types/smart-link-actions';
 import { Text } from '@atlaskit/primitives/compiled';
 import { skipAutoA11yFile } from '@atlassian/a11y-jest-testing';
-import { act, fireEvent, render, screen, waitForElementToBeRemoved, userEvent } from '@atlassian/testing-library';
+import {
+	act,
+	fireEvent,
+	render,
+	screen,
+	waitForElementToBeRemoved,
+	userEvent,
+} from '@atlassian/testing-library';
 
 import extractLozengeActionItems from '../../../../../../../../extractors/action/extract-lozenge-action-items';
 import { ActionName } from '../../../../../../../../index';

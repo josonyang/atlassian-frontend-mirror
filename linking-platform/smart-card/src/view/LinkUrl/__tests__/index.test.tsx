@@ -1,6 +1,5 @@
 import React from 'react';
 
-
 import FeatureGates from '@atlaskit/feature-gate-js-client';
 import AKLink from '@atlaskit/link';
 import { SmartCardProvider } from '@atlaskit/link-provider';

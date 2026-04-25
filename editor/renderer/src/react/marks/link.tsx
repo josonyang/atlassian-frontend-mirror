@@ -3,8 +3,8 @@
  * @jsx jsx
  */
 import React, { Fragment } from 'react';
-// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
-import { css, jsx } from '@emotion/react';
+/* eslint-disable @typescript-eslint/consistent-type-imports, @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766; jsx required at runtime for @jsxRuntime classic */
+import { jsx, css } from '@emotion/react';
 import type { LinkAttributes } from '@atlaskit/adf-schema';
 
 import { getEventHandler } from '../../utils';
@@ -33,7 +33,7 @@ interface LinkProps extends LinkAttributes {
 	target?: string;
 }
 
-export default function Link(props: MarkProps<LinkProps>) {
+export default function Link(props: MarkProps<LinkProps>): jsx.JSX.Element {
 	const {
 		href,
 		target,

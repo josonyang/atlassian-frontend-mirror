@@ -1,13 +1,14 @@
 import { generateRendererComponent } from '../__helpers/rendererComponents';
 import { nextStepDoc, initialDoc } from '../__fixtures__/ai-telepointer';
+import type { ComponentType } from 'react';
 
-export const TelepointerRendererStepOne = generateRendererComponent({
+export const TelepointerRendererStepOne: ComponentType<any> = generateRendererComponent({
 	document: initialDoc,
 	appearance: 'full-width',
 	addTelepointer: true,
 });
 
-export const TelepointerRendererStepTwo = generateRendererComponent({
+export const TelepointerRendererStepTwo: ComponentType<any> = generateRendererComponent({
 	document: nextStepDoc,
 	appearance: 'full-width',
 	addTelepointer: true,

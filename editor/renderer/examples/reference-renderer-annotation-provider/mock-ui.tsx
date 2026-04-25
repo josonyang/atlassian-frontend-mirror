@@ -4,10 +4,10 @@
  */
 import React from 'react';
 
-// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled
-import { css, jsx } from '@emotion/react';
+/* eslint-disable @typescript-eslint/consistent-type-imports, @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766; jsx required at runtime for @jsxRuntime classic */
+import { jsx, css } from '@emotion/react';
 
-export function ExampleBarMenu({ children }: { children: React.ReactNode }) {
+export function ExampleBarMenu({ children }: { children: React.ReactNode }): jsx.JSX.Element {
 	return <menu css={menuStyles}>{children}</menu>;
 }
 
@@ -25,6 +25,11 @@ ExampleHighlightMenu.Item = function BarMenuItem({ children }: { children: React
 };
 const menuItemStyles = css({});
 
-export function ExampleHighlightMenu({ children }: { children: React.ReactNode }) {
+export function ExampleHighlightMenu({ children }: { children: React.ReactNode }): jsx.JSX.Element {
 	return <ExampleBarMenu>{children}</ExampleBarMenu>;
+}
+// eslint-disable-next-line @typescript-eslint/no-namespace
+export declare namespace ExampleHighlightMenu {
+	// eslint-disable-next-line no-var
+	export var Item: ({ children }: { children: React.ReactNode }) => jsx.JSX.Element;
 }

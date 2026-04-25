@@ -3,14 +3,20 @@ import { autoScrollForElements } from '@atlaskit/pragmatic-drag-and-drop-auto-sc
 import { unsafeOverflowAutoScrollForElements } from '@atlaskit/pragmatic-drag-and-drop-auto-scroll/unsafe-overflow/element';
 
 import type { DraggableSourceData } from '../../../types';
+// eslint-disable-next-line import/order
 import { dropTargetExtendedWidth } from '../../../ui/consts';
+// eslint-disable-next-line import/order
+import type { CleanupFn } from '@atlaskit/pragmatic-drag-and-drop/types';
 
 type AutoScrollerFactory = {
 	getNode: () => PmNode;
 	tableWrapper: HTMLElement;
 };
 
-export const autoScrollerFactory = ({ tableWrapper, getNode }: AutoScrollerFactory) => {
+export const autoScrollerFactory = ({
+	tableWrapper,
+	getNode,
+}: AutoScrollerFactory): CleanupFn[] => {
 	return [
 		autoScrollForElements({
 			element: tableWrapper,

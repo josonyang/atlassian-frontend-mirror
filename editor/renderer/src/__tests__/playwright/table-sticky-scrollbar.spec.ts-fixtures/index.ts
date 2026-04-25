@@ -1,4 +1,47 @@
-export const tableWith30rows5ColsWithNestedTable = {
+export const tableWith30rows5ColsWithNestedTable: {
+	version: number;
+	type: string;
+	content: {
+		type: string;
+		attrs: {
+			isNumberColumnEnabled: boolean;
+			layout: string;
+			localId: string;
+			width: number;
+		};
+		content: {
+			type: string;
+			content: (
+				| {
+						type: string;
+						attrs: {
+							colwidth: number[];
+						};
+						content: {
+							type: string;
+							attrs: {
+								extensionType: string;
+								extensionKey: string;
+								parameters: {
+									adf: string;
+								};
+							};
+						}[];
+				  }
+				| {
+						type: string;
+						attrs: {
+							colwidth: number[];
+						};
+						content: {
+							type: string;
+							content: never[];
+						}[];
+				  }
+			)[];
+		}[];
+	}[];
+} = {
 	version: 1,
 	type: 'doc',
 	content: [

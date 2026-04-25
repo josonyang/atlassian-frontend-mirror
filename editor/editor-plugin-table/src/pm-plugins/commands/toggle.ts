@@ -15,7 +15,7 @@ import { META_KEYS } from '../table-analytics';
  * Table layout toggle logic
  * default -> wide -> full-width -> default
  */
-export const getNextLayout = (currentLayout: TableLayout) => {
+export const getNextLayout = (currentLayout: TableLayout): 'default' | 'wide' | 'full-width' => {
 	switch (currentLayout) {
 		case 'default':
 			return 'wide';
@@ -99,7 +99,7 @@ export const toggleTableLayout: Command = (state, dispatch): boolean => {
 	)(state, dispatch);
 };
 
-export const toggleContextualMenu = () =>
+export const toggleContextualMenu = (): Command =>
 	createCommand(
 		{
 			type: 'TOGGLE_CONTEXTUAL_MENU',

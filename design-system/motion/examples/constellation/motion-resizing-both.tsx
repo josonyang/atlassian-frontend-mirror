@@ -97,11 +97,7 @@ const MotionResizingBoth = (): JSX.Element => {
 						{Array(num * num)
 							.fill(undefined)
 							.map((_, index) => (
-								<Motion
-									key={index}
-									xcss={styles.item}
-									enteringAnimationXcss={styles.entering}
-								>
+								<Motion key={index} xcss={styles.item} enteringAnimationXcss={styles.entering}>
 									{logos[index % logos.length][0]}
 									<span>{logos[index % logos.length][1]}</span>
 								</Motion>

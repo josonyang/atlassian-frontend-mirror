@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/smart-card",
-	"version": "44.3.9",
+	"version": "44.3.13",
 	"description": "Smart card component",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -255,6 +255,9 @@
 			"type": "boolean"
 		},
 		"platform_sl_3p_auth_rovo_block_card_kill_switch": {
+			"type": "boolean"
+		},
+		"platform_sl_icons_refactor": {
 			"type": "boolean"
 		}
 	},

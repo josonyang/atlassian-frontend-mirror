@@ -1,7 +1,7 @@
 import type { SyntheticEvent } from 'react';
 import React from 'react';
 
-import type { MessageDescriptor, WrappedComponentProps } from 'react-intl';
+import type { MessageDescriptor, WithIntlProps, WrappedComponentProps } from 'react-intl';
 import { injectIntl } from 'react-intl';
 
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
@@ -62,4 +62,8 @@ const DeleteButton = ({
 	</div>
 );
 
-export default injectIntl(DeleteButton);
+// eslint-disable-next-line @typescript-eslint/ban-types
+const _default_1: React.FC<WithIntlProps<ButtonProps & WrappedComponentProps>> & {
+	WrappedComponent: React.ComponentType<ButtonProps & WrappedComponentProps>;
+} = injectIntl(DeleteButton);
+export default _default_1;

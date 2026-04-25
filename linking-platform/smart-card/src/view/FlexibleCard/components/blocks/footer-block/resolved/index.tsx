@@ -7,7 +7,7 @@ import { useCallback, useMemo } from 'react';
 import { css, jsx } from '@compiled/react';
 
 import { browser } from '@atlaskit/linking-common/user-agent';
-import { fg } from "@atlaskit/platform-feature-flags";
+import { fg } from '@atlaskit/platform-feature-flags';
 import { token } from '@atlaskit/tokens';
 
 import {

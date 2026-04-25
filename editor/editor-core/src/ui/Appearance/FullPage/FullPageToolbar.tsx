@@ -83,7 +83,9 @@ export interface FullPageToolbarProps {
 	showKeyline: boolean;
 }
 
-export const EditorToolbar: React.MemoExoticComponent<(props: FullPageToolbarProps & WrappedComponentProps) => jsx.JSX.Element> = React.memo((props: FullPageToolbarProps & WrappedComponentProps): jsx.JSX.Element => {
+export const EditorToolbar: React.MemoExoticComponent<
+	(props: FullPageToolbarProps & WrappedComponentProps) => jsx.JSX.Element
+> = React.memo((props: FullPageToolbarProps & WrappedComponentProps): jsx.JSX.Element => {
 	const [shouldSplitToolbar, setShouldSplitToolbar] = useState(false);
 	const { editorAPI } = props;
 
@@ -223,6 +225,8 @@ export const EditorToolbar: React.MemoExoticComponent<(props: FullPageToolbarPro
 });
 
 // eslint-disable-next-line @typescript-eslint/ban-types
-export const FullPageToolbar: React.FC<WithIntlProps<FullPageToolbarProps & WrappedComponentProps>> & {
-    WrappedComponent: React.ComponentType<FullPageToolbarProps & WrappedComponentProps>;
+export const FullPageToolbar: React.FC<
+	WithIntlProps<FullPageToolbarProps & WrappedComponentProps>
+> & {
+	WrappedComponent: React.ComponentType<FullPageToolbarProps & WrappedComponentProps>;
 } = injectIntl(EditorToolbar);

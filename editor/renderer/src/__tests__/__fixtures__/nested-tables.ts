@@ -1,4 +1,66 @@
-export const adfNestedTableData = {
+export const adfNestedTableData: {
+	type: string;
+	version: number;
+	content: {
+		type: string;
+		attrs: {};
+		content: (
+			| {
+					type: string;
+					content: {
+						type: string;
+						attrs: {};
+						content: {
+							type: string;
+							content: never[];
+						}[];
+					}[];
+			  }
+			| {
+					type: string;
+					content: {
+						type: string;
+						attrs: {};
+						content: {
+							type: string;
+							attrs: {
+								isNumberColumnEnabled: boolean;
+								layout: string;
+								localId: string;
+							};
+							content: {
+								type: string;
+								content: (
+									| {
+											type: string;
+											attrs: {};
+											content: {
+												type: string;
+												content: never[];
+											}[];
+									  }
+									| {
+											type: string;
+											attrs: {};
+											content: {
+												type: string;
+												attrs: {
+													localId: null;
+												};
+												content: {
+													type: string;
+													text: string;
+												}[];
+											}[];
+									  }
+								)[];
+							}[];
+						}[];
+					}[];
+			  }
+		)[];
+	}[];
+} = {
 	type: 'doc',
 	version: 1,
 	content: [

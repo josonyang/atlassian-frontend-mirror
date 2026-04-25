@@ -50,7 +50,8 @@ export const messages: {
 	externalUserSourcesHeading: {
 		id: 'fabric.elements.user-picker.external.sourced.from',
 		defaultMessage: 'Found in:',
-		description: 'The text is shown as a label in the user picker dropdown preceding the list of external organizations or directories where the external user account was found (e.g. a guest directory or external workspace).',
+		description:
+			'The text is shown as a label in the user picker dropdown preceding the list of external organizations or directories where the external user account was found (e.g. a guest directory or external workspace).',
 	},
 	slackProvider: {
 		id: 'fabric.elements.user-picker.slack.provider',

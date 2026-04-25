@@ -1,6 +1,5 @@
 import React from 'react';
 
-
 import { SmartCardProvider } from '@atlaskit/link-provider';
 import { renderWithIntl } from '@atlaskit/link-test-helpers';
 import { screen } from '@atlassian/testing-library';

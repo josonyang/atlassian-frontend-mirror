@@ -13,7 +13,7 @@ import {
 	TABLE_DRAG_MENU_SORT_GROUP_HEIGHT,
 } from '../consts';
 
-export const cellColourPreviewStyles = (selectedColor: string) =>
+export const cellColourPreviewStyles = (selectedColor: string): SerializedStyles =>
 	css({
 		'&::before': {
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
@@ -22,7 +22,7 @@ export const cellColourPreviewStyles = (selectedColor: string) =>
 	});
 
 // eslint-disable-next-line @atlaskit/design-system/no-css-tagged-template-expression -- needs manual remediation
-export const dragMenuBackgroundColorStyles = () => css`
+export const dragMenuBackgroundColorStyles = (): SerializedStyles => css`
 	.${ClassName.DRAG_SUBMENU} {
 		border-radius: ${token('radius.small', '3px')};
 		background: ${token('elevation.surface.overlay')};

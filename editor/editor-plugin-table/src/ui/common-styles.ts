@@ -4,7 +4,7 @@
 /* eslint-disable @atlaskit/design-system/no-css-tagged-template-expression */
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
-import { css } from '@emotion/react';
+import { css, type SerializedStyles } from '@emotion/react';
 
 import { getBrowserInfo } from '@atlaskit/editor-common/browser';
 import {
@@ -102,7 +102,7 @@ const cornerControlHeight = tableToolbarSize + 1;
   that is aligned to the right edge initially on hover of the top right column control when table overflown,
   its center should be aligned with the edge
 */
-export const insertColumnButtonOffset = tableInsertColumnButtonSize / 2;
+export const insertColumnButtonOffset: number = tableInsertColumnButtonSize / 2;
 export const tableRowHeight = 44;
 
 // Shared styling for numbered column buttons in selected state
@@ -1450,7 +1450,7 @@ const baseTableStylesWithoutSharedStyle = (props: {
 export const baseTableStyles = (props: {
 	featureFlags?: FeatureFlags;
 	isDragAndDropEnabled?: boolean;
-}) => css`
+}): SerializedStyles => css`
 	${tableSharedStyle()};
 	${baseTableStylesWithoutSharedStyle(props)};
 `;
@@ -1459,7 +1459,7 @@ export const baseTableStyles = (props: {
 export const tableStyles = (props: {
 	featureFlags?: FeatureFlags;
 	isDragAndDropEnabled?: boolean;
-}) => css`
+}): SerializedStyles => css`
 	.ProseMirror {
 		${baseTableStylesWithoutSharedStyle(props)};
 	}
@@ -1479,7 +1479,7 @@ export const tableStyles = (props: {
 `;
 
 // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage/preview, @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
-export const tableFullPageEditorStyles = css`
+export const tableFullPageEditorStyles: SerializedStyles = css`
 	.ProseMirror .${ClassName.TABLE_NODE_WRAPPER} > table {
 		margin-left: 0;
 		/* 1px border width offset added here to prevent unwanted overflow and scolling - ED-16212 */
@@ -1489,7 +1489,7 @@ export const tableFullPageEditorStyles = css`
 `;
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
-export const tableCommentEditorStyles = css`
+export const tableCommentEditorStyles: SerializedStyles = css`
 	.ProseMirror .${ClassName.TABLE_NODE_WRAPPER} > table {
 		margin-left: 0;
 		margin-right: 0;

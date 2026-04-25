@@ -11,7 +11,7 @@ export function markBlockAsInline({
 	onMark: ({ pos }: { pos: number }) => void;
 	parentPos: number;
 	shouldDisplayExtensionAsInline: (extensionParams: ExtensionParams<Parameters>) => boolean;
-}) {
+}): void {
 	if (!nodes || nodes.length === 0 || nodes[0].isInline) {
 		return;
 	}

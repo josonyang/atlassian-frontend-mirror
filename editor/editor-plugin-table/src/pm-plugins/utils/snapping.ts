@@ -19,7 +19,7 @@ const calculateSubSnappingWidths = (totalLanes: number, totalWidth: number) =>
 		.fill(totalWidth / totalLanes)
 		.map((v, i) => v * (i + 1) * 2);
 
-export const calculateDefaultSnappings = (lengthOffset: number = 0) => [
+export const calculateDefaultSnappings = (lengthOffset: number = 0): number[] => [
 	...calculateSubSnappingWidths(
 		numberOfLanesInDefaultLayoutWidth,
 		akEditorDefaultLayoutWidth + lengthOffset,
@@ -46,12 +46,12 @@ const getPadding = (editorContainerWidth: number) => {
 // FF TablePreserve for calculateDefaultSnappings
 export const calculateDefaultTablePreserveSnappings = (
 	lengthOffset = 0,
-	editorContainerWidth = akEditorFullWidthLayoutWidth,
+	editorContainerWidth: number = akEditorFullWidthLayoutWidth,
 	exclude: GuidelineExcludeConfig = {
 		innerGuidelines: false,
 		breakoutPoints: false,
 	},
-) => {
+): number[] => {
 	const padding = getPadding(editorContainerWidth);
 
 	const dynamicFullWidthLine =
@@ -93,7 +93,7 @@ export const calculateDefaultTablePreserveSnappings = (
 	return guides;
 };
 
-export const defaultSnappingWidths = calculateDefaultSnappings();
+export const defaultSnappingWidths: number[] = calculateDefaultSnappings();
 
 export const PRESERVE_TABLE_SNAPPING_LENGTH_OFFSET = 0;
 // FF TablePreserve for defaultSnappingWidths
@@ -104,7 +104,7 @@ export const defaultTablePreserveSnappingWidths = (
 		innerGuidelines: false,
 		breakoutPoints: false,
 	},
-) => {
+): number[] => {
 	const padding = getPadding(editorContainerWidth);
 	return editorContainerWidth - padding * 2 > akEditorFullWidthLayoutWidth
 		? calculateDefaultSnappings()
@@ -120,7 +120,10 @@ export const findClosestSnap = (
 	guidelines: GuidelineConfig[],
 	snapGap: number = 0,
 	tolerance: number = 0,
-) => {
+): {
+	gap: number;
+	keys: string[];
+} => {
 	const closestGapIndex = snapWidths.reduce(
 		(prev, curr, index) =>
 			Math.abs(curr - currentWidth) < Math.abs(snapWidths[prev] - currentWidth) ? index : prev,

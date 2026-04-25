@@ -19,94 +19,98 @@ import * as layout5ColWithWidthAndLayout5ColWithWide from '../__fixtures__/layou
 import { extensionHandlers } from '@atlaskit/editor-test-helpers/extensions';
 
 import { generateRendererComponent } from '../__helpers/rendererComponents';
+import type { ComponentType } from 'react';
 
-export const OverflowLayoutRenderer = generateRendererComponent({
+export const OverflowLayoutRenderer: ComponentType<any> = generateRendererComponent({
 	document: overflowLayout,
 	appearance: 'full-page',
 	extensionHandlers,
 });
 
-export const Layout3ColWithDifferentTextRenderer = generateRendererComponent({
+export const Layout3ColWithDifferentTextRenderer: ComponentType<any> = generateRendererComponent({
 	document: Layout3ColWithDifferentText,
 	appearance: 'full-width',
 });
 
-export const Layout3ColWithMentionRenderer = generateRendererComponent({
+export const Layout3ColWithMentionRenderer: ComponentType<any> = generateRendererComponent({
 	document: Layout3ColWithMention,
 	appearance: 'full-width',
 });
 
-export const LayoutWithBlockNodesRenderer = generateRendererComponent({
+export const LayoutWithBlockNodesRenderer: ComponentType<any> = generateRendererComponent({
 	document: LayoutWithBlockNodes,
 	appearance: 'full-width',
 });
 
-export const LayoutWithDifferentTextRenderer = generateRendererComponent({
+export const LayoutWithDifferentTextRenderer: ComponentType<any> = generateRendererComponent({
 	document: LayoutWithDifferentText,
 	appearance: 'full-width',
 });
 
-export const LayoutWithMediaRenderer = generateRendererComponent({
+export const LayoutWithMediaRenderer: ComponentType<any> = generateRendererComponent({
 	document: LayoutWithMedia,
 	appearance: 'full-width',
 });
 
-export const LayoutWithTextAndCodeblockRenderer = generateRendererComponent({
+export const LayoutWithTextAndCodeblockRenderer: ComponentType<any> = generateRendererComponent({
 	document: LayoutWithTextAndCodeblock,
 	appearance: 'full-width',
 });
 
-export const Layout2ColRenderer = generateRendererComponent({
+export const Layout2ColRenderer: ComponentType<any> = generateRendererComponent({
 	document: layout2Col,
 	appearance: 'full-width',
 });
 
-export const LayoutWithDefaultBreakoutMarkRenderer = generateRendererComponent({
+export const LayoutWithDefaultBreakoutMarkRenderer: ComponentType<any> = generateRendererComponent({
 	document: layoutWithDefaultBreakoutMark,
 	appearance: 'full-width',
 });
 
-export const Layout3ColRenderer = generateRendererComponent({
+export const Layout3ColRenderer: ComponentType<any> = generateRendererComponent({
 	document: layout3Col,
 	appearance: 'full-width',
 });
 
-export const LayoutLeftSidebarRenderer = generateRendererComponent({
+export const LayoutLeftSidebarRenderer: ComponentType<any> = generateRendererComponent({
 	document: layoutLeftSidebar,
 	appearance: 'full-width',
 });
 
-export const LayoutRightSidebarRenderer = generateRendererComponent({
+export const LayoutRightSidebarRenderer: ComponentType<any> = generateRendererComponent({
 	document: layoutRightSidebar,
 	appearance: 'full-width',
 });
 
-export const Layout3ColWithSidebarsRenderer = generateRendererComponent({
+export const Layout3ColWithSidebarsRenderer: ComponentType<any> = generateRendererComponent({
 	document: layout3ColWithSidebars,
 	appearance: 'full-width',
 });
 
-export const Layout3ColWithWidthRenderer = generateRendererComponent({
+export const Layout3ColWithWidthRenderer: ComponentType<any> = generateRendererComponent({
 	document: layout3ColWithWidth,
 	appearance: 'full-page',
 });
 
-export const Layout4ColWithWidthRenderer = generateRendererComponent({
+export const Layout4ColWithWidthRenderer: ComponentType<any> = generateRendererComponent({
 	document: layout4ColWithWidth,
 	appearance: 'full-page',
 });
 
-export const Layout5ColWithWidthRenderer = generateRendererComponent({
+export const Layout5ColWithWidthRenderer: ComponentType<any> = generateRendererComponent({
 	document: layout5ColWithWidth,
 	appearance: 'full-page',
 });
 
-export const Layout5ColWithWidthInFullWidthRenderer = generateRendererComponent({
-	document: layout5ColWithWidthAndLayout5ColWithWide,
-	appearance: 'full-width',
-});
+export const Layout5ColWithWidthInFullWidthRenderer: ComponentType<any> = generateRendererComponent(
+	{
+		document: layout5ColWithWidthAndLayout5ColWithWide,
+		appearance: 'full-width',
+	},
+);
 
-export const Layout5ColWithWidthAndLayout5ColWithWideRenderer = generateRendererComponent({
-	document: layout5ColWithWidthAndLayout5ColWithWide,
-	appearance: 'full-page',
-});
+export const Layout5ColWithWidthAndLayout5ColWithWideRenderer: ComponentType<any> =
+	generateRendererComponent({
+		document: layout5ColWithWidthAndLayout5ColWithWide,
+		appearance: 'full-page',
+	});

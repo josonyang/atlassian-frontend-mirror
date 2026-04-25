@@ -353,14 +353,14 @@ export class MediaNode extends Component<MediaNodeProps, MediaNodeState> {
 						dataURI: url!,
 						name: url,
 						mediaItemType: 'external-image',
-				  }
+					}
 				: {
 						id,
 						mediaItemType: 'file',
 						// Ignored via go/ees005
 						// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 						collectionName: collection!,
-				  };
+					};
 
 		const resolvedViewAndUploadMediaClientConfig = fg('platform_media_video_captions')
 			? viewAndUploadMediaClientConfig
@@ -373,7 +373,7 @@ export class MediaNode extends Component<MediaNodeProps, MediaNodeState> {
 			viewMediaClientConfig || {
 				// Ignored via go/ees005
 				// eslint-disable-next-line @typescript-eslint/no-explicit-any
-				authProvider: () => ({} as any),
+				authProvider: () => ({}) as any,
 			};
 
 		const ssr: SSR = process.env.REACT_SSR ? 'server' : 'client';

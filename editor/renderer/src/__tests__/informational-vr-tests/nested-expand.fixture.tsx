@@ -1,8 +1,9 @@
 import { adfNestedExpandInsideExpand } from './__fixtures__';
 
 import { generateRendererComponent } from '../__helpers/rendererComponents';
+import type { ComponentType } from 'react';
 
-export const NestedExpandRenderer = generateRendererComponent({
+export const NestedExpandRenderer: ComponentType<any> = generateRendererComponent({
 	document: adfNestedExpandInsideExpand,
 	appearance: 'full-page',
 });

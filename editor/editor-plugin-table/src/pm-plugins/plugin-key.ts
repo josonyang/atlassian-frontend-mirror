@@ -5,4 +5,6 @@ import { PluginKey } from '@atlaskit/editor-prosemirror/state';
 
 import type { TablePluginState } from '../types';
 
-export const pluginKey = new PluginKey<TablePluginState>('tablePlugin');
+export const pluginKey: PluginKey<TablePluginState> = new PluginKey<TablePluginState>(
+	'tablePlugin',
+);

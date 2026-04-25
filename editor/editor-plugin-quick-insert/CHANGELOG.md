@@ -1,5 +1,65 @@
 # @atlaskit/editor-plugin-quick-insert
 
+## 10.2.0
+
+### Minor Changes
+
+- [`ef22af532ebfd`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/ef22af532ebfd) -
+  EDITOR-6558: Introduce a reusable Markdown Mode editor plugin and two consumer-supplied
+  insert-filter hooks.
+
+  ### `@atlassian/editor-plugin-markdown-mode` (new package — major)
+
+  A reusable editor plugin that owns the full Markdown Mode lifecycle: ProseMirror plugin state for
+  the active view, a 3-button view toggle (`MarkdownModeViewToggleBase`), a CodeMirror 6 source view
+  (`MarkdownSourceView`), ADF↔markdown conversion (`adfToMarkdown` / `markdownToAdf`), and the
+  snapshot/writeback orchestration (`MarkdownModeContentComponent`). The plugin is product-agnostic
+  — Confluence wraps it for the `cc-markdown-mode` experiment, but any consumer can adopt it.
+
+  The package also exports two allowlists used by the new insert-filter hooks below:
+  - `MARKDOWN_COMPATIBLE_QUICK_INSERT_ITEM_IDS` + `isMarkdownCompatibleQuickInsertItem` — items
+    whose underlying node has a clean GFM round-trip via `@atlassian/mdast-util-from-pm`.
+  - `MARKDOWN_COMPATIBLE_TOOLBAR_ITEM_NAMES` + `isMarkdownCompatibleToolbarItem` — same idea for the
+    main toolbar's `+` insert block.
+
+  ### `@atlaskit/editor-plugin-quick-insert` (minor)
+
+  Added an optional `itemFilter?: (item: QuickInsertItem) => boolean` to `QuickInsertOptions`. When
+  set, the filter is applied in both `getQuickInsertSuggestions` (the typeahead path) and the
+  `getSuggestions` action path before items are categorised or returned. Composes additively with
+  any caller-supplied filter via `&&`. No behavioural change for callers that don't set it.
+
+  ### `@atlaskit/editor-plugin-insert-block` (minor)
+
+  Added an optional `itemFilter?: (item: { value: { name: string } }) => boolean` to
+  `InsertBlockPluginOptions`. The filter is applied to the items list inside `createItems` before
+  it's split into toolbar buttons / overflow dropdown entries, so item counts stay correct
+  downstream. Wired through both legacy (`ToolbarInsertBlock`) and new (`useInsertButtonState`)
+  toolbar code paths. No behavioural change for callers that don't set it.
+
+  ### `@atlaskit/editor-common` (patch)
+
+  `UseSharedPluginStateWithSelector`-friendly types are unchanged; the only public change is a new
+  optional field on `QuickInsertOptions` and a corresponding plumbing field on the internal
+  `QuickInsertSearchOptions`.
+
+  ### `@atlassian/mdast-util-from-pm` (patch)
+
+  Added `undoEdgeWhitespaceEncoding()` post-processor that replaces the leading/trailing-edge entity
+  escapes `&#x20;` and `&#x9;` produced by the upstream encoder with literal space and tab
+  characters. This is a readability + round-trip identity fix that benefits all consumers, not just
+  Markdown Mode.
+
+### Patch Changes
+
+- Updated dependencies
+
+## 10.1.4
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 10.1.3
 
 ### Patch Changes

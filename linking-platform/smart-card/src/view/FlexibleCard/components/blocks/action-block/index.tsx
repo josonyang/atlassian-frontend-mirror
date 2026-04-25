@@ -10,11 +10,7 @@ import { di } from 'react-magnetic-di';
 import { fg } from '@atlaskit/platform-feature-flags';
 import { token } from '@atlaskit/tokens';
 
-import {
-	type FlexibleUiActionName,
-	ActionName,
-	SmartLinkSize,
-} from '../../../../../constants';
+import { type FlexibleUiActionName, ActionName, SmartLinkSize } from '../../../../../constants';
 import {
 	useFlexibleUiContext,
 	useFlexibleUiOptionContext,

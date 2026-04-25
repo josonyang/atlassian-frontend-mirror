@@ -22,7 +22,7 @@ export function AttachedComment({
 	portalContainer: Element;
 	range: Range;
 	stickyHeaderHeight: number;
-}) {
+}): React.ReactPortal {
 	const position = usePosition({ range, portalContainer });
 	// ^ get range from activeComment
 	// ---> either

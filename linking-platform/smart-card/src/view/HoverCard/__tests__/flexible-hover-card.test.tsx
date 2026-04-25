@@ -14,7 +14,6 @@ jest.mock('react-render-image', () => ({ src, errored, onError }: any) => {
 import '@atlaskit/link-test-helpers/jest';
 import React from 'react';
 
-
 import {
 	ActionName,
 	Card,

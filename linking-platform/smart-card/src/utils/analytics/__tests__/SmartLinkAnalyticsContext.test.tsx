@@ -1,6 +1,5 @@
 import React, { useEffect } from 'react';
 
-
 import FabricAnalyticsListeners, { type AnalyticsWebClient } from '@atlaskit/analytics-listeners';
 import { useAnalyticsEvents } from '@atlaskit/analytics-next';
 import FeatureGates from '@atlaskit/feature-gate-js-client';

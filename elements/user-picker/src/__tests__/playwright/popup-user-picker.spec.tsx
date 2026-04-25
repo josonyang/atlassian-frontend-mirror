@@ -6,7 +6,6 @@ import { test } from './user-picker';
 // the next line and associated import. For more information, see go/afm-a11y-tooling:playwright
 skipAutoA11yFile();
 
-
 const EXAMPLE = 'modal';
 
 test.describe('User Picker Modal', () => {

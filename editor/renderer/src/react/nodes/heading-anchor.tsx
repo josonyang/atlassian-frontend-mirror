@@ -6,7 +6,7 @@ import type { Ref } from 'react';
 import React from 'react';
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { css, jsx } from '@emotion/react';
-import type { WrappedComponentProps } from 'react-intl';
+import type { WithIntlProps, WrappedComponentProps } from 'react-intl';
 import { injectIntl } from 'react-intl';
 
 import LinkIcon from '@atlaskit/icon/core/link';
@@ -194,4 +194,8 @@ class HeadingAnchor extends React.PureComponent<HeadingAnchorProps, HeadingAncho
 	}
 }
 
-export default injectIntl(HeadingAnchor);
+// eslint-disable-next-line @typescript-eslint/ban-types
+const _default_1: React.FC<WithIntlProps<HeadingAnchorProps>> & {
+	WrappedComponent: React.ComponentType<HeadingAnchorProps>;
+} = injectIntl(HeadingAnchor);
+export default _default_1;

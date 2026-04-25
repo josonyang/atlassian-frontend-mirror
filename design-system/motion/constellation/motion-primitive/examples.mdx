@@ -8,9 +8,9 @@ import MotionPrimitiveToken from '../../examples/constellation/motion-primitive-
 import MotionPrimitiveCustom from '../../examples/constellation/motion-primitive-custom';
 import MotionPrimitiveCustomKeyframe from '../../examples/constellation/motion-primitive-custom-keyframe';
 
-The Motion primitive is the recommended way to apply entry and exit animations in `@atlaskit/motion`. It
-renders a wrapper around its children — no render-prop pattern required — making it easy to
-compose with any React content, including ADS Primitives.
+The Motion primitive is the recommended way to apply entry and exit animations in
+`@atlaskit/motion`. It renders a wrapper around its children — no render-prop pattern required —
+making it easy to compose with any React content, including ADS Primitives.
 
 It supports two approaches for defining animations:
 
@@ -25,8 +25,8 @@ removed from the DOM.
 
 ## Using motion tokens
 
-The simplest way to use the Motion primitive is with pre-defined motion tokens. Pass a motion token to
-`enteringAnimation` and `exitingAnimation` to apply a paired entering and exiting animation.
+The simplest way to use the Motion primitive is with pre-defined motion tokens. Pass a motion token
+to `enteringAnimation` and `exitingAnimation` to apply a paired entering and exiting animation.
 
 <Example
 	highlight="9,37-39"
@@ -38,9 +38,9 @@ The simplest way to use the Motion primitive is with pre-defined motion tokens. 
 ## Custom animations with token keyframes
 
 For more control, use `enteringAnimationXcss` and `exitingAnimationXcss` with `cssMap` styles that
-set `animationName`, `animationDuration`, and `animationTimingFunction` using motion tokens. Multiple
-keyframes can be composed together by joining them in `animationName` (for example, combining a scale
-and fade animation).
+set `animationName`, `animationDuration`, and `animationTimingFunction` using motion tokens.
+Multiple keyframes can be composed together by joining them in `animationName` (for example,
+combining a scale and fade animation).
 
 <Example
 	highlight="9,21-25,27-31,50-51"

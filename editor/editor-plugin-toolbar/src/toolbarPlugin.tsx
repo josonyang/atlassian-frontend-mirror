@@ -109,11 +109,29 @@ export const toolbarPlugin: ToolbarPlugin = ({
 				}
 			},
 
+			// EDITOR-6558: `componentFilter` is evaluated at read time (not at
+			// `registerComponents` time) so it can react to runtime state
+			// (e.g. the current markdown view mode) without forcing every
+			// plugin to re-register its components. Returning a new array on
+			// every call means React-tree consumers re-render whenever the
+			// underlying filter would change.
 			getComponents: () => {
-				return registry.components;
+				return config?.componentFilter
+					? registry.components.filter(config.componentFilter)
+					: registry.components;
 			},
 
 			contextualFormattingMode: () => {
+				// EDITOR-6558: `contextualFormattingModeOverride` lets a
+				// consumer (Markdown Mode in source/preview view) force the
+				// toolbar to a specific docking position regardless of the
+				// user's saved preference. Used to lock the toolbar to
+				// `always-pinned` while the floating toolbar would be useless
+				// (i.e. when there's no ProseMirror selection to anchor to).
+				const override = config?.contextualFormattingModeOverride?.();
+				if (override) {
+					return override;
+				}
 				return contextualFormattingEnabled ?? 'always-pinned';
 			},
 

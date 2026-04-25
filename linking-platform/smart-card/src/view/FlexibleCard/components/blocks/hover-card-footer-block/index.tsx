@@ -8,10 +8,7 @@ import { css, jsx } from '@compiled/react';
 
 import { token } from '@atlaskit/tokens';
 
-import {
-	ActionName,
-	type FlexibleUiActionName,
-} from '../../../../../constants';
+import { ActionName, type FlexibleUiActionName } from '../../../../../constants';
 import { useFlexibleCardContext } from '../../../../../state/flexible-ui-context';
 import { useFlexibleUiContext } from '../../../../../state/flexible-ui-context';
 import * as Actions from '../../actions';
@@ -24,9 +21,7 @@ import type { ResolvedHoverCardFooterBlockProps } from './types';
  * Allowed footer actions for HoverCard, in display order. Fetched from context.
  * @featureGate platform_sl_3p_auth_rovo_action_kill_switch
  */
-const HIDDEN_HOVER_CARD_FOOTER_ACTIONS: FlexibleUiActionName[] = [
-	ActionName.RovoChatAction,
-];
+const HIDDEN_HOVER_CARD_FOOTER_ACTIONS: FlexibleUiActionName[] = [ActionName.RovoChatAction];
 
 const ignoreContainerMarginStyles = css({
 	boxSizing: 'border-box',

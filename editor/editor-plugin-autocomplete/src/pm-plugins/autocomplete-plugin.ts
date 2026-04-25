@@ -202,7 +202,10 @@ const buildSlowLaneText = (docText: string, context?: AutocompleteContext): stri
 	return lines.join('\n');
 };
 
-export const createAutocompletePlugin = (options?: AutocompletePluginOptions, api?: ExtractInjectionAPI<AutocompletePlugin>): SafePlugin<AutocompletePluginState> => {
+export const createAutocompletePlugin = (
+	options?: AutocompletePluginOptions,
+	api?: ExtractInjectionAPI<AutocompletePlugin>,
+): SafePlugin<AutocompletePluginState> => {
 	let debounceTimer: ReturnType<typeof setTimeout> | null = null;
 	let hasIngestedPage = false;
 	let resolvedContext: AutocompleteContext | undefined;

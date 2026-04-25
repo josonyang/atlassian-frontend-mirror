@@ -1,7 +1,13 @@
 // oxlint-disable-next-line @atlassian/no-restricted-imports
 import { defineMessages } from 'react-intl';
 
-export const i18n = defineMessages({
+export const i18n: {
+	invalidAltText: {
+		id: string;
+		defaultMessage: string;
+		description: string;
+	};
+} = defineMessages({
 	invalidAltText: {
 		id: 'editor-presets-confluence.media.alt-text.invalid',
 		defaultMessage:

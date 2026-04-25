@@ -40,11 +40,7 @@ export const GoalNode = (props: NodeViewProps<Props>) => {
 		<NodeBase
 			iconBefore={
 				<Box xcss={styles.iconWrapper}>
-					<GoalIcon
-						size="16"
-						status={goal?.status ?? "DEFAULT"}
-						iconKey={toGoalIconKey("GOAL")}
-					/>
+					<GoalIcon size="16" status={goal?.status ?? 'DEFAULT'} iconKey={toGoalIconKey('GOAL')} />
 				</Box>
 			}
 			text={name}

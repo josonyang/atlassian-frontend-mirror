@@ -1,4 +1,44 @@
-export const adf = {
+export const adf: {
+	type: string;
+	version: number;
+	content: (
+		| {
+				type: string;
+				content: {
+					type: string;
+					text: string;
+				}[];
+				attrs: {
+					level: number;
+					url?: undefined;
+					datasource?: undefined;
+				};
+		  }
+		| {
+				type: string;
+				attrs: {
+					url: string;
+					datasource: {
+						id: string;
+						parameters: {
+							cloudId: string;
+							jql: string;
+						};
+						views: {
+							type: string;
+							properties: {
+								columns: {
+									key: string;
+								}[];
+							};
+						}[];
+					};
+					level?: undefined;
+				};
+				content?: undefined;
+		  }
+	)[];
+} = {
 	type: 'doc',
 	version: 1,
 	content: [

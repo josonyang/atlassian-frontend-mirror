@@ -3,7 +3,7 @@ import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import type { MarkdownSerializerState } from './serializer';
 
 /** Node types that represent lists. */
-export const listTypes = new Set(['bulletList', 'orderedList', 'taskList']);
+export const listTypes: Set<string> = new Set(['bulletList', 'orderedList', 'taskList']);
 
 /** A "wrapper" listItem has only list children and no paragraph content (flexible indentation). */
 export function isWrapperListItem(node: PMNode): boolean {

@@ -17,28 +17,45 @@ import { RESIZE_HANDLE_AREA_DECORATION_GAP } from '../types';
  */
 
 // TODO: DSP-4135 - Remove these tokens once the new elevation tokens are available
-export const tableCellBackgroundColor = token('elevation.surface');
+export const tableCellBackgroundColor: 'var(--ds-surface)' = token('elevation.surface');
 
-export const tableHeaderCellBackgroundColor = token('color.background.accent.gray.subtlest');
+export const tableHeaderCellBackgroundColor: 'var(--ds-background-accent-gray-subtlest)' = token(
+	'color.background.accent.gray.subtlest',
+);
 
-export const tableToolbarColor = token('color.background.neutral.subtle');
-export const tableTextColor = token('color.text.subtlest');
-export const tableBorderColor = token('color.background.accent.gray.subtler');
-export const tableFloatingControlsColor = token('color.background.neutral');
+export const tableToolbarColor: 'var(--ds-background-neutral-subtle)' = token(
+	'color.background.neutral.subtle',
+);
+export const tableTextColor: 'var(--ds-text-subtlest)' = token('color.text.subtlest');
+export const tableBorderColor: 'var(--ds-background-accent-gray-subtler)' = token(
+	'color.background.accent.gray.subtler',
+);
+export const tableFloatingControlsColor: 'var(--ds-background-neutral)' = token(
+	'color.background.neutral',
+);
 
 // TODO: DSP-4461 - Remove these tokens once the new elevation tokens are available
-export const tableCellSelectedColor = token('color.blanket.selected');
-export const tableHeaderCellSelectedColor = token('color.background.selected.pressed');
-export const tableToolbarSelectedColor = token('color.background.selected.pressed');
-export const tableBorderSelectedColor = token('color.border.focused');
-export const tableCellSelectedDeleteIconColor = token('color.icon.subtle');
-export const tableCellSelectedDeleteIconBackground = token('color.background.accent.gray.subtlest');
-export const tableCellDeleteColor = token('color.blanket.danger');
+export const tableCellSelectedColor: 'var(--ds-blanket-selected)' = token('color.blanket.selected');
+export const tableHeaderCellSelectedColor: 'var(--ds-background-selected-pressed)' = token(
+	'color.background.selected.pressed',
+);
+export const tableToolbarSelectedColor: 'var(--ds-background-selected-pressed)' = token(
+	'color.background.selected.pressed',
+);
+export const tableBorderSelectedColor: 'var(--ds-border-focused)' = token('color.border.focused');
+export const tableCellSelectedDeleteIconColor: 'var(--ds-icon-subtle)' = token('color.icon.subtle');
+export const tableCellSelectedDeleteIconBackground: 'var(--ds-background-accent-gray-subtlest)' =
+	token('color.background.accent.gray.subtlest');
+export const tableCellDeleteColor: 'var(--ds-blanket-danger)' = token('color.blanket.danger');
 
-export const tableBorderDeleteColor = token('color.border.danger');
-export const tableToolbarDeleteColor = token('color.background.danger.pressed');
-export const tableCellHoverDeleteIconColor = token('color.icon.inverse');
-export const tableCellHoverDeleteIconBackground = token('color.background.danger.bold');
+export const tableBorderDeleteColor: 'var(--ds-border-danger)' = token('color.border.danger');
+export const tableToolbarDeleteColor: 'var(--ds-background-danger-pressed)' = token(
+	'color.background.danger.pressed',
+);
+export const tableCellHoverDeleteIconColor: 'var(--ds-icon-inverse)' = token('color.icon.inverse');
+export const tableCellHoverDeleteIconBackground: 'var(--ds-background-danger-bold)' = token(
+	'color.background.danger.bold',
+);
 export const tableBorderRadiusSize = 3;
 export const tablePadding = 8;
 export const tableScrollbarOffset = 15;
@@ -46,34 +63,34 @@ export const tableMarginFullWidthMode = 2;
 export const tableInsertColumnButtonSize = 20;
 export const tableDeleteButtonSize = 16;
 export const tableDeleteButtonOffset = 6;
-export const tableToolbarSize = akEditorTableToolbarSize;
-export const tableControlsSpacing = tableMarginTop + tablePadding - tableCellBorderWidth;
+export const tableToolbarSize: 11 = akEditorTableToolbarSize;
+export const tableControlsSpacing: number = tableMarginTop + tablePadding - tableCellBorderWidth;
 export const tableInsertColumnButtonOffset = 3;
 export const layoutButtonSize = 32;
 export const lineMarkerOffsetFromColumnControls = 13;
 export const lineMarkerSize = 4;
 export const columnControlsDecorationHeight = 25;
-export const columnControlsZIndex = akEditorUnitZIndex * 10;
-export const columnControlsSelectedZIndex = columnControlsZIndex + 1;
-export const rowControlsZIndex = akEditorUnitZIndex * 10;
-export const columnResizeHandleZIndex = columnControlsSelectedZIndex + 1;
+export const columnControlsZIndex: number = akEditorUnitZIndex * 10;
+export const columnControlsSelectedZIndex: number = columnControlsZIndex + 1;
+export const rowControlsZIndex: number = akEditorUnitZIndex * 10;
+export const columnResizeHandleZIndex: number = columnControlsSelectedZIndex + 1;
 export const insertLineWidth = 3;
-export const resizeHandlerAreaWidth = RESIZE_HANDLE_AREA_DECORATION_GAP / 3;
+export const resizeHandlerAreaWidth: number = RESIZE_HANDLE_AREA_DECORATION_GAP / 3;
 export const resizeLineWidth = 2;
-export const resizeHandlerZIndex = columnControlsZIndex + akRichMediaResizeZIndex;
+export const resizeHandlerZIndex: number = columnControlsZIndex + akRichMediaResizeZIndex;
 export const contextualMenuTriggerSize = 16;
 export const contextualMenuDropdownWidth = 180;
 export const contextualMenuDropdownWidthDnD = 250;
-export const stickyRowZIndex = resizeHandlerZIndex + 2;
+export const stickyRowZIndex: number = resizeHandlerZIndex + 2;
 export const stickyRowOffsetTop = 8;
 export const stickyHeaderBorderBottomWidth = 1;
 export const tableOverflowShadowWidth = 8;
 export const tableOverflowShadowWidthWide = 32;
 export const tablePopupMenuFitHeight = 188;
 export const tableColumnControlsHeight = 24;
-export const nativeStickyHeaderZIndex = akEditorTableCellOnStickyHeaderZIndex - 5;
-export const aboveNativeStickyHeaderZIndex = nativeStickyHeaderZIndex + 1;
-export const belowNativeStickyHeaderZIndex = nativeStickyHeaderZIndex - 1;
+export const nativeStickyHeaderZIndex: number = akEditorTableCellOnStickyHeaderZIndex - 5;
+export const aboveNativeStickyHeaderZIndex: number = nativeStickyHeaderZIndex + 1;
+export const belowNativeStickyHeaderZIndex: number = nativeStickyHeaderZIndex - 1;
 
 export const dropTargetsZIndex = 14;
 

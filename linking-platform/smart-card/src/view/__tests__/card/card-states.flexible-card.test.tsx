@@ -459,7 +459,9 @@ describe('smart-card: card states, flexible block withUrl', () => {
 			expect(unauthorizedTitle).toBeTruthy();
 
 			const titleAnchor = unauthorizedTitle.querySelectorAll('a')[0];
-			expect(titleAnchor.getAttribute('href')).toEqual('https://drive.google.com/drive/folders/test');
+			expect(titleAnchor.getAttribute('href')).toEqual(
+				'https://drive.google.com/drive/folders/test',
+			);
 			expect(titleAnchor.innerHTML).toContain('drive/folders/test');
 
 			const unauthorizedContent = screen.getByTestId('smart-block-unauthorized-view-content');

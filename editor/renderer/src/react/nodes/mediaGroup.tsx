@@ -71,7 +71,7 @@ export default class MediaGroup extends PureComponent<MediaGroupProps, MediaGrou
 		);
 	}
 
-	renderSingleFile(child: ReactElement<MediaProps>) {
+	renderSingleFile(child: ReactElement<MediaProps>): ReactElement<MediaProps> {
 		return React.cloneElement(child, {
 			// the media group component renders in crop mode in editor thus this enables consistency
 			// also crop is much easier to make consistent across SSR and hydration
@@ -83,7 +83,7 @@ export default class MediaGroup extends PureComponent<MediaGroupProps, MediaGrou
 		} as MediaProps);
 	}
 
-	renderSingleLink(child: ReactElement<MediaProps>) {
+	renderSingleLink(child: ReactElement<MediaProps>): ReactElement<MediaProps> {
 		return React.cloneElement(child, {
 			appearance: 'auto',
 			featureFlags: this.props.featureFlags,
@@ -108,7 +108,10 @@ export default class MediaGroup extends PureComponent<MediaGroupProps, MediaGrou
 			cardClickHandler(event, surroundings, analyticsEvent);
 		};
 
-	cloneFileCard(child: ReactElement<MediaProps>, surroundingItems: Identifier[]) {
+	cloneFileCard(
+		child: ReactElement<MediaProps>,
+		surroundingItems: Identifier[],
+	): ReactElement<MediaProps> {
 		const cardClickHandler =
 			this.props &&
 			this.props.eventHandlers &&

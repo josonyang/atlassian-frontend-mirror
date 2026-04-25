@@ -11,7 +11,8 @@ export interface EditorAPIContextType {
 	setEditorApi?: SetEditorAPI;
 }
 
-export const EditorAPIContext: React.Context<EditorAPIContextType> = React.createContext<EditorAPIContextType>({});
+export const EditorAPIContext: React.Context<EditorAPIContextType> =
+	React.createContext<EditorAPIContextType>({});
 
 interface EditorAPIProviderProps {
 	children: React.ReactNode;

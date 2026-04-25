@@ -6,7 +6,6 @@ import { test } from './mention';
 // the next line and associated import. For more information, see go/afm-a11y-tooling:playwright
 skipAutoA11yFile();
 
-
 const EXAMPLE = 'resourced-mention-list';
 
 test.describe('Resourced Mention List User Interactions', () => {

@@ -38,11 +38,7 @@ const keyToIconMap = {
 	KEY_RESULT: KeyResultIcon,
 };
 
-export const GoalIcon = ({
-	status,
-	size,
-	iconKey = 'GOAL',
-}: GoalIconProps): React.JSX.Element => {
+export const GoalIcon = ({ status, size, iconKey = 'GOAL' }: GoalIconProps): React.JSX.Element => {
 	const Icon = keyToIconMap[iconKey as keyof typeof keyToIconMap] ?? keyToIconMap.GOAL;
 	const appearance = isGoalAppearance(status) ? status : 'DEFAULT';
 

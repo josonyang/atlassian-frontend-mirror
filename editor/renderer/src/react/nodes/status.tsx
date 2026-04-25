@@ -15,7 +15,7 @@ export interface Props extends MarkDataAttributes {
 	text: string;
 }
 
-export default memo(function Status(props: Props) {
+const _default_1: React.NamedExoticComponent<Props> = memo(function Status(props: Props) {
 	const { text, color, style, localId } = props;
 	const inlineAnnotationProps = useInlineAnnotationProps(props);
 
@@ -96,3 +96,4 @@ export default memo(function Status(props: Props) {
 		</FabricElementsAnalyticsContext>
 	);
 });
+export default _default_1;

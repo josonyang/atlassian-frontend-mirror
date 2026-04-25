@@ -220,7 +220,7 @@ export const scaleTable =
 		shouldUseIncreasedScalingPercent = false,
 		isCommentEditor = false,
 	) =>
-	(tr: Transaction) => {
+	(tr: Transaction): Transaction => {
 		if (!tableRef) {
 			return tr;
 		}

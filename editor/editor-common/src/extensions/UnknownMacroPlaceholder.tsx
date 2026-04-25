@@ -93,7 +93,7 @@ export function UnknownMacroPlaceholder({
 	const visibleParams = expValEquals('platform_editor_perf_lint_cleanup', 'isEnabled', true)
 		? memoizedVisibleParams
 		: // eslint-disable-next-line @atlassian/perf-linting/no-expensive-computations-in-render -- intentional fallback for experiment off path
-		  Object.entries(macroParamsOld)
+			Object.entries(macroParamsOld)
 				.filter(([key]) => !key.startsWith('_'))
 				.map(([key, param]) => formatParamInline(key, param as { value?: string }))
 				.join(' | ');

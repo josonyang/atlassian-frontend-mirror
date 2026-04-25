@@ -42,9 +42,7 @@ function computeEdgePosition({
 		const fitsBelow = spaceBelow >= popoverHeight + gap;
 		const useBelow = fitsBelow || spaceBelow >= spaceAbove;
 		return {
-			top: useBelow
-				? triggerRect.bottom + gap
-				: triggerRect.top - popoverHeight - gap,
+			top: useBelow ? triggerRect.bottom + gap : triggerRect.top - popoverHeight - gap,
 			left: triggerRect.left + triggerRect.width / 2 - popoverWidth / 2,
 		};
 	}
@@ -56,9 +54,7 @@ function computeEdgePosition({
 		const fitsAbove = spaceAbove >= popoverHeight + gap;
 		const useAbove = fitsAbove || spaceAbove >= spaceBelow;
 		return {
-			top: useAbove
-				? triggerRect.top - popoverHeight - gap
-				: triggerRect.bottom + gap,
+			top: useAbove ? triggerRect.top - popoverHeight - gap : triggerRect.bottom + gap,
 			left: triggerRect.left + triggerRect.width / 2 - popoverWidth / 2,
 		};
 	}
@@ -71,9 +67,7 @@ function computeEdgePosition({
 		const useRight = fitsRight || spaceRight >= spaceLeft;
 		return {
 			top: triggerRect.top + triggerRect.height / 2 - popoverHeight / 2,
-			left: useRight
-				? triggerRect.right + gap
-				: triggerRect.left - popoverWidth - gap,
+			left: useRight ? triggerRect.right + gap : triggerRect.left - popoverWidth - gap,
 		};
 	}
 
@@ -85,9 +79,7 @@ function computeEdgePosition({
 		const useLeft = fitsLeft || spaceLeft >= spaceRight;
 		return {
 			top: triggerRect.top + triggerRect.height / 2 - popoverHeight / 2,
-			left: useLeft
-				? triggerRect.left - popoverWidth - gap
-				: triggerRect.right + gap,
+			left: useLeft ? triggerRect.left - popoverWidth - gap : triggerRect.right + gap,
 		};
 	}
 

@@ -59,9 +59,7 @@ test.describe('Tooltip mouse positioning', () => {
 		expect(tooltipBox.y).toBe(expectedTooltipPosition.y);
 	});
 
-	test('should position tooltip at mouse coordinates with position="mouse"', async ({
-		page,
-	}) => {
+	test('should position tooltip at mouse coordinates with position="mouse"', async ({ page }) => {
 		await page.visitExample<typeof import('../../../examples/position-mouse.tsx')>(
 			'design-system',
 			'tooltip',

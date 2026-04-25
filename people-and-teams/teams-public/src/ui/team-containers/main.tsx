@@ -34,8 +34,8 @@ import { NoProductAccessState } from './no-product-access-empty-state';
 import { TeamLinkCard } from './team-link-card';
 import { type TeamContainerProps } from './types';
 
-export const ICON_BACKGROUND: "var(--ds-icon-inverse)" = token('color.icon.inverse');
-export const ICON_COLOR: "var(--ds-icon-subtle)" = token('color.icon.subtle');
+export const ICON_BACKGROUND: 'var(--ds-icon-inverse)' = token('color.icon.inverse');
+export const ICON_COLOR: 'var(--ds-icon-subtle)' = token('color.icon.subtle');
 export const MAX_NUMBER_OF_CONTAINERS_TO_SHOW = 4;
 
 interface SelectedContainerDetails {

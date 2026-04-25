@@ -1,14 +1,15 @@
+import type { ComponentType } from 'react';
 import { statusInPanelAdf, mixedCaseStatusInPanelAdf } from '../__fixtures__/status.adf';
 
 import { generateRendererComponent } from '../__helpers/rendererComponents';
 
-export const StatusInPanelRenderer = generateRendererComponent({
+export const StatusInPanelRenderer: ComponentType<any> = generateRendererComponent({
 	document: statusInPanelAdf,
 	appearance: 'full-page',
 	allowCustomPanels: true,
 });
 
-export const MixedCaseStatusInPanelRenderer = generateRendererComponent({
+export const MixedCaseStatusInPanelRenderer: ComponentType<any> = generateRendererComponent({
 	document: mixedCaseStatusInPanelAdf,
 	appearance: 'full-page',
 	allowCustomPanels: true,

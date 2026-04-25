@@ -119,7 +119,10 @@ export class OverflowShadowsObserver {
 	 * e.g. bounds on an IntersectionObserverEntry, otherwise proceed with
 	 * reading it from sticky cell
 	 */
-	updateStickyShadows = rafSchedule((stickyRowHeight?: number): void => {
+	updateStickyShadows: ((stickyRowHeight?: number) => void) & {
+		// eslint-disable-next-line @typescript-eslint/method-signature-style
+		cancel(): void;
+	} = rafSchedule((stickyRowHeight?: number): void => {
 		if (!this.isSticky) {
 			return;
 		}

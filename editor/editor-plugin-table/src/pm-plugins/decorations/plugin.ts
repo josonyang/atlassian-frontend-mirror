@@ -19,7 +19,7 @@ import {
 	maybeUpdateColumnControlsSelectedDecoration,
 } from './utils/column-controls';
 
-export const pluginKey = new PluginKey('tableDecorationsPlugin');
+export const pluginKey: PluginKey = new PluginKey('tableDecorationsPlugin');
 
 export const getDecorations = (state: EditorState): DecorationSet => pluginKey.getState(state);
 
@@ -31,10 +31,7 @@ export const handleDocOrSelectionChanged = (
 ): DecorationSet => {
 	const isResizing = tableWidthPluginKey.getState(newState)?.resizing;
 	const wasResizing = tableWidthPluginKey.getState(oldState)?.resizing;
-	const {
-		isInDanger,
-		isTableHovered,
-	} = tablePluginKey.getState(newState) || {};
+	const { isInDanger, isTableHovered } = tablePluginKey.getState(newState) || {};
 
 	const changedResizing = isResizing !== wasResizing;
 
@@ -64,7 +61,7 @@ export const handleDocOrSelectionChanged = (
 	return decorationSet;
 };
 
-export const createPlugin = () => {
+export const createPlugin = (): SafePlugin<DecorationSet> => {
 	return new SafePlugin({
 		state: {
 			init: () => DecorationSet.empty,

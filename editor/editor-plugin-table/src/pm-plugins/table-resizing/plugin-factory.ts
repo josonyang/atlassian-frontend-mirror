@@ -1,11 +1,21 @@
 // @ts-ignore -- ReadonlyTransaction is a local declaration and will cause a TS2305 error in CCFE typecheck
 import { pluginFactory } from '@atlaskit/editor-common/utils';
-import type { ReadonlyTransaction } from '@atlaskit/editor-prosemirror/state';
+import type {
+	EditorState,
+	ReadonlyTransaction,
+	SafeStateField,
+	Transaction,
+} from '@atlaskit/editor-prosemirror/state';
 
-import type { ColumnResizingPluginState } from '../../types';
+import type { ColumnResizingPluginAction, ColumnResizingPluginState } from '../../types';
 
 import { pluginKey } from './plugin-key';
+// eslint-disable-next-line import/order
 import reducer from './reducer';
+// eslint-disable-next-line import/order
+import type { Dispatch } from '@atlaskit/editor-common/event-dispatcher';
+// eslint-disable-next-line import/order
+import type { Command } from '@atlaskit/editor-common/types';
 
 function mapping(
 	tr: ReadonlyTransaction,
@@ -24,6 +34,13 @@ const factory = pluginFactory(pluginKey, reducer, {
 	mapping,
 });
 
-export const createCommand = factory.createCommand;
-export const createPluginState = factory.createPluginState;
-export const getPluginState = factory.getPluginState;
+export const createCommand: <A = ColumnResizingPluginAction>(
+	action: A | ((state: Readonly<EditorState>) => false | A),
+	transform?: (tr: Transaction, state: EditorState) => Transaction,
+) => Command = factory.createCommand;
+export const createPluginState: (
+	dispatch: Dispatch,
+	initialState: ColumnResizingPluginState | ((state: EditorState) => ColumnResizingPluginState),
+) => SafeStateField<ColumnResizingPluginState> = factory.createPluginState;
+export const getPluginState: (state: EditorState) => ColumnResizingPluginState =
+	factory.getPluginState;

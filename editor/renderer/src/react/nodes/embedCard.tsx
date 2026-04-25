@@ -3,10 +3,10 @@
  * @jsx jsx
  */
 /* eslint-disable jsdoc/check-tag-names */
-// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
-import { css, jsx } from '@emotion/react';
+/* eslint-disable @typescript-eslint/consistent-type-imports, @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766; jsx required at runtime for @jsxRuntime classic */
+import { jsx, css } from '@emotion/react';
 import { useContext, useState, useRef } from 'react';
-import type { ComponentProps } from 'react';
+import type { ComponentProps, FC } from 'react';
 import { Card, EmbedResizeMessageListener } from '@atlaskit/smart-card';
 import { CardSSR } from '@atlaskit/smart-card/ssr';
 import { SmartCardContext } from '@atlaskit/link-provider';
@@ -356,7 +356,7 @@ export const EmbedOrBlockCardInternal = ({
 	smartLinks,
 	isInsideOfInlineExtension,
 	onSetLinkTarget,
-}: EmbedCardInternalProps) => {
+}: EmbedCardInternalProps): jsx.JSX.Element => {
 	const { width } = useContext(WidthContext);
 	const viewAsBlockCard = width && width <= akEditorFullPageNarrowBreakout;
 
@@ -390,7 +390,7 @@ export const EmbedOrBlockCardInternal = ({
 	);
 };
 
-const EmbedCardWithCondition = componentWithCondition(
+const EmbedCardWithCondition: FC<EmbedCardInternalProps> = componentWithCondition(
 	() =>
 		editorExperiment('platform_editor_preview_panel_responsiveness', true, {
 			exposure: true,

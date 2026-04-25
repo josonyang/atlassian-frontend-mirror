@@ -4,13 +4,14 @@ import * as highlightCustomColorsAdf from '../__fixtures__/highlight-custom-colo
 
 import { generateRendererComponent } from '../__helpers/rendererComponents';
 import { annotationInlineCommentProvider } from '../__helpers/rendererWithAnnotations';
+import type { ComponentType } from 'react';
 
-export const BackgroundColorDefinedColors = generateRendererComponent({
+export const BackgroundColorDefinedColors: ComponentType<any> = generateRendererComponent({
 	document: highlightAdf,
 	appearance: 'comment',
 });
 
-export const BackgroundColorOverlapped = generateRendererComponent({
+export const BackgroundColorOverlapped: ComponentType<any> = generateRendererComponent({
 	document: highlightOverlappedAdf,
 	appearance: 'comment',
 	allowAnnotations: true,
@@ -19,7 +20,7 @@ export const BackgroundColorOverlapped = generateRendererComponent({
 	},
 });
 
-export const BackgroundColorCustomColors = generateRendererComponent({
+export const BackgroundColorCustomColors: ComponentType<any> = generateRendererComponent({
 	document: highlightCustomColorsAdf,
 	appearance: 'comment',
 });

@@ -9,7 +9,6 @@ import { css, jsx } from '@compiled/react';
 import { token } from '@atlaskit/tokens';
 import { render, screen } from '@atlassian/testing-library';
 
-
 import { getFlexibleCardTestWrapper } from '../../../../../../__tests__/__utils__/unit-testing-library-helpers';
 import { messages } from '../../../../../../messages';
 import { type FlexibleUiDataContext } from '../../../../../../state/flexible-ui-context/types';

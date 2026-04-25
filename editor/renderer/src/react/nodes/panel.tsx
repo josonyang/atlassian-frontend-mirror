@@ -3,8 +3,8 @@
  * @jsx jsx
  */
 import React from 'react';
-// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
-import { css, jsx } from '@emotion/react';
+/* eslint-disable @typescript-eslint/consistent-type-imports, @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766; jsx required at runtime for @jsxRuntime classic */
+import { jsx, css } from '@emotion/react';
 import TipIcon from '@atlaskit/icon/core/lightbulb';
 import { PanelType } from '@atlaskit/adf-schema';
 import type { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
@@ -252,7 +252,7 @@ const panelIcons: {
 	custom: EmojiIcon,
 };
 
-const Panel = (props: Props) => {
+const Panel = (props: Props): jsx.JSX.Element => {
 	const {
 		allowCustomPanels,
 		panelType: type,

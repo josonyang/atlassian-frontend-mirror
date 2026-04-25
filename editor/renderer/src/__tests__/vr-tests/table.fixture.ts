@@ -5,97 +5,105 @@ import tableComplexSelectionsAdf from '../__fixtures__/table-complex-selections.
 import { tableColorAdf } from '../__fixtures__/table-color';
 
 import { generateRendererComponent } from '../__helpers/rendererComponents';
+import type { ComponentType } from 'react';
 
-export const TableRenderer = generateRendererComponent({
+export const TableRenderer: ComponentType<any> = generateRendererComponent({
 	document: tableAdf,
 	appearance: 'full-width',
 });
 
-export const TableRendererWithNumberedColumnFullWidth = generateRendererComponent({
-	document: tableWithNumberedColumnAdf,
-	appearance: 'full-width',
-});
+export const TableRendererWithNumberedColumnFullWidth: ComponentType<any> =
+	generateRendererComponent({
+		document: tableWithNumberedColumnAdf,
+		appearance: 'full-width',
+	});
 
-export const WideTableRendererFullWidth = generateRendererComponent({
+export const WideTableRendererFullWidth: ComponentType<any> = generateRendererComponent({
 	document: overflowTableWide,
 	appearance: 'full-width',
 });
 
-export const FullWidthTableRendererFullWidth = generateRendererComponent({
+export const FullWidthTableRendererFullWidth: ComponentType<any> = generateRendererComponent({
 	document: overflowTableFullWidth,
 	appearance: 'full-width',
 	UNSTABLE_allowTableAlignment: true,
 	UNSTABLE_allowTableResizing: true,
 });
 
-export const TableRendererWideOverflow = generateRendererComponent({
+export const TableRendererWideOverflow: ComponentType<any> = generateRendererComponent({
 	document: overflowTableWide,
 	appearance: 'full-page',
 	UNSTABLE_allowTableResizing: true,
 });
 
-export const TableRendererFullWidthOverflow = generateRendererComponent({
+export const TableRendererFullWidthOverflow: ComponentType<any> = generateRendererComponent({
 	document: overflowTableFullWidth,
 	appearance: 'full-page',
 	UNSTABLE_allowTableResizing: true,
 });
 
-export const TableRendererWrappedNodes = generateRendererComponent({
+export const TableRendererWrappedNodes: ComponentType<any> = generateRendererComponent({
 	document: tableWithWrappedNodesAdf,
 	appearance: 'full-page',
 });
 
-export const TableRendererComplexNodes = generateRendererComponent({
+export const TableRendererComplexNodes: ComponentType<any> = generateRendererComponent({
 	document: tableComplexSelectionsAdf,
 	appearance: 'full-page',
 });
 
-export const TableRendererBackgroundColor = generateRendererComponent({
+export const TableRendererBackgroundColor: ComponentType<any> = generateRendererComponent({
 	document: tableColorAdf,
 	appearance: 'full-page',
 });
 
-export const TableRendereWithNumberedColumnFullPage = generateRendererComponent({
-	document: tableWithNumberedColumnAdf,
-	appearance: 'full-page',
-});
+export const TableRendereWithNumberedColumnFullPage: ComponentType<any> = generateRendererComponent(
+	{
+		document: tableWithNumberedColumnAdf,
+		appearance: 'full-page',
+	},
+);
 
-export const TableRendererFullWidthComment = generateRendererComponent({
+export const TableRendererFullWidthComment: ComponentType<any> = generateRendererComponent({
 	document: overflowTableFullWidth,
 	appearance: 'comment',
 });
 
-export const TableRendererWideComment = generateRendererComponent({
+export const TableRendererWideComment: ComponentType<any> = generateRendererComponent({
 	document: overflowTableWide,
 	appearance: 'comment',
 });
 
-export const TableRendererComment = generateRendererComponent({
+export const TableRendererComment: ComponentType<any> = generateRendererComponent({
 	document: tableAdf,
 	appearance: 'comment',
 });
 
-export const TableRendererWithNumberedColumnComment = generateRendererComponent({
-	document: tableWithNumberedColumnAdf,
-	appearance: 'comment',
-});
+export const TableRendererWithNumberedColumnComment: ComponentType<any> = generateRendererComponent(
+	{
+		document: tableWithNumberedColumnAdf,
+		appearance: 'comment',
+	},
+);
 
-export const TableRendererWithoutAppearance = generateRendererComponent({
+export const TableRendererWithoutAppearance: ComponentType<any> = generateRendererComponent({
 	document: tableAdf,
 	appearance: undefined,
 });
 
-export const TableRendererFullWidthWithoutAppearance = generateRendererComponent({
-	document: overflowTableFullWidth,
-	appearance: undefined,
-});
+export const TableRendererFullWidthWithoutAppearance: ComponentType<any> =
+	generateRendererComponent({
+		document: overflowTableFullWidth,
+		appearance: undefined,
+	});
 
-export const TableRendererWideWithoutAppearance = generateRendererComponent({
+export const TableRendererWideWithoutAppearance: ComponentType<any> = generateRendererComponent({
 	document: overflowTableWide,
 	appearance: undefined,
 });
 
-export const TableRendererWithNumberedColumnWithoutAppearance = generateRendererComponent({
-	document: tableWithNumberedColumnAdf,
-	appearance: undefined,
-});
+export const TableRendererWithNumberedColumnWithoutAppearance: ComponentType<any> =
+	generateRendererComponent({
+		document: tableWithNumberedColumnAdf,
+		appearance: undefined,
+	});

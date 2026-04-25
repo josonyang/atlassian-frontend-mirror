@@ -346,7 +346,7 @@ export const transformSliceToCorrectEmptyTableCells = (slice: Slice, schema: Sch
 	});
 };
 
-export function isHeaderRowRequired(state: EditorState) {
+export function isHeaderRowRequired(state: EditorState): boolean | undefined {
 	const tableState = getPluginState(state);
 	return tableState && tableState.pluginConfig.isHeaderRowRequired;
 }

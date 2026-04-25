@@ -3,7 +3,38 @@
 
 import { defineMessages } from 'react-intl';
 
-export const headingAnchorLinkMessages = defineMessages({
+export const headingAnchorLinkMessages: {
+	copyHeadingLinkToClipboard: {
+		id: string;
+		defaultMessage: string;
+		description: string;
+	};
+	copyLinkToClipboard: {
+		id: string;
+		defaultMessage: string;
+		description: string;
+	};
+	copyHeadingLinkLabelledBy: {
+		id: string;
+		defaultMessage: string;
+		description: string;
+	};
+	copiedHeadingLinkToClipboard: {
+		id: string;
+		defaultMessage: string;
+		description: string;
+	};
+	failedToCopyHeadingLink: {
+		id: string;
+		defaultMessage: string;
+		description: string;
+	};
+	copyAriaLabel: {
+		id: string;
+		defaultMessage: string;
+		description: string;
+	};
+} = defineMessages({
 	copyHeadingLinkToClipboard: {
 		id: 'fabric.editor.headingLink.copyAnchorLink',
 		defaultMessage: 'Copy link to heading',
@@ -39,7 +70,23 @@ export const headingAnchorLinkMessages = defineMessages({
 	},
 });
 
-export const tableCellMessages = defineMessages({
+export const tableCellMessages: {
+	noneSortingLabel: {
+		id: string;
+		defaultMessage: string;
+		description: string;
+	};
+	ascSortingLabel: {
+		id: string;
+		defaultMessage: string;
+		description: string;
+	};
+	descSortingLabel: {
+		id: string;
+		defaultMessage: string;
+		description: string;
+	};
+} = defineMessages({
 	noneSortingLabel: {
 		id: 'fabric.editor.headingLink.noneSortingLabel',
 		defaultMessage: 'none',
@@ -57,7 +104,18 @@ export const tableCellMessages = defineMessages({
 	},
 });
 
-export const inlineCommentMessages = defineMessages({
+export const inlineCommentMessages: {
+	contentRendererInlineCommentMarkerStart: {
+		id: string;
+		defaultMessage: string;
+		description: string;
+	};
+	contentRendererInlineCommentMarkerEnd: {
+		id: string;
+		defaultMessage: string;
+		description: string;
+	};
+} = defineMessages({
 	contentRendererInlineCommentMarkerStart: {
 		id: 'fabric.editor.inlineComment.marker.start',
 		defaultMessage: 'inline comment start',

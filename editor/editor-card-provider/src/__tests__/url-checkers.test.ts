@@ -11,10 +11,7 @@ describe('isConfluenceSlideUrl', () => {
 			'UUID content ID',
 			'https://hello.atlassian.net/wiki/spaces/TEAM/slide/8fb8c642-803d-59fe-8d1c-066610e860c6',
 		],
-		[
-			'with query params',
-			'https://hello.atlassian.net/wiki/spaces/TEAM/slide/6822455429?foo=bar',
-		],
+		['with query params', 'https://hello.atlassian.net/wiki/spaces/TEAM/slide/6822455429?foo=bar'],
 		['jira-dev host', 'https://pug.jira-dev.com/wiki/spaces/BT2/slide/452724424706'],
 	])('should return true for a slide URL with %s', (_label, url) => {
 		expect(isConfluenceSlideUrl(url)).toBe(true);

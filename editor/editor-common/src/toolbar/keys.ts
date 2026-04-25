@@ -782,6 +782,23 @@ export const PIN_BUTTON = {
 } as const;
 
 /**
+ * View-mode toggle section
+ * - Holds the Markdown view-mode toggle (source / wysiwyg / preview) on the
+ *   right edge of the primary toolbar, just before the overflow `…` menu.
+ * - Currently only registered by `@atlassian/editor-plugin-markdown-mode`
+ *   from Confluence's live-doc Markdown Mode editor preset.
+ *
+ * The plugin renders the entire toggle UI inside the section's `component`
+ * itself rather than registering child groups/buttons through the toolbar
+ * model, because the toggle is a self-contained 3-button segmented control
+ * with shared internal state.
+ */
+export const VIEW_MODE_TOGGLE_SECTION = {
+	key: 'view-mode-toggle-section',
+	type: 'section',
+} as const;
+
+/**
  * Loom section
  * - Only rendered in dropdown menu in primary toolbar
  */

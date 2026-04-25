@@ -95,11 +95,11 @@ export default class BasicQuickSearch extends React.Component<Props, State> {
 	};
 
 	state: {
-        query: string;
-        results: DataShape[];
-        isLoading: boolean;
-        autocompleteText: string;
-    } = {
+		query: string;
+		results: DataShape[];
+		isLoading: boolean;
+		autocompleteText: string;
+	} = {
 		query: store.query || '',
 		results: searchData(''),
 		isLoading: false,

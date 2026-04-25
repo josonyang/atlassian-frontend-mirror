@@ -1,5 +1,10 @@
 // eslint-disable-next-line @typescript-eslint/consistent-type-imports
-import { createAndFireEvent, UIAnalyticsEvent, type AnalyticsEventPayload, type CreateUIAnalyticsEvent } from '@atlaskit/analytics-next';
+import {
+	createAndFireEvent,
+	UIAnalyticsEvent,
+	type AnalyticsEventPayload,
+	type CreateUIAnalyticsEvent,
+} from '@atlaskit/analytics-next';
 // eslint-disable-next-line @atlaskit/platform/prefer-crypto-random-uuid -- Use crypto.randomUUID instead
 import { v4 as uuid } from 'uuid';
 import { type Props, type State } from './types';
@@ -26,7 +31,10 @@ export const startSession = (): UserPickerSession => ({
 	lastKey: undefined,
 });
 
-export const createAndFireEventInElementsChannel: (payload: AnalyticsEventPayload) => (createAnalyticsEvent: CreateUIAnalyticsEvent) => UIAnalyticsEvent = createAndFireEvent('fabric-elements');
+export const createAndFireEventInElementsChannel: (
+	payload: AnalyticsEventPayload,
+) => (createAnalyticsEvent: CreateUIAnalyticsEvent) => UIAnalyticsEvent =
+	createAndFireEvent('fabric-elements');
 
 const createEvent = (
 	eventType: 'ui' | 'operational',

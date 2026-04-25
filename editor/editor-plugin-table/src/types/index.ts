@@ -380,7 +380,141 @@ export enum TableDecorations {
 	LAST_CELL_ELEMENT = 'LAST_CELL_ELEMENT',
 }
 
-export const TableCssClassName = {
+export const TableCssClassName: {
+	/** Classic controls */
+	COLUMN_CONTROLS: string;
+	COLUMN_CONTROLS_DECORATIONS: string;
+	COLUMN_SELECTED: string;
+	ROW_CONTROLS_WRAPPER: string;
+	ROW_CONTROLS: string;
+	ROW_CONTROLS_INNER: string;
+	ROW_CONTROLS_BUTTON_WRAP: string;
+	ROW_CONTROLS_BUTTON: string;
+	CONTROLS_BUTTON: string;
+	CONTROLS_BUTTON_ICON: string;
+	CONTROLS_INSERT_BUTTON: string;
+	CONTROLS_INSERT_BUTTON_INNER: string;
+	CONTROLS_INSERT_BUTTON_WRAP: string;
+	CONTROLS_INSERT_LINE: string;
+	CONTROLS_BUTTON_OVERLAY: string;
+	DRAG_CONTROLS_INSERT_BUTTON: string;
+	DRAG_CONTROLS_INSERT_BUTTON_INNER: string;
+	DRAG_CONTROLS_INSERT_BUTTON_INNER_COLUMN: string;
+	DRAG_CONTROLS_INSERT_BUTTON_INNER_ROW: string;
+	DRAG_CONTROLS_INSERT_BUTTON_INNER_ROW_CHROMELESS: string;
+	DRAG_CONTROLS_INSERT_BUTTON_WRAP: string;
+	CONTROLS_INSERT_MARKER: string;
+	CONTROLS_INSERT_COLUMN: string;
+	CONTROLS_INSERT_ROW: string;
+	CONTROLS_DELETE_BUTTON_WRAP: string;
+	CONTROLS_DELETE_BUTTON: string;
+	CONTROLS_FLOATING_BUTTON_COLUMN: string;
+	CONTROLS_FLOATING_BUTTON_ROW: string;
+	CORNER_CONTROLS: string;
+	CORNER_CONTROLS_INSERT_ROW_MARKER: string;
+	CORNER_CONTROLS_INSERT_COLUMN_MARKER: string;
+	CONTROLS_CORNER_BUTTON: string;
+	/** drag and drop controls */
+	DRAG_ROW_CONTROLS_WRAPPER: string;
+	DRAG_ROW_CONTROLS: string;
+	DRAG_ROW_FLOATING_INSERT_DOT_WRAPPER: string;
+	DRAG_ROW_FLOATING_INSERT_DOT: string;
+	DRAG_ROW_FLOATING_DRAG_HANDLE: string;
+	DRAG_COLUMN_CONTROLS: string;
+	DRAG_COLUMN_FLOATING_INSERT_DOT_WRAPPER: string;
+	DRAG_COLUMN_FLOATING_INSERT_DOT: string;
+	DRAG_COLUMN_CONTROLS_WRAPPER: string;
+	DRAG_COLUMN_DROP_TARGET_CONTROLS: string;
+	DRAG_COLUMN_CONTROLS_INNER: string;
+	DRAG_HANDLE_BUTTON_CONTAINER: string;
+	DRAG_HANDLE_BUTTON_CLICKABLE_ZONE: string;
+	DRAG_CORNER_BUTTON: string;
+	DRAG_CORNER_BUTTON_INNER: string;
+	/** nested tables classes */
+	NESTED_TABLE_WITH_CONTROLS: string;
+	/** disabled classes */
+	DRAG_HANDLE_DISABLED: string;
+	/** minimised handle class */
+	DRAG_HANDLE_MINIMISED: string;
+	DRAG_SUBMENU: string;
+	DRAG_SUBMENU_ICON: string;
+	/** Other classes */
+	NUMBERED_COLUMN: string;
+	NUMBERED_COLUMN_BUTTON: string;
+	NUMBERED_COLUMN_BUTTON_DISABLED: string;
+	HOVERED_COLUMN: string;
+	HOVERED_ROW: string;
+	HOVERED_TABLE: string;
+	HOVERED_NO_HIGHLIGHT: string;
+	HOVERED_CELL: string;
+	HOVERED_CELL_IN_DANGER: string;
+	HOVERED_CELL_ACTIVE: string;
+	HOVERED_CELL_WARNING: string;
+	HOVERED_DELETE_BUTTON: string;
+	WITH_CONTROLS: string;
+	RESIZING_PLUGIN: string;
+	RESIZE_CURSOR: string;
+	IS_RESIZING: string;
+	RESIZE_HANDLE_DECORATION: string;
+	CONTEXTUAL_SUBMENU: string;
+	CONTEXTUAL_MENU_BUTTON_WRAP: string;
+	CONTEXTUAL_MENU_BUTTON: string;
+	CONTEXTUAL_MENU_BUTTON_FIXED: string;
+	CONTEXTUAL_MENU_ICON: string;
+	CONTEXTUAL_MENU_ICON_SMALL: string;
+	// come from prosemirror-table
+	SELECTED_CELL: string;
+	// defined in ReactNodeView based on PM node name
+	NODEVIEW_WRAPPER: string;
+	TABLE_SELECTED: string;
+	TABLE_CELL: 'pm-table-cell-content-wrap';
+	TABLE_HEADER_CELL: 'pm-table-header-content-wrap';
+	TABLE_STICKY: string;
+	TABLE_CHROMELESS: string;
+	TOP_LEFT_CELL: string;
+	LAST_ITEM_IN_CELL: string;
+	WITH_COLUMN_INSERT_LINE: string;
+	WITH_COLUMN_INSERT_LINE_INACTIVE: string;
+	WITH_FIRST_COLUMN_INSERT_LINE: string;
+	WITH_FIRST_COLUMN_INSERT_LINE_INACTIVE: string;
+	WITH_LAST_COLUMN_INSERT_LINE: string;
+	WITH_LAST_COLUMN_INSERT_LINE_INACTIVE: string;
+	WITH_RESIZE_LINE: string;
+	WITH_RESIZE_LINE_LAST_COLUMN: string;
+	WITH_DRAG_RESIZE_LINE: string;
+	WITH_DRAG_RESIZE_LINE_LAST_COLUMN: string;
+	WITH_ROW_INSERT_LINE: string;
+	WITH_ROW_INSERT_LINE_INACTIVE: string;
+	WITH_LAST_ROW_INSERT_LINE: string;
+	WITH_LAST_ROW_INSERT_LINE_INACTIVE: string;
+	NATIVE_STICKY: string;
+	NATIVE_STICKY_ACTIVE: string;
+	NO_OVERFLOW: string;
+	TABLE_CELL_NODEVIEW_CONTENT_DOM: 'pm-table-cell-nodeview-content-dom';
+	TABLE_CELL_WRAPPER: 'pm-table-cell-content-wrap';
+	TABLE_COLUMN_CONTROLS_DECORATIONS: 'pm-table-column-controls-decoration';
+	TABLE_CONTAINER: 'pm-table-container';
+	TABLE_HEADER_CELL_WRAPPER: 'pm-table-header-content-wrap';
+	TABLE_LEFT_BORDER: 'pm-table-left-border';
+	TABLE_LEFT_SHADOW: 'pm-table-with-left-shadow';
+	TABLE_NODE_WRAPPER: 'pm-table-wrapper';
+	TABLE_NODE_WRAPPER_NO_OVERFLOW: 'pm-table-wrapper-no-overflow';
+	TABLE_RESIZER_CONTAINER: 'pm-table-resizer-container';
+	TABLE_RIGHT_BORDER: 'pm-table-right-border';
+	TABLE_RIGHT_SHADOW: 'pm-table-with-right-shadow';
+	TABLE_ROW_CONTROLS_WRAPPER: 'pm-table-row-controls-wrapper';
+	TABLE_SCROLL_INLINE_SHADOW: 'pm-table-scroll-inline-shadow';
+	TABLE_SHADOW_SENTINEL_LEFT: 'pm-table-shadow-sentinel-left';
+	TABLE_SHADOW_SENTINEL_RIGHT: 'pm-table-shadow-sentinel-right';
+	TABLE_STICKY_SCROLLBAR_CONTAINER: 'pm-table-sticky-scrollbar-container';
+	TABLE_STICKY_SCROLLBAR_SENTINEL_BOTTOM: 'pm-table-sticky-scrollbar-sentinel-bottom';
+	TABLE_STICKY_SCROLLBAR_SENTINEL_TOP: 'pm-table-sticky-scrollbar-sentinel-top';
+	TABLE_STICKY_SENTINEL_BOTTOM: 'pm-table-sticky-sentinel-bottom';
+	TABLE_STICKY_SENTINEL_TOP: 'pm-table-sticky-sentinel-top';
+	TABLE_STICKY_SHADOW: 'pm-table-sticky-shadow';
+	TABLE_STICKY_WRAPPER: 'pm-table-sticky-wrapper';
+	TABLE_VIEW_CONTENT_WRAP: 'tableView-content-wrap';
+} = {
 	...TableSharedCssClassName,
 
 	/** Classic controls */

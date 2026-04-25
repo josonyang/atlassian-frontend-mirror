@@ -358,8 +358,7 @@ export const handleMouseOver = (
 						? getTypeNameFromDom(rootDOM)
 						: // Fallback: breakout mark wrappers have no data-drag-handler-node-type;
 							// use data-prosemirror-node-name instead.
-							(rootDOM.getAttribute('data-drag-handler-node-type') ??
-							getTypeNameFromDom(rootDOM));
+							(rootDOM.getAttribute('data-drag-handler-node-type') ?? getTypeNameFromDom(rootDOM));
 				}
 			}
 		}

@@ -52,7 +52,7 @@ export const checkIfHeaderRowEnabled = (selection: Selection): boolean =>
 export const checkIfNumberColumnEnabled = (selection: Selection): boolean =>
 	filterNearSelection(selection, findTable, (table) => !!table.attrs.isNumberColumnEnabled, false);
 
-export const getTableWidth = (node: PmNode) => {
+export const getTableWidth = (node: PmNode): number => {
 	return getTableWidths(node).reduce((acc, current) => acc + current, 0);
 };
 

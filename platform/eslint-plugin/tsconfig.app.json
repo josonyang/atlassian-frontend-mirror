@@ -29,7 +29,8 @@
 	"compilerOptions": {
 		"lib": ["ES2021.String"],
 		"composite": true,
-		"outDir": "../../../tsDist/@atlaskit__eslint-plugin-platform/app"
+		"outDir": "../../../tsDist/@atlaskit__eslint-plugin-platform/app",
+		"isolatedDeclarations": true
 	},
 	"references": [
 		{

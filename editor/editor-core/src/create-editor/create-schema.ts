@@ -105,7 +105,10 @@ export const wrapNodeSpecProxy = <T extends NodeSpec | MarkSpec>(spec: T): T => 
 	});
 };
 
-export function createSchema(editorConfig: { marks: MarkConfig[]; nodes: NodeConfig[] }): Schema<string, string> {
+export function createSchema(editorConfig: {
+	marks: MarkConfig[];
+	nodes: NodeConfig[];
+}): Schema<string, string> {
 	const marks = fixExcludes(
 		editorConfig.marks.sort(sortByOrder('marks')).reduce(
 			(acc, mark) => {

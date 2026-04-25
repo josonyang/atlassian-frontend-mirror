@@ -37,7 +37,14 @@ export default class ObjectResult extends React.PureComponent<Props> {
 		);
 	};
 
-	getSubtext(): string | number | boolean | Iterable<React.ReactNode> | React.JSX.Element | null | undefined {
+	getSubtext():
+		| string
+		| number
+		| boolean
+		| Iterable<React.ReactNode>
+		| React.JSX.Element
+		| null
+		| undefined {
 		const { objectKey, containerName } = this.props;
 		if (objectKey && containerName) {
 			return (

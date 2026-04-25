@@ -7,7 +7,6 @@ import { skipAutoA11yFile } from '@atlassian/a11y-playwright-testing';
 // the next line and associated import. For more information, see go/afm-a11y-tooling:playwright
 skipAutoA11yFile();
 
-
 const sitePickerSelector = '[data-testid="jira-datasource-modal--site-selector__control"]';
 
 // eslint-disable-next-line @atlassian/a11y/require-playwright-coverage

@@ -3,7 +3,6 @@ import '@atlaskit/link-test-helpers/jest';
 
 import React, { useState } from 'react';
 
-
 import FabricAnalyticsListeners, { type AnalyticsWebClient } from '@atlaskit/analytics-listeners';
 import { type JsonLd } from '@atlaskit/json-ld-types';
 import {

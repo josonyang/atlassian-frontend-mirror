@@ -1,9 +1,4 @@
-import {
-	act,
-	screen,
-	waitForElementToBeRemoved,
-	type userEvent,
-} from '@atlassian/testing-library';
+import { act, screen, waitForElementToBeRemoved, type userEvent } from '@atlassian/testing-library';
 
 /**
  * This function checks for an exact string match across all children elements.

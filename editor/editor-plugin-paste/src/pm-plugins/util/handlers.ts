@@ -1757,7 +1757,7 @@ export const handleSelectedTable =
 export function checkTaskListInList(state: EditorState, slice: Slice): boolean {
 	return Boolean(
 		isInListItem(state) &&
-			['taskList', 'taskItem'].includes(slice.content.firstChild?.type?.name || ''),
+		['taskList', 'taskItem'].includes(slice.content.firstChild?.type?.name || ''),
 	);
 }
 

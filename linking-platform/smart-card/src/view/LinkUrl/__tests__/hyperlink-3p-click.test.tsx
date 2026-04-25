@@ -1,6 +1,5 @@
 import React from 'react';
 
-
 import { CardClient, SmartCardProvider } from '@atlaskit/link-provider';
 import { ffTest } from '@atlassian/feature-flags-test-utils';
 import { fireEvent, render } from '@atlassian/testing-library';

@@ -79,58 +79,42 @@ export const getLazyIcons = (): Partial<
 	>
 > => {
 	return {
-		[IconType.Document]: {
-			default: () => import(/* webpackChunkName: "@atlaskit-internal_page-icon" */ '../common/ui/icons/page-icon'),
-		},
-		[IconType.Blog]: {
-			default: () => import(/* webpackChunkName: "@atlaskit-internal_glyphBlock" */ '../common/ui/icons/blog-icon'),
-		},
-		[IconType.Audio]: {
-			default: () => import(/* webpackChunkName: "@atlaskit-internal_audio-icon" */ '../common/ui/icons/audio-icon'),
-		},
-		[IconType.Code]: {
-			default: () => import(/* webpackChunkName: "@atlaskit-internal_angle-brackets-icon" */ '../common/ui/icons/angle-brackets-icon'),
-		},
-		[IconType.File]: {
-			default: () => import(/* webpackChunkName: "@atlaskit-internal_file-icon" */ '../common/ui/icons/file-icon'),
-		},
-		[IconType.Folder]: {
-			default: () => import(/* webpackChunkName: "@atlaskit-internal_folder-icon" */ '../common/ui/icons/folder-icon'),
-		},
-		[IconType.Generic]: {
-			default: () => import(/* webpackChunkName: "@atlaskit-internal_file-icon" */ '../common/ui/icons/file-icon'),
-		},
-		[IconType.Image]: {
-			default: () => import(/* webpackChunkName: "@atlaskit-internal_image-icon" */ '../common/ui/icons/image-icon'),
-		},
-		[IconType.Presentation]: {
-			default: () => import(/* webpackChunkName: "@atlaskit-internal_chart-bar-icon" */ '../common/ui/icons/chart-bar-icon'),
-		},
-		[IconType.Spreadsheet]: {
-			default: () => import(/* webpackChunkName: "@atlaskit-internal_list-bullet-icon" */ '../common/ui/icons/list-bullet-icon'),
-		},
-		[IconType.Video]: {
-			default: () => import(/* webpackChunkName: "@atlaskit-internal_video-icon" */ '../common/ui/icons/video-icon'),
-		},
-		[IconType.Project]: {
-			default: () => import(/* webpackChunkName: "@atlaskit-internal_glyphProject" */ '@atlaskit/icon/core/people-group'),
-		},
-		[IconType.Template]: {
-			default: () => import(/* webpackChunkName: "@atlaskit-internal_glyphTemplate" */ '@atlaskit/icon/core/file'),
-		},
+		// IconTile wrappers (@atlaskit/icon/core/* wrapped in <IconTile> with color)
+		[IconType.Document]: { default: () => import(/* webpackChunkName: "@atlaskit-internal_page-icon" */ '../common/ui/icons/page-icon')},
+		[IconType.Audio]: { default: () => import(/* webpackChunkName: "@atlaskit-internal_audio-icon" */ '../common/ui/icons/audio-icon')},
+		[IconType.Code]: { default: () => import(/* webpackChunkName: "@atlaskit-internal_angle-brackets-icon" */ '../common/ui/icons/angle-brackets-icon')},
+		[IconType.File]: { default: () => import(/* webpackChunkName: "@atlaskit-internal_file-icon" */ '../common/ui/icons/file-icon')},
+		[IconType.Folder]: { default: () => import(/* webpackChunkName: "@atlaskit-internal_folder-icon" */ '../common/ui/icons/folder-icon')},
+		[IconType.Generic]: { default: () => import(/* webpackChunkName: "@atlaskit-internal_file-icon" */ '../common/ui/icons/file-icon')},
+		[IconType.Image]: { default: () => import(/* webpackChunkName: "@atlaskit-internal_image-icon" */ '../common/ui/icons/image-icon')},
+		[IconType.Presentation]: { default: () => import(/* webpackChunkName: "@atlaskit-internal_chart-bar-icon" */ '../common/ui/icons/chart-bar-icon')},
+		[IconType.Spreadsheet]: { default: () => import(/* webpackChunkName: "@atlaskit-internal_list-bullet-icon" */ '../common/ui/icons/list-bullet-icon')},
+		[IconType.Video]: { default: () => import(/* webpackChunkName: "@atlaskit-internal_video-icon" */ '../common/ui/icons/video-icon')},
 
-		[IconType.Forbidden]: {
-			default: () => import(/* webpackChunkName: "@atlaskit-internal_glyphForbidden" */ '@atlaskit/icon/core/lock-locked'),
-		},
-		[IconType.Default]: {
-			default: () => import(/* webpackChunkName: "@atlaskit-internal_glyphDefault" */ '@atlaskit/icon/core/link'),
-		},
-		[IconType.Error]: {
-			default: () => import(/* webpackChunkName: "@atlaskit-internal_glyphDefault" */ '@atlaskit/icon/core/status-error'),
-		},
+		// @atlaskit/icon/core/* (plain monochrome icons)
+		[IconType.Project]: { default: () => import(/* webpackChunkName: "@atlaskit-internal_glyphProject" */ '@atlaskit/icon/core/people-group')},
+		[IconType.Template]: { default: () => import(/* webpackChunkName: "@atlaskit-internal_glyphTemplate" */ '@atlaskit/icon/core/file')},
+		[IconType.Forbidden]: { default: () => import(/* webpackChunkName: "@atlaskit-internal_glyphForbidden" */ '@atlaskit/icon/core/lock-locked')},
+		[IconType.Default]: { default: () => import(/* webpackChunkName: "@atlaskit-internal_glyphDefault" */ '@atlaskit/icon/core/link')},
+		[IconType.Error]: { default: () => import(/* webpackChunkName: "@atlaskit-internal_glyphDefault" */ '@atlaskit/icon/core/status-error')},
+
+		// @atlaskit/icon/core/* (badge icons)
+		[IconType.Attachment]: { default: () => import(/* webpackChunkName: "@atlaskit-internal_glyphAttachment" */ '@atlaskit/icon/core/attachment')},
+		[IconType.CheckItem]: { default: () => import(/* webpackChunkName: "@atlaskit-internal_glyphAttachment" */ '@atlaskit/icon/core/task')},
+		[IconType.Component]: { default: () => import(/* webpackChunkName: "@atlaskit-internal_glyphComponent" */ '@atlaskit/icon/core/component')},
+		[IconType.Comment]: { default: () => import(/* webpackChunkName: "@atlaskit-internal_glyphComment" */ '@atlaskit/icon/core/comment')},
+		[IconType.View]: { default: () => import(/* webpackChunkName: "@atlaskit-internal_glyphComment" */ '@atlaskit/icon/core/eye-open')},
+		[IconType.React]: { default: () => import(/* webpackChunkName: "@atlaskit-internal_glyphComment" */ '@atlaskit/icon/core/thumbs-up')},
+		[IconType.Vote]: { default: () => import(/* webpackChunkName: "@atlaskit-internal_glyphComment" */ '@atlaskit/icon/core/arrow-up')},
+		[IconType.PriorityUndefined]: { default: () => import(/* webpackChunkName: "@atlaskit-internal_glyphUndefined" */ '@atlaskit/icon/core/question-circle')},
+		[IconType.ProgrammingLanguage]: { default: () => import(/* webpackChunkName: "@atlaskit-internal_glyphProgrammingLanguage" */ '@atlaskit/icon/core/angle-brackets')},
+		[IconType.Subscriber]: { default: () => import(/* webpackChunkName: "@atlaskit-internal_glyphSubscriber" */ '@atlaskit/icon/core/people-group')},
+		[IconType.SubTasksProgress]: { default: () => import(/* webpackChunkName: "@atlaskit-internal_glyphSubtaskProgress" */ '@atlaskit/icon/core/subtasks')},
+
+		// @atlaskit/icon-file-type/glyph/* (file type icons with 16/24 size variants)
 		[IconType.Archive]: {
 			default: () => import(/* webpackChunkName: "@atlaskit-internal_glyphArchive" */ '@atlaskit/icon-file-type/glyph/archive/16'),
-			large: 	() => import(/* webpackChunkName: "@atlaskit-internal_glyphArchive" */ '@atlaskit/icon-file-type/glyph/archive/24'),
+			large: () => import(/* webpackChunkName: "@atlaskit-internal_glyphArchive" */ '@atlaskit/icon-file-type/glyph/archive/24'),
 		},
 		[IconType.Executable]: {
 			default: () => import(/* webpackChunkName: "@atlaskit-internal_glyphExecutable" */ '@atlaskit/icon-file-type/glyph/executable/16'),
@@ -176,7 +160,27 @@ export const getLazyIcons = (): Partial<
 			default: () => import(/* webpackChunkName: "@atlaskit-internal_glyphSketch" */ '@atlaskit/icon-file-type/glyph/sketch/16'),
 			large: () => import(/* webpackChunkName: "@atlaskit-internal_glyphSketch" */ '@atlaskit/icon-file-type/glyph/sketch/24'),
 		},
-		// Bitbucket icons
+
+		// @atlaskit/icon-object/glyph/* (object icons with 16/24 size variants)
+		...(fg('platform_sl_icons_refactor')
+			? {
+					[IconType.Blog]: {
+						default: () => import(/* webpackChunkName: "@atlaskit-internal_glyphBlog" */ '@atlaskit/icon-object/glyph/blog/16'),
+						large: () => import(/* webpackChunkName: "@atlaskit-internal_glyphBlog" */ '@atlaskit/icon-object/glyph/blog/24'),
+					},
+					[IconType.LiveDocument]: {
+						default: () => import(/* webpackChunkName: "@atlaskit-internal_glyphPageLiveDoc" */ '@atlaskit/icon-object/glyph/page-live-doc/16'),
+						large: () => import(/* webpackChunkName: "@atlaskit-internal_glyphPageLiveDoc" */ '@atlaskit/icon-object/glyph/page-live-doc/24'),
+					},
+				}
+			: {
+					[IconType.Blog]: {
+						default: () => import(/* webpackChunkName: "@atlaskit-internal_glyphBlock" */ '../common/ui/icons/blog-icon'),
+					},
+					[IconType.LiveDocument]: {
+						default: () => import(/* webpackChunkName: "@atlaskit-internal_glyphPageLiveDoc" */ '../common/ui/icons/live-document-icon'),
+					},
+				}),
 		[IconType.Branch]: {
 			default: () => import(/* webpackChunkName: "@atlaskit-internal_glyphBranch" */ '@atlaskit/icon-object/glyph/branch/16'),
 			large: () => import(/* webpackChunkName: "@atlaskit-internal_glyphBranch" */ '@atlaskit/icon-object/glyph/branch/24'),
@@ -193,7 +197,6 @@ export const getLazyIcons = (): Partial<
 			default: () => import(/* webpackChunkName: "@atlaskit-internal_glyphRepo" */ '@atlaskit/icon-object/glyph/code/16'),
 			large: () => import(/* webpackChunkName: "@atlaskit-internal_glyphRepo" */ '@atlaskit/icon-object/glyph/code/24'),
 		},
-		// Jira icons
 		[IconType.Bug]: {
 			default: () => import(/* webpackChunkName: "@atlaskit-internal_glyphBug" */ '@atlaskit/icon-object/glyph/bug/16'),
 			large: () => import(/* webpackChunkName: "@atlaskit-internal_glyphBug" */ '@atlaskit/icon-object/glyph/bug/24'),
@@ -231,28 +234,11 @@ export const getLazyIcons = (): Partial<
 			large: () => import(/* webpackChunkName: "@atlaskit-internal_glyphTask" */ '@atlaskit/icon-object/glyph/task/24'),
 		},
 
-		// Confluence icons
-		[IconType.LiveDocument]: {
-			default: () => import(/* webpackChunkName: "@atlaskit-internal_glyphPageLiveDoc" */ '@atlaskit/icon-object/glyph/page-live-doc/16'),
-			large: () => import(/* webpackChunkName: "@atlaskit-internal_glyphPageLiveDoc" */ '@atlaskit/icon-object/glyph/page-live-doc/24'),
-		},
+		// @atlaskit/logo/* (product logos)
+		[IconType.Confluence]: { default: () => import(/* webpackChunkName: "@atlaskit-internal_glyphConfluence" */ '@atlaskit/logo/confluence-icon').then(({ ConfluenceIcon }) => ({default: ConfluenceIcon}))},
+		[IconType.Jira]: { default: () => import(/* webpackChunkName: "@atlaskit-internal_glyphJira" */ '@atlaskit/logo/jira-icon').then(({ JiraIcon }) => ({default: JiraIcon}))},
 
-		// Provider icons
-		[IconType.Confluence]: {
-			default: () => import(/* webpackChunkName: "@atlaskit-internal_glyphConfluence" */ '@atlaskit/logo/confluence-icon').then(({ ConfluenceIcon }) => ({default: ConfluenceIcon})),
-		},
-		[IconType.Jira]: {
-			default: () => import(/* webpackChunkName: "@atlaskit-internal_glyphJira" */ '@atlaskit/logo/jira-icon').then(({ JiraIcon }) => ({default: JiraIcon})),
-		},
-
-		// Badge icons
-		[IconType.Attachment]: { default: () => import(/* webpackChunkName: "@atlaskit-internal_glyphAttachment" */ '@atlaskit/icon/core/attachment')},
-		[IconType.CheckItem]: { default: () => import(/* webpackChunkName: "@atlaskit-internal_glyphAttachment" */ '@atlaskit/icon/core/task')},
-		[IconType.Component]: { default: () => import(/* webpackChunkName: "@atlaskit-internal_glyphComponent" */ '@atlaskit/icon/core/component')},
-		[IconType.Comment]: { default: () => import(/* webpackChunkName: "@atlaskit-internal_glyphComment" */ '@atlaskit/icon/core/comment')},
-		[IconType.View]: { default: () => import(/* webpackChunkName: "@atlaskit-internal_glyphComment" */ '@atlaskit/icon/core/eye-open')},
-		[IconType.React]: { default: () => import(/* webpackChunkName: "@atlaskit-internal_glyphComment" */ '@atlaskit/icon/core/thumbs-up')},
-		[IconType.Vote]: { default: () => import(/* webpackChunkName: "@atlaskit-internal_glyphComment" */ '@atlaskit/icon/core/arrow-up')},
+		// Local priority icons (custom SVG components)
 		[IconType.PriorityBlocker]: { default: () =>  import(/* webpackChunkName: "@atlaskit-internal_glyphBlocker" */ '../common/ui/icons/priority-blocker-icon')},
 		[IconType.PriorityCritical]: { default: () =>  import(/* webpackChunkName: "@atlaskit-internal_glyphCritical" */ '../common/ui/icons/priority-critical-icon')},
 		[IconType.PriorityHigh]: { default: () =>  import(/* webpackChunkName: "@atlaskit-internal_glyphHigh" */ '../common/ui/icons/priority-high-icon')},
@@ -263,10 +249,6 @@ export const getLazyIcons = (): Partial<
 		[IconType.PriorityMedium]: { default: () =>  import(/* webpackChunkName: "@atlaskit-internal_glyphMedium" */ '../common/ui/icons/priority-medium-icon')},
 		[IconType.PriorityMinor]: { default: () =>  import(/* webpackChunkName: "@atlaskit-internal_glyphMinor" */ '../common/ui/icons/priority-minor-icon')},
 		[IconType.PriorityTrivial]: { default: () =>  import(/* webpackChunkName: "@atlaskit-internal_glyphTrivial" */ '../common/ui/icons/priority-trivial-icon')},
-		[IconType.PriorityUndefined]: { default: () => import(/* webpackChunkName: "@atlaskit-internal_glyphUndefined" */ '@atlaskit/icon/core/question-circle')},
-		[IconType.ProgrammingLanguage]: { default: () => import(/* webpackChunkName: "@atlaskit-internal_glyphProgrammingLanguage" */ '@atlaskit/icon/core/angle-brackets')},
-		[IconType.Subscriber]: { default: () => import(/* webpackChunkName: "@atlaskit-internal_glyphSubscriber" */ '@atlaskit/icon/core/people-group')},
-		[IconType.SubTasksProgress]: { default: () => import(/* webpackChunkName: "@atlaskit-internal_glyphSubtaskProgress" */ '@atlaskit/icon/core/subtasks')},
 	};
 };
 

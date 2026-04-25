@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 
 import classnames from 'classnames';
-import type { WrappedComponentProps } from 'react-intl';
+import type { WithIntlProps, WrappedComponentProps } from 'react-intl';
 import { injectIntl } from 'react-intl';
 
 import { tableMessages as messages } from '@atlaskit/editor-common/messages';
@@ -112,4 +112,7 @@ class CornerControlComponent extends Component<CornerControlProps & WrappedCompo
 	};
 }
 
-export const CornerControls = injectIntl(CornerControlComponent);
+// eslint-disable-next-line @typescript-eslint/ban-types
+export const CornerControls: React.FC<WithIntlProps<CornerControlProps & WrappedComponentProps>> & {
+	WrappedComponent: React.ComponentType<CornerControlProps & WrappedComponentProps>;
+} = injectIntl(CornerControlComponent);

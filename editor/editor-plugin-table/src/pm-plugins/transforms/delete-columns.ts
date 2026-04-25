@@ -253,7 +253,7 @@ export const deleteColumns =
 		shouldUseIncreasedScalingPercent = false,
 		isCommentEditor = false,
 	) =>
-	(tr: Transaction) => {
+	(tr: Transaction): Transaction => {
 		let updatedTr = tr;
 		updatedTr.setMeta(META_KEYS.OVERFLOW_TRIGGER, {
 			name: TABLE_OVERFLOW_CHANGE_TRIGGER.DELETED_COLUMN,

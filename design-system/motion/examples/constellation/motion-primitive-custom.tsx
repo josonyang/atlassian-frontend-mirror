@@ -36,17 +36,12 @@ const MotionPrimitiveCustomExample = (): JSX.Element => {
 	return (
 		<RetryContainer>
 			<div css={styles.container}>
-				<Button onClick={() => setIsIn((prev) => !prev)}>
-					{isIn ? 'Exit' : 'Enter'}
-				</Button>
+				<Button onClick={() => setIsIn((prev) => !prev)}>{isIn ? 'Exit' : 'Enter'}</Button>
 
 				<Centered css={styles.centered}>
 					<ExitingPersistence appear>
 						{isIn && (
-							<Motion
-								enteringAnimationXcss={styles.entering}
-								exitingAnimationXcss={styles.exiting}
-							>
+							<Motion enteringAnimationXcss={styles.entering} exitingAnimationXcss={styles.exiting}>
 								<Block />
 							</Motion>
 						)}

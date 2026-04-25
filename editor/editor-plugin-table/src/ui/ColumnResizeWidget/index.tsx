@@ -2,7 +2,7 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
-// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
+/* eslint-disable @typescript-eslint/consistent-type-imports, @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766; jsx required at runtime for @jsxRuntime classic */
 import { jsx } from '@emotion/react';
 import { useIntl } from 'react-intl';
 
@@ -18,7 +18,11 @@ type Props = {
 	startIndex: number;
 };
 
-export const ColumnResizeWidget = ({ startIndex, endIndex, includeTooltip }: Props) => {
+export const ColumnResizeWidget = ({
+	startIndex,
+	endIndex,
+	includeTooltip,
+}: Props): jsx.JSX.Element => {
 	const { formatMessage } = useIntl();
 
 	if (!includeTooltip) {

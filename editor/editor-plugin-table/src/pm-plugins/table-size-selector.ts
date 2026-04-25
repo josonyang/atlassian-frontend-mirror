@@ -7,9 +7,11 @@ type SizeSelectorPluginState = {
 	targetRef?: HTMLElement;
 };
 
-export const pluginKey = new PluginKey<SizeSelectorPluginState>('tableSizeSelectorPlugin');
+export const pluginKey: PluginKey<SizeSelectorPluginState> = new PluginKey<SizeSelectorPluginState>(
+	'tableSizeSelectorPlugin',
+);
 
-export const createPlugin = (dispatch: Dispatch) => {
+export const createPlugin = (dispatch: Dispatch): SafePlugin<SizeSelectorPluginState> => {
 	return new SafePlugin<SizeSelectorPluginState>({
 		key: pluginKey,
 		state: {

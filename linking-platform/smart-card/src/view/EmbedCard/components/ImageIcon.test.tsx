@@ -3,7 +3,6 @@ import React from 'react';
 import { renderWithIntl } from '@atlaskit/link-test-helpers';
 import { fireEvent, screen } from '@atlassian/testing-library';
 
-
 import { ImageIcon, type ImageIconProps } from './ImageIcon';
 
 jest.mock('react-render-image', () => ({

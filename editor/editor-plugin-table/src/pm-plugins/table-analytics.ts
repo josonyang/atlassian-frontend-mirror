@@ -31,7 +31,9 @@ const createPlugin = (
 	dispatch: Dispatch,
 	dispatchAnalyticsEvent: DispatchAnalyticsEvent,
 	tableResizingEnabled: boolean,
-) =>
+): SafePlugin<{
+	lastTrigger: undefined;
+}> =>
 	new SafePlugin({
 		key: pluginKey,
 		state: {

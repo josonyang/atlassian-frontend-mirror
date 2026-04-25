@@ -2,10 +2,10 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
-import { useState } from 'react';
+import { useState, type ComponentType, type FC } from 'react';
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { jsx } from '@emotion/react';
-import type { WrappedComponentProps } from 'react-intl';
+import type { WithIntlProps, WrappedComponentProps } from 'react-intl';
 import { injectIntl } from 'react-intl';
 
 import { CodeBlockSharedCssClassName } from '@atlaskit/editor-common/styles';
@@ -70,4 +70,7 @@ function CodeBlock(props: Props & WrappedComponentProps) {
 	);
 }
 
-export default injectIntl(CodeBlock);
+const _default_1: FC<WithIntlProps<Props & WrappedComponentProps>> & {
+	WrappedComponent: ComponentType<Props & WrappedComponentProps>;
+} = injectIntl(CodeBlock);
+export default _default_1;

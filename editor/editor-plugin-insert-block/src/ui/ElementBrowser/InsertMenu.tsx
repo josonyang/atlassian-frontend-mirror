@@ -54,11 +54,6 @@ export const sortFeaturedItems = (
 	featuredItems: QuickInsertItem[],
 	formatMessage: (msg: MessageDescriptor) => string,
 ): QuickInsertItem[] => {
-	// temporary for A/A test
-	['slot-two', 'slot-four'].includes(
-		expValNoExposure('cc_fd_cwr_quick_insert_aa', 'cohort', 'control'),
-	);
-
 	if (
 		['new-description', 'orig-description'].includes(
 			expVal('cc_fd_db_top_editor_toolbar', 'cohort', 'control'),

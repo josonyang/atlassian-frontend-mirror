@@ -207,10 +207,13 @@ export function CoreEditor(props: EditorNextProps & WithAppearanceComponent): js
 }
 // eslint-disable-next-line @typescript-eslint/no-namespace
 export declare namespace CoreEditor {
-    // eslint-disable-next-line no-var
-    export var propTypes: {
-        minHeight: ({ appearance, minHeight }: Pick<EditorNextProps, "appearance" | "minHeight">) => Error | null;
-    };
+	// eslint-disable-next-line no-var
+	export var propTypes: {
+		minHeight: ({
+			appearance,
+			minHeight,
+		}: Pick<EditorNextProps, 'appearance' | 'minHeight'>) => Error | null;
+	};
 }
 
 CoreEditor.propTypes = {

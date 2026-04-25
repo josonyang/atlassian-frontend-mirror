@@ -76,7 +76,7 @@ export function addColumnAt(
 		allowAddColumnCustomStep: boolean = false,
 		view: EditorView | undefined,
 	) => {
-		return (tr: Transaction) => {
+		return (tr: Transaction): Transaction => {
 			let updatedTr = tr;
 			if (allowAddColumnCustomStep) {
 				updatedTr = addColumnAtCustomStep(column)(updatedTr);

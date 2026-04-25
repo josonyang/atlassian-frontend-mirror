@@ -43,6 +43,7 @@ import type {
 	PluginConfig,
 	PluginInjectionAPI,
 	PluginInjectionAPIWithA11y,
+	TablePluginState,
 } from '../types';
 import { TableCssClassName as ClassName } from '../types';
 import {
@@ -104,7 +105,7 @@ export const createPlugin = (
 	isCommentEditor?: boolean,
 	isChromelessEditor?: boolean,
 	allowFixedColumnWidthOption?: boolean,
-) => {
+): SafePlugin<TablePluginState> => {
 	const state = createPluginState(dispatch, {
 		pluginConfig,
 		isCommentEditor,

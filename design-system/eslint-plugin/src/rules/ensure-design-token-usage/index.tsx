@@ -34,7 +34,19 @@ import ruleMeta from './rule-meta';
 import { lintObjectForSpacing } from './spacing';
 import { splitShorthandValues } from './split-shorthand-values';
 import type { RuleConfig } from './types';
-import { emToPixels, getDomainsForProperty, getFontSizeValueInScope, getPropertyNodeFromParent, getTokenReplacement, getValueForPropertyNode, getValueFromShorthand, getValueFromTemplateLiteralRaw, isCalc, isValidSpacingValue, processCssNode } from './utils';
+import {
+	emToPixels,
+	getDomainsForProperty,
+	getFontSizeValueInScope,
+	getPropertyNodeFromParent,
+	getTokenReplacement,
+	getValueForPropertyNode,
+	getValueFromShorthand,
+	getValueFromTemplateLiteralRaw,
+	isCalc,
+	isValidSpacingValue,
+	processCssNode,
+} from './utils';
 
 const defaultConfig: RuleConfig = {
 	domains: ['color', 'spacing'],

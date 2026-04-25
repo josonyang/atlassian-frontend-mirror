@@ -181,7 +181,9 @@ interface DemoRendererState {
 // Ignored via go/ees005
 // eslint-disable-next-line @repo/internal/react/no-class-components
 export default class RendererDemo extends React.Component<DemoRendererProps, DemoRendererState> {
-	textSerializer = new TextSerializer(this.props.schema ? this.props.schema : defaultSchema);
+	textSerializer: TextSerializer = new TextSerializer(
+		this.props.schema ? this.props.schema : defaultSchema,
+	);
 	emailRef?: HTMLIFrameElement;
 	inputBox?: HTMLTextAreaElement | null;
 	inputCopies?: HTMLInputElement | null;
@@ -336,7 +338,7 @@ export default class RendererDemo extends React.Component<DemoRendererProps, Dem
 			if (this.props.withExtension) {
 				props.extensionHandlers = {
 					...extensionHandlers,
-					...(this.props.extensionHandlers || {}),
+					...this.props.extensionHandlers,
 				};
 			}
 

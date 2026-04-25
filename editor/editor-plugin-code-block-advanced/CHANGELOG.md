@@ -1,5 +1,17 @@
 # @atlaskit/editor-plugin-code-block-advanced
 
+## 10.0.8
+
+### Patch Changes
+
+- Updated dependencies
+
+## 10.0.7
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 10.0.6
 
 ### Patch Changes

@@ -1,4 +1,16 @@
-import { callExpression, type Expression, type Identifier, identifier, literal, type MemberExpression, memberExpression, type Property, property, type SpreadElement, type StringableASTNode } from 'eslint-codemod-utils';
+import {
+	callExpression,
+	type Expression,
+	type Identifier,
+	identifier,
+	literal,
+	type MemberExpression,
+	memberExpression,
+	type Property,
+	property,
+	type SpreadElement,
+	type StringableASTNode,
+} from 'eslint-codemod-utils';
 
 import { typographyPalette } from '@atlaskit/tokens/palettes-raw';
 import { typography as typographyTokens } from '@atlaskit/tokens/tokens-raw';

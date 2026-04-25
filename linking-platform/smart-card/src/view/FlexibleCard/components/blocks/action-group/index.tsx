@@ -14,7 +14,7 @@ import ButtonGroup from '@atlaskit/button/button-group';
 import Button from '@atlaskit/button/standard-button';
 import DropdownMenu from '@atlaskit/dropdown-menu';
 import MoreIcon from '@atlaskit/icon/core/show-more-horizontal';
-import { fg } from "@atlaskit/platform-feature-flags";
+import { fg } from '@atlaskit/platform-feature-flags';
 import { token } from '@atlaskit/tokens';
 import Tooltip from '@atlaskit/tooltip';
 
@@ -154,7 +154,7 @@ const ActionGroup = ({
 								testId="action-group-more-button"
 								iconBefore={moreIcon}
 								ref={triggerRef}
-								{...fg('platform_sl_3p_auth_rovo_block_card_kill_switch') ? { appearance } : {}}
+								{...(fg('platform_sl_3p_auth_rovo_block_card_kill_switch') ? { appearance } : {})}
 							/>
 						</Tooltip>
 					)}

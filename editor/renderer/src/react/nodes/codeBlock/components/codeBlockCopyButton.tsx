@@ -9,8 +9,8 @@ import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import Tooltip from '@atlaskit/tooltip';
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { jsx } from '@emotion/react';
-import { useState } from 'react';
-import type { WrappedComponentProps } from 'react-intl';
+import { useState, type ComponentType, type FC } from 'react';
+import type { WithIntlProps, WrappedComponentProps } from 'react-intl';
 import { injectIntl } from 'react-intl';
 import AnalyticsContext from '../../../../analytics/analyticsContext';
 import { ACTION, ACTION_SUBJECT, ACTION_SUBJECT_ID, EVENT_TYPE } from '../../../../analytics/enums';
@@ -76,4 +76,7 @@ const CopyButton = ({ content, intl }: Props & WrappedComponentProps) => {
 	);
 };
 
-export default injectIntl(CopyButton);
+const _default_1: FC<WithIntlProps<Props & WrappedComponentProps>> & {
+	WrappedComponent: ComponentType<Props & WrappedComponentProps>;
+} = injectIntl(CopyButton);
+export default _default_1;

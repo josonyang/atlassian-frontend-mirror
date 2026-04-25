@@ -5,6 +5,14 @@ import type { EditorExperimentOverrides } from '@atlaskit/tmp-editor-statsig/set
 import type { Expect, Page, Locator } from '@af/integration-testing';
 import type { RendererProps } from '@atlaskit/renderer';
 import type { GasPurePayload } from '@atlaskit/analytics-gas-types';
+import type { PlaywrightCoverageOptions } from '@af/integration-testing/fixtures';
+import type {
+	TestType,
+	PlaywrightTestArgs,
+	PlaywrightTestOptions,
+	PlaywrightWorkerArgs,
+	PlaywrightWorkerOptions,
+} from 'playwright/test';
 
 class AnnotationModel {
 	private constructor(private page: Page) {}
@@ -48,7 +56,7 @@ class AnnotationModel {
 		return result;
 	}
 
-	public async validateRange() {
+	public async validateRange(): Promise<boolean> {
 		await this.page.waitForFunction(() => {
 			return Boolean(window && (window as any).__rendererActions);
 		});
@@ -69,7 +77,7 @@ class AnnotationModel {
 		return Boolean(result);
 	}
 
-	static from(page: Page) {
+	static from(page: Page): AnnotationModel {
 		return new AnnotationModel(page);
 	}
 }
@@ -83,7 +91,7 @@ class CodeBlockModel {
 		this.block = page.locator('[data-ds--code--code-block]');
 	}
 
-	static from(page: Page) {
+	static from(page: Page): CodeBlockModel {
 		return new CodeBlockModel(page);
 	}
 }
@@ -257,7 +265,25 @@ class RendererPageModel implements RendererPageInterface {
 	}
 }
 
-export const rendererTestCase = base.extend<{
+export const rendererTestCase: TestType<
+	PlaywrightTestArgs &
+		PlaywrightTestOptions & {
+			skipAxeCheck: () => void;
+		} & PlaywrightCoverageOptions & {
+			adf: DocNode | string | Record<string, unknown> | undefined;
+			/**
+			 * Note: This is not available when used with the `exampleType` option.
+			 * This is because custom examples will have their application loaded
+			 * prior to the experiment overrides being applied.
+			 */
+			editorExperiments?: EditorExperimentOverrides;
+			platformFeatureFlags?: Record<string, boolean>;
+			renderer: RendererPageInterface;
+			rendererMountOptions: MountRendererOptions;
+			rendererProps: RendererPropsOptional;
+		},
+	PlaywrightWorkerArgs & PlaywrightWorkerOptions
+> = base.extend<{
 	adf: DocNode | string | Record<string, unknown> | undefined;
 	/**
 	 * Note: This is not available when used with the `exampleType` option.
@@ -312,7 +338,11 @@ const customMatchers = {
 	async toMatchDocumentSnapshot(
 		this: ReturnType<Expect['getState']>,
 		doc: Record<string, unknown>,
-	) {
+	): Promise<{
+		pass: boolean;
+		// Playwright upgrade: `message` required in type MatcherReturnType
+		message: () => string;
+	}> {
 		baseExpect(JSON.stringify(doc, null, 2)).toMatchSnapshot();
 
 		return {

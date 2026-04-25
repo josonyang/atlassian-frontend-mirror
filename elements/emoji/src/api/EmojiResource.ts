@@ -113,7 +113,7 @@ export interface EmojiResourceConfig {
 	singleEmojiApi?: SingleEmojiApiLoaderConfig;
 }
 
-export interface OnEmojiProviderChange extends OnProviderChange<EmojiSearchResult, any, void> { }
+export interface OnEmojiProviderChange extends OnProviderChange<EmojiSearchResult, any, void> {}
 
 export interface Retry<T> {
 	(): Promise<T> | T;
@@ -149,7 +149,8 @@ export interface LastQuery {
 
 export class EmojiResource
 	extends AbstractResource<string, EmojiSearchResult, any, undefined, SearchOptions>
-	implements EmojiProvider {
+	implements EmojiProvider
+{
 	protected recordConfig?: ServiceConfig;
 	protected emojiRepository?: EmojiRepository;
 	protected lastQuery?: LastQuery;
@@ -667,7 +668,8 @@ export class EmojiResource
 
 export default class UploadingEmojiResource
 	extends EmojiResource
-	implements UploadingEmojiProvider {
+	implements UploadingEmojiProvider
+{
 	protected allowUpload: boolean;
 
 	constructor(config: EmojiResourceConfig) {

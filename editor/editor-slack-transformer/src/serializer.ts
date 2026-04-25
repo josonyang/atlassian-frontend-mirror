@@ -13,6 +13,7 @@ import {
 } from './list-utils';
 import { escapeMarkdown } from './util';
 
+/* eslint-disable @typescript-eslint/method-signature-style -- ProseMirror serializer `nodes` map uses method signatures in type + implementation */
 export class MarkdownSerializerState extends PMMarkdownSerializerState {
 	nodes: NodeSerializerSpec;
 	marks: { [mark: string]: MarkSerializerSpec };
@@ -162,7 +163,60 @@ const unsupportedNodes = {
 	},
 };
 
-export const nodes = {
+export const nodes: {
+	blockCard(state: MarkdownSerializerState, node: PMNode): void;
+	blockquote(state: MarkdownSerializerState, node: PMNode): void;
+	bodiedExtension(state: MarkdownSerializerState, node: PMNode): void;
+	bodiedSyncBlock(state: MarkdownSerializerState, node: PMNode): void;
+	bulletList(state: MarkdownSerializerState, node: PMNode): void;
+	caption(state: MarkdownSerializerState, node: PMNode): void;
+	codeBlock(state: MarkdownSerializerState, node: PMNode): void;
+	confluenceJiraIssue(state: MarkdownSerializerState, node: PMNode): void;
+	confluenceUnsupportedBlock(state: MarkdownSerializerState): void;
+	confluenceUnsupportedInline(state: MarkdownSerializerState): void;
+	date(state: MarkdownSerializerState, node: PMNode): void;
+	decisionItem(state: MarkdownSerializerState, node: PMNode, parent: PMNode, index: number): void;
+	decisionList(state: MarkdownSerializerState, node: PMNode): void;
+	embedCard(state: MarkdownSerializerState, node: PMNode): void;
+	emoji(state: MarkdownSerializerState, node: PMNode): void;
+	empty_line(state: MarkdownSerializerState, node: PMNode): void;
+	expand(state: MarkdownSerializerState, node: PMNode): void;
+	extension(state: MarkdownSerializerState, node: PMNode): void;
+	hardBreak(state: MarkdownSerializerState): void;
+	heading(state: MarkdownSerializerState, node: PMNode): void;
+	image(state: MarkdownSerializerState, node: PMNode): void;
+	/**
+	 * Inline cards with url type attributes will be sent as a link
+	 */
+	inlineCard(state: MarkdownSerializerState, node: PMNode): void;
+	inlineExtension(state: MarkdownSerializerState): void;
+	layoutColumn(state: MarkdownSerializerState, node: PMNode): void;
+	layoutSection(state: MarkdownSerializerState, node: PMNode): void;
+	listItem(state: MarkdownSerializerState, node: PMNode, parent: PMNode, index: number): void;
+	/**
+	 * Slack markdown does not have specific syntax for images/files.
+	 * We just show that there's an image attached as a link and a media just as a text.
+	 */
+	media(state: MarkdownSerializerState): void;
+	mediaGroup(state: MarkdownSerializerState, node: PMNode): void;
+	mediaInline(state: MarkdownSerializerState, node: PMNode): void;
+	mediaSingle(state: MarkdownSerializerState, node: PMNode): void;
+	mention(state: MarkdownSerializerState, node: PMNode, parent: PMNode, index: number): void;
+	nestedExpand(state: MarkdownSerializerState, node: PMNode): void;
+	orderedList(state: MarkdownSerializerState, node: PMNode): void;
+	panel(state: MarkdownSerializerState, node: PMNode): void;
+	paragraph(state: MarkdownSerializerState, node: PMNode): void;
+	placeholder(state: MarkdownSerializerState, node: PMNode): void;
+	rule(state: MarkdownSerializerState, node: PMNode): void;
+	status(state: MarkdownSerializerState, node: PMNode): void;
+	syncBlock(state: MarkdownSerializerState, node: PMNode): void;
+	table(state: MarkdownSerializerState, node: PMNode): void;
+	taskItem(state: MarkdownSerializerState, node: PMNode, parent: PMNode, index: number): void;
+	taskList(state: MarkdownSerializerState, node: PMNode, parent: PMNode, index: number): void;
+	text(state: MarkdownSerializerState, node: PMNode): void;
+	unsupportedBlock(state: MarkdownSerializerState): void;
+	unsupportedInline(state: MarkdownSerializerState): void;
+} = {
 	blockquote(state: MarkdownSerializerState, node: PMNode): void {
 		state.wrapBlock('> ', null, node, () => state.renderContent(node));
 	},

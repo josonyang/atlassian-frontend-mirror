@@ -319,8 +319,22 @@ function getTargetDecoration({ axis, edge, align }: TCellPlacement): TTargetDeco
 
 	const axisLine: CSSProperties =
 		axis === 'block'
-			? { ...axisLineBase, left: '50%', top: 0, bottom: 0, width: '2px', transform: 'translateX(-50%)' }
-			: { ...axisLineBase, top: '50%', left: 0, right: 0, height: '2px', transform: 'translateY(-50%)' };
+			? {
+					...axisLineBase,
+					left: '50%',
+					top: 0,
+					bottom: 0,
+					width: '2px',
+					transform: 'translateX(-50%)',
+				}
+			: {
+					...axisLineBase,
+					top: '50%',
+					left: 0,
+					right: 0,
+					height: '2px',
+					transform: 'translateY(-50%)',
+				};
 
 	// Dot on the anchor edge at the align position.
 	const alignOffset = ALIGN_OFFSET[align];
@@ -346,8 +360,21 @@ function getTargetDecoration({ axis, edge, align }: TCellPlacement): TTargetDeco
 	// Axis label centered on the axis line; rotated for the vertical case.
 	const axisLabel: CSSProperties =
 		axis === 'block'
-			? { position: 'absolute', left: '50%', top: '50%', transform: 'translate(-50%, -50%)', whiteSpace: 'nowrap', writingMode: 'vertical-rl' }
-			: { position: 'absolute', top: '50%', left: '50%', transform: 'translate(-50%, -50%)', whiteSpace: 'nowrap' };
+			? {
+					position: 'absolute',
+					left: '50%',
+					top: '50%',
+					transform: 'translate(-50%, -50%)',
+					whiteSpace: 'nowrap',
+					writingMode: 'vertical-rl',
+				}
+			: {
+					position: 'absolute',
+					top: '50%',
+					left: '50%',
+					transform: 'translate(-50%, -50%)',
+					whiteSpace: 'nowrap',
+				};
 
 	// Edge label near the start of the highlighted edge.
 	const edgeLabel: CSSProperties =
@@ -435,7 +462,11 @@ function PlacementCell({
 			<div
 				ref={triggerRef}
 				css={[styles.cellBox, styles.target]}
-				style={{ backgroundColor: color, borderWidth: decoration.borderWidth, borderColor: decoration.borderColor }}
+				style={{
+					backgroundColor: color,
+					borderWidth: decoration.borderWidth,
+					borderColor: decoration.borderColor,
+				}}
 				aria-label={label}
 			>
 				<div css={styles.axisLineClip}>
@@ -443,13 +474,19 @@ function PlacementCell({
 					<div style={decoration.axisLine} />
 				</div>
 				{/* eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- dynamic computed style */}
-				<span css={styles.decorationLabel} style={decoration.axisLabel}>axis: {cell.axis}</span>
+				<span css={styles.decorationLabel} style={decoration.axisLabel}>
+					axis: {cell.axis}
+				</span>
 				{/* eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- dynamic computed style */}
-				<span css={styles.decorationLabel} style={decoration.edgeLabel}>edge: {cell.edge}</span>
+				<span css={styles.decorationLabel} style={decoration.edgeLabel}>
+					edge: {cell.edge}
+				</span>
 				{/* eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- dynamic computed style */}
 				<div style={decoration.dot} />
 				{/* eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- dynamic computed style */}
-				<span css={styles.decorationLabel} style={decoration.dotLabel}>align: {cell.align}</span>
+				<span css={styles.decorationLabel} style={decoration.dotLabel}>
+					align: {cell.align}
+				</span>
 				<span css={styles.idTag}>{id}:target</span>
 			</div>
 			<Popover
@@ -461,10 +498,7 @@ function PlacementCell({
 				label={label}
 			>
 				{/* eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- dynamic color */}
-				<div
-					css={[styles.cellBox, styles.popoverContent]}
-					style={{ backgroundColor: color }}
-				>
+				<div css={[styles.cellBox, styles.popoverContent]} style={{ backgroundColor: color }}>
 					<strong css={styles.popoverIdTag}>{id}:popup</strong>
 				</div>
 			</Popover>
@@ -594,12 +628,7 @@ function resolveOffsetValue({
 	return findTokenChoice(tokenLabel).value;
 }
 
-
-function ControlPanel({
-	children,
-}: {
-	children: ReactNode;
-}) {
+function ControlPanel({ children }: { children: ReactNode }) {
 	return (
 		<Popover role="dialog" mode="manual" isOpen label="Offset controls">
 			<div css={styles.controlPanelPin}>
@@ -617,7 +646,6 @@ function buildAllHidden(): ReadonlyArray<boolean> {
 	return placements.map(() => false);
 }
 
-
 export default function AllPlacements(): JSX.Element {
 	const [gapMode, setGapMode] = useState<TOffsetMode>('token');
 	const [gapPixels, setGapPixels] = useState<number>(8);
@@ -629,16 +657,13 @@ export default function AllPlacements(): JSX.Element {
 	const [crossAxisShiftDirection, setCrossAxisShiftDirection] =
 		useState<TCrossAxisShiftDirection>('forwards');
 
-	const [popupVisibility, setPopupVisibility] =
-		useState<ReadonlyArray<boolean>>(buildAllVisible);
+	const [popupVisibility, setPopupVisibility] = useState<ReadonlyArray<boolean>>(buildAllVisible);
 
 	const [forceFallbackPositioning, setForceFallbackPositioning] = useState<boolean>(false);
 
 	function togglePopupAt(index: number): void {
 		setPopupVisibility((current) =>
-			current.map((isVisible, currentIndex) =>
-				currentIndex === index ? !isVisible : isVisible,
-			),
+			current.map((isVisible, currentIndex) => (currentIndex === index ? !isVisible : isVisible)),
 		);
 	}
 
@@ -723,10 +748,7 @@ export default function AllPlacements(): JSX.Element {
 							Force JS fallback
 						</Text>
 					</div>
-					<label
-						htmlFor="all-placements-fallback"
-						css={styles.visibilityCheckbox}
-					>
+					<label htmlFor="all-placements-fallback" css={styles.visibilityCheckbox}>
 						<input
 							id="all-placements-fallback"
 							type="checkbox"
@@ -743,18 +765,10 @@ export default function AllPlacements(): JSX.Element {
 						</Text>
 					</div>
 					<div css={styles.bulkToggleRow}>
-						<button
-							type="button"
-							css={styles.bulkToggleButton}
-							onClick={enableAllPopups}
-						>
+						<button type="button" css={styles.bulkToggleButton} onClick={enableAllPopups}>
 							Enable all
 						</button>
-						<button
-							type="button"
-							css={styles.bulkToggleButton}
-							onClick={disableAllPopups}
-						>
+						<button type="button" css={styles.bulkToggleButton} onClick={disableAllPopups}>
 							Disable all
 						</button>
 					</div>

@@ -1,7 +1,38 @@
 // oxlint-disable-next-line @atlassian/no-restricted-imports
 import { defineMessages } from 'react-intl';
 
-export const i18n = defineMessages({
+export const i18n: {
+	easyMentionsPlaceholder: {
+		id: string;
+		defaultMessage: string;
+		description: string;
+	};
+	aiPlaceholder: {
+		id: string;
+		defaultMessage: string;
+		description: string;
+	};
+	defaultPlaceholder: {
+		id: string;
+		defaultMessage: string;
+		description: string;
+	};
+	editorEmptyDocumentPlaceholderAI: {
+		id: string;
+		defaultMessage: string;
+		description: string;
+	};
+	editorEmptyDocumentSpaceShortcutPlaceholder: {
+		id: string;
+		defaultMessage: string;
+		description: string;
+	};
+	placeholderADF: {
+		id: string;
+		defaultMessage: string;
+		description: string;
+	};
+} = defineMessages({
 	easyMentionsPlaceholder: {
 		id: 'editor-presets-confluence.placeholder.easy-mentions-placeholder',
 		defaultMessage: 'Type / for all elements or @ to mention someone.',

@@ -25,6 +25,7 @@ import {
 	getThirdPartyARI,
 	isFinalState,
 } from '../../state/helpers';
+import useInlineActionNudgeExperiment from '../../state/hooks/use-inline-action-nudge-experiment';
 import { SmartLinkModalProvider } from '../../state/modal';
 import { isSpecialClick, isSpecialEvent, isSpecialKey } from '../../utils';
 import { combineActionOptions } from '../../utils/actions/combine-action-options';
@@ -100,6 +101,12 @@ function Component({
 		actionOptions: actionOptionsProp,
 		platform,
 	});
+
+	const { isEnabled: rovoActionsCtaShown } = useInlineActionNudgeExperiment(
+		url,
+		showHoverPreview,
+		actionOptions,
+	);
 
 	const fire3PClickEvent = fg('platform_smartlink_3pclick_analytics')
 		? // eslint-disable-next-line react-hooks/rules-of-hooks
@@ -275,9 +282,10 @@ function Component({
 
 			fireEvent('ui.smartLink.renderSuccess', {
 				display: isFlexibleUi ? 'flexible' : appearance,
+				...(appearance === 'inline' && { rovoActionsCtaShown }),
 			});
 		}
-	}, [appearance, extensionKey, fireEvent, id, isFlexibleUi, state.status]);
+	}, [appearance, extensionKey, fireEvent, id, isFlexibleUi, rovoActionsCtaShown, state.status]);
 
 	// Fire smartLink seen event once on a successful render card is in the viewport
 	useEffect(() => {
@@ -477,6 +485,12 @@ function ComponentUpdated({
 		platform,
 	});
 
+	const { isEnabled: rovoActionsCtaShown } = useInlineActionNudgeExperiment(
+		url,
+		showHoverPreview,
+		actionOptions,
+	);
+
 	const fire3PClickEvent = fg('platform_smartlink_3pclick_analytics')
 		? // eslint-disable-next-line react-hooks/rules-of-hooks
 			useFire3PWorkflowsClickEvent(firstPartyIdentifier, thirdPartyARI)
@@ -651,9 +665,10 @@ function ComponentUpdated({
 
 			fireEvent('ui.smartLink.renderSuccess', {
 				display: isFlexibleUi ? 'flexible' : appearance,
+				...(appearance === 'inline' && { rovoActionsCtaShown }),
 			});
 		}
-	}, [appearance, extensionKey, fireEvent, id, isFlexibleUi, state.status]);
+	}, [appearance, extensionKey, fireEvent, id, isFlexibleUi, rovoActionsCtaShown, state.status]);
 
 	// Fire smartLink seen event once on a successful render card is in the viewport
 	useEffect(() => {

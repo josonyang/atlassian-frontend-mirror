@@ -163,6 +163,7 @@ export class ToolbarInsertBlock extends React.PureComponent<Props & WrappedCompo
 			emojiProvider: props.emojiProvider,
 			availableWrapperBlockTypes: props.availableWrapperBlockTypes,
 			insertMenuItems: props.insertMenuItems,
+			itemFilter: props.itemFilter,
 			schema: props.editorView.state.schema,
 			numberOfButtons: props.buttons,
 			formatMessage: props.intl.formatMessage,

@@ -189,7 +189,12 @@ describe('useResizing', () => {
 			);
 
 			rerender(
-				<TestComponent dimension="width" width={100} height={500} onFinishMotion={onFinishMotion} />,
+				<TestComponent
+					dimension="width"
+					width={100}
+					height={500}
+					onFinishMotion={onFinishMotion}
+				/>,
 			);
 
 			// Width didn't change, even though height did - should short-circuit.

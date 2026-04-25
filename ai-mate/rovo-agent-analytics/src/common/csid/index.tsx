@@ -14,12 +14,15 @@ const generateCSID = () => {
  * After trackCreateSessionStart fires, it calls refresh() to generate a new CSID
  * for the next session — the component re-renders and the href updates.
  */
-export const useRovoAgentCSID = (): readonly [{
-    readonly csid: string | null;
-    readonly globalCSID: string | null;
-}, {
-    refresh: () => `${string}-${string}-${string}-${string}-${string}`;
-}] => {
+export const useRovoAgentCSID = (): readonly [
+	{
+		readonly csid: string | null;
+		readonly globalCSID: string | null;
+	},
+	{
+		refresh: () => `${string}-${string}-${string}-${string}-${string}`;
+	},
+] => {
 	const [csid, setCSID] = useState<string | null>(CACHED_CSID || generateCSID());
 
 	const globalCSID = useMemo(() => {

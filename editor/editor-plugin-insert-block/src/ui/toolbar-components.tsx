@@ -311,6 +311,7 @@ export const getToolbarComponents = ({
 					horizontalRuleEnabled={options.horizontalRuleEnabled}
 					expandEnabled={options.allowExpand}
 					insertMenuItems={options.insertMenuItems}
+					itemFilter={options.itemFilter}
 					numberOfButtons={0}
 				/>
 			);

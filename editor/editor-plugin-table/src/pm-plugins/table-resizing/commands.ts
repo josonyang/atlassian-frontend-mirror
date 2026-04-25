@@ -70,7 +70,7 @@ export const distributeColumnsWidths =
 		return true;
 	};
 
-export const setResizeHandlePos = (resizeHandlePos: number | null) =>
+export const setResizeHandlePos = (resizeHandlePos: number | null): Command =>
 	createCommand({
 		type: 'SET_RESIZE_HANDLE_POSITION',
 		data: {
@@ -78,7 +78,7 @@ export const setResizeHandlePos = (resizeHandlePos: number | null) =>
 		},
 	});
 
-export const stopResizing = (tr?: Transaction) =>
+export const stopResizing = (tr?: Transaction): Command =>
 	createCommand(
 		{
 			type: 'STOP_RESIZING',
@@ -90,7 +90,7 @@ export const stopResizing = (tr?: Transaction) =>
 export const setDragging = (
 	dragging: { startWidth: number; startX: number } | null,
 	tr?: Transaction,
-) =>
+): Command =>
 	createCommand(
 		{
 			type: 'SET_DRAGGING',

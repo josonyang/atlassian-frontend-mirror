@@ -19,10 +19,10 @@ Consumers using non-zero `offset[0]` values should find alternative layouts.
 **Reversed 2026-04-21**
 
 The `placement.offset` redesign restores full cross-axis (`shift`) offset support via custom
-properties in CSS (four explicit `--ds-cross-axis-shift-margin-*` properties to sidestep the inability to
-interpolate variables in property names) and a signed cross-axis delta in the JS fallback path.
-This provides full parity with popper-era APIs without requiring consumers to find alternative
-layouts. See `placement-offset.md` for the complete rationale and implementation.
+properties in CSS (four explicit `--ds-cross-axis-shift-margin-*` properties to sidestep the
+inability to interpolate variables in property names) and a signed cross-axis delta in the JS
+fallback path. This provides full parity with popper-era APIs without requiring consumers to find
+alternative layouts. See `placement-offset.md` for the complete rationale and implementation.
 
 #### 2. DialogScrollLock stacking — Innermost modal only
 

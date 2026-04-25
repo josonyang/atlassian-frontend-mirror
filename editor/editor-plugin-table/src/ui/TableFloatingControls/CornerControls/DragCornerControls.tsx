@@ -1,7 +1,7 @@
 import React, { useMemo } from 'react';
 
 import classnames from 'classnames';
-import type { WrappedComponentProps } from 'react-intl';
+import type { WithIntlProps, WrappedComponentProps } from 'react-intl';
 import { injectIntl } from 'react-intl';
 
 import { useSharedPluginStateWithSelector } from '@atlaskit/editor-common/hooks';
@@ -128,6 +128,26 @@ const DragCornerControlsComponentWithSelection = ({
 	);
 };
 
-export const DragCornerControlsWithSelection = injectIntl(DragCornerControlsComponentWithSelection);
+// eslint-disable-next-line @typescript-eslint/ban-types
+export const DragCornerControlsWithSelection: React.FC<
+	WithIntlProps<
+		CornerControlProps &
+			WrappedComponentProps & {
+				api?: ExtractInjectionAPI<TablePlugin>;
+			}
+	>
+> & {
+	WrappedComponent: React.ComponentType<
+		CornerControlProps &
+			WrappedComponentProps & {
+				api?: ExtractInjectionAPI<TablePlugin>;
+			}
+	>;
+} = injectIntl(DragCornerControlsComponentWithSelection);
 
-export const DragCornerControls = injectIntl(DragCornerControlsComponent);
+// eslint-disable-next-line @typescript-eslint/ban-types
+export const DragCornerControls: React.FC<
+	WithIntlProps<CornerControlProps & WrappedComponentProps>
+> & {
+	WrappedComponent: React.ComponentType<CornerControlProps & WrappedComponentProps>;
+} = injectIntl(DragCornerControlsComponent);

@@ -32,7 +32,7 @@ const getPluginState = (state: EditorState): TableLocalIdPluginState | undefined
 /**
  * Ensures uniqueness of `localId`s on tables being created or edited
  */
-const createPlugin = (dispatch: Dispatch) =>
+const createPlugin = (dispatch: Dispatch): SafePlugin<TableLocalIdPluginState> =>
 	new SafePlugin<TableLocalIdPluginState>({
 		key: pluginKey,
 		state: {

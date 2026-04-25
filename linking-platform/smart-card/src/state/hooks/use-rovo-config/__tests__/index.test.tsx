@@ -3,7 +3,6 @@ import React from 'react';
 import { SmartCardProvider } from '@atlaskit/link-provider';
 import { renderHook } from '@atlassian/testing-library';
 
-
 import useRovoConfig from '../index';
 
 describe('useRovoConfig', () => {

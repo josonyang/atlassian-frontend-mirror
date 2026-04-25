@@ -143,11 +143,7 @@ export default (): JSX.Element => {
 						{Array(widthNum)
 							.fill(undefined)
 							.map((_, index) => (
-								<Motion
-									key={index}
-									xcss={styles.item}
-									enteringAnimationXcss={styles.entering}
-								>
+								<Motion key={index} xcss={styles.item} enteringAnimationXcss={styles.entering}>
 									{logos[index][0]}
 									<span>{logos[index][1]}</span>
 								</Motion>
@@ -181,16 +177,11 @@ export default (): JSX.Element => {
 						{Array(heightNum)
 							.fill(undefined)
 							.map((_, index) => (
-								<Motion
-									key={index}
-									xcss={styles.item}
-									enteringAnimationXcss={styles.entering}
-								>
+								<Motion key={index} xcss={styles.item} enteringAnimationXcss={styles.entering}>
 									{logos[index][0]}
 									<span>{logos[index][1]}</span>
 								</Motion>
-							))
-						}
+							))}
 					</StaggeredEntrance>
 				</div>
 			</Centered>
@@ -222,11 +213,7 @@ export default (): JSX.Element => {
 							{Array(bothNum * bothNum)
 								.fill(undefined)
 								.map((_, index) => (
-									<Motion
-										key={index}
-										xcss={styles.item}
-										enteringAnimationXcss={styles.entering}
-									>
+									<Motion key={index} xcss={styles.item} enteringAnimationXcss={styles.entering}>
 										{logos[index % logos.length][0]}
 										<span>{logos[index % logos.length][1]}</span>
 									</Motion>

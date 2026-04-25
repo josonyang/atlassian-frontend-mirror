@@ -699,7 +699,11 @@ export const Reactions: React.MemoExoticComponent<
 										handleOpenReactionsDialog={handleOpenReactionsDialog}
 										isViewOnly={isViewOnly}
 										showSubtleStyle={showSubtleDefaultReactions && reactions.length === 0}
-										optimisticImageURL={fg('platform_reactions_optimistic_url') ? getOptimisticImageURL?.(reaction.emojiId) : undefined}
+										optimisticImageURL={
+											fg('platform_reactions_optimistic_url')
+												? getOptimisticImageURL?.(reaction.emojiId)
+												: undefined
+										}
 									/>
 								))}
 							</ul>
@@ -720,7 +724,11 @@ export const Reactions: React.MemoExoticComponent<
 										handleOpenReactionsDialog={handleOpenReactionsDialog}
 										isViewOnly={isViewOnly}
 										showSubtleStyle={showSubtleDefaultReactions && reactions.length === 0}
-										optimisticImageURL={fg('platform_reactions_optimistic_url') ? getOptimisticImageURL?.(reaction.emojiId) : undefined}
+										optimisticImageURL={
+											fg('platform_reactions_optimistic_url')
+												? getOptimisticImageURL?.(reaction.emojiId)
+												: undefined
+										}
 									/>
 								))}
 							</>

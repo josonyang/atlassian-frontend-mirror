@@ -150,7 +150,9 @@ describe('TitleBlock', () => {
 		});
 
 		ffTest.off('platform_sl_3p_auth_rovo_block_card_kill_switch', '', () => {
-			const resolvedAllowedActions = Object.values(ActionName).filter(name => name !== ActionName.RovoChatAction)
+			const resolvedAllowedActions = Object.values(ActionName).filter(
+				(name) => name !== ActionName.RovoChatAction,
+			);
 
 			describe.each<[SmartLinkStatus, ActionName[]]>([
 				[SmartLinkStatus.Resolved, resolvedAllowedActions],

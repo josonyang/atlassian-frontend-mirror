@@ -2,8 +2,8 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
-// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
-import { css, jsx } from '@emotion/react';
+/* eslint-disable @typescript-eslint/consistent-type-imports, @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766; jsx required at runtime for @jsxRuntime classic */
+import { jsx, css } from '@emotion/react';
 import type { BreakoutMarkAttrs } from '@atlaskit/adf-schema';
 import {
 	akEditorFullWidthLayoutWidth,
@@ -66,7 +66,7 @@ const getWidth = (width: number | null, mode: BreakoutMode) => {
  * @param props - Breakout mark attrs, such as mode (wide or full-width).
  * @returns The rendered breakout mark as a React element.
  */
-export default function Breakout(props: MarkProps<BreakoutMarkAttrs>) {
+export default function Breakout(props: MarkProps<BreakoutMarkAttrs>): jsx.JSX.Element {
 	const width = getWidth('width' in props ? props.width : null, props.mode);
 	const useStickySafeCentering = expValEquals(
 		'platform_editor_flex_based_centering',

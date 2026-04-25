@@ -11,7 +11,8 @@ const font: AttributeSchema<MotionKeyframeTokenSchema<BaseKeyframeToken>> = {
 							group: 'motionKeyframe',
 							state: 'active',
 							introduced: '11.5.0',
-							description: 'Use for small scale-in transitions where an element grows from 95% to full size on enter.',
+							description:
+								'Use for small scale-in transitions where an element grows from 95% to full size on enter.',
 						},
 					},
 					medium: {
@@ -19,7 +20,8 @@ const font: AttributeSchema<MotionKeyframeTokenSchema<BaseKeyframeToken>> = {
 							group: 'motionKeyframe',
 							state: 'active',
 							introduced: '11.5.0',
-							description: 'Use for medium scale-in transitions where an element grows from 80% to full size on enter.',
+							description:
+								'Use for medium scale-in transitions where an element grows from 80% to full size on enter.',
 						},
 					},
 				},
@@ -29,7 +31,8 @@ const font: AttributeSchema<MotionKeyframeTokenSchema<BaseKeyframeToken>> = {
 							group: 'motionKeyframe',
 							state: 'active',
 							introduced: '11.5.0',
-							description: 'Use for small scale-out transitions where an element shrinks from full size to 95% on exit.',
+							description:
+								'Use for small scale-out transitions where an element shrinks from full size to 95% on exit.',
 						},
 					},
 					medium: {
@@ -37,7 +40,8 @@ const font: AttributeSchema<MotionKeyframeTokenSchema<BaseKeyframeToken>> = {
 							group: 'motionKeyframe',
 							state: 'active',
 							introduced: '11.5.0',
-							description: 'Use for medium scale-out transitions where an element shrinks from full size to 80% on exit.',
+							description:
+								'Use for medium scale-out transitions where an element shrinks from full size to 80% on exit.',
 						},
 					},
 				},
@@ -48,7 +52,8 @@ const font: AttributeSchema<MotionKeyframeTokenSchema<BaseKeyframeToken>> = {
 						group: 'motionKeyframe',
 						state: 'active',
 						introduced: '11.5.0',
-						description: 'Use for fade-in transitions where an element goes from fully transparent to fully opaque.',
+						description:
+							'Use for fade-in transitions where an element goes from fully transparent to fully opaque.',
 					},
 				},
 				out: {
@@ -56,7 +61,8 @@ const font: AttributeSchema<MotionKeyframeTokenSchema<BaseKeyframeToken>> = {
 						group: 'motionKeyframe',
 						state: 'active',
 						introduced: '11.5.0',
-						description: 'Use for fade-out transitions where an element goes from fully opaque to fully transparent.',
+						description:
+							'Use for fade-out transitions where an element goes from fully opaque to fully transparent.',
 					},
 				},
 			},
@@ -68,7 +74,8 @@ const font: AttributeSchema<MotionKeyframeTokenSchema<BaseKeyframeToken>> = {
 								group: 'motionKeyframe',
 								state: 'active',
 								introduced: '11.5.0',
-								description: 'Use for short slide-in transitions where an element enters from above its final position by 8px.',
+								description:
+									'Use for short slide-in transitions where an element enters from above its final position by 8px.',
 							},
 						},
 					},
@@ -78,7 +85,8 @@ const font: AttributeSchema<MotionKeyframeTokenSchema<BaseKeyframeToken>> = {
 								group: 'motionKeyframe',
 								state: 'active',
 								introduced: '11.5.0',
-								description: 'Use for short slide-in transitions where an element enters from below its final position by 8px.',
+								description:
+									'Use for short slide-in transitions where an element enters from below its final position by 8px.',
 							},
 						},
 					},
@@ -88,7 +96,8 @@ const font: AttributeSchema<MotionKeyframeTokenSchema<BaseKeyframeToken>> = {
 								group: 'motionKeyframe',
 								state: 'active',
 								introduced: '11.5.0',
-								description: 'Use for short slide-in transitions where an element enters from the left of its final position by 8px.',
+								description:
+									'Use for short slide-in transitions where an element enters from the left of its final position by 8px.',
 							},
 						},
 						half: {
@@ -96,7 +105,8 @@ const font: AttributeSchema<MotionKeyframeTokenSchema<BaseKeyframeToken>> = {
 								group: 'motionKeyframe',
 								state: 'active',
 								introduced: '11.5.0',
-								description: 'Use for slide-in transitions where an element enters from the left of its final position by 50%.',
+								description:
+									'Use for slide-in transitions where an element enters from the left of its final position by 50%.',
 							},
 						},
 					},
@@ -106,7 +116,8 @@ const font: AttributeSchema<MotionKeyframeTokenSchema<BaseKeyframeToken>> = {
 								group: 'motionKeyframe',
 								state: 'active',
 								introduced: '11.5.0',
-								description: 'Use for short slide-in transitions where an element enters from the right of its final position by 8px.',
+								description:
+									'Use for short slide-in transitions where an element enters from the right of its final position by 8px.',
 							},
 						},
 					},
@@ -118,7 +129,8 @@ const font: AttributeSchema<MotionKeyframeTokenSchema<BaseKeyframeToken>> = {
 								group: 'motionKeyframe',
 								state: 'active',
 								introduced: '11.5.0',
-								description: 'Use for short slide-out transitions where an element exits upward by 8px from its starting position.',
+								description:
+									'Use for short slide-out transitions where an element exits upward by 8px from its starting position.',
 							},
 						},
 					},
@@ -128,7 +140,8 @@ const font: AttributeSchema<MotionKeyframeTokenSchema<BaseKeyframeToken>> = {
 								group: 'motionKeyframe',
 								state: 'active',
 								introduced: '11.5.0',
-								description: 'Use for short slide-out transitions where an element exits downward by 8px from its starting position.',
+								description:
+									'Use for short slide-out transitions where an element exits downward by 8px from its starting position.',
 							},
 						},
 					},
@@ -138,7 +151,8 @@ const font: AttributeSchema<MotionKeyframeTokenSchema<BaseKeyframeToken>> = {
 								group: 'motionKeyframe',
 								state: 'active',
 								introduced: '11.5.0',
-								description: 'Use for short slide-out transitions where an element exits to the left by 8px from its starting position.',
+								description:
+									'Use for short slide-out transitions where an element exits to the left by 8px from its starting position.',
 							},
 						},
 						half: {
@@ -146,7 +160,8 @@ const font: AttributeSchema<MotionKeyframeTokenSchema<BaseKeyframeToken>> = {
 								group: 'motionKeyframe',
 								state: 'active',
 								introduced: '11.5.0',
-								description: 'Use for slide-out transitions where an element exits to the left of its starting position by 15%.',
+								description:
+									'Use for slide-out transitions where an element exits to the left of its starting position by 15%.',
 							},
 						},
 					},
@@ -156,7 +171,8 @@ const font: AttributeSchema<MotionKeyframeTokenSchema<BaseKeyframeToken>> = {
 								group: 'motionKeyframe',
 								state: 'active',
 								introduced: '11.5.0',
-								description: 'Use for short slide-out transitions where an element exits to the right by 8px from its starting position.',
+								description:
+									'Use for short slide-out transitions where an element exits to the right by 8px from its starting position.',
 							},
 						},
 					},

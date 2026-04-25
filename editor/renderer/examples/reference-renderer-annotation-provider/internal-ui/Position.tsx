@@ -9,7 +9,10 @@ export const usePosition = ({
 }: {
 	portalContainer: Element;
 	range: Range;
-}) => {
+}): {
+	left: number;
+	top: number;
+} => {
 	// Note: This does not update on range changes
 	// Adding an effect to update on range changes means when creating a draft
 	// the position will end up invalid (as the draftRange is not updated after wrapping in HTML)

@@ -5,10 +5,10 @@ import { Code } from '@atlaskit/code';
 
 const _default_1: any = md`
   ${(
-        <SectionMessage appearance="error" title="@atlaskit/quick-search is deprecated">
-            This package has been deprecated. Please use <Code>@atlassian/search-dialog</Code> instead.
-        </SectionMessage>
-    )}
+		<SectionMessage appearance="error" title="@atlaskit/quick-search is deprecated">
+			This package has been deprecated. Please use <Code>@atlassian/search-dialog</Code> instead.
+		</SectionMessage>
+	)}
 
 	<br />
 
@@ -41,11 +41,12 @@ const _default_1: any = md`
   `}
 
   ${(
-        <Example
-            Component={require('../examples/1-Object-Results').default}
-            title="Objects"
-            source={require('!!raw-loader!../examples/1-Object-Results')} />
-    )}
+		<Example
+			Component={require('../examples/1-Object-Results').default}
+			title="Objects"
+			source={require('!!raw-loader!../examples/1-Object-Results')}
+		/>
+	)}
 
   ${(<Props props={require('!!extract-react-types-loader!../src/components/QuickSearch')} />)}
 

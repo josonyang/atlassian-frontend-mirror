@@ -20,8 +20,8 @@ export const aiGeneratingDecorationPluginKey: PluginKey = new PluginKey('aiGener
 // ── Types ───────────────────────────────────────────────────────────────────
 
 export type AIGeneratingAction =
-	| { mediaId: string; type: 'SET_GENERATING'; }
-	| { mediaId: string; type: 'CLEAR_GENERATING'; }
+	| { mediaId: string; type: 'SET_GENERATING' }
+	| { mediaId: string; type: 'CLEAR_GENERATING' }
 	| { type: 'CLEAR_ALL' };
 
 interface AIGeneratingDecorationState {

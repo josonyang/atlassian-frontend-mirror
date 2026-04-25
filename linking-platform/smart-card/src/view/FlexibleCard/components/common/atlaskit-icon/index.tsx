@@ -2,6 +2,7 @@ import React from 'react';
 
 import Loadable from 'react-loadable';
 
+import { IconTile, type IconTileProps } from '@atlaskit/icon';
 import { ConfluenceIcon, JiraIcon } from '@atlaskit/logo';
 import { fg } from '@atlaskit/platform-feature-flags';
 import { token } from '@atlaskit/tokens';
@@ -9,6 +10,7 @@ import { token } from '@atlaskit/tokens';
 import BlogIcon from '../../../../../common/ui/icons/blog-icon';
 import LiveDocumentIcon from '../../../../../common/ui/icons/live-document-icon';
 import DocumentIcon from '../../../../../common/ui/icons/page-icon';
+import { transformSmartLinkSizeToIconTileSize } from '../../../../../common/ui/icons/utils';
 import { IconType, SmartLinkSize } from '../../../../../constants';
 import { getLazyIcons, isIconSizeLarge } from '../../../../../utils';
 
@@ -29,20 +31,43 @@ const importIcon = (importFn: () => Promise<any>): any => {
 	}) as any; // Because we're using dynamic loading here, TS will not be able to infer the type.
 };
 
+const isCoreIcon = (icon: IconType): boolean => {
+	return [
+		IconType.Project,
+		IconType.Template,
+		IconType.Forbidden,
+		IconType.Default,
+		IconType.Error,
+		IconType.Attachment,
+		IconType.CheckItem,
+		IconType.Component,
+		IconType.Comment,
+		IconType.View,
+		IconType.React,
+		IconType.Vote,
+		IconType.PriorityUndefined,
+		IconType.ProgrammingLanguage,
+		IconType.Subscriber,
+		IconType.SubTasksProgress,
+	].includes(icon);
+};
+
 const AtlaskitIcon = ({
 	icon,
 	label,
 	testId,
 	size = SmartLinkSize.Medium,
 }: AtlaskitIconProps): React.JSX.Element | null => {
-	// Check for synchonously loaded icons first for SSR purposes
-	switch (icon) {
-		case IconType.Document:
-			return <DocumentIcon label={label ?? 'document'} testId={testId} size={size} />;
-		case IconType.Blog:
-			return <BlogIcon label={label ?? 'blog'} testId={testId} size={size} />;
-		case IconType.LiveDocument:
-			return <LiveDocumentIcon label={label ?? 'live-doc'} testId={testId} size={size} />;
+	if (!fg('platform_sl_icons_refactor')) {
+		// Check for synchonously loaded icons first for SSR purposes
+		switch (icon) {
+			case IconType.Document:
+				return <DocumentIcon label={label ?? 'document'} testId={testId} size={size} />;
+			case IconType.Blog:
+				return <BlogIcon label={label ?? 'blog'} testId={testId} size={size} />;
+			case IconType.LiveDocument:
+				return <LiveDocumentIcon label={label ?? 'live-doc'} testId={testId} size={size} />;
+		}
 	}
 
 	const importFn = getIconImportFn(icon, size);
@@ -51,6 +76,34 @@ const AtlaskitIcon = ({
 	}
 
 	const ImportedIcon = importIcon(importFn);
+
+	if (isCoreIcon(icon) && fg('platform_sl_icons_refactor')) {
+		switch (size) {
+			case SmartLinkSize.Small:
+			case SmartLinkSize.Medium:
+				let color;
+				if (icon === IconType.Error || icon === IconType.Forbidden) {
+					color = token('color.icon.danger');
+				}
+				return <ImportedIcon label={label} testId={testId} color={color} />;
+			case SmartLinkSize.Large:
+			case SmartLinkSize.XLarge:
+				let appearance: IconTileProps['appearance'];
+				if (icon === IconType.Error || icon === IconType.Forbidden) {
+					appearance = 'redBold';
+				} else {
+					appearance = 'grayBold';
+				}
+				return (
+					<IconTile
+						appearance={appearance}
+						icon={ImportedIcon}
+						size={transformSmartLinkSizeToIconTileSize(size)}
+						label={label ?? ''}
+					/>
+				);
+		}
+	}
 
 	switch (icon) {
 		case IconType.Confluence:
@@ -73,6 +126,9 @@ const AtlaskitIcon = ({
 			);
 		case IconType.Error:
 		case IconType.Forbidden:
+			if (fg('platform_sl_icons_refactor')) {
+				return <ImportedIcon label={label} testId={testId} size={size} />;
+			}
 			return <ImportedIcon label={label} testId={testId} color={token('color.icon.danger')} />;
 		default:
 			return <ImportedIcon label={label} testId={testId} size={size} />;

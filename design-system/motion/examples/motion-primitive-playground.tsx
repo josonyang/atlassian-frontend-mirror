@@ -68,12 +68,9 @@ export default (): React.JSX.Element => {
 					<Inline space="space.150" alignBlock="center">
 						<Stack space="space.100">
 							<Text weight="medium">Entry animation</Text>
-							<DropdownMenu
-								shouldRenderToParent
-								trigger={enterPath}
-							>
+							<DropdownMenu shouldRenderToParent trigger={enterPath}>
 								<DropdownItemGroup>
-									{Object.keys(motionEntryTokens).map(name => (
+									{Object.keys(motionEntryTokens).map((name) => (
 										<DropdownItem
 											key={name}
 											isSelected={name === enterPath}
@@ -87,12 +84,9 @@ export default (): React.JSX.Element => {
 						</Stack>
 						<Stack space="space.100">
 							<Text weight="medium">Exit animation</Text>
-							<DropdownMenu
-								shouldRenderToParent
-								trigger={exitPath}
-							>
+							<DropdownMenu shouldRenderToParent trigger={exitPath}>
 								<DropdownItemGroup>
-									{Object.keys(motionExitTokens).map(name => (
+									{Object.keys(motionExitTokens).map((name) => (
 										<DropdownItem
 											key={name}
 											isSelected={name === exitPath}
@@ -106,7 +100,9 @@ export default (): React.JSX.Element => {
 						</Stack>
 						<Stack space="space.100">
 							<Text weight="medium">Control</Text>
-							<Button appearance="primary" onClick={() => setIsIn((prev) => !prev)}>{isIn ? 'Exit' : 'Enter'}</Button>
+							<Button appearance="primary" onClick={() => setIsIn((prev) => !prev)}>
+								{isIn ? 'Exit' : 'Enter'}
+							</Button>
 						</Stack>
 					</Inline>
 				</Box>

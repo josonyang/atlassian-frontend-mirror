@@ -89,12 +89,9 @@ const updateResizeHandleAndStatePosition =
 		const decorationsWithWidgetAndHandle = updateDecorations(
 			customTr.doc,
 			decorationsWithWidget,
-			createColumnLineResize(
-				state.selection,
-				{
-					right: columnIndex,
-				},
-			),
+			createColumnLineResize(state.selection, {
+				right: columnIndex,
+			}),
 			TableDecorations.COLUMN_RESIZING_HANDLE_LINE,
 		);
 

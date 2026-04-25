@@ -3,8 +3,15 @@ import React, { type ComponentProps } from 'react';
 import '@atlaskit/link-test-helpers/jest';
 
 import { AnalyticsListener } from '@atlaskit/analytics-next';
-import { act, createEvent, fireEvent, render, screen, waitFor, userEvent } from '@atlassian/testing-library';
-
+import {
+	act,
+	createEvent,
+	fireEvent,
+	render,
+	screen,
+	waitFor,
+	userEvent,
+} from '@atlassian/testing-library';
 
 import { ANALYTICS_CHANNEL } from '../../../utils/analytics';
 import LinkUrl from '../../LinkUrl';

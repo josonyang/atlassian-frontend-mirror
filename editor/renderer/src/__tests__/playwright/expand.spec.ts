@@ -6,7 +6,6 @@ import { rendererTestCase as test, expect } from './not-libra';
 // the next line and associated import. For more information, see go/afm-a11y-tooling:playwright
 skipAutoA11yFile();
 
-
 test.describe('expand', () => {
 	test.describe('default mode', () => {
 		test.use({

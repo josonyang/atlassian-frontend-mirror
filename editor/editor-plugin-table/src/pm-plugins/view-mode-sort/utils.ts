@@ -130,7 +130,12 @@ export const toggleSort = (view: EditorView, event: Event, pluginState: TableSor
 	view.dispatch(tr);
 };
 
-export const getTableElements = (tableId: string) => {
+export const getTableElements = (
+	tableId: string,
+): {
+	tbody: Element | null | undefined;
+	rows: NodeListOf<Element> | undefined;
+} => {
 	const tableElement = document.querySelector(`table[data-table-local-id="${tableId}"]`);
 	const tbody = tableElement?.querySelector(':scope > tbody');
 

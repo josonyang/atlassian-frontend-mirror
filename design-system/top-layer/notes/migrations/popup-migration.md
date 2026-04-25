@@ -134,17 +134,17 @@ const along = offsetProp ? offsetProp[0] : 0;
 const away = offsetProp ? offsetProp[1] : undefined;
 
 const newOffset = {
-  gap: away,
-  shift: {
-    value: Math.abs(along),
-    direction: along >= 0 ? 'forwards' : 'backwards',
-  },
+	gap: away,
+	shift: {
+		value: Math.abs(along),
+		direction: along >= 0 ? 'forwards' : 'backwards',
+	},
 };
 ```
 
 This preserves the legacy first value by splitting positive/negative into `direction`. See
-`placement-offset.md` for the full design rationale and how cross-axis shift is implemented via
-CSS custom properties and JS fallback deltas.
+`placement-offset.md` for the full design rationale and how cross-axis shift is implemented via CSS
+custom properties and JS fallback deltas.
 
 ---
 
@@ -260,11 +260,12 @@ owns its own styling.
    layer.
 
 5. **Cross-axis shift preserved**: The legacy first element of the popper `[along, away]` tuple is
-   now restored via `placement.offset.crossAxisShift`. The CSS path uses four explicit custom properties
-   (`--ds-cross-axis-shift-margin-*`) to apply cross-axis margin; the JS fallback resolves CSS length strings
-   to pixels via a hidden DOM probe (`resolveCssLengthToPixels`) and applies a signed cross-axis
-   coordinate delta with the same per-`align` and per-`direction` sign rules as the CSS path.
-   This restores full parity with popper-era APIs on both runtime paths. See `placement-offset.md`.
+   now restored via `placement.offset.crossAxisShift`. The CSS path uses four explicit custom
+   properties (`--ds-cross-axis-shift-margin-*`) to apply cross-axis margin; the JS fallback
+   resolves CSS length strings to pixels via a hidden DOM probe (`resolveCssLengthToPixels`) and
+   applies a signed cross-axis coordinate delta with the same per-`align` and per-`direction` sign
+   rules as the CSS path. This restores full parity with popper-era APIs on both runtime paths. See
+   `placement-offset.md`.
 
 6. **Synthetic events for `onClose`**: Top-layer's `onClose({ reason })` is bridged to legacy
    `onClose(event)` by synthesizing DOM events. This preserves backward compatibility for consumers
@@ -274,12 +275,12 @@ owns its own styling.
 
 ## Known gaps
 
-| Gap                     | Impact                                                                                                                                                                                                                                                                                   |
-| ----------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `UNSAFE_modal-below-sm` | Appearance-based responsive behavior not implemented                                                                                                                                                                                                                                     |
-| `fallbackPlacements`    | Accepted but not yet wired to CSS `position-try-fallbacks`                                                                                                                                                                                                                               |
-| Screen reader testing   | JAWS/NVDA/VoiceOver matrix not conducted                                                                                                                                                                                                                                                 |
-| `onClose` event type    | Synthesized events may not match the original event that caused the close                                                                                                                                                                                                                |
+| Gap                     | Impact                                                                    |
+| ----------------------- | ------------------------------------------------------------------------- |
+| `UNSAFE_modal-below-sm` | Appearance-based responsive behavior not implemented                      |
+| `fallbackPlacements`    | Accepted but not yet wired to CSS `position-try-fallbacks`                |
+| Screen reader testing   | JAWS/NVDA/VoiceOver matrix not conducted                                  |
+| `onClose` event type    | Synthesized events may not match the original event that caused the close |
 
 ---
 

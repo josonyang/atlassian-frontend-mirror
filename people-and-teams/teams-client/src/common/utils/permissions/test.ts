@@ -1074,7 +1074,10 @@ describe('In ORG_ADMIN_MANAGED teams', () => {
 
 		it.each(
 			AllTeamActions.filter(
-				(a) => !['LEAVE_TEAM', 'UNARCHIVE_TEAM', 'EDIT_TEAM_MEMBERSHIP', 'ARCHIVE_TEAM'].some((s) => a.includes(s)),
+				(a) =>
+					!['LEAVE_TEAM', 'UNARCHIVE_TEAM', 'EDIT_TEAM_MEMBERSHIP', 'ARCHIVE_TEAM'].some((s) =>
+						a.includes(s),
+					),
 			),
 		)('non-members with FULL_WRITE (no org admin) can perform %s', (action) => {
 			expect(

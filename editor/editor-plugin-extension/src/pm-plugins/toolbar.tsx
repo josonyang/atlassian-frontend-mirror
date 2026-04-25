@@ -292,7 +292,7 @@ const breakoutOptions = (
 				extensionState,
 				breakoutEnabled,
 				editorAnalyticsAPI,
-		  );
+			);
 };
 
 const editButton = (

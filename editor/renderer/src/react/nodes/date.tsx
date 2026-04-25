@@ -7,7 +7,7 @@ import {
 } from '@atlaskit/editor-common/utils';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { injectIntl } from 'react-intl';
-import type { WrappedComponentProps } from 'react-intl';
+import type { WithIntlProps, WrappedComponentProps } from 'react-intl';
 import { useRendererContext } from '../../renderer-context';
 import { useTaskItemsFormatContext } from '../../ui/TaskItemsFormatContext/TaskItemsFormatContext';
 import { useInlineAnnotationProps } from '../../ui/annotations/element/useInlineAnnotationProps';
@@ -52,7 +52,10 @@ const Date = memo(function Date(props: Props & WrappedComponentProps) {
 	);
 });
 
-export const DateComponent = injectIntl(Date);
+// eslint-disable-next-line @typescript-eslint/ban-types
+export const DateComponent: React.FC<WithIntlProps<Props & WrappedComponentProps>> & {
+	WrappedComponent: React.ComponentType<Props & WrappedComponentProps>;
+} = injectIntl(Date);
 
 function DateWithFormatContext(props: Props): React.JSX.Element {
 	const [isChecked] = useTaskItemsFormatContext();

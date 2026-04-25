@@ -23,7 +23,15 @@ import { insertTokensImport } from '../insert-tokens-import';
 import { isValidPropertyNode } from '../is-valid-property-node';
 import { isValidTypographyToken } from '../is-valid-typography-token';
 import { notUndefined } from '../not-undefined';
-import { defaultFontWeight, findFontWeightTokenForValue, findTypographyTokenForValues, type FontWeightMap, fontWeightMap, getTokenProperty, type TokenValueMap } from '../utils';
+import {
+	defaultFontWeight,
+	findFontWeightTokenForValue,
+	findTypographyTokenForValues,
+	type FontWeightMap,
+	fontWeightMap,
+	getTokenProperty,
+	type TokenValueMap,
+} from '../utils';
 
 interface MetaData {
 	context: Rule.RuleContext;

@@ -3,7 +3,7 @@
  * @jsx jsx
  */
 import { Fragment, lazy, memo, Suspense, useState } from 'react';
-// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
+/* eslint-disable @typescript-eslint/consistent-type-imports, @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766; jsx required at runtime for @jsxRuntime classic */
 import { jsx } from '@emotion/react';
 
 import { CodeBlockSharedCssClassName } from '@atlaskit/editor-common/styles';
@@ -36,7 +36,7 @@ const WindowedCodeBlock = ({
 	allowWrapCodeBlock = false,
 	codeBidiWarningTooltipEnabled,
 	className: rootClassName,
-}: CodeBlockProps) => {
+}: CodeBlockProps): jsx.JSX.Element => {
 	const { warningLabel } = useBidiWarnings({
 		enableWarningTooltip: codeBidiWarningTooltipEnabled,
 	});

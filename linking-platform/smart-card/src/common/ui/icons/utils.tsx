@@ -1,13 +1,29 @@
-import React, { type ComponentPropsWithoutRef, type ComponentType } from 'react';
+import React, { type ComponentType } from 'react';
 
-import { IconTile } from '@atlaskit/icon';
+import { IconTile, type IconTileProps } from '@atlaskit/icon';
+import { fg } from '@atlaskit/platform-feature-flags';
 
 import { SmartLinkSize } from '../../../constants';
 import { isIconSizeLarge } from '../../../utils';
 
 import type { AtlaskitIconTileProps } from './types';
 
-export const transformSmartLinkSizeToIconTileSize = (size?: SmartLinkSize): '24' | '16' => {
+export const transformSmartLinkSizeToIconTileSize = (
+	size?: SmartLinkSize,
+): IconTileProps['size'] => {
+	if (fg('platform_sl_icons_refactor')) {
+		switch (size) {
+			case SmartLinkSize.Small:
+			case SmartLinkSize.Medium:
+				return '16';
+			case SmartLinkSize.XLarge:
+			case SmartLinkSize.Large:
+				return '24';
+			default:
+				return '16';
+		}
+	}
+
 	switch (size) {
 		case SmartLinkSize.XLarge:
 		case SmartLinkSize.Large:
@@ -35,7 +51,6 @@ export const renderIconPerSize = (
 	};
 };
 
-type IconTileProps = ComponentPropsWithoutRef<typeof IconTile>;
 export const renderIconTile = (
 	Icon: IconTileProps['icon'],
 	appearance: IconTileProps['appearance'],

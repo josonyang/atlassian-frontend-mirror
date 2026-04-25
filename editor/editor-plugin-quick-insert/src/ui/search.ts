@@ -16,14 +16,18 @@ export const getQuickInsertSuggestions: GetQuickInsertSuggestions = (
 	providedItems,
 ) => {
 	// @ts-ignore
-	const { query, category, disableDefaultItems, featuredItems, prioritySortingFn } = searchOptions;
+	const { query, category, disableDefaultItems, featuredItems, itemFilter, prioritySortingFn } =
+		searchOptions;
 	const defaultItems = disableDefaultItems ? [] : lazyDefaultItems();
 
 	const dedupeFn = (item: QuickInsertItem) => `${item.title}-${item.description ?? ''}`;
 
-	const items = providedItems
-		? dedupe([...defaultItems, ...providedItems], dedupeFn)
-		: defaultItems;
+	let items = providedItems ? dedupe([...defaultItems, ...providedItems], dedupeFn) : defaultItems;
+
+	// EDITOR-6558: apply consumer-supplied filter (e.g. Markdown Mode allowlist).
+	if (itemFilter) {
+		items = items.filter(itemFilter);
+	}
 
 	if (featuredItems) {
 		return items.filter((item) => item.featured);

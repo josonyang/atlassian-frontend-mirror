@@ -18,6 +18,7 @@ import { useAnalyticsEvents } from '../../../common/analytics/generated/use-anal
 import { CardDisplay, SmartLinkPosition, SmartLinkSize } from '../../../constants';
 import extractRovoChatAction from '../../../extractors/flexible/actions/extract-rovo-chat-action';
 import { getDefinitionId, getExtensionKey, getServices } from '../../../state/helpers';
+import useInlineActionNudgeExperiment from '../../../state/hooks/use-inline-action-nudge-experiment';
 import useRovoConfig from '../../../state/hooks/use-rovo-config';
 import { useSmartCardState } from '../../../state/store';
 import { type CardState } from '../../../state/types';
@@ -352,7 +353,7 @@ const HoverCardContent = ({
 				return (
 					<HoverCardResolvedView
 						{...(fg('platform_sl_3p_auth_rovo_action_kill_switch') ||
-							(is3PInlinePostAuthActionsEnabled)
+						is3PInlinePostAuthActionsEnabled
 							? { actionOptions, showRovoResolvedView }
 							: undefined)}
 						cardState={cardState}
@@ -382,7 +383,7 @@ const HoverCardContent = ({
 };
 
 const HoverCardContentWithViewVariant = (props: HoverCardContentProps): React.JSX.Element => {
-	const { cardState, actionOptions } = props;
+	const { cardState, actionOptions, url } = props;
 	const rovoConfig = useRovoConfig();
 	const isResolved = useIsResolvedView(props);
 	const showPreauthBetterHovercard = useIsShowPreauthBetterHovercard(props);
@@ -399,6 +400,12 @@ const HoverCardContentWithViewVariant = (props: HoverCardContentProps): React.JS
 		[actionOptions, cardState.details, rovoConfig, isResolved],
 	);
 
+	const { isEnabled: rovoActionsCtaShown } = useInlineActionNudgeExperiment(
+		url,
+		true,
+		actionOptions,
+	);
+
 	const data = useMemo(() => {
 		let viewVariant = 'default';
 		if (
@@ -411,9 +418,9 @@ const HoverCardContentWithViewVariant = (props: HoverCardContentProps): React.JS
 			viewVariant = 'rovo-unauthorised-view';
 		}
 		return {
-			attributes: { viewVariant },
+			attributes: { viewVariant, rovoActionsCtaShown },
 		};
-	}, [showRovoResolvedView, showPreauthBetterHovercard]);
+	}, [showRovoResolvedView, showPreauthBetterHovercard, rovoActionsCtaShown]);
 
 	return (
 		<AnalyticsContext data={data}>

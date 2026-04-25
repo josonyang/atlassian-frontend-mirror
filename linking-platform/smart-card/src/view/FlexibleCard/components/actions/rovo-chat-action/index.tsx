@@ -163,7 +163,9 @@ const getPromptAction = (
 				},
 			};
 		case RovoChatPromptKey.KEY_HIGHLIGHTS:
-			const label_key_highlights = intl.formatMessage(messages.rovo_prompt_button_highlight_relevant_content);
+			const label_key_highlights = intl.formatMessage(
+				messages.rovo_prompt_button_highlight_relevant_content,
+			);
 			const html_key_highlights = intl.formatMessage(
 				messages.rovo_prompt_message_highlight_relevant_content,
 				{ context: contextLong, url },
@@ -204,7 +206,9 @@ const getPromptAction = (
 			};
 
 		case RovoChatPromptKey.HIGHLIGHT_RELEVANT_CONTENT:
-			const label_highlight_relevant_content = intl.formatMessage(messages.rovo_prompt_button_highlight_relevant_content);
+			const label_highlight_relevant_content = intl.formatMessage(
+				messages.rovo_prompt_button_highlight_relevant_content,
+			);
 			const html_highlight_relevant_content = intl.formatMessage(
 				messages.rovo_prompt_message_highlight_relevant_content,
 				{ context: contextLong, url },

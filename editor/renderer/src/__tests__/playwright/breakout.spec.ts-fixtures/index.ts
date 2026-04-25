@@ -1,4 +1,158 @@
-export const adf = {
+export const adf: {
+	type: string;
+	version: number;
+	content: (
+		| {
+				type: string;
+				content: {
+					type: string;
+					content: {
+						type: string;
+						content: {
+							type: string;
+							content: {
+								type: string;
+								text: string;
+							}[];
+						}[];
+					}[];
+				}[];
+				attrs?: undefined;
+		  }
+		| {
+				type: string;
+				attrs: {
+					layout: string;
+					isNumberColumnEnabled?: undefined;
+					extensionType?: undefined;
+					extensionKey?: undefined;
+					parameters?: undefined;
+				};
+				content: {
+					type: string;
+					content: (
+						| {
+								type: string;
+								content: {
+									type: string;
+									content: {
+										type: string;
+										text: string;
+									}[];
+								}[];
+						  }
+						| {
+								type: string;
+								content: {
+									type: string;
+									attrs: {
+										layout: string;
+									};
+									content: {
+										type: string;
+										attrs: {
+											type: string;
+											url: string;
+										};
+									}[];
+								}[];
+						  }
+					)[];
+				}[];
+		  }
+		| {
+				type: string;
+				attrs: {
+					isNumberColumnEnabled: boolean;
+					layout?: undefined;
+					extensionType?: undefined;
+					extensionKey?: undefined;
+					parameters?: undefined;
+				};
+				content: {
+					type: string;
+					content: {
+						type: string;
+						content: {
+							type: string;
+							content: {
+								type: string;
+								text: string;
+							}[];
+						}[];
+					}[];
+				}[];
+		  }
+		| {
+				type: string;
+				attrs: {
+					extensionType: string;
+					extensionKey: string;
+					parameters: {
+						macroParams: {};
+						macroMetadata: {
+							macroId: {
+								value: number;
+							};
+							placeholder: {
+								'0': {
+									data: {
+										url: string;
+									};
+									type: string;
+								};
+							};
+						};
+					};
+					layout: string;
+					isNumberColumnEnabled?: undefined;
+				};
+				content: {
+					type: string;
+					attrs: {
+						layout: string;
+					};
+					content: {
+						type: string;
+						content: {
+							type: string;
+							content: {
+								type: string;
+								content: {
+									type: string;
+									text: string;
+								}[];
+							}[];
+						}[];
+					}[];
+				}[];
+		  }
+		| {
+				type: string;
+				attrs: {
+					isNumberColumnEnabled: boolean;
+					layout: string;
+					extensionType?: undefined;
+					extensionKey?: undefined;
+					parameters?: undefined;
+				};
+				content: {
+					type: string;
+					content: {
+						type: string;
+						attrs: {};
+						content: {
+							type: string;
+							content: {
+								type: string;
+								text: string;
+							}[];
+						}[];
+					}[];
+				}[];
+		  }
+	)[];
+} = {
 	type: 'doc',
 	version: 1,
 	content: [

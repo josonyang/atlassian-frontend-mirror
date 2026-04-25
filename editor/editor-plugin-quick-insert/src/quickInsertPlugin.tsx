@@ -53,6 +53,8 @@ export const quickInsertPlugin: QuickInsertPlugin = ({ config: options, api }) =
 						query: query,
 						disableDefaultItems: options?.disableDefaultItems,
 						prioritySortingFn: options?.prioritySortingFn,
+						// EDITOR-6558: pass through consumer-supplied filter (e.g. Markdown Mode allowlist)
+						itemFilter: options?.itemFilter,
 					},
 					quickInsertState?.lazyDefaultItems,
 					quickInsertState?.providedItems,
@@ -174,6 +176,19 @@ export const quickInsertPlugin: QuickInsertPlugin = ({ config: options, api }) =
 
 				if (options?.prioritySortingFn) {
 					searchOptions = { ...searchOptions, prioritySortingFn: options.prioritySortingFn };
+				}
+
+				// EDITOR-6558: layer the consumer-supplied filter (e.g. Markdown Mode allowlist)
+				// over any caller-supplied filter so both apply.
+				if (options?.itemFilter) {
+					const consumerFilter = options.itemFilter;
+					const callerFilter = searchOptions.itemFilter;
+					searchOptions = {
+						...searchOptions,
+						itemFilter: callerFilter
+							? (item) => consumerFilter(item) && callerFilter(item)
+							: consumerFilter,
+					};
 				}
 
 				return getQuickInsertSuggestions(searchOptions, lazyDefaultItems, providedItems);

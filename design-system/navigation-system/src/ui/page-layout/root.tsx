@@ -135,8 +135,7 @@ export function Root({
 	isSideNavShortcutEnabled?: boolean;
 }): JSX.Element {
 	const resolvedSkipLinksLabel =
-		skipLinksLabel ??
-		(fg('platform_dst_nav4_skip_link_a11y_1') ? 'Skip to' : 'Skip to:');
+		skipLinksLabel ?? (fg('platform_dst_nav4_skip_link_a11y_1') ? 'Skip to' : 'Skip to:');
 
 	const ref = useRef<HTMLDivElement>(null);
 

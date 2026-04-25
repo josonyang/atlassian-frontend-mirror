@@ -1,4 +1,3 @@
-
 import type { JsonLd } from '@atlaskit/json-ld-types';
 import { mocks } from '@atlaskit/link-test-helpers';
 import type { CardStore, CardType } from '@atlaskit/linking-common';

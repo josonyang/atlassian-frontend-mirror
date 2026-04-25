@@ -688,7 +688,7 @@ export function ReactEditorView(props: EditorViewProps): React.JSX.Element {
 												return '50000+';
 										}
 									})(),
-							  }
+								}
 							: {};
 
 						if (expValEquals('platform_editor_prosemirror_rendered_data', 'isEnabled', true)) {
@@ -1170,7 +1170,7 @@ export function ReactEditorView(props: EditorViewProps): React.JSX.Element {
 				editorRef,
 				editorView: viewRef.current,
 				popupsMountPoint: props.editorProps.popupsMountPoint,
-		  };
+			};
 
 	const ssrEditor = useMemo(() => {
 		if (!ssrDeps) {
@@ -1209,7 +1209,7 @@ export function ReactEditorView(props: EditorViewProps): React.JSX.Element {
 									newEditorState: state,
 									oldEditorState: undefined,
 								});
-						  }
+							}
 				}
 			/>
 		);
@@ -1263,7 +1263,7 @@ export function ReactEditorView(props: EditorViewProps): React.JSX.Element {
 				)}
 
 				{props.render
-					? props.render?.({
+					? (props.render?.({
 							editor,
 							view: viewRef.current,
 							config: config.current,
@@ -1272,7 +1272,7 @@ export function ReactEditorView(props: EditorViewProps): React.JSX.Element {
 							dispatchAnalyticsEvent: dispatchAnalyticsEvent,
 							editorRef: editorRef,
 							editorAPI: pluginInjectionAPI.current.api(),
-					  }) ?? editor
+						}) ?? editor)
 					: editor}
 			</ReactEditorViewContext.Provider>
 		</SSRRenderMeasure>

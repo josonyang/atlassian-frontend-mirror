@@ -6,7 +6,7 @@ import type { ReactElement } from 'react';
 import { default as React, Fragment, useCallback, useContext, useMemo, useEffect } from 'react';
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { css, jsx } from '@emotion/react';
-import type { WrappedComponentProps } from 'react-intl';
+import type { WithIntlProps, WrappedComponentProps } from 'react-intl';
 import { injectIntl } from 'react-intl';
 import type { MediaADFAttrs, RichMediaLayout as MediaSingleLayout } from '@atlaskit/adf-schema';
 
@@ -345,4 +345,8 @@ const MediaSingle = (props: Props & WrappedComponentProps) => {
 	return <MediaSingleWithChildren {...props} media={media} caption={caption} />;
 };
 
-export default injectIntl(MediaSingle);
+// eslint-disable-next-line @typescript-eslint/ban-types
+const _default_1: React.FC<WithIntlProps<Props & WrappedComponentProps>> & {
+	WrappedComponent: React.ComponentType<Props & WrappedComponentProps>;
+} = injectIntl(MediaSingle);
+export default _default_1;

@@ -53,9 +53,7 @@ describe('UnauthorisedViewContent', () => {
 	it('renders Unauthorised hover card content', () => {
 		render(<TestComponent providerName="Google" />);
 
-		expect(
-			screen.getByText('Turn your URLs into rich, interactive previews.'),
-		).toBeInTheDocument();
+		expect(screen.getByText('Turn your URLs into rich, interactive previews.')).toBeInTheDocument();
 	});
 
 	describe('product-terminology-refresh feature flag logic', () => {

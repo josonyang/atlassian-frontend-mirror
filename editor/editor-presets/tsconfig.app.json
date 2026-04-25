@@ -28,7 +28,8 @@
 	],
 	"compilerOptions": {
 		"composite": true,
-		"outDir": "../../../tsDist/@atlaskit__editor-presets/app"
+		"outDir": "../../../tsDist/@atlaskit__editor-presets/app",
+		"isolatedDeclarations": true
 	},
 	"references": [
 		{

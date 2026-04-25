@@ -292,30 +292,32 @@ export const PropTable = ({
  * - [Code](https://atlassian.design/components/{packageName}/code)
  * - [Usage](https://atlassian.design/components/{packageName}/usage)
  */
-const PropsLayoutRenderer: MemoExoticComponent<(props: any) => JSX.Element> = memo((props: any): JSX.Element => (
-	<LayoutRenderer
-		requiredPropsFirst
-		{...props}
-		renderType={({ components, typeValue, ...type }: any) => (
-			<PropTable
-				{...type}
-				typeValue={
-					<components.PropType
-						typeValue={typeValue}
-						components={{
-							...components,
-							Type,
-							TypeMeta,
-							StringType,
-							FunctionType,
-							Required,
-							Expander,
-						}}
-					/>
-				}
-			/>
-		)}
-	/>
-));
+const PropsLayoutRenderer: MemoExoticComponent<(props: any) => JSX.Element> = memo(
+	(props: any): JSX.Element => (
+		<LayoutRenderer
+			requiredPropsFirst
+			{...props}
+			renderType={({ components, typeValue, ...type }: any) => (
+				<PropTable
+					{...type}
+					typeValue={
+						<components.PropType
+							typeValue={typeValue}
+							components={{
+								...components,
+								Type,
+								TypeMeta,
+								StringType,
+								FunctionType,
+								Required,
+								Expander,
+							}}
+						/>
+					}
+				/>
+			)}
+		/>
+	),
+);
 
 export default PropsLayoutRenderer;

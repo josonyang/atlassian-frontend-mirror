@@ -12,8 +12,8 @@ export const getPrimaryToolbarComponents = (
 	editorAPI: PublicPluginAPI<[OptionalPlugin<PrimaryToolbarPlugin>]> | undefined,
 	components: ToolbarUIComponentFactory[] | undefined,
 ): {
-        components: ToolbarUIComponentFactory[] | undefined;
-    } => {
+	components: ToolbarUIComponentFactory[] | undefined;
+} => {
 	return {
 		components: components ?? editorAPI?.primaryToolbar?.sharedState.currentState()?.components,
 	};

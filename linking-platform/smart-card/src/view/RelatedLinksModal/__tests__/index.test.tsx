@@ -2,7 +2,6 @@ import '@atlaskit/link-test-helpers/jest';
 
 import React from 'react';
 
-
 import { AnalyticsListener } from '@atlaskit/analytics-next';
 import { type CardClient, SmartCardProvider } from '@atlaskit/link-provider';
 import { asMockFunction } from '@atlaskit/media-test-helpers';

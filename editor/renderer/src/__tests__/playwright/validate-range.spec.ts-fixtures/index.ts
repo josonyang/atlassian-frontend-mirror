@@ -1,4 +1,43 @@
-export const paragraphsWithMedia = {
+export const paragraphsWithMedia: {
+	version: number;
+	type: string;
+	content: (
+		| {
+				type: string;
+				content: (
+					| {
+							type: string;
+							text: string;
+							marks?: undefined;
+					  }
+					| {
+							type: string;
+							text: string;
+							marks: {
+								type: string;
+							}[];
+					  }
+				)[];
+				attrs?: undefined;
+		  }
+		| {
+				type: string;
+				attrs: {
+					layout: string;
+				};
+				content: {
+					type: string;
+					attrs: {
+						id: string;
+						type: string;
+						collection: string;
+						width: number;
+						height: number;
+					};
+				}[];
+		  }
+	)[];
+} = {
 	version: 1,
 	type: 'doc',
 	content: [
@@ -175,7 +214,100 @@ export const paragraphsWithMedia = {
 	],
 };
 
-export const paragraphWithInlineNodes = {
+export const paragraphWithInlineNodes: {
+	version: number;
+	type: string;
+	content: (
+		| {
+				type: string;
+				content: (
+					| {
+							type: string;
+							text: string;
+							marks?: undefined;
+							attrs?: undefined;
+					  }
+					| {
+							type: string;
+							text: string;
+							marks: {
+								type: string;
+							}[];
+							attrs?: undefined;
+					  }
+					| {
+							type: string;
+							attrs: {
+								id: string;
+								text: string;
+								accessLevel: string;
+							};
+							text?: undefined;
+							marks?: undefined;
+					  }
+				)[];
+		  }
+		| {
+				type: string;
+				content: (
+					| {
+							type: string;
+							text: string;
+							marks?: undefined;
+							attrs?: undefined;
+					  }
+					| {
+							type: string;
+							text: string;
+							marks: {
+								type: string;
+							}[];
+							attrs?: undefined;
+					  }
+					| {
+							type: string;
+							attrs: {
+								shortName: string;
+								id: string;
+								text: string;
+							};
+							text?: undefined;
+							marks?: undefined;
+					  }
+				)[];
+		  }
+		| {
+				type: string;
+				content: (
+					| {
+							type: string;
+							text: string;
+							marks?: undefined;
+							attrs?: undefined;
+					  }
+					| {
+							type: string;
+							text: string;
+							marks: {
+								type: string;
+							}[];
+							attrs?: undefined;
+					  }
+					| {
+							type: string;
+							attrs: {
+								text: string;
+								color: string;
+								localId: string;
+								style: string;
+							};
+							text?: undefined;
+							marks?: undefined;
+					  }
+				)[];
+		  }
+	)[];
+} = {
 	version: 1,
 	type: 'doc',
 	content: [
@@ -445,7 +577,27 @@ export const paragraphWithInlineNodes = {
 	],
 };
 
-export const paragraphWithoutInlineNodes = {
+export const paragraphWithoutInlineNodes: {
+	version: number;
+	type: string;
+	content: {
+		type: string;
+		content: (
+			| {
+					type: string;
+					text: string;
+					marks?: undefined;
+			  }
+			| {
+					type: string;
+					text: string;
+					marks: {
+						type: string;
+					}[];
+			  }
+		)[];
+	}[];
+} = {
 	version: 1,
 	type: 'doc',
 	content: [

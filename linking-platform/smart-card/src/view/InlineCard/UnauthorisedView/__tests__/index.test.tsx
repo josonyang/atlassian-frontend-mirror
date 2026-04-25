@@ -3,7 +3,6 @@ import React from 'react';
 import { renderWithIntl } from '@atlaskit/link-test-helpers';
 import { fireEvent, screen } from '@atlassian/testing-library';
 
-
 import { InlineCardUnauthorizedView } from '../index';
 
 describe('Unauthorised View', () => {

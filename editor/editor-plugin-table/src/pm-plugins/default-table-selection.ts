@@ -1,4 +1,7 @@
-export const defaultTableSelection = {
+export const defaultTableSelection: {
+	hoveredColumns: never[];
+	hoveredRows: never[];
+} = {
 	hoveredColumns: [],
 	hoveredRows: [],
 };

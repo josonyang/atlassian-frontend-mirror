@@ -343,7 +343,7 @@ class Example extends React.Component<{}, State> {
 							icon: <EditIcon color="currentColor" spacing="spacious" label="edit-icon" />,
 							label: 'Replace',
 						},
-				  ]
+					]
 				: []),
 		];
 

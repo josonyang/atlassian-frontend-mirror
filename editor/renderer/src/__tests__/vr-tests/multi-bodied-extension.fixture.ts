@@ -10,6 +10,7 @@ import {
 	multiBodiedExtensionExtNodeWideAdf,
 } from '../__fixtures__/full-width-adf';
 import { generateRendererComponent } from '../__helpers/rendererComponents';
+import type { ComponentType } from 'react';
 
 // Create the extension provider synchronously to avoid timing issues
 const extensionProvider = combineExtensionProviders([getXProductExtensionProvider()]);
@@ -20,30 +21,32 @@ const providerFactory = ProviderFactory.create({
 	extensionProvider: Promise.resolve(extensionProvider),
 });
 
-export const MultiBodiedExtensionRenderer = generateRendererComponent({
+export const MultiBodiedExtensionRenderer: ComponentType<any> = generateRendererComponent({
 	document: multiBodiedExtensionNodeAdf,
 	appearance: 'full-width',
 	extensionHandlers: extensionHandlers,
 	dataProviders: providerFactory,
 });
 
-export const MultiBodiedExtensionRendererFullPage = generateRendererComponent({
+export const MultiBodiedExtensionRendererFullPage: ComponentType<any> = generateRendererComponent({
 	appearance: 'full-page',
 	document: multiBodiedExtensionNodeAdf,
 	extensionHandlers: extensionHandlers,
 	dataProviders: providerFactory,
 });
 
-export const MultiBodiedExtensionRendererFullPageWideMode = generateRendererComponent({
-	appearance: 'full-page',
-	document: multiBodiedExtensionExtNodeWideAdf,
-	extensionHandlers: extensionHandlers,
-	dataProviders: providerFactory,
-});
+export const MultiBodiedExtensionRendererFullPageWideMode: ComponentType<any> =
+	generateRendererComponent({
+		appearance: 'full-page',
+		document: multiBodiedExtensionExtNodeWideAdf,
+		extensionHandlers: extensionHandlers,
+		dataProviders: providerFactory,
+	});
 
-export const MultiBodiedExtensionRendererFullPageFullWidth = generateRendererComponent({
-	appearance: 'full-page',
-	document: multiBodiedExtensionExtNodeFullWidthAdf,
-	extensionHandlers: extensionHandlers,
-	dataProviders: providerFactory,
-});
+export const MultiBodiedExtensionRendererFullPageFullWidth: ComponentType<any> =
+	generateRendererComponent({
+		appearance: 'full-page',
+		document: multiBodiedExtensionExtNodeFullWidthAdf,
+		extensionHandlers: extensionHandlers,
+		dataProviders: providerFactory,
+	});

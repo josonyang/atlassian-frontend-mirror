@@ -217,7 +217,7 @@ export default class DropdownMenuWrapper extends PureComponent<Props, State> {
 								});
 							}
 						},
-				  };
+					};
 
 		return (
 			<Popup
@@ -374,7 +374,7 @@ export function DropdownMenuItem({
 		? memoizedOnMouseDown
 		: (e: React.MouseEvent) => {
 				e.preventDefault();
-		  };
+			};
 
 	const memoizedOnMouseEnter = useCallback(
 		() => onMouseEnter && onMouseEnter({ item }),
@@ -441,8 +441,8 @@ export function DropdownMenuItem({
 					shouldUseDefaultRole
 						? 'button'
 						: expValEquals('platform_editor_august_a11y', 'isEnabled', true)
-						? undefined
-						: 'menuitem'
+							? undefined
+							: 'menuitem'
 				}
 				iconBefore={item.elemBefore}
 				iconAfter={item.elemAfter}

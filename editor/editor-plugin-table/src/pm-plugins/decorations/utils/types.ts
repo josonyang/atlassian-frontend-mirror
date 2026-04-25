@@ -8,4 +8,3 @@ export type DecorationTransformerParams = {
 	decorationSet: DecorationSet;
 	tr: Transaction | ReadonlyTransaction;
 };
-

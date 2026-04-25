@@ -1,6 +1,6 @@
 import type { PermittedLayoutsDescriptor, PluginConfig } from '../types';
 
-export const pluginConfig = (config: PluginConfig = {}) => {
+export const pluginConfig = (config: PluginConfig = {}): PluginConfig => {
 	return config.advanced
 		? {
 				allowBackgroundColor: true,

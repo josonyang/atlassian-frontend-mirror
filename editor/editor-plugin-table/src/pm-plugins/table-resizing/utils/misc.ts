@@ -63,7 +63,7 @@ export function getLayoutSize(
 }
 
 // Does the current position point at a cell.
-export function pointsAtCell($pos: ResolvedPos) {
+export function pointsAtCell($pos: ResolvedPos): false | PMNode | null {
 	return (
 		($pos.parent.type.spec as NodeSpec & { tableRole: string }).tableRole === 'row' &&
 		$pos.nodeAfter
@@ -130,7 +130,7 @@ export const getTableMaxWidth = ({
  * @param table
  * @returns calculated width of <table /> element derived from sum of colwidths on tableCell or tableHeader nodes or falls back to container width
  */
-export const getTableElementWidth = (table: PMNode) => {
+export const getTableElementWidth = (table: PMNode): number => {
 	if (hasTableBeenResized(table)) {
 		// TODO: ED-26961 - is there a scenario where ADF columns are SMALLER than container width?
 		return calcTableColumnWidths(table).reduce((sum, width) => sum + width, 0);
@@ -139,7 +139,7 @@ export const getTableElementWidth = (table: PMNode) => {
 	return getTableContainerElementWidth(table);
 };
 
-export const getTableContainerElementWidth = (table: PMNode) => {
+export const getTableContainerElementWidth = (table: PMNode): number => {
 	return getTableContainerWidth(table);
 };
 
@@ -243,7 +243,7 @@ export const getTableScalingPercent = (
 	table: PMNode,
 	tableRef: HTMLElement | null,
 	shouldUseIncreasedScalingPercent?: boolean,
-) => {
+): number => {
 	const maxScalingPercent = shouldUseIncreasedScalingPercent
 		? MAX_SCALING_PERCENT_TABLES_WITH_FIXED_COLUMN_WIDTHS_OPTION
 		: MAX_SCALING_PERCENT;
@@ -264,7 +264,7 @@ export const getTableScalingPercent = (
 export const getScalingPercentForTableWithoutWidth = (
 	table: PMNode,
 	tableRef: HTMLElement | null,
-) => {
+): number => {
 	// are table columns resized
 	if (hasTableColumnBeenResized(table)) {
 		const tableWidth = calcTableColumnWidths(table).reduce((sum, width) => sum + width, 0);
@@ -283,7 +283,7 @@ export const getStaticTableScalingPercent = (
 	table: PMNode,
 	tableRenderWidth: number,
 	shouldUseIncreasedScalingPercent?: boolean,
-) => {
+): number => {
 	const maxScalingPercent = shouldUseIncreasedScalingPercent
 		? MAX_SCALING_PERCENT_TABLES_WITH_FIXED_COLUMN_WIDTHS_OPTION
 		: MAX_SCALING_PERCENT;

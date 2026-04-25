@@ -1,4 +1,14 @@
-export const emojiList = {
+export const emojiList: {
+	type: string;
+	content: {
+		type: string;
+		attrs: {
+			shortName: string;
+			id: string;
+			text: string;
+		};
+	}[];
+} = {
 	type: 'doc',
 	content: [
 		{

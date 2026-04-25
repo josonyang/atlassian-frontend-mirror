@@ -1,4 +1,25 @@
-export const tableWithoutWidthAdf = {
+export const tableWithoutWidthAdf: {
+	version: number;
+	type: string;
+	content: {
+		type: string;
+		attrs: {
+			isNumberColumnEnabled: boolean;
+			layout: string;
+		};
+		content: {
+			type: string;
+			content: {
+				type: string;
+				attrs: {};
+				content: {
+					type: string;
+					content: never[];
+				}[];
+			}[];
+		}[];
+	}[];
+} = {
 	version: 1,
 	type: 'doc',
 	content: [
@@ -84,7 +105,37 @@ export const tableWithoutWidthAdf = {
 	],
 };
 
-export const tableWithoutWidthColumnResizedADf = {
+export const tableWithoutWidthColumnResizedADf: {
+	version: number;
+	type: string;
+	content: (
+		| {
+				type: string;
+				attrs: {
+					isNumberColumnEnabled: boolean;
+					layout: string;
+				};
+				content: {
+					type: string;
+					content: {
+						type: string;
+						attrs: {
+							colwidth: number[];
+						};
+						content: {
+							type: string;
+							content: never[];
+						}[];
+					}[];
+				}[];
+		  }
+		| {
+				type: string;
+				content: never[];
+				attrs?: undefined;
+		  }
+	)[];
+} = {
 	version: 1,
 	type: 'doc',
 	content: [
@@ -186,7 +237,28 @@ export const tableWithoutWidthColumnResizedADf = {
 	],
 };
 
-export const tableWithWidthColumnNotResizedAdf = {
+export const tableWithWidthColumnNotResizedAdf: {
+	version: number;
+	type: string;
+	content: {
+		type: string;
+		attrs: {
+			isNumberColumnEnabled: boolean;
+			width: number;
+		};
+		content: {
+			type: string;
+			content: {
+				type: string;
+				attrs: {};
+				content: {
+					type: string;
+					content: never[];
+				}[];
+			}[];
+		}[];
+	}[];
+} = {
 	version: 1,
 	type: 'doc',
 	content: [
@@ -272,7 +344,30 @@ export const tableWithWidthColumnNotResizedAdf = {
 	],
 };
 
-export const tableWithWidthColumnResizedAdf = {
+export const tableWithWidthColumnResizedAdf: {
+	version: number;
+	type: string;
+	content: {
+		type: string;
+		attrs: {
+			isNumberColumnEnabled: boolean;
+			width: number;
+		};
+		content: {
+			type: string;
+			content: {
+				type: string;
+				attrs: {
+					colwidth: number[];
+				};
+				content: {
+					type: string;
+					content: never[];
+				}[];
+			}[];
+		}[];
+	}[];
+} = {
 	version: 1,
 	type: 'doc',
 	content: [

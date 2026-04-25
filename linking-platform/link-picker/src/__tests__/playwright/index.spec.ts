@@ -5,7 +5,6 @@ import { skipAutoA11yFile } from '@atlassian/a11y-playwright-testing';
 // the next line and associated import. For more information, see go/afm-a11y-tooling:playwright
 skipAutoA11yFile();
 
-
 const testIdsToSelectors = <T extends Record<string, string>>(testIds: T): T => {
 	return Object.entries(testIds).reduce(
 		(acc, [key, testId]) => ({

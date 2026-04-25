@@ -44,7 +44,13 @@ export function getSelectedTableInfo(selection: Selection): {
 	};
 }
 
-export function getSelectedCellInfo(selection: Selection) {
+export function getSelectedCellInfo(selection: Selection): {
+	totalRowCount: number;
+	totalColumnCount: number;
+	horizontalCells: number;
+	verticalCells: number;
+	totalCells: number;
+} {
 	let horizontalCells = 1;
 	let verticalCells = 1;
 	let totalCells = 1;
@@ -122,7 +128,7 @@ export const generateResizedPayload = (props: {
 	};
 };
 
-export const reduceResizeFrameRateSamples = (frameRateSamples: number[]) => {
+export const reduceResizeFrameRateSamples = (frameRateSamples: number[]): number[] => {
 	if (frameRateSamples.length > 1) {
 		const frameRateSum = frameRateSamples.reduce((sum, frameRate, index) => {
 			if (index === 0) {
@@ -160,7 +166,13 @@ export const generateResizeFrameRatePayloads = (props: {
 /**
  * Measures the framerate of a component over a given time period.
  */
-export const useMeasureFramerate = (config: UseMeasureFramerateConfig = {}) => {
+export const useMeasureFramerate = (
+	config: UseMeasureFramerateConfig = {},
+): {
+	startMeasure: () => void;
+	endMeasure: () => number[];
+	countFrames: () => void;
+} => {
 	const {
 		maxSamples = 10,
 		minFrames = 5,
@@ -190,7 +202,7 @@ export const useMeasureFramerate = (config: UseMeasureFramerateConfig = {}) => {
 	/**
 	 * Returns an array of frame rate samples as integers.
 	 */
-	const endMeasure = () => {
+	const endMeasure = (): number[] => {
 		const samples = frameRateSamples.current;
 		frameRateSamples.current = [];
 		return samples;

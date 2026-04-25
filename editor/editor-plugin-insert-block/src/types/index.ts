@@ -73,6 +73,17 @@ export interface InsertBlockPluginOptions {
 	horizontalRuleEnabled?: boolean;
 	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	insertMenuItems?: any;
+	/**
+	 * EDITOR-6558: Optional predicate for filtering insert-block items by
+	 * `value.name` before they're rendered in the toolbar / dropdown /
+	 * element browser. Items returning `false` are hidden.
+	 *
+	 * Used by Markdown Mode (gated by the `cc-markdown-mode` experiment in
+	 * Confluence) to allowlist only items whose corresponding node/mark
+	 * types have a clean GFM round-trip. Currently applied to the main
+	 * toolbar insert surfaces (`ToolbarInsertBlock`, `useInsertButtonState`).
+	 */
+	itemFilter?: (item: { value: { name: string } }) => boolean;
 	nativeStatusSupported?: boolean;
 	/**
 	 * To hide the element browser "view more" button in the

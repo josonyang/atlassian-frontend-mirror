@@ -4,8 +4,8 @@
  */
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { jsx } from '@emotion/react';
-import type { Dispatch, SetStateAction } from 'react';
-import type { WrappedComponentProps } from 'react-intl';
+import type { ComponentType, Dispatch, FC, SetStateAction } from 'react';
+import type { WithIntlProps, WrappedComponentProps } from 'react-intl';
 import { injectIntl } from 'react-intl';
 import TextWrapIcon from '@atlaskit/icon/core/text-wrap';
 
@@ -69,4 +69,7 @@ const CodeBlockWrapButton = ({
 	);
 };
 
-export default injectIntl(CodeBlockWrapButton);
+const _default_1: FC<WithIntlProps<Props & WrappedComponentProps>> & {
+	WrappedComponent: ComponentType<Props & WrappedComponentProps>;
+} = injectIntl(CodeBlockWrapButton);
+export default _default_1;

@@ -11,11 +11,14 @@ import {
 	createControlsHoverDecoration,
 } from '../utils/decoration';
 import { getMergedCellsPositions } from '../utils/table';
+// eslint-disable-next-line import/order
 import { updatePluginStateDecorations } from '../utils/update-plugin-state-decorations';
+// eslint-disable-next-line import/order
+import type { Command } from '@atlaskit/editor-common/types';
 
 const makeArray = (n: number) => Array.from(Array(n).keys());
 
-export const hoverMergedCells = () =>
+export const hoverMergedCells = (): Command =>
 	createCommand(
 		(state) => {
 			const mergedCellsPositions = getMergedCellsPositions(state.tr);
@@ -51,7 +54,7 @@ export const hoverMergedCells = () =>
 		(tr) => tr.setMeta('addToHistory', false),
 	);
 
-export const hoverColumns = (hoveredColumns: number[], isInDanger?: boolean) =>
+export const hoverColumns = (hoveredColumns: number[], isInDanger?: boolean): Command =>
 	createCommand(
 		(state) => {
 			const cells = getCellsInColumn(hoveredColumns)(state.tr.selection);
@@ -84,7 +87,7 @@ export const hoverColumns = (hoveredColumns: number[], isInDanger?: boolean) =>
 		(tr) => tr.setMeta('addToHistory', false),
 	);
 
-export const hoverRows = (hoveredRows: number[], isInDanger?: boolean) =>
+export const hoverRows = (hoveredRows: number[], isInDanger?: boolean): Command =>
 	createCommand(
 		(state) => {
 			const cells = getCellsInRow(hoveredRows)(state.selection);
@@ -115,7 +118,7 @@ export const hoverRows = (hoveredRows: number[], isInDanger?: boolean) =>
 		(tr) => tr.setMeta('addToHistory', false),
 	);
 
-export const hoverTable = (isInDanger?: boolean, isSelected?: boolean) =>
+export const hoverTable = (isInDanger?: boolean, isSelected?: boolean): Command =>
 	createCommand(
 		(state) => {
 			const table = findTable(state.selection);
@@ -156,7 +159,7 @@ export const hoverTable = (isInDanger?: boolean, isSelected?: boolean) =>
 		(tr) => tr.setMeta('addToHistory', false),
 	);
 
-export const clearHoverSelection = () =>
+export const clearHoverSelection = (): Command =>
 	createCommand((state) => ({
 		type: 'CLEAR_HOVER_SELECTION',
 		data: {
@@ -166,9 +169,9 @@ export const clearHoverSelection = () =>
 		},
 	}));
 
-export const showResizeHandleLine = (cellColumnPositioning: CellColumnPositioning) =>
+export const showResizeHandleLine = (cellColumnPositioning: CellColumnPositioning): Command =>
 	createCommand((state) => {
-			return {
+		return {
 			type: 'SHOW_RESIZE_HANDLE_LINE',
 			data: {
 				decorationSet: updatePluginStateDecorations(
@@ -180,7 +183,7 @@ export const showResizeHandleLine = (cellColumnPositioning: CellColumnPositionin
 		};
 	});
 
-export const hideResizeHandleLine = () =>
+export const hideResizeHandleLine = (): Command =>
 	createCommand((state) => ({
 		type: 'HIDE_RESIZE_HANDLE_LINE',
 		data: {
@@ -192,7 +195,7 @@ export const hideResizeHandleLine = () =>
 		},
 	}));
 
-export const setTableHovered = (hovered: boolean) =>
+export const setTableHovered = (hovered: boolean): Command =>
 	createCommand(
 		() => {
 			return {
@@ -205,7 +208,7 @@ export const setTableHovered = (hovered: boolean) =>
 		(tr) => tr.setMeta('addToHistory', false),
 	);
 
-export const hoverCell = (rowIndex?: number, colIndex?: number) =>
+export const hoverCell = (rowIndex?: number, colIndex?: number): Command =>
 	createCommand(
 		(state) => {
 			const { hoveredCell: prevHoveredCell } = getPluginState(state);

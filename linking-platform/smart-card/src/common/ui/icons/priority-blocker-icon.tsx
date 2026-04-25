@@ -3,6 +3,9 @@
  * @jsx jsx
  */
 import { cssMap, jsx } from '@atlaskit/css';
+import { componentWithFG } from '@atlaskit/platform-feature-flags-react';
+
+import { createPriorityIcon } from './priority-icon';
 
 export interface PriorityIconProps {
 	[key: string]: any;
@@ -15,7 +18,7 @@ const style = cssMap({
 	svg: { verticalAlign: 'bottom', maxWidth: '100%', maxHeight: '100%' },
 });
 
-const PriorityBlockerIcon: {
+const PriorityBlockerIconLegacy: {
 	({ label, testId, ...props }: PriorityIconProps): JSX.Element;
 	displayName: string;
 } = ({ label, testId, ...props }: PriorityIconProps): JSX.Element => (
@@ -36,6 +39,15 @@ const PriorityBlockerIcon: {
 	</span>
 );
 
-PriorityBlockerIcon.displayName = 'PriorityBlockerIcon';
+PriorityBlockerIconLegacy.displayName = 'PriorityBlockerIcon';
 
-export default PriorityBlockerIcon;
+export default componentWithFG(
+	'platform_sl_icons_refactor',
+	createPriorityIcon('PriorityBlockerIcon', [
+		{
+			d: 'M12 22C6.477 22 2 17.523 2 12S6.477 2 12 2s10 4.477 10 10-4.477 10-10 10zM6 11a1 1 0 000 2h12a1 1 0 000-2H6z',
+			fill: '#FF5630',
+		},
+	]),
+	PriorityBlockerIconLegacy,
+);

@@ -5,14 +5,15 @@ type EditorContentAreaHeightPluginState = {
 	height: number;
 };
 
-export const pluginKey = new PluginKey<EditorContentAreaHeightPluginState>(
-	'editorContentAreaHeightPlugin',
-);
+export const pluginKey: PluginKey<EditorContentAreaHeightPluginState> =
+	new PluginKey<EditorContentAreaHeightPluginState>('editorContentAreaHeightPlugin');
 
 export const INITIAL_STATIC_VIEWPORT_HEIGHT = 1200;
 export const EDITOR_CONTENT_AREA_REGION_CLASSNAME = '.ak-editor-content-area-region';
 
-const createPlugin = () =>
+const createPlugin = (): SafePlugin<{
+	height: number;
+}> =>
 	new SafePlugin({
 		key: pluginKey,
 		state: {

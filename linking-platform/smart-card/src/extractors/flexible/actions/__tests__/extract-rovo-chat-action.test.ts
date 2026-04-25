@@ -234,7 +234,10 @@ describe('extractRovoChatAction', () => {
 		'rovogrowth-640-inline-action-nudge-fg on - isolation: does not affect Google links',
 		() => {
 			eeTest
-				.describe('rovogrowth-640-inline-action-nudge-exp', 'rovogrowth-640-inline-action-nudge-exp on')
+				.describe(
+					'rovogrowth-640-inline-action-nudge-exp',
+					'rovogrowth-640-inline-action-nudge-exp on',
+				)
 				.variant(true, () => {
 					it('does not show Rovo actions for Google links even when rovogrowth-640-inline-action-nudge-fg and exp are on', () => {
 						const action = extractRovoChatAction({
@@ -259,7 +262,10 @@ describe('extractRovoChatAction', () => {
 		'rovogrowth-640-inline-action-nudge-fg off + rovogrowth-640-inline-action-nudge-exp on: exp alone does not enable non-Google Rovo actions',
 		() => {
 			eeTest
-				.describe('rovogrowth-640-inline-action-nudge-exp', 'rovogrowth-640-inline-action-nudge-exp on')
+				.describe(
+					'rovogrowth-640-inline-action-nudge-exp',
+					'rovogrowth-640-inline-action-nudge-exp on',
+				)
 				.variant(true, () => {
 					it('does not show Rovo actions for non-Google links when rovogrowth-640-inline-action-nudge-fg is off even if exp is on', () => {
 						const nonGoogleResponse: JsonLd.Response = {

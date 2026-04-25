@@ -3,7 +3,7 @@ import type { EventDispatcher } from '@atlaskit/editor-common/event-dispatcher';
 import type { PortalProviderAPI } from '@atlaskit/editor-common/portal';
 import type { GetEditorContainerWidth, GetEditorFeatureFlags } from '@atlaskit/editor-common/types';
 import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
-import type { EditorView } from '@atlaskit/editor-prosemirror/view';
+import type { EditorView, NodeView } from '@atlaskit/editor-prosemirror/view';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 import { isNativeStickySupported } from '../pm-plugins/utils/sticky-header';
@@ -28,7 +28,7 @@ type TableViewOptions = {
 };
 
 export const tableView = (options: TableViewOptions) => {
-	return (node: PMNode, view: EditorView, getPos: () => number | undefined) => {
+	return (node: PMNode, view: EditorView, getPos: () => number | undefined): NodeView => {
 		return createTableView(
 			node,
 			view,
@@ -52,7 +52,7 @@ type TableCellViewOptions = {
 	pluginInjectionApi?: PluginInjectionAPI;
 };
 export const tableCellView = (options: TableCellViewOptions) => {
-	return (node: PMNode, view: EditorView, getPos: () => number | undefined) => {
+	return (node: PMNode, view: EditorView, getPos: () => number | undefined): TableCell => {
 		return new TableCell(
 			node,
 			view,
@@ -64,7 +64,7 @@ export const tableCellView = (options: TableCellViewOptions) => {
 };
 
 export const tableHeaderView = (options: TableCellViewOptions) => {
-	return (node: PMNode, view: EditorView, getPos: () => number | undefined) => {
+	return (node: PMNode, view: EditorView, getPos: () => number | undefined): TableCell => {
 		return new TableCell(
 			node,
 			view,
@@ -76,7 +76,11 @@ export const tableHeaderView = (options: TableCellViewOptions) => {
 };
 
 export const tableRowView = (options: TableCellViewOptions) => {
-	return (node: PMNode, view: EditorView, getPos: () => number | undefined) => {
+	return (
+		node: PMNode,
+		view: EditorView,
+		getPos: () => number | undefined,
+	): TableRowNativeStickyWithFallback | TableRow => {
 		if (
 			isNativeStickySupported() &&
 			expValEquals(

@@ -2,8 +2,8 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
-// eslint-disable-next-line @atlaskit/ui-styling-standard/no-global-styles, @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
-import { Global, jsx } from '@emotion/react';
+/* eslint-disable @typescript-eslint/consistent-type-imports, @atlaskit/ui-styling-standard/no-global-styles, @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766; jsx required at runtime for @jsxRuntime classic */
+import { jsx, Global } from '@emotion/react';
 
 import { useSharedPluginStateWithSelector } from '@atlaskit/editor-common/hooks';
 import type { FeatureFlags } from '@atlaskit/editor-common/types';
@@ -18,7 +18,7 @@ export const GlobalStylesWrapper = ({
 }: {
 	api?: PluginInjectionAPI;
 	featureFlags: FeatureFlags | undefined;
-}) => {
+}): jsx.JSX.Element => {
 	const { mode } = useSharedPluginStateWithSelector(api, ['editorViewMode'], (states) => ({
 		mode: states.editorViewModeState?.mode,
 	}));

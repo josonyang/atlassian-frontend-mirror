@@ -8,7 +8,6 @@ import { getExtensionKey } from '../../helpers';
 import { useSmartCardState } from '../../store';
 import useRovoConfig from '../use-rovo-config';
 
-
 export interface InlineActionNudgeExperiment {
 	/**
 	 * True when the user is in the treatment cohort and should see the

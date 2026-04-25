@@ -27,7 +27,7 @@ const _default_1: React.ForwardRefExoticComponent<ButtonProps & React.RefAttribu
 						? toolbarButtonStyle
 						: {
 								alignItems: 'center',
-						  }
+							}
 				}
 			/>
 		);

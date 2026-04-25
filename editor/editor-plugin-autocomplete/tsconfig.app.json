@@ -29,7 +29,8 @@
 	"compilerOptions": {
 		"composite": true,
 		"outDir": "../../../tsDist/@atlaskit__editor-plugin-autocomplete/app",
-		"resolveJsonModule": true
+		"resolveJsonModule": true,
+		"isolatedDeclarations": true
 	},
 	"references": [
 		{

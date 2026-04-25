@@ -1,4 +1,32 @@
-export const adfMediaWrappedLeft = {
+export const adfMediaWrappedLeft: {
+	version: number;
+	type: string;
+	content: (
+		| {
+				type: string;
+				attrs: {
+					layout: string;
+					width: number;
+					widthType: string;
+				};
+				content: {
+					type: string;
+					attrs: {
+						url: string;
+						type: string;
+					};
+				}[];
+		  }
+		| {
+				type: string;
+				content: {
+					type: string;
+					text: string;
+				}[];
+				attrs?: undefined;
+		  }
+	)[];
+} = {
 	version: 1,
 	type: 'doc',
 	content: [

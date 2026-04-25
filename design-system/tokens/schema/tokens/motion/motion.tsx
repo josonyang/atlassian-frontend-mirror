@@ -98,7 +98,8 @@ const motion: AttributeSchema<MotionTokenSchema<MotionPaletteToken>> = {
 						group: 'motion',
 						state: 'active',
 						introduced: '11.2.0',
-						description: 'Use for popup enter from the top: popup, tooltip, dropdown, inline message, inline dialog.',
+						description:
+							'Use for popup enter from the top: popup, tooltip, dropdown, inline message, inline dialog.',
 					},
 				},
 				bottom: {

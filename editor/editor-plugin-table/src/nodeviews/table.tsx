@@ -31,7 +31,7 @@ import type { PluginInjectionAPI } from '../types';
 
 import { TableComponentWithSharedState } from './TableComponentWithSharedState';
 import { tableNodeSpecWithFixedToDOM } from './toDOM';
-import type { Props } from './types';
+import type { Props, TableOptions } from './types';
 
 type ForwardRef = (node: HTMLElement | null) => void;
 
@@ -87,8 +87,8 @@ export default class TableView extends ReactNodeView<Props> {
 	private resizeObserver?: ResizeObserver;
 	eventDispatcher?: EventDispatcher;
 	getPos: getPosHandlerNode;
-	options;
-	getEditorFeatureFlags;
+	options: TableOptions | undefined;
+	getEditorFeatureFlags: GetEditorFeatureFlags;
 
 	constructor(props: Props) {
 		super(
@@ -111,7 +111,10 @@ export default class TableView extends ReactNodeView<Props> {
 		this.handleRef = (node: HTMLElement | null) => this._handleTableRef(node);
 	}
 
-	getContentDOM() {
+	getContentDOM(): {
+		contentDOM?: HTMLElement;
+		dom: HTMLElement;
+	} {
 		const isNested = isTableNested(this.view.state, this.getPos());
 		const tableDOMStructure = tableNodeSpecWithFixedToDOM({
 			allowColumnResizing: !!this.reactComponentProps.allowColumnResizing,
@@ -320,7 +323,7 @@ export default class TableView extends ReactNodeView<Props> {
 		}
 	}
 
-	getNode = () => {
+	getNode = (): PmNode => {
 		return this.node;
 	};
 

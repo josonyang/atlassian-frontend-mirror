@@ -1,23 +1,26 @@
 import { defineMessages } from 'react-intl';
 
 export const nativeEmbedToolbarMessages: {
-    alwaysShowTitle: {
-        id: string;
-        defaultMessage: string;
-        description: string;
-    }; refresh: {
-        id: string;
-        defaultMessage: string;
-        description: string;
-    }; summarise: {
-        id: string;
-        defaultMessage: string;
-        description: string;
-    }; setEmbedType: {
-        id: string;
-        defaultMessage: string;
-        description: string;
-    };
+	alwaysShowTitle: {
+		id: string;
+		defaultMessage: string;
+		description: string;
+	};
+	refresh: {
+		id: string;
+		defaultMessage: string;
+		description: string;
+	};
+	summarise: {
+		id: string;
+		defaultMessage: string;
+		description: string;
+	};
+	setEmbedType: {
+		id: string;
+		defaultMessage: string;
+		description: string;
+	};
 } = defineMessages({
 	alwaysShowTitle: {
 		id: 'fabric.editor.alwaysShowTitle.non-final',

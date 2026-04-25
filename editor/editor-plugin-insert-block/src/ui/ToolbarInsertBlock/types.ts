@@ -39,6 +39,8 @@ export interface Props {
 	isEditorOffline?: boolean;
 	isReducedSpacing: boolean;
 	isTypeAheadAllowed?: boolean;
+	/** @see InsertBlockPluginOptions.itemFilter */
+	itemFilter?: (item: MenuItem) => boolean;
 	layoutSectionEnabled?: boolean;
 	linkDisabled?: boolean;
 	linkSupported?: boolean;

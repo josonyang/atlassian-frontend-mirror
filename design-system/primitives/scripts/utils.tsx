@@ -1,4 +1,3 @@
-
 export const constructTokenFunctionCall: (
 	token: string,
 	fallback: string | ShadowDefinition,

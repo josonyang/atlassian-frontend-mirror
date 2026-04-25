@@ -72,13 +72,23 @@ function EventButtons({ testAttribute }: { testAttribute: string }) {
 				<Button onClick={() => fireEvent('ui.button.clicked.analyticsExample', { testAttribute })}>
 					Fire UI Event
 				</Button>
-				<Button onClick={() => fireEvent('operational.automation.fired.analyticsExample', { testAttribute })}>
+				<Button
+					onClick={() =>
+						fireEvent('operational.automation.fired.analyticsExample', { testAttribute })
+					}
+				>
 					Fire Operational Event
 				</Button>
-				<Button onClick={() => fireEvent('track.automation.triggered.analyticsExample', { testAttribute })}>
+				<Button
+					onClick={() =>
+						fireEvent('track.automation.triggered.analyticsExample', { testAttribute })
+					}
+				>
 					Fire Track Event
 				</Button>
-				<Button onClick={() => fireEvent('screen.analyticsExampleScreen.viewed', { testAttribute })}>
+				<Button
+					onClick={() => fireEvent('screen.analyticsExampleScreen.viewed', { testAttribute })}
+				>
 					Fire Screen Event
 				</Button>
 			</Inline>

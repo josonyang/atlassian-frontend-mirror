@@ -1,4 +1,22 @@
-export const simpleTextWithAnnotation = (id: string) => ({
+export const simpleTextWithAnnotation = (
+	id: string,
+): {
+	type: string;
+	content: {
+		type: string;
+		content: {
+			type: string;
+			text: string;
+			marks: {
+				type: string;
+				attrs: {
+					id: string;
+					annotationType: string;
+				};
+			}[];
+		}[];
+	}[];
+} => ({
 	type: 'doc',
 	content: [
 		{
@@ -22,7 +40,25 @@ export const simpleTextWithAnnotation = (id: string) => ({
 	],
 });
 
-export const annotationSpanningMultiText = (id: string) => ({
+export const annotationSpanningMultiText = (
+	id: string,
+): {
+	type: string;
+	content: {
+		type: string;
+		content: {
+			type: string;
+			text: string;
+			marks: {
+				type: string;
+				attrs: {
+					id: string;
+					annotationType: string;
+				};
+			}[];
+		}[];
+	}[];
+} => ({
 	type: 'doc',
 	content: [
 		{
@@ -64,7 +100,47 @@ export const annotationSpanningMultiText = (id: string) => ({
 	],
 });
 
-export const textWithOverlappingAnnotations = (id: string) => ({
+export const textWithOverlappingAnnotations = (
+	id: string,
+): {
+	type: string;
+	content: {
+		type: string;
+		content: (
+			| {
+					type: string;
+					text: string;
+					marks: (
+						| {
+								type: string;
+								attrs: {
+									href: string;
+									id?: undefined;
+									annotationType?: undefined;
+								};
+						  }
+						| {
+								type: string;
+								attrs?: undefined;
+						  }
+						| {
+								type: string;
+								attrs: {
+									id: string;
+									annotationType: string;
+									href?: undefined;
+								};
+						  }
+					)[];
+			  }
+			| {
+					type: string;
+					text: string;
+					marks?: undefined;
+			  }
+		)[];
+	}[];
+} => ({
 	type: 'doc',
 	content: [
 		{
@@ -291,7 +367,36 @@ export const textWithOverlappingAnnotations = (id: string) => ({
 	],
 });
 
-export const mediaWithAnnotation = (annotationId: string) => ({
+export const mediaWithAnnotation = (
+	annotationId: string,
+): {
+	type: string;
+	attrs: {
+		layout: string;
+		width: number;
+		widthType: string;
+		localId: null;
+	};
+	content: {
+		type: string;
+		attrs: {
+			width: number;
+			alt: string;
+			id: string;
+			collection: string;
+			type: string;
+			height: number;
+			localId: null;
+		};
+		marks: {
+			type: string;
+			attrs: {
+				annotationType: string;
+				id: string;
+			};
+		}[];
+	}[];
+} => ({
 	type: 'mediaSingle',
 	attrs: {
 		layout: 'center',
@@ -324,7 +429,158 @@ export const mediaWithAnnotation = (annotationId: string) => ({
 	],
 });
 
-export const docWithTextAndMedia = {
+export const docWithTextAndMedia: {
+	/**
+    * Structure:
+    * 0               17
+    *  some plain text
+     17                  38
+      more formatted text
+     38            51
+       mediaSingle
+     40       50
+       caption
+     51     84
+       table
+     60           73
+       mediaSingle
+     62       72
+       caption
+    */
+	version: number;
+	type: string;
+	content: (
+		| {
+				type: string;
+				content: {
+					type: string;
+					text: string;
+				}[];
+				attrs?: undefined;
+		  }
+		| {
+				type: string;
+				content: {
+					type: string;
+					text: string;
+					marks: {
+						type: string;
+					}[];
+				}[];
+				attrs?: undefined;
+		  }
+		| {
+				type: string;
+				attrs: {
+					layout: string;
+					width: number;
+					widthType: string;
+					localId: null;
+					isNumberColumnEnabled?: undefined;
+				};
+				content: (
+					| {
+							type: string;
+							attrs: {
+								id: string;
+								type: string;
+								collection: string;
+								alt: string;
+								width: number;
+								height: number;
+								localId: null;
+							};
+							content?: undefined;
+					  }
+					| {
+							type: string;
+							attrs: {
+								localId: null;
+								id?: undefined;
+								type?: undefined;
+								collection?: undefined;
+								alt?: undefined;
+								width?: undefined;
+								height?: undefined;
+							};
+							content: {
+								type: string;
+								text: string;
+							}[];
+					  }
+				)[];
+		  }
+		| {
+				type: string;
+				attrs: {
+					isNumberColumnEnabled: boolean;
+					layout: string;
+					localId: string;
+					width: number;
+					widthType?: undefined;
+				};
+				content: {
+					type: string;
+					attrs: {
+						localId: null;
+					};
+					content: {
+						type: string;
+						attrs: {
+							localId: null;
+						};
+						content: (
+							| {
+									type: string;
+									attrs: {
+										layout: string;
+										width: number;
+										widthType: string;
+										localId: null;
+									};
+									content: (
+										| {
+												type: string;
+												attrs: {
+													id: string;
+													type: string;
+													collection: string;
+													alt: string;
+													width: number;
+													height: number;
+													localId: null;
+												};
+												content?: undefined;
+										  }
+										| {
+												type: string;
+												attrs: {
+													localId: null;
+													id?: undefined;
+													type?: undefined;
+													collection?: undefined;
+													alt?: undefined;
+													width?: undefined;
+													height?: undefined;
+												};
+												content: {
+													type: string;
+													text: string;
+												}[];
+										  }
+									)[];
+							  }
+							| {
+									type: string;
+									content: never[];
+									attrs?: undefined;
+							  }
+						)[];
+					}[];
+				}[];
+		  }
+	)[];
+} = {
 	/**
    * Structure:
    * 0               17
@@ -518,7 +774,59 @@ export const docWithTextAndMedia = {
 	],
 };
 
-export const docWithInlineNodes = {
+export const docWithInlineNodes: {
+	version: number;
+	type: string;
+	content: {
+		type: string;
+		content: (
+			| {
+					type: string;
+					text: string;
+					attrs?: undefined;
+			  }
+			| {
+					type: string;
+					attrs: {
+						shortName: string;
+						id: string;
+						text: string;
+						localId: null;
+						color?: undefined;
+						style?: undefined;
+						timestamp?: undefined;
+					};
+					text?: undefined;
+			  }
+			| {
+					type: string;
+					attrs: {
+						text: string;
+						color: string;
+						localId: string;
+						style: string;
+						shortName?: undefined;
+						id?: undefined;
+						timestamp?: undefined;
+					};
+					text?: undefined;
+			  }
+			| {
+					type: string;
+					attrs: {
+						timestamp: string;
+						localId: null;
+						shortName?: undefined;
+						id?: undefined;
+						text?: undefined;
+						color?: undefined;
+						style?: undefined;
+					};
+					text?: undefined;
+			  }
+		)[];
+	}[];
+} = {
 	version: 1,
 	type: 'doc',
 	content: [

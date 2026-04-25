@@ -43,9 +43,7 @@ import {
 } from '../decorations/utils/column-resizing';
 import { createCommand, getPluginState } from '../plugin-factory';
 import { fixAutoSizedTable } from '../transforms/fix-tables';
-import {
-	createColumnSelectedDecoration,
-} from '../utils/decoration';
+import { createColumnSelectedDecoration } from '../utils/decoration';
 import {
 	checkIfHeaderColumnEnabled,
 	checkIfHeaderRowEnabled,
@@ -57,7 +55,7 @@ import { updatePluginStateDecorations } from '../utils/update-plugin-state-decor
 const DARK_MODE_CELL_COLOR = '#1f1f21';
 const DARK_MODE_HEADER_COLOR = '#303134';
 
-export const setEditorFocus = (editorHasFocus: boolean) =>
+export const setEditorFocus = (editorHasFocus: boolean): Command =>
 	createCommand({
 		type: 'SET_EDITOR_FOCUS',
 		data: {
@@ -65,7 +63,7 @@ export const setEditorFocus = (editorHasFocus: boolean) =>
 		},
 	});
 
-export const setTableRef = (ref?: HTMLTableElement) =>
+export const setTableRef = (ref?: HTMLTableElement): Command =>
 	createCommand(
 		(state) => {
 			const tableRef = ref;
@@ -234,7 +232,11 @@ export const transformSliceToRemoveColumnsWidths = (slice: Slice, schema: Schema
 	});
 };
 
-export const countCellsInSlice = (slice: Slice, schema: Schema, type?: 'row' | 'column') => {
+export const countCellsInSlice = (
+	slice: Slice,
+	schema: Schema,
+	type?: 'row' | 'column',
+): number => {
 	const { tableHeader, tableCell } = schema.nodes;
 	let count = 0;
 
@@ -253,13 +255,16 @@ export const countCellsInSlice = (slice: Slice, schema: Schema, type?: 'row' | '
 	return count;
 };
 
-export const getTableSelectionType = (selection: Selection) => {
+export const getTableSelectionType = (selection: Selection): 'row' | 'column' | undefined => {
 	if (selection instanceof CellSelection) {
 		return selection.isRowSelection() ? 'row' : selection.isColSelection() ? 'column' : undefined;
 	}
 };
 
-export const getTableElementMoveTypeBySlice = (slice: Slice, state: EditorState) => {
+export const getTableElementMoveTypeBySlice = (
+	slice: Slice,
+	state: EditorState,
+): 'row' | 'column' | undefined => {
 	const {
 		schema: {
 			nodes: { tableRow, table },
@@ -418,7 +423,7 @@ export const moveCursorBackward: Command = (state, dispatch) => {
 };
 
 export const setMultipleCellAttrs =
-	(attrs: Object, editorView?: EditorView | null): Command =>
+	(attrs: object, editorView?: EditorView | null): Command =>
 	(state, dispatch) => {
 		let cursorPos: number | undefined;
 		let { tr } = state;
@@ -453,7 +458,11 @@ export const setMultipleCellAttrs =
 		return false;
 	};
 
-export const selectColumn = (column: number, expand?: boolean, triggeredByKeyboard = false) =>
+export const selectColumn = (
+	column: number,
+	expand?: boolean,
+	triggeredByKeyboard = false,
+): Command =>
 	createCommand(
 		(state) => {
 			const cells = getCellsInColumn(column)(state.tr.selection);
@@ -482,7 +491,7 @@ export const selectColumn = (column: number, expand?: boolean, triggeredByKeyboa
 				.setMeta('selectedColumnViaKeyboard', triggeredByKeyboard),
 	);
 
-export const selectColumns = (columnIndexes: number[]) =>
+export const selectColumns = (columnIndexes: number[]): Command =>
 	createCommand(
 		(state) => {
 			if (!columnIndexes) {
@@ -520,7 +529,7 @@ export const selectColumns = (columnIndexes: number[]) =>
 		},
 	);
 
-export const selectRow = (row: number, expand?: boolean, triggeredByKeyboard = false) =>
+export const selectRow = (row: number, expand?: boolean, triggeredByKeyboard = false): Command =>
 	createCommand(
 		(state) => {
 			let targetCellPosition;
@@ -537,7 +546,7 @@ export const selectRow = (row: number, expand?: boolean, triggeredByKeyboard = f
 				.setMeta('selectedRowViaKeyboard', triggeredByKeyboard),
 	);
 
-export const selectRows = (rowIndexes: number[]) =>
+export const selectRows = (rowIndexes: number[]): Command =>
 	createCommand(
 		(state) => {
 			if (rowIndexes.length === 0) {
@@ -558,7 +567,7 @@ export const selectRows = (rowIndexes: number[]) =>
 		(tr) => selectRowsTransform(rowIndexes)(tr).setMeta('addToHistory', false),
 	);
 
-export const showInsertColumnButton = (columnIndex: number) =>
+export const showInsertColumnButton = (columnIndex: number): Command =>
 	createCommand(
 		(_) =>
 			columnIndex > -1
@@ -570,7 +579,7 @@ export const showInsertColumnButton = (columnIndex: number) =>
 		(tr) => tr.setMeta('addToHistory', false),
 	);
 
-export const showInsertRowButton = (rowIndex: number) =>
+export const showInsertRowButton = (rowIndex: number): Command =>
 	createCommand(
 		(_) =>
 			rowIndex > -1
@@ -582,7 +591,7 @@ export const showInsertRowButton = (rowIndex: number) =>
 		(tr) => tr.setMeta('addToHistory', false),
 	);
 
-export const hideInsertColumnOrRowButton = () =>
+export const hideInsertColumnOrRowButton = (): Command =>
 	createCommand(
 		{
 			type: 'HIDE_INSERT_COLUMN_OR_ROW_BUTTON',
@@ -596,7 +605,7 @@ export const addResizeHandleDecorations = (
 	includeTooltip: boolean,
 	nodeViewPortalProviderAPI: PortalProviderAPI,
 	isKeyboardResize?: boolean,
-) =>
+): Command =>
 	createCommand(
 		(state) => {
 			const tableNode = findTable(state.selection);
@@ -637,7 +646,7 @@ export const updateResizeHandleDecorations = (
 	rowIndex?: number,
 	columnIndex?: number,
 	includeTooltip?: boolean,
-) =>
+): Command =>
 	createCommand(
 		(state) => {
 			const tableNode = findTable(state.selection);
@@ -687,7 +696,7 @@ export const updateResizeHandleDecorations = (
 		(tr: Transaction) => tr.setMeta('addToHistory', false),
 	);
 
-export const removeResizeHandleDecorations = () =>
+export const removeResizeHandleDecorations = (): Command =>
 	createCommand(
 		(state) => ({
 			type: 'REMOVE_RESIZE_HANDLE_DECORATIONS',
@@ -747,7 +756,7 @@ export const addBoldInEmptyHeaderCells =
 		return false;
 	};
 
-export const updateWidthToWidest = (widthToWidest: WidthToWidest) =>
+export const updateWidthToWidest = (widthToWidest: WidthToWidest): Command =>
 	createCommand((state) => {
 		const { widthToWidest: prevWidthToWidest } = getPluginState(state);
 
@@ -815,7 +824,10 @@ export const setTableAlignmentWithTableContentWithPos =
 		return tr;
 	};
 
-export const setFocusToCellMenu = (isCellMenuOpenByKeyboard = true, originalTr?: Transaction) =>
+export const setFocusToCellMenu = (
+	isCellMenuOpenByKeyboard = true,
+	originalTr?: Transaction,
+): Command =>
 	createCommand(
 		() => {
 			return {

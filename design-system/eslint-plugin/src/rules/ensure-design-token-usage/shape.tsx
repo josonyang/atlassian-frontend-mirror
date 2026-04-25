@@ -1,5 +1,3 @@
-
-
 const shapeProperties = [
 	'borderTopLeftRadius',
 	'borderTopRightRadius',

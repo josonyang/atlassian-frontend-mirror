@@ -9,7 +9,7 @@ import adfHeadingsRTLSymbols from '../__fixtures__/headings-right-aligned-symbol
 
 import { generateRendererComponent } from '../__helpers/rendererComponents';
 
-export const HeadingRenderer = generateRendererComponent({
+export const HeadingRenderer: React.ComponentType<any> = generateRendererComponent({
 	document: headingNodeAdf,
 	appearance: 'full-width',
 	allowHeadingAnchorLinks: {
@@ -17,7 +17,7 @@ export const HeadingRenderer = generateRendererComponent({
 	},
 });
 
-export const HeadingCommentRenderer = generateRendererComponent({
+export const HeadingCommentRenderer: React.ComponentType<any> = generateRendererComponent({
 	document: headingNodeAdf,
 	appearance: 'comment',
 	allowHeadingAnchorLinks: {
@@ -25,7 +25,7 @@ export const HeadingCommentRenderer = generateRendererComponent({
 	},
 });
 
-export const HeadingMultilineRenderer = generateRendererComponent({
+export const HeadingMultilineRenderer: React.ComponentType<any> = generateRendererComponent({
 	document: adfHeadingsMultilined,
 	appearance: 'full-page',
 	allowHeadingAnchorLinks: {
@@ -33,7 +33,7 @@ export const HeadingMultilineRenderer = generateRendererComponent({
 	},
 });
 
-export const HeadingsLeftRenderer = generateRendererComponent({
+export const HeadingsLeftRenderer: React.ComponentType<any> = generateRendererComponent({
 	document: headingsLeftAligned,
 	appearance: 'full-page',
 	allowHeadingAnchorLinks: {
@@ -41,7 +41,7 @@ export const HeadingsLeftRenderer = generateRendererComponent({
 	},
 });
 
-export const HeadingsCenterRenderer = generateRendererComponent({
+export const HeadingsCenterRenderer: React.ComponentType<any> = generateRendererComponent({
 	document: headingsCenterAligned,
 	appearance: 'full-page',
 	allowHeadingAnchorLinks: {
@@ -49,7 +49,7 @@ export const HeadingsCenterRenderer = generateRendererComponent({
 	},
 });
 
-export const HeadingsRightRenderer = generateRendererComponent({
+export const HeadingsRightRenderer: React.ComponentType<any> = generateRendererComponent({
 	document: headingsRightAligned,
 	appearance: 'full-page',
 	allowHeadingAnchorLinks: {
@@ -64,24 +64,25 @@ function TextHighlighterComponent({ match }: { match: string }) {
 	);
 }
 
-export const HeadingsRTLSymbolsWithHighlighterRenderer = generateRendererComponent({
-	document: adfHeadingsRTLSymbols,
-	appearance: 'full-page',
-	allowHeadingAnchorLinks: {
-		allowNestedHeaderLinks: true,
-	},
-	textHighlighter: {
-		// Ignored via go/ees005
-		// eslint-disable-next-line require-unicode-regexp
-		pattern: /(?<acronym>\b[A-Z][A-Z0-9&]{2,}\b)/g,
-		component: TextHighlighterComponent,
-	},
-	allowAnnotations: true,
-	annotationProvider: {
-		inlineComment: {
-			allowDraftMode: true,
-			allowCommentsOnMedia: true,
-			getState: () => Promise.resolve([]),
+export const HeadingsRTLSymbolsWithHighlighterRenderer: React.ComponentType<any> =
+	generateRendererComponent({
+		document: adfHeadingsRTLSymbols,
+		appearance: 'full-page',
+		allowHeadingAnchorLinks: {
+			allowNestedHeaderLinks: true,
 		},
-	},
-});
+		textHighlighter: {
+			// Ignored via go/ees005
+			// eslint-disable-next-line require-unicode-regexp
+			pattern: /(?<acronym>\b[A-Z][A-Z0-9&]{2,}\b)/g,
+			component: TextHighlighterComponent,
+		},
+		allowAnnotations: true,
+		annotationProvider: {
+			inlineComment: {
+				allowDraftMode: true,
+				allowCommentsOnMedia: true,
+				getState: () => Promise.resolve([]),
+			},
+		},
+	});

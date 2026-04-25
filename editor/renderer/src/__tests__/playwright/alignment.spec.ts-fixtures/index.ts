@@ -1,4 +1,20 @@
-export const threeNormalParagraphs = {
+export const threeNormalParagraphs: {
+	version: string;
+	type: string;
+	content: (
+		| {
+				type: string;
+				content: {
+					type: string;
+					text: string;
+				}[];
+		  }
+		| {
+				type: string;
+				content?: undefined;
+		  }
+	)[];
+} = {
 	version: '1',
 	type: 'doc',
 	content: [
@@ -35,7 +51,33 @@ export const threeNormalParagraphs = {
 	],
 };
 
-export const firstParagraphCentered = {
+export const firstParagraphCentered: {
+	version: string;
+	type: string;
+	content: (
+		| {
+				type: string;
+				content: {
+					type: string;
+					text: string;
+				}[];
+				marks: {
+					type: string;
+					attrs: {
+						align: string;
+					};
+				}[];
+		  }
+		| {
+				type: string;
+				content: {
+					type: string;
+					text: string;
+				}[];
+				marks?: undefined;
+		  }
+	)[];
+} = {
 	version: '1',
 	type: 'doc',
 	content: [
@@ -76,7 +118,33 @@ export const firstParagraphCentered = {
 		},
 	],
 };
-export const secondParagraphCentered = {
+export const secondParagraphCentered: {
+	version: string;
+	type: string;
+	content: (
+		| {
+				type: string;
+				content: {
+					type: string;
+					text: string;
+				}[];
+				marks?: undefined;
+		  }
+		| {
+				type: string;
+				content: {
+					type: string;
+					text: string;
+				}[];
+				marks: {
+					type: string;
+					attrs: {
+						align: string;
+					};
+				}[];
+		  }
+	)[];
+} = {
 	version: '1',
 	type: 'doc',
 	content: [
@@ -118,7 +186,33 @@ export const secondParagraphCentered = {
 	],
 };
 
-export const thirdParagraphCentered = {
+export const thirdParagraphCentered: {
+	version: string;
+	type: string;
+	content: (
+		| {
+				type: string;
+				content: {
+					type: string;
+					text: string;
+				}[];
+				marks?: undefined;
+		  }
+		| {
+				type: string;
+				content: {
+					type: string;
+					text: string;
+				}[];
+				marks: {
+					type: string;
+					attrs: {
+						align: string;
+					};
+				}[];
+		  }
+	)[];
+} = {
 	version: '1',
 	type: 'doc',
 	content: [
@@ -160,7 +254,33 @@ export const thirdParagraphCentered = {
 	],
 };
 
-export const mixAlignmentParagraph = {
+export const mixAlignmentParagraph: {
+	version: string;
+	type: string;
+	content: (
+		| {
+				type: string;
+				content: {
+					type: string;
+					text: string;
+				}[];
+				marks: {
+					type: string;
+					attrs: {
+						align: string;
+					};
+				}[];
+		  }
+		| {
+				type: string;
+				content: {
+					type: string;
+					text: string;
+				}[];
+				marks?: undefined;
+		  }
+	)[];
+} = {
 	version: '1',
 	type: 'doc',
 	content: [

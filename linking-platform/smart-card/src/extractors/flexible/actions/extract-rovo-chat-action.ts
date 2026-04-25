@@ -51,10 +51,13 @@ const extractRovoChatAction = ({
 		!isGoogleProvider &&
 		fg('rovogrowth-640-inline-action-nudge-fg') &&
 		expValEqualsNoExposure('rovogrowth-640-inline-action-nudge-exp', 'isEnabled', true);
-    const is3PBlockPostAuthActionsEnabled = supportsRovoActions && fg('platform_sl_3p_auth_rovo_block_card_kill_switch')
+	const is3PBlockPostAuthActionsEnabled =
+		supportsRovoActions && fg('platform_sl_3p_auth_rovo_block_card_kill_switch');
 
 	const isSupportedFeature =
-		is3PInlinePostAuthActionsEnabled || is3PAuthRovoActionEnabled || is3PBlockPostAuthActionsEnabled;
+		is3PInlinePostAuthActionsEnabled ||
+		is3PAuthRovoActionEnabled ||
+		is3PBlockPostAuthActionsEnabled;
 	const isOptIn = actionOptions?.rovoChatAction?.optIn === true;
 
 	const url = extractSmartLinkUrl(response);

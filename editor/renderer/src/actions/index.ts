@@ -136,7 +136,15 @@ export default class RendererActions
 
 	//#endregion
 
-	deleteAnnotation(annotationId: string, annotationType: 'inlineComment') {
+	deleteAnnotation(
+		annotationId: string,
+		annotationType: 'inlineComment',
+	):
+		| false
+		| {
+				doc: JSONDocNode;
+				step: RemoveNodeMarkStep | RemoveMarkStep;
+		  } {
 		if (!this.doc || !this.schema || !this.schema.marks.annotation) {
 			return false;
 		}
@@ -212,7 +220,11 @@ export default class RendererActions
 		return false;
 	}
 
-	annotate(range: Range, annotationId: string, _annotationType: 'inlineComment') {
+	annotate(
+		range: Range,
+		annotationId: string,
+		_annotationType: 'inlineComment',
+	): AnnotationActionResult {
 		if (!this.doc || !this.schema || !this.schema.marks.annotation) {
 			return false;
 		}
@@ -324,7 +336,7 @@ export default class RendererActions
 		return getSelectionContext({ doc: this.doc, schema: this.schema });
 	}
 
-	getAnnotationMarks() {
+	getAnnotationMarks(): Mark[] {
 		const { schema, doc } = this;
 		if (!schema || !doc) {
 			return [];
@@ -432,7 +444,7 @@ export default class RendererActions
 			numMatches,
 			matchIndex,
 			pos: blockNodePos,
-			...{ targetNodeType },
+			targetNodeType,
 		};
 	}
 

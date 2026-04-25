@@ -456,6 +456,7 @@ function ToolbarInsertBlockWithInjectionApi({
 			popupsBoundariesElement={popupsBoundariesElement}
 			popupsScrollableElement={popupsScrollableElement}
 			insertMenuItems={options.insertMenuItems}
+			itemFilter={options.itemFilter}
 			editorActions={editorActions}
 			dispatchAnalyticsEvent={dispatchAnalyticsEvent}
 			showElementBrowserLink={options.showElementBrowserLink}

@@ -32,6 +32,8 @@ import { DropTargetType } from './consts';
 import { createPluginState, getPluginState } from './plugin-factory';
 import { pluginKey } from './plugin-key';
 import { getDraggableDataFromEvent } from './utils/monitor';
+// eslint-disable-next-line import/order
+import type { DragAndDropPluginState } from './types';
 
 const destroyFn = (
 	editorView: EditorView,
@@ -293,7 +295,7 @@ export const createPlugin = (
 	isTableFixedColumnWidthsOptionEnabled = false,
 	isCommentEditor = false,
 	api?: ExtractInjectionAPI<TablePlugin>,
-) => {
+): SafePlugin<DragAndDropPluginState> => {
 	return new SafePlugin({
 		state: createPluginState(dispatch, () => ({
 			decorationSet: DecorationSet.empty,

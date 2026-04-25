@@ -17,7 +17,25 @@ type TableProps = SharedTableProps & {
 	isPresentational?: boolean;
 };
 
-export const Table = React.memo(
+export const Table: React.MemoExoticComponent<
+	({
+		innerRef,
+		isNumberColumnEnabled,
+		columnWidths,
+		layout,
+		renderWidth,
+		children,
+		tableNode,
+		rendererAppearance,
+		isInsideOfBlockNode,
+		isInsideOfTable,
+		isinsideMultiBodiedExtension,
+		allowTableResizing,
+		isPresentational,
+		fixTableSSRResizing,
+		allowFixedColumnWidthOption,
+	}: TableProps) => React.JSX.Element
+> = React.memo(
 	({
 		innerRef,
 		isNumberColumnEnabled,

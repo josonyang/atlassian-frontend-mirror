@@ -17,7 +17,6 @@ import { isDecendantOfSvgElement } from '../utils/is-decendant-of-svg-element';
 import { isLegacyElevation } from '../utils/is-elevation';
 import { isDecendantOfStyleBlock } from '../utils/is-node';
 
-
 import { getElevationTokenExample } from './get-elevation-token-example';
 import type { RuleConfig } from './types';
 type Suggestion = {

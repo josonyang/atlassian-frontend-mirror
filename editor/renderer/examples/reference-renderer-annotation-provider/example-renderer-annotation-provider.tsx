@@ -40,7 +40,10 @@ export const getRendererAnnotationManager: () => AnnotationManager | undefined =
 	return annotationManager;
 };
 
-export const useExampleRendererAnnotationProvider = () => {
+export const useExampleRendererAnnotationProvider = (): {
+	rendererAnnotationProvider: AnnotationProviders;
+	highlightsMountPoint: React.JSX.Element;
+} => {
 	const highlightsMountPoint = (
 		<div
 			id={popupPortalContainerId}
@@ -326,10 +329,11 @@ type ProductState = {
 	drafts: { [rangeKey: string]: string };
 };
 
-export const ExampleAnnotationProductStateContext = React.createContext({} as ProductState);
-export const ExampleAnnotationProductDispatch = React.createContext(
-	{} as React.Dispatch<ProductStateReducerAction>,
-);
+export const ExampleAnnotationProductStateContext: React.Context<ProductState> =
+	React.createContext({} as ProductState);
+export const ExampleAnnotationProductDispatch: React.Context<
+	React.Dispatch<ProductStateReducerAction>
+> = React.createContext({} as React.Dispatch<ProductStateReducerAction>);
 
 export const ExampleAnnotationProductState = ({
 	initialAnnotationState,

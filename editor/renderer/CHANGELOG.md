@@ -1,5 +1,25 @@
 # @atlaskit/renderer
 
+## 130.2.13
+
+### Patch Changes
+
+- Updated dependencies
+
+## 130.2.12
+
+### Patch Changes
+
+- Updated dependencies
+
+## 130.2.11
+
+### Patch Changes
+
+- [`721f0a967d1fe`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/721f0a967d1fe) -
+  [ux] Updating smart card icon sizing and tiling behind FG platform_sl_icons_refactor
+- Updated dependencies
+
 ## 130.2.10
 
 ### Patch Changes

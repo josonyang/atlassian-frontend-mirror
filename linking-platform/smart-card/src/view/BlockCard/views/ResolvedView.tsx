@@ -8,7 +8,7 @@ import { useEffect, useMemo, useState } from 'react';
 import { css, jsx } from '@compiled/react';
 
 import { browser } from '@atlaskit/linking-common/user-agent';
-import { fg } from "@atlaskit/platform-feature-flags";
+import { fg } from '@atlaskit/platform-feature-flags';
 import { token } from '@atlaskit/tokens';
 
 import { ActionName, ElementName, SmartLinkPosition } from '../../../constants';
@@ -118,17 +118,23 @@ const ResolvedView = ({
 			if (extensionKey === 'slack-object-provider') {
 				return [RovoChatPromptKey.FIND_OPEN_QUESTIONS, ...defaultPrompts];
 			}
-			if (extensionKey === 'google-object-provider' && linkType?.includes('schema:PresentationDigitalDocument')) {
+			if (
+				extensionKey === 'google-object-provider' &&
+				linkType?.includes('schema:PresentationDigitalDocument')
+			) {
 				return [RovoChatPromptKey.IDENTIFY_KEY_POINTS, ...defaultPrompts];
 			}
-			if (extensionKey === 'google-object-provider' && linkType?.includes('schema:SpreadsheetDigitalDocument')) {
+			if (
+				extensionKey === 'google-object-provider' &&
+				linkType?.includes('schema:SpreadsheetDigitalDocument')
+			) {
 				return [RovoChatPromptKey.IDENTIFY_KEY_TRENDS, ...defaultPrompts];
 			}
 
 			return [RovoChatPromptKey.SUMMARIZE_LINK, ...defaultPrompts];
 		}
 		return [];
-		}, [cardState?.details?.data, extensionKey]);
+	}, [cardState?.details?.data, extensionKey]);
 
 	const footerActions: ActionItem[] = useMemo(
 		() =>

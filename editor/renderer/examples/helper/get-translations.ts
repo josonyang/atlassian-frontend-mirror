@@ -1,5 +1,5 @@
 /* eslint-disable import/dynamic-import-chunkname */
-export const getTranslations = async (locale: string) => {
+export const getTranslations = async (locale: string): Promise<{}> => {
 	let messages = {};
 	const isUnsupportedEditorCommonLocale = locale.includes('is') || locale.includes('ro');
 

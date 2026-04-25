@@ -1,5 +1,34 @@
 # @atlaskit/smart-card
 
+## 44.3.13
+
+### Patch Changes
+
+- Updated dependencies
+
+## 44.3.12
+
+### Patch Changes
+
+- [`b6f5a70b7e231`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/b6f5a70b7e231) -
+  [ux] Fix alignment of icon and action text on hovercard actions
+- Updated dependencies
+
+## 44.3.11
+
+### Patch Changes
+
+- [`7e1e133a98bbd`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/7e1e133a98bbd) -
+  Adds analytics attribute rovoActionsCtaShown to smartLink renderSuccess and hoverCard viewed
+  events
+
+## 44.3.10
+
+### Patch Changes
+
+- [`721f0a967d1fe`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/721f0a967d1fe) -
+  [ux] Updating smart card icon sizing and tiling behind FG platform_sl_icons_refactor
+
 ## 44.3.9
 
 ### Patch Changes

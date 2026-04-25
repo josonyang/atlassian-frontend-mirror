@@ -46,7 +46,7 @@ export const SyncBlockRenderer = ({
 	doc: DocNode;
 	isNotFoundError?: boolean;
 	mockRelayEnvironment?: boolean;
-}) => {
+}): React.JSX.Element => {
 	const syncBlockNodes = useMemo(() => getSyncBlockNodesFromDoc(doc), [doc]);
 	const SyncBlockNodeComponent = useMemoizedSyncedBlockNodeComponent({
 		syncBlockNodes,
@@ -91,34 +91,34 @@ export const SyncBlockRenderer = ({
 	return rendererContent;
 };
 
-export const SyncBlockWithParagraphAndPanelRenderer = () => {
+export const SyncBlockWithParagraphAndPanelRenderer = (): React.JSX.Element => {
 	return <SyncBlockRenderer doc={syncBlockWithParagraphAndPanelAdf} />;
 };
 
-export const SyncBlockWithPermissionDenied = () => {
+export const SyncBlockWithPermissionDenied = (): React.JSX.Element => {
 	return <SyncBlockRenderer doc={syncBlockPermissionDeniedAdf} mockRelayEnvironment={true} />;
 };
 
-export const SyncBlockNotFound = () => {
+export const SyncBlockNotFound = (): React.JSX.Element => {
 	return <SyncBlockRenderer doc={syncBlockNotFoundAdf} isNotFoundError={true} />;
 };
 
-export const SyncBlockUnsyncNotFound = () => {
+export const SyncBlockUnsyncNotFound = (): React.JSX.Element => {
 	return <SyncBlockRenderer doc={syncBlockUnsyncNotFoundAdf} isNotFoundError={true} />;
 };
 
-export const SyncBlockGenericError = () => {
+export const SyncBlockGenericError = (): React.JSX.Element => {
 	return <SyncBlockRenderer doc={syncBlockGenericErrorAdf} />;
 };
 
-export const SyncBlockInvalidRequestError = () => {
+export const SyncBlockInvalidRequestError = (): React.JSX.Element => {
 	return <SyncBlockRenderer doc={syncBlockInvalidRequestErrorAdf} />;
 };
 
-export const SyncBlockLoadingState = () => {
+export const SyncBlockLoadingState = (): React.JSX.Element => {
 	return <SyncBlockRenderer doc={syncBlockLoadingStateAdf} />;
 };
 
-export const SyncBlockWithParagraphAndPanelRendererCompact = () => {
+export const SyncBlockWithParagraphAndPanelRendererCompact = (): React.JSX.Element => {
 	return <SyncBlockRenderer doc={syncBlockWithParagraphAndPanelAdf} contentMode="compact" />;
 };

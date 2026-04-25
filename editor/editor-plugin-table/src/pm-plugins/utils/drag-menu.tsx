@@ -71,8 +71,10 @@ import {
 } from './merged-cells';
 import { getSelectedColumnIndexes, getSelectedRowIndexes } from './selection';
 
-export const getTargetIndex = (selectedIndexes: number[], direction: DraggableData['direction']) =>
-	Math[direction < 0 ? 'min' : 'max'](...selectedIndexes) + direction;
+export const getTargetIndex = (
+	selectedIndexes: number[],
+	direction: DraggableData['direction'],
+): number => Math[direction < 0 ? 'min' : 'max'](...selectedIndexes) + direction;
 
 export const canMove = (
 	sourceType: DraggableType,
@@ -273,22 +275,20 @@ export const getDragMenuConfig = (
 					},
 				]
 			: [];
-	const sortConfigs = [
-		...sortOptions.map(({ label, order, icon }) => ({
-			id: `sort_column_${order}`,
-			title: `Sort ${label}`,
-			disabled: hasMergedCellsInTable,
-			icon: icon,
-			onClick: (state: EditorState, dispatch?: CommandDispatch) => {
-				sortColumnWithAnalytics(editorAnalyticsAPI)(
-					INPUT_METHOD.TABLE_CONTEXT_MENU,
-					index ?? 0,
-					order,
-				)(state, dispatch);
-				return true;
-			},
-		})),
-	];
+	const sortConfigs = sortOptions.map(({ label, order, icon }) => ({
+		id: `sort_column_${order}`,
+		title: `Sort ${label}`,
+		disabled: hasMergedCellsInTable,
+		icon: icon,
+		onClick: (state: EditorState, dispatch?: CommandDispatch) => {
+			sortColumnWithAnalytics(editorAnalyticsAPI)(
+				INPUT_METHOD.TABLE_CONTEXT_MENU,
+				index ?? 0,
+				order,
+			)(state, dispatch);
+			return true;
+		},
+	}));
 	const restConfigs = [
 		...addOptions.map(({ label, offset, icon, keymap }) => ({
 			id: `add_${direction}_${label}`,

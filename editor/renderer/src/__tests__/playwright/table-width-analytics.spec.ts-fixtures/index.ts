@@ -1,4 +1,27 @@
-export const basicTableAdf = {
+export const basicTableAdf: {
+	version: number;
+	type: string;
+	content: {
+		type: string;
+		attrs: {
+			isNumberColumnEnabled: boolean;
+			layout: string;
+		};
+		content: {
+			type: string;
+			content: {
+				type: string;
+				content: {
+					type: string;
+					content: {
+						type: string;
+						text: string;
+					}[];
+				}[];
+			}[];
+		}[];
+	}[];
+} = {
 	version: 1,
 	type: 'doc',
 	content: [
@@ -60,7 +83,53 @@ export const basicTableAdf = {
 	],
 };
 
-export const nestedTablesInHeaderAndCellAdf = {
+export const nestedTablesInHeaderAndCellAdf: {
+	version: number;
+	type: string;
+	content: {
+		type: string;
+		attrs: {
+			isNumberColumnEnabled: boolean;
+			layout: string;
+		};
+		content: {
+			type: string;
+			content: {
+				type: string;
+				content: (
+					| {
+							type: string;
+							content: {
+								type: string;
+								text: string;
+							}[];
+							attrs?: undefined;
+					  }
+					| {
+							type: string;
+							attrs: {
+								isNumberColumnEnabled: boolean;
+								layout: string;
+							};
+							content: {
+								type: string;
+								content: {
+									type: string;
+									content: {
+										type: string;
+										content: {
+											type: string;
+											text: string;
+										}[];
+									}[];
+								}[];
+							}[];
+					  }
+				)[];
+			}[];
+		}[];
+	}[];
+} = {
 	version: 1,
 	type: 'doc',
 	content: [
@@ -209,7 +278,30 @@ export const nestedTablesInHeaderAndCellAdf = {
 	],
 };
 
-export const tableWithScrollbarAdf = {
+export const tableWithScrollbarAdf: {
+	version: number;
+	type: string;
+	content: {
+		type: string;
+		attrs: {
+			isNumberColumnEnabled: boolean;
+			layout: string;
+		};
+		content: {
+			type: string;
+			content: {
+				type: string;
+				attrs: {
+					colwidth: number[];
+				};
+				content: {
+					type: string;
+					content: never[];
+				}[];
+			}[];
+		}[];
+	}[];
+} = {
 	version: 1,
 	type: 'doc',
 	content: [

@@ -1,4 +1,3 @@
-
 const namedColors = new Set([
 	'black',
 	'silver',

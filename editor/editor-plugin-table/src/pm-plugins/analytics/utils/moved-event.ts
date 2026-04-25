@@ -25,7 +25,13 @@ export const getMovedPayload = (
 	nextState: Omit<RowOrColumnMovedState, 'currentActions'>,
 	nextAction: ActionType,
 	prevState: RowOrColumnMovedState,
-) => {
+):
+	| RowOrColumnMovedState
+	| {
+			currentActions: string[];
+			numberOfCells: number | undefined;
+			type: 'row' | 'column' | undefined;
+	  } => {
 	const nextActionType = getNextActionType(nextState, nextAction, prevState);
 
 	if (nextActionType === 'none') {

@@ -1,8 +1,8 @@
-import memorizeOne from 'memoize-one';
+import memorizeOne, { type MemoizedFn } from 'memoize-one';
 
 import { getBrowserInfo } from '@atlaskit/editor-common/browser';
 
-export const isAnchorSupported = memorizeOne((): boolean => {
+export const isAnchorSupported: MemoizedFn<() => boolean> = memorizeOne((): boolean => {
 	if (window.CSS && window.CSS.supports) {
 		return window.CSS.supports('anchor-name: --anchor');
 	}

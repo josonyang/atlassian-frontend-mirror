@@ -231,7 +231,7 @@ class SwappableContentAreaInner extends React.PureComponent<SwappableContentArea
 
 // eslint-disable-next-line @typescript-eslint/ban-types
 export const SwappableContentArea: React.FC<WithIntlProps<SwappableContentAreaProps>> & {
-    WrappedComponent: React.ComponentType<SwappableContentAreaProps>;
+	WrappedComponent: React.ComponentType<SwappableContentAreaProps>;
 } = injectIntl(SwappableContentAreaInner);
 
 export function ContextPanel(props: Props): jsx.JSX.Element {

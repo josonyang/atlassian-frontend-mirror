@@ -1,11 +1,11 @@
 import { defineMessages } from 'react-intl';
 
 export const messages: {
-    chromeCollapsedPlaceholder: {
-        id: string;
-        defaultMessage: string;
-        description: string;
-    };
+	chromeCollapsedPlaceholder: {
+		id: string;
+		defaultMessage: string;
+		description: string;
+	};
 } = defineMessages({
 	chromeCollapsedPlaceholder: {
 		id: 'fabric.editor.chromeCollapsedPlaceholder',

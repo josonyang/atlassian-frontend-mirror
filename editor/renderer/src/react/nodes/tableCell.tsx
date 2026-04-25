@@ -298,7 +298,8 @@ export const withSortableColumn = (WrapperComponent: React.ElementType) => {
 	};
 };
 
-export const TableHeader = withSortableColumn(TH);
+export const TableHeader: (props: CellWithSortingProps) => React.JSX.Element =
+	withSortableColumn(TH);
 
 const TD = getWithCellProps('td');
-export const TableCell = TD;
+export const TableCell: (props: CellProps) => React.JSX.Element = TD;

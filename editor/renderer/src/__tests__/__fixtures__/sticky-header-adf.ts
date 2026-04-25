@@ -8,7 +8,302 @@ const scrollableParagraphs = Array.from({ length: 100 }, (_, i) => ({
 	],
 }));
 
-export const stickyHeadersAllTables = {
+export const stickyHeadersAllTables: {
+	version: number;
+	type: string;
+	content: (
+		| {
+				type: string;
+				attrs: {
+					level: number;
+					isNumberColumnEnabled?: undefined;
+					layout?: undefined;
+				};
+				content: {
+					type: string;
+					text: string;
+				}[];
+				marks?: undefined;
+		  }
+		| {
+				type: string;
+				content: {
+					type: string;
+					text: string;
+				}[];
+				attrs?: undefined;
+				marks?: undefined;
+		  }
+		| {
+				type: string;
+				attrs: {
+					isNumberColumnEnabled: boolean;
+					layout: string;
+					level?: undefined;
+				};
+				content: {
+					type: string;
+					content: (
+						| {
+								type: string;
+								attrs: {
+									colwidth: number[];
+								};
+								content: {
+									type: string;
+									content: {
+										type: string;
+										text: string;
+										marks: {
+											type: string;
+										}[];
+									}[];
+								}[];
+						  }
+						| {
+								type: string;
+								attrs: {
+									colwidth: number[];
+								};
+								content: {
+									type: string;
+									content: (
+										| {
+												type: string;
+												attrs: {
+													shortName: string;
+													id: string;
+													text: string;
+												};
+												text?: undefined;
+										  }
+										| {
+												type: string;
+												text: string;
+												attrs?: undefined;
+										  }
+									)[];
+								}[];
+						  }
+					)[];
+				}[];
+				marks?: undefined;
+		  }
+		| {
+				type: string;
+				attrs: {
+					isNumberColumnEnabled: boolean;
+					layout: string;
+					level?: undefined;
+				};
+				content: {
+					type: string;
+					content: {
+						type: string;
+						attrs: {};
+						content: {
+							type: string;
+							content: (
+								| {
+										type: string;
+										text: string;
+										marks: {
+											type: string;
+										}[];
+								  }
+								| {
+										type: string;
+										text: string;
+										marks?: undefined;
+								  }
+							)[];
+						}[];
+					}[];
+				}[];
+				marks?: undefined;
+		  }
+		| {
+				type: string;
+				content: (
+					| {
+							type: string;
+							attrs: {
+								width: number;
+							};
+							content: {
+								type: string;
+								attrs: {
+									isNumberColumnEnabled: boolean;
+									layout: string;
+								};
+								content: {
+									type: string;
+									content: {
+										type: string;
+										attrs: {};
+										content: {
+											type: string;
+											content: never[];
+										}[];
+									}[];
+								}[];
+							}[];
+					  }
+					| {
+							type: string;
+							attrs: {
+								width: number;
+							};
+							content: {
+								type: string;
+								content: {
+									type: string;
+									text: string;
+								}[];
+							}[];
+					  }
+				)[];
+				attrs?: undefined;
+				marks?: undefined;
+		  }
+		| {
+				type: string;
+				content: (
+					| {
+							type: string;
+							attrs: {
+								width: number;
+							};
+							content: {
+								type: string;
+								attrs: {
+									isNumberColumnEnabled: boolean;
+									layout: string;
+								};
+								content: {
+									type: string;
+									content: {
+										type: string;
+										attrs: {};
+										content: {
+											type: string;
+											content: never[];
+										}[];
+									}[];
+								}[];
+							}[];
+					  }
+					| {
+							type: string;
+							attrs: {
+								width: number;
+							};
+							content: {
+								type: string;
+								content: {
+									type: string;
+									text: string;
+								}[];
+							}[];
+					  }
+				)[];
+				marks: {
+					type: string;
+					attrs: {
+						mode: string;
+					};
+				}[];
+				attrs?: undefined;
+		  }
+		| {
+				type: string;
+				attrs: {
+					isNumberColumnEnabled: boolean;
+					layout: string;
+					level?: undefined;
+				};
+				content: (
+					| {
+							type: string;
+							content: (
+								| {
+										type: string;
+										attrs: {
+											rowspan: number;
+										};
+										content: {
+											type: string;
+											content: {
+												type: string;
+												text: string;
+												marks: {
+													type: string;
+												}[];
+											}[];
+										}[];
+								  }
+								| {
+										type: string;
+										attrs: {
+											rowspan?: undefined;
+										};
+										content: {
+											type: string;
+											content: {
+												type: string;
+												text: string;
+												marks: {
+													type: string;
+												}[];
+											}[];
+										}[];
+								  }
+							)[];
+					  }
+					| {
+							type: string;
+							content: (
+								| {
+										type: string;
+										attrs: {
+											colspan?: undefined;
+											rowspan?: undefined;
+										};
+										content: {
+											type: string;
+											content: {
+												type: string;
+												text: string;
+												marks: {
+													type: string;
+												}[];
+											}[];
+										}[];
+								  }
+								| {
+										type: string;
+										attrs: {
+											colspan: number;
+											rowspan: number;
+										};
+										content: {
+											type: string;
+											content: {
+												type: string;
+												text: string;
+												marks: {
+													type: string;
+												}[];
+											}[];
+										}[];
+								  }
+							)[];
+					  }
+				)[];
+				marks?: undefined;
+		  }
+	)[];
+} = {
 	version: 1,
 	type: 'doc',
 	content: [
@@ -6269,7 +6564,43 @@ export const stickyHeadersAllTables = {
 	],
 };
 
-export const stickyHeadersUnresizedTable = {
+export const stickyHeadersUnresizedTable: {
+	version: number;
+	type: string;
+	content: (
+		| {
+				type: string;
+				content: {
+					type: string;
+					text: string;
+				}[];
+		  }
+		| {
+				type: string;
+				attrs: {
+					isNumberColumnEnabled: boolean;
+					layout: string;
+				};
+				content: {
+					type: string;
+					content: {
+						type: string;
+						attrs: {};
+						content: {
+							type: string;
+							content: {
+								type: string;
+								text: string;
+								marks: {
+									type: string;
+								}[];
+							}[];
+						}[];
+					}[];
+				}[];
+		  }
+	)[];
+} = {
 	version: 1,
 	type: 'doc',
 	content: [
@@ -6401,7 +6732,43 @@ export const stickyHeadersUnresizedTable = {
 	],
 };
 
-export const stickyHeadersUnresizedTableNumberedColumn = {
+export const stickyHeadersUnresizedTableNumberedColumn: {
+	version: number;
+	type: string;
+	content: (
+		| {
+				type: string;
+				content: {
+					type: string;
+					text: string;
+				}[];
+		  }
+		| {
+				type: string;
+				attrs: {
+					isNumberColumnEnabled: boolean;
+					layout: string;
+				};
+				content: {
+					type: string;
+					content: {
+						type: string;
+						attrs: {};
+						content: {
+							type: string;
+							content: {
+								type: string;
+								text: string;
+								marks: {
+									type: string;
+								}[];
+							}[];
+						}[];
+					}[];
+				}[];
+		  }
+	)[];
+} = {
 	version: 1,
 	type: 'doc',
 	content: [
@@ -6533,7 +6900,43 @@ export const stickyHeadersUnresizedTableNumberedColumn = {
 	],
 };
 
-export const stickyHeadersUnresizedTableWithoutHeaderRow = {
+export const stickyHeadersUnresizedTableWithoutHeaderRow: {
+	version: number;
+	type: string;
+	content: (
+		| {
+				type: string;
+				content: {
+					type: string;
+					text: string;
+				}[];
+		  }
+		| {
+				type: string;
+				attrs: {
+					isNumberColumnEnabled: boolean;
+					layout: string;
+				};
+				content: {
+					type: string;
+					content: {
+						type: string;
+						attrs: {};
+						content: {
+							type: string;
+							content: {
+								type: string;
+								text: string;
+								marks: {
+									type: string;
+								}[];
+							}[];
+						}[];
+					}[];
+				}[];
+		  }
+	)[];
+} = {
 	version: 1,
 	type: 'doc',
 	content: [
@@ -6665,7 +7068,43 @@ export const stickyHeadersUnresizedTableWithoutHeaderRow = {
 	],
 };
 
-export const stickyHeadersRowWithOnlyHeader = {
+export const stickyHeadersRowWithOnlyHeader: {
+	version: number;
+	type: string;
+	content: (
+		| {
+				type: string;
+				content: {
+					type: string;
+					text: string;
+				}[];
+		  }
+		| {
+				type: string;
+				attrs: {
+					isNumberColumnEnabled: boolean;
+					layout: string;
+				};
+				content: {
+					type: string;
+					content: {
+						type: string;
+						attrs: {};
+						content: {
+							type: string;
+							content: {
+								type: string;
+								text: string;
+								marks: {
+									type: string;
+								}[];
+							}[];
+						}[];
+					}[];
+				}[];
+		  }
+	)[];
+} = {
 	version: 1,
 	type: 'doc',
 	content: [
@@ -6727,7 +7166,43 @@ export const stickyHeadersRowWithOnlyHeader = {
 	],
 };
 
-export const stickyHeadersRowWithOnlyNonHeader = {
+export const stickyHeadersRowWithOnlyNonHeader: {
+	version: number;
+	type: string;
+	content: (
+		| {
+				type: string;
+				content: {
+					type: string;
+					text: string;
+				}[];
+		  }
+		| {
+				type: string;
+				attrs: {
+					isNumberColumnEnabled: boolean;
+					layout: string;
+				};
+				content: {
+					type: string;
+					content: {
+						type: string;
+						attrs: {};
+						content: {
+							type: string;
+							content: {
+								type: string;
+								text: string;
+								marks: {
+									type: string;
+								}[];
+							}[];
+						}[];
+					}[];
+				}[];
+		  }
+	)[];
+} = {
 	version: 1,
 	type: 'doc',
 	content: [
@@ -6789,7 +7264,72 @@ export const stickyHeadersRowWithOnlyNonHeader = {
 	],
 };
 
-export const stickyHeadersRowWithResizedColumns = {
+export const stickyHeadersRowWithResizedColumns: {
+	version: number;
+	type: string;
+	content: (
+		| {
+				type: string;
+				content: {
+					type: string;
+					text: string;
+				}[];
+		  }
+		| {
+				type: string;
+				attrs: {
+					isNumberColumnEnabled: boolean;
+					layout: string;
+				};
+				content: {
+					type: string;
+					content: (
+						| {
+								type: string;
+								attrs: {
+									colwidth: number[];
+								};
+								content: {
+									type: string;
+									content: {
+										type: string;
+										text: string;
+										marks: {
+											type: string;
+										}[];
+									}[];
+								}[];
+						  }
+						| {
+								type: string;
+								attrs: {
+									colwidth: number[];
+								};
+								content: {
+									type: string;
+									content: (
+										| {
+												type: string;
+												attrs: {
+													shortName: string;
+													id: string;
+													text: string;
+												};
+												text?: undefined;
+										  }
+										| {
+												type: string;
+												text: string;
+												attrs?: undefined;
+										  }
+									)[];
+								}[];
+						  }
+					)[];
+				}[];
+		  }
+	)[];
+} = {
 	version: 1,
 	type: 'doc',
 	content: [
@@ -6926,7 +7466,43 @@ export const stickyHeadersRowWithResizedColumns = {
 	],
 };
 
-export const stickyHeadersBrokenOutTableNoResize = {
+export const stickyHeadersBrokenOutTableNoResize: {
+	version: number;
+	type: string;
+	content: (
+		| {
+				type: string;
+				content: {
+					type: string;
+					text: string;
+				}[];
+		  }
+		| {
+				type: string;
+				attrs: {
+					isNumberColumnEnabled: boolean;
+					layout: string;
+				};
+				content: {
+					type: string;
+					content: {
+						type: string;
+						attrs: {};
+						content: {
+							type: string;
+							content: {
+								type: string;
+								text: string;
+								marks: {
+									type: string;
+								}[];
+							}[];
+						}[];
+					}[];
+				}[];
+		  }
+	)[];
+} = {
 	version: 1,
 	type: 'doc',
 	content: [
@@ -7068,7 +7644,50 @@ export const stickyHeadersBrokenOutTableNoResize = {
 	],
 };
 
-export const stickyHeadersBrokenOutTableResized = {
+export const stickyHeadersBrokenOutTableResized: {
+	version: number;
+	type: string;
+	content: (
+		| {
+				type: string;
+				content: {
+					type: string;
+					text: string;
+				}[];
+		  }
+		| {
+				type: string;
+				attrs: {
+					isNumberColumnEnabled: boolean;
+					layout: string;
+				};
+				content: {
+					type: string;
+					content: {
+						type: string;
+						attrs: {};
+						content: {
+							type: string;
+							content: (
+								| {
+										type: string;
+										text: string;
+										marks: {
+											type: string;
+										}[];
+								  }
+								| {
+										type: string;
+										text: string;
+										marks?: undefined;
+								  }
+							)[];
+						}[];
+					}[];
+				}[];
+		  }
+	)[];
+} = {
 	version: 1,
 	type: 'doc',
 	content: [
@@ -7224,7 +7843,60 @@ export const stickyHeadersBrokenOutTableResized = {
 	],
 };
 
-export const stickyHeadersBrokenOutTableOverflowing = {
+export const stickyHeadersBrokenOutTableOverflowing: {
+	version: number;
+	type: string;
+	content: (
+		| {
+				type: string;
+				content: {
+					type: string;
+					text: string;
+				}[];
+		  }
+		| {
+				type: string;
+				attrs: {
+					isNumberColumnEnabled: boolean;
+					layout: string;
+				};
+				content: {
+					type: string;
+					content: (
+						| {
+								type: string;
+								attrs: {
+									colwidth: number[];
+								};
+								content: {
+									type: string;
+									content: {
+										type: string;
+										text: string;
+										marks: {
+											type: string;
+										}[];
+									}[];
+								}[];
+						  }
+						| {
+								type: string;
+								attrs: {
+									colwidth: number[];
+								};
+								content: {
+									type: string;
+									content: {
+										type: string;
+										text: string;
+									}[];
+								}[];
+						  }
+					)[];
+				}[];
+		  }
+	)[];
+} = {
 	version: 1,
 	type: 'doc',
 	content: [
@@ -8505,7 +9177,60 @@ export const stickyHeadersBrokenOutTableOverflowing = {
 	],
 };
 
-export const stickyHeadersTableOverflowing = {
+export const stickyHeadersTableOverflowing: {
+	version: number;
+	type: string;
+	content: (
+		| {
+				type: string;
+				content: {
+					type: string;
+					text: string;
+				}[];
+		  }
+		| {
+				type: string;
+				attrs: {
+					isNumberColumnEnabled: boolean;
+					layout: string;
+				};
+				content: {
+					type: string;
+					content: (
+						| {
+								type: string;
+								attrs: {
+									colwidth: number[];
+								};
+								content: {
+									type: string;
+									content: {
+										type: string;
+										text: string;
+										marks: {
+											type: string;
+										}[];
+									}[];
+								}[];
+						  }
+						| {
+								type: string;
+								attrs: {
+									colwidth: number[];
+								};
+								content: {
+									type: string;
+									content: {
+										type: string;
+										text: string;
+									}[];
+								}[];
+						  }
+					)[];
+				}[];
+		  }
+	)[];
+} = {
 	version: 1,
 	type: 'doc',
 	content: [
@@ -9733,7 +10458,60 @@ export const stickyHeadersTableOverflowing = {
 	],
 };
 
-export const stickyHeadersTableOverflowingNumberedColumn = {
+export const stickyHeadersTableOverflowingNumberedColumn: {
+	version: number;
+	type: string;
+	content: (
+		| {
+				type: string;
+				content: {
+					type: string;
+					text: string;
+				}[];
+		  }
+		| {
+				type: string;
+				attrs: {
+					isNumberColumnEnabled: boolean;
+					layout: string;
+				};
+				content: {
+					type: string;
+					content: (
+						| {
+								type: string;
+								attrs: {
+									colwidth: number[];
+								};
+								content: {
+									type: string;
+									content: {
+										type: string;
+										text: string;
+										marks: {
+											type: string;
+										}[];
+									}[];
+								}[];
+						  }
+						| {
+								type: string;
+								attrs: {
+									colwidth: number[];
+								};
+								content: {
+									type: string;
+									content: {
+										type: string;
+										text: string;
+									}[];
+								}[];
+						  }
+					)[];
+				}[];
+		  }
+	)[];
+} = {
 	version: 1,
 	type: 'doc',
 	content: [
@@ -11019,7 +11797,61 @@ export const stickyHeadersTableOverflowingNumberedColumn = {
 	],
 };
 
-export const stickyHeadersTableInsideLayout = {
+export const stickyHeadersTableInsideLayout: {
+	version: number;
+	type: string;
+	content: (
+		| {
+				type: string;
+				content: {
+					type: string;
+					text: string;
+				}[];
+		  }
+		| {
+				type: string;
+				content: (
+					| {
+							type: string;
+							attrs: {
+								width: number;
+							};
+							content: {
+								type: string;
+								attrs: {
+									isNumberColumnEnabled: boolean;
+									layout: string;
+								};
+								content: {
+									type: string;
+									content: {
+										type: string;
+										attrs: {};
+										content: {
+											type: string;
+											content: never[];
+										}[];
+									}[];
+								}[];
+							}[];
+					  }
+					| {
+							type: string;
+							attrs: {
+								width: number;
+							};
+							content: {
+								type: string;
+								content: {
+									type: string;
+									text: string;
+								}[];
+							}[];
+					  }
+				)[];
+		  }
+	)[];
+} = {
 	version: 1,
 	type: 'doc',
 	content: [
@@ -11396,7 +12228,67 @@ export const stickyHeadersTableInsideLayout = {
 	],
 };
 
-export const stickyHeadersTableInsideLayoutBrokenOut = {
+export const stickyHeadersTableInsideLayoutBrokenOut: {
+	version: number;
+	type: string;
+	content: (
+		| {
+				type: string;
+				content: {
+					type: string;
+					text: string;
+				}[];
+		  }
+		| {
+				type: string;
+				content: (
+					| {
+							type: string;
+							attrs: {
+								width: number;
+							};
+							content: {
+								type: string;
+								attrs: {
+									isNumberColumnEnabled: boolean;
+									layout: string;
+								};
+								content: {
+									type: string;
+									content: {
+										type: string;
+										attrs: {};
+										content: {
+											type: string;
+											content: never[];
+										}[];
+									}[];
+								}[];
+							}[];
+					  }
+					| {
+							type: string;
+							attrs: {
+								width: number;
+							};
+							content: {
+								type: string;
+								content: {
+									type: string;
+									text: string;
+								}[];
+							}[];
+					  }
+				)[];
+				marks: {
+					type: string;
+					attrs: {
+						mode: string;
+					};
+				}[];
+		  }
+	)[];
+} = {
 	version: 1,
 	type: 'doc',
 	content: [
@@ -11781,7 +12673,43 @@ export const stickyHeadersTableInsideLayoutBrokenOut = {
 	],
 };
 
-export const stickyHeadersTableMultipleHeaderRows = {
+export const stickyHeadersTableMultipleHeaderRows: {
+	version: number;
+	type: string;
+	content: (
+		| {
+				type: string;
+				content: {
+					type: string;
+					text: string;
+				}[];
+		  }
+		| {
+				type: string;
+				attrs: {
+					isNumberColumnEnabled: boolean;
+					layout: string;
+				};
+				content: {
+					type: string;
+					content: {
+						type: string;
+						attrs: {};
+						content: {
+							type: string;
+							content: {
+								type: string;
+								text: string;
+								marks: {
+									type: string;
+								}[];
+							}[];
+						}[];
+					}[];
+				}[];
+		  }
+	)[];
+} = {
 	version: 1,
 	type: 'doc',
 	content: [
@@ -12173,7 +13101,104 @@ export const stickyHeadersTableMultipleHeaderRows = {
 	],
 };
 
-export const stickyHeadersTableMergedRows = {
+export const stickyHeadersTableMergedRows: {
+	version: number;
+	type: string;
+	content: (
+		| {
+				type: string;
+				content: {
+					type: string;
+					text: string;
+				}[];
+		  }
+		| {
+				type: string;
+				attrs: {
+					isNumberColumnEnabled: boolean;
+					layout: string;
+				};
+				content: (
+					| {
+							type: string;
+							content: (
+								| {
+										type: string;
+										attrs: {
+											rowspan: number;
+										};
+										content: {
+											type: string;
+											content: {
+												type: string;
+												text: string;
+												marks: {
+													type: string;
+												}[];
+											}[];
+										}[];
+								  }
+								| {
+										type: string;
+										attrs: {
+											rowspan?: undefined;
+										};
+										content: {
+											type: string;
+											content: {
+												type: string;
+												text: string;
+												marks: {
+													type: string;
+												}[];
+											}[];
+										}[];
+								  }
+							)[];
+					  }
+					| {
+							type: string;
+							content: (
+								| {
+										type: string;
+										attrs: {
+											colspan?: undefined;
+											rowspan?: undefined;
+										};
+										content: {
+											type: string;
+											content: {
+												type: string;
+												text: string;
+												marks: {
+													type: string;
+												}[];
+											}[];
+										}[];
+								  }
+								| {
+										type: string;
+										attrs: {
+											colspan: number;
+											rowspan: number;
+										};
+										content: {
+											type: string;
+											content: {
+												type: string;
+												text: string;
+												marks: {
+													type: string;
+												}[];
+											}[];
+										}[];
+								  }
+							)[];
+					  }
+				)[];
+		  }
+	)[];
+} = {
 	version: 1,
 	type: 'doc',
 	content: [

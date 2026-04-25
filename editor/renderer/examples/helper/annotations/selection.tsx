@@ -6,8 +6,8 @@ import Button from '@atlaskit/button/new';
 import type { InlineCommentSelectionComponentProps } from '@atlaskit/editor-common/types';
 import { Popup } from '@atlaskit/editor-common/ui';
 import AddCommentIcon from '@atlaskit/icon/core/comment';
-// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
-import { css, jsx } from '@emotion/react';
+/* eslint-disable @typescript-eslint/consistent-type-imports, @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766; jsx required at runtime for @jsxRuntime classic */
+import { jsx, css } from '@emotion/react';
 import React from 'react';
 // eslint-disable-next-line @atlaskit/platform/prefer-crypto-random-uuid -- Use crypto.randomUUID instead
 import uuid from 'uuid/v4';
@@ -152,6 +152,7 @@ const Component = (props: InlineCommentSelectionComponentProps & { setNewDocumen
 };
 
 export const ExampleSelectionInlineComponent =
-	(setNewDocument: Callback) => (props: InlineCommentSelectionComponentProps) => {
+	(setNewDocument: Callback) =>
+	(props: InlineCommentSelectionComponentProps): jsx.JSX.Element => {
 		return <Component setNewDocument={setNewDocument} {...props} />;
 	};

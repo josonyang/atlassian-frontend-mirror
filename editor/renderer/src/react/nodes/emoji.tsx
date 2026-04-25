@@ -8,7 +8,7 @@ import { fg } from '@atlaskit/platform-feature-flags';
 import type { EmojiResourceConfig } from '@atlaskit/emoji/resource';
 import { ResourcedEmoji } from '@atlaskit/emoji/element';
 import { PureComponent, memo } from 'react';
-import type { FC } from 'react';
+import type { FC, NamedExoticComponent } from 'react';
 import { ProviderFactory, WithProviders } from '@atlaskit/editor-common/provider-factory';
 import type { Providers } from '@atlaskit/editor-common/provider-factory';
 import type { EmojiId } from '@atlaskit/emoji/types';
@@ -25,7 +25,7 @@ export interface EmojiProps extends EmojiId, EmojiAttributes, MarkDataAttributes
 }
 
 // eslint-disable-next-line @repo/internal/react/no-class-components
-class EmojiNode extends PureComponent<EmojiProps, Object> {
+class EmojiNode extends PureComponent<EmojiProps, object> {
 	static displayName = 'EmojiNode';
 	static defaultProps = {
 		showTooltip: true,
@@ -134,4 +134,5 @@ export const EmojiItemComponent: FC<EmojiProps> = (props) => {
 	);
 };
 
-export default memo(EmojiItemComponent);
+const _default_1: NamedExoticComponent<EmojiProps> = memo(EmojiItemComponent);
+export default _default_1;

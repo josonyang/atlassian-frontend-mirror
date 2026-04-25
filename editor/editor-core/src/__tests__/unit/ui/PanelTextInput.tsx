@@ -113,10 +113,7 @@ describe('@atlaskit/editor-core/ui/PanelTextInput', () => {
 		beforeEach(() => {
 			onUndoSpy = jest.fn();
 			onRedoSpy = jest.fn();
-			getBrowserInfoSpy = jest.spyOn(
-				require('@atlaskit/editor-common/browser'),
-				'getBrowserInfo',
-			);
+			getBrowserInfoSpy = jest.spyOn(require('@atlaskit/editor-common/browser'), 'getBrowserInfo');
 			panel = render(<PanelTextInput onUndo={onUndoSpy} onRedo={onRedoSpy} />);
 		});
 

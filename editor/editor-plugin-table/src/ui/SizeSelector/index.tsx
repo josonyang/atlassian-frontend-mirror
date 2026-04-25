@@ -4,7 +4,7 @@
  */
 import { useCallback } from 'react';
 
-// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled
+/* eslint-disable @typescript-eslint/consistent-type-imports, @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766; jsx required at runtime for @jsxRuntime classic */
 import { jsx } from '@emotion/react';
 
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
@@ -30,7 +30,7 @@ export const SizeSelector = ({
 	popupsMountPoint,
 	popupsBoundariesElement,
 	popupsScrollableElement,
-}: SizeSelectorProps) => {
+}: SizeSelectorProps): jsx.JSX.Element => {
 	const closeSelectorPopup = useCallback(() => {
 		api?.core.actions.execute(({ tr }) => {
 			tr.setMeta(pluginKey, {

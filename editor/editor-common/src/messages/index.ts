@@ -50,6 +50,7 @@ export { syncBlockMessages } from './syncBlock';
 export { limitedModeMessages } from './limited-mode';
 export { companyHubTextColorMessages } from './company-hub-text-color';
 export { nativeEmbedToolbarMessages } from './native-embed-toolbar';
+export { markdownModeMessages } from './markdown-mode';
 
 const _default_1: {
 	alignImageCenter: {

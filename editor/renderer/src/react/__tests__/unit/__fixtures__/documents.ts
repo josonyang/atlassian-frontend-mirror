@@ -1,4 +1,21 @@
-export const simpleDocument = {
+export const simpleDocument: {
+	version: number;
+	type: string;
+	content: {
+		type: string;
+		content: {
+			type: string;
+			text: string;
+			marks: {
+				type: string;
+				attrs: {
+					id: string;
+					annotationType: string;
+				};
+			}[];
+		}[];
+	}[];
+} = {
 	version: 1,
 	type: 'doc',
 	content: [
@@ -69,7 +86,398 @@ export const simpleDocument = {
 		},
 	],
 };
-export const complexDocument = {
+export const complexDocument: {
+	type: string;
+	content: (
+		| {
+				type: string;
+				attrs: {
+					level: number;
+					language?: undefined;
+					uniqueId?: undefined;
+					isNumberColumnEnabled?: undefined;
+					layout?: undefined;
+					__autoSize?: undefined;
+				};
+				content: {
+					type: string;
+					text: string;
+				}[];
+		  }
+		| {
+				type: string;
+				content: (
+					| {
+							type: string;
+							text: string;
+							attrs?: undefined;
+					  }
+					| {
+							type: string;
+							attrs: {
+								text: string;
+								color: string;
+								localId: string;
+								style: string;
+							};
+							text?: undefined;
+					  }
+				)[];
+				attrs?: undefined;
+		  }
+		| {
+				type: string;
+				content: (
+					| {
+							type: string;
+							attrs: {
+								shortName: string;
+								id: string;
+								text: string;
+							};
+							text?: undefined;
+					  }
+					| {
+							type: string;
+							text: string;
+							attrs?: undefined;
+					  }
+				)[];
+				attrs?: undefined;
+		  }
+		| {
+				type: string;
+				attrs: {
+					language: null;
+					uniqueId: null;
+					level?: undefined;
+					isNumberColumnEnabled?: undefined;
+					layout?: undefined;
+					__autoSize?: undefined;
+				};
+				content: {
+					type: string;
+					text: string;
+				}[];
+		  }
+		| {
+				type: string;
+				content: (
+					| {
+							type: string;
+							attrs: {
+								id: string;
+								text: string;
+								accessLevel: string;
+								userType: null;
+							};
+							text?: undefined;
+					  }
+					| {
+							type: string;
+							text: string;
+							attrs?: undefined;
+					  }
+				)[];
+				attrs?: undefined;
+		  }
+		| {
+				type: string;
+				content: {
+					type: string;
+					marks: {
+						type: string;
+						attrs: {
+							href: string;
+							__confluenceMetadata: null;
+						};
+					}[];
+					text: string;
+				}[];
+				attrs?: undefined;
+		  }
+		| {
+				type: string;
+				content: (
+					| {
+							type: string;
+							text: string;
+							marks?: undefined;
+					  }
+					| {
+							type: string;
+							marks: {
+								type: string;
+								attrs: {
+									id: string;
+									annotationType: string;
+								};
+							}[];
+							text: string;
+					  }
+				)[];
+				attrs?: undefined;
+		  }
+		| {
+				type: string;
+				content: {
+					type: string;
+					marks: (
+						| {
+								type: string;
+								attrs?: undefined;
+						  }
+						| {
+								type: string;
+								attrs: {
+									id: string;
+									annotationType: string;
+								};
+						  }
+					)[];
+					text: string;
+				}[];
+				attrs?: undefined;
+		  }
+		| {
+				type: string;
+				content: (
+					| {
+							type: string;
+							content: {
+								type: string;
+								marks: (
+									| {
+											type: string;
+											attrs?: undefined;
+									  }
+									| {
+											type: string;
+											attrs: {
+												id: string;
+												annotationType: string;
+											};
+									  }
+								)[];
+								text: string;
+							}[];
+					  }
+					| {
+							type: string;
+							content: {
+								type: string;
+								text: string;
+							}[];
+					  }
+				)[];
+				attrs?: undefined;
+		  }
+		| {
+				type: string;
+				content: (
+					| {
+							type: string;
+							content: {
+								type: string;
+								content: {
+									type: string;
+									marks: (
+										| {
+												type: string;
+												attrs?: undefined;
+										  }
+										| {
+												type: string;
+												attrs: {
+													id: string;
+													annotationType: string;
+												};
+										  }
+									)[];
+									text: string;
+								}[];
+							}[];
+					  }
+					| {
+							type: string;
+							content: {
+								type: string;
+								content: {
+									type: string;
+									text: string;
+								}[];
+							}[];
+					  }
+				)[];
+				attrs?: undefined;
+		  }
+		| {
+				type: string;
+				attrs: {
+					isNumberColumnEnabled: boolean;
+					layout: string;
+					__autoSize: boolean;
+					level?: undefined;
+					language?: undefined;
+					uniqueId?: undefined;
+				};
+				content: (
+					| {
+							type: string;
+							content: {
+								type: string;
+								attrs: {
+									colspan: number;
+									rowspan: number;
+									colwidth: null;
+									background: null;
+								};
+								content: {
+									type: string;
+									content: {
+										type: string;
+										marks: (
+											| {
+													type: string;
+													attrs?: undefined;
+											  }
+											| {
+													type: string;
+													attrs: {
+														id: string;
+														annotationType: string;
+													};
+											  }
+										)[];
+										text: string;
+									}[];
+								}[];
+							}[];
+					  }
+					| {
+							type: string;
+							content: {
+								type: string;
+								attrs: {
+									colspan: number;
+									rowspan: number;
+									colwidth: null;
+									background: null;
+								};
+								content: {
+									type: string;
+									content: {
+										type: string;
+										text: string;
+									}[];
+								}[];
+							}[];
+					  }
+				)[];
+		  }
+		| {
+				type: string;
+				attrs: {
+					isNumberColumnEnabled: boolean;
+					layout: string;
+					__autoSize: boolean;
+					level?: undefined;
+					language?: undefined;
+					uniqueId?: undefined;
+				};
+				content: (
+					| {
+							type: string;
+							content: (
+								| {
+										type: string;
+										attrs: {
+											colspan: number;
+											rowspan: number;
+											colwidth: number[];
+											background: null;
+										};
+										content: {
+											type: string;
+										}[];
+								  }
+								| {
+										type: string;
+										attrs: {
+											colspan: number;
+											rowspan: number;
+											colwidth: number[];
+											background: null;
+										};
+										content: {
+											type: string;
+											content: {
+												type: string;
+												marks: {
+													type: string;
+												}[];
+												text: string;
+											}[];
+										}[];
+								  }
+							)[];
+					  }
+					| {
+							type: string;
+							content: (
+								| {
+										type: string;
+										attrs: {
+											colspan: number;
+											rowspan: number;
+											colwidth: number[];
+											background: null;
+										};
+										content: {
+											type: string;
+											content: {
+												type: string;
+												marks: {
+													type: string;
+												}[];
+												text: string;
+											}[];
+										}[];
+								  }
+								| {
+										type: string;
+										attrs: {
+											colspan: number;
+											rowspan: number;
+											colwidth: number[];
+											background: null;
+										};
+										content: {
+											type: string;
+											content: {
+												type: string;
+												marks: {
+													type: string;
+													attrs: {
+														id: string;
+														annotationType: string;
+													};
+												}[];
+												text: string;
+											}[];
+										}[];
+								  }
+							)[];
+					  }
+				)[];
+		  }
+		| {
+				type: string;
+				attrs?: undefined;
+				content?: undefined;
+		  }
+	)[];
+} = {
 	type: 'doc',
 	content: [
 		{
@@ -1066,7 +1474,97 @@ export const complexDocument = {
 	],
 };
 
-export const nestedBulletList = {
+export const nestedBulletList: {
+	type: string;
+	content: {
+		type: string;
+		content: {
+			type: string;
+			content: (
+				| {
+						type: string;
+						content: {
+							type: string;
+							text: string;
+						}[];
+				  }
+				| {
+						type: string;
+						content: {
+							type: string;
+							content: (
+								| {
+										type: string;
+										content: {
+											type: string;
+											text: string;
+										}[];
+								  }
+								| {
+										type: string;
+										content: {
+											type: string;
+											content: (
+												| {
+														type: string;
+														content: {
+															type: string;
+															text: string;
+														}[];
+												  }
+												| {
+														type: string;
+														content: {
+															type: string;
+															content: (
+																| {
+																		type: string;
+																		content: {
+																			type: string;
+																			text: string;
+																		}[];
+																  }
+																| {
+																		type: string;
+																		content: {
+																			type: string;
+																			content: (
+																				| {
+																						type: string;
+																						content: {
+																							type: string;
+																							text: string;
+																						}[];
+																				  }
+																				| {
+																						type: string;
+																						content: {
+																							type: string;
+																							content: {
+																								type: string;
+																								content: {
+																									type: string;
+																									text: string;
+																								}[];
+																							}[];
+																						}[];
+																				  }
+																			)[];
+																		}[];
+																  }
+															)[];
+														}[];
+												  }
+											)[];
+										}[];
+								  }
+							)[];
+						}[];
+				  }
+			)[];
+		}[];
+	}[];
+} = {
 	type: 'doc',
 	content: [
 		{
@@ -1186,7 +1684,97 @@ export const nestedBulletList = {
 	],
 };
 
-export const nestedOrderedList = {
+export const nestedOrderedList: {
+	type: string;
+	content: {
+		type: string;
+		content: {
+			type: string;
+			content: (
+				| {
+						type: string;
+						content: {
+							type: string;
+							text: string;
+						}[];
+				  }
+				| {
+						type: string;
+						content: {
+							type: string;
+							content: (
+								| {
+										type: string;
+										content: {
+											type: string;
+											text: string;
+										}[];
+								  }
+								| {
+										type: string;
+										content: {
+											type: string;
+											content: (
+												| {
+														type: string;
+														content: {
+															type: string;
+															text: string;
+														}[];
+												  }
+												| {
+														type: string;
+														content: {
+															type: string;
+															content: (
+																| {
+																		type: string;
+																		content: {
+																			type: string;
+																			text: string;
+																		}[];
+																  }
+																| {
+																		type: string;
+																		content: {
+																			type: string;
+																			content: (
+																				| {
+																						type: string;
+																						content: {
+																							type: string;
+																							text: string;
+																						}[];
+																				  }
+																				| {
+																						type: string;
+																						content: {
+																							type: string;
+																							content: {
+																								type: string;
+																								content: {
+																									type: string;
+																									text: string;
+																								}[];
+																							}[];
+																						}[];
+																				  }
+																			)[];
+																		}[];
+																  }
+															)[];
+														}[];
+												  }
+											)[];
+										}[];
+								  }
+							)[];
+						}[];
+				  }
+			)[];
+		}[];
+	}[];
+} = {
 	type: 'doc',
 	content: [
 		{
@@ -1306,7 +1894,97 @@ export const nestedOrderedList = {
 	],
 };
 
-export const nestedBulletAndOrderedList = {
+export const nestedBulletAndOrderedList: {
+	type: string;
+	content: {
+		type: string;
+		content: {
+			type: string;
+			content: (
+				| {
+						type: string;
+						content: {
+							type: string;
+							text: string;
+						}[];
+				  }
+				| {
+						type: string;
+						content: {
+							type: string;
+							content: (
+								| {
+										type: string;
+										content: {
+											type: string;
+											text: string;
+										}[];
+								  }
+								| {
+										type: string;
+										content: {
+											type: string;
+											content: (
+												| {
+														type: string;
+														content: {
+															type: string;
+															text: string;
+														}[];
+												  }
+												| {
+														type: string;
+														content: {
+															type: string;
+															content: (
+																| {
+																		type: string;
+																		content: {
+																			type: string;
+																			text: string;
+																		}[];
+																  }
+																| {
+																		type: string;
+																		content: {
+																			type: string;
+																			content: (
+																				| {
+																						type: string;
+																						content: {
+																							type: string;
+																							text: string;
+																						}[];
+																				  }
+																				| {
+																						type: string;
+																						content: {
+																							type: string;
+																							content: {
+																								type: string;
+																								content: {
+																									type: string;
+																									text: string;
+																								}[];
+																							}[];
+																						}[];
+																				  }
+																			)[];
+																		}[];
+																  }
+															)[];
+														}[];
+												  }
+											)[];
+										}[];
+								  }
+							)[];
+						}[];
+				  }
+			)[];
+		}[];
+	}[];
+} = {
 	type: 'doc',
 	content: [
 		{

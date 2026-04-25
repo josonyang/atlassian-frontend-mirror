@@ -1,6 +1,5 @@
 import React from 'react';
 
-
 import { SmartCardProvider } from '@atlaskit/link-provider';
 import { useRovoPostMessageToPubsub } from '@atlaskit/rovo-triggers/post-message-to-pubsub';
 import type { ChatNewPayload } from '@atlaskit/rovo-triggers/types';

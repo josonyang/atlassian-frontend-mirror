@@ -1,7 +1,6 @@
 import { setGlobalTheme } from '@atlaskit/tokens';
 import { renderHook } from '@atlassian/testing-library';
 
-
 import { CONFLUENCE_EXTENSION_KEYS, useConfluencePageData } from '../useConfluencePageData';
 
 jest.mock('@atlaskit/tokens', () => ({

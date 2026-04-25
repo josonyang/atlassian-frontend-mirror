@@ -67,7 +67,11 @@ export default class EditorActions<T = any> implements EditorActionsOptions<T> {
 	private eventDispatcher?: EventDispatcher;
 	private listeners: Array<ContextUpdateHandler> = [];
 
-	static from<T>(view: EditorView, eventDispatcher: EventDispatcher, transformer?: Transformer<T>): EditorActions<T> {
+	static from<T>(
+		view: EditorView,
+		eventDispatcher: EventDispatcher,
+		transformer?: Transformer<T>,
+	): EditorActions<T> {
 		const editorActions = new EditorActions<T>();
 		editorActions._privateRegisterEditor(view, eventDispatcher, transformer);
 		return editorActions;
