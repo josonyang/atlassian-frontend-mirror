@@ -1,5 +1,12 @@
 # @atlaskit/editor-core
 
+## 219.1.6
+
+### Patch Changes
+
+- [`436af8c4665e1`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/436af8c4665e1) -
+  Enforce max width on table
+
 ## 219.1.5
 
 ### Patch Changes

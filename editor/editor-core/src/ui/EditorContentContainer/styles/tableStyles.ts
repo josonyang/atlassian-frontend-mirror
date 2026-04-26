@@ -108,9 +108,20 @@ export const tableContentModeStyles: SerializedStyles = css({
 		width: 'max-content !important',
 	},
 
+	// Reset the extended hover zone padding for content-mode tables so it doesn't
+	// inflate the max-content width of parent elements (resizer-container, wrapper).
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors
+	'.resizer-item:has(table[data-initial-width-mode="content"]) > .resizer-hover-zone.resizer-is-extended':
+		{
+			padding: 'unset',
+			left: 'unset',
+		},
+
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
 	'.ProseMirror .pm-table-wrapper table[data-initial-width-mode="content"]': {
 		tableLayout: 'auto',
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-important-styles
+		width: 'max-content !important',
 	},
 
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors

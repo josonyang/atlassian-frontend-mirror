@@ -1,5 +1,12 @@
 # @atlaskit/renderer
 
+## 130.2.14
+
+### Patch Changes
+
+- [`436af8c4665e1`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/436af8c4665e1) -
+  Enforce max width on table
+
 ## 130.2.13
 
 ### Patch Changes

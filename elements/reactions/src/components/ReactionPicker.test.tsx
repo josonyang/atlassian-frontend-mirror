@@ -1,4 +1,3 @@
-import { skipAutoA11yFile } from '@atlassian/a11y-jest-testing';
 import React, { useState } from 'react';
 import { type Stub, replaceRaf } from 'raf-stub';
 import { screen, waitFor } from '@testing-library/react';
@@ -24,14 +23,13 @@ jest.mock('../hooks/useDelayedState', () => ({
 	useDelayedState: (defaultState: any) => useState(defaultState),
 }));
 
+jest.mock('@atlaskit/platform-feature-flags', () => ({
+	fg: jest.fn().mockReturnValue(false),
+}));
+
 // override requestAnimationFrame letting us execute it when we need
 replaceRaf();
 const requestAnimationFrame = window.requestAnimationFrame as unknown as Stub;
-
-// This file exposes one or more accessibility violations. Testing is currently skipped but violations need to
-// be fixed in a timely manner or result in escalation. Once all violations have been fixed, you can remove
-// the next line and associated import. For more information, see go/afm-a11y-tooling:jest
-skipAutoA11yFile();
 
 // TODO: fix warnings of this test
 // the focus involve requestAnimationFrame, better to be stubbed
@@ -233,6 +231,63 @@ describe('@atlaskit/reactions/components/ReactionPicker', () => {
 
 		const listWrapper = await screen.getByTestId(RENDER_LIST_ITEM_WRAPPER_TESTID);
 		expect(listWrapper).toBeInTheDocument();
+	});
+
+	describe('aria-owns (a11y-fix-reaction-picker-aria-owns feature gate)', () => {
+		const { fg } = require('@atlaskit/platform-feature-flags');
+
+		it('should NOT add aria-owns to trigger button when feature gate is OFF', async () => {
+			fg.mockReturnValue(false);
+			renderWithIntl(renderPicker());
+			const triggerButton = await screen.getByTestId(RENDER_TRIGGER_BUTTON_TESTID);
+			expect(triggerButton).not.toHaveAttribute('aria-owns');
+
+			// open the picker
+			await user.click(triggerButton);
+			await screen.findAllByTestId(RENDER_BUTTON_TESTID);
+
+			// should still not have aria-owns when gate is off
+			expect(triggerButton).not.toHaveAttribute('aria-owns');
+		});
+
+		it('should NOT add aria-owns to trigger button when picker is closed and feature gate is ON', async () => {
+			fg.mockReturnValue(true);
+			renderWithIntl(renderPicker());
+			const triggerButton = await screen.getByTestId(RENDER_TRIGGER_BUTTON_TESTID);
+			// picker is closed initially
+			expect(triggerButton).not.toHaveAttribute('aria-owns');
+		});
+
+		it('should add aria-owns to trigger button when picker is open and feature gate is ON', async () => {
+			fg.mockReturnValue(true);
+			renderWithIntl(renderPicker());
+			const triggerButton = await screen.getByTestId(RENDER_TRIGGER_BUTTON_TESTID);
+
+			// open the picker
+			await user.click(triggerButton);
+			await screen.findAllByTestId(RENDER_BUTTON_TESTID);
+
+			// aria-owns should point to the picker panel id
+			expect(triggerButton).toHaveAttribute('aria-owns', 'emoji-picker');
+		});
+
+		it('should remove aria-owns from trigger button when picker is closed after being opened, feature gate ON', async () => {
+			fg.mockReturnValue(true);
+			renderWithIntl(renderPicker());
+			const triggerButton = await screen.getByTestId(RENDER_TRIGGER_BUTTON_TESTID);
+
+			// open the picker
+			await user.click(triggerButton);
+			await screen.findAllByTestId(RENDER_BUTTON_TESTID);
+			expect(triggerButton).toHaveAttribute('aria-owns', 'emoji-picker');
+
+			// close the picker
+			await user.click(triggerButton);
+			await waitFor(() => {
+				expect(screen.queryByTestId(RENDER_REACTIONPICKERPANEL_TESTID)).not.toBeInTheDocument();
+			});
+			expect(triggerButton).not.toHaveAttribute('aria-owns');
+		});
 	});
 });
 

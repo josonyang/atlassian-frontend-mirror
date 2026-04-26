@@ -712,29 +712,32 @@ export class TableContainer extends React.Component<
 							data-testid="sticky-scrollbar-sentinel-top"
 						/>
 					)}
-					{stickyHeaders && tableNode && tableCanBeSticky(tableNode, children) && (
-						<StickyTable
-							isNumberColumnEnabled={isNumberColumnEnabled}
-							tableWidth="inherit"
-							renderWidth={0}
-							layout={layout}
-							handleRef={this.props.handleRef}
-							shadowClassNames={this.props.shadowClassNames}
-							top={this.stickyTop}
-							mode={stickyMode}
-							innerRef={this.stickyWrapperRef}
-							wrapperWidth={this.state.wrapperWidth}
-							columnWidths={columnWidths}
-							rowHeight={this.state.headerRowHeight}
-							tableNode={tableNode}
-							rendererAppearance={rendererAppearance}
-							allowTableResizing={allowTableResizing}
-							fixTableSSRResizing
-							allowFixedColumnWidthOption={allowFixedColumnWidthOption}
-						>
-							{[children && children[0]]}
-						</StickyTable>
-					)}
+					{stickyHeaders &&
+						tableNode &&
+						!isContentModeTable &&
+						tableCanBeSticky(tableNode, children) && (
+							<StickyTable
+								isNumberColumnEnabled={isNumberColumnEnabled}
+								tableWidth="inherit"
+								renderWidth={0}
+								layout={layout}
+								handleRef={this.props.handleRef}
+								shadowClassNames={this.props.shadowClassNames}
+								top={this.stickyTop}
+								mode={stickyMode}
+								innerRef={this.stickyWrapperRef}
+								wrapperWidth={this.state.wrapperWidth}
+								columnWidths={columnWidths}
+								rowHeight={this.state.headerRowHeight}
+								tableNode={tableNode}
+								rendererAppearance={rendererAppearance}
+								allowTableResizing={allowTableResizing}
+								fixTableSSRResizing
+								allowFixedColumnWidthOption={allowFixedColumnWidthOption}
+							>
+								{[children && children[0]]}
+							</StickyTable>
+						)}
 					<div
 						// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
 						className={TableSharedCssClassName.TABLE_NODE_WRAPPER}

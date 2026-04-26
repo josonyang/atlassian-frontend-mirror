@@ -185,7 +185,7 @@ export const Selector = ({
 			{pickerQuickReactionEmojiIds ? pickerQuickReactionEmojiIds.map(renderEmoji) : null}
 			{showMore ? (
 				<Fragment>
-					<Box xcss={styles.separator} />
+					<Box as="li" xcss={styles.separator} />
 					<Reveal>
 						<ShowMore key="more" onClick={onMoreClick} />
 					</Reveal>

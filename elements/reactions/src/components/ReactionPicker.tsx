@@ -484,6 +484,9 @@ export const ReactionPicker: React.MemoExoticComponent<
 								ariaAttributes={{
 									'aria-expanded': isPopupTrayOpen,
 									'aria-controls': PICKER_CONTROL_ID,
+									...(isPopupTrayOpen && fg('a11y-fix-reaction-picker-aria-owns')
+										? { 'aria-owns': PICKER_CONTROL_ID }
+										: {}),
 								}}
 								ref={(node: HTMLButtonElement | null) => {
 									if (node && isPopupTrayOpen) {
