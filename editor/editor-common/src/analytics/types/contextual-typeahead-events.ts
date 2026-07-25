@@ -41,7 +41,7 @@ type ContextualTypeaheadAcceptedAEP = TrackAEP<
 
 type ContextualTypeaheadDismissedAttributes = {
 	completionSource: CompletionSource;
-	reason: 'escape' | 'blur';
+	reason: 'escape' | 'blur' | 'click';
 	surface: string;
 };
 

@@ -153,8 +153,8 @@ describe('Provider', () => {
 			const provider = createSocketIOCollabProvider(testProviderConfig);
 			expect(() => {
 				provider.setup({ getState: () => editorState });
-			}).toThrowErrorMatchingInlineSnapshot(
-				`"Cookies are not enabled. Please enable cookies to use collaborative editing."`,
+			}).toThrowError(
+				'Cookies are not enabled. Please enable cookies to use collaborative editing.',
 			);
 			expect(sendErrorEventSpy).toHaveBeenCalledWith(
 				new ProviderInitialisationError(
@@ -250,8 +250,8 @@ describe('Provider', () => {
 			const provider = createSocketIOCollabProvider(testProviderPresenceConfig);
 			expect(() => {
 				provider.setupForPresenceOnly(clientId);
-			}).toThrowErrorMatchingInlineSnapshot(
-				`"Cookies are not enabled. Please enable cookies to use collaborative editing."`,
+			}).toThrowError(
+				'Cookies are not enabled. Please enable cookies to use collaborative editing.',
 			);
 			expect(sendErrorEventSpy).toHaveBeenCalledWith(
 				new ProviderInitialisationError(

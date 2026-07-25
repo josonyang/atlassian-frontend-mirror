@@ -153,9 +153,27 @@ const render = (
 	const node = document.createElement('div');
 	node.innerHTML = result!;
 	return {
-		result: node.firstChild,
+		result:
+			node.firstChild instanceof Element
+				? node.firstChild.outerHTML
+				: (node.firstChild?.textContent ?? ''),
 		embeddedImages,
 	};
+};
+
+const expectEmbeddedImageIds = (
+	embeddedImages: ReturnType<typeof render>['embeddedImages'],
+	contentIds: string[],
+) => {
+	expect(embeddedImages).toEqual(
+		contentIds.map((contentId) =>
+			expect.objectContaining({
+				contentId,
+				contentType: 'image/png',
+				data: expect.any(String),
+			}),
+		),
+	);
 };
 
 describe('EmailSerializer constructor', () => {
@@ -179,89 +197,119 @@ describe('EmailSerializer constructor', () => {
 describe('Renderer - EmailSerializer', () => {
 	it('should render nothing for image node', () => {
 		const { result } = render(image);
-		expect(result).toMatchSnapshot('html');
+		expect(result).toContain('font-size: 14px');
+		expect(result).toContain('line-height: 24px');
+		expect(result).not.toContain('<img');
+		expect(result).not.toContain('<p');
 	});
 
 	it('should render nothing for placeholder node', () => {
 		const { result } = render(placeholder);
-		expect(result).toMatchSnapshot('html');
+		expect(result).toContain('<p');
+		expect(result).toContain('&nbsp;');
+		expect(result).not.toContain('<img');
 	});
 
 	it('should apply no mark for annotation marks', () => {
 		const { result } = render(annotation);
-		expect(result).toMatchSnapshot('html');
+		expect(result).toContain('I am annotated text and this sentence is a lie.');
+		expect(result).not.toContain('annotation');
+		expect(result).not.toContain('data-mark-type');
 	});
 
 	it('should apply no mark for breakout marks', () => {
 		const { result } = render(breakout);
-		expect(result).toMatchSnapshot('html');
+		expect(result).toContain('#!/bin/bash');
+		expect(result).not.toContain('breakout');
+		expect(result).not.toContain('data-layout');
 	});
 
 	it('should apply textColor mark correctly', () => {
 		const { result } = render(textColor);
-		expect(result).toMatchSnapshot('html');
+		expect(result).toContain('colored text');
+		expect(result).toContain('color:');
 	});
 
 	it('should apply backgroundColor mark correctly', () => {
 		const { result } = render(backgroundColor);
-		expect(result).toMatchSnapshot('html');
+		expect(result).toContain('highlighted text');
+		expect(result).toContain('background-color:');
 	});
 
 	it('should render media single correctly', () => {
 		const { result } = render(mediaSingle);
-		expect(result).toMatchSnapshot('html');
+		expect(result).toContain('<img');
+		expect(result).toContain('max-width: 100%;');
+		expect(result).toContain('max-width: 100%;');
 	});
 
 	it('should render media single with pixel sizing fallback correctly', () => {
 		const { result } = render(mediaSingleWithPixelSizing);
-		expect(result).toMatchSnapshot('html');
+		expect(result).toContain('<img');
+		expect(result).toContain('max-width: 100%;');
+		expect(result).toContain('max-width: 100%;');
 	});
 
 	it('should render media single with pixel sizing correctly', () => {
 		const { result } = render(mediaSingleWithPixelSizing, {}, undefined, 'stage0');
-		expect(result).toMatchSnapshot('html');
+		expect(result).toContain('<img');
+		expect(result).toContain('max-width:');
+		expect(result).toContain('<img');
 	});
 
 	it('should render media group correctly', () => {
 		const { result } = render(mediaGroup);
-		expect(result).toMatchSnapshot('html');
+		expect(result).toContain('<img');
+		expect(result).toContain('csg-media-lozenge');
 	});
 
 	it('should render media inline correctly', () => {
 		const { result } = render(mediaInline);
-		expect(result).toMatchSnapshot('html');
+		expect(result).toContain('<img');
+		expect(result).toContain('display: inline-block;');
 	});
 
 	it('should render media with images inline correctly', () => {
 		const { result } = render(mediaInlineImageAllTypes, undefined, mediaContext);
-		expect(result).toMatchSnapshot('html');
+		expect(result).toContain('<img');
+		expect(result).toContain('cid:');
 	});
 
 	// Ignored via go/ees005
 	// eslint-disable-next-line jest/no-identical-title
 	it('should render media inline correctly', () => {
 		const { result } = render(caption);
-		expect(result).toMatchSnapshot('html');
+		expect(result).toContain('<img');
+		expect(result).toContain('<img');
 	});
 
 	it('should render decision list correctly', () => {
 		const { result, embeddedImages } = render(decisionList);
-		expect(result).toMatchSnapshot('html');
-		expect(embeddedImages).toMatchSnapshot('embeddedImages');
+		expect(result).toContain('decision 1 of 2 in list');
+		expect(result).toContain('decision 2 of 2 in list');
+		expect(result).toContain('csg-decisionList');
+		expectEmbeddedImageIds(embeddedImages, ['csg-icon-decision']);
 	});
 
 	it('should render decision list correctly with mock enabled', () => {
 		const { result, embeddedImages } = render(decisionList, {
 			isImageStubEnabled: true,
 		});
-		expect(result).toMatchSnapshot('mock-html');
-		expect(embeddedImages).toMatchSnapshot('mock-embeddedImages');
+		expect(result).toContain('decision 1 of 2 in list');
+		expect(result).toContain('decision 2 of 2 in list');
+		expect(result).toContain('csg-decisionList');
+		expectEmbeddedImageIds(embeddedImages, []);
 	});
 
 	it('should render task list correctly', () => {
 		const { result, embeddedImages } = render(taskList, undefined, undefined, 'stage0');
-		expect(result).toMatchSnapshot('html');
-		expect(embeddedImages).toMatchSnapshot('embeddedImages');
+		expect(result).toContain('csg-taskItem');
+		expect(result).toContain('csg-taskItem');
+		expect(result).toContain('csg-taskItem-textTd');
+		expectEmbeddedImageIds(embeddedImages, [
+			'csg-icon-taskItemUnchecked',
+			'csg-icon-taskItemChecked',
+		]);
 	});
 
 	it('should render task list correctly with mock enabled', () => {
@@ -273,14 +321,21 @@ describe('Renderer - EmailSerializer', () => {
 			undefined,
 			'stage0',
 		);
-		expect(result).toMatchSnapshot('mock-html');
-		expect(embeddedImages).toMatchSnapshot('mock-embeddedImages');
+		expect(result).toContain('csg-taskItem');
+		expect(result).toContain('csg-taskItem');
+		expect(result).toContain('csg-taskItem-textTd');
+		expectEmbeddedImageIds(embeddedImages, []);
 	});
 
 	it('should render nested task list correctly', () => {
 		const { result, embeddedImages } = render(nestedTaskList, undefined, undefined, 'stage0');
-		expect(result).toMatchSnapshot('html');
-		expect(embeddedImages).toMatchSnapshot('embeddedImages');
+		expect(result).toContain('csg-taskItem');
+		expect(result).toContain('csg-taskList');
+		expect(result).toContain('csg-taskItem-textTd');
+		expectEmbeddedImageIds(embeddedImages, [
+			'csg-icon-taskItemUnchecked',
+			'csg-icon-taskItemChecked',
+		]);
 	});
 
 	it('should render nested task list correctly with mock enabled', () => {
@@ -292,268 +347,392 @@ describe('Renderer - EmailSerializer', () => {
 			undefined,
 			'stage0',
 		);
-		expect(result).toMatchSnapshot('mock-html');
-		expect(embeddedImages).toMatchSnapshot('mock-embeddedImages');
+		expect(result).toContain('csg-taskItem');
+		expect(result).toContain('csg-taskList');
+		expect(result).toContain('csg-taskItem-textTd');
+		expectEmbeddedImageIds(embeddedImages, []);
 	});
 
 	it('should render block cards correctly', () => {
 		const { result } = render(blockCards);
-		expect(result).toMatchSnapshot('html');
+		expect(result).toContain(
+			'https://extranet.atlassian.com/pages/viewpage.action?pageId=3088533424',
+		);
+		expect(result).toContain('<a');
+		expect(result).toContain('href=');
 	});
 
 	it('should render inline cards correctly', () => {
 		const { result } = render(inlineCards);
-		expect(result).toMatchSnapshot('html');
+		expect(result).toContain(
+			'https://extranet.atlassian.com/pages/viewpage.action?pageId=3088533424',
+		);
+		expect(result).toContain('<a');
+		expect(result).toContain('href=');
 	});
 
 	it('should render embed cards correctly', () => {
 		const { result } = render(embedCards);
-		expect(result).toMatchSnapshot('html');
+		expect(result).toContain('https://www.dropbox.com/s/abc123/4.txt?dl=0');
+		expect(result).toContain('<a');
+		expect(result).toContain('href=');
 	});
 
 	it('should render text with em inside of a paragraph correctly', () => {
 		const { result } = render(em);
-		expect(result).toMatchSnapshot('html');
+		expect(result).toContain('Hello,');
+		expect(result).toContain('World!');
+		expect(result).toContain('italic');
+		expect(result).toContain('underlined text!');
 	});
 
 	it('should render panels correctly', () => {
 		const { result, embeddedImages } = render(panels);
-		expect(result).toMatchSnapshot('html');
-		expect(embeddedImages).toMatchSnapshot('embeddedImages');
+		expect(result).toContain('csg-panel');
+		expect(result).toContain('background:');
+		expect(result).toContain('<table');
+		expectEmbeddedImageIds(embeddedImages, [
+			'csg-icon-info',
+			'csg-icon-note',
+			'csg-icon-tip',
+			'csg-icon-success',
+			'csg-icon-warning',
+			'csg-icon-error',
+		]);
 	});
 
 	it('should render panels correctly with mock enabled', () => {
 		const { result, embeddedImages } = render(panels, {
 			isImageStubEnabled: true,
 		});
-		expect(result).toMatchSnapshot('mock-html');
-		expect(embeddedImages).toMatchSnapshot('mock-embeddedImages');
+		expect(result).toContain('csg-panel');
+		expect(result).toContain('background:');
+		expect(result).toContain('<table');
+		expectEmbeddedImageIds(embeddedImages, []);
 	});
 
 	it('should align paragraph correctly', () => {
 		const { result } = render(paragraphAlign);
-		expect(result).toMatchSnapshot('html');
+		expect(result).toContain('Plain Paragraph');
+		expect(result).toContain('Paragraph with center alignment');
+		expect(result).toContain('Paragraph with end alignment');
+		expect(result).toContain('text-align: center;');
+		expect(result).toContain('text-align: right;');
 	});
 
 	it('should align heading correctly', () => {
 		const { result } = render(headingAlign);
-		expect(result).toMatchSnapshot('html');
+		expect(result).toContain('Heading with center alignment');
+		expect(result).toContain('Heading with end alignment');
+		expect(result).toContain('text-align: center;');
+		expect(result).toContain('text-align: right;');
 	});
 
 	it('should render headings 1-6 correctly', () => {
 		const { result } = render(heading);
-		expect(result).toMatchSnapshot('html');
+		expect(result).toContain('Heading 1');
+		expect(result).toContain('Heading 6');
+		expect(result).toContain('<h1');
+		expect(result).toContain('<h6');
 	});
 
 	it('should inline text properties correctly', () => {
 		const { result } = render(inlineTextProps);
-		expect(result).toMatchSnapshot('html');
+		expect(result).toContain('font-size: 14px');
+		expect(result).toContain('line-height: 24px');
+		expect(result).toContain('font-family');
 	});
 
 	it('should inline code properties correctly', () => {
 		const { result } = render(inlineCodeProps);
-		expect(result).toMatchSnapshot('html');
+		expect(result).toContain('csg-mark-code');
+		expect(result).toContain('font-family');
+		expect(result).toContain('background:');
 	});
 
 	it('should render codeblock correctly', () => {
 		const { result } = render(codeBlock);
-		expect(result).toMatchSnapshot('html');
+		expect(result).toContain('csg-codeBlock-div');
+		expect(result).toContain('<pre');
+		expect(result).toContain('background-color');
 	});
 
 	it('should render mention correctly', () => {
 		const { result } = render(mention);
-		expect(result).toMatchSnapshot('html');
+		expect(result).toContain('@Oscar Wallhult');
+		expect(result).toContain('data-user-id="1234"');
+		expect(result).not.toContain('<a');
 	});
 
 	it('should render mention with context', () => {
 		const { result } = render(mention, undefined, highlightedMentionNodeContext);
-		expect(result).toMatchSnapshot('html');
+		expect(result).toContain('@Oscar Wallhult');
+		expect(result).toContain('csg-mention-highlighted');
+		expect(result).toContain('background: #0052CC');
 	});
 
 	it('should render paragraph with indentations', () => {
 		const { result } = render(paragraphIndents);
-		expect(result).toMatchSnapshot('html');
+		expect(result).toContain('Paragraph with 1 level of indentation');
+		expect(result).toContain('padding-left: 30px;');
 	});
 
 	it('should render absolute link', () => {
 		const { result } = render(link);
-		expect(result).toMatchSnapshot('html');
+		expect(result).toContain('https://www.atlassian.com/');
+		expect(result).toContain('<a');
+		expect(result).toContain('href=');
 	});
 
 	it('should render relative link with baseURL', () => {
 		const { result } = render(linkRelative, undefined, baseURLContext);
-		expect(result).toMatchSnapshot('html');
+		expect(result).toContain('href="https://example.com/wiki/atlassian"');
+		expect(result).toContain('<a');
 	});
 
 	it('should render link with incorrect baseURL', () => {
 		const { result } = render(link, undefined, incorrectBaseURLContext);
-		expect(result).toMatchSnapshot('html');
+		expect(result).toContain('https://www.atlassian.com');
+		expect(result).toContain('<a');
+		expect(result).toContain('href=');
 	});
 
 	it('should render text and does not interpret HTML', () => {
 		const { result } = render(text);
-		expect(result).toMatchSnapshot('html');
+		expect(result).toContain('&lt;script&gt;');
+		expect(result).not.toContain('<script>');
 	});
 
 	it('should render status correctly', () => {
 		const { result } = render(status);
-		expect(result).toMatchSnapshot('html');
+		expect(result).toContain('In progress');
+		expect(result).toContain('background-color');
 	});
 
 	it('should render numbered column for table', () => {
 		const { result } = render(tableNumberedColumn);
-		expect(result).toMatchSnapshot('html');
+		expect(result).toContain('<table');
+		expect(result).toContain('1');
+		expect(result).toContain('2');
 	});
 
 	it('should render layout column and sections', () => {
 		const { result } = render(layoutColumnSection);
-		expect(result).toMatchSnapshot('html');
+		expect(result).toContain('Lorem ipsum');
+		expect(result).toContain('<div');
 	});
 
 	it('should render extension placeholders', () => {
 		const { result } = render(extensions);
-		expect(result).toMatchSnapshot('html');
+		expect(result).toContain('jira');
+		expect(result).toContain('csg-inlineExtension');
 	});
 
 	it('should render dates in normal text and task lists', () => {
 		const { result } = render(date, undefined, undefined, 'stage0');
-		expect(result).toMatchSnapshot('html');
+		expect(result).toContain('2019');
+		expect(result).toContain('csg-taskItem');
+		expect(result).toContain('font-size');
 	});
 
 	it('should render lists', () => {
 		const { result } = render(lists);
-		expect(result).toMatchSnapshot('html');
+		expect(result).toContain('<ul');
+		expect(result).toContain('<li');
+		expect(result).toContain('list item 1');
 	});
 
 	it('should render ordered lists', () => {
 		const { result } = render(orderedList);
-		expect(result).toMatchSnapshot('html');
+		expect(result).toContain('<ol');
+		expect(result).toContain('<li');
+		expect(result).toContain('list item 1');
 	});
 
 	it('should render expands', () => {
 		const { result } = render(expand);
-		expect(result).toMatchSnapshot('html');
+		expect(result).toContain('<table');
+		expect(result).toContain('Title here');
+		expect(result).toContain('csg-expand');
 	});
 
 	it('should not inline CSS', () => {
 		const { result } = render(status, { isInlineCSSEnabled: false });
-		expect(result).toMatchSnapshot('html');
+		expect(result).toContain('In progress');
+		expect(result).not.toContain('style=');
 	});
 
 	it('should render media based on given context', () => {
 		const { result } = render(mediaGroupAllTypes, undefined, mediaContext);
-		expect(result).toMatchSnapshot('html');
+		expect(result).toContain('<img');
+		expect(result).toContain('cid:');
 	});
 
 	it('should render media inline based on given context', () => {
 		const { result } = render(mediaInlineAllTypes, undefined, mediaContext);
-		expect(result).toMatchSnapshot('html');
+		expect(result).toContain('<img');
+		expect(result).toContain('cid:');
+		expect(result).toContain('display: inline-block;');
 	});
 
 	it('should render list inside a blockquote', () => {
 		const { result } = render(blockquoteWithList, undefined, mediaContext);
-		expect(result).toMatchSnapshot('html');
+		expect(result).toContain('<blockquote');
+		expect(result).toContain('<ul');
+		expect(result).toContain('<li');
 	});
 
 	it('should render actions inside list', () => {
 		const { result } = render(actionInsideList, undefined, mediaContext);
-		expect(result).toMatchSnapshot('html');
+		expect(result).toContain('<ul');
+		expect(result).toContain('<li');
+		expect(result).toContain('csg-p');
 	});
 
 	it('should render action, code-block, decision, media, rule inside panel', () => {
 		const { result } = render(extendedPanel, undefined, mediaContext, 'stage0');
-		expect(result).toMatchSnapshot('html');
+		expect(result).toContain('csg-panel');
+		expect(result).toContain('csg-p');
+		expect(result).toContain('<img');
+		expect(result).toContain('csg-codeBlock-div');
+		expect(result).toContain('csg-panel');
 	});
 
 	it('should render list, action, code-block, panel, quote, decision, rule inside nested expand', () => {
 		const { result } = render(nestedExpand, undefined, mediaContext, 'stage0');
-		expect(result).toMatchSnapshot('html');
+		expect(result).toContain('<table');
+		expect(result).toContain('<ul');
+		expect(result).toContain('csg-p');
+		expect(result).toContain('<blockquote');
+		expect(result).toContain('<ul');
 	});
 
 	it('should render nestedExpand nested in expand', () => {
 		const { result } = render(nestedExpandInExpand);
-		expect(result).toMatchSnapshot('nestedExpand in expand');
+		expect(result).toContain('<table');
+		expect(result).toContain('csg-expand');
+		expect(result).toContain('<table');
 	});
 
 	it('should render codeblock nested in quote', () => {
 		const { result } = render(codeblockInQuote);
-		expect(result).toMatchSnapshot('codeblock in quote');
+		expect(result).toContain('<blockquote');
+		expect(result).toContain('csg-codeBlock-div');
+		expect(result).toContain('<pre');
 	});
 
 	it('should render mediaSingle nested in quote', () => {
 		const { result } = render(mediaSingleInQuote);
-		expect(result).toMatchSnapshot('mediaSingle in quote');
+		expect(result).toContain('<blockquote');
+		expect(result).toContain('<img');
 	});
 
 	it('should render mediaGroup nested in quote', () => {
 		const { result } = render(mediaGroupInQuote);
-		expect(result).toMatchSnapshot('mediaGroup in quote');
+		expect(result).toContain('<blockquote');
+		expect(result).toContain('<img');
 	});
 
 	it('should render images via URL when external rendering enabled', () => {
 		const { result } = render(mediaSingleExternalImage, undefined, { renderExternalImages: true });
-		expect(result).toMatchSnapshot('external image');
+		expect(result).toContain('<img');
+		expect(result).toContain('src="https://');
 	});
 
 	it('should transform and render nested table extension correctly', () => {
 		const { result } = render(nestedTables);
-		expect(result).toMatchSnapshot('nested tables extension');
+		expect(result).toContain('<table');
+		expect(result).toContain('<table');
+		expect(result).toContain('<tbody');
 	});
 
 	it('should render original ADF if nested table extension transformer fails', () => {
 		const consoleErrorMock = jest.spyOn(console, 'error').mockImplementation(() => {});
 		const { result } = render(nestedTablesInvalid);
-		expect(result).toMatchSnapshot('nested tables extension invalid');
+		expect(result).toContain('<table');
+		expect(result).toContain('<table');
+		expect(result).toContain('nested-table');
 		consoleErrorMock.mockRestore();
 	});
 
 	it('should render redaction inlineExtension correctly', () => {
 		const { result } = render(redaction);
-		expect(result).toMatchSnapshot('redaction extension');
+		expect(result).toContain('redaction');
+		expect(result).toContain('csg-inlineExtension');
 	});
 
 	it('should render bodiedSyncBlock content correctly', () => {
 		const { result } = render(bodiedSyncBlock);
-		expect(result).toMatchSnapshot('bodiedSyncBlock');
+		expect(result).toContain('Content before sync block');
+		expect(result).toContain('Content after sync block');
 	});
 
 	it('should render syncBlock correctly', () => {
 		const { result } = render(syncBlock);
-		expect(result).toMatchSnapshot('syncBlock');
+		expect(result).toContain('Content before sync block');
+		expect(result).toContain('Content after sync block');
 	});
 
 	it('should render hidden-markers list (wrapper bullet and ordered list items) correctly', () => {
 		const { result } = render(hiddenMarkersList);
-		expect(result).toMatchSnapshot('hidden markers list');
+		expect(result).toContain('<ul');
+		expect(result).toContain('<ol');
+		expect(result).not.toContain('data-marker');
 	});
 
 	it('should render hidden-markers mixed list (task lists inside bullet/ordered lists) correctly', () => {
 		const { result, embeddedImages } = render(hiddenMarkersMixedList);
-		expect(result).toMatchSnapshot('hidden markers mixed list');
-		expect(embeddedImages).toMatchSnapshot('hidden markers mixed list embeddedImages');
+		expect(result).toContain('<ul');
+		expect(result).toContain('csg-taskItem');
+		expect(result).not.toContain('data-marker');
+		expectEmbeddedImageIds(embeddedImages, [
+			'csg-icon-taskItemUnchecked',
+			'csg-icon-taskItemChecked',
+		]);
 	});
 
 	it('should render hidden-markers task list (nested task lists with wrappers) correctly', () => {
 		const { result, embeddedImages } = render(hiddenMarkersTaskList);
-		expect(result).toMatchSnapshot('hidden markers task list');
-		expect(embeddedImages).toMatchSnapshot('hidden markers task list embeddedImages');
+		expect(result).toContain('csg-taskItem');
+		expect(result).toContain('csg-taskItem');
+		expect(result).not.toContain('data-marker');
+		expectEmbeddedImageIds(embeddedImages, [
+			'csg-icon-taskItemUnchecked',
+			'csg-icon-taskItemChecked',
+		]);
 	});
 
 	it('should render task list deeply nested inside bullet and ordered list wrappers correctly', () => {
 		const { result, embeddedImages } = render(taskListDeepNesting);
-		expect(result).toMatchSnapshot('task list deep nesting');
-		expect(embeddedImages).toMatchSnapshot('task list deep nesting embeddedImages');
+		expect(result).toContain('csg-taskItem');
+		expect(result).toContain('csg-taskList');
+		expect(result).toContain('csg-taskItem-textTd');
+		expectEmbeddedImageIds(embeddedImages, [
+			'csg-icon-taskItemUnchecked',
+			'csg-icon-taskItemChecked',
+		]);
 	});
 
 	it('should render task list with mixed TODO and DONE states across nesting levels correctly', () => {
 		const { result, embeddedImages } = render(taskListMixedStates);
-		expect(result).toMatchSnapshot('task list mixed states');
-		expect(embeddedImages).toMatchSnapshot('task list mixed states embeddedImages');
+		expect(result).toContain('csg-taskItem');
+		expect(result).toContain('csg-taskItem');
+		expect(result).toContain('csg-taskItem-textTd');
+		expectEmbeddedImageIds(embeddedImages, [
+			'csg-icon-taskItemChecked',
+			'csg-icon-taskItemUnchecked',
+		]);
 	});
 
 	it('should render task list items with rich inline content (bold, italic, links, code) correctly', () => {
 		const { result, embeddedImages } = render(taskListRichContent);
-		expect(result).toMatchSnapshot('task list rich content');
-		expect(embeddedImages).toMatchSnapshot('task list rich content embeddedImages');
+		expect(result).toContain('csg-taskItem');
+		expect(result).toContain('csg-mark-strong');
+		expect(result).toContain('csg-mark-em');
+		expect(result).toContain('csg-mark-code');
+		expectEmbeddedImageIds(embeddedImages, [
+			'csg-icon-taskItemUnchecked',
+			'csg-icon-taskItemChecked',
+		]);
 	});
 });

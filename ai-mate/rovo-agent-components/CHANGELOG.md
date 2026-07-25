@@ -1,5 +1,13 @@
 # @atlaskit/rovo-agent-components
 
+## 8.1.5
+
+### Patch Changes
+
+- [`f75155b315007`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/f75155b315007) -
+  Remove jira_browse_agents_modal feature gate (winning variant: true). Inline truthy branches,
+  delete dead code, and clean up test wrappers.
+
 ## 8.1.4
 
 ### Patch Changes

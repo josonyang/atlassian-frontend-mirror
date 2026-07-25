@@ -97,6 +97,7 @@ const AgentProfileCard = ({
 	hideConversationStarters = false,
 	hideAgentActions = false,
 	hideStarButton = false,
+	footerComponent,
 }: AgentProfileCardProps): React.JSX.Element => {
 	const {
 		onEditAgent,
@@ -369,6 +370,7 @@ const AgentProfileCard = ({
 						hideMoreActions={hideMoreActions}
 					/>
 				)}
+				{footerComponent}
 			</Box>
 		</AgentProfileCardWrapper>
 	);

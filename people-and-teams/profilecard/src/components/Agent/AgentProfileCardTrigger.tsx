@@ -20,6 +20,7 @@ import { AgentProfileCardLazy } from './lazyAgentProfileCard';
 export const AgentProfileCardTrigger: React.ForwardRefExoticComponent<
 	AgentProfileCardTriggerProps & React.RefAttributes<ProfileCardHandle>
 > = forwardRef<ProfileCardHandle, AgentProfileCardTriggerProps>(({ ...props }, ref) => {
+	const { footerComponent, ...profileCardTriggerProps } = props;
 	const { resourceClient, agentId: userId, cloudId, agentIdType = 'agent' } = props;
 
 	const { fireEvent } = useAnalyticsEvents();
@@ -134,6 +135,7 @@ export const AgentProfileCardTrigger: React.ForwardRefExoticComponent<
 					onDeleteAgent={props.onDeleteAgent}
 					addFlag={props.addFlag}
 					hideStarButton={props.hideStarButton}
+					footerComponent={footerComponent}
 				/>
 			</Suspense>
 		);
@@ -141,7 +143,7 @@ export const AgentProfileCardTrigger: React.ForwardRefExoticComponent<
 
 	return (
 		<ProfileCardTrigger<RovoAgentProfileCardInfo>
-			{...props}
+			{...profileCardTriggerProps}
 			ref={ref}
 			trigger={props.trigger ?? 'hover'}
 			renderProfileCard={renderProfileCard}

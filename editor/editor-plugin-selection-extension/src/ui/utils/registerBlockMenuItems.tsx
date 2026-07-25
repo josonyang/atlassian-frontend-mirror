@@ -15,7 +15,6 @@ import type { RegisterBlockMenuComponent } from '@atlaskit/editor-plugin-block-m
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { ToolbarDropdownItemSection } from '@atlaskit/editor-toolbar';
 import { fg } from '@atlaskit/platform-feature-flags';
-import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 import type { SelectionExtensionPlugin } from '../../selectionExtensionPluginType';
 import type { ExtensionConfiguration, GetMenuItemsContext } from '../../types';
@@ -60,12 +59,7 @@ export function registerBlockMenuItems({
 			extensionLocation: 'block-menu',
 		});
 
-		const getMenuItems = () =>
-			blockMenu.getMenuItems(
-				expValEquals('agent-managed-blocks-stop-block-template', 'isEnabled', true)
-					? getMenuItemsContext()
-					: undefined,
-			);
+		const getMenuItems = () => blockMenu.getMenuItems(getMenuItemsContext());
 
 		/**
 		 * Renders the registered selection-extension menu items with the correct block-menu context.

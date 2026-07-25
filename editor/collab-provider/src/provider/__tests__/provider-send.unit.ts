@@ -620,9 +620,12 @@ describe('#sendData', () => {
 
 		const { attributes } = (fakeAnalyticsWebClient.sendTrackEvent as jest.Mock).mock.calls[1][0];
 
-		expect(attributes).toHaveProperty('stepsFromOldState');
-		expect(attributes).toHaveProperty('stepsFromNewState');
-		expect(attributes).toMatchSnapshot();
+		expect(attributes).toMatchObject({
+			stepsFromOldState:
+				'[{"stepType":{"type":"replace","contentTypes":"paragraph"},"stepContent":[{"type":"doc","content":[{"type":"paragraph","content":[{"type":"text","text":"Lorem Ips um Dol Orsit"}],"attrs":{"localId":null}}]}],"stepPositions":{"from":1,"to":1}}]',
+			stepsFromNewState:
+				'[{"stepType":{"type":"replace","contentTypes":"paragraph"},"stepContent":[{"type":"doc","content":[{"type":"paragraph","content":[{"type":"text","text":"Lorem Ips um Dol Orsit"}],"attrs":{"localId":null}}]}],"stepPositions":{"from":1,"to":1}}]',
+		});
 	});
 
 	it('logs an empty string when no steps are present', async () => {

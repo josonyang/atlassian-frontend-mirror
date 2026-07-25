@@ -41,6 +41,8 @@ export type AgentProfileCardResourcedProps = {
 	hideStarButton?: boolean;
 	/** Name shown in reduced card when user lacks permission */
 	agentName?: string;
+	/** Optional component rendered at the bottom of the agent profile card. */
+	footerComponent?: React.ReactNode;
 } & AgentActionsType;
 
 export const AgentProfileCardResourced = (
@@ -268,6 +270,7 @@ export const AgentProfileCardResourced = (
 						hideConversationStarters={true}
 						hideAiDisclaimer={true}
 						hideStarButton={props.hideStarButton}
+						footerComponent={props.footerComponent}
 					/>
 				</Suspense>
 			</AgentProfileCardWrapper>
@@ -305,6 +308,7 @@ export const AgentProfileCardResourced = (
 				hideConversationStarters={props.hideConversationStarters}
 				hideAgentActions={props.hideAgentActions}
 				hideStarButton={props.hideStarButton}
+				footerComponent={props.footerComponent}
 			/>
 		</Suspense>
 	);

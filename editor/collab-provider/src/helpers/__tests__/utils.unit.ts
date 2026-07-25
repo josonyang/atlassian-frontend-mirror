@@ -105,12 +105,15 @@ describe('Utils unit tests', () => {
 
 		expect(assert).toHaveProperty('stepsFromOldState');
 		expect(assert).toHaveProperty('stepsFromNewState');
-		expect(assert).toMatchInlineSnapshot(`
-		{
-		  "stepsFromNewState": "[{"stepType":{"type":"replace","contentTypes":"paragraph"},"stepContent":[{"type":"doc","content":[{"type":"paragraph","content":[{"type":"text","text":"Lorem Ips Umdol"}],"attrs":{"localId":null}}]}],"stepPositions":{"from":1,"to":1}}]",
-		  "stepsFromOldState": "[{"stepType":{"type":"replace","contentTypes":"paragraph"},"stepContent":[{"type":"doc","content":[{"type":"paragraph","content":[{"type":"text","text":"Lorem Ips Umdol"}],"attrs":{"localId":null}}]}],"stepPositions":{"from":1,"to":1}}]",
+		if (assert instanceof Error) {
+			throw assert;
 		}
-	`);
+		expect(assert).toEqual({
+			stepsFromNewState:
+				'[{"stepType":{"type":"replace","contentTypes":"paragraph"},"stepContent":[{"type":"doc","content":[{"type":"paragraph","content":[{"type":"text","text":"Lorem Ips Umdol"}],"attrs":{"localId":null}}]}],"stepPositions":{"from":1,"to":1}}]',
+			stepsFromOldState:
+				'[{"stepType":{"type":"replace","contentTypes":"paragraph"},"stepContent":[{"type":"doc","content":[{"type":"paragraph","content":[{"type":"text","text":"Lorem Ips Umdol"}],"attrs":{"localId":null}}]}],"stepPositions":{"from":1,"to":1}}]',
+		});
 	});
 
 	it('isGCPtenant returns true for tenant with GCP naming convention', () => {

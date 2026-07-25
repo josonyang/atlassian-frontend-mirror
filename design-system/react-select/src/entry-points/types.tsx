@@ -31,6 +31,7 @@ export type {
 	PropsValue,
 	RemoveValueActionMeta,
 	SelectOptionActionMeta,
+	SelectInstance,
 	SetValueAction,
 	SingleValue,
 	Theme,

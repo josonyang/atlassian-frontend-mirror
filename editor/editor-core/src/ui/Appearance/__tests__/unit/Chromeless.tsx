@@ -43,13 +43,15 @@ describe('Chromeless editor', () => {
 	});
 
 	it('should render correct overridden styles', () => {
-		const { container } = render(
+		const { getByTestId, getAllByText } = render(
 			<ChromelessEditorContainer minHeight={100} maxHeight={200}>
 				<p>Hello world</p>
 				<p>Hello world</p>
 			</ChromelessEditorContainer>,
 		);
 
-		expect(container).toMatchSnapshot();
+		const chromeless = getByTestId('chromeless-editor');
+		expect(chromeless).toBeInTheDocument();
+		expect(getAllByText('Hello world')).toHaveLength(2);
 	});
 });

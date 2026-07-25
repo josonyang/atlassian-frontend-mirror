@@ -21,7 +21,7 @@ import { doc, p } from '@atlaskit/editor-test-helpers/doc-builder';
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import { sleep } from '@atlaskit/editor-test-helpers/sleep';
 import { getDefaultMediaClientConfig } from '@atlaskit/media-test-helpers/fakeMediaClient';
-import { passGate, failGate } from '@atlassian/feature-flags-test-utils/mock-gates';
+import { failGate, passGate } from '@atlassian/feature-flags-test-utils/mock-gates';
 
 import { mountWithIntl } from '../../../../__tests__/__helpers/enzyme';
 import EditorActions from '../../../../actions';
@@ -341,7 +341,11 @@ describe('comment editor', () => {
 				.map((el) => el.textContent)
 				.filter((style) => style?.includes('-StickyToolbar'))
 				.join('\n');
-			expect(emotionStyles).toMatchSnapshot();
+			expect(emotionStyles).toContain('position:sticky');
+			expect(emotionStyles).toContain('z-index:500');
+			expect(emotionStyles).toContain('box-shadow:none');
+			expect(emotionStyles).toContain('padding-left:var(--ds-space-250, 20px)');
+			expect(emotionStyles).toContain('show-keyline');
 		});
 	});
 
@@ -366,7 +370,9 @@ describe('comment editor', () => {
 				.map((el) => el.textContent)
 				.filter((style) => style?.includes('-FixedToolbar'))
 				.join('\n');
-			expect(emotionStyles).toMatchSnapshot();
+			expect(emotionStyles).toContain('position:relative');
+			expect(emotionStyles).toContain('box-shadow:none');
+			expect(emotionStyles).toContain('padding-left:var(--ds-space-250, 20px)');
 		});
 
 		it('should render sticky toolbar with border radius styles', () => {
@@ -393,7 +399,10 @@ describe('comment editor', () => {
 				.map((el) => el.textContent)
 				.filter((style) => style?.includes('-FixedToolbar'))
 				.join('\n');
-			expect(emotionStyles).toMatchSnapshot();
+			expect(emotionStyles).toContain('position:relative');
+			expect(emotionStyles).toContain(
+				'border-radius:var(--ds-radius-small, 3px) var(--ds-radius-small, 3px) 0 0',
+			);
 		});
 	});
 });

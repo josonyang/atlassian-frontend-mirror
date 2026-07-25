@@ -1,7 +1,5 @@
 import React from 'react';
 
-import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
-
 import type { GetMenuItemsFn } from '../../types';
 import { useSelectionExtensionComponentContext } from '../SelectionExtensionComponentContext';
 import { getBlockMenuTriggerExtensionKey } from '../utils/getBlockMenuTriggerExtensionKey';
@@ -19,16 +17,12 @@ export const SelectionExtensionMenuItems = ({
 }: SelectionExtensionMenuItemsProps): React.JSX.Element | null => {
 	const { api, editorView, extensionKey, extensionLocation, extensionSource } =
 		useSelectionExtensionComponentContext();
-	const extensionMenuItems = getMenuItems(
-		expValEquals('agent-managed-blocks-stop-block-template', 'isEnabled', true)
-			? {
-					blockMenuTriggerExtensionKey: getBlockMenuTriggerExtensionKey({ api, editorView }),
-					extensionKey,
-					extensionLocation,
-					extensionSource,
-				}
-			: undefined,
-	);
+	const extensionMenuItems = getMenuItems({
+		blockMenuTriggerExtensionKey: getBlockMenuTriggerExtensionKey({ api, editorView }),
+		extensionKey,
+		extensionLocation,
+		extensionSource,
+	});
 
 	if (!extensionMenuItems?.length) {
 		return null;

@@ -143,13 +143,6 @@ export const editorExperimentsConfig: {
 		productKeys?: ProductKeys;
 		typeGuard: IsBooleanType;
 	};
-	// Added 2026-06-30
-	'agent-managed-blocks-stop-block-template': {
-		defaultValue: boolean;
-		param: string;
-		productKeys?: ProductKeys;
-		typeGuard: IsBooleanType;
-	};
 	// Added 2025-09-01
 	cc_editor_ai_content_mode: {
 		defaultValue: 'control' | 'test';
@@ -1293,6 +1286,13 @@ export const editorExperimentsConfig: {
 		productKeys?: ProductKeys;
 		typeGuard: IsBooleanType;
 	};
+	// A/A experiment paired with cc_maui_create_keyword, used only to balance exposures.
+	cc_maui_create_keyword_aa: {
+		defaultValue: boolean;
+		param: string;
+		productKeys?: ProductKeys;
+		typeGuard: IsBooleanType;
+	};
 	// Added 2026-07-13
 	confluence_native_tabs_experiment: {
 		defaultValue: boolean;
@@ -2413,14 +2413,6 @@ export const editorExperimentsConfig: {
 	'agent-managed_blocks_mvp': createBooleanExperiment({
 		productKeys: {
 			confluence: 'agent-managed_blocks_mvp',
-		},
-		param: 'isEnabled',
-		defaultValue: false,
-	}),
-	// Added 2026-06-30
-	'agent-managed-blocks-stop-block-template': createBooleanExperiment({
-		productKeys: {
-			confluence: 'agent-managed-blocks-stop-block-template',
 		},
 		param: 'isEnabled',
 		defaultValue: false,
@@ -3569,6 +3561,14 @@ export const editorExperimentsConfig: {
 	cc_maui_create_keyword: createBooleanExperiment({
 		productKeys: {
 			confluence: 'cc_maui_create_keyword',
+		},
+		param: 'isEnabled',
+		defaultValue: false,
+	}),
+	// A/A experiment paired with cc_maui_create_keyword, used only to balance exposures.
+	cc_maui_create_keyword_aa: createBooleanExperiment({
+		productKeys: {
+			confluence: 'cc_maui_create_keyword_aa',
 		},
 		param: 'isEnabled',
 		defaultValue: false,

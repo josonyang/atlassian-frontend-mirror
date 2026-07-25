@@ -192,6 +192,20 @@ const acceptGhostText = (state: EditorState, dispatch?: (tr: Transaction) => voi
 	return true;
 };
 
+const acceptGhostTextWithAnalytics = (
+	state: EditorState,
+	dispatch: ((tr: Transaction) => void) | undefined,
+	onAccepted: (ghostText: string) => void,
+): boolean => {
+	const pluginState = autocompletePluginKey.getState(state) as AutocompletePluginState | undefined;
+	const ghostText = pluginState?.ghostText ?? '';
+	const accepted = acceptGhostText(state, dispatch);
+	if (accepted) {
+		onAccepted(ghostText);
+	}
+	return accepted;
+};
+
 /**
  * Context provided to the autocomplete plugin on first editor focus.
  * Text fields are selectively ingested to boost word-frequency scoring for
@@ -378,7 +392,7 @@ export const createAutocompletePlugin = (
 		return options?.useLocalModel ? 'localLlm' : 'server';
 	};
 
-	const fireSuggestionDismissedAnalytics = (reason: 'escape' | 'blur'): void => {
+	const fireSuggestionDismissedAnalytics = (reason: 'escape' | 'blur' | 'click'): void => {
 		api?.analytics?.actions.fireAnalyticsEvent({
 			action: ACTION.SUGGESTION_DISMISSED,
 			actionSubject: ACTION_SUBJECT.CONTEXTUAL_TYPEAHEAD,
@@ -736,30 +750,18 @@ export const createAutocompletePlugin = (
 
 			handleKeyDown: keydownHandler({
 				Tab: (state: EditorState, dispatch?: (tr: Transaction) => void) => {
-					const pluginState = autocompletePluginKey.getState(state) as
-						| AutocompletePluginState
-						| undefined;
-					const ghostText = pluginState?.ghostText ?? '';
-					const accepted = acceptGhostText(state, dispatch);
-					if (accepted) {
+					return acceptGhostTextWithAnalytics(state, dispatch, (ghostText) => {
 						justAccepted = true;
 						lastShownGhostText = '';
 						fireSuggestionInsertedAnalytics(ghostText);
-					}
-					return accepted;
+					});
 				},
 				ArrowRight: (state: EditorState, dispatch?: (tr: Transaction) => void) => {
-					const pluginState = autocompletePluginKey.getState(state) as
-						| AutocompletePluginState
-						| undefined;
-					const ghostText = pluginState?.ghostText ?? '';
-					const accepted = acceptGhostText(state, dispatch);
-					if (accepted) {
+					return acceptGhostTextWithAnalytics(state, dispatch, (ghostText) => {
 						justAccepted = true;
 						lastShownGhostText = '';
 						fireSuggestionInsertedAnalytics(ghostText);
-					}
-					return accepted;
+					});
 				},
 				Escape: (state: EditorState, dispatch?: (tr: Transaction) => void) => {
 					const didClear = clearGhostText(state, dispatch);
@@ -785,6 +787,35 @@ export const createAutocompletePlugin = (
 						fireSuggestionDismissedAnalytics('blur');
 					}
 					return false;
+				},
+				mousedown: (view: EditorView, event: MouseEvent) => {
+					if (!isAutocompleteEnabled || !(event.target instanceof Element)) {
+						return false;
+					}
+
+					if (!event.target.closest('[data-autocomplete-ghost="true"]')) {
+						const didClear = clearGhostText(view.state, view.dispatch);
+						if (didClear) {
+							dismissedContext = getTextBeforeCursor(view.state);
+							lastShownGhostText = '';
+							fireSuggestionDismissedAnalytics('click');
+						}
+						return false;
+					}
+
+					event.preventDefault();
+
+					const accepted = acceptGhostTextWithAnalytics(view.state, view.dispatch, (ghostText) => {
+						justAccepted = true;
+						lastShownGhostText = '';
+						fireSuggestionInsertedAnalytics(ghostText);
+					});
+
+					if (accepted) {
+						view.focus();
+					}
+
+					return accepted;
 				},
 				focus: () => {
 					if (!isAutocompleteEnabled) {

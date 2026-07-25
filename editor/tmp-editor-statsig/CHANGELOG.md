@@ -1,5 +1,19 @@
 # @atlaskit/editor-statsig-tmp
 
+## 133.3.1
+
+### Patch Changes
+
+- [`9120ffa5e7699`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/9120ffa5e7699) -
+  Clean up experiment `agent-managed-blocks-stop-block-template`.
+
+## 133.3.0
+
+### Minor Changes
+
+- [`4f0a4f4c814fa`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/4f0a4f4c814fa) -
+  only aa experiment exposure
+
 ## 133.2.0
 
 ### Minor Changes

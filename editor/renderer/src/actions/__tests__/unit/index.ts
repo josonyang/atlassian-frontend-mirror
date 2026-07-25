@@ -23,10 +23,9 @@ import {
 	ACTION_SUBJECT_ID,
 } from '@atlaskit/editor-common/analytics';
 import type { AnalyticsEventPayload } from '../../../analytics/events';
-// eslint-disable-next-line @atlaskit/platform/no-alias
-import * as platformFeatureFlags from '@atlaskit/platform-feature-flags';
 import * as steps from '../../../steps';
 import { Node } from '@atlaskit/editor-prosemirror/model';
+import { Step } from '@atlaskit/editor-prosemirror/transform';
 import { passGate, failGate } from '@atlassian/feature-flags-test-utils/mock-gates';
 
 const mockArg = {} as any;
@@ -76,22 +75,95 @@ describe('RendererActions', () => {
 		}
 		it('should delete the annotation with provided ID', () => {
 			const actions = initActions(simpleTextWithAnnotation(annotationId));
-			expect(actions.deleteAnnotation(annotationId, 'inlineComment')).toMatchSnapshot();
+			const result = actions.deleteAnnotation(annotationId, 'inlineComment');
+			if (!result) {
+				throw new Error('Expected deleteAnnotation to return a result');
+			}
+			expect(result.doc).toEqual({
+				type: 'doc',
+				version: 1,
+				content: [
+					{
+						type: 'paragraph',
+						content: [{ type: 'text', text: 'Hello!' }],
+					},
+				],
+			});
+			expect(result.step).toMatchObject({
+				stepType: 'removeMark',
+				mark: {
+					type: 'annotation',
+					attrs: { annotationType: 'inlineComment', id: annotationId },
+				},
+				from: 1,
+				to: 7,
+			});
 		});
 
 		it('should delete the annotation on media with provided ID', () => {
 			const actions = initActions(mediaWithAnnotation(annotationId));
-			expect(actions.deleteAnnotation(annotationId, 'inlineComment')).toMatchSnapshot();
+			const result = actions.deleteAnnotation(annotationId, 'inlineComment');
+			if (!result) {
+				throw new Error('Expected deleteAnnotation to return a result');
+			}
+			expect(result.doc).toEqual({
+				type: 'doc',
+				version: 1,
+				content: [
+					{
+						type: 'media',
+						attrs: expect.objectContaining({
+							type: 'file',
+							id: expect.any(String),
+							collection: expect.any(String),
+						}),
+					},
+				],
+			});
+			expect(result.step).toMatchObject({
+				stepType: 'removeNodeMark',
+				mark: {
+					type: 'annotation',
+					attrs: { annotationType: 'inlineComment', id: annotationId },
+				},
+				pos: 0,
+			});
 		});
 
 		it('should delete the annotation with provided ID without touching overlapping marks', () => {
 			const actions = initActions(textWithOverlappingAnnotations(annotationId));
-			expect(actions.deleteAnnotation(annotationId, 'inlineComment')).toMatchSnapshot();
+			const result = actions.deleteAnnotation(annotationId, 'inlineComment');
+			if (!result) {
+				throw new Error('Expected deleteAnnotation to return a result');
+			}
+			expect(result.step).toMatchObject({
+				stepType: 'removeMark',
+				mark: {
+					type: 'annotation',
+					attrs: { annotationType: 'inlineComment', id: annotationId },
+				},
+				from: 15,
+				to: 25,
+			});
+			expect(result.doc).toEqual(expect.objectContaining({ type: 'doc', version: 1 }));
 		});
 
 		it('should delete the annotation when spanning multiple nodes', () => {
 			const actions = initActions(annotationSpanningMultiText(annotationId));
-			expect(actions.deleteAnnotation(annotationId, 'inlineComment')).toMatchSnapshot();
+			const result = actions.deleteAnnotation(annotationId, 'inlineComment');
+			if (!result) {
+				throw new Error('Expected deleteAnnotation to return a result');
+			}
+			expect(result.step).toMatchObject({
+				stepType: 'removeMark',
+				mark: {
+					type: 'annotation',
+					attrs: { annotationType: 'inlineComment', id: annotationId },
+				},
+				from: 1,
+				to: 15,
+			});
+			expect(result.doc).toEqual(expect.objectContaining({ type: 'doc', version: 1 }));
 		});
 
 		it('should trigger the analytics event when annotation is detected', () => {
@@ -122,50 +194,150 @@ describe('RendererActions', () => {
 			return actions;
 		};
 
-		const newAnnotation: any = {
-			annotationId,
-			annotationType: 'inlineComment',
+		const annotationMark = {
+			attrs: {
+				annotationType: 'inlineComment',
+				id: annotationId,
+			},
+			type: 'annotation',
+		};
+		const newAnnotation: any = annotationMark.attrs;
+
+		const expectAnnotationApplied = ({
+			expectedStep,
+			expectedTargetNodeType,
+			result,
+			sourceDoc,
+		}: {
+			expectedStep:
+				| { from: number; stepType: 'addMark'; to: number }
+				| { pos: number; stepType: 'addNodeMark' };
+			expectedTargetNodeType: string;
+			result: Exclude<NonNullable<ReturnType<RendererActions['applyAnnotation']>>, false>;
+			sourceDoc: any;
+		}) => {
+			const serializedStep = {
+				...expectedStep,
+				mark: annotationMark,
+			};
+			expect(result.step).toEqual(serializedStep);
+			expect(result.targetNodeType).toBe(expectedTargetNodeType);
+
+			const appliedStep = Step.fromJSON(defaultSchema, serializedStep).apply(
+				defaultSchema.nodeFromJSON(sourceDoc),
+			);
+			if (appliedStep.failed || !appliedStep.doc) {
+				throw new Error(`Expected annotation step to apply: ${appliedStep.failed}`);
+			}
+			expect(result.doc).toEqual({
+				...appliedStep.doc.toJSON(),
+				version: sourceDoc.version,
+			});
 		};
 
 		it('should apply annotation to the plain text', () => {
 			const actions = initActions(docWithTextAndMedia);
-			expect(actions.applyAnnotation({ from: 0, to: 9 }, newAnnotation)).toMatchSnapshot();
+			const result = actions.applyAnnotation({ from: 0, to: 9 }, newAnnotation);
+			if (!result) {
+				throw new Error('Expected applyAnnotation to return a result');
+			}
+			expect(result.ancestorNodeTypes).toBeUndefined();
+			expectAnnotationApplied({
+				expectedStep: { from: 0, stepType: 'addMark', to: 9 },
+				expectedTargetNodeType: 'text',
+				result,
+				sourceDoc: docWithTextAndMedia,
+			});
 		});
 
 		it('should apply annotation to the formatted text', () => {
 			const actions = initActions(docWithTextAndMedia);
-			expect(actions.applyAnnotation({ from: 18, to: 30 }, newAnnotation)).toMatchSnapshot();
+			const result = actions.applyAnnotation({ from: 18, to: 30 }, newAnnotation);
+			if (!result) {
+				throw new Error('Expected applyAnnotation to return a result');
+			}
+			expect(result.ancestorNodeTypes).toBeUndefined();
+			expectAnnotationApplied({
+				expectedStep: { from: 18, stepType: 'addMark', to: 30 },
+				expectedTargetNodeType: 'text',
+				result,
+				sourceDoc: docWithTextAndMedia,
+			});
 		});
 
 		it('should apply annotation to the top-level media', () => {
 			const actions = initActions(docWithTextAndMedia);
-			expect(actions.applyAnnotation({ from: 39, to: 39 }, newAnnotation)).toMatchSnapshot();
+			const result = actions.applyAnnotation({ from: 39, to: 39 }, newAnnotation);
+			if (!result) {
+				throw new Error('Expected applyAnnotation to return a result');
+			}
+			expectAnnotationApplied({
+				expectedStep: { pos: 39, stepType: 'addNodeMark' },
+				expectedTargetNodeType: 'media',
+				result,
+				sourceDoc: docWithTextAndMedia,
+			});
 		});
 
 		it('should apply annotation to caption of top level media', () => {
 			const actions = initActions(docWithTextAndMedia);
-			expect(actions.applyAnnotation({ from: 41, to: 45 }, newAnnotation)).toMatchSnapshot();
+			const result = actions.applyAnnotation({ from: 41, to: 45 }, newAnnotation);
+			if (!result) {
+				throw new Error('Expected applyAnnotation to return a result');
+			}
+			expectAnnotationApplied({
+				expectedStep: { from: 41, stepType: 'addMark', to: 45 },
+				expectedTargetNodeType: 'caption',
+				result,
+				sourceDoc: docWithTextAndMedia,
+			});
 		});
 
 		it('should apply annotation to the nested media', () => {
 			const actions = initActions(docWithTextAndMedia);
-			expect(actions.applyAnnotation({ from: 61, to: 61 }, newAnnotation)).toMatchSnapshot();
+			const result = actions.applyAnnotation({ from: 61, to: 61 }, newAnnotation);
+			if (!result) {
+				throw new Error('Expected applyAnnotation to return a result');
+			}
+			expectAnnotationApplied({
+				expectedStep: { pos: 61, stepType: 'addNodeMark' },
+				expectedTargetNodeType: 'media',
+				result,
+				sourceDoc: docWithTextAndMedia,
+			});
 		});
 
 		it('should apply annotation to the caption of nested media', () => {
 			const actions = initActions(docWithTextAndMedia);
-			expect(actions.applyAnnotation({ from: 68, to: 71 }, newAnnotation)).toMatchSnapshot();
+			const result = actions.applyAnnotation({ from: 68, to: 71 }, newAnnotation);
+			if (!result) {
+				throw new Error('Expected applyAnnotation to return a result');
+			}
+			expectAnnotationApplied({
+				expectedStep: { from: 68, stepType: 'addMark', to: 71 },
+				expectedTargetNodeType: 'caption',
+				result,
+				sourceDoc: docWithTextAndMedia,
+			});
 		});
 
 		it('should apply annotation to text with inline nodes', () => {
-			jest
-				.spyOn(platformFeatureFlags, 'fg')
-				.mockImplementation((flag) => flag === 'editor_inline_comments_on_inline_nodes');
+			passGate('editor_inline_comments_on_inline_nodes');
 
 			const actions = initActions(docWithInlineNodes);
 			const pos = { from: 0, to: 29 };
+			const result = actions.applyAnnotation(pos, newAnnotation);
+			if (!result) {
+				throw new Error('Expected applyAnnotation to return a result');
+			}
 
-			expect(actions.applyAnnotation(pos, newAnnotation)).toMatchSnapshot();
+			expectAnnotationApplied({
+				expectedStep: { from: 0, stepType: 'addMark', to: 29 },
+				expectedTargetNodeType: 'text',
+				result,
+				sourceDoc: docWithInlineNodes,
+			});
+			expect(result.inlineNodeTypes).toEqual(['date', 'emoji', 'status', 'text']);
 		});
 
 		it('should return targetNodeType for media when commentOnMediaBugFix is enabled', () => {

@@ -701,25 +701,23 @@ describe('Channel unit tests', () => {
 		it('Handles errors thrown from permissionTokenRefresh', (done) => {
 			channel.on('error', (e) => {
 				try {
-					expect(e).toMatchInlineSnapshot(`
-				{
-				  "data": {
-				    "code": "TOKEN_PERMISSION_ERROR",
-				    "meta": {
-				      "originalError": {
-				        "data": {
-				          "meta": {
-				            "reason": "test",
-				          },
-				        },
-				      },
-				      "reason": "test",
-				    },
-				    "status": 403,
-				  },
-				  "message": "Insufficient editing permissions",
-				}
-			`);
+					expect(e).toEqual({
+						data: {
+							code: 'TOKEN_PERMISSION_ERROR',
+							meta: {
+								originalError: {
+									data: {
+										meta: {
+											reason: 'test',
+										},
+									},
+								},
+								reason: 'test',
+							},
+							status: 403,
+						},
+						message: 'Insufficient editing permissions',
+					});
 				} catch (e) {
 					done(e);
 				}

@@ -259,12 +259,11 @@ export const AgentDropdownMenu = ({
 			}}
 		>
 			<DropdownItemGroup>
-				{fg('jira_browse_agents_modal') &&
-					customDropdownOptions?.map((option: CustomDropdownOption) => (
-						<DropdownItem key={option.id} onClick={option.onClick}>
-							{option.label}
-						</DropdownItem>
-					))}
+				{customDropdownOptions?.map((option: CustomDropdownOption) => (
+					<DropdownItem key={option.id} onClick={option.onClick}>
+						{option.label}
+					</DropdownItem>
+				))}
 				{showViewAgentOption && (
 					<DropdownItem onClick={onViewAgentClick}>
 						{formatMessage(messages.viewAgent)}

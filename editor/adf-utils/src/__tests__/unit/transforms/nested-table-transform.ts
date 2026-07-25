@@ -27,75 +27,73 @@ describe('Nested table transformations', () => {
 			const result = transformNestedTablesIncomingDocument(nestedTableExtensionAdf);
 
 			expect(result.isTransformed).toBe(true);
-			expect(result.transformedAdf).toMatchInlineSnapshot(`
-			{
-			  "content": [
-			    {
-			      "content": [
-			        {
-			          "content": [
-			            {
-			              "content": [
-			                {
-			                  "content": [
-			                    {
-			                      "content": [
-			                        {
-			                          "text": "Header 1",
-			                          "type": "text",
-			                        },
-			                      ],
-			                      "type": "tableHeader",
-			                    },
-			                    {
-			                      "content": [
-			                        {
-			                          "text": "Header 2",
-			                          "type": "text",
-			                        },
-			                      ],
-			                      "type": "tableHeader",
-			                    },
-			                  ],
-			                  "type": "tableRow",
-			                },
-			                {
-			                  "content": [
-			                    {
-			                      "content": [
-			                        {
-			                          "text": "Cell 1",
-			                          "type": "text",
-			                        },
-			                      ],
-			                      "type": "tableCell",
-			                    },
-			                    {
-			                      "content": [
-			                        {
-			                          "text": "Cell 2",
-			                          "type": "text",
-			                        },
-			                      ],
-			                      "type": "tableCell",
-			                    },
-			                  ],
-			                  "type": "tableRow",
-			                },
-			              ],
-			              "type": "table",
-			            },
-			          ],
-			          "type": "tableRow",
-			        },
-			      ],
-			      "type": "table",
-			    },
-			  ],
-			  "type": "doc",
-			  "version": 1,
-			}
-		`);
+			expect(result.transformedAdf).toEqual({
+				content: [
+					{
+						content: [
+							{
+								content: [
+									{
+										content: [
+											{
+												content: [
+													{
+														content: [
+															{
+																text: 'Header 1',
+																type: 'text',
+															},
+														],
+														type: 'tableHeader',
+													},
+													{
+														content: [
+															{
+																text: 'Header 2',
+																type: 'text',
+															},
+														],
+														type: 'tableHeader',
+													},
+												],
+												type: 'tableRow',
+											},
+											{
+												content: [
+													{
+														content: [
+															{
+																text: 'Cell 1',
+																type: 'text',
+															},
+														],
+														type: 'tableCell',
+													},
+													{
+														content: [
+															{
+																text: 'Cell 2',
+																type: 'text',
+															},
+														],
+														type: 'tableCell',
+													},
+												],
+												type: 'tableRow',
+											},
+										],
+										type: 'table',
+									},
+								],
+								type: 'tableRow',
+							},
+						],
+						type: 'table',
+					},
+				],
+				type: 'doc',
+				version: 1,
+			});
 		});
 
 		it('should clear the node if nested table extension is missing adf property', () => {
@@ -104,23 +102,21 @@ describe('Nested table transformations', () => {
 			);
 
 			expect(result.isTransformed).toBe(true);
-			expect(result.transformedAdf).toMatchInlineSnapshot(`
-			{
-			  "content": [
-			    {
-			      "content": [
-			        {
-			          "content": [],
-			          "type": "tableRow",
-			        },
-			      ],
-			      "type": "table",
-			    },
-			  ],
-			  "type": "doc",
-			  "version": 1,
-			}
-		`);
+			expect(result.transformedAdf).toEqual({
+				content: [
+					{
+						content: [
+							{
+								content: [],
+								type: 'tableRow',
+							},
+						],
+						type: 'table',
+					},
+				],
+				type: 'doc',
+				version: 1,
+			});
 		});
 
 		it('should clear the node if nested table extension does not have any adf content children', () => {
@@ -129,23 +125,21 @@ describe('Nested table transformations', () => {
 			);
 
 			expect(result.isTransformed).toBe(true);
-			expect(result.transformedAdf).toMatchInlineSnapshot(`
-			{
-			  "content": [
-			    {
-			      "content": [
-			        {
-			          "content": [],
-			          "type": "tableRow",
-			        },
-			      ],
-			      "type": "table",
-			    },
-			  ],
-			  "type": "doc",
-			  "version": 1,
-			}
-		`);
+			expect(result.transformedAdf).toEqual({
+				content: [
+					{
+						content: [
+							{
+								content: [],
+								type: 'tableRow',
+							},
+						],
+						type: 'table',
+					},
+				],
+				type: 'doc',
+				version: 1,
+			});
 		});
 
 		it('should clear the node if nested table extension is missing adf content property', () => {
@@ -154,23 +148,21 @@ describe('Nested table transformations', () => {
 			);
 
 			expect(result.isTransformed).toBe(true);
-			expect(result.transformedAdf).toMatchInlineSnapshot(`
-			{
-			  "content": [
-			    {
-			      "content": [
-			        {
-			          "content": [],
-			          "type": "tableRow",
-			        },
-			      ],
-			      "type": "table",
-			    },
-			  ],
-			  "type": "doc",
-			  "version": 1,
-			}
-		`);
+			expect(result.transformedAdf).toEqual({
+				content: [
+					{
+						content: [
+							{
+								content: [],
+								type: 'tableRow',
+							},
+						],
+						type: 'table',
+					},
+				],
+				type: 'doc',
+				version: 1,
+			});
 		});
 
 		it('should throw an error if nested table extension nestedContent is not valid JSON', () => {
@@ -185,99 +177,97 @@ describe('Nested table transformations', () => {
 			);
 
 			expect(result.isTransformed).toBe(true);
-			expect(result.transformedAdf).toMatchInlineSnapshot(`
-			{
-			  "content": [
-			    {
-			      "attrs": {
-			        "extensionKey": "bodied-eh",
-			        "extensionType": "com.atlassian.confluence.macro.core",
-			        "layout": "default",
-			        "localId": "testId",
-			        "parameters": {
-			          "macroMetadata": {
-			            "placeholder": [
-			              {
-			                "data": {
-			                  "url": "",
-			                },
-			                "type": "icon",
-			              },
-			            ],
-			          },
-			          "macroParams": {},
-			        },
-			      },
-			      "content": [
-			        {
-			          "content": [
-			            {
-			              "content": [
-			                {
-			                  "content": [
-			                    {
-			                      "content": [
-			                        {
-			                          "content": [
-			                            {
-			                              "text": "Header 1",
-			                              "type": "text",
-			                            },
-			                          ],
-			                          "type": "tableHeader",
-			                        },
-			                        {
-			                          "content": [
-			                            {
-			                              "text": "Header 2",
-			                              "type": "text",
-			                            },
-			                          ],
-			                          "type": "tableHeader",
-			                        },
-			                      ],
-			                      "type": "tableRow",
-			                    },
-			                    {
-			                      "content": [
-			                        {
-			                          "content": [
-			                            {
-			                              "text": "Cell 1",
-			                              "type": "text",
-			                            },
-			                          ],
-			                          "type": "tableCell",
-			                        },
-			                        {
-			                          "content": [
-			                            {
-			                              "text": "Cell 2",
-			                              "type": "text",
-			                            },
-			                          ],
-			                          "type": "tableCell",
-			                        },
-			                      ],
-			                      "type": "tableRow",
-			                    },
-			                  ],
-			                  "type": "table",
-			                },
-			              ],
-			              "type": "tableRow",
-			            },
-			          ],
-			          "type": "table",
-			        },
-			      ],
-			      "type": "bodiedExtension",
-			    },
-			  ],
-			  "type": "doc",
-			  "version": 1,
-			}
-		`);
+			expect(result.transformedAdf).toEqual({
+				content: [
+					{
+						attrs: {
+							extensionKey: 'bodied-eh',
+							extensionType: 'com.atlassian.confluence.macro.core',
+							layout: 'default',
+							localId: 'testId',
+							parameters: {
+								macroMetadata: {
+									placeholder: [
+										{
+											data: {
+												url: '',
+											},
+											type: 'icon',
+										},
+									],
+								},
+								macroParams: {},
+							},
+						},
+						content: [
+							{
+								content: [
+									{
+										content: [
+											{
+												content: [
+													{
+														content: [
+															{
+																content: [
+																	{
+																		text: 'Header 1',
+																		type: 'text',
+																	},
+																],
+																type: 'tableHeader',
+															},
+															{
+																content: [
+																	{
+																		text: 'Header 2',
+																		type: 'text',
+																	},
+																],
+																type: 'tableHeader',
+															},
+														],
+														type: 'tableRow',
+													},
+													{
+														content: [
+															{
+																content: [
+																	{
+																		text: 'Cell 1',
+																		type: 'text',
+																	},
+																],
+																type: 'tableCell',
+															},
+															{
+																content: [
+																	{
+																		text: 'Cell 2',
+																		type: 'text',
+																	},
+																],
+																type: 'tableCell',
+															},
+														],
+														type: 'tableRow',
+													},
+												],
+												type: 'table',
+											},
+										],
+										type: 'tableRow',
+									},
+								],
+								type: 'table',
+							},
+						],
+						type: 'bodiedExtension',
+					},
+				],
+				type: 'doc',
+				version: 1,
+			});
 		});
 	});
 
@@ -286,99 +276,97 @@ describe('Nested table transformations', () => {
 			nestedTableExtensionInsideBodiedExtensionAdf,
 		);
 		expect(result.isTransformed).toBe(true);
-		expect(result.transformedAdf).toMatchInlineSnapshot(`
-			{
-			  "content": [
-			    {
-			      "attrs": {
-			        "extensionKey": "bodied-eh",
-			        "extensionType": "com.atlassian.confluence.macro.core",
-			        "layout": "default",
-			        "localId": "testId",
-			        "parameters": {
-			          "macroMetadata": {
-			            "placeholder": [
-			              {
-			                "data": {
-			                  "url": "",
-			                },
-			                "type": "icon",
-			              },
-			            ],
-			          },
-			          "macroParams": {},
-			        },
-			      },
-			      "content": [
-			        {
-			          "content": [
-			            {
-			              "content": [
-			                {
-			                  "content": [
-			                    {
-			                      "content": [
-			                        {
-			                          "content": [
-			                            {
-			                              "text": "Header 1",
-			                              "type": "text",
-			                            },
-			                          ],
-			                          "type": "tableHeader",
-			                        },
-			                        {
-			                          "content": [
-			                            {
-			                              "text": "Header 2",
-			                              "type": "text",
-			                            },
-			                          ],
-			                          "type": "tableHeader",
-			                        },
-			                      ],
-			                      "type": "tableRow",
-			                    },
-			                    {
-			                      "content": [
-			                        {
-			                          "content": [
-			                            {
-			                              "text": "Cell 1",
-			                              "type": "text",
-			                            },
-			                          ],
-			                          "type": "tableCell",
-			                        },
-			                        {
-			                          "content": [
-			                            {
-			                              "text": "Cell 2",
-			                              "type": "text",
-			                            },
-			                          ],
-			                          "type": "tableCell",
-			                        },
-			                      ],
-			                      "type": "tableRow",
-			                    },
-			                  ],
-			                  "type": "table",
-			                },
-			              ],
-			              "type": "tableRow",
-			            },
-			          ],
-			          "type": "table",
-			        },
-			      ],
-			      "type": "bodiedExtension",
-			    },
-			  ],
-			  "type": "doc",
-			  "version": 1,
-			}
-		`);
+		expect(result.transformedAdf).toEqual({
+			content: [
+				{
+					attrs: {
+						extensionKey: 'bodied-eh',
+						extensionType: 'com.atlassian.confluence.macro.core',
+						layout: 'default',
+						localId: 'testId',
+						parameters: {
+							macroMetadata: {
+								placeholder: [
+									{
+										data: {
+											url: '',
+										},
+										type: 'icon',
+									},
+								],
+							},
+							macroParams: {},
+						},
+					},
+					content: [
+						{
+							content: [
+								{
+									content: [
+										{
+											content: [
+												{
+													content: [
+														{
+															content: [
+																{
+																	text: 'Header 1',
+																	type: 'text',
+																},
+															],
+															type: 'tableHeader',
+														},
+														{
+															content: [
+																{
+																	text: 'Header 2',
+																	type: 'text',
+																},
+															],
+															type: 'tableHeader',
+														},
+													],
+													type: 'tableRow',
+												},
+												{
+													content: [
+														{
+															content: [
+																{
+																	text: 'Cell 1',
+																	type: 'text',
+																},
+															],
+															type: 'tableCell',
+														},
+														{
+															content: [
+																{
+																	text: 'Cell 2',
+																	type: 'text',
+																},
+															],
+															type: 'tableCell',
+														},
+													],
+													type: 'tableRow',
+												},
+											],
+											type: 'table',
+										},
+									],
+									type: 'tableRow',
+								},
+							],
+							type: 'table',
+						},
+					],
+					type: 'bodiedExtension',
+				},
+			],
+			type: 'doc',
+			version: 1,
+		});
 	});
 
 	describe('transform outgoing document', () => {
@@ -386,48 +374,52 @@ describe('Nested table transformations', () => {
 			const transformedAdf = transformNestedTableNodeOutgoingDocument(
 				nestedTableInsideTableCellAdf,
 			);
-			expect(transformedAdf).toMatchInlineSnapshot(`
-			{
-			  "attrs": {},
-			  "content": [
-			    {
-			      "attrs": {
-			        "extensionKey": "nested-table",
-			        "extensionType": "com.atlassian.confluence.migration",
-			        "parameters": {
-			          "adf": "{"type":"doc","version":1,"content":[{"type":"table","attrs":{"isNumberColumnEnabled":false,"layout":"default","localId":"58243e71-9906-4f0b-8a27-84973f7203f0","width":164},"content":[{"type":"tableRow","content":[{"type":"tableHeader","attrs":{},"content":[{"type":"paragraph","content":[{"type":"text","text":"a","marks":[{"type":"Nested table header content"}]}]}]}]},{"type":"tableRow","content":[{"type":"tableCell","attrs":{},"content":[{"type":"paragraph","content":[{"type":"text","text":"Nested table content"}]}]}]}]}]}",
-			        },
-			      },
-			      "type": "extension",
-			    },
-			  ],
-			  "type": "tableCell",
-			}
-		`);
+			expect(transformedAdf).toEqual({
+				attrs: {},
+				content: [
+					{
+						attrs: {
+							extensionKey: 'nested-table',
+							extensionType: 'com.atlassian.confluence.migration',
+							parameters: {
+								adf: JSON.stringify({
+									type: 'doc',
+									version: 1,
+									content: nestedTableInsideTableCellAdf.content,
+								}),
+							},
+						},
+						type: 'extension',
+					},
+				],
+				type: 'tableCell',
+			});
 		});
 
 		it('should transform a nested table inside a table header', () => {
 			const transformedAdf = transformNestedTableNodeOutgoingDocument(
 				nestedTableInsideTableHeaderAdf,
 			);
-			expect(transformedAdf).toMatchInlineSnapshot(`
-			{
-			  "attrs": {},
-			  "content": [
-			    {
-			      "attrs": {
-			        "extensionKey": "nested-table",
-			        "extensionType": "com.atlassian.confluence.migration",
-			        "parameters": {
-			          "adf": "{"type":"doc","version":1,"content":[{"type":"table","attrs":{"isNumberColumnEnabled":false,"layout":"default","localId":"58243e71-9906-4f0b-8a27-84973f7203f0","width":164},"content":[{"type":"tableRow","content":[{"type":"tableHeader","attrs":{},"content":[{"type":"paragraph","content":[{"type":"text","text":"a","marks":[{"type":"Nested table header content"}]}]}]}]},{"type":"tableRow","content":[{"type":"tableCell","attrs":{},"content":[{"type":"paragraph","content":[{"type":"text","text":"Nested table content"}]}]}]}]}]}",
-			        },
-			      },
-			      "type": "extension",
-			    },
-			  ],
-			  "type": "tableHeader",
-			}
-		`);
+			expect(transformedAdf).toEqual({
+				attrs: {},
+				content: [
+					{
+						attrs: {
+							extensionKey: 'nested-table',
+							extensionType: 'com.atlassian.confluence.migration',
+							parameters: {
+								adf: JSON.stringify({
+									type: 'doc',
+									version: 1,
+									content: nestedTableInsideTableHeaderAdf.content,
+								}),
+							},
+						},
+						type: 'extension',
+					},
+				],
+				type: 'tableHeader',
+			});
 		});
 
 		it('should throw an error if nested table has invalid content', () => {

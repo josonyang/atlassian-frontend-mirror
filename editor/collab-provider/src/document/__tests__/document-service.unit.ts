@@ -1304,7 +1304,7 @@ describe('document-service', () => {
 						...{ ...updateDocumentData, version: 2 },
 						reserveCursor: false,
 					}),
-				).toThrowErrorMatchingInlineSnapshot(`"Failed to update the document"`);
+				).toThrowError('Failed to update the document');
 				expect(onErrorHandledMock).toBeCalledTimes(1);
 				expect(onErrorHandledMock).toBeCalledWith({
 					data: {

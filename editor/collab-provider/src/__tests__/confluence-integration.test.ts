@@ -1,11 +1,3 @@
-/* eslint-disable
-  @atlaskit/design-system/no-to-match-snapshot,
-  @atlaskit/design-system/no-unsafe-inline-snapshot
-  -- TODO(IND-4952): existing snapshot tests will be removed in a follow-up cleanup PR.
-  See https://hello.atlassian.net/wiki/spaces/afm/pages/7146174189/LDR+Unit+Tests+-+Ban+Snapshot+tests+in+Platform
-  and raise concerns in https://atlassian.enterprise.slack.com/archives/C0BD4K40BLH
-*/
-
 jest.mock('@atlaskit/feature-gate-js-client', () => ({
 	...jest.requireActual('@atlaskit/feature-gate-js-client'),
 	initialize: jest.fn(Promise.resolve),
@@ -340,27 +332,20 @@ describe('Collab Provider Integration Tests - Confluence', () => {
 		it('should return the current document state when calling getCurrentState()', async () => {
 			provider.initialize(getStateMock);
 			const currentDocumentState = await provider.getCurrentState();
-			expect(currentDocumentState).toMatchInlineSnapshot(`
-			{
-			  "content": {
-			    "content": [
-			      {
-			        "content": [
-			          {
-			            "text": "lol",
-			            "type": "text",
-			          },
-			        ],
-			        "type": "paragraph",
-			      },
-			    ],
-			    "type": "doc",
-			    "version": 1,
-			  },
-			  "stepVersion": 0,
-			  "title": undefined,
-			}
-		`);
+			expect(currentDocumentState).toEqual({
+				content: {
+					type: 'doc',
+					version: 1,
+					content: [
+						{
+							type: 'paragraph',
+							content: [{ type: 'text', text: 'lol' }],
+						},
+					],
+				},
+				stepVersion: 0,
+				title: undefined,
+			});
 		});
 
 		it('should throw an error if there is a problem when calling getCurrentState()', async () => {
@@ -375,9 +360,7 @@ describe('Collab Provider Integration Tests - Confluence', () => {
 				provider.analyticsHelper,
 				'sendErrorEvent',
 			);
-			await expect(provider.getCurrentState()).rejects.toThrowErrorMatchingInlineSnapshot(
-				`"fake error"`,
-			);
+			await expect(provider.getCurrentState()).rejects.toThrow('fake error');
 
 			expect(analyticsHelperSpy).toHaveBeenCalledTimes(2);
 			expect(analyticsHelperSpy).toHaveBeenCalledWith(
@@ -389,27 +372,20 @@ describe('Collab Provider Integration Tests - Confluence', () => {
 		it('should return the final acknowledged document state when calling getFinalAcknowledgedState()', async () => {
 			provider.initialize(getStateMock);
 			const finalDocumentState = await provider.getFinalAcknowledgedState('publish');
-			expect(finalDocumentState).toMatchInlineSnapshot(`
-			{
-			  "content": {
-			    "content": [
-			      {
-			        "content": [
-			          {
-			            "text": "lol",
-			            "type": "text",
-			          },
-			        ],
-			        "type": "paragraph",
-			      },
-			    ],
-			    "type": "doc",
-			    "version": 1,
-			  },
-			  "stepVersion": 0,
-			  "title": undefined,
-			}
-		`);
+			expect(finalDocumentState).toEqual({
+				content: {
+					type: 'doc',
+					version: 1,
+					content: [
+						{
+							type: 'paragraph',
+							content: [{ type: 'text', text: 'lol' }],
+						},
+					],
+				},
+				stepVersion: 0,
+				title: undefined,
+			});
 		});
 
 		it('should throw an error if there is a problem when calling getFinalAcknowledgedState()', async () => {
@@ -424,9 +400,7 @@ describe('Collab Provider Integration Tests - Confluence', () => {
 				provider.analyticsHelper,
 				'sendErrorEvent',
 			);
-			await expect(
-				provider.getFinalAcknowledgedState('publish'),
-			).rejects.toThrowErrorMatchingInlineSnapshot(`"fake error"`);
+			await expect(provider.getFinalAcknowledgedState('publish')).rejects.toThrow('fake error');
 
 			expect(analyticsHelperSpy).toHaveBeenCalledTimes(2);
 			expect(analyticsHelperSpy).toHaveBeenCalledWith(
@@ -439,18 +413,14 @@ describe('Collab Provider Integration Tests - Confluence', () => {
 			const unsubscribeSpy = jest.spyOn(provider, 'unsubscribeAll');
 			await provider.destroy();
 			expect(unsubscribeSpy).toBeCalledTimes(1);
-			await expect(provider.getCurrentState()).rejects.toThrowErrorMatchingInlineSnapshot(
-				`"this.getState is not a function"`,
-			);
+			await expect(provider.getCurrentState()).rejects.toThrow('this.getState is not a function');
 		});
 
 		it('should be unable to use the provider after calling .disconnect()', async () => {
 			const unsubscribeSpy = jest.spyOn(provider, 'unsubscribeAll');
 			await provider.disconnect();
 			expect(unsubscribeSpy).toBeCalledTimes(1);
-			await expect(provider.getCurrentState()).rejects.toThrowErrorMatchingInlineSnapshot(
-				`"this.getState is not a function"`,
-			);
+			await expect(provider.getCurrentState()).rejects.toThrow('this.getState is not a function');
 		});
 
 		it('should be able to set the title using setMetadata', async () => {
@@ -538,68 +508,50 @@ describe('Collab Provider Integration Tests - Confluence', () => {
 		});
 
 		it('should be unusable before calling setup, and usable after', async () => {
-			await expect(provider.getCurrentState()).rejects.toThrowErrorMatchingInlineSnapshot(
-				`"this.getState is not a function"`,
-			);
+			await expect(provider.getCurrentState()).rejects.toThrow('this.getState is not a function');
 			provider.setup({ getState: getStateMock });
 			await provider.setMetadata({ title: 'abc' });
 			const currentDocumentState = await provider.getCurrentState();
 			// @ts-ignore accessing private property for testing purposes
 			expect(provider.metadataService.getTitle()).toEqual('abc');
-			expect(currentDocumentState).toMatchInlineSnapshot(`
-			{
-			  "content": {
-			    "content": [
-			      {
-			        "content": [
-			          {
-			            "text": "lol",
-			            "type": "text",
-			          },
-			        ],
-			        "type": "paragraph",
-			      },
-			    ],
-			    "type": "doc",
-			    "version": 1,
-			  },
-			  "stepVersion": 0,
-			  "title": "abc",
-			}
-		`);
+			expect(currentDocumentState).toEqual({
+				content: {
+					type: 'doc',
+					version: 1,
+					content: [
+						{
+							type: 'paragraph',
+							content: [{ type: 'text', text: 'lol' }],
+						},
+					],
+				},
+				stepVersion: 0,
+				title: 'abc',
+			});
 		});
 
 		it('should be unusable before calling initialize, and usable after', async () => {
-			await expect(provider.getCurrentState()).rejects.toThrowErrorMatchingInlineSnapshot(
-				`"this.getState is not a function"`,
-			);
+			await expect(provider.getCurrentState()).rejects.toThrow('this.getState is not a function');
 
 			provider.initialize(getStateMock);
 			await provider.setMetadata({ title: 'abc' });
 			const currentDocumentState = await provider.getCurrentState();
 			// @ts-ignore accessing private property for testing purposes
 			expect(provider.metadataService.getTitle()).toEqual('abc');
-			expect(currentDocumentState).toMatchInlineSnapshot(`
-			{
-			  "content": {
-			    "content": [
-			      {
-			        "content": [
-			          {
-			            "text": "lol",
-			            "type": "text",
-			          },
-			        ],
-			        "type": "paragraph",
-			      },
-			    ],
-			    "type": "doc",
-			    "version": 1,
-			  },
-			  "stepVersion": 0,
-			  "title": "abc",
-			}
-		`);
+			expect(currentDocumentState).toEqual({
+				content: {
+					type: 'doc',
+					version: 1,
+					content: [
+						{
+							type: 'paragraph',
+							content: [{ type: 'text', text: 'lol' }],
+						},
+					],
+				},
+				stepVersion: 0,
+				title: 'abc',
+			});
 		});
 		it('should fail to set up the provider if getState is missing the collab plugin when calling initialize()', async () => {
 			const badEditorState = createEditorState(doc(p('lol'))); // missing collab plugin
@@ -612,8 +564,8 @@ describe('Collab Provider Integration Tests - Confluence', () => {
 			);
 			expect(() => {
 				provider.initialize(badGetStateMock);
-			}).toThrowErrorMatchingInlineSnapshot(
-				`"Collab provider attempted to initialise, but Editor state is missing collab plugin"`,
+			}).toThrow(
+				'Collab provider attempted to initialise, but Editor state is missing collab plugin',
 			);
 
 			expect(analyticsHelperSpy).toHaveBeenCalledTimes(1);
@@ -635,8 +587,8 @@ describe('Collab Provider Integration Tests - Confluence', () => {
 			);
 			expect(() => {
 				provider.setup({ getState: badGetStateMock });
-			}).toThrowErrorMatchingInlineSnapshot(
-				`"Collab provider attempted to initialise, but Editor state is missing collab plugin"`,
+			}).toThrow(
+				'Collab provider attempted to initialise, but Editor state is missing collab plugin',
 			);
 
 			expect(analyticsHelperSpy).toHaveBeenCalledTimes(1);
@@ -667,9 +619,7 @@ describe('Collab Provider Integration Tests - Confluence', () => {
 
 		it('should be unable to use the provider after calling .unsubscribeAll()', async () => {
 			await provider.unsubscribeAll();
-			await expect(provider.getCurrentState()).rejects.toThrowErrorMatchingInlineSnapshot(
-				`"this.getState is not a function"`,
-			);
+			await expect(provider.getCurrentState()).rejects.toThrow('this.getState is not a function');
 		});
 
 		it('should return the current unconfirmed steps', () => {

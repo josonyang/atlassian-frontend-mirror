@@ -118,23 +118,21 @@ describe('Editor Actions', () => {
 			}
 			const value = await editorActions?.getValue();
 
-			expect(value).toMatchInlineSnapshot(`
-			{
-			  "content": [
-			    {
-			      "content": [
-			        {
-			          "text": ":smile",
-			          "type": "text",
-			        },
-			      ],
-			      "type": "paragraph",
-			    },
-			  ],
-			  "type": "doc",
-			  "version": 1,
-			}
-		`);
+			expect(value).toEqual({
+				type: 'doc',
+				version: 1,
+				content: [
+					{
+						type: 'paragraph',
+						content: [
+							{
+								type: 'text',
+								text: ':smile',
+							},
+						],
+					},
+				],
+			});
 
 			await expect(document.body).toBeAccessible();
 		});

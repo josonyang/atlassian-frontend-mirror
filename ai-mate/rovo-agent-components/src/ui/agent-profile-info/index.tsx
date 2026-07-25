@@ -285,7 +285,7 @@ export const AgentProfileInfo = ({
 				</Box>
 			)}
 			{starCountRender}
-			{!!renderAdditionalContent && fg('jira_browse_agents_modal') && renderAdditionalContent()}
+			{!!renderAdditionalContent && renderAdditionalContent()}
 		</Stack>
 	);
 };

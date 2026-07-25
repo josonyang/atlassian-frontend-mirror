@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-selection-extension
 
+## 15.0.36
+
+### Patch Changes
+
+- [`9120ffa5e7699`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/9120ffa5e7699) -
+  Clean up experiment `agent-managed-blocks-stop-block-template`.
+- Updated dependencies
+
 ## 15.0.35
 
 ### Patch Changes

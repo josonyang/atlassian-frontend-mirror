@@ -22,10 +22,13 @@ export const createGhostTextDecorationSet = (
 			const container = document.createElement('span');
 			container.className = GHOST_TEXT_CLASS;
 			container.setAttribute('data-autocomplete-ghost', 'true');
+			container.setAttribute('contenteditable', 'false');
+			container.setAttribute('aria-hidden', 'true');
 			container.style.color = '#999';
 			container.style.opacity = '0.6';
-			container.style.pointerEvents = 'none';
+			container.style.pointerEvents = 'auto';
 			container.style.userSelect = 'none';
+			container.style.cursor = 'pointer';
 			container.style.fontStyle = 'italic';
 			// U+200B (Zero Width Space) gives the browser a line-break opportunity
 			// immediately before the ghost text. This ensures the typed text before

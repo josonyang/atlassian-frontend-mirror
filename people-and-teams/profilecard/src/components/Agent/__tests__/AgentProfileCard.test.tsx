@@ -60,6 +60,7 @@ describe('ProfileCardTrigger', () => {
 		hideAgentActions = false,
 		hideStarButton = false,
 		agentOverride = agent,
+		footerComponent,
 	}: {
 		isLoading?: boolean;
 		hasError?: boolean;
@@ -69,6 +70,7 @@ describe('ProfileCardTrigger', () => {
 		hideAgentActions?: boolean;
 		hideStarButton?: boolean;
 		agentOverride?: RovoAgentProfileCardInfo;
+		footerComponent?: React.ReactNode;
 	}) => {
 		return renderWithAnalyticsListener(
 			<IntlProvider locale="en">
@@ -82,6 +84,7 @@ describe('ProfileCardTrigger', () => {
 					hideConversationStarters={hideConversationStarters}
 					hideAgentActions={hideAgentActions}
 					hideStarButton={hideStarButton}
+					footerComponent={footerComponent}
 				/>
 			</IntlProvider>,
 		);
@@ -150,6 +153,14 @@ describe('ProfileCardTrigger', () => {
 	it('should capture and report a11y violations', async () => {
 		const { container } = renderWithIntl({});
 		await expect(container).toBeAccessible();
+	});
+
+	it('renders footer content when provided', () => {
+		renderWithIntl({
+			footerComponent: <span>Recommended because this agent is relevant</span>,
+		});
+
+		expect(screen.getByText('Recommended because this agent is relevant')).toBeInTheDocument();
 	});
 
 	describe('hideMoreActions', () => {

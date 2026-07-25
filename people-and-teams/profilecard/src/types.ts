@@ -350,6 +350,8 @@ export interface AgentProfileCardTriggerProps extends AgentActionsType {
 	viewingUserId?: string;
 	onDeleteAgent?: (agentId: string) => { restore: () => void };
 	hideStarButton?: boolean;
+	/** Optional component rendered at the bottom of the agent profile card. */
+	footerComponent?: React.ReactNode;
 }
 
 export type AgentProfileCardProps = {
@@ -372,6 +374,8 @@ export type AgentProfileCardProps = {
 	hideAgentActions?: boolean;
 	/** Hide the favourite (star) button. Defaults to false (the star is shown). */
 	hideStarButton?: boolean;
+	/** Optional component rendered at the bottom of the agent profile card. */
+	footerComponent?: React.ReactNode;
 } & AgentActionsType;
 
 export type StatusType = 'active' | 'inactive' | 'closed';

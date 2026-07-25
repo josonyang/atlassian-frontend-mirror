@@ -6,6 +6,8 @@
   and raise concerns in https://atlassian.enterprise.slack.com/archives/C0BD4K40BLH
 */
 
+import '../../__tests__/jest_mocks/socket.io-client.mock';
+
 import { Slice } from '@atlaskit/editor-prosemirror/model';
 import { Transaction } from '@atlaskit/editor-prosemirror/state';
 import type { EditorState } from '@atlaskit/editor-prosemirror/state';
@@ -412,8 +414,7 @@ describe('commitStepQueue', () => {
 			});
 
 			it('analytics action event sent', () => {
-				expect(actionEventSpy).toBeCalledTimes(2);
-				expect(actionEventSpy).toBeCalledWith('addSteps', EVENT_STATUS.SUCCESS_10x_SAMPLED, {
+				expect(actionEventSpy).toHaveBeenCalledWith('addSteps', EVENT_STATUS.SUCCESS_10x_SAMPLED, {
 					latency: 0,
 					stepType: { replace: 1 },
 					type: 'ACCEPTED',
@@ -422,24 +423,10 @@ describe('commitStepQueue', () => {
 
 			it('commit attempt & success event emitted', () => {
 				expect(emitMock).toBeCalledTimes(2);
-				expect(emitMock.mock.calls).toMatchInlineSnapshot(`
-			[
-			  [
-			    "commit-status",
-			    {
-			      "status": "attempt",
-			      "version": 1,
-			    },
-			  ],
-			  [
-			    "commit-status",
-			    {
-			      "status": "success",
-			      "version": 2,
-			    },
-			  ],
-			]
-		`);
+				expect(emitMock.mock.calls).toEqual([
+					['commit-status', { status: 'attempt', version: 1 }],
+					['commit-status', { status: 'success', version: 2 }],
+				]);
 			});
 		});
 
@@ -517,24 +504,10 @@ describe('commitStepQueue', () => {
 				presetCommitStepQueue([fakeStep], 1, 'user1', 'client1');
 
 				expect(emitMock).toBeCalledTimes(2);
-				expect(emitMock.mock.calls).toMatchInlineSnapshot(`
-			[
-			  [
-			    "commit-status",
-			    {
-			      "status": "attempt",
-			      "version": 1,
-			    },
-			  ],
-			  [
-			    "commit-status",
-			    {
-			      "status": "failure",
-			      "version": 1,
-			    },
-			  ],
-			]
-		`);
+				expect(emitMock.mock.calls).toEqual([
+					['commit-status', { status: 'attempt', version: 1 }],
+					['commit-status', { status: 'failure', version: 1 }],
+				]);
 			});
 
 			it('should set readyToCommit to true when broadcast fails due to not being connected', () => {
@@ -558,8 +531,7 @@ describe('commitStepQueue', () => {
 					broadcastMockErrorWithCode('Some weird stuff going on');
 					presetCommitStepQueue([fakeStep], 1, 'user1', 'client1');
 
-					expect(actionEventSpy).toBeCalledTimes(2);
-					expect(actionEventSpy).toBeCalledWith('addSteps', 'FAILURE', {
+					expect(actionEventSpy).toHaveBeenCalledWith('addSteps', 'FAILURE', {
 						latency: 0,
 						type: 'ERROR',
 					});
@@ -569,8 +541,7 @@ describe('commitStepQueue', () => {
 					broadcastMockErrorWithCode('HEAD_VERSION_UPDATE_FAILED');
 					presetCommitStepQueue([fakeStep], 1, 'user1', 'client1');
 
-					expect(actionEventSpy).toBeCalledTimes(2);
-					expect(actionEventSpy).toHaveBeenNthCalledWith(2, 'addSteps', 'FAILURE', {
+					expect(actionEventSpy).toHaveBeenCalledWith('addSteps', 'FAILURE', {
 						latency: 0,
 						type: 'REJECTED',
 					});

@@ -11,6 +11,7 @@ import { _overrides, _product } from './setup';
 const allowsProductKeys = [
 	'cc-maui-experiment',
 	'cc_maui_create_keyword',
+	'cc_maui_create_keyword_aa',
 	'platform_use_unicode_emojis',
 ];
 

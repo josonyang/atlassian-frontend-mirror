@@ -1,5 +1,16 @@
 # @atlaskit/editor-plugin-autocomplete
 
+## 4.2.0
+
+### Minor Changes
+
+- [`268f447fd26f4`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/268f447fd26f4) -
+  Fix autocomplete click interactions in the editor
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 4.1.3
 
 ### Patch Changes
