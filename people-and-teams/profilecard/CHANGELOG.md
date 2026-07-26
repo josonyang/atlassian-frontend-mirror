@@ -1,5 +1,18 @@
 # @atlaskit/profilecard
 
+## 26.14.0
+
+### Minor Changes
+
+- [`a4cc4f58a5232`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/a4cc4f58a5232) -
+  Add an optional `footerComponent` slot to the agent profile card:
+
+  ```tsx
+  <AgentProfileCardResourced {...props} footerComponent={<MyFooter />} />
+  ```
+
+  Patch the People and Teams agent profile card wrapper to pick up the dependency update.
+
 ## 26.13.2
 
 ### Patch Changes

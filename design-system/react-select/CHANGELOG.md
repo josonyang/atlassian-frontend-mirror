@@ -1,5 +1,12 @@
 # @atlaskit/react-select
 
+## 4.6.0
+
+### Minor Changes
+
+- [`370265cbabcc4`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/370265cbabcc4) -
+  Expose additional APIs via package subpath exports (debarrelling) instead of the root barrel file
+
 ## 4.5.6
 
 ### Patch Changes
