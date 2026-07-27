@@ -147,7 +147,6 @@ const AtlaskitIcon = ({
 					testId={testId}
 					{...(fg('billplat_a11y_icon_label_fix') ? { label: '' } : undefined)}
 					size={size === SmartLinkSize.Large || size === SmartLinkSize.XLarge ? 'small' : 'xxsmall'}
-					{...(fg('navx-1895-new-logo-design') ? { shouldUseNewLogoDesign: true } : undefined)}
 				/>
 			);
 		case IconType.Jira:
@@ -157,7 +156,6 @@ const AtlaskitIcon = ({
 					testId={testId}
 					{...(fg('billplat_a11y_icon_label_fix') ? { label: '' } : undefined)}
 					size={size === SmartLinkSize.Large || size === SmartLinkSize.XLarge ? 'small' : 'xxsmall'}
-					{...(fg('navx-1895-new-logo-design') ? { shouldUseNewLogoDesign: true } : undefined)}
 				/>
 			);
 		case IconType.Error:

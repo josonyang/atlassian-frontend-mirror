@@ -48,7 +48,9 @@ export const pasteOptionsToolbarPlugin: PasteOptionsToolbarPlugin = ({ config, a
 		config?.usePopupBasedPasteActionsMenu &&
 		expValEqualsNoExposure('platform_editor_paste_actions_menu', 'isEnabled', true)
 	) {
-		api?.uiControlRegistry?.actions.register(getPasteMenuComponents({ api }));
+		api?.uiControlRegistry?.actions.register(
+			getPasteMenuComponents({ api, markdownToPmConverter: config?.markdownToPmConverter }),
+		);
 	}
 
 	if (config?.pasteMenuButtonsFactory && config?.usePopupBasedPasteActionsMenu) {
@@ -144,7 +146,7 @@ export const pasteOptionsToolbarPlugin: PasteOptionsToolbarPlugin = ({ config, a
 				const pastePluginState = pasteOptionsPluginKey.getState(state) as PasteOptionsPluginState;
 
 				if (pastePluginState.showToolbar) {
-					return buildToolbar(state, intl, editorAnalyticsAPI);
+					return buildToolbar(state, intl, editorAnalyticsAPI, config?.markdownToPmConverter);
 				}
 
 				return;

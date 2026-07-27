@@ -4,11 +4,15 @@ import { type ImportDeclaration, isNodeOfType } from 'eslint-codemod-utils';
 import { getSourceCode } from '@atlaskit/eslint-utils/context-compat';
 
 import { JSXElementHelper } from '../../../../ast-nodes/jsx-element-helper';
+import { isImportFromPackage } from '../../../utils/is-import-from-package';
 import { isSupportedForLint } from '../supported';
 
 interface MetaData {
 	context: Rule.RuleContext;
 }
+
+const CODE_PACKAGE = '@atlaskit/code';
+const CODE_IMPORT_SOURCE = '@atlaskit/code/code';
 
 function isImportDeclaration(node: any): node is ImportDeclaration {
 	return node.type === 'ImportDeclaration';
@@ -33,7 +37,14 @@ export const JSXElement = {
 				usedNames.add(specifier.local.name);
 			}
 
-			if (declaration.source.value === '@atlaskit/code') {
+			if (isImportFromPackage(declaration.source.value, CODE_PACKAGE)) {
+				const defaultSpecifier = declaration.specifiers.find((specifier) =>
+					isNodeOfType(specifier, 'ImportDefaultSpecifier'),
+				);
+				if (defaultSpecifier && isNodeOfType(defaultSpecifier, 'ImportDefaultSpecifier')) {
+					existingCodeName = defaultSpecifier.local.name;
+				}
+
 				declaration.specifiers
 					.filter(
 						(specifier) =>
@@ -42,6 +53,7 @@ export const JSXElement = {
 					)
 					.forEach((specifier) => {
 						if (
+							!existingCodeName &&
 							isNodeOfType(specifier, 'ImportSpecifier') &&
 							specifier.imported.type === 'Identifier' &&
 							specifier.imported.name === 'Code'
@@ -108,7 +120,7 @@ export const JSXElement = {
 
 						// Add import if not present
 						if (!existingCodeName) {
-							const importStatement = `import { ${codeName} } from '@atlaskit/code';\n`;
+							const importStatement = `import ${codeName} from '${CODE_IMPORT_SOURCE}';\n`;
 							fixers.push(fixer.insertTextBefore(sourceCode.ast, importStatement));
 						}
 

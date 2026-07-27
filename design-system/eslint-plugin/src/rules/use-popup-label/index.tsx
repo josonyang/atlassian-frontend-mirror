@@ -4,6 +4,8 @@ import { isNodeOfType } from 'eslint-codemod-utils';
 import { createLintRule } from '../utils/create-lint-rule';
 
 const elementsAccessibleNameProps = ['label', 'titleId'];
+const POPUP_PACKAGE = '@atlaskit/popup';
+const POPUP_IMPORT_SOURCE = '@atlaskit/popup/popup';
 
 const rule: Rule.RuleModule = createLintRule({
 	meta: {
@@ -32,15 +34,22 @@ const rule: Rule.RuleModule = createLintRule({
 
 		return {
 			ImportDeclaration(node) {
-				if (node.source.value === '@atlaskit/popup') {
+				if (node.source.value === POPUP_PACKAGE || node.source.value === POPUP_IMPORT_SOURCE) {
 					if (node.specifiers.length) {
-						const defaultImport = node.specifiers.filter(
-							(spec) => spec.type === 'ImportDefaultSpecifier',
-						);
-						if (defaultImport.length) {
-							const { local } = defaultImport[0];
-							contextLocalIdentifier.push(local.name);
-						}
+						node.specifiers.forEach((spec) => {
+							if (spec.type === 'ImportDefaultSpecifier') {
+								contextLocalIdentifier.push(spec.local.name);
+							}
+
+							if (
+								node.source.value === POPUP_IMPORT_SOURCE &&
+								spec.type === 'ImportSpecifier' &&
+								'name' in spec.imported &&
+								spec.imported.name === 'Popup'
+							) {
+								contextLocalIdentifier.push(spec.local.name);
+							}
+						});
 					}
 				}
 			},

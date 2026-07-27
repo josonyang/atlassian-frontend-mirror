@@ -2,6 +2,7 @@ import React from 'react';
 import { cleanup, createEvent, fireEvent, waitFor } from '@testing-library/react';
 import { mockAllIsIntersecting } from 'react-intersection-observer/test-utils';
 import { axe, toHaveNoViolations } from 'jest-axe';
+import { setupEditorExperiments } from '@atlaskit/tmp-editor-statsig/setup';
 import Emoji from '../../../../components/common/Emoji';
 import { spriteEmoji, imageEmoji } from '../../_test-data';
 import type { EmojiDescription } from '../../../../types';
@@ -190,6 +191,57 @@ describe('<Emoji />', () => {
 			const result = renderWithIntl(<Emoji emoji={imageEmoji} />);
 			const imageWrapper = result.getByTestId(`image-emoji-${imageEmoji.shortName}`);
 			expect(imageWrapper).not.toHaveAttribute('title');
+		});
+
+		describe('with platform_editor_emoji_hover_show_tooltip enabled', () => {
+			beforeEach(() => {
+				setupEditorExperiments('test', {
+					platform_editor_emoji_hover_show_tooltip: true,
+				});
+			});
+
+			it('should render an ADS tooltip (no native title) when showTooltip is set', async () => {
+				const result = renderWithIntl(<Emoji emoji={imageEmoji} showTooltip={true} />);
+				const imageWrapper = result.getByTestId(`image-emoji-${imageEmoji.shortName}`);
+
+				// The native title fallback must not be used when the experiment is enabled.
+				expect(imageWrapper).not.toHaveAttribute('title');
+
+				// The ADS Tooltip only renders its content once the trigger is hovered/focused.
+				fireEvent.mouseOver(imageWrapper);
+				fireEvent.focus(imageWrapper);
+
+				expect(await result.findByText(':grimacing:')).toBeInTheDocument();
+			});
+
+			it('should fall back to the emoji name for tooltip content when shortName is missing', async () => {
+				const emojiWithoutShortName = {
+					...imageEmoji,
+					shortName: '',
+					name: 'grimacing face',
+				};
+				const result = renderWithIntl(<Emoji emoji={emojiWithoutShortName} showTooltip={true} />);
+
+				const imageWrapper = result.getByTestId(`image-emoji-${emojiWithoutShortName.shortName}`);
+				fireEvent.mouseOver(imageWrapper);
+				fireEvent.focus(imageWrapper);
+
+				expect(await result.findByText('grimacing face')).toBeInTheDocument();
+			});
+
+			it('should not use the native title even when showTooltip is set', async () => {
+				const result = renderWithIntl(<Emoji emoji={imageEmoji} showTooltip={true} />);
+				const imageWrapper = result.getByTestId(`image-emoji-${imageEmoji.shortName}`);
+				expect(imageWrapper).not.toHaveAttribute('title');
+			});
+
+			it('should not render a tooltip when showTooltip is not set', async () => {
+				const result = renderWithIntl(<Emoji emoji={imageEmoji} />);
+				const imageWrapper = result.getByTestId(`image-emoji-${imageEmoji.shortName}`);
+				expect(imageWrapper).not.toHaveAttribute('title');
+				expect(imageWrapper).not.toHaveAttribute('aria-describedby');
+				expect(result.queryByText(':grimacing:')).not.toBeInTheDocument();
+			});
 		});
 
 		it('should show delete button is showDelete is passed in', async () => {

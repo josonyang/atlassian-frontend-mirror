@@ -24,9 +24,6 @@ snapshot(HoverCard, {
 			},
 		},
 	],
-	featureFlags: {
-		'navx-1895-new-logo-design': true,
-	},
 	waitForReactLazy: true,
 });
 
@@ -59,9 +56,6 @@ snapshot(HoverCardActions, {
 		},
 	],
 	variants: [{ name: 'light mode', environment: { colorScheme: 'light' } }],
-	featureFlags: {
-		'navx-1895-new-logo-design': true,
-	},
 	waitForReactLazy: true,
 });
 
@@ -74,9 +68,6 @@ snapshot(HoverCardActions, {
 			selector: { byTestId: 'hover-card-trigger-wrapper' },
 		},
 	],
-	featureFlags: {
-		'navx-1895-new-logo-design': true,
-	},
 	waitForReactLazy: true,
 });
 
@@ -126,9 +117,6 @@ snapshot(HoverCardPositioning, {
 			selector: { byTestId: 'hover-test-can-open-left' },
 		},
 	],
-	featureFlags: {
-		'navx-1895-new-logo-design': true,
-	},
 	waitForReactLazy: true,
 });
 
@@ -153,8 +141,5 @@ snapshot(HoverCardPositioning, {
 			selector: { byTestId: 'hover-test-can-open-right' },
 		},
 	],
-	featureFlags: {
-		'navx-1895-new-logo-design': true,
-	},
 	waitForReactLazy: true,
 });

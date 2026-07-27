@@ -51,15 +51,17 @@
 	},
 	"exports": {
 		".": "./src/index.tsx",
-		"./avatar-tag": "./src/entry-points/avatar-tag.tsx",
+		"./avatar-tag": "./src/tag-new/avatar-tag.tsx",
+		"./color-mapping": "./src/tag-new/color-mapping.tsx",
 		"./new": "./src/tag-new/entrypoint.tsx",
-		"./removable-tag": "./src/entry-points/removable-tag.tsx",
+		"./removable-tag": "./src/tag/internal/removable/index.tsx",
 		"./simple-tag": "./src/entry-points/simple-tag.tsx",
 		"./tag": "./src/entry-points/tag.tsx",
-		"./tag-dropdown-trigger": "./src/entry-points/tag-dropdown-trigger.tsx",
-		"./tag-new/types": "./src/entry-points/tag-new-types.tsx",
-		"./tag/types": "./src/entry-points/tag-types.tsx",
-		"./types": "./src/entry-points/types.tsx"
+		"./tag-dropdown-trigger": "./src/tag-new/tag-dropdown-trigger.tsx",
+		"./tag-new/types": "./src/tag-new/types.tsx",
+		"./tag-new": "./src/tag-new/tag-new.tsx",
+		"./tag/types": "./src/tag/internal/shared/types.tsx",
+		"./types": "./src/types.tsx"
 	},
 	"dependencies": {
 		"@atlaskit/analytics-next": "workspace:^",

@@ -141,6 +141,18 @@ export const nativeEmbedAlignmentStyles: SerializedStyles = css({
 			paddingLeft: '0 !important',
 			paddingRight: '0 !important',
 		},
+	// Panel divider resizing can temporarily rebuild panel content before the
+	// native embed plugin re-syncs data-native-embed-nested. Support both the
+	// panel wrapper used by the old style and the content wrapper introduced by
+	// the new style, but only while the native embed containment kill switch is off.
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors -- DOM ancestry fallback for transient missing data-native-embed-nested
+	'.ProseMirror .ak-editor-panel .extension-container:has([data-native-embed-panel-resize-containment="true"]):has([data-native-embed-alignment]):has([data-native-embed-width]), .ProseMirror .ak-editor-panel__content .extension-container:has([data-native-embed-panel-resize-containment="true"]):has([data-native-embed-alignment]):has([data-native-embed-width]), .fabric-editor--full-width-mode:not(:has(#chromeless-editor)) .ak-editor-panel .extension-container.block:has([data-native-embed-panel-resize-containment="true"]):has([data-native-embed-alignment]):has([data-native-embed-width]), .fabric-editor--full-width-mode:not(:has(#chromeless-editor)) .ak-editor-panel__content .extension-container.block:has([data-native-embed-panel-resize-containment="true"]):has([data-native-embed-alignment]):has([data-native-embed-width])':
+		{
+			width: 'auto !important',
+			maxWidth: 'var(--native-embed-width) !important',
+			paddingLeft: '0 !important',
+			paddingRight: '0 !important',
+		},
 	// Override the extension wrapper's width so alignment margins take effect.
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors -- Target extension wrappers by data attribute
 	'.extension-container:has([data-native-embed-alignment="left"]), .ak-renderer-extension:has([data-native-embed-alignment="left"])':

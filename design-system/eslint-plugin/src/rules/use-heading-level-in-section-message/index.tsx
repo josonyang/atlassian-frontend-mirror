@@ -2,9 +2,11 @@ import type { Rule } from 'eslint';
 import { isNodeOfType, type JSXAttribute } from 'eslint-codemod-utils';
 
 import { createLintRule } from '../utils/create-lint-rule';
+import { isImportFromPackage } from '../utils/is-import-from-package';
 
 export const headingLevelRequiredSuggestionText =
 	'Add a `headingLevel` that is of a contextually relevant level.';
+const SECTION_MESSAGE_PACKAGE = '@atlaskit/section-message';
 
 const rule: Rule.RuleModule = createLintRule({
 	meta: {
@@ -26,7 +28,7 @@ const rule: Rule.RuleModule = createLintRule({
 
 		return {
 			ImportDeclaration(node) {
-				if (node.source.value !== '@atlaskit/section-message') {
+				if (!isImportFromPackage(node.source.value, SECTION_MESSAGE_PACKAGE)) {
 					return;
 				}
 				node.specifiers.forEach((spec) => {

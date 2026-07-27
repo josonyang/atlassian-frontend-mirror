@@ -10,6 +10,7 @@ import type {
 import type { FireAnalyticsEventOptions } from '../api';
 
 import type { ActiveSessionEventPayload } from './activity-session-events';
+import type { AgentEditShimmerNotShownAEP } from './agent-edit-shimmer-events';
 import type { AiAutocompleteEventPayload } from './ai-autocomplete-events';
 import type { AICommandPaletteEventPayload } from './ai-command-palette-events';
 import type { AIDefinitionsEventPayload } from './ai-definitions-events';
@@ -167,6 +168,7 @@ export type AnalyticsEventPayload<T = void> =
 	| UndoRedoAEP
 	| OfflineEditingEventPayload
 	| NcsSessionStepEventAEP
+	| AgentEditShimmerNotShownAEP
 	| FloatingToolbarOverflowEventPayload
 	| SyncBlockEventPayload
 	| FloatingToolbarEventPayload;

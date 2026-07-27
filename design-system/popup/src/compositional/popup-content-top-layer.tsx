@@ -234,7 +234,7 @@ export function PopupContentTopLayer({
 			ref={popoverRef}
 			{...roleProps}
 			isOpen={isOpen}
-			animate
+			shouldAnimate
 			placement={topLayerPlacement}
 			onClose={handleOnClose}
 			testId={testId && `${testId}--content`}

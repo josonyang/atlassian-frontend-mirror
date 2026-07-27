@@ -1,5 +1,24 @@
 # @atlaskit/icon
 
+## 37.2.0
+
+### Minor Changes
+
+- [`c50236f04a5d5`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/c50236f04a5d5) -
+  Flatten entry points for `@atlaskit/icon` and remove multiple-export violations.
+
+  New and updated subpath exports are now available directly:
+  - `@atlaskit/icon/components/icon-new` — direct component path (new)
+  - `@atlaskit/icon/deprecated-core` — now resolves directly to `src/deprecated-core.tsx`
+  - `@atlaskit/icon/deprecated-map` — now resolves directly to `src/deprecated-core.tsx`
+  - `@atlaskit/icon/icon-tile` — now resolves directly to `src/components/icon-tile/index.tsx`
+  - `@atlaskit/icon/metadata-core` — now resolves directly to `src/metadata-core.tsx`
+  - `@atlaskit/icon/skeleton` — now resolves directly to `src/components/skeleton.tsx`
+  - `@atlaskit/icon/types` — now resolves directly to `src/types.tsx`
+
+  No migration required for existing imports — all existing subpath exports remain valid. The
+  `./icon-new` subpath continues to work as before via `src/entry-points/icon-new.tsx`.
+
 ## 37.1.0
 
 ### Minor Changes

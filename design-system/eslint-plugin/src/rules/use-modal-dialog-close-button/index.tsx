@@ -13,6 +13,10 @@ import { JSXElementHelper } from '../../ast-nodes/jsx-element-helper';
 import { createLintRule } from '../utils/create-lint-rule';
 
 const PROP_NAME = 'hasCloseButton';
+const MODAL_DIALOG_PACKAGE = '@atlaskit/modal-dialog';
+const MODAL_DIALOG_IMPORT_SOURCE = '@atlaskit/modal-dialog/modal-dialog';
+const MODAL_HEADER_IMPORT_SOURCE = '@atlaskit/modal-dialog/modal-header';
+const CLOSE_BUTTON_IMPORT_SOURCE = '@atlaskit/modal-dialog/close-button';
 
 // Lint rule message
 const message =
@@ -54,15 +58,24 @@ const rule: Rule.RuleModule = createLintRule({
 		return {
 			// Only run rule in files where the package is imported
 			ImportDeclaration(node) {
-				// Ignore non-modal imports
-				if (node.source.value !== '@atlaskit/modal-dialog') {
-					return;
-				}
-
 				node.specifiers.forEach((identifier) => {
-					if (isNodeOfType(identifier, 'ImportDefaultSpecifier')) {
+					if (
+						(node.source.value === MODAL_DIALOG_PACKAGE ||
+							node.source.value === MODAL_DIALOG_IMPORT_SOURCE) &&
+						isNodeOfType(identifier, 'ImportDefaultSpecifier')
+					) {
 						defaultImportLocalName = identifier.local.name;
-					} else if (isNodeOfType(identifier, 'ImportSpecifier') && 'name' in identifier.imported) {
+					} else if (
+						node.source.value === MODAL_HEADER_IMPORT_SOURCE &&
+						isNodeOfType(identifier, 'ImportDefaultSpecifier')
+					) {
+						modalHeaderLocalName = identifier.local.name;
+					} else if (
+						(node.source.value === MODAL_DIALOG_PACKAGE ||
+							node.source.value === CLOSE_BUTTON_IMPORT_SOURCE) &&
+						isNodeOfType(identifier, 'ImportSpecifier') &&
+						'name' in identifier.imported
+					) {
 						const importName = identifier.imported.name;
 						const localName = identifier.local.name;
 						if (importName === 'ModalHeader') {
@@ -70,6 +83,11 @@ const rule: Rule.RuleModule = createLintRule({
 						} else if (importName === 'CloseButton') {
 							closeButtonLocalName = localName;
 						}
+					} else if (
+						node.source.value === CLOSE_BUTTON_IMPORT_SOURCE &&
+						isNodeOfType(identifier, 'ImportDefaultSpecifier')
+					) {
+						closeButtonLocalName = identifier.local.name;
 					}
 				});
 			},

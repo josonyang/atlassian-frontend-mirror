@@ -206,7 +206,7 @@ function AnimatedPopoverDemo({
 				ref={popoverRef}
 				role="dialog"
 				label={`${label} popover`}
-				animate
+				shouldAnimate
 				isOpen={isOpen}
 				onClose={handleClose}
 			>

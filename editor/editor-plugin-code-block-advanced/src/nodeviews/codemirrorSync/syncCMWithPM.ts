@@ -2,7 +2,6 @@ import type { ViewUpdate } from '@codemirror/view';
 
 import { TextSelection } from '@atlaskit/editor-prosemirror/state';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
-import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 interface Props {
 	offset: number;
@@ -46,23 +45,15 @@ export const syncCMWithPM = ({ view, update, offset }: Props): void => {
 	if (update.docChanged || pmSel.from !== selFrom || pmSel.to !== selTo) {
 		const tr = view.state.tr;
 		update.changes.iterChanges((fromA, toA, fromB, toB, text) => {
-			if (expValEquals('platform_editor_fix_advanced_codeblocks_crlf_patch', 'isEnabled', true)) {
-				const adjFrom = crlfAdjustment(codeBlockText, fromA);
-				// If the from and to are the same, we don't need to run adjustment again
-				const adjTo = fromA === toA ? adjFrom : crlfAdjustment(codeBlockText, toA);
-				const pmFrom = offset + fromA + adjFrom;
-				const pmTo = offset + toA + adjTo;
-				if (text.length) {
-					tr.replaceWith(pmFrom, pmTo, view.state.schema.text(text.toString()));
-				} else {
-					tr.delete(pmFrom, pmTo);
-				}
+			const adjFrom = crlfAdjustment(codeBlockText, fromA);
+			// If the from and to are the same, we don't need to run adjustment again
+			const adjTo = fromA === toA ? adjFrom : crlfAdjustment(codeBlockText, toA);
+			const pmFrom = offset + fromA + adjFrom;
+			const pmTo = offset + toA + adjTo;
+			if (text.length) {
+				tr.replaceWith(pmFrom, pmTo, view.state.schema.text(text.toString()));
 			} else {
-				if (text.length) {
-					tr.replaceWith(offset + fromA, offset + toA, view.state.schema.text(text.toString()));
-				} else {
-					tr.delete(offset + fromA, offset + toA);
-				}
+				tr.delete(pmFrom, pmTo);
 			}
 			offset += toB - fromB - (toA - fromA);
 		});

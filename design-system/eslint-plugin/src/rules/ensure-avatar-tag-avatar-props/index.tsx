@@ -2,8 +2,10 @@ import type { Rule } from 'eslint';
 import { isNodeOfType } from 'eslint-codemod-utils';
 
 import { createLintRule } from '../utils/create-lint-rule';
+import { isImportFromPackage } from '../utils/is-import-from-package';
 
 const CONTROLLED_PROPS = ['size', 'borderColor', 'appearance'];
+const AVATAR_TAG_PACKAGE = '@atlaskit/tag';
 
 const rule: Rule.RuleModule = createLintRule({
 	meta: {
@@ -26,11 +28,15 @@ const rule: Rule.RuleModule = createLintRule({
 
 		return {
 			ImportDeclaration(node) {
-				if (node.source.value !== '@atlaskit/tag') {
+				if (!isImportFromPackage(node.source.value, AVATAR_TAG_PACKAGE)) {
 					return;
 				}
 
 				for (const specifier of node.specifiers) {
+					if (specifier.type === 'ImportDefaultSpecifier') {
+						avatarTagImports.push(specifier.local.name);
+					}
+
 					if (
 						specifier.type === 'ImportSpecifier' &&
 						specifier.imported.type === 'Identifier' &&

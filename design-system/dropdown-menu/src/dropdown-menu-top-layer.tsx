@@ -349,7 +349,7 @@ function DropdownMenuTopLayer({
 				label={menuLabel ?? label ?? (typeof trigger === 'string' ? trigger : 'Menu')}
 				isOpen={isLocalOpen}
 				onClose={handleOnClose}
-				animate
+				shouldAnimate
 				placement={topLayerPlacement}
 				testId={testId && `${testId}--content`}
 			>

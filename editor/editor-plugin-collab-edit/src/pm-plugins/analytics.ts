@@ -1,5 +1,10 @@
-import type { EditorAnalyticsAPI, ErrorEventPayload } from '@atlaskit/editor-common/analytics';
+import type {
+	AnalyticsEventPayload,
+	EditorAnalyticsAPI,
+	ErrorEventPayload,
+} from '@atlaskit/editor-common/analytics';
 import { ACTION, ACTION_SUBJECT, EVENT_TYPE } from '@atlaskit/editor-common/analytics';
+import type { AgentEditShimmerNotShownReason } from '@atlaskit/editor-common/analytics/types/agent-edit-shimmer-events';
 import { getDocStructure } from '@atlaskit/editor-common/core-utils';
 import type { FeatureFlags } from '@atlaskit/editor-common/types';
 import { sniffUserBrowserExtensions } from '@atlaskit/editor-common/utils';
@@ -35,6 +40,29 @@ export const addSynchronyErrorAnalytics = (
 		return tr;
 	};
 };
+
+/**
+ * Builds the `agentEditShimmerNotShown` operational event fired when an agent-authored edit applied
+ * instantly without the skeleton shimmer/telepointer. Success is the ABSENCE of this event; a
+ * neutral action + `reason` keeps expected degrades out of error dashboards. Attributes are non-PII:
+ * only the agent kind and a sanitised error name/message (never the raw Error or any doc content).
+ */
+export const getAgentEditShimmerNotShownPayload = (
+	reason: AgentEditShimmerNotShownReason,
+	agentType?: string,
+	error?: Error,
+): AnalyticsEventPayload => ({
+	action: ACTION.AGENT_EDIT_SHIMMER_NOT_SHOWN,
+	actionSubject: ACTION_SUBJECT.COLLAB,
+	eventType: EVENT_TYPE.OPERATIONAL,
+	attributes: {
+		reason,
+		// Spread conditionally so absent context isn't emitted as `undefined` (the teardown path has no
+		// single agent, and non-throw reasons have no error).
+		...(agentType ? { agentType } : {}),
+		...(error ? { error: `${error.name}: ${error.message}` } : {}),
+	},
+});
 
 export type EntityEventType = 'error' | 'disconnected';
 

@@ -170,7 +170,7 @@ export function MoreDropdownTopLayer({
 				label="avatar group"
 				isOpen={isOpen}
 				onClose={handleOnClose}
-				animate
+				shouldAnimate
 				placement={topLayerPlacement}
 				testId={overflowMenuTestId ? `${overflowMenuTestId}--content` : undefined}
 			>

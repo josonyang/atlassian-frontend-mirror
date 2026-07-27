@@ -75,7 +75,7 @@ function StandalonePopover({ forceFallbackPositioning }: { forceFallbackPosition
 									getFirstFocusable({ container: element })?.focus();
 								}
 							}}
-							animate
+							shouldAnimate
 							isOpen={true}
 						>
 							<PopoverSurface>

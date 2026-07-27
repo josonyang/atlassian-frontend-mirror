@@ -311,21 +311,9 @@ export const extractProviderIcon = (
 ): React.ReactNode | undefined => {
 	if (id) {
 		if (id === CONFLUENCE_GENERATOR_ID) {
-			return (
-				<ConfluenceIcon
-					appearance="brand"
-					size="xxsmall"
-					{...(fg('navx-1895-new-logo-design') ? { shouldUseNewLogoDesign: true } : undefined)}
-				/>
-			);
+			return <ConfluenceIcon appearance="brand" size="xxsmall" />;
 		} else if (id === JIRA_GENERATOR_ID) {
-			return (
-				<JiraIcon
-					appearance="brand"
-					size="xxsmall"
-					{...(fg('navx-1895-new-logo-design') ? { shouldUseNewLogoDesign: true } : undefined)}
-				/>
-			);
+			return <JiraIcon appearance="brand" size="xxsmall" />;
 		}
 	}
 	if (icon) {
@@ -667,22 +655,10 @@ export const extractEntityProvider = (response?: SmartLinkResponse): LinkProvide
 	let providerIcon;
 	switch (id) {
 		case CONFLUENCE_GENERATOR_ID:
-			providerIcon = (
-				<ConfluenceIcon
-					appearance="brand"
-					{...(fg('navx-1895-new-logo-design') ? { shouldUseNewLogoDesign: true } : undefined)}
-					size="xxsmall"
-				/>
-			);
+			providerIcon = <ConfluenceIcon appearance="brand" size="xxsmall" />;
 			break;
 		case JIRA_GENERATOR_ID:
-			providerIcon = (
-				<JiraIcon
-					appearance="brand"
-					{...(fg('navx-1895-new-logo-design') ? { shouldUseNewLogoDesign: true } : undefined)}
-					size="xxsmall"
-				/>
-			);
+			providerIcon = <JiraIcon appearance="brand" size="xxsmall" />;
 			break;
 		default:
 			providerIcon = icon.url;

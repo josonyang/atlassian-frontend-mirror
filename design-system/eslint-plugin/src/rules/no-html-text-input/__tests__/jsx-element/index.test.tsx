@@ -14,7 +14,7 @@ ruleTester.run('no-html-text-input', rule, {
 		`,
 		`
 			// JSX Element > doesn't report for textfield
-			import Textfield from '@atlaskit/textfield';
+			import Textfield from '@atlaskit/textfield/text-field';
 			<Textfield />
 		`,
 		`
@@ -36,7 +36,7 @@ ruleTester.run('no-html-text-input', rule, {
 							desc: 'Replace with Textfield component from @atlaskit/textfield',
 							output: linesOnly`
 								// JSX Element > reports for basic input
-								import Textfield from '@atlaskit/textfield';
+								import Textfield from '@atlaskit/textfield/text-field';
 								<Textfield />
 							`,
 						},
@@ -57,7 +57,7 @@ ruleTester.run('no-html-text-input', rule, {
 							desc: 'Replace with Textfield component from @atlaskit/textfield',
 							output: linesOnly`
 								// JSX Element > reports for a self-closing text input
-								import Textfield from '@atlaskit/textfield';
+								import Textfield from '@atlaskit/textfield/text-field';
 								<Textfield />
 							`,
 						},
@@ -78,8 +78,30 @@ ruleTester.run('no-html-text-input', rule, {
 							desc: 'Replace with Textfield component from @atlaskit/textfield',
 							output: linesOnly`
 								// JSX Element > reports for a self-closing text input with more attributes
-								import Textfield from '@atlaskit/textfield';
+								import Textfield from '@atlaskit/textfield/text-field';
 								<Textfield id="foo" name="bar" />
+							`,
+						},
+					],
+				},
+			],
+		},
+		{
+			code: linesOnly`
+				// Existing Textfield subpath import with different name
+				import CustomTextfield from '@atlaskit/textfield/text-field';
+				<input type="text" />
+			`,
+			errors: [
+				{
+					messageId: 'noHtmlTextInput',
+					suggestions: [
+						{
+							desc: 'Replace with Textfield component from @atlaskit/textfield',
+							output: linesOnly`
+								// Existing Textfield subpath import with different name
+								import CustomTextfield from '@atlaskit/textfield/text-field';
+								<CustomTextfield />
 							`,
 						},
 					],
@@ -100,7 +122,7 @@ ruleTester.run('no-html-text-input', rule, {
 							desc: 'Replace with Textfield component from @atlaskit/textfield',
 							output: linesOnly`
 								// Existing Textfield import with same name from another package
-								import Textfield1 from '@atlaskit/textfield';
+								import Textfield1 from '@atlaskit/textfield/text-field';
 								import Textfield from 'another-package';
 								<Textfield1 />
 							`,

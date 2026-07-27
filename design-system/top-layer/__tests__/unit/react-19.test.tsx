@@ -724,7 +724,7 @@ describe('React 19 readiness (top-layer)', () => {
 		it('Popover with animation preset can be rendered on the server', async () => {
 			await expect(
 				doesRenderWithSsr(
-					<Popover isOpen={false} onClose={noop} animate role="dialog" label="ssr-anim">
+					<Popover isOpen={false} onClose={noop} shouldAnimate role="dialog" label="ssr-anim">
 						animated
 					</Popover>,
 				),

@@ -97,7 +97,7 @@ export default function BasicDialogExample(): ReactNode {
 					</Stack>
 				)}
 
-				<Dialog onClose={handleClose} isOpen={isOpen} label="Basic dialog" animate>
+				<Dialog onClose={handleClose} isOpen={isOpen} label="Basic dialog" shouldAnimate>
 					<div css={styles.dialogCard}>
 						<div css={styles.dialogHeader}>
 							<Heading size="small">Dialog</Heading>

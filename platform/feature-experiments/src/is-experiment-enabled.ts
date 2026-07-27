@@ -12,5 +12,5 @@ import { expVal } from './exp-val';
  * ```
  */
 export function isExperimentEnabled(experimentName: string): boolean {
-	return expVal(experimentName, 'isEnabled', null) === true;
+	return expVal(experimentName, 'isEnabled', false) === true;
 }

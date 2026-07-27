@@ -7,7 +7,7 @@ import { Popover } from '../../src/entry-points/popover';
 import { usePopoverId } from '../../src/entry-points/use-popover-id';
 
 // JSDOM does not implement CSS transitions, so `transitionend` never fires naturally.
-// When `animate` is set, the code falls back to a `setTimeout(fn, durationMs + 50)`.
+// When `shouldAnimate` is set, the code falls back to a `setTimeout(fn, durationMs + 50)`.
 // Unit tests use fake timers to drive that fallback. Real `transitionend` behaviour
 // is covered by the Playwright tests in animation-lifecycle.spec.tsx.
 
@@ -33,7 +33,7 @@ function TestPopover({
 			onExitFinish={onExitFinish}
 			role="dialog"
 			label="test-popover"
-			animate={animated}
+			shouldAnimate={animated}
 		>
 			<div data-testid="content">content</div>
 		</Popover>
@@ -45,7 +45,7 @@ it('should capture and report a11y violations', async () => {
 	await expect(container).toBeAccessible();
 });
 
-describe('onEnterFinish - Popover with animate=false', () => {
+describe('onEnterFinish - Popover with shouldAnimate=false', () => {
 	it('fires once after opening', () => {
 		const onEnterFinish = jest.fn();
 		const { rerender } = render(<TestPopover isOpen={false} onEnterFinish={onEnterFinish} />);
@@ -95,9 +95,9 @@ describe('onEnterFinish - Popover with animate=false', () => {
 	});
 });
 
-// These tests are targeting the fallback timer path, which is only used when `animate` is set.
+// These tests are targeting the fallback timer path, which is only used when `shouldAnimate` is set.
 // The fallback timer is used in case the 'transitionend' event never fires (which is the case in JSDOM)
-describe('onEnterFinish - Popover with animate=true', () => {
+describe('onEnterFinish - Popover with shouldAnimate=true', () => {
 	beforeEach(() => {
 		jest.useFakeTimers();
 	});
@@ -162,7 +162,7 @@ describe('onEnterFinish - Popover with animate=true', () => {
 	});
 });
 
-describe('onEnterFinish - StrictMode double-fire guard (Popover with animate=false)', () => {
+describe('onEnterFinish - StrictMode double-fire guard (Popover with shouldAnimate=false)', () => {
 	it('does not double-fire during open', () => {
 		const onEnterFinish = jest.fn();
 
@@ -184,7 +184,7 @@ describe('onEnterFinish - StrictMode double-fire guard (Popover with animate=fal
 	});
 });
 
-describe('onExitFinish - Popover with animate=false', () => {
+describe('onExitFinish - Popover with shouldAnimate=false', () => {
 	it('fires once after closing', () => {
 		const onExitFinish = jest.fn();
 		const { rerender } = render(<TestPopover isOpen={true} onExitFinish={onExitFinish} />);
@@ -235,7 +235,7 @@ describe('onExitFinish - Popover with animate=false', () => {
 	});
 });
 
-describe('onExitFinish - Popover with animate=true', () => {
+describe('onExitFinish - Popover with shouldAnimate=true', () => {
 	beforeEach(() => {
 		jest.useFakeTimers();
 	});
@@ -306,7 +306,7 @@ describe('onExitFinish - Popover with animate=true', () => {
 	});
 });
 
-describe('onExitFinish - StrictMode double-fire guard (Popover with animate=false)', () => {
+describe('onExitFinish - StrictMode double-fire guard (Popover with shouldAnimate=false)', () => {
 	it('does not double-fire during close', () => {
 		const onExitFinish = jest.fn();
 
@@ -383,7 +383,7 @@ function ControlledPopoverWithAriaExpanded({ animate }: { animate: boolean }) {
 				id={popoverId}
 				isOpen={isOpen}
 				onExitFinish={handleExitFinish}
-				animate={animate}
+				shouldAnimate={animate}
 				role="dialog"
 				label="controlled-popover"
 			>

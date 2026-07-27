@@ -1,5 +1,25 @@
 # @atlaskit/smart-card
 
+## 45.13.3
+
+### Patch Changes
+
+- Updated dependencies
+
+## 45.13.2
+
+### Patch Changes
+
+- Updated dependencies
+
+## 45.13.1
+
+### Patch Changes
+
+- [`87d3a5aafece6`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/87d3a5aafece6) -
+  Cleanup navx-1895-new-logo-design
+- Updated dependencies
+
 ## 45.13.0
 
 ### Minor Changes

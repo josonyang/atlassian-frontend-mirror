@@ -1,6 +1,7 @@
 {
 	"extends": "../tsconfig",
 	"compilerOptions": {
+		"rootDir": "../src",
 		"target": "es2015",
 		"paths": {}
 	},

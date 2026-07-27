@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-common",
-	"version": "116.40.0",
+	"version": "116.41.0",
 	"description": "A package that contains common classes and components for editor and renderer",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -133,6 +133,7 @@
 		"./block-type": "./src/block-type/index.ts",
 		"./selection/actions": "./src/selection/gap-cursor/actions.ts",
 		"./analytics/types/activity-session-events": "./src/analytics/types/activity-session-events.ts",
+		"./analytics/types/agent-edit-shimmer-events": "./src/analytics/types/agent-edit-shimmer-events.ts",
 		"./ai-messages/ai": "./src/ai-messages/ai.ts",
 		"./ai-messages/ai-autocomplete": "./src/ai-messages/ai-autocomplete.ts",
 		"./analytics/types/ai-autocomplete-events": "./src/analytics/types/ai-autocomplete-events.ts",
@@ -750,7 +751,9 @@
 	},
 	"devDependencies": {
 		"@atlaskit/media-core": "workspace:^",
+		"@atlaskit/platform-feature-experiments": "workspace:^",
 		"@atlassian/a11y-jest-testing": "workspace:^",
+		"@atlassian/experiment-test-utils": "workspace:^",
 		"@atlassian/feature-flags-test-utils": "workspace:^",
 		"@atlassian/testing-library": "workspace:^",
 		"@testing-library/dom": "root:*",

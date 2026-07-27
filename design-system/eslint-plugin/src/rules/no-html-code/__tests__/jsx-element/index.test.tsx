@@ -32,8 +32,30 @@ ruleTester.run('no-html-code', rule, {
 							desc: 'Replace with Code component from @atlaskit/code',
 							output: linesOnly`
 								// JSX Element > reports for an code element and shows correct message
-								import { Code } from '@atlaskit/code';
+								import Code from '@atlaskit/code/code';
 								<Code>Test</Code>
+							`,
+						},
+					],
+				},
+			],
+		},
+		{
+			code: linesOnly`
+				// JSX Element > existing Code subpath import with default import
+				import CustomCode from '@atlaskit/code/code';
+				<code>Test</code>
+			`,
+			errors: [
+				{
+					messageId: 'noHtmlCode',
+					suggestions: [
+						{
+							desc: 'Replace with Code component from @atlaskit/code',
+							output: linesOnly`
+								// JSX Element > existing Code subpath import with default import
+								import CustomCode from '@atlaskit/code/code';
+								<CustomCode>Test</CustomCode>
 							`,
 						},
 					],
@@ -98,7 +120,7 @@ ruleTester.run('no-html-code', rule, {
 							desc: 'Replace with Code component from @atlaskit/code',
 							output: linesOnly`
 						// Existing Code import with same name from another package
-						import { Code1 } from '@atlaskit/code';
+						import Code1 from '@atlaskit/code/code';
 						import Code from 'another-package';
 						<Code1>Test</Code1>
 					`,
@@ -123,7 +145,7 @@ ruleTester.run('no-html-code', rule, {
 							desc: 'Replace with Code component from @atlaskit/code',
 							output: linesOnly`
 						// Existing Code, Code1, and Code2 imports
-						import { Code3 } from '@atlaskit/code';
+						import Code3 from '@atlaskit/code/code';
 						import Code from 'another-package';
 						import Code1 from 'yet-another-package';
 						import Code2 from '@some/package';

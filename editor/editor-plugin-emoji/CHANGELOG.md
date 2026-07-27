@@ -1,5 +1,24 @@
 # @atlaskit/editor-plugin-emoji
 
+## 13.2.0
+
+### Minor Changes
+
+- [`a86fac88f3a5e`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/a86fac88f3a5e) -
+  Use lazy-loaded VanillaTooltip for emoji tooltips in the editor and render an ADS Tooltip
+  positioned above the emoji in the emoji element, gated behind the
+  platform_editor_emoji_hover_show_tooltip experiment.
+
+### Patch Changes
+
+- Updated dependencies
+
+## 13.1.11
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 13.1.10
 
 ### Patch Changes

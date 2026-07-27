@@ -685,11 +685,11 @@ const TooltipPortal = ({ children }: { children: React.ReactNode }) => {
 };
 
 const tooltipMouseAnimationStyles = cssMap({
-	root: {
+	enter: {
+		animationName: token('motion.keyframe.fade.in'),
+	},
+	exit: {
 		animationName: token('motion.keyframe.fade.out'),
-		'&:popover-open': {
-			animationName: token('motion.keyframe.fade.in'),
-		},
 	},
 });
 
@@ -815,8 +815,9 @@ function TopLayerTooltipPopup({
 			onClose={onClose}
 			onExitFinish={onExitFinish}
 			testId={testId ? `${testId}--popover` : undefined}
-			animate
-			xcss={isMouseStrategyActive && tooltipMouseAnimationStyles.root}
+			shouldAnimate
+			enteringAnimationXcss={isMouseStrategyActive && tooltipMouseAnimationStyles.enter}
+			exitingAnimationXcss={isMouseStrategyActive && tooltipMouseAnimationStyles.exit}
 			placement={placement}
 		>
 			{/* Popover already has role="tooltip", so the inner container uses "presentation" to avoid duplicate roles */}

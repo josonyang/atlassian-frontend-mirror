@@ -95,7 +95,6 @@ snapshot(BlockCardUnauthorisedViewWithNoAuth, {
 });
 snapshot(BlockCardJira, {
 	featureFlags: {
-		'navx-1895-new-logo-design': true,
 		platform_navx_block_card_footer_spacing: [true, false],
 		'navx-5343-sl-action-block-styling-fixes': true,
 	},
@@ -103,7 +102,6 @@ snapshot(BlockCardJira, {
 });
 snapshot(BlockCardConfluence, {
 	featureFlags: {
-		'navx-1895-new-logo-design': true,
 		platform_navx_block_card_footer_spacing: [true, false],
 		'navx-5343-sl-action-block-styling-fixes': true,
 	},
@@ -147,9 +145,6 @@ snapshot(BlockCardBitbucket, {
 	waitForReactLazy: true,
 });
 snapshot(BlockCardForbiddenViews, {
-	featureFlags: {
-		'navx-1895-new-logo-design': true,
-	},
 	waitForReactLazy: true,
 });
 snapshot(BlockCardLazyIcon1, {
@@ -162,7 +157,6 @@ snapshot(BlockCardLazyIcon1, {
 snapshot(BlockCardLazyIcon2, {
 	description: `block card with lazy load icons, slice 2`,
 	featureFlags: {
-		'navx-1895-new-logo-design': true,
 		'navx-5343-sl-action-block-styling-fixes': true,
 	},
 	waitForReactLazy: true,
@@ -170,7 +164,6 @@ snapshot(BlockCardLazyIcon2, {
 snapshot(BlockCardLazyIcon3, {
 	description: `block card with lazy load icons, slice 3`,
 	featureFlags: {
-		'navx-1895-new-logo-design': true,
 		'navx-5343-sl-action-block-styling-fixes': true,
 	},
 	waitForReactLazy: true,
@@ -178,7 +171,6 @@ snapshot(BlockCardLazyIcon3, {
 snapshot(BlockCardLazyIcon4, {
 	description: `block card with lazy load icons, slice 4`,
 	featureFlags: {
-		'navx-1895-new-logo-design': true,
 		'navx-5343-sl-action-block-styling-fixes': true,
 	},
 	waitForReactLazy: true,
@@ -186,7 +178,6 @@ snapshot(BlockCardLazyIcon4, {
 snapshot(BlockCardLazyIcon5, {
 	description: `block card with lazy load icons, slice 5`,
 	featureFlags: {
-		'navx-1895-new-logo-design': true,
 		'navx-5343-sl-action-block-styling-fixes': true,
 	},
 	waitForReactLazy: true,

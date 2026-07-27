@@ -37,5 +37,3 @@ export type ModalAttributes = {
 export const ModalContext: Context<ModalAttributes | null> = createContext<ModalAttributes | null>(
 	null,
 );
-
-export { ScrollContext } from './scroll-context';

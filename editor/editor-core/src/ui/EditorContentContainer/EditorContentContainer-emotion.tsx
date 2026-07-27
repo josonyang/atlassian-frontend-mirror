@@ -499,8 +499,11 @@ export const EditorContentContainerEmotion: React.ForwardRefExoticComponent<
 				/* This needs to be after telepointer styles as some overlapping rules have equal specificity, and so the order is significant */
 				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
 				telepointerColorAndCommonStyle,
-				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
-				agentShimmerStyle,
+				// Agent-edit shimmer styles only apply when the experiment is on; no-exposure because this
+				// render path is hot and the real exposure is logged where an agent edit actually lands.
+				expValEqualsNoExposure('platform_editor_agent_be_streaming', 'isEnabled', true) &&
+					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
+					agentShimmerStyle,
 				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
 				gapCursorStyles,
 				editorExperiment('platform_synced_block', true) &&

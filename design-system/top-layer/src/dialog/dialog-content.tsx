@@ -12,7 +12,7 @@ import React, {
 	useRef,
 } from 'react';
 
-import { cssMap, jsx } from '@compiled/react';
+import { cssMap, cx, jsx } from '@compiled/react';
 import { bind } from 'bind-event-listener';
 
 import mergeRefs from '@atlaskit/ds-lib/merge-refs';
@@ -25,32 +25,6 @@ import { useFocusWrap } from '../internal/use-focus-wrap';
 import { useSafariEscapeFix } from '../internal/use-safari-escape-fix';
 
 import { type TDialogProps } from './types';
-
-// These animation styles use the non-strict Compiled cssMap because they rely
-// on `@starting-style`, `[open]`, and `allow-discrete`. Keep them in this
-// component so the Compiled transform can statically extract every referenced
-// style.
-const dialogAnimationStyles = cssMap({
-	root: {
-		transitionProperty: 'overlay, display',
-		transitionDuration: token('motion.duration.medium'),
-		transitionBehavior: 'allow-discrete',
-		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- the [open] attribute selector targets the dialog's own open state and is required for the open and close animation
-		'&[open]': {
-			transitionDuration: token('motion.duration.long'),
-			transitionTimingFunction: token('motion.easing.inout.bold'),
-		},
-	},
-	motion: {
-		animation: token('motion.modal.exit'),
-		animationFillMode: 'forwards',
-		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- the [open] attribute selector targets the dialog's own open state and is required for the open and close animation
-		'&[open]': {
-			animation: token('motion.modal.enter'),
-			animationFillMode: 'backwards',
-		},
-	},
-});
 
 // Surface reset — see the rationale on `surfaceResetStyles` in `popover/popover.tsx`.
 // Neutralises inherited text-layout properties (e.g. `white-space: nowrap`) that leak
@@ -72,8 +46,8 @@ const surfaceResetStyles = cssMap({
 	},
 });
 
-const styles = cssMap({
-	dialog: {
+const dialogStyles = cssMap({
+	root: {
 		// Reset browser defaults
 		paddingBlockStart: token('space.0'),
 		paddingInlineEnd: token('space.0'),
@@ -93,15 +67,25 @@ const styles = cssMap({
 		// Override UA background: canvas. The dialog primitive is unopinionated;
 		// consumers provide their own background on a child element.
 		backgroundColor: 'transparent',
+	},
+	motion: {
+		// This transition keeps the element visible and in the top layer while the
+		// exit animation plays. It needs to be always applied because there can
+		// be a delay before entering the `exiting` phase after the dialog is dismissed.
+		transitionProperty: 'overlay, display',
+		transitionDuration: token('motion.duration.medium'),
+		transitionBehavior: 'allow-discrete',
+		animationFillMode: 'both',
 		'@media (prefers-reduced-motion: reduce)': {
 			animationName: 'none',
 			transitionDuration: token('motion.duration.instant'),
-			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- the [open] attribute selector targets the dialog's own open state and is required for the open and close animation
-			'&[open]': {
-				animationName: 'none',
-				transitionDuration: token('motion.duration.instant'),
-			},
 		},
+	},
+	enter: {
+		animation: token('motion.modal.enter'),
+	},
+	exit: {
+		animation: token('motion.modal.exit'),
 	},
 });
 
@@ -116,29 +100,14 @@ const backdropStyles = cssMap({
 			backgroundColor: 'transparent',
 		},
 	},
-	motion: {
+	enter: {
+		'&::backdrop': {
+			animation: token('motion.blanket.enter'),
+		},
+	},
+	exit: {
 		'&::backdrop': {
 			animation: token('motion.blanket.exit'),
-			animationFillMode: 'forwards',
-			transitionProperty: 'overlay, display',
-			transitionDuration: token('motion.duration.medium'),
-			transitionBehavior: 'allow-discrete',
-		},
-		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- the [open] attribute selector targets the dialog's own open state and is required for the open and close animation
-		'&[open]::backdrop': {
-			animation: token('motion.blanket.enter'),
-			animationFillMode: 'backwards',
-		},
-		'@media (prefers-reduced-motion: reduce)': {
-			'&::backdrop': {
-				animationName: 'none',
-				transitionDuration: token('motion.duration.instant'),
-			},
-			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- the [open] attribute selector targets the dialog's own open state and is required for the open and close animation
-			'&[open]::backdrop': {
-				animationName: 'none',
-				transitionDuration: token('motion.duration.instant'),
-			},
 		},
 	},
 });
@@ -169,8 +138,10 @@ export const Dialog: React.ForwardRefExoticComponent<
 		onClose,
 		onEnterFinish,
 		onExitFinish,
-		animate = false,
+		shouldAnimate = false,
 		xcss: consumerXcss,
+		enteringAnimationXcss,
+		exitingAnimationXcss,
 		style,
 		testId,
 		id: providedId,
@@ -185,10 +156,10 @@ export const Dialog: React.ForwardRefExoticComponent<
 	const ownRef = useRef<HTMLDialogElement>(null);
 	const combinedRef = mergeRefs([ownRef, ref as Ref<HTMLDialogElement>]);
 
-	const { phase, preset } = useAnimatedVisibility({
+	const { phase } = useAnimatedVisibility({
 		isOpen,
 		animationKind: 'dialog',
-		animate,
+		shouldAnimate,
 		elementRef: ownRef,
 		onEnterFinish,
 		onExitFinish,
@@ -296,6 +267,8 @@ export const Dialog: React.ForwardRefExoticComponent<
 		return null;
 	}
 
+	const shouldAnimateBackdrop = !shouldHideBackdrop && shouldAnimate;
+
 	return (
 		<dialog
 			ref={combinedRef}
@@ -308,17 +281,26 @@ export const Dialog: React.ForwardRefExoticComponent<
 			aria-label={label}
 			aria-labelledby={label ? undefined : labelledBy}
 			css={[
-				styles.dialog,
+				// Dialog styles
+				dialogStyles.root,
 				surfaceResetStyles.root,
+				shouldAnimate && phase === 'entering' && dialogStyles.enter,
+				shouldAnimate && phase === 'exiting' && dialogStyles.exit,
+				shouldAnimate && dialogStyles.motion,
+				// Backdrop styles
 				shouldHideBackdrop ? backdropStyles.hidden : backdropStyles.root,
-				preset && backdropStyles.motion,
-				preset && dialogAnimationStyles.root,
-				preset && dialogAnimationStyles.motion,
+				shouldAnimateBackdrop && phase === 'entering' && backdropStyles.enter,
+				shouldAnimateBackdrop && phase === 'exiting' && backdropStyles.exit,
 			]}
 			style={style}
 			onCancel={handleCancel}
 			data-testid={testId}
-			className={consumerXcss}
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop, @atlaskit/ui-styling-standard/local-cx-xcss, @compiled/local-cx-xcss
+			className={cx(
+				consumerXcss,
+				shouldAnimate && phase === 'entering' && enteringAnimationXcss,
+				shouldAnimate && phase === 'exiting' && exitingAnimationXcss,
+			)}
 		>
 			{children}
 		</dialog>

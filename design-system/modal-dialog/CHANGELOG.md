@@ -1,5 +1,16 @@
 # @atlaskit/modal-dialog
 
+## 16.2.0
+
+### Minor Changes
+
+- [`3f6f3bd7da074`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/3f6f3bd7da074) -
+  Updates usage of the Top Layer primitives to consume changes to animation API.
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 16.1.8
 
 ### Patch Changes

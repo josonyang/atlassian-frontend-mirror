@@ -10,7 +10,7 @@ export class INSM {
 	analyticsWebClient?: AnalyticsWebClient;
 	runningSession?: INSMSession;
 	options: INSMOptions;
-	periodMeasurers: [AnimationFPSIM, INPTracker];
+	periodMeasurers: [AnimationFPSIM | undefined, INPTracker];
 
 	/**
 	 * Heavy tasks are tracked at the insm layer as heavy tasks
@@ -20,7 +20,12 @@ export class INSM {
 	runningHeavyTasks: Set<string> = new Set();
 
 	constructor(options: INSMOptions) {
-		this.periodMeasurers = [new AnimationFPSIM(), new INPTracker()];
+		this.periodMeasurers = [
+			expValEquals('platform_editor_disable_afps', 'isEnabled', true)
+				? undefined
+				: new AnimationFPSIM(),
+			new INPTracker(),
+		];
 		this.options = options;
 
 		// If this does throw -- we do want an unhandledRejection rejection to be passed to the window

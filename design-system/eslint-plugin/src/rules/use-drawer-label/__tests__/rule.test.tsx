@@ -12,6 +12,13 @@ tester.run('ensure-design-token-usage', rule, {
     </Drawer>
   `,
 		`
+    import Drawer from '@atlaskit/drawer/drawer';
+
+    <Drawer label="Drawer accessible name">
+      Children
+    </Drawer>
+  `,
+		`
     import Drawer from '@atlaskit/drawer';
     <Drawer titleId="drawer-title">
       <h1 id="drawer-title">Drawer title content</h1>
@@ -40,6 +47,19 @@ tester.run('ensure-design-token-usage', rule, {
 `,
 	],
 	invalid: [
+		{
+			code: `
+        import Drawer from '@atlaskit/drawer/drawer';
+        <Drawer>
+          Children
+        </Drawer>
+      `,
+			errors: [
+				{
+					messageId: 'missingLabelProp',
+				},
+			],
+		},
 		{
 			code: `
         import Drawer from '@atlaskit/drawer';

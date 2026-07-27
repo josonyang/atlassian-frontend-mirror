@@ -1,6 +1,7 @@
 {
   "extends": "../tsconfig",
   "compilerOptions": {
+    "rootDir": "../src",
     "module": "nodenext",
     "moduleResolution": "nodenext",
     "verbatimModuleSyntax": false},

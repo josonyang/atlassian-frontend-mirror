@@ -1,5 +1,19 @@
 # @atlaskit/editor-plugin-code-block-advanced
 
+## 12.1.3
+
+### Patch Changes
+
+- [`d19e8a0a9bc84`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/d19e8a0a9bc84) -
+  Clean up experiment `platform_editor_fix_advanced_codeblocks_crlf_patch`
+- Updated dependencies
+
+## 12.1.2
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 12.1.1
 
 ### Patch Changes

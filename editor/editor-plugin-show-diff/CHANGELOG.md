@@ -1,5 +1,19 @@
 # @atlaskit/editor-plugin-show-diff
 
+## 10.6.3
+
+### Patch Changes
+
+- [`cdcab84f9ff37`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/cdcab84f9ff37) -
+  EDITOR-7839: Decrease cell overlay opacity for standard added cell styles
+- Updated dependencies
+
+## 10.6.2
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 10.6.1
 
 ### Patch Changes

@@ -1,8 +1,8 @@
-import { type CSSProperties, type ReactNode } from 'react';
+import type { CSSProperties, ReactNode } from 'react';
 
-import { type CompiledStyles } from '@compiled/react';
+import type { XCSSProp } from '@compiled/react';
 
-import type { TAnimationConfig } from '../internal/use-animated-visibility';
+import type { StrictXCSSProp } from '@atlaskit/css';
 
 /**
  * Close reasons produced by the Dialog primitive.
@@ -27,9 +27,10 @@ type TDialogBaseProps = {
 	/**
 	 * Whether the dialog is open.
 	 *
-	 * - `true`: calls `showModal()`, entry animation plays via `@starting-style`.
-	 * - `false`: calls `close()`. When an `animate` preset is provided, the exit
-	 *   animation plays (via `allow-discrete`) before the dialog becomes logically closed.
+	 * - `true`: calls `showModal()`. When `shouldAnimate` is `true`, the entry
+	 *   animation plays via `@starting-style`.
+	 * - `false`: calls `close()`. When `shouldAnimate` is `true`, the exit
+	 *   animation plays via `allow-discrete` before the dialog becomes logically closed.
 	 *
 	 * **Lifecycle observable to consumers:**
 	 *
@@ -50,19 +51,47 @@ type TDialogBaseProps = {
 	 */
 	onClose: (args: { reason: TDialogCloseReason }) => void;
 	/**
-	 * Animation config for entry/exit transitions.
+	 * Whether the dialog should animate in and out.
 	 *
-	 * Pass `true` to use the default dialog animation. Pass a config object to
-	 * customize supported animation settings. Pass `false` or omit to disable.
+	 * When `true`, default dialog animation styles are applied. Use `enteringAnimationXcss`
+	 * and `exitingAnimationXcss` to override the animation used for each phase.
 	 */
-	animate?: boolean | TAnimationConfig;
+	shouldAnimate?: boolean;
 	/**
 	 * Additional Compiled styles applied to the `<dialog>` element.
 	 *
 	 * Applied after built-in dialog and animation styles so consumers can own
 	 * static styling that must live in their package.
 	 */
-	xcss?: CompiledStyles<Record<string, unknown>> | false | null | undefined;
+	// Not using `StrictXCSSProp` because it doesn't support `dvh` units for `height` which Drawer uses
+	xcss?: XCSSProp<
+		| 'margin'
+		| 'height'
+		| 'width'
+		| 'maxWidth'
+		| 'insetBlockStart'
+		| 'insetInlineStart'
+		| 'insetInlineEnd',
+		never
+	>;
+	/**
+	 * Animation styles applied while the dialog is entering.
+	 *
+	 * Only applied when `shouldAnimate` is `true`.
+	 */
+	enteringAnimationXcss?: StrictXCSSProp<
+		'animationName' | 'animationDuration' | 'animationTimingFunction' | 'animationDelay',
+		never
+	>;
+	/**
+	 * Animation styles applied while the dialog is exiting.
+	 *
+	 * Only applied when `shouldAnimate` is `true`.
+	 */
+	exitingAnimationXcss?: StrictXCSSProp<
+		'animationName' | 'animationDuration' | 'animationTimingFunction' | 'animationDelay',
+		never
+	>;
 	/**
 	 * Additional inline styles applied to the `<dialog>` element.
 	 *

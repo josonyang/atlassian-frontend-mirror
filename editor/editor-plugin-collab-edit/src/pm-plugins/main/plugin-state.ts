@@ -30,6 +30,7 @@ import {
 	ADD_AGENT_SHIMMER_META,
 	type AgentShimmerRange,
 	buildAgentShimmerDecorations,
+	HIGHLIGHT_AGENT_SHIMMER_META,
 	reduceAgentShimmers,
 	REMOVE_AGENT_SHIMMER_META,
 } from './agent-shimmer-decorations';
@@ -120,6 +121,7 @@ export class PluginState {
 		const nudgeTelepointerData = tr.getMeta('nudgeTelepointer') as { sessionId: string };
 		const agentShimmerData = tr.getMeta(ADD_AGENT_SHIMMER_META) as AgentShimmerRange[] | undefined;
 		const removeAgentShimmerId = tr.getMeta(REMOVE_AGENT_SHIMMER_META) as string | undefined;
+		const highlightAgentShimmerId = tr.getMeta(HIGHLIGHT_AGENT_SHIMMER_META) as string | undefined;
 		const sessionIdData = tr.getMeta('sessionId') as CollabEventConnectionData;
 		let collabInitialised = tr.getMeta('collabInitialised');
 
@@ -315,6 +317,7 @@ export class PluginState {
 				tr,
 				agentShimmerData,
 				removeAgentShimmerId,
+				highlightAgentShimmerId,
 			);
 			if (changed) {
 				// Build into local arrays; only merge into the shared add/remove once the block succeeds.

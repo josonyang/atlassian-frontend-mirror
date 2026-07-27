@@ -3,6 +3,13 @@ import { isNodeOfType, type JSXAttribute } from 'eslint-codemod-utils';
 
 import { createLintRule } from '../utils/create-lint-rule';
 
+const INLINE_IMPORT_SOURCES = new Set([
+	'../src',
+	'@atlaskit/primitives',
+	'@atlaskit/primitives/inline',
+	'@atlaskit/primitives/compiled/inline',
+]);
+
 const separatorAsCombinationNotAllowed =
 	'The combination of `separator` with `as="li"`, `as="ol"`, or `as="dl"` is not allowed.';
 
@@ -28,9 +35,13 @@ const rule: Rule.RuleModule = createLintRule({
 			ImportDeclaration(node) {
 				if (
 					node.type === 'ImportDeclaration' &&
-					(node.source.value === '../src' || node.source.value === '@atlaskit/primitives')
+					INLINE_IMPORT_SOURCES.has(String(node.source.value))
 				) {
 					node.specifiers.forEach((specifier) => {
+						if (specifier.type === 'ImportDefaultSpecifier') {
+							inlineComponentNames.push(specifier.local.name);
+						}
+
 						if (
 							specifier.type === 'ImportSpecifier' &&
 							'name' in specifier.imported &&

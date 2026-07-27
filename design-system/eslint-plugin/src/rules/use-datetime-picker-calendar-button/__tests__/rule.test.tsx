@@ -17,6 +17,10 @@ tester.run('use-datetime-picker-calendar-button', rule, {
 		  <DatePicker shouldShowCalendarButton />
 		`,
 		`
+		  import DatePicker from '@atlaskit/datetime-picker/date-picker';
+		  <DatePicker shouldShowCalendarButton />
+		`,
+		`
 		  import { DatePicker } from '@atlaskit/datetime-picker';
 			import variableName from './foo';
 
@@ -24,6 +28,10 @@ tester.run('use-datetime-picker-calendar-button', rule, {
 		`,
 		`
 			import { DateTimePicker } from '@atlaskit/datetime-picker';
+			<DateTimePicker datePickerProps={{ shouldShowCalendarButton: true }} />
+		`,
+		`
+			import DateTimePicker from '@atlaskit/datetime-picker/date-time-picker';
 			<DateTimePicker datePickerProps={{ shouldShowCalendarButton: true }} />
 		`,
 		`
@@ -58,6 +66,26 @@ tester.run('use-datetime-picker-calendar-button', rule, {
 		`,
 	],
 	invalid: [
+		{
+			code: `
+import DatePicker from '@atlaskit/datetime-picker/date-picker';
+<DatePicker />
+`,
+			errors: [
+				{
+					messageId: 'datePickerMissingCalendarButtonProp',
+					suggestions: [
+						{
+							desc: addCalendarButtonProp,
+							output: `
+import DatePicker from '@atlaskit/datetime-picker/date-picker';
+<DatePicker shouldShowCalendarButton />
+`,
+						},
+					],
+				},
+			],
+		},
 		{
 			code: `
 import { DatePicker } from '@atlaskit/datetime-picker';
@@ -132,6 +160,26 @@ import { DatePicker as AkDatePicker } from '@atlaskit/datetime-picker';
 							output: `
 import { DatePicker as AkDatePicker } from '@atlaskit/datetime-picker';
 <AkDatePicker shouldShowCalendarButton />
+`,
+						},
+					],
+				},
+			],
+		},
+		{
+			code: `
+import DateTimePicker from '@atlaskit/datetime-picker/date-time-picker';
+<DateTimePicker />
+`,
+			errors: [
+				{
+					messageId: 'dateTimePickerMissingCalendarButtonProp',
+					suggestions: [
+						{
+							desc: addCalendarButtonProperty,
+							output: `
+import DateTimePicker from '@atlaskit/datetime-picker/date-time-picker';
+<DateTimePicker datePickerProps={{ shouldShowCalendarButton: true }} />
 `,
 						},
 					],

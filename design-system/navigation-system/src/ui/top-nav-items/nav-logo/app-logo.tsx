@@ -100,13 +100,22 @@ const logoTextStyles = cssMap({
 		userSelect: 'none',
 		paddingInlineEnd: token('space.025'),
 		display: 'none',
+		flexDirection: 'column',
+		justifyContent: 'center',
+
 		'@media (min-width: 64rem)': {
 			// @ts-ignore
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors
 			'&&': {
-				display: 'initial',
+				display: 'flex',
 			},
 		},
+	},
+});
+
+const secondaryNameStyles = cssMap({
+	root: {
+		marginBlockStart: token('space.negative.025'),
 	},
 });
 
@@ -116,6 +125,35 @@ function isTextClamped(element: HTMLElement): boolean {
 	return element.scrollHeight > element.clientHeight;
 }
 
+interface AppLogoProps {
+	/**
+	 * The name of the app. Will be displayed next to the logo in wider viewports.
+	 */
+	name: string;
+	/**
+	 * Provide a secondaryName for the app. Will be displayed below the name in wider viewports.
+	 */
+	secondaryName?: string;
+	/**
+	 * Provide an accessible label, often used by screen readers.
+	 * This label should include the name of the app, and if applicable,
+	 * the location the user will navigate to on click.
+	 */
+	label: string;
+	/**
+	 * The URL to navigate to when the element is clicked.
+	 */
+	href: string;
+	/**
+	 * The icon to render.
+	 */
+	icon: (props: LogoProps) => JSX.Element;
+	/**
+	 * Handler called on click.
+	 */
+	onClick?: React.MouseEventHandler<HTMLAnchorElement>;
+}
+
 /**
  * __App logo__
  *
@@ -123,70 +161,21 @@ function isTextClamped(element: HTMLElement): boolean {
  *
  * To provide a responsive experience, label text will render next to an icon at larger viewports.
  */
-export const AppLogo: ({
+export const AppLogo = ({
 	name,
 	label,
+	secondaryName,
 	href,
 	icon,
 	onClick,
-}: {
-	/**
-	 * The name of the app. Will be displayed next to the logo in wider viewports, and is used as an accessible label at smaller viewports.
-	 */
-	name: string;
-	/**
-	 * Provide an accessible label, often used by screen readers.
-	 * This label should include the name of the app, and if applicable,
-	 * the location the user will navigate to on click.
-	 */
-	label: string;
-	/**
-	 * The URL to navigate to when the element is clicked.
-	 */
-	href: string;
-	/**
-	 * The icon to render.
-	 */
-	icon: (props: LogoProps) => JSX.Element;
-	/**
-	 * Handler called on click.
-	 */
-	onClick?: React.MouseEventHandler<HTMLAnchorElement>;
-}) => JSX.Element = ({
-	name,
-	label,
-	href,
-	icon,
-	onClick,
-}: {
-	/**
-	 * The name of the app. Will be displayed next to the logo in wider viewports, and is used as an accessible label at smaller viewports.
-	 */
-	name: string;
-	/**
-	 * Provide an accessible label, often used by screen readers.
-	 * This label should include the name of the app, and if applicable,
-	 * the location the user will navigate to on click.
-	 */
-	label: string;
-	/**
-	 * The URL to navigate to when the element is clicked.
-	 */
-	href: string;
-	/**
-	 * The icon to render.
-	 */
-	icon: (props: LogoProps) => JSX.Element;
-	/**
-	 * Handler called on click.
-	 */
-	onClick?: React.MouseEventHandler<HTMLAnchorElement>;
-}) => {
+}: AppLogoProps): JSX.Element => {
 	const isFhsEnabled = useIsFhsEnabled();
 	const ref = useRef<HTMLAnchorElement>(null);
 	const nameRef = useRef<HTMLSpanElement | null>(null);
 
 	const hasCustomTheme = useHasCustomTheme();
+	const showSecondaryName =
+		Boolean(secondaryName) && fg('platform_dst_ads_appswitcher_improvements');
 
 	/**
 	 * Show the tooltip if the name is truncated
@@ -252,6 +241,19 @@ export const AppLogo: ({
 							</span>
 						)}
 					</Tooltip>
+					{showSecondaryName && (
+						<span css={secondaryNameStyles.root}>
+							<Text
+								aria-hidden={true}
+								color="color.text.subtlest"
+								weight="regular"
+								maxLines={1}
+								size="small"
+							>
+								{secondaryName}
+							</Text>
+						</span>
+					)}
 				</span>
 			</Inline>
 		</Anchor>

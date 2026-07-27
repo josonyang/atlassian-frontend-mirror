@@ -62,10 +62,12 @@ export const editorExperimentsConfig: {
 	};
 	// Added 2026-07-21
 	// Agent edit presence — cosmetic skeleton-loader shimmer over agent-authored edits (with a Rovo
-	// agent telepointer at the end of the range). `isEnabled` toggles the feature; the dynamic-config
-	// params `durationMs` (how long the shimmer stays) and `telepointerDisabled` (hide the trailing
-	// telepointer, shown by default) tune it — read via `expVal` with defaults in
-	// `editor-plugin-collab-edit/.../agent-shimmer-constants.ts`, so they are safe when unset.
+	// agent telepointer at the end of the range), then a purple "just edited" highlight. `isEnabled`
+	// toggles the feature; the dynamic-config params `shimmerDurationMs` (skeleton lifetime) and
+	// `highlightDurationMs` (purple highlight lifetime) size the two phases and toggle independently (`0`
+	// skips just that phase, `0` on both shows nothing), and `telepointerDisabled` hides the trailing
+	// telepointer (shown by default). All are read via `expVal` with defaults in
+	// `editor-plugin-collab-edit`, so they are safe when unset.
 	platform_editor_agent_be_streaming: {
 		defaultValue: boolean;
 		param: string;
@@ -152,6 +154,13 @@ export const editorExperimentsConfig: {
 		values: ('control' | 'test')[];
 	};
 	cc_editor_insm_doc_size_stats: {
+		defaultValue: boolean;
+		param: string;
+		productKeys?: ProductKeys;
+		typeGuard: IsBooleanType;
+	};
+	// Added 2026-07-27
+	platform_editor_disable_afps: {
 		defaultValue: boolean;
 		param: string;
 		productKeys?: ProductKeys;
@@ -1231,13 +1240,6 @@ export const editorExperimentsConfig: {
 		productKeys?: ProductKeys;
 		typeGuard: IsBooleanType;
 	};
-	// Added 2026-02-18
-	platform_editor_fix_advanced_codeblocks_crlf_patch: {
-		defaultValue: boolean;
-		param: string;
-		productKeys?: ProductKeys;
-		typeGuard: IsBooleanType;
-	};
 	// Added 2026-04-01
 	cc_page_experiences_editor_image_generation: {
 		defaultValue: boolean;
@@ -1661,13 +1663,6 @@ export const editorExperimentsConfig: {
 		productKeys?: ProductKeys;
 		typeGuard: IsBooleanType;
 	};
-	// Added 2026-03-30
-	platform_editor_stricter_panelcolor_typecheck: {
-		defaultValue: boolean;
-		param: string;
-		productKeys?: ProductKeys;
-		typeGuard: IsBooleanType;
-	};
 	// Added 2026-03-15
 	platform_editor_sync_block_ssr_config: {
 		defaultValue: boolean;
@@ -1775,13 +1770,6 @@ export const editorExperimentsConfig: {
 	};
 	// Added 2026-04-09
 	show_mentions_in_suggest_reply: {
-		defaultValue: boolean;
-		param: string;
-		productKeys?: ProductKeys;
-		typeGuard: IsBooleanType;
-	};
-	// Added 2026-05-21
-	platform_editor_fix_a11y_tab_focus_insertion_menu: {
 		defaultValue: boolean;
 		param: string;
 		productKeys?: ProductKeys;
@@ -2200,7 +2188,8 @@ export const editorExperimentsConfig: {
 
 	// Added 2026-07-21
 	// `isEnabled` is the gating param; the experiment's dynamic config also carries the numeric
-	// `durationMs` shimmer duration, read at runtime via `expVal`.
+	// `shimmerDurationMs` (skeleton) and `highlightDurationMs` (purple highlight) durations, read at
+	// runtime via `expVal`.
 	platform_editor_agent_be_streaming: createBooleanExperiment({
 		productKeys: {
 			confluence: 'platform_editor_agent_be_streaming',
@@ -2356,6 +2345,13 @@ export const editorExperimentsConfig: {
 	cc_editor_insm_doc_size_stats: createBooleanExperiment({
 		productKeys: {
 			confluence: 'cc_editor_insm_doc_size_stats',
+		},
+		param: 'isEnabled',
+		defaultValue: false,
+	}),
+	platform_editor_disable_afps: createBooleanExperiment({
+		productKeys: {
+			confluence: 'platform_editor_disable_afps',
 		},
 		param: 'isEnabled',
 		defaultValue: false,
@@ -3501,14 +3497,6 @@ export const editorExperimentsConfig: {
 		param: 'isEnabled',
 		defaultValue: false,
 	}),
-	platform_editor_fix_advanced_codeblocks_crlf_patch: createBooleanExperiment({
-		productKeys: {
-			confluence: 'platform_editor_fix_advanced_codeblocks_crlf_patch',
-			jira: 'platform_editor_fix_advanced_codeblocks_crlf_patch',
-		},
-		param: 'isEnabled',
-		defaultValue: false,
-	}),
 	// Added 2026-04-01
 	cc_page_experiences_editor_image_generation: createBooleanExperiment({
 		productKeys: {
@@ -3989,14 +3977,6 @@ export const editorExperimentsConfig: {
 		defaultValue: false,
 	}),
 	// Added 2026-03-15
-	platform_editor_stricter_panelcolor_typecheck: createBooleanExperiment({
-		productKeys: {
-			confluence: 'platform_editor_stricter_panelcolor_typecheck',
-		},
-		param: 'isEnabled',
-		defaultValue: false,
-	}),
-	// Added 2026-03-15
 	platform_editor_sync_block_ssr_config: createBooleanExperiment({
 		productKeys: {
 			confluence: 'platform_editor_sync_block_ssr_config',
@@ -4286,15 +4266,6 @@ export const editorExperimentsConfig: {
 	work_item_modernization: createBooleanExperiment({
 		productKeys: {
 			jira: 'work_item_modernization',
-		},
-		param: 'isEnabled',
-		defaultValue: false,
-	}),
-	// Added 2026-05-21
-	platform_editor_fix_a11y_tab_focus_insertion_menu: createBooleanExperiment({
-		productKeys: {
-			confluence: 'platform_editor_fix_a11y_tab_focus_insertion_menu',
-			jira: 'platform_editor_fix_a11y_tab_focus_insertion_menu',
 		},
 		param: 'isEnabled',
 		defaultValue: false,

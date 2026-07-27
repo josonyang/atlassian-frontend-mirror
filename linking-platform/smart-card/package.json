@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/smart-card",
-	"version": "45.13.0",
+	"version": "45.13.3",
 	"description": "Smart card component",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -288,9 +288,6 @@
 		"rovogrowth-635-pre-auth-cta-preview-exp": {
 			"type": "boolean",
 			"referenceOnly": true
-		},
-		"navx-1895-new-logo-design": {
-			"type": "boolean"
 		},
 		"jfp-magma-platform-lozenge-jump-fix": {
 			"type": "boolean"

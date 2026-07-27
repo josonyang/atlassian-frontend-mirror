@@ -5,8 +5,8 @@ import { render } from '@testing-library/react';
 import { axe } from '@af/accessibility-testing';
 import Avatar from '@atlaskit/avatar';
 
-import RemovableTag from '../../removable-tag';
-import Tag from '../../simple-tag';
+import { default as RemovableTag } from '../../internal/removable';
+import { default as Tag } from '../../internal/simple';
 
 // eslint-disable-next-line @atlassian/a11y/require-jest-coverage
 describe('Tag component accessibility', () => {

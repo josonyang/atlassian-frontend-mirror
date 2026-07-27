@@ -1,6 +1,7 @@
 import type { StepJson } from '@atlaskit/editor-common/collab';
 import { eeTest } from '@atlaskit/tmp-editor-statsig/editor-experiments-test-utils';
 
+import { EVENT_ACTION, EVENT_STATUS } from '../../helpers/const';
 import type { StepsPayload } from '../../types';
 import type { DocumentService } from '../document-service';
 
@@ -24,12 +25,14 @@ const buildStep = (extra: Partial<StepJson> = {}): StepJson =>
 const withService = () => {
 	let service: DocumentService;
 	let participantsServiceMock: ReturnType<typeof createMockService>['participantsServiceMock'];
+	let analyticsHelperMock: ReturnType<typeof createMockService>['analyticsHelperMock'];
 
 	beforeEach(() => {
 		jest.useFakeTimers();
 		const mocks = createMockService();
 		service = mocks.service;
 		participantsServiceMock = mocks.participantsServiceMock;
+		analyticsHelperMock = mocks.analyticsHelperMock;
 	});
 
 	afterEach(() => {
@@ -38,6 +41,7 @@ const withService = () => {
 	});
 
 	return {
+		getAnalyticsHelperMock: () => analyticsHelperMock,
 		getParticipantsServiceMock: () => participantsServiceMock,
 		processSteps: (steps: StepJson[]) =>
 			// processSteps is private; call it directly to exercise the detection path.
@@ -98,6 +102,42 @@ eeTest
 				ctx.getParticipantsServiceMock().upsertAIProviderParticipantLocally,
 			).not.toHaveBeenCalled();
 		});
+
+		it('fires the agentEditReceived event once per batch with non-PII counts, types and ids', () => {
+			ctx.processSteps([
+				buildStep({ agentType: 'mcp', agentId: '712020:abc' }),
+				buildStep({ agentType: 'mcp', agentId: '712020:abc' }), // duplicate agent
+				buildStep({ agentType: 'twg' }), // agent with no id
+				buildStep(), // human step
+			]);
+
+			// The document-service also fires PROCESS_STEPS, so assert on the agentEditReceived calls only.
+			const receivedCalls = (
+				ctx.getAnalyticsHelperMock().sendActionEvent as jest.Mock
+			).mock.calls.filter((call: unknown[]) => call[0] === EVENT_ACTION.AGENT_EDIT_RECEIVED);
+			expect(receivedCalls).toHaveLength(1);
+			expect(ctx.getAnalyticsHelperMock().sendActionEvent).toHaveBeenCalledWith(
+				EVENT_ACTION.AGENT_EDIT_RECEIVED,
+				EVENT_STATUS.SUCCESS,
+				{
+					agentIds: ['712020:abc'],
+					agentCount: 2,
+					agentTypes: ['mcp', 'twg'],
+					agentStepCount: 3,
+					totalStepCount: 4,
+				},
+			);
+		});
+
+		it('does not fire the agentEditReceived event when there are no agent steps', () => {
+			ctx.processSteps([buildStep()]);
+
+			expect(ctx.getAnalyticsHelperMock().sendActionEvent).not.toHaveBeenCalledWith(
+				EVENT_ACTION.AGENT_EDIT_RECEIVED,
+				expect.anything(),
+				expect.anything(),
+			);
+		});
 	});
 
 // OFF-path guard on a shared collab-provider hot path — remove when the experiment is cleaned up.
@@ -112,5 +152,10 @@ eeTest
 			expect(
 				ctx.getParticipantsServiceMock().upsertAIProviderParticipantLocally,
 			).not.toHaveBeenCalled();
+			expect(ctx.getAnalyticsHelperMock().sendActionEvent).not.toHaveBeenCalledWith(
+				EVENT_ACTION.AGENT_EDIT_RECEIVED,
+				expect.anything(),
+				expect.anything(),
+			);
 		});
 	});

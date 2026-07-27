@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-plugin-text-color",
-	"version": "12.3.34",
+	"version": "12.3.36",
 	"description": "Text color plugin for @atlaskit/editor-core",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",

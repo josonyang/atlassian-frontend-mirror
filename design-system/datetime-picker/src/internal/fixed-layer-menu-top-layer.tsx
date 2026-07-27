@@ -109,7 +109,7 @@ export const FixedLayerMenuTopLayer: ({
 			// logic remains the single source of truth.
 			mode="manual"
 			placement={popupPlacement}
-			animate
+			shouldAnimate
 			// @ts-ignore -- testId is a custom prop passed through selectProps
 			testId={selectProps.testId && `${selectProps.testId}--popup`}
 		>

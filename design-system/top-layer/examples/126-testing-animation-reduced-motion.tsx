@@ -63,7 +63,7 @@ export default function TestingAnimationReducedMotion(): ReactNode {
 				onClose={close}
 				role="dialog"
 				label="Animation reduced motion test"
-				animate
+				shouldAnimate
 				placement={{ edge: 'end' }}
 			>
 				<div data-testid="popover-content" css={styles.content}>

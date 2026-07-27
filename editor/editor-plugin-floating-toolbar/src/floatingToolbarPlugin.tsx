@@ -66,6 +66,9 @@ const SUPPRESS_TOOLBAR_USER_INTENTS = [
 	'tableContextualMenuPopupOpen',
 	'tableDragMenuPopupOpen',
 	'commenting',
+	// Suppress while reviewing an AI Suggested Edits card so node floating toolbars don't overlap
+	// or mis-position against the suggestion card / diff decorations. Set by the ai-suggestions plugin.
+	'reviewing',
 	'resizing',
 	'blockMenuOpen',
 	'statusPickerOpen',

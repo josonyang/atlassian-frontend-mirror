@@ -26,6 +26,7 @@ export const RowHeader = ({ children }: { children: React.ReactChild }): React.J
 	</Box>
 );
 
+// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 export const IconContainer = ({ children }: { children: React.ReactChild }): React.JSX.Element => (
 	<Inline space="space.100" alignBlock="center" xcss={IconContainerStyles}>
 		<Box xcss={TextBoxStyles} />

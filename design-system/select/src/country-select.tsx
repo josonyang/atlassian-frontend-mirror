@@ -56,7 +56,7 @@ const formatOptionLabel = (opt: Country, { context }: FormatOptionLabelMeta<Coun
 	context === 'value' ? controlLabel(opt) : optionLabel(opt);
 
 // put it all together
-const CountrySelect: (props: SelectProps<Country>) => JSX.Element = (
+export const CountrySelect: (props: SelectProps<Country>) => JSX.Element = (
 	props: SelectProps<Country>,
 ) => {
 	const { options } = props;
@@ -77,4 +77,3 @@ const CountrySelect: (props: SelectProps<Country>) => JSX.Element = (
 };
 
 // eslint-disable-next-line @repo/internal/react/require-jsdoc
-export default CountrySelect;

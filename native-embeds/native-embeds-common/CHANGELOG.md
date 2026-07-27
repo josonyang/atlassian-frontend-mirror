@@ -1,5 +1,14 @@
 # @atlaskit/native-embeds-common
 
+## 2.2.6
+
+### Patch Changes
+
+- [`89392d1eb49c1`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/89392d1eb49c1) -
+  [fix] Keep native embeds and their resize handles aligned within old and new panel resize
+  boundaries, with a dynamic-config kill switch for rollback.
+- Updated dependencies
+
 ## 2.2.5
 
 ### Patch Changes

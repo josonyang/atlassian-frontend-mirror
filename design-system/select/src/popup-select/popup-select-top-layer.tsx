@@ -376,7 +376,7 @@ export function PopupSelectTopLayer<
 				label={getLabel() ?? 'Popup select'}
 				isOpen={isOpen}
 				onClose={handleOnClose}
-				animate
+				shouldAnimate
 				placement={topLayerPlacement}
 				testId={testId && `${testId}--content`}
 			>

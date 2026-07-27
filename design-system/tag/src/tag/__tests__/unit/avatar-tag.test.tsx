@@ -5,7 +5,7 @@ import { render as rtlRender, screen } from '@testing-library/react';
 import Avatar from '@atlaskit/avatar';
 import TeamAvatar from '@atlaskit/teams-avatar/teams-avatar';
 
-import { AvatarTag } from '../../../tag-new';
+import { default as AvatarTag } from '../../../tag-new/avatar-tag';
 
 const render = (component: React.ReactNode) => {
 	return rtlRender(<React.StrictMode>{component}</React.StrictMode>);

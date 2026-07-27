@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/link-extractors",
-	"version": "3.2.3",
+	"version": "3.2.4",
 	"description": "Functions for extracting props from JSON-LD",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -101,9 +101,6 @@
 			"type": "boolean"
 		},
 		"platform_lp_use_entity_icon_url_for_icon": {
-			"type": "boolean"
-		},
-		"navx-1895-new-logo-design": {
 			"type": "boolean"
 		},
 		"platform_sl_google_rebrand": {

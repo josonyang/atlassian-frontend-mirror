@@ -38,6 +38,7 @@ import {
 	changeToRichTextWithAnalytics,
 } from '../../editor-commands/commands';
 import type {
+	MarkdownToPmConverter,
 	PasteOptionsToolbarPlugin,
 	PasteOptionsToolbarSharedState,
 } from '../../pasteOptionsToolbarPluginType';
@@ -57,6 +58,7 @@ const nestedMenuStyles = cssMap({
 
 interface PasteMenuItemProps {
 	api: ExtractInjectionAPI<PasteOptionsToolbarPlugin> | undefined;
+	markdownToPmConverter?: MarkdownToPmConverter;
 	pasteType: PasteType;
 }
 
@@ -76,7 +78,7 @@ export const isPasteOptionSelected = (
 	}
 };
 
-const PasteMenuItem = ({ api, pasteType }: PasteMenuItemProps) => {
+const PasteMenuItem = ({ api, pasteType, markdownToPmConverter }: PasteMenuItemProps) => {
 	const intl = useIntl();
 	const { editorView } = useEditorToolbar();
 	const editorAnalyticsAPI = api?.analytics?.actions;
@@ -127,10 +129,12 @@ const PasteMenuItem = ({ api, pasteType }: PasteMenuItemProps) => {
 					);
 					break;
 				case 'markdown':
-					changeToMarkdownWithAnalytics(editorAnalyticsAPI, plaintextLength, 'pasteMenu')()(
-						editorView.state,
-						editorView.dispatch,
-					);
+					changeToMarkdownWithAnalytics(
+						editorAnalyticsAPI,
+						plaintextLength,
+						'pasteMenu',
+						markdownToPmConverter,
+					)()(editorView.state, editorView.dispatch);
 					break;
 				case 'plain-text':
 					changeToPlainTextWithAnalytics(editorAnalyticsAPI, plaintextLength, 'pasteMenu')()(
@@ -140,7 +144,7 @@ const PasteMenuItem = ({ api, pasteType }: PasteMenuItemProps) => {
 					break;
 			}
 		},
-		[editorView, editorAnalyticsAPI, plaintextLength, pasteType],
+		[editorView, editorAnalyticsAPI, markdownToPmConverter, plaintextLength, pasteType],
 	);
 
 	if (pasteType === 'rich-text' && isPlainText) {
@@ -200,6 +204,7 @@ const PasteOptionsNestedMenu = ({
 
 interface PasteMenuComponentsConfig {
 	api: ExtractInjectionAPI<PasteOptionsToolbarPlugin> | undefined;
+	markdownToPmConverter?: MarkdownToPmConverter;
 }
 
 const getHasVisibleAiActions = (
@@ -212,7 +217,10 @@ const getHasVisibleAiActions = (
 	return getVisibleKeys(aiMenuItems, ['menu-item']).length > 0;
 };
 
-export const getPasteMenuComponents = ({ api }: PasteMenuComponentsConfig): RegisterComponent[] => [
+export const getPasteMenuComponents = ({
+	api,
+	markdownToPmConverter,
+}: PasteMenuComponentsConfig): RegisterComponent[] => [
 	{
 		type: PASTE_MENU.type,
 		key: PASTE_MENU.key,
@@ -293,7 +301,9 @@ export const getPasteMenuComponents = ({ api }: PasteMenuComponentsConfig): Regi
 	{
 		key: PASTE_MARKDOWN_MENU_ITEM.key,
 		type: PASTE_MARKDOWN_MENU_ITEM.type,
-		component: () => <PasteMenuItem api={api} pasteType="markdown" />,
+		component: () => (
+			<PasteMenuItem api={api} markdownToPmConverter={markdownToPmConverter} pasteType="markdown" />
+		),
 		parents: [
 			{
 				key: PASTE_MENU_NESTED_SECTION.key,

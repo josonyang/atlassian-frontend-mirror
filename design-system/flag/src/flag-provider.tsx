@@ -1,11 +1,6 @@
-import React, { useCallback, useContext, useMemo, useState } from 'react';
-
-import AutoDismissFlag from './auto-dismiss-flag';
-import Flag from './flag';
-import FlagGroup from './flag-group';
 import { type FlagPropsWithoutId } from './types';
 
-type FlagId = string | number;
+export type FlagId = string | number;
 
 export type Combine<First, Second> = Omit<First, keyof Second> & Second;
 
@@ -34,88 +29,8 @@ export type FlagAPI = {
 	hideFlag: (id: FlagId) => void;
 };
 
-const FlagContext = React.createContext<FlagAPI | null>(null);
+export { FlagContext } from './flag-context';
 
-/**
- * useFlags is used to access the `showFlags` function which can be used to programmatically display flags.
- * - [Examples](https://atlassian.design/components/flag/flags-provider/examples#using-showflags)
- */
-export function useFlags(): FlagAPI {
-	const api: FlagAPI | null = useContext(FlagContext);
-	if (api == null) {
-		throw new Error('Unable to find FlagProviderContext');
-	}
-
-	return api;
-}
-
-const getUniqueId = (() => {
-	let count: number = 0;
-	return () => `flag-provider-unique-id:${count++}`;
-})();
-
-// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
-export function FlagsProvider({
-	children,
-	shouldRenderToParent,
-}: {
-	children: React.ReactNode;
-	shouldRenderToParent?: boolean;
-}): React.JSX.Element {
-	const [flags, setFlags] = useState<FlagArgs[]>([]);
-
-	const removeFlag = useCallback((id: FlagId) => {
-		setFlags((current) => {
-			return current.slice(0).filter((flag) => flag.id !== id);
-		});
-	}, []);
-
-	const api: FlagAPI = useMemo(
-		() => ({
-			showFlag: function show(value: CreateFlagArgs) {
-				const flag: FlagArgs = {
-					...value,
-					id: value.id || getUniqueId(),
-				};
-
-				setFlags((current): FlagArgs[] => {
-					const index: number = current.findIndex((value) => value.id === flag.id);
-
-					// If flag is not found add it
-					if (index === -1) {
-						return [flag, ...current];
-					}
-
-					// If flag already exists with the same id, then replace it
-					const shallow: FlagArgs[] = [...current];
-					shallow[index] = flag;
-					return shallow;
-				});
-
-				return function dismiss() {
-					removeFlag(flag.id);
-				};
-			},
-			hideFlag: removeFlag,
-		}),
-		[removeFlag],
-	);
-
-	return (
-		<>
-			<FlagContext.Provider value={api}>{children}</FlagContext.Provider>
-			<FlagGroup onDismissed={removeFlag} shouldRenderToParent={shouldRenderToParent}>
-				{flags.map((flag) => {
-					const { isAutoDismiss, ...restProps } = flag;
-					const FlagType = isAutoDismiss ? AutoDismissFlag : Flag;
-					return <FlagType {...restProps} key={flag.id} />;
-				})}
-			</FlagGroup>
-		</>
-	);
-}
-
-// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
-export const withFlagsProvider: (fn: () => React.ReactNode) => React.JSX.Element = (
-	fn: () => React.ReactNode,
-): React.JSX.Element => <FlagsProvider>{fn()}</FlagsProvider>;
+export { useFlags } from './use-flags';
+export { FlagsProvider } from './flags-provider';
+export { withFlagsProvider } from './with-flags-provider';

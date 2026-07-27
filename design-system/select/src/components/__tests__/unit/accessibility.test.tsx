@@ -4,7 +4,7 @@ import { render } from '@testing-library/react';
 
 import { axe } from '@af/accessibility-testing';
 
-import AtlaskitSelect from '../../../index';
+import { CheckboxSelect as AtlaskitSelect } from '../../../index';
 
 const OPTIONS = [
 	{ label: '0', value: 'zero' },

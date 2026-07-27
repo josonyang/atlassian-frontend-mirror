@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-plugin-emoji",
-	"version": "13.1.10",
+	"version": "13.2.0",
 	"description": "Emoji plugin for @atlaskit/editor-core",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -41,6 +41,7 @@
 		"@atlaskit/tokens": "workspace:^",
 		"@babel/runtime": "root:*",
 		"@emotion/react": "root:*",
+		"bind-event-listener": "root:*",
 		"lodash": "root:*",
 		"react-loadable": "root:*"
 	},

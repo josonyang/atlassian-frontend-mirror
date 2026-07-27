@@ -66,6 +66,7 @@ export class PeriodTracking {
 		const startInteractivityMeasuresPaused = this.latestHeavyTasks.size !== 0;
 
 		for (const periodMeasurer of session.insm.periodMeasurers) {
+			if (!periodMeasurer) continue;
 			periodMeasurer.start(startInteractivityMeasuresPaused);
 			this.periodMeasurements.active.measurements[periodMeasurer.name] = {
 				numerator: 0,
@@ -112,7 +113,7 @@ export class PeriodTracking {
 				this.periodMeasurements[this.state].duration +
 				(performance.now() - this.currentPeriodStart);
 			for (const periodMeasurer of this.session.insm.periodMeasurers) {
-				periodMeasurer.pause();
+				periodMeasurer?.pause();
 			}
 		}
 
@@ -131,7 +132,7 @@ export class PeriodTracking {
 		if (this.pauses.size === 0) {
 			this.currentPeriodStart = performance.now();
 			for (const periodMeasurer of this.session.insm.periodMeasurers) {
-				periodMeasurer.resume();
+				periodMeasurer?.resume();
 			}
 		}
 	}
@@ -155,22 +156,22 @@ export class PeriodTracking {
 		  }
 		| {
 				active: {
+					count: number;
+					duration: number;
 					features: string[];
 					heavyTasks: string[];
 					measurements: {
 						[key: string]: Measure;
 					};
-					duration: number;
-					count: number;
 				};
 				inactive: {
+					count: number;
+					duration: number;
 					features: string[];
 					heavyTasks: string[];
 					measurements: {
 						[key: string]: Measure;
 					};
-					duration: number;
-					count: number;
 				};
 		  } {
 		this.changePeriodAndTrackLast(this.state);
@@ -273,6 +274,7 @@ export class PeriodTracking {
 		const interactivityMeasuresPaused = this.latestHeavyTasks.size !== 0;
 
 		for (const interactivityMeasure of this.session.insm.periodMeasurers) {
+			if (!interactivityMeasure) continue;
 			const finalResult = newPeriod
 				? interactivityMeasure.start(interactivityMeasuresPaused)
 				: interactivityMeasure.end();

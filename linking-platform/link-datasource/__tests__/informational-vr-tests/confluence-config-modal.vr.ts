@@ -27,9 +27,6 @@ snapshotInformational(ConfluenceSearchConfigModal, {
 	},
 	description: 'Last Updated filter open state with custom date pickers',
 	drawsOutsideBounds: true,
-	featureFlags: {
-		'navx-1895-new-logo-design': true,
-	},
 });
 
 snapshotInformational(ConfluenceSearchConfigModal, {

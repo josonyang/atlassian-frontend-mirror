@@ -39,6 +39,7 @@ import {
 	getDocAdfWithObfuscationFromJSON,
 	getObfuscatedSteps,
 	getStepUGCFreeDetails,
+	normalizeAgentId,
 	sleep,
 } from '../helpers/utils';
 import type { ParticipantsService } from '../participants/participants-service';
@@ -466,17 +467,15 @@ export class DocumentService implements DocumentServiceInterface {
 	}
 
 	/**
-	 * Detect agent-authored steps in a received batch and register
-	 * each distinct agent as a local participant so it appears in the presence facepile.
+	 * Detect agent-authored steps in a received batch and register each distinct agent as a local
+	 * participant so it appears in the presence facepile.
 	 *
-	 * Gated behind a default-OFF feature gate: `collab-provider` is shared platform infra (used by
-	 * Jira JWM/JPD etc.), so this is a strict no-op everywhere unless the gate is explicitly enabled.
-	 *
-	 * Isolated in its own try/catch so a presence failure can never affect step persistence.
+	 * Gated behind a default-OFF gate because `collab-provider` is shared platform infra (Jira
+	 * JWM/JPD etc.), and isolated in its own try/catch so a presence failure can never affect step
+	 * persistence.
 	 *
 	 * Known limitation (PoC): steps replayed via catch-up/reconnect can briefly re-surface an agent
 	 * whose activity is stale — a freshness guard is a follow-up.
-	 * @example
 	 */
 	private maybeAddAgentPresenceFromSteps(steps: StepJson[]): void {
 		if (!expValEquals('platform_editor_agent_be_streaming', 'isEnabled', true)) {
@@ -484,12 +483,42 @@ export class DocumentService implements DocumentServiceInterface {
 		}
 		try {
 			const providerIds = new Set<string>();
+			const agentIds = new Set<string>();
+			const agentTypes = new Set<string>();
+			let agentStepCount = 0;
 			for (const step of steps) {
 				const providerId = getAgentProviderId(step);
-				if (providerId) {
-					providerIds.add(providerId);
+				if (!providerId) {
+					continue;
+				}
+				providerIds.add(providerId);
+				agentStepCount++;
+				const { agentId, agentType } = step as { agentId?: string; agentType?: string };
+				if (agentType) {
+					agentTypes.add(agentType);
+				}
+				if (agentId) {
+					agentIds.add(normalizeAgentId(agentId));
 				}
 			}
+			// No agent-authored steps in this batch — nothing to register or report.
+			if (providerIds.size === 0) {
+				return;
+			}
+			// Anchor signal that the agent-presence logic kicked off for a received transaction. Fires
+			// once per transaction (agent edits arrive as batches, not per keystroke). Attributes are
+			// non-PII: agent kinds, actor ids, and counts — never document content.
+			this.analyticsHelper?.sendActionEvent(
+				EVENT_ACTION.AGENT_EDIT_RECEIVED,
+				EVENT_STATUS.SUCCESS,
+				{
+					agentIds: [...agentIds],
+					agentCount: providerIds.size,
+					agentTypes: [...agentTypes],
+					agentStepCount,
+					totalStepCount: steps.length,
+				},
+			);
 			providerIds.forEach((providerId) =>
 				this.participantsService.upsertAIProviderParticipantLocally(providerId),
 			);

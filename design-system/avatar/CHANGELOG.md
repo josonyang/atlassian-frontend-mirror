@@ -1,5 +1,14 @@
 # @atlaskit/avatar
 
+## 26.3.0
+
+### Minor Changes
+
+- [`6fc1fcd1b0196`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/6fc1fcd1b0196) -
+  Adjusts hexagon avatars so that their stroke width is closer to 2px and consistent with other
+  avatar shapes. This change is behind the `platform_editor_agent_mentions_drop_one_fixes` feature
+  gate.
+
 ## 26.2.0
 
 ### Minor Changes

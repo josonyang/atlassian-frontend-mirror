@@ -88,6 +88,7 @@ export default (): React.JSX.Element => (
 				name="xlarge"
 				size="xlarge"
 				status="approved"
+				testId="avatar-hexagon"
 			/>
 			<Avatar
 				borderColor="red"

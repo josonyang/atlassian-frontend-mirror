@@ -4,7 +4,7 @@ import React from 'react';
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 
-import AtlaskitCheckboxSelect from '../../../checkbox-select';
+import { CheckboxSelect as AtlaskitCheckboxSelect } from '../../../checkbox-select';
 
 const user = userEvent.setup();
 

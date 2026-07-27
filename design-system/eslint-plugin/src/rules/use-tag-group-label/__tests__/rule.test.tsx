@@ -13,6 +13,14 @@ tester.run('ensure-design-token-usage', rule, {
 
   `,
 		`
+    import TagGroup from '@atlaskit/tag-group/tag-group';
+    <>
+      <TagGroup label="TagGroup accessible name">
+        Children
+      </TagGroup>
+    </>
+  `,
+		`
     import TagGroup from '@atlaskit/tag-group';
     <>
       <h2 id="tag-group-title">TagGroup title content</h2>
@@ -50,6 +58,19 @@ tester.run('ensure-design-token-usage', rule, {
   `,
 	],
 	invalid: [
+		{
+			code: `
+        import TagGroup from '@atlaskit/tag-group/tag-group';
+        <TagGroup>
+          children
+        </TagGroup>
+      `,
+			errors: [
+				{
+					messageId: 'missingLabelProp',
+				},
+			],
+		},
 		{
 			code: `
         import TagGroup from '@atlaskit/tag-group';

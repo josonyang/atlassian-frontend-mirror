@@ -50,7 +50,6 @@ import { getCMSelectionChanges } from './codemirrorSync/updateCMSelection';
 import { firstCodeBlockInDocument } from './extensions/firstCodeBlockInDocument';
 import { foldGutterExtension, getCodeBlockFoldStateEffects } from './extensions/foldGutter';
 import { keymapExtension } from './extensions/keymap';
-import { lineSeparatorExtension } from './extensions/lineSeparator';
 import { manageSelectionMarker } from './extensions/manageSelectionMarker';
 import { prosemirrorDecorationPlugin } from './extensions/prosemirrorDecorations';
 import { tripleClickSelectAllExtension } from './extensions/tripleClickExtension';
@@ -200,10 +199,6 @@ class CodeBlockAdvancedNodeView implements NodeView {
 							}),
 						]
 					: [],
-				// With platform_editor_fix_advanced_codeblocks_crlf_patch the lineSeparatorExtension is not needed
-				expValEquals('platform_editor_fix_advanced_codeblocks_crlf_patch', 'isEnabled', true)
-					? []
-					: [lineSeparatorExtension()],
 			],
 		});
 

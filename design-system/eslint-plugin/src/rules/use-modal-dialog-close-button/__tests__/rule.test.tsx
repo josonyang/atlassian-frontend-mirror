@@ -29,6 +29,17 @@ import ModalDialog, { ModalHeader, ModalTitle } from '@atlaskit/modal-dialog';
 </ModalDialog>
 		`,
 		`
+import ModalDialog from '@atlaskit/modal-dialog/modal-dialog';
+import ModalHeader from '@atlaskit/modal-dialog/modal-header';
+import ModalTitle from '@atlaskit/modal-dialog/modal-title';
+
+<ModalDialog>
+	<ModalHeader hasCloseButton>
+		<ModalTitle>Modal Title</ModalTitle>
+	</ModalHeader>
+</ModalDialog>
+		`,
+		`
 import ModalDialog, { CloseButton, ModalHeader, ModalTitle } from '@atlaskit/modal-dialog';
 
 <ModalDialog>
@@ -279,6 +290,40 @@ import { Form } from '@atlaskit/form';
 `,
 	],
 	invalid: [
+		{
+			code: `
+import ModalDialog from '@atlaskit/modal-dialog/modal-dialog';
+import ModalHeader from '@atlaskit/modal-dialog/modal-header';
+import ModalTitle from '@atlaskit/modal-dialog/modal-title';
+
+<ModalDialog>
+	<ModalHeader>
+		<ModalTitle>Modal Title</ModalTitle>
+	</ModalHeader>
+</ModalDialog>
+`,
+			errors: [
+				{
+					messageId: 'modalHeaderMissingHasCloseButtonProp',
+					suggestions: [
+						{
+							desc: addHasCloseButtonProp,
+							output: `
+import ModalDialog from '@atlaskit/modal-dialog/modal-dialog';
+import ModalHeader from '@atlaskit/modal-dialog/modal-header';
+import ModalTitle from '@atlaskit/modal-dialog/modal-title';
+
+<ModalDialog>
+	<ModalHeader hasCloseButton>
+		<ModalTitle>Modal Title</ModalTitle>
+	</ModalHeader>
+</ModalDialog>
+`,
+						},
+					],
+				},
+			],
+		},
 		{
 			code: `
 import { JiraModal as ModalDialog } from '@atlassian/jira-modal/src/ui/jira-modal.tsx';

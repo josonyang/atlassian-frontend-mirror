@@ -15,6 +15,12 @@ import { SpotlightCard } from '@atlaskit/onboarding';
   Content.
 </SpotlightCard>
   `,
+		`
+import SpotlightCard from '@atlaskit/onboarding/spotlight-card';
+<SpotlightCard heading="Switch it up" headingLevel={2}>
+  Content.
+</SpotlightCard>
+  `,
 		// Should understand named imports
 		`
 import { SpotlightCard as AkSpotlightCard } from '@atlaskit/onboarding';
@@ -33,6 +39,20 @@ import { SpotlightCard } from 'a-different-package';
   `,
 	],
 	invalid: [
+		// Missing headingLevel
+		{
+			code: `
+import SpotlightCard from '@atlaskit/onboarding/spotlight-card';
+<SpotlightCard heading="Switch it up">
+  Content.
+</SpotlightCard>
+        `,
+			errors: [
+				{
+					message: headingLevelRequiredSuggestionText,
+				},
+			],
+		},
 		// Missing headingLevel
 		{
 			code: `

@@ -25,6 +25,9 @@ export enum EVENT_ACTION {
 	STEPS_REBASED = 'stepsRebased', // https://data-portal.internal.atlassian.com/analytics/registry/76616
 	POLLING_FALLBACK = 'pollingFallback',
 	PROCESS_STEPS = 'processSteps', // https://data-portal.internal.atlassian.com/analytics/registry/85229
+	// Fired once per received transaction that contains agent-authored steps. Needs a data-portal
+	// analytics registry entry before the experiment is enabled broadly.
+	AGENT_EDIT_RECEIVED = 'agentEditReceived',
 }
 
 export enum EVENT_STATUS {
@@ -348,6 +351,24 @@ type ProcessStepsAnalyticsEvent = {
 	eventAction: EVENT_ACTION.PROCESS_STEPS;
 };
 
+type AgentEditReceivedAnalyticsEvent = {
+	attributes: {
+		// Distinct agents in the transaction (by `agent:<aaid|type>` provider id).
+		agentCount: number;
+		// Unique agent ids (AAIDs) in the transaction — actor ids, never document content. May be
+		// shorter than `agentCount` when an agent step carries a type but no id.
+		agentIds: string[];
+		// Agent-authored steps in the transaction.
+		agentStepCount: number;
+		// Unique agent kinds in the transaction, e.g. `['mcp']`.
+		agentTypes: string[];
+		eventStatus: EVENT_STATUS.SUCCESS;
+		// Total steps in the transaction (agent + non-agent).
+		totalStepCount: number;
+	} & BaseActionAnalyticsEventAttributes;
+	eventAction: EVENT_ACTION.AGENT_EDIT_RECEIVED;
+};
+
 export type ActionAnalyticsEvent =
 	| AddStepsSuccessAnalyticsEvent
 	| AddStepsFailureAnalyticsEvent
@@ -378,7 +399,8 @@ export type ActionAnalyticsEvent =
 	| OutOfSyncAnalyticsEvent
 	| StepsRebasedAnalyticsEvent
 	| PollingFallbackAnalyticsEvent
-	| ProcessStepsAnalyticsEvent;
+	| ProcessStepsAnalyticsEvent
+	| AgentEditReceivedAnalyticsEvent;
 
 export const ACK_MAX_TRY = 60;
 

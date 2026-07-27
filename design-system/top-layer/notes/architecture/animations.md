@@ -90,7 +90,7 @@ In the `Popup` compound component, `Popup.Content` is always present in the comp
 		<Button>Open</Button>
 	</Popup.Trigger>
 	{/* Always rendered — browser manages visibility */}
-	<Popup.Content role="dialog" label="Example" animate>
+	<Popup.Content role="dialog" label="Example" shouldAnimate>
 		<PopupSurface>Content here</PopupSurface>
 	</Popup.Content>
 </Popup>
@@ -165,20 +165,21 @@ Always render the element. Control visibility via `isOpen`:
 
 ```tsx
 // Dialog — controlled by isOpen (host element unmounts after exit animation)
-<Dialog isOpen={isDialogOpen} onClose={handleClose} label="Settings" animate>
+<Dialog isOpen={isDialogOpen} onClose={handleClose} label="Settings" shouldAnimate>
 	<h2>Settings</h2>
 	<p>Dialog content...</p>
 </Dialog>
 
 // Popover — controlled by isOpen (host element unmounts after exit animation)
-<Popover isOpen={isTooltipVisible} animate role="tooltip">
+<Popover isOpen={isTooltipVisible} shouldAnimate role="tooltip">
 	<TooltipContainer>...</TooltipContainer>
 </Popover>
 ```
 
-> `animate` is intentionally boolean-shaped today: `true` enables the component's default top-layer
-> motion and `false` / omitted disables animation. A config object type exists as an extension
-> point, but no public animation configuration is currently supported.
+> `shouldAnimate` is intentionally boolean-shaped: `true` enables the component's default top-layer
+> motion and `false` / omitted disables animation. Use `enteringAnimationXcss` and
+> `exitingAnimationXcss` when a composed component needs to override the phase-specific animation
+> styles.
 
 - `isOpen: true` → calls `showPopover()` / `showModal()`, entry animation plays via
   `@starting-style`
@@ -197,7 +198,7 @@ Always render the element. Control visibility via `isOpen`:
 // Inside Popup compound — isOpen comes from context, consumer doesn't pass it
 <Popup>
 	<Popup.Trigger>{(props) => <button {...props}>Open</button>}</Popup.Trigger>
-	<Popup.Content animate>
+	<Popup.Content shouldAnimate>
 		<MenuItems />
 	</Popup.Content>
 </Popup>
@@ -207,7 +208,7 @@ For standalone usage (e.g. tooltip, spotlight), use `Popover` directly instead o
 
 ```tsx
 // Standalone usage — use Popover directly, not Popup.Content
-<Popover role="tooltip" animate isOpen={state !== 'hide'}>
+<Popover role="tooltip" shouldAnimate isOpen={state !== 'hide'}>
 	<TooltipContainer>...</TooltipContainer>
 </Popover>
 ```
@@ -257,10 +258,10 @@ context. For standalone usage (e.g. tooltip, spotlight), use `Popover` directly,
 
 ### Zero cost for non-animation users
 
-When `isOpen` is provided without an `animate` preset, the show/hide is instant: no `transitionend`
-listeners are bound, no fallback timeouts are scheduled, and no animation data attributes are
-applied. Only consumers who use both `isOpen` and `animate` pay the cost of the animation lifecycle
-(the `transitionend` listener and its shared safety-net timeout fallback).
+When `isOpen` is provided without `shouldAnimate`, the show/hide is instant: no `transitionend`
+listeners are bound, no fallback timeouts are scheduled, and no animation styles are applied. Only
+consumers who use both `isOpen` and `shouldAnimate` pay the cost of the animation lifecycle (the
+`transitionend` listener and its shared safety-net timeout fallback).
 
 ### Why `isOpen` is required on `Popover` / `Dialog`
 
@@ -270,8 +271,8 @@ applied. Only consumers who use both `isOpen` and `animate` pay the cost of the 
 - Every consumer already has open/close state — `isOpen` makes it declarative
 - Eliminates the mount-to-show / unmount-to-hide pattern entirely
 - No glue code for exit animations: just set `isOpen={false}`, the primitive handles the rest
-- Zero overhead for non-animation users: when `animate` is not provided, `isOpen={false}` hides
-  instantly
+- Zero overhead for non-animation users: when `shouldAnimate` is not provided, `isOpen={false}`
+  hides instantly
 
 ### Alternatives considered
 
@@ -359,7 +360,7 @@ A wrapping component that intercepts unmounting to delay DOM removal during exit
 
 ```tsx
 // Hypothetical consumer API
-<PopoverAnimation animate>{isOpen && <Popover>Content</Popover>}</PopoverAnimation>
+<PopoverAnimation shouldAnimate>{isOpen && <Popover>Content</Popover>}</PopoverAnimation>
 ```
 
 The wrapper would detect when its child disappears, keep a clone rendered during the exit animation,
@@ -397,7 +398,7 @@ then remove it after `transitionend`.
 **View Transitions variant:** Could a wrapper use View Transitions internally instead of cloning?
 
 ```tsx
-<AnimatedPopover animate>{isOpen && <Popover>Content</Popover>}</AnimatedPopover>
+<AnimatedPopover shouldAnimate>{isOpen && <Popover>Content</Popover>}</AnimatedPopover>
 ```
 
 The wrapper would detect children disappearing, temporarily re-render the old children to get them
@@ -561,7 +562,7 @@ const { ref, isVisible } = usePopoverAnimation({
 ### The clean split
 
 ```
-Popover           = top layer + visibility (isOpen) + animation (animate)
+Popover           = top layer + visibility (isOpen) + animation (shouldAnimate)
 useAnchorPosition = positioning (separate concern)
 Popup             = Popover + trigger + positioning (compound)
 ```
@@ -570,7 +571,7 @@ Animation and visibility are **one concern** — the exit animation is triggered
 change. Positioning is a **separate concern** — where the element goes has nothing to do with
 whether it's visible.
 
-Consumers who don't use animation pay nothing: when `animate` is omitted,
+Consumers who don't use animation pay nothing: when `shouldAnimate` is omitted,
 `showPopover()`/`hidePopover()` fire immediately with no listeners or timeouts.
 
 ---
@@ -582,10 +583,10 @@ not animated. This is by design — animation is a progressive enhancement.
 
 ## Static Compiled styles
 
-Animation is now selected by the component-local boolean `animate` prop rather than public preset
-objects. `Popover` and `Dialog` own their default animation CSS in component-local `cssMap` entries,
-selected through the host component's `css` prop when `animate` is truthy. This keeps every style
-statically visible to the Compiled transform and removes the old raw CSS injection path.
+Animation is now selected by the component-local boolean `shouldAnimate` prop rather than public
+preset objects. `Popover` and `Dialog` own their default animation CSS in component-local `cssMap`
+entries, selected through the host component's `css` prop when `shouldAnimate` is truthy. This keeps
+every style statically visible to the Compiled transform and removes the old raw CSS injection path.
 
 The host elements no longer render `data-ds-popover-{name}` or `data-ds-dialog-{name}` attributes
 for animation presets. `Popover` still computes placement-dependent motion token custom properties

@@ -14,6 +14,7 @@ import { TopNavStart } from '../../../page-layout/top-nav/top-nav-start';
 import { AppSwitcher } from '../../app-switcher';
 import { CreateButton } from '../../create-button';
 import { Help } from '../../help';
+import { AppLogo } from '../../nav-logo/app-logo';
 import { CustomLogo } from '../../nav-logo/custom-logo';
 import { Search } from '../../search';
 import { Settings } from '../../settings';
@@ -63,6 +64,66 @@ describe('TopNavigation', () => {
 });
 
 describe('TopNavStart', () => {
+	describe('AppLogo', () => {
+		it('should render the secondaryName', () => {
+			passGate('platform_dst_ads_appswitcher_improvements');
+
+			render(
+				<TopNavStart sideNavToggleButton={null}>
+					<AppLogo
+						href="http://www.atlassian.design"
+						icon={AtlassianLogo}
+						name="Atlas"
+						secondaryName="Teamwork collection"
+						label="Atlas home page"
+					/>
+				</TopNavStart>,
+			);
+
+			expect(screen.getByRole('link', { name: 'Atlas home page' })).toHaveTextContent('Atlas');
+			expect(screen.getByText('Atlas')).toBeInTheDocument();
+			expect(screen.getByText('Teamwork collection')).toBeInTheDocument();
+		});
+
+		it('should not render the secondaryName', () => {
+			failGate('platform_dst_ads_appswitcher_improvements');
+
+			render(
+				<TopNavStart sideNavToggleButton={null}>
+					<AppLogo
+						href="http://www.atlassian.design"
+						icon={AtlassianLogo}
+						name="Atlas"
+						secondaryName="Teamwork collection"
+						label="Atlas home page"
+					/>
+				</TopNavStart>,
+			);
+
+			expect(screen.getByRole('link', { name: 'Atlas home page' })).toHaveTextContent('Atlas');
+			expect(screen.getByText('Atlas')).toBeInTheDocument();
+			expect(screen.queryByText('Teamwork collection')).not.toBeInTheDocument();
+		});
+
+		it('should keep the provided aria-label when the secondaryName is not provided', () => {
+			render(
+				<TopNavStart sideNavToggleButton={null}>
+					<AppLogo
+						href="http://www.atlassian.design"
+						icon={AtlassianLogo}
+						name="Atlas"
+						label="Atlas home page"
+					/>
+				</TopNavStart>,
+			);
+
+			expect(screen.getByRole('link', { name: 'Atlas home page' })).toHaveAttribute(
+				'aria-label',
+				'Atlas home page',
+			);
+		});
+	});
+
 	describe('CustomLogo', () => {
 		it('should be accessible', async () => {
 			const { container } = render(

@@ -1,8 +1,12 @@
-import type { ACTION, ACTION_SUBJECT } from './enums';
+import type { ACTION, ACTION_SUBJECT, ACTION_SUBJECT_ID } from './enums';
 import type { OperationalAEP, TrackAEP } from './utils';
 
 export type AiSuggestionsEntryPoint = 'primaryToolbar' | 'commentsEmptyState';
 export type AiSuggestionInteractionPoint = 'sidebar' | 'card' | 'statusBar';
+export type AiSuggestionsConversationErrorReason =
+	| 'agentDeactivated'
+	| 'conversationSetup'
+	| 'streamError';
 
 type NoDiffSuggestionAEP = OperationalAEP<
 	ACTION.NO_DIFF_FOUND,
@@ -15,6 +19,17 @@ type NoDiffSuggestionAEP = OperationalAEP<
 			name: string;
 			nodeTypes: string[];
 		}[];
+	}
+>;
+
+type ConversationErrorAEP = OperationalAEP<
+	ACTION.ERRORED,
+	ACTION_SUBJECT.AI_SUGGESTIONS,
+	ACTION_SUBJECT_ID.CONVERSATION_ERROR,
+	{
+		errorCode?: string;
+		reason: AiSuggestionsConversationErrorReason;
+		statusCode?: number;
 	}
 >;
 
@@ -92,26 +107,12 @@ type ViewSuggestionAEP = TrackAEP<
 	undefined
 >;
 
-export type SuggestionFeedbackSentiment = 'good' | 'bad';
-
-type SubmitFeedbackSuggestionAEP = TrackAEP<
-	ACTION.SUBMITTED,
-	ACTION_SUBJECT.AI_SUGGESTIONS,
-	undefined,
-	{
-		interactionPoint: AiSuggestionInteractionPoint;
-		sentiment: SuggestionFeedbackSentiment;
-		suggestionType: string;
-	},
-	undefined
->;
-
 export type AiSuggestionsEventPayload =
 	| NoDiffSuggestionAEP
+	| ConversationErrorAEP
 	| EntryPointClickedAEP
 	| EntryPointExposureAEP
 	| AcceptSuggestionAEP
 	| DiscardSuggestionAEP
 	| DismissSuggestionAEP
-	| ViewSuggestionAEP
-	| SubmitFeedbackSuggestionAEP;
+	| ViewSuggestionAEP;

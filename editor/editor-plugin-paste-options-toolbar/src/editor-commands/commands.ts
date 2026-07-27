@@ -17,6 +17,7 @@ import {
 	PastePluginActionTypes as ActionTypes,
 	type ShowPasteOptions,
 } from '../editor-actions/actions';
+import type { MarkdownToPmConverter } from '../pasteOptionsToolbarPluginType';
 import { createCommand } from '../pm-plugins/plugin-factory';
 import {
 	formatMarkdown,
@@ -134,14 +135,14 @@ export const changeToRichTextWithAnalytics =
 		return withAnalytics(editorAnalyticsAPI, payloadCallback)(changeToRichText());
 	};
 
-export const changeToMarkDown = (): Command => {
+export const changeToMarkDown = (markdownToPmConverter?: MarkdownToPmConverter): Command => {
 	const markdownTransformer = (tr: Transaction, state: EditorState) => {
 		const pluginState: PasteOptionsPluginState = pasteOptionsPluginKey.getState(state);
 		if (pluginState.selectedOption === ToolbarDropdownOption.Markdown) {
 			return tr;
 		}
 
-		return formatMarkdown(tr, pluginState);
+		return formatMarkdown(tr, pluginState, markdownToPmConverter);
 	};
 
 	const commandAction = (_editorState: EditorState) => {
@@ -156,7 +157,12 @@ export const changeToMarkDown = (): Command => {
 };
 
 export const changeToMarkdownWithAnalytics =
-	(editorAnalyticsAPI: EditorAnalyticsAPI | undefined, sliceSize: number, invokedFrom?: string) =>
+	(
+		editorAnalyticsAPI: EditorAnalyticsAPI | undefined,
+		sliceSize: number,
+		invokedFrom?: string,
+		markdownToPmConverter?: MarkdownToPmConverter,
+	) =>
 	(): Command => {
 		return withAnalytics(editorAnalyticsAPI, {
 			action: ACTION.PASTED,
@@ -169,7 +175,7 @@ export const changeToMarkdownWithAnalytics =
 				pasteSize: sliceSize,
 				invokedFrom,
 			},
-		})(changeToMarkDown());
+		})(changeToMarkDown(markdownToPmConverter));
 	};
 
 export const highlightContent = (): Command => {

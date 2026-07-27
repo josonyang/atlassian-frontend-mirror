@@ -55,7 +55,7 @@ export default function DialogSsrInitialOpenExample(): ReactNode {
 					onClose={handleClose}
 					isOpen={isOpen}
 					label="Initially open dialog"
-					animate
+					shouldAnimate
 					testId="ssr-initial-open-dialog"
 				>
 					<div css={styles.dialogCard}>

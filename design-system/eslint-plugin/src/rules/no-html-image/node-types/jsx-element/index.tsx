@@ -4,11 +4,15 @@ import { type ImportDeclaration, isNodeOfType } from 'eslint-codemod-utils';
 import { getSourceCode } from '@atlaskit/eslint-utils/context-compat';
 
 import { JSXElementHelper } from '../../../../ast-nodes/jsx-element-helper';
+import { isImportFromPackage } from '../../../utils/is-import-from-package';
 import { isSupportedForLint } from '../supported';
 
 interface MetaData {
 	context: Rule.RuleContext;
 }
+
+const IMAGE_PACKAGE = '@atlaskit/image';
+const IMAGE_IMPORT_SOURCE = '@atlaskit/image/image';
 
 function isImportDeclaration(node: any): node is ImportDeclaration {
 	return node.type === 'ImportDeclaration';
@@ -33,7 +37,7 @@ export const JSXElement = {
 				usedNames.add(specifier.local.name);
 			}
 
-			if (declaration.source.value === '@atlaskit/image') {
+			if (isImportFromPackage(declaration.source.value, IMAGE_PACKAGE)) {
 				const defaultSpecifier = declaration.specifiers.find(
 					(specifier) => specifier.type === 'ImportDefaultSpecifier',
 				);
@@ -100,7 +104,7 @@ export const JSXElement = {
 
 						// Add import if not present
 						if (!existingImageName) {
-							const importStatement = `import ${imageName} from '@atlaskit/image';\n`;
+							const importStatement = `import ${imageName} from '${IMAGE_IMPORT_SOURCE}';\n`;
 							fixers.push(fixer.insertTextBefore(sourceCode.ast, importStatement));
 						}
 

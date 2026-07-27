@@ -99,7 +99,7 @@ export const MenuTopLayer: ({ selectProps, innerProps }: MenuProps<OptionType>) 
 			// immediately closes the popover.
 			mode="manual"
 			placement={popupPlacement}
-			animate
+			shouldAnimate
 			testId={selectProps.testId && `${selectProps.testId}--popup`}
 		>
 			<PopoverSurface>

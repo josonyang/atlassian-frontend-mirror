@@ -1,5 +1,13 @@
 # @atlaskit/ads-mcp
 
+## 1.7.1
+
+### Patch Changes
+
+- [`72ab955ceeefd`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/72ab955ceeefd) -
+  Regenerate ADS MCP component payloads from structured docs, including refreshed examples and
+  renderer prop metadata.
+
 ## 1.7.0
 
 ### Minor Changes

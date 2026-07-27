@@ -1,5 +1,17 @@
 # @atlaskit/editor-plugin-breakout
 
+## 12.3.10
+
+### Patch Changes
+
+- Updated dependencies
+
+## 12.3.9
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 12.3.8
 
 ### Patch Changes

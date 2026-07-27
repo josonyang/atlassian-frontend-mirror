@@ -5,8 +5,8 @@ import { ffTest } from '@atlassian/feature-flags-test-utils';
 import { screen } from '@atlassian/testing-library/screen';
 import { render as rtlRender } from '@atlassian/testing-library/testing-library/react';
 
-import TagNew, { colorMapping } from '../../../tag-new';
-import SimpleTag from '../../../tag/simple-tag';
+import { colorMapping, default as TagNew } from '../../../tag-new/tag-new';
+import { default as SimpleTag } from '../../internal/simple';
 
 const render = (component: React.ReactNode) => {
 	return rtlRender(<React.StrictMode>{component}</React.StrictMode>);

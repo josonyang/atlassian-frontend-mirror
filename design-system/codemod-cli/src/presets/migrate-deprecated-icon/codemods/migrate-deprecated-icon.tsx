@@ -9,8 +9,8 @@ import type {
 
 import { deprecatedCore as deprecatedIconLabCore } from '@atlaskit/icon-lab/deprecated-map';
 import coreIconLabMetadata from '@atlaskit/icon-lab/metadata';
-import { deprecatedCore as deprecatedIconCore } from '@atlaskit/icon/deprecated-map';
-import { coreIconMetadata } from '@atlaskit/icon/metadata';
+import deprecatedCore from '@atlaskit/icon/deprecated-map';
+import coreIconMetadata from '@atlaskit/icon/metadata-core';
 
 const extractIconName = (importPath: string) => {
 	const match = importPath.match(/\/([^\/]+)$/);
@@ -42,7 +42,7 @@ const transformer = (file: FileInfo, api: API): string => {
 	const j = api.jscodeshift;
 	const fileSource = j(file.source);
 
-	const deprecatedIcons = Object.keys(deprecatedIconCore);
+	const deprecatedIcons = Object.keys(deprecatedCore);
 	const deprecatedIconLabIcons = Object.keys(deprecatedIconLabCore);
 
 	// Find all deprecated icon imports

@@ -7,7 +7,10 @@ import { Fragment, Slice } from '@atlaskit/editor-prosemirror/model';
 import type { Transaction } from '@atlaskit/editor-prosemirror/state';
 import { Selection } from '@atlaskit/editor-prosemirror/state';
 import { ReplaceStep } from '@atlaskit/editor-prosemirror/transform';
+import { fg } from '@atlaskit/platform-feature-flags';
+import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
+import type { MarkdownToPmConverter } from '../../pasteOptionsToolbarPluginType';
 import type { PasteOptionsPluginState } from '../../types/types';
 
 import { escapeLinks } from './index';
@@ -19,6 +22,7 @@ const CODE_BLOCK_FENCE_REGEX = /```/;
 export const formatMarkdown = (
 	tr: Transaction,
 	pluginState: PasteOptionsPluginState,
+	markdownToPmConverter?: MarkdownToPmConverter,
 ): Transaction => {
 	let pasteStartPos = pluginState.pasteStartPos;
 	const pasteEndPos = pluginState.pasteEndPos;
@@ -38,6 +42,7 @@ export const formatMarkdown = (
 		plaintext,
 		tr.doc.type.schema,
 		tr.selection,
+		markdownToPmConverter,
 	);
 
 	if (!markdownSlice) {
@@ -207,10 +212,15 @@ function richTextSliceTransactionWithSelectionAdjust({
 	}
 }
 
+/**
+ * Parse markdown text into a slice for paste replacement, using markdown-plus
+ * only when both markdown-mode experiment and paste parser gate are enabled.
+ */
 export function getMarkdownSlice(
 	text: string,
 	schema: Schema,
 	selection: Selection,
+	markdownToPmConverter?: MarkdownToPmConverter,
 ): Slice | undefined {
 	const targetOpenStartNode = selection.$from.parent;
 	const targetOpenEndNode = selection.$to.parent;
@@ -230,16 +240,18 @@ export function getMarkdownSlice(
 
 		textInput = textSplitByCodeBlock.join('```');
 
-		const atlassianMarkDownParser = new MarkdownTransformer(schema, md);
-		const doc = atlassianMarkDownParser.parse(escapeLinks(textInput));
+		const doc =
+			markdownToPmConverter &&
+			expValEquals('cc-markdown-mode', 'isEnabled', true) &&
+			fg('platform_editor_paste_as_md_use_gfm_transformer')
+				? schema.nodes.doc.createAndFill({}, markdownToPmConverter({ markdown: textInput, schema }))
+				: new MarkdownTransformer(schema, md).parse(escapeLinks(textInput));
 
 		if (!doc || !doc.content) {
 			return;
 		}
-
 		const canMergeOpenStart = targetOpenStartNode.type === doc.content.firstChild?.type;
 		const canMergeOpenEnd = targetOpenEndNode.type === doc.content.lastChild?.type;
-
 		const $start = Selection.atStart(doc).$from;
 		const $end = Selection.atEnd(doc).$from;
 

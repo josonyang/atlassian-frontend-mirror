@@ -32,7 +32,7 @@ ruleTester.run('no-html-anchor', rule, {
 							desc: 'Replace with Image component from @atlaskit/image',
 							output: linesOnly`
 								// JSX Element > reports for an anchor element and shows correct message
-								import Image from '@atlaskit/image';
+								import Image from '@atlaskit/image/image';
 								<Image src="foo.jpg" />
 							`,
 						},
@@ -53,8 +53,30 @@ ruleTester.run('no-html-anchor', rule, {
 							desc: 'Replace with Image component from @atlaskit/image',
 							output: linesOnly`
 								// JSX Element > reports for an image with src and alt
-								import Image from '@atlaskit/image';
+								import Image from '@atlaskit/image/image';
 								<Image src="foo.jpg" alt="Foo" />
+							`,
+						},
+					],
+				},
+			],
+		},
+		{
+			code: linesOnly`
+				// JSX Element > existing Image subpath import with different name
+				import CustomImage from '@atlaskit/image/image';
+				<img src="foo.jpg" alt="Foo" />
+			`,
+			errors: [
+				{
+					messageId: 'noHtmlImage',
+					suggestions: [
+						{
+							desc: 'Replace with Image component from @atlaskit/image',
+							output: linesOnly`
+								// JSX Element > existing Image subpath import with different name
+								import CustomImage from '@atlaskit/image/image';
+								<CustomImage src="foo.jpg" alt="Foo" />
 							`,
 						},
 					],
@@ -97,7 +119,7 @@ ruleTester.run('no-html-anchor', rule, {
 							desc: 'Replace with Image component from @atlaskit/image',
 							output: linesOnly`
 						// Existing Image import with same name from another package
-						import Image1 from '@atlaskit/image';
+						import Image1 from '@atlaskit/image/image';
 						import Image from 'another-package';
 						<Image1 src="foo.jpg" alt="Foo" />
 					`,
@@ -122,7 +144,7 @@ ruleTester.run('no-html-anchor', rule, {
 							desc: 'Replace with Image component from @atlaskit/image',
 							output: linesOnly`
 						// Existing Image, Image1, and Image2 imports
-						import Image3 from '@atlaskit/image';
+						import Image3 from '@atlaskit/image/image';
 						import Image from 'another-package';
 						import Image1 from 'yet-another-package';
 						import Image2 from '@some/package';
@@ -145,7 +167,7 @@ ruleTester.run('no-html-anchor', rule, {
 						{
 							output: linesOnly`
 								// JSX Element > reports for a self-closing div with role="img"
-								import Image from '@atlaskit/image';
+								import Image from '@atlaskit/image/image';
 								<Image src="foo.jpg" alt="" />
 							`,
 							desc: 'Replace with Image component from @atlaskit/image',
@@ -166,7 +188,7 @@ ruleTester.run('no-html-anchor', rule, {
 						{
 							output: linesOnly`
 								// JSX Element > reports for a self-closing span with role="img"
-								import Image from '@atlaskit/image';
+								import Image from '@atlaskit/image/image';
 								<Image src="foo.jpg" alt="" />
 							`,
 							desc: 'Replace with Image component from @atlaskit/image',

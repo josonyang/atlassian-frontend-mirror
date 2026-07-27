@@ -12,7 +12,6 @@ placement — compose it with the `useAnchorPosition` hook when you need anchor-
 
 ```tsx
 import { useRef } from 'react';
-import { slideAndFade } from '@atlaskit/top-layer/animations';
 import { getAriaForTrigger } from '@atlaskit/top-layer/get-aria-for-trigger';
 import { Popover } from '@atlaskit/top-layer/popover';
 import { PopoverSurface } from '@atlaskit/top-layer/popover-surface';
@@ -45,7 +44,7 @@ function MyPopup({ isOpen, onClose }: { isOpen: boolean; onClose: () => void }) 
 				role="dialog"
 				label="Settings"
 				isOpen={isOpen}
-				animate={slideAndFade()}
+				shouldAnimate
 				onClose={onClose}
 			>
 				<PopoverSurface>Content here</PopoverSurface>
@@ -87,7 +86,7 @@ Compound component for modal dialogs using the native `<dialog>` element with `.
 
 ## Animations
 
-Both `Popover` and `Dialog` support CSS-based entry/exit animations via the `animate` prop.
+Both `Popover` and `Dialog` support CSS-based entry/exit animations via the `shouldAnimate` prop.
 Animations use [`@starting-style`](https://developer.mozilla.org/en-US/docs/Web/CSS/@starting-style)
 for entry and
 [`allow-discrete`](https://developer.mozilla.org/en-US/docs/Web/CSS/transition-behavior) on
@@ -109,15 +108,12 @@ import {
 
 ### Popover animation
 
-Pass a preset to `Popover`:
+Pass `shouldAnimate` to enable the default popover entry and exit animation:
 
 ```tsx
-import { slideAndFade } from '@atlaskit/top-layer/animations';
 import { Popover } from '@atlaskit/top-layer/popover';
 
-const animation = slideAndFade();
-
-<Popover animate={animation} role="dialog" label="My popover">
+<Popover shouldAnimate role="dialog" label="My popover" isOpen={isOpen}>
 	Content
 </Popover>;
 ```
@@ -125,31 +121,23 @@ const animation = slideAndFade();
 For overlay styling (background, shadow, border-radius), wrap children in `PopoverSurface` from
 `@atlaskit/top-layer/popover-surface`.
 
-Available popover presets:
-
-- `slideAndFade({ distance? })` — directional slide + opacity (default for tooltip)
-- `fade` — simple opacity transition
-- `scaleAndFade` — scale from 0.95 + opacity (suitable for menus/dropdowns)
+Use `enteringAnimationXcss` and `exitingAnimationXcss` when a composed component needs to override
+the phase-specific animation styles.
 
 ### Dialog animation
 
-Pass a preset to `Dialog.Content`:
+Pass `shouldAnimate` to enable the default dialog entry and exit animation:
 
 ```tsx
-import { dialogSlideUpAndFade } from '@atlaskit/top-layer/animations';
+import { Dialog } from '@atlaskit/top-layer/dialog';
 
-const animation = dialogSlideUpAndFade();
-
-<Dialog.Content animate={animation}>
-	<Dialog.Surface>...</Dialog.Surface>
-</Dialog.Content>;
+<Dialog shouldAnimate isOpen={isOpen} onClose={onClose} label="My dialog">
+	Content
+</Dialog>;
 ```
 
-Available dialog presets:
-
-- `dialogSlideUpAndFade({ distance? })` — slide up + opacity with backdrop fade (matches legacy
-  modal entrance)
-- `dialogFade` — simple opacity + backdrop fade
+Use `enteringAnimationXcss` and `exitingAnimationXcss` when a composed component needs to override
+the phase-specific animation styles.
 
 ### Progressive enhancement
 

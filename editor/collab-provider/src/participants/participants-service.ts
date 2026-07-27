@@ -185,7 +185,6 @@ export class ParticipantsService {
 	 * presence consumer on each streamed step.
 	 *
 	 * @param providerId `agent:<aaid|type>` id of the agent
-	 * @example
 	 */
 	upsertAIProviderParticipantLocally = (providerId: string): void => {
 		const payload = this.buildAIProviderPresencePayload(providerId);
@@ -218,7 +217,6 @@ export class ParticipantsService {
 	/**
 	 * (Re)starts the sliding 30s inactivity timer for an agent participant. Called on every agent
 	 * step so the window slides forward from the agent's most recent activity.
-	 * @example
 	 */
 	private resetAgentPresenceTimer = (sessionId: string): void => {
 		const existingTimer = this.agentPresenceTimers.get(sessionId);
@@ -234,7 +232,6 @@ export class ParticipantsService {
 	/**
 	 * Removes an inactive agent participant once its sliding window elapses and emits the `presence`
 	 * leave so the facepile drops it.
-	 * @example
 	 */
 	private removeAgentParticipant = (sessionId: string): void => {
 		this.agentPresenceTimers.delete(sessionId);
@@ -247,7 +244,6 @@ export class ParticipantsService {
 	/**
 	 * Clears all pending agent presence sliding timers (on disconnect/destroy) so they don't fire
 	 * against cleared state.
-	 * @example
 	 */
 	private clearAgentPresenceTimers = (): void => {
 		this.agentPresenceTimers.forEach((timer) => clearTimeout(timer));

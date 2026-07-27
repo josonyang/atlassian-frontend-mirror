@@ -8,8 +8,8 @@ import Avatar from '@atlaskit/avatar';
 import { Anchor } from '@atlaskit/primitives/compiled';
 import { render, screen } from '@atlassian/testing-library';
 
-import TagNew from '../../../tag-new';
 import AvatarTag from '../../../tag-new/avatar-tag';
+import { default as TagNew } from '../../../tag-new/tag-new';
 
 replaceRaf();
 const raf = window.requestAnimationFrame as any;

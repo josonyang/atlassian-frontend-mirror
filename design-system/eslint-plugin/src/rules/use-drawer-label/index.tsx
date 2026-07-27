@@ -2,8 +2,10 @@ import type { Rule } from 'eslint';
 import { isNodeOfType } from 'eslint-codemod-utils';
 
 import { createLintRule } from '../utils/create-lint-rule';
+import { isImportFromPackage } from '../utils/is-import-from-package';
 
 const elementsAccessibleNameProps = ['label', 'titleId'];
+const DRAWER_PACKAGE = '@atlaskit/drawer';
 
 const rule: Rule.RuleModule = createLintRule({
 	meta: {
@@ -32,7 +34,7 @@ const rule: Rule.RuleModule = createLintRule({
 
 		return {
 			ImportDeclaration(node) {
-				if (node.source.value === '@atlaskit/drawer') {
+				if (isImportFromPackage(node.source.value, DRAWER_PACKAGE)) {
 					if (node.specifiers.length) {
 						const defaultImport = node.specifiers.filter(
 							(spec) => spec.type === 'ImportDefaultSpecifier',

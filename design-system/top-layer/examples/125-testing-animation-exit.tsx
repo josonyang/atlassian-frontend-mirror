@@ -63,7 +63,7 @@ export default function TestingAnimationExit(): ReactNode {
 				onClose={close}
 				role="dialog"
 				label="Animation exit test"
-				animate
+				shouldAnimate
 				placement={{ edge: 'end' }}
 			>
 				<div data-testid="popover-content" css={styles.content}>

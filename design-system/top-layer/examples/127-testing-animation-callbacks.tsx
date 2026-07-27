@@ -89,7 +89,7 @@ export default function TestingAnimationCallbacks(): ReactNode {
 				onClose={close}
 				role="dialog"
 				label="Animation callback test"
-				animate
+				shouldAnimate
 				placement={{ edge: 'end' }}
 				onEnterFinish={handleEnterFinish}
 				onExitFinish={handleExitFinish}

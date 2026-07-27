@@ -168,18 +168,16 @@ describe('Drawer top-layer rendering', () => {
 
 	// ── Width ──
 
-	it('should pin the narrow width via inline style', () => {
+	it('should pin the narrow width', () => {
 		render(<ControlledDrawer width="narrow" />);
 
-		const style = screen.getByTestId('drawer').getAttribute('style');
-		expect(style).toContain('width: min(360px, 100vw)');
+		expect(screen.getByTestId('drawer')).toHaveStyle({ width: '360px', maxWidth: '100vw' });
 	});
 
-	it('should pin the wide width via inline style', () => {
+	it('should pin the wide width', () => {
 		render(<ControlledDrawer width="wide" />);
 
-		const style = screen.getByTestId('drawer').getAttribute('style');
-		expect(style).toContain('width: min(600px, 100vw)');
+		expect(screen.getByTestId('drawer')).toHaveStyle({ width: '600px', maxWidth: '100vw' });
 	});
 
 	// ── Close: Escape (native cancel) ──

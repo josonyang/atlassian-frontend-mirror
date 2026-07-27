@@ -338,5 +338,3 @@ const ModalDialog: React.ForwardRefExoticComponent<
 
 // eslint-disable-next-line @repo/internal/react/require-jsdoc, @atlaskit/volt-strict-mode/no-multiple-exports
 export default ModalDialog;
-export { dialogWidth } from './dialog-width';
-export { dialogHeight } from './dialog-height';

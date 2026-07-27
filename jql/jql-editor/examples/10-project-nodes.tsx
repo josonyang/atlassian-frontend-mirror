@@ -15,14 +15,6 @@ import { type HydratedProject, type HydratedValues, JQLEditor } from '../src';
 
 import emojiMockData from './__mocks__/emojiData.json';
 
-const originalCheckGate = FeatureGates.checkGate.bind(FeatureGates);
-FeatureGates.checkGate = ((gateName: string, options?: unknown) => {
-	if (gateName === 'projects_in_jira_ga_drop') {
-		return true;
-	}
-	return originalCheckGate(gateName, options as any) as any;
-}) as any;
-
 const originalGetExperimentValue = FeatureGates.getExperimentValue.bind(FeatureGates);
 FeatureGates.getExperimentValue = ((
 	experimentName: string,

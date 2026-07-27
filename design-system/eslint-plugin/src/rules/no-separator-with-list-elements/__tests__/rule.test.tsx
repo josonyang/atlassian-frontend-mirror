@@ -17,6 +17,10 @@ import { Inline } from '@atlaskit/primitives';
 import { Inline as AkInline } from '@atlaskit/primitives';
 <AkInline as="div" separator="/">Content</AkInline>
     `,
+		`
+import Inline from '@atlaskit/primitives/inline';
+<Inline as="div" separator="/">Content</Inline>
+    `,
 	],
 	invalid: [
 		{
@@ -47,6 +51,30 @@ import { Inline } from '@atlaskit/primitives';
 			code: `
 import { Inline } from '@atlaskit/primitives';
 <Inline as="dl" separator="/">Content</Inline>
+      `,
+			errors: [
+				{
+					message:
+						'The combination of `separator` with `as="li"`, `as="ol"`, or `as="dl"` is not allowed.',
+				},
+			],
+		},
+		{
+			code: `
+import Inline from '@atlaskit/primitives/inline';
+<Inline as="li" separator="/">Content</Inline>
+      `,
+			errors: [
+				{
+					message:
+						'The combination of `separator` with `as="li"`, `as="ol"`, or `as="dl"` is not allowed.',
+				},
+			],
+		},
+		{
+			code: `
+import { Inline } from '@atlaskit/primitives/compiled/inline';
+<Inline as="li" separator="/">Content</Inline>
       `,
 			errors: [
 				{

@@ -33,8 +33,8 @@
 	},
 	"exports": {
 		".": "./src/index.tsx",
-		"./blanket": "./src/entry-points/blanket.tsx",
-		"./types": "./src/entry-points/types.tsx"
+		"./blanket": "./src/blanket.tsx",
+		"./types": "./src/types.tsx"
 	},
 	"dependencies": {
 		"@atlaskit/analytics-next": "workspace:^",

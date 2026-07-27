@@ -62,6 +62,7 @@ describe('NativeEmbedInitialPlaceholder', () => {
 		const wrapper = frame.parentElement;
 
 		expect(wrapper).not.toHaveAttribute('data-native-embed-width');
+		expect(wrapper).toHaveAttribute('data-native-embed-alignment', 'center');
 		expect(frame).toHaveStyle({ width: '100%', aspectRatio: '760 / 600' });
 	});
 });

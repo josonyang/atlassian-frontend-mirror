@@ -15,6 +15,12 @@ tester.run('ensure-avatar-tag-avatar-props', rule, {
 			import Avatar from '@atlaskit/avatar';
 			<AvatarTag type="user" text="John" avatar={(props) => <Avatar {...props} src="user.png" />} />
 		`,
+		// AvatarTag from de-barrelled subpath
+		`
+			import AvatarTag from '@atlaskit/tag/avatar-tag';
+			import Avatar from '@atlaskit/avatar';
+			<AvatarTag type="user" text="John" avatar={(props) => <Avatar {...props} />} />
+		`,
 		// TeamAvatar usage
 		`
 			import { AvatarTag } from '@atlaskit/tag';
@@ -35,6 +41,15 @@ tester.run('ensure-avatar-tag-avatar-props', rule, {
 		`,
 	],
 	invalid: [
+		// Avatar with size (controlled)
+		{
+			code: `
+				import AvatarTag from '@atlaskit/tag/avatar-tag';
+				import Avatar from '@atlaskit/avatar';
+				<AvatarTag type="user" text="John" avatar={(props) => <Avatar {...props} size="large" />} />
+			`,
+			errors: [{ messageId: 'noControlledPropsInAvatar', data: { propName: 'size' } }],
+		},
 		// Avatar with size (controlled)
 		{
 			code: `

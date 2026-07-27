@@ -30,17 +30,18 @@ import { createCloseEvent, Dialog, type TDialogCloseReason } from '@atlaskit/top
 import { DialogScrollLock } from '@atlaskit/top-layer/dialog-scroll-lock';
 
 import type { KeyboardOrMouseEvent, ModalDialogProps } from '../../types';
-import { ModalContext, ScrollContext } from '../context';
+import { ModalContext } from '../context';
 import useModalStack from '../hooks/use-modal-stack';
 import usePreventProgrammaticScroll from '../hooks/use-prevent-programmatic-scroll';
 import { disableDraggingToCrossOriginIFramesForElement } from '../pragmatic-drag-and-drop/disable-dragging-to-cross-origin-iframes/element';
 import { disableDraggingToCrossOriginIFramesForExternal } from '../pragmatic-drag-and-drop/disable-dragging-to-cross-origin-iframes/external';
 import { disableDraggingToCrossOriginIFramesForTextSelection } from '../pragmatic-drag-and-drop/disable-dragging-to-cross-origin-iframes/text-selection';
+import { ScrollContext } from '../scroll-context';
 import type { InternalModalWrapperProps } from '../types';
 
 import { dialogHeight } from './dialog-height';
 import { dialogWidth as getDialogWidth } from './dialog-width';
-import ModalDialog from './modal-dialog';
+import { default as ModalDialog } from './modal-dialog';
 
 export type { ModalDialogProps };
 
@@ -403,7 +404,7 @@ const InternalModalWrapper: React.ForwardRefExoticComponent<
 				id={dialogId}
 				onClose={onDialogClose}
 				onExitFinish={handleDialogExitFinish}
-				animate={!isFullScreen}
+				shouldAnimate={!isFullScreen}
 				isOpen={!isExiting}
 				shouldHideBackdrop={stackIndex > 0 || Boolean(isBlanketHidden)}
 				// Dialog requires at least one of `label` or `labelledBy` (string, not undefined).

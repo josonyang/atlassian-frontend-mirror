@@ -257,6 +257,7 @@ export type {
 } from './types/sync-block-events';
 
 export type {
+	AiSuggestionsConversationErrorReason,
 	AiSuggestionInteractionPoint,
 	AiSuggestionsEntryPoint,
 	AiSuggestionsEventPayload,

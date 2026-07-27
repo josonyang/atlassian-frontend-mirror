@@ -3,7 +3,6 @@ import React from 'react';
 import { cssMap } from '@compiled/react';
 
 import { AssetsIcon } from '@atlaskit/logo';
-import { fg } from '@atlaskit/platform-feature-flags';
 import { Box } from '@atlaskit/primitives/compiled';
 import { token } from '@atlaskit/tokens';
 
@@ -48,10 +47,7 @@ export const PoweredByJSMAssets = (props: { text: string }): React.JSX.Element =
 					alignItems: 'center',
 				}}
 			>
-				<AssetsIcon
-					size="small"
-					{...(fg('navx-1895-new-logo-design') ? { shouldUseNewLogoDesign: true } : undefined)}
-				/>
+				<AssetsIcon size="small" />
 				<Box
 					xcss={styles.jsmTextStyles}
 					// eslint-disable-next-line @atlaskit/design-system/use-tokens-typography, @atlaskit/ui-styling-standard/enforce-style-prop

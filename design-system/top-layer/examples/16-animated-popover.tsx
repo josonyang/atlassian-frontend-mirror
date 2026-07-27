@@ -73,7 +73,7 @@ function AnimatedPopoverDemo({
 				label={`${label} popover`}
 				isOpen={isOpen}
 				onClose={close}
-				animate
+				shouldAnimate
 				placement={placement}
 			>
 				<PopoverSurface>

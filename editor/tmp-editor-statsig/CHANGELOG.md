@@ -1,5 +1,22 @@
 # @atlaskit/editor-statsig-tmp
 
+## 135.0.0
+
+### Major Changes
+
+- [`c0fedda79b60e`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/c0fedda79b60e) -
+  Clean up experiment `platform_editor_fix_a11y_tab_focus_insertion_menu`
+- [`d19e8a0a9bc84`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/d19e8a0a9bc84) -
+  Clean up experiment `platform_editor_fix_advanced_codeblocks_crlf_patch`
+
+## 134.0.0
+
+### Major Changes
+
+- [`591b0c312eed9`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/591b0c312eed9) -
+  Clean up experiment `platform_editor_stricter_panelcolor_typecheck` and make stricter panel color
+  validation permanent.
+
 ## 133.3.1
 
 ### Patch Changes

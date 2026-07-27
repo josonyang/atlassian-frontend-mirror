@@ -16,7 +16,7 @@ type TTestPopoverProps = {
 
 function TestMenuPopover({ isOpen, isAnimated = false }: TTestPopoverProps) {
 	return (
-		<Popover isOpen={isOpen} role="menu" label="test-menu" animate={isAnimated}>
+		<Popover isOpen={isOpen} role="menu" label="test-menu" shouldAnimate={isAnimated}>
 			<button type="button" data-testid="first-item">
 				First
 			</button>

@@ -1,5 +1,23 @@
 # @atlaskit/editor-plugin-paste-options-toolbar
 
+## 13.3.0
+
+### Minor Changes
+
+- [`24fdd04e3b469`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/24fdd04e3b469) -
+  Switch Paste as Markdown to the markdown-plus parser behind existing gates, with legacy fallback
+  retained. Wire the converter through Confluence preset configuration for the gated path.
+
+### Patch Changes
+
+- Updated dependencies
+
+## 13.2.10
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 13.2.9
 
 ### Patch Changes

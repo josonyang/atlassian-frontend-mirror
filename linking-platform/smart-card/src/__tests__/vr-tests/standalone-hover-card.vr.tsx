@@ -20,9 +20,6 @@ snapshot(HoverCard, {
 	],
 	states: [{ state: 'hovered', selector: { byRole: 'button' } }],
 	drawsOutsideBounds: true,
-	featureFlags: {
-		'navx-1895-new-logo-design': true,
-	},
 	waitForReactLazy: true,
 });
 
@@ -59,9 +56,6 @@ snapshot(HoverCardConfluence, {
 	],
 	states: [{ state: 'hovered', selector: { byRole: 'button' } }],
 	drawsOutsideBounds: true,
-	featureFlags: {
-		'navx-1895-new-logo-design': true,
-	},
 	waitForReactLazy: true,
 });
 
@@ -69,9 +63,6 @@ snapshot(HoverCardAssignedJiraIssue, {
 	description: 'standalone hover card for Assigned Jira Issue',
 	states: [{ state: 'hovered', selector: { byRole: 'button' } }],
 	drawsOutsideBounds: true,
-	featureFlags: {
-		'navx-1895-new-logo-design': true,
-	},
 	waitForReactLazy: true,
 });
 
@@ -79,9 +70,6 @@ snapshot(HoverCardUnassignedJiraIssue, {
 	description: 'standalone hover card for Unassigned Jira Issue',
 	states: [{ state: 'hovered', selector: { byRole: 'button' } }],
 	drawsOutsideBounds: true,
-	featureFlags: {
-		'navx-1895-new-logo-design': true,
-	},
 	waitForReactLazy: true,
 });
 
@@ -89,9 +77,6 @@ snapshot(HoverCardJiraProject, {
 	description: 'standalone hover card for Jira Project',
 	states: [{ state: 'hovered', selector: { byRole: 'button' } }],
 	drawsOutsideBounds: true,
-	featureFlags: {
-		'navx-1895-new-logo-design': true,
-	},
 	waitForReactLazy: true,
 });
 

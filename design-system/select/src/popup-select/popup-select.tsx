@@ -191,7 +191,7 @@ const defaultPopperProps: PopperPropsNoChildren<defaultModifiers> = {
 const isEmpty = (obj: object) => Object.keys(obj).length === 0;
 
 // eslint-disable-next-line @repo/internal/react/no-class-components
-export default class PopupSelect<
+export class PopupSelect<
 	Option = OptionType,
 	IsMulti extends boolean = false,
 	Modifiers = ModifierList,

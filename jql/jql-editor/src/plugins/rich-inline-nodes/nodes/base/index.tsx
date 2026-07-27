@@ -1,7 +1,6 @@
 import React from 'react';
 
 import { cssMap, cx } from '@atlaskit/css';
-import FeatureGates from '@atlaskit/feature-gate-js-client';
 import LockLockedIcon from '@atlaskit/icon/core/lock-locked';
 import { Box, Inline, Pressable, Text } from '@atlaskit/primitives/compiled';
 import { token } from '@atlaskit/tokens';
@@ -97,23 +96,19 @@ const styles = cssMap({
 export const NodeBase = (props: NodeViewProps<NodeBaseProps>): React.JSX.Element => {
 	const { iconBefore, text, isLocked, selected, error, isRichNodeDisplay } = props;
 
-	const isNewExperienceEnabled =
-		// eslint-disable-next-line @atlaskit/platform/use-recommended-utils -- Statsig migration pending for this experiment gate
-		FeatureGates.checkGate('projects_in_jira_ga_drop') || isRichNodeDisplay;
-
 	return (
 		<Pressable
 			xcss={cx(
 				styles.nodeWrapper,
-				!isNewExperienceEnabled && styles.nodeWrapperWithHeight,
+				!isRichNodeDisplay && styles.nodeWrapperWithHeight,
 				error && styles.nodeWrapperError,
 				selected && (error ? styles.nodeWrapperErrorSelected : styles.nodeWrapperSelected),
 			)}
-			{...(isNewExperienceEnabled ? { title: text } : {})}
+			{...(isRichNodeDisplay ? { title: text } : {})}
 		>
 			<Inline space="space.050" alignBlock="center">
 				{iconBefore && <Box xcss={styles.iconBeforeWrapper}>{iconBefore}</Box>}
-				{isNewExperienceEnabled ? (
+				{isRichNodeDisplay ? (
 					<Text maxLines={2} align="start">
 						<Box as="span" xcss={styles.textWrapper}>
 							{text}

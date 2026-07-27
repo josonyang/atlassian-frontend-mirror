@@ -48,6 +48,13 @@ tester.run('use-popup-label', rule, {
   </Popup>
   `,
 		`
+  import { Popup } from '@atlaskit/popup/popup';
+
+  <Popup role="dialog" titleId="testId">
+    Children
+  </Popup>
+  `,
+		`
   import Popup from '@atlaskit/popup';
 
   const titleId = "popup-label-test-id";
@@ -58,6 +65,20 @@ tester.run('use-popup-label', rule, {
 `,
 	],
 	invalid: [
+		{
+			code: `
+      import { Popup } from '@atlaskit/popup/popup';
+
+      <Popup role="dialog">
+        Children
+      </Popup>
+      `,
+			errors: [
+				{
+					messageId: 'missingLabelProp',
+				},
+			],
+		},
 		{
 			code: `
       import Popup from '@atlaskit/popup';

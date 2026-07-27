@@ -230,8 +230,6 @@ import { PopoverSurface } from '@atlaskit/top-layer/popover-surface';
 import { getAriaForTrigger } from '@atlaskit/top-layer/get-aria-for-trigger';
 import { usePopoverId } from '@atlaskit/top-layer/use-popover-id';
 import { useAnchorPosition } from '@atlaskit/top-layer/use-anchor-position';
-import { slideAndFade } from '@atlaskit/top-layer/animations';
-
 function MyPopup({ isOpen, onClose }) {
 	const triggerRef = useRef<HTMLButtonElement>(null);
 	const popoverRef = useRef<HTMLDivElement>(null);
@@ -258,7 +256,7 @@ function MyPopup({ isOpen, onClose }) {
 				isOpen={isOpen}
 				role="dialog"
 				label="Settings"
-				animate={slideAndFade()}
+				shouldAnimate
 				onClose={onClose}
 			>
 				<PopoverSurface>{/* content */}</PopoverSurface>

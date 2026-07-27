@@ -4,11 +4,16 @@ import type { ImportDeclaration } from 'eslint-codemod-utils';
 import { getSourceCode } from '@atlaskit/eslint-utils/context-compat';
 
 import { JSXElementHelper } from '../../../../ast-nodes/jsx-element-helper';
+import { isImportFromPackage } from '../../../utils/is-import-from-package';
 import { isSupportedForLint } from '../supported';
 
 interface MetaData {
 	context: Rule.RuleContext;
 }
+
+const LINK_PACKAGE = '@atlaskit/link';
+const LINK_IMPORT_SOURCE = '@atlaskit/link/link';
+const LINK_BUTTON_PACKAGE = '@atlaskit/button/new';
 
 function isImportDeclaration(node: any): node is ImportDeclaration {
 	return node.type === 'ImportDeclaration';
@@ -34,14 +39,17 @@ export const JSXElement = {
 				usedNames.add(specifier.local.name);
 			}
 
-			if (declaration.source.value === '@atlaskit/link') {
+			if (isImportFromPackage(declaration.source.value, LINK_PACKAGE)) {
 				const defaultSpecifier = declaration.specifiers.find(
 					(specifier) => specifier.type === 'ImportDefaultSpecifier',
 				);
 				if (defaultSpecifier) {
 					existingLinkName = defaultSpecifier.local.name;
 				}
-			} else if (declaration.source.value === '@atlaskit/button/new') {
+			} else if (
+				typeof declaration.source.value === 'string' &&
+				declaration.source.value === LINK_BUTTON_PACKAGE
+			) {
 				const namedSpecifier = declaration.specifiers.find(
 					(specifier) =>
 						specifier.type === 'ImportSpecifier' &&
@@ -111,7 +119,7 @@ export const JSXElement = {
 
 						// Add import if not present
 						if (!existingLinkName) {
-							const importStatement = `import ${linkName} from '@atlaskit/link';\n`;
+							const importStatement = `import ${linkName} from '${LINK_IMPORT_SOURCE}';\n`;
 							fixers.push(fixer.insertTextBefore(sourceCode.ast, importStatement));
 						}
 

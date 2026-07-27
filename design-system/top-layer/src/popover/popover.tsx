@@ -4,7 +4,7 @@
  */
 import React, { forwardRef, type Ref, useCallback, useId, useLayoutEffect, useRef } from 'react';
 
-import { cssMap, jsx } from '@compiled/react';
+import { cssMap, cx, jsx } from '@compiled/react';
 import { bind } from 'bind-event-listener';
 
 import mergeRefs from '@atlaskit/ds-lib/merge-refs';
@@ -36,37 +36,6 @@ const supportsPopoverHint = once((): boolean => {
 	const element = document.createElement('div');
 	element.setAttribute('popover', 'hint');
 	return element.popover === 'hint';
-});
-
-// These animation styles use the non-strict Compiled cssMap because they rely
-// on `@starting-style`, `:popover-open`, `[dir='rtl']`, and `allow-discrete`.
-// Keep them in this component so the Compiled transform can statically extract
-// every referenced style.
-const popoverAnimationStyles = cssMap({
-	root: {
-		transitionProperty: 'overlay, display',
-		transitionDuration: token('motion.duration.xshort'),
-		transitionBehavior: 'allow-discrete',
-		animation: 'var(--ds-popover-motion-exit)',
-		animationFillMode: 'forwards',
-		animationDuration: token('motion.duration.xshort'),
-		animationTimingFunction: token('motion.easing.in.practical'),
-		'&:popover-open': {
-			transitionDuration: token('motion.duration.short'),
-			animation: 'var(--ds-popover-motion-enter)',
-			animationFillMode: 'backwards',
-			animationDuration: token('motion.duration.short'),
-			animationTimingFunction: token('motion.easing.out.practical'),
-		},
-		'@media (prefers-reduced-motion: reduce)': {
-			animationName: 'none',
-			transitionDuration: '0s',
-			'&:popover-open': {
-				animationName: 'none',
-				transitionDuration: '0s',
-			},
-		},
-	},
 });
 
 // Surface reset — neutralises inherited text-layout properties (e.g.
@@ -104,6 +73,25 @@ const styles = cssMap({
 		height: 'auto',
 		// Unstyled; consumers apply their own surface.
 		background: 'transparent',
+	},
+	motion: {
+		// This transition keeps the element visible and in the top layer while the
+		// exit animation plays. It needs to be always applied because there can
+		// be a delay before entering the `exiting` phase after the popover is dismissed.
+		transitionProperty: 'overlay, display',
+		transitionDuration: token('motion.duration.xshort'),
+		transitionBehavior: 'allow-discrete',
+		animationFillMode: 'both',
+		'@media (prefers-reduced-motion: reduce)': {
+			animationName: 'none',
+			transitionDuration: token('motion.duration.instant'),
+		},
+	},
+	enter: {
+		animation: 'var(--ds-popover-motion-enter)',
+	},
+	exit: {
+		animation: 'var(--ds-popover-motion-exit)',
 	},
 });
 
@@ -164,11 +152,12 @@ export const Popover: React.ForwardRefExoticComponent<
 		onOpenChange,
 		onEnterFinish,
 		onExitFinish,
-		animate = false,
+		shouldAnimate = false,
 		placement,
 		testId,
 		isOpen,
-		xcss: consumerXcss,
+		enteringAnimationXcss,
+		exitingAnimationXcss,
 		// ARIA
 		role,
 		label,
@@ -185,10 +174,10 @@ export const Popover: React.ForwardRefExoticComponent<
 	// `useId()` colons are invalid in CSS selectors and popover target attributes.
 	const popoverId = idProp ?? `popover-${autoId.replace(/:/g, '')}`;
 
-	const { phase, preset } = useAnimatedVisibility({
+	const { phase } = useAnimatedVisibility({
 		isOpen,
 		animationKind: 'popover',
-		animate,
+		shouldAnimate,
 		elementRef: ownRef,
 		onEnterFinish,
 		onExitFinish,
@@ -341,7 +330,7 @@ export const Popover: React.ForwardRefExoticComponent<
 			return;
 		}
 		return setStyle({ element, styles: getPopupMotionStyles({ placement }) });
-	}, [preset, placement, isVisible]);
+	}, [placement, isVisible]);
 
 	// Show/hide based on isOpen. `showPopover`/`hidePopover` are no-ops when
 	// already in the target state. Try/catch guards `InvalidStateError` on
@@ -393,8 +382,18 @@ export const Popover: React.ForwardRefExoticComponent<
 			aria-label={label}
 			aria-labelledby={labelledBy}
 			data-testid={testId}
-			className={consumerXcss}
-			css={[styles.root, surfaceResetStyles.root, preset && popoverAnimationStyles.root]}
+			css={[
+				styles.root,
+				surfaceResetStyles.root,
+				shouldAnimate && phase === 'entering' && styles.enter,
+				shouldAnimate && phase === 'exiting' && styles.exit,
+				shouldAnimate && styles.motion,
+			]}
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop, @atlaskit/ui-styling-standard/local-cx-xcss, @compiled/local-cx-xcss
+			className={cx(
+				shouldAnimate && phase === 'entering' && enteringAnimationXcss,
+				shouldAnimate && phase === 'exiting' && exitingAnimationXcss,
+			)}
 		>
 			{children}
 		</div>

@@ -4,7 +4,6 @@ import { cssMap } from '@compiled/react';
 import { useIntl } from 'react-intl';
 
 import { AssetsIcon } from '@atlaskit/logo';
-import { fg } from '@atlaskit/platform-feature-flags';
 import { Anchor, Inline } from '@atlaskit/primitives/compiled';
 import { token } from '@atlaskit/tokens';
 
@@ -36,12 +35,7 @@ export const ProviderLink = ({
 			return {
 				content: intl.formatMessage(footerMessages.poweredByAssets),
 				extensionKey: 'jsm-cmdb-gateway',
-				icon: (
-					<AssetsIcon
-						size="xsmall"
-						{...(fg('navx-1895-new-logo-design') ? { shouldUseNewLogoDesign: true } : undefined)}
-					/>
-				),
+				icon: <AssetsIcon size="xsmall" />,
 				interactionName: 'atlas-link',
 				url: '/jira/assets',
 			};

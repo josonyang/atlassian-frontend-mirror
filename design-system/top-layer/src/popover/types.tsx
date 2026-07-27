@@ -8,7 +8,6 @@ import {
 	type TRoleRequiringAccessibleName,
 	type TRoleWithImplicitName,
 } from '../internal/role-types';
-import type { TAnimationConfig } from '../internal/use-animated-visibility';
 
 /**
  * The reason a popover was closed.
@@ -42,21 +41,30 @@ export type { TPlacementOptions };
 type TPopoverBaseProps = {
 	children: ReactNode;
 	/**
-	 * Additional CSS styles applied to the popover root element.
-	 * Use to set `backgroundColor` to match the popup surface colour.
+	 * Animation styles applied while the popover is entering.
+	 *
+	 * Only applied when `shouldAnimate` is `true`.
 	 */
-	xcss?: StrictXCSSProp<
-		'animationName',
-		'&:popover-open',
-		{ requiredPseudos: '&:popover-open'; requiredProperties: never }
+	enteringAnimationXcss?: StrictXCSSProp<
+		'animationName' | 'animationDuration' | 'animationTimingFunction' | 'animationDelay',
+		never
 	>;
 	/**
-	 * Animation preset for entry/exit transitions.
+	 * Animation styles applied while the popover is exiting.
 	 *
-	 * Animations use `@starting-style` and `allow-discrete` for progressive
-	 * enhancement: browsers without support show/hide instantly.
+	 * Only applied when `shouldAnimate` is `true`.
 	 */
-	animate?: boolean | TAnimationConfig;
+	exitingAnimationXcss?: StrictXCSSProp<
+		'animationName' | 'animationDuration' | 'animationTimingFunction' | 'animationDelay',
+		never
+	>;
+	/**
+	 * Whether the popover should animate in and out.
+	 *
+	 * When `true`, default popover animation styles are applied. Use `enteringAnimationXcss`
+	 * and `exitingAnimationXcss` to override the animation used for each phase.
+	 */
+	shouldAnimate?: boolean;
 	/**
 	 * Test ID applied to the popover element.
 	 */
@@ -71,9 +79,10 @@ type TPopoverBaseProps = {
 	/**
 	 * Whether the popover is open.
 	 *
-	 * - **`true`:** show the popover (calls `showPopover()`, entry animation plays via `@starting-style`).
-	 * - **`false`:** hide the popover. When an `animate` preset is provided, the exit
-	 *   animation plays (via `allow-discrete`) before the popover becomes logically closed.
+	 * - **`true`:** show the popover (calls `showPopover()`). When `shouldAnimate`
+	 *   is `true`, the entry animation plays via `@starting-style`.
+	 * - **`false`:** hide the popover. When `shouldAnimate` is `true`, the exit
+	 *   animation plays via `allow-discrete` before the popover becomes logically closed.
 	 *   Otherwise hides instantly.
 	 *
 	 * The consumer does not conditionally render the `Popover` - visibility is driven
@@ -119,9 +128,9 @@ type TPopoverBaseProps = {
 	/**
 	 * Placement hint for directional animations (e.g. `slideAndFade`).
 	 *
-	 * When `animate` is provided, the preset's `getStyles(placement)` is
-	 * called to set CSS custom properties (like `--ds-popover-tx`, `--ds-popover-ty`)
-	 * that control the slide direction. Has no effect without `animate`.
+	 * When `shouldAnimate` is `true`, placement is used to set CSS custom
+	 * properties (like `--ds-popover-tx`, `--ds-popover-ty`) that control the
+	 * slide direction. Has no effect without `shouldAnimate`.
 	 *
 	 * This does NOT control positioning. Use `useAnchorPosition` for that.
 	 */

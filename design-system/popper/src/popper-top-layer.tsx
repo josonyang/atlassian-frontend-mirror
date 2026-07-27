@@ -278,7 +278,7 @@ export function PopperTopLayer<CustomModifiers>({
 	// (applied by `useFitViewportMaxSize` above), so the consumer's content is
 	// rendered directly with no intermediate wrapper.
 	return (
-		<Popover ref={popoverRef} id={popoverId} isOpen={isOpen} mode="manual" animate={false}>
+		<Popover ref={popoverRef} id={popoverId} isOpen={isOpen} mode="manual" shouldAnimate={false}>
 			{content}
 		</Popover>
 	);

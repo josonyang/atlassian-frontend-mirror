@@ -5,7 +5,7 @@ import { fireEvent, render, screen, waitFor } from '@testing-library/react';
 import { AnalyticsListener, UIAnalyticsEvent } from '@atlaskit/analytics-next';
 import noop from '@atlaskit/ds-lib/noop';
 
-import Tag, { type RemovableTagProps } from '../../index';
+import { type RemovableTagProps, default as Tag } from '../../internal/removable';
 
 const packageName = process.env._PACKAGE_NAME_ as string;
 const packageVersion = process.env._PACKAGE_VERSION_ as string;

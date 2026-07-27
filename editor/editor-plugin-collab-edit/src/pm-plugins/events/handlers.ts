@@ -113,7 +113,7 @@ export const subscribe: (
 				handleInit(data, view, options, editorAnalyticsApi);
 			},
 			connectedHandler: (data) => handleConnection(data, view),
-			dataHandler: (data) => applyRemoteData(data, view, options),
+			dataHandler: (data) => applyRemoteData(data, view, options, editorAnalyticsApi),
 			presenceHandler: (data) => handlePresence(data, view),
 			telepointerHandler: (data) => handleTelePointer(data, view),
 			localStepsHandler: (data) => {

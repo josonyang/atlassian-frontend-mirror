@@ -1,13 +1,12 @@
 import type { Rule } from 'eslint';
 import { isNodeOfType, type JSXAttribute } from 'eslint-codemod-utils';
 
-import { getScope } from '@atlaskit/eslint-utils/context-compat';
-
 import { createLintRule } from '../utils/create-lint-rule';
-import { getImportName } from '../utils/get-import-name';
 
 export const headingLevelRequiredSuggestionText =
 	'Add a `headingLevel` that is of a contextually relevant level.';
+const ONBOARDING_PACKAGE = '@atlaskit/onboarding';
+const SPOTLIGHT_CARD_IMPORT_SOURCE = '@atlaskit/onboarding/spotlight-card';
 
 const rule: Rule.RuleModule = createLintRule({
 	meta: {
@@ -25,7 +24,31 @@ const rule: Rule.RuleModule = createLintRule({
 		},
 	},
 	create(context) {
+		const spotlightCardImportNames: string[] = [];
+
 		return {
+			ImportDeclaration(node: Rule.Node) {
+				if (!isNodeOfType(node, 'ImportDeclaration')) {
+					return;
+				}
+
+				node.specifiers.forEach((spec) => {
+					if (
+						node.source.value === ONBOARDING_PACKAGE &&
+						isNodeOfType(spec, 'ImportSpecifier') &&
+						spec.imported.name === 'SpotlightCard'
+					) {
+						spotlightCardImportNames.push(spec.local.name);
+					}
+
+					if (
+						node.source.value === SPOTLIGHT_CARD_IMPORT_SOURCE &&
+						isNodeOfType(spec, 'ImportDefaultSpecifier')
+					) {
+						spotlightCardImportNames.push(spec.local.name);
+					}
+				});
+			},
 			JSXElement(node: Rule.Node) {
 				if (!isNodeOfType(node, 'JSXElement')) {
 					return;
@@ -35,14 +58,7 @@ const rule: Rule.RuleModule = createLintRule({
 					return;
 				}
 
-				// Get the name of the SpotlightCard import
-				const spotlightCardImportName = getImportName(
-					getScope(context, node),
-					'@atlaskit/onboarding',
-					'SpotlightCard',
-				);
-
-				if (node.openingElement.name.name === spotlightCardImportName) {
+				if (spotlightCardImportNames.includes(node.openingElement.name.name)) {
 					// and if `heading` exists and `headingLevel` prop does not exist
 					const spotlightCardProps = node.openingElement.attributes
 						.filter((attr): attr is JSXAttribute => isNodeOfType(attr, 'JSXAttribute'))

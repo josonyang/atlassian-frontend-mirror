@@ -1,5 +1,16 @@
 # @atlaskit/top-layer
 
+## 2.0.0
+
+### Major Changes
+
+- [`3f6f3bd7da074`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/3f6f3bd7da074) -
+  Updates the Top Layer animation API:
+  - Renames `animate` to `shouldAnimate` and simplifies the type to just `boolean`, removing unused
+    config type
+  - Custom animation overrides should now be applied via the `enteringAnimationXcss` and
+    `exitingAnimationXcss` props.
+
 ## 1.10.1
 
 ### Patch Changes

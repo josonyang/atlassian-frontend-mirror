@@ -1,5 +1,22 @@
 # @atlaskit/insm
 
+## 1.1.0
+
+### Minor Changes
+
+- [`f442eef602ce7`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/f442eef602ce7) -
+  Disabling AFPs metric
+
+### Patch Changes
+
+- Updated dependencies
+
+## 1.0.31
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 1.0.30
 
 ### Patch Changes

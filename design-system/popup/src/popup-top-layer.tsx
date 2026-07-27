@@ -282,7 +282,7 @@ export const PopupTopLayer: FC<PopupProps> = memo(function PopupTopLayer({
 				{...roleProps}
 				isOpen={isOpen}
 				onClose={handleOnClose}
-				animate
+				shouldAnimate
 				placement={topLayerPlacement}
 				testId={testId && `${testId}--content`}
 			>

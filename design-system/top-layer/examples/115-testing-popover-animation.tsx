@@ -63,7 +63,7 @@ export default function TestingPopoverAnimation(): ReactNode {
 				onClose={close}
 				role="dialog"
 				label="Animated popover"
-				animate
+				shouldAnimate
 				placement={{ edge: 'end' }}
 			>
 				<div data-testid="popover-content" css={styles.content}>

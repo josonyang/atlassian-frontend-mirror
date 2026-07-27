@@ -1,5 +1,17 @@
 # @atlaskit/editor-plugin-analytics
 
+## 12.0.32
+
+### Patch Changes
+
+- Updated dependencies
+
+## 12.0.31
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 12.0.30
 
 ### Patch Changes

@@ -32,8 +32,30 @@ ruleTester.run('no-html-textarea', rule, {
 							desc: 'Replace with Textarea component from @atlaskit/textarea',
 							output: linesOnly`
 								// JSX Element > reports for an textarea element and shows correct message
-								import Textarea from '@atlaskit/textarea';
+								import Textarea from '@atlaskit/textarea/text-area';
 								<Textarea>Test</Textarea>
+							`,
+						},
+					],
+				},
+			],
+		},
+		{
+			code: linesOnly`
+				// JSX Element > existing Textarea subpath import with different name
+				import CustomTextarea from '@atlaskit/textarea/text-area';
+				<textarea>Test</textarea>
+			`,
+			errors: [
+				{
+					messageId: 'noHtmlTextarea',
+					suggestions: [
+						{
+							desc: 'Replace with Textarea component from @atlaskit/textarea',
+							output: linesOnly`
+								// JSX Element > existing Textarea subpath import with different name
+								import CustomTextarea from '@atlaskit/textarea/text-area';
+								<CustomTextarea>Test</CustomTextarea>
 							`,
 						},
 					],
@@ -98,7 +120,7 @@ ruleTester.run('no-html-textarea', rule, {
 							desc: 'Replace with Textarea component from @atlaskit/textarea',
 							output: linesOnly`
 						// Existing Textarea import with same name from another package
-						import Textarea1 from '@atlaskit/textarea';
+						import Textarea1 from '@atlaskit/textarea/text-area';
 						import Textarea from 'another-package';
 						<Textarea1>Test</Textarea1>
 					`,
@@ -123,7 +145,7 @@ ruleTester.run('no-html-textarea', rule, {
 							desc: 'Replace with Textarea component from @atlaskit/textarea',
 							output: linesOnly`
 						// Existing Textarea, Textarea1, and Textarea2 imports
-						import Textarea3 from '@atlaskit/textarea';
+						import Textarea3 from '@atlaskit/textarea/text-area';
 						import Textarea from 'another-package';
 						import Textarea1 from 'yet-another-package';
 						import Textarea2 from '@some/package';

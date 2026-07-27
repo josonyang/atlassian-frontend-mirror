@@ -2,6 +2,7 @@ import type { NextEditorPlugin, OptionalPlugin } from '@atlaskit/editor-common/t
 import type { AnalyticsPlugin } from '@atlaskit/editor-plugin-analytics';
 import type { PastePlugin } from '@atlaskit/editor-plugin-paste';
 import type { UiControlRegistryPlugin } from '@atlaskit/editor-plugin-ui-control-registry';
+import type { Fragment, Schema } from '@atlaskit/editor-prosemirror/model';
 import type { RegisterComponent } from '@atlaskit/editor-ui-control-model';
 
 import type { ToolbarDropdownOption } from './types/types';
@@ -29,7 +30,10 @@ export type PasteOptionsToolbarPasteMenuContext = {
 	getCurrentPasteRange: () => { pasteEndPos: number; pasteStartPos: number } | undefined;
 };
 
+export type MarkdownToPmConverter = (params: { markdown: string; schema: Schema }) => Fragment;
+
 export type PasteOptionsToolbarPluginConfiguration = {
+	markdownToPmConverter?: MarkdownToPmConverter;
 	/**
 	 * Optional factory for composing product-specific paste menu buttons.
 	 * Called with the pre-bound rule factories so products can compose

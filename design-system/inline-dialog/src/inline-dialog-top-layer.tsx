@@ -195,7 +195,7 @@ const InlineDialogTopLayer: FC<InlineDialogProps> = memo(function InlineDialogTo
 				label="Inline dialog"
 				isOpen={isOpen}
 				onClose={handleOnClose}
-				animate
+				shouldAnimate
 				placement={topLayerPlacement}
 				testId={testId}
 			>

@@ -1,15 +1,18 @@
+import type { AgentEditShimmerNotShownReason } from '@atlaskit/editor-common/analytics/types/agent-edit-shimmer-events';
+import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import type { Transaction } from '@atlaskit/editor-prosemirror/state';
 import type { Step } from '@atlaskit/editor-prosemirror/transform';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { getCollabState } from '@atlaskit/prosemirror-collab';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
-import type { AgentShimmerRange } from './agent-shimmer-decorations';
+import type { AgentShimmerPhase, AgentShimmerRange } from './agent-shimmer-decorations';
 
 // When an agent step lands we cover the top-level block(s) it wrote with a skeleton-loader shimmer
 // (plus a Rovo agent telepointer at the end of the range), then remove it on a timer to reveal the
-// content. Gated behind the `platform_editor_agent_be_streaming` experiment; `durationMs` sets how
-// long the shimmer stays and a 0 duration disables it.
+// content. Gated behind the `platform_editor_agent_be_streaming` experiment. `shimmerDurationMs` and
+// `highlightDurationMs` size the skeleton and purple-highlight phases and toggle independently: `0` on
+// either skips that phase, `0` on both shows nothing.
 let agentShimmerIdCounter = 0;
 
 // A step is position-neutral when its StepMap changes no range's length — i.e. it shifts no
@@ -24,6 +27,24 @@ export const isPositionNeutralStep = (step: Step): boolean => {
 		}
 	});
 	return neutral;
+};
+
+// Top-level block/position helpers over a doc. Kept at module scope (rather than re-created as
+// closures on every call) so they are defined once, reusable, and unit-testable. Each clamps into
+// valid document coordinates before resolving.
+const clampToDoc = (doc: PMNode, pos: number): number =>
+	Math.min(Math.max(pos, 1), doc.content.size);
+const topLevelBlockIndexAt = (doc: PMNode, pos: number): number =>
+	doc.resolve(clampToDoc(doc, pos)).index(0);
+// Start of the content of the top-level block containing `pos`, so the whole block is covered.
+const topLevelBlockContentStart = (doc: PMNode, pos: number): number => {
+	const $pos = doc.resolve(clampToDoc(doc, pos));
+	return $pos.depth >= 1 ? $pos.start(1) : pos;
+};
+// End of the content of the top-level block containing `pos`, so the whole block is covered.
+const topLevelBlockContentEnd = (doc: PMNode, pos: number): number => {
+	const $pos = doc.resolve(clampToDoc(doc, pos));
+	return $pos.depth >= 1 ? $pos.end(1) : pos;
 };
 
 /**
@@ -48,16 +69,26 @@ export const getAgentShimmerRanges = (
 	steps: Step[],
 	tr: Transaction,
 	view: EditorView,
-	durationMs: number,
+	shimmerDurationMs: number,
+	highlightDurationMs: number,
 	telepointerEnabled: boolean,
+	// Called when an agent-authored batch did NOT get the shimmer and applied instantly, so the
+	// caller can fire the `agentEditShimmerNotShown` operational event. Not called when both phases are
+	// off (config) or the batch has no agent steps; those aren't "not shown" cases.
+	onNotShown?: (reason: AgentEditShimmerNotShownReason, agentType?: string, error?: Error) => void,
 ): AgentShimmerRange[] => {
 	if (!expValEquals('platform_editor_agent_be_streaming', 'isEnabled', true)) {
 		return [];
 	}
-	// Nothing to reveal if the shimmer is disabled.
-	if (durationMs <= 0) {
+	// The two phases toggle independently: `shimmerDurationMs` sizes the skeleton, `highlightDurationMs`
+	// sizes the purple highlight, and `0` on either skips just that phase. Nothing to reveal only when
+	// both are off.
+	if (shimmerDurationMs <= 0 && highlightDurationMs <= 0) {
 		return [];
 	}
+	// Start in the skeleton phase when it's enabled, otherwise straight into the purple highlight phase
+	// (skeleton toggled off, highlight on).
+	const initialPhase: AgentShimmerPhase = shimmerDurationMs > 0 ? 'skeleton' : 'highlight';
 	// Telepointer label = the agent's type upper-cased (e.g. `mcp` → "MCP"), falling back to a generic
 	// "Agent"; `undefined` when the telepointer is disabled, so the plugin skips it. `agentType` is the
 	// same on every step of an agent batch, so read it from the first agent-authored step.
@@ -65,7 +96,11 @@ export const getAgentShimmerRanges = (
 	const agentType = json.find((step: any) => typeof step?.agentType === 'string')?.agentType as
 		| string
 		| undefined;
-	const telepointerLabel = telepointerEnabled ? agentType?.toUpperCase() || 'Agent' : undefined;
+	// No agent-authored steps in this batch — nothing to shimmer, and not a "not shown" case.
+	if (agentType === undefined) {
+		return [];
+	}
+	const telepointerLabel = telepointerEnabled ? agentType.toUpperCase() || 'Agent' : undefined;
 	// When the batch was rebased over local unconfirmed steps, our index-based range math is only
 	// valid if those local steps shifted no positions. Attribute-only steps (e.g. `localId`) and
 	// same-size replacements are position-neutral, so the shimmer stays correct. Skip only when a
@@ -73,6 +108,7 @@ export const getAgentShimmerRanges = (
 	if (Number(tr.getMeta('rebased')) > 0) {
 		const unconfirmed = getCollabState(view.state)?.unconfirmed ?? [];
 		if (unconfirmed.some((entry) => !isPositionNeutralStep(entry.step))) {
+			onNotShown?.('rebasedConcurrentEdit', agentType);
 			return [];
 		}
 	}
@@ -116,6 +152,7 @@ export const getAgentShimmerRanges = (
 		});
 
 		if (!infos.length) {
+			onNotShown?.('nothingToShow', agentType);
 			return [];
 		}
 
@@ -127,22 +164,10 @@ export const getAgentShimmerRanges = (
 		// touched blocks (index n and n+1) merge into one group so a multi-block rewrite reveals together;
 		// a genuinely untouched block in between (index gap > 1) splits the run, so far-apart edits stay
 		// independent.
-		const docSize = tr.doc.content.size;
-		const clampPos = (pos: number): number => Math.min(Math.max(pos, 1), docSize);
-		const blockIndexAt = (pos: number): number => tr.doc.resolve(clampPos(pos)).index(0);
-		// Start/end of the content of the top-level block containing `pos`, so the whole block is covered.
-		const blockContentStart = (pos: number): number => {
-			const $pos = tr.doc.resolve(clampPos(pos));
-			return $pos.depth >= 1 ? $pos.start(1) : pos;
-		};
-		const blockContentEnd = (pos: number): number => {
-			const $pos = tr.doc.resolve(clampPos(pos));
-			return $pos.depth >= 1 ? $pos.end(1) : pos;
-		};
 		const sorted = [...infos].sort((a, b) => a.from - b.from || a.to - b.to);
 		const groups: Array<{ from: number; maxBlock: number; to: number }> = [];
 		sorted.forEach((info) => {
-			const block = blockIndexAt(info.from);
+			const block = topLevelBlockIndexAt(tr.doc, info.from);
 			const current = groups[groups.length - 1];
 			if (current && block <= current.maxBlock + 1) {
 				current.to = Math.max(current.to, info.to);
@@ -152,15 +177,20 @@ export const getAgentShimmerRanges = (
 			}
 		});
 
-		return groups.map((group) => ({
-			shimmerId: `agent-shimmer-${agentShimmerIdCounter++}`,
-			from: blockContentStart(group.from),
-			to: blockContentEnd(group.to),
-			telepointerLabel,
-		}));
-	} catch {
+		return groups.map(
+			(group): AgentShimmerRange => ({
+				shimmerId: `agent-shimmer-${agentShimmerIdCounter++}`,
+				from: topLevelBlockContentStart(tr.doc, group.from),
+				to: topLevelBlockContentEnd(tr.doc, group.to),
+				telepointerLabel,
+				phase: initialPhase,
+				highlightDurationMs,
+			}),
+		);
+	} catch (err) {
 		// Never let shimmer range derivation throw into the shared remote-step handler; degrade to no
 		// shimmer.
+		onNotShown?.('captureThrew', agentType, err as Error);
 		return [];
 	}
 };

@@ -3,35 +3,9 @@
  *
  * ⚠️ FOR DEV TOOLING AND VISUAL REGRESSION TEST HARNESSES ONLY.
  * Do NOT import this in production code or application bundles.
- * Prefixed with UNSAFE_ to signal restricted usage.
- *
- * Used by:
- * - Platform website "Manage Editor Features" dev panel (yarn start)
- * - Gemini / VR test template (platform/build/test-tooling/gemini-visual-regression)
- * - ssr-simulator.tsx example helper
- *
- * @example
- * ```ts
- * import {
- *   UNSAFE_overrideExperiment,
- *   UNSAFE_clearAllExperimentOverrides,
- * } from '@atlaskit/platform-feature-experiments/dev-override';
- *
- * // Override a boolean experiment:
- * UNSAFE_overrideExperiment('platform_editor_locale_datepicker', { isEnabled: true });
- *
- * // Override a multivariate experiment:
- * UNSAFE_overrideExperiment('platform_editor_new_nav', { cohort: 'treatment' });
- *
- * // Clear a specific override:
- * UNSAFE_clearExperimentOverride('platform_editor_locale_datepicker');
- *
- * // Clear all overrides:
- * UNSAFE_clearAllExperimentOverrides();
- * ```
  */
 
-import { devOverrides } from './_internal/dev-overrides-store';
+import { devOverrides, setDefaultBooleanExperimentsToTrue } from './_internal/dev-overrides-store';
 
 // ---------------------------------------------------------------------------
 // Public UNSAFE_ API
@@ -100,4 +74,45 @@ export function UNSAFE_restoreExperimentOverrides(
 	for (const [experimentName, params] of Object.entries(overrides)) {
 		devOverrides.set(experimentName, params);
 	}
+}
+
+// ---------------------------------------------------------------------------
+// Test harness setup/teardown
+// ---------------------------------------------------------------------------
+
+export type PlatformExperimentOverrides = {
+	[experimentName: string]: boolean | string;
+};
+
+/**
+ * Set up platform experiments for testing/VR harnesses.
+ * When `enableDefaultToTrue` is `true`, any boolean `isEnabled` experiment NOT in `overrides`
+ * defaults to `true`. Pass explicit overrides to force specific values.
+ */
+export function UNSAFE_setupPlatformExperiments(
+	enableDefaultToTrue: boolean,
+	overrides?: PlatformExperimentOverrides,
+): void {
+	assertNotProduction('UNSAFE_setupPlatformExperiments');
+	if (enableDefaultToTrue) {
+		setDefaultBooleanExperimentsToTrue(true);
+	}
+	if (overrides) {
+		for (const [experimentName, value] of Object.entries(overrides)) {
+			if (typeof value === 'boolean') {
+				devOverrides.set(experimentName, { isEnabled: value });
+			} else if (typeof value === 'string') {
+				devOverrides.set(experimentName, { cohort: value });
+			}
+		}
+	}
+}
+
+/**
+ * Reset platform experiment overrides and disable default-to-true mode.
+ */
+export function UNSAFE_teardownPlatformExperiments(): void {
+	assertNotProduction('UNSAFE_teardownPlatformExperiments');
+	setDefaultBooleanExperimentsToTrue(false);
+	devOverrides.clear();
 }

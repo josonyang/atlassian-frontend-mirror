@@ -36,7 +36,6 @@ snapshot(FlexUiBlockAiSummaryLoading, {
 	description: 'FlexUiBlockAiSummaryLoading',
 	featureFlags: {
 		'platform-component-visual-refresh': true,
-		'navx-1895-new-logo-design': true,
 	},
 	waitForReactLazy: true,
 });
@@ -54,7 +53,6 @@ snapshot(FlexUiBlockAiSummaryDone, {
 	description: 'FlexUiBlockAiSummaryDone',
 	featureFlags: {
 		'platform-component-visual-refresh': true,
-		'navx-1895-new-logo-design': true,
 	},
 	waitForReactLazy: true,
 });
@@ -72,7 +70,6 @@ snapshot(FlexUiBlockAiSummaryDoneOnMount, {
 	description: 'FlexUiBlockAiSummaryDoneOnMount',
 	featureFlags: {
 		'platform-component-visual-refresh': true,
-		'navx-1895-new-logo-design': true,
 	},
 	waitForReactLazy: true,
 });
@@ -90,7 +87,6 @@ snapshot(FlexUiBlockAiSummaryError, {
 	description: 'FlexUiBlockAiSummaryError',
 	featureFlags: {
 		'platform-component-visual-refresh': true,
-		'navx-1895-new-logo-design': true,
 	},
 	waitForReactLazy: true,
 });

@@ -11,17 +11,17 @@ export { CheckboxOption } from './components/checkbox-option';
 export { RadioOption } from './components/radio-option';
 
 export { default, SelectWithoutAnalytics } from './entry-points/select';
-export { default as AsyncSelect } from './entry-points/async-select';
-export { default as CreatableSelect } from './entry-points/creatable-select';
-export { default as AsyncCreatableSelect } from './entry-points/async-creatable-select';
+export { default as AsyncSelect } from './async-select';
+export { default as CreatableSelect } from './creatable-select';
+export { default as AsyncCreatableSelect } from './async-creatable-select';
 
 export { isOptionsGrouped } from './utils/grouped-options-announcement';
 
-export { default as CheckboxSelect } from './checkbox-select';
-export { default as CountrySelect } from './country-select';
-export { default as RadioSelect } from './radio-select';
-export { default as PopupSelect } from './popup-select';
-export type { PopupSelectProps, ModifierList } from './popup-select';
+export { CheckboxSelect } from './checkbox-select';
+export { CountrySelect } from './country-select';
+export { RadioSelect } from './radio-select';
+export { PopupSelect } from './popup-select/popup-select';
+export type { PopupSelectProps, ModifierList } from './popup-select/popup-select';
 
 export type {
 	SelectInstance,

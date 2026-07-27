@@ -22,6 +22,21 @@ const agentShimmer = keyframes({
 	to: { backgroundPosition: '-200% 0' },
 });
 
+// Purple "just edited" highlight: eases the background and underline in, holds, then eases them back
+// out over the highlight's lifetime (duration is set inline per-decoration to match its removal).
+const agentEditHighlight = keyframes({
+	'0%': { backgroundColor: 'transparent', borderBottomColor: 'transparent' },
+	'12%': {
+		backgroundColor: token('color.background.accent.purple.subtlest'),
+		borderBottomColor: token('color.border.accent.purple'),
+	},
+	'88%': {
+		backgroundColor: token('color.background.accent.purple.subtlest'),
+		borderBottomColor: token('color.border.accent.purple'),
+	},
+	'100%': { backgroundColor: 'transparent', borderBottomColor: 'transparent' },
+});
+
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles, @atlaskit/volt-strict-mode/no-multiple-exports
 export const agentShimmerStyle: SerializedStyles = css({
 	// Skeleton-loader bar over the agent-authored range (text hidden, grey skeleton with a moving
@@ -38,6 +53,18 @@ export const agentShimmerStyle: SerializedStyles = css({
 		boxDecorationBreak: 'clone',
 		color: 'transparent',
 		caretColor: 'transparent',
+	},
+	// Purple "just edited" highlight shown over the range after the skeleton clears — same colours as
+	// the editor AI "improve writing" in-editor highlight, but eased in and out via `agentEditHighlight`
+	// (kept as a plain class so no unsafe `:not()` selector is needed; any overlap with an annotation is
+	// momentary). The underline keeps its width with a transparent colour so the fade causes no layout
+	// shift; `animation-duration` is set inline per-decoration, with this as a fallback.
+	'.ProseMirror .collab-agent-edit-highlight': {
+		animationName: agentEditHighlight,
+		animationTimingFunction: 'ease-in-out',
+		animationFillMode: 'both',
+		animationDuration: '2000ms',
+		borderBottom: `${token('border.width')} dashed transparent`,
 	},
 	'.ProseMirror .ai-in-editor-telepointer': {
 		position: 'relative',

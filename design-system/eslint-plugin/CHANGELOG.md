@@ -1,5 +1,30 @@
 # @atlaskit/eslint-plugin-design-system
 
+## 16.4.0
+
+### Minor Changes
+
+- [`8d9f7d9d4e40d`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/8d9f7d9d4e40d) -
+  Fix de-barrelling support in several rules so they continue to recognize Atlaskit components when
+  consumers import from subpath entrypoints instead of package root barrels. Updated rules:
+  - `no-html-anchor`
+  - `no-html-heading`
+  - `no-html-image`
+  - `no-html-code`
+  - `no-html-text-input`
+  - `no-html-textarea`
+  - `no-separator-with-list-elements`
+  - `ensure-avatar-tag-avatar-props`
+  - `enforce-inline-styles-in-select`
+  - `use-datetime-picker-calendar-button`
+  - `use-drawer-label`
+  - `use-popup-label`
+  - `use-tag-group-label`
+  - `use-heading-level-in-section-message`
+  - `use-modal-dialog-close-button`
+  - `use-heading-level-in-spotlight-card`
+  - `use-spotlight-package`
+
 ## 16.3.0
 
 ### Minor Changes

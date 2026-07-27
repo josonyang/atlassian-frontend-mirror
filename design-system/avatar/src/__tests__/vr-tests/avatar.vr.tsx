@@ -19,6 +19,9 @@ snapshot(BasicAvatar, {
 			},
 		},
 	],
+	featureFlags: {
+		platform_editor_agent_mentions_drop_one_fixes: [false, true],
+	},
 });
 
 snapshot(BasicAvatar, {
@@ -30,4 +33,12 @@ snapshot(BasicAvatar, {
 snapshot(InteractiveAvatar, {
 	description: 'interactive avatar with focus-ring',
 	states: [{ state: 'focused', selector: { byTestId: 'avatar--inner' } }],
+});
+
+snapshot(InteractiveAvatar, {
+	description: 'interactive hexagon avatar with focus-ring',
+	states: [{ state: 'focused', selector: { byTestId: 'avatar-hexagon--inner' } }],
+	featureFlags: {
+		platform_editor_agent_mentions_drop_one_fixes: [false, true],
+	},
 });

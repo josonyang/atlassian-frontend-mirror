@@ -1,9 +1,7 @@
 import { type ReactNode, useCallback, useMemo } from 'react';
 
-import {
-	getOptionLabel as baseGetOptionLabel,
-	getOptionValue as baseGetOptionValue,
-} from './builtins';
+import { getOptionLabel as baseGetOptionLabel } from './get-option-label';
+import { getOptionValue as baseGetOptionValue } from './get-option-value';
 import { cleanValue } from './internal/clean-value';
 import { valueTernary } from './internal/value-ternary';
 import type { PublicBaseSelectProps } from './select';

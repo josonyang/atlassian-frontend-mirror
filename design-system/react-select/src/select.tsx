@@ -25,17 +25,14 @@ import { fg } from '@atlaskit/platform-feature-flags';
 import { token } from '@atlaskit/tokens';
 
 import { type AriaLiveMessages, type AriaSelection } from './accessibility';
-import {
-	formatGroupLabel as formatGroupLabelBuiltin,
-	getOptionLabel as getOptionLabelBuiltin,
-	getOptionValue as getOptionValueBuiltin,
-	isOptionDisabled as isOptionDisabledBuiltin,
-} from './builtins';
 import { defaultComponents, type SelectComponentsConfig } from './components';
 import DummyInput from './components/dummy-input';
 import LiveRegion from './components/live-region';
 import MenuPlacer from './components/menu-placer';
 import { createFilter, type FilterOptionOption } from './filters';
+import { formatGroupLabel as formatGroupLabelBuiltin } from './format-group-label';
+import { getOptionLabel as getOptionLabelBuiltin } from './get-option-label';
+import { getOptionValue as getOptionValueBuiltin } from './get-option-value';
 import { classNames } from './internal/classnames';
 import { cleanValue } from './internal/clean-value';
 import { isDocumentElement } from './internal/is-document-el';
@@ -48,6 +45,7 @@ import { scrollTo } from './internal/scroll-to';
 import { SelectGetStylesContext } from './internal/select-get-styles-context';
 import { singleValueAsValue } from './internal/single-value-as-value';
 import { valueTernary } from './internal/value-ternary';
+import { isOptionDisabled as isOptionDisabledBuiltin } from './is-option-disabled';
 import { type ClassNamesConfig, type StylesConfig, type StylesProps } from './styles';
 import {
 	type ActionMeta,

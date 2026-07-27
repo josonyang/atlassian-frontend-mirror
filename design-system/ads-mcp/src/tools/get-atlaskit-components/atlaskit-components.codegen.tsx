@@ -3,7 +3,7 @@
  *
  * Structured content components from *.docs.tsx files outside of design-system
  *
- * @codegen <<SignedSource::1b6b44203d7eb7b3dcbf51c39fcb53eb>>
+ * @codegen <<SignedSource::c2c1cdc65757d4f8685f41c5d3eb9e64>>
  * @codegenCommand yarn workspace @af/ads-ai-tooling codegen
  */
 /* eslint-disable @repo/internal/react/boolean-prop-naming-convention -- not our types */
@@ -6090,7 +6090,7 @@ export const atlaskitComponents: ComponentMcpPayload[] = [
 		category: 'editor',
 		examples: [
 			"import type { ChangeEvent } from 'react';\nimport RendererDemo from './helper/RendererDemo';\nimport { SmartCardProvider, CardClient } from '@atlaskit/link-provider';\nimport { getSchemaBasedOnStage } from '@atlaskit/adf-schema/schema-default';\nimport type { ADFStage } from '@atlaskit/editor-common/validator';\nconst ADF_STAGE0 = 'stage0';\nconst ADF_FINAL = 'final';\nexport default function Example(): React.JSX.Element {\n\tconst [adfStage, setAdfStage] = React.useState<ADFStage>(ADF_FINAL);\n\tconst schema = getSchemaBasedOnStage(adfStage);\n\tconst onSchemaToggle = (event: ChangeEvent<HTMLInputElement>) => {\n\t\tsetAdfStage(event.currentTarget.checked ? ADF_STAGE0 : ADF_FINAL);\n\t};\n\tconst toggleCheckbox = (\n\t\t<label>\n\t\t\t{\n\t\t\t<input type=\"checkbox\" checked={adfStage === ADF_STAGE0} onChange={onSchemaToggle} />\n\t\t\tUse stage0 (experimental) document schema\n\t\t</label>\n\t);\n\treturn (\n\t\t<SmartCardProvider client={new CardClient('staging')}>\n\t\t\t<RendererDemo\n\t\t\t\tallowColumnSorting\n\t\t\t\tallowSelectAllTrap\n\t\t\t\tallowWrapCodeBlock\n\t\t\t\tallowCopyToClipboard\n\t\t\t\tserializer=\"react\"\n\t\t\t\tadfStage={adfStage}\n\t\t\t\tschema={schema}\n\t\t\t\tactionButtons={toggleCheckbox}\n\t\t\t\twithProviders\n\t\t\t/>\n\t\t</SmartCardProvider>\n\t);\n}",
-			'import RendererDemo from \'./helper/RendererDemo\';\nimport {\n\tNORMAL_SEVERITY_THRESHOLD,\n\tDEGRADED_SEVERITY_THRESHOLD,\n} from \'../../renderer/src/ui/Renderer\';\nexport default function Example(): React.JSX.Element {\n\treturn (\n\t\t<RendererDemo\n\t\t\tappearance="full-page"\n\t\t\tserializer="react"\n\t\t\tallowHeadingAnchorLinks\n\t\t\tallowColumnSorting={true}\n\t\t\tallowCopyToClipboard\n\t\t\tallowWrapCodeBlock\n\t\t\tUNSTABLE_allowTableAlignment\n\t\t\tUNSTABLE_allowTableResizing\n\t\t\tanalyticsEventSeverityTracking={{\n\t\t\t\tenabled: true,\n\t\t\t\tseverityNormalThreshold: NORMAL_SEVERITY_THRESHOLD,\n\t\t\t\tseverityDegradedThreshold: DEGRADED_SEVERITY_THRESHOLD,\n\t\t\t}}\n\t\t/>\n\t);\n}',
+			'import RendererDemo from \'./helper/RendererDemo\';\nimport {\n\tNORMAL_SEVERITY_THRESHOLD,\n\tDEGRADED_SEVERITY_THRESHOLD,\n} from \'../../renderer/src/ui/Renderer\';\nexport default function Example(): React.JSX.Element {\n\treturn (\n\t\t<RendererDemo\n\t\t\tappearance="full-page"\n\t\t\tserializer="react"\n\t\t\tallowCollapsibleHeadings\n\t\t\tallowHeadingAnchorLinks\n\t\t\tallowColumnSorting={true}\n\t\t\tallowCopyToClipboard\n\t\t\tallowWrapCodeBlock\n\t\t\tUNSTABLE_allowTableAlignment\n\t\t\tUNSTABLE_allowTableResizing\n\t\t\tanalyticsEventSeverityTracking={{\n\t\t\t\tenabled: true,\n\t\t\t\tseverityNormalThreshold: NORMAL_SEVERITY_THRESHOLD,\n\t\t\t\tseverityDegradedThreshold: DEGRADED_SEVERITY_THRESHOLD,\n\t\t\t}}\n\t\t/>\n\t);\n}',
 			'import RendererDemo from \'./helper/RendererDemo\';\nexport default function Example(): React.JSX.Element {\n\treturn <RendererDemo withProviders={true} serializer="react" />;\n}',
 		],
 		props: [
@@ -6111,6 +6111,12 @@ export const atlaskitComponents: ComponentMcpPayload[] = [
 			{
 				name: 'allowAnnotations',
 				type: 'boolean',
+			},
+			{
+				name: 'allowCollapsibleHeadings',
+				type: 'boolean',
+				description:
+					'**WARNING** this attribute is not supported outside of Confluence Full Page editors\nUntil `platform_renderer_collapsible_headings` is cleaned up.\n\nEnables collapsing top-level heading sections in a full-page, full-width, max renderer only.',
 			},
 			{
 				name: 'allowColumnSorting',
@@ -6280,10 +6286,18 @@ export const atlaskitComponents: ComponentMcpPayload[] = [
 			{
 				name: 'onComplete',
 				type: '(stat: RenderOutputStat) => void',
+				description:
+					'Called synchronously during the render phase (before paint) each time the document is\nsuccessfully rendered, with statistics about the rendered output. Not called when the\nrender throws (see `onError`).\n\nBecause it fires during render rather than after paint, prefer `onRendered` for\npost-paint lifecycle signals (e.g. releasing a UFO load hold).\n\n@param stat - Statistics about the rendered output (e.g. node counts).',
 			},
 			{
 				name: 'onError',
 				type: '(error: any) => void',
+			},
+			{
+				name: 'onRendered',
+				type: '(info: RendererRenderedInfo) => void',
+				description:
+					'Called when the renderer completes a render pass — on the animation frame following\nmount (i.e. after paint), exposing basic information about the render.\n\nUnlike the `renderer` `rendered` analytics event, which may be sampled (see the\n`platform_renderer_sample_high_volume_events` feature gate) and therefore only fires\nfor a fraction of renders, this callback ALWAYS fires on every render pass regardless\nof analytics sampling. Use it for reliable lifecycle signals — for example releasing a\nUFO load hold — rather than depending on the sampled analytics event.\n\n@param info - Basic information about the completed render.',
 			},
 			{
 				name: 'onSetLinkTarget',

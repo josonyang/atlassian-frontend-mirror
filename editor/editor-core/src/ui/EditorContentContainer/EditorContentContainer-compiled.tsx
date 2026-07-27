@@ -334,6 +334,21 @@ const agentShimmer = keyframes({
 	to: { backgroundPosition: '-200% 0' },
 });
 
+// Agent edit purple "just edited" highlight: eases the background and underline in, holds, then eases
+// them back out over the highlight's lifetime (duration set inline per-decoration to match removal).
+const agentEditHighlight = keyframes({
+	'0%': { backgroundColor: 'transparent', borderBottomColor: 'transparent' },
+	'12%': {
+		backgroundColor: token('color.background.accent.purple.subtlest'),
+		borderBottomColor: token('color.border.accent.purple'),
+	},
+	'88%': {
+		backgroundColor: token('color.background.accent.purple.subtlest'),
+		borderBottomColor: token('color.border.accent.purple'),
+	},
+	'100%': { backgroundColor: 'transparent', borderBottomColor: 'transparent' },
+});
+
 const syncBlockCreationLoadingKeyframes = keyframes({
 	from: { '--angle': '0deg' },
 	to: { '--angle': '360deg' },
@@ -7926,6 +7941,18 @@ const editorContentStyles = cssMapScoped({
 			color: 'transparent',
 			caretColor: 'transparent',
 		},
+		// Purple "just edited" highlight shown over the range after the skeleton clears — same colours as
+		// the editor AI "improve writing" in-editor highlight, but eased in and out via
+		// `agentEditHighlight` (plain class so no unsafe `:not()` selector is needed; any annotation
+		// overlap is momentary). The underline keeps its width with a transparent colour so the fade
+		// causes no layout shift; `animation-duration` is set inline per-decoration, with this fallback.
+		'.ProseMirror .collab-agent-edit-highlight': {
+			animationName: agentEditHighlight,
+			animationTimingFunction: 'ease-in-out',
+			animationFillMode: 'both',
+			animationDuration: '2000ms',
+			borderBottom: `${token('border.width')} dashed transparent`,
+		},
 		'.ProseMirror .ai-in-editor-telepointer': {
 			position: 'relative',
 			zIndex: 1,
@@ -8289,7 +8316,10 @@ export const EditorContentContainerCompiled: React.ForwardRefExoticComponent<
 				/* This needs to be after telepointer styles as some overlapping rules have equal specificity, and so the order is significant */
 				editorContentStyles.telepointerColorAndCommonStyle,
 				colorMode === 'dark' && editorContentStyles.telepointerColorAndCommonStyleDarkMode,
-				editorContentStyles.agentShimmerStyles,
+				// Agent-edit shimmer styles only apply when the experiment is on; no-exposure because this
+				// render path is hot and the real exposure is logged where an agent edit actually lands.
+				expValEqualsNoExposure('platform_editor_agent_be_streaming', 'isEnabled', true) &&
+					editorContentStyles.agentShimmerStyles,
 				editorContentStyles.gapCursorStyles,
 				editorExperiment('platform_synced_block', true) &&
 					editorContentStyles.gapCursorStylesVisibilityFix,

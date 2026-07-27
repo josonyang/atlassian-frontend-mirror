@@ -22,7 +22,7 @@ tester.run('enforce-inline-styles-in-select', rule, {
 		// Another inline styles object without pseudo-class
 		{
 			code: `
-        import Select from '@atlaskit/select';
+        import Select from '@atlaskit/select/select';
         <Select styles={{
         input: (base) => ({
           ...base,
@@ -64,6 +64,24 @@ tester.run('enforce-inline-styles-in-select', rule, {
 		},
 	],
 	invalid: [
+		// Inline :hover pseudo-class
+		{
+			code: `
+        import Select from '@atlaskit/select/select';
+        <Select styles={{
+        control: (base) => ({
+          ...base,
+          ':hover': { color: 'red' },
+        }),
+        }} />;
+      `,
+			errors: [
+				{
+					message:
+						"This selector ':hover' is not allowed in styles for @atlaskit/select. Please use the `components` API in select with `xcss` props.",
+				},
+			],
+		},
 		// Inline :hover pseudo-class
 		{
 			code: `

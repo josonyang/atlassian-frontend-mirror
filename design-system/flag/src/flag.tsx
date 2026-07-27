@@ -23,7 +23,8 @@ import { flagIconColor } from './flag-icon-color';
 import { flagIconGlyph } from './flag-icon-glyph';
 import { flagTextColor } from './flag-text-color';
 import { flagTextColorToken } from './flag-text-color-token';
-import { DismissButton, Expander } from './internal';
+import { default as DismissButton } from './internal/dismiss-button';
+import { default as Expander } from './internal/expander';
 import { useFlagGroup } from './internal/use-flag-group';
 import type { FlagProps } from './types';
 

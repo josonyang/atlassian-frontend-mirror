@@ -1,7 +1,6 @@
 import type { Rule } from 'eslint';
 import {
 	type Identifier,
-	type ImportSpecifier,
 	isNodeOfType,
 	type JSXElement,
 	type ObjectExpression,
@@ -15,6 +14,9 @@ import { createLintRule } from '../utils/create-lint-rule';
 const DATE_PICKER = 'DatePicker';
 const DATETIME_PICKER = 'DateTimePicker';
 const PROP_NAME = 'shouldShowCalendarButton';
+const DATETIME_PICKER_PACKAGE = '@atlaskit/datetime-picker';
+const DATE_PICKER_IMPORT_SOURCE = '@atlaskit/datetime-picker/date-picker';
+const DATE_TIME_PICKER_IMPORT_SOURCE = '@atlaskit/datetime-picker/date-time-picker';
 
 // Lint rule message
 const message =
@@ -164,21 +166,31 @@ const rule: Rule.RuleModule = createLintRule({
 		return {
 			// Only run rule in files where the package is imported
 			ImportDeclaration(node) {
-				const datetimePickerIdentifier = node.specifiers?.filter((spec) => {
-					if (node.source.value === '@atlaskit/datetime-picker') {
-						return (
-							isNodeOfType(spec, 'ImportSpecifier') &&
-							'name' in spec.imported &&
-							[DATE_PICKER, DATETIME_PICKER].includes(spec.imported?.name)
-						);
+				node.specifiers?.forEach((spec) => {
+					if (
+						node.source.value === DATETIME_PICKER_PACKAGE &&
+						isNodeOfType(spec, 'ImportSpecifier') &&
+						'name' in spec.imported &&
+						[DATE_PICKER, DATETIME_PICKER].includes(spec.imported?.name)
+					) {
+						contextLocalIdentifier.push(spec.local.name);
+						contextImportedIdentifier.push(spec.imported.name);
 					}
-				}) as ImportSpecifier[];
 
-				datetimePickerIdentifier.forEach((identifier) => {
-					if ('name' in identifier.imported) {
-						const { imported, local } = identifier;
-						contextLocalIdentifier.push(local.name);
-						contextImportedIdentifier.push(imported.name);
+					if (
+						node.source.value === DATE_PICKER_IMPORT_SOURCE &&
+						isNodeOfType(spec, 'ImportDefaultSpecifier')
+					) {
+						contextLocalIdentifier.push(spec.local.name);
+						contextImportedIdentifier.push(DATE_PICKER);
+					}
+
+					if (
+						node.source.value === DATE_TIME_PICKER_IMPORT_SOURCE &&
+						isNodeOfType(spec, 'ImportDefaultSpecifier')
+					) {
+						contextLocalIdentifier.push(spec.local.name);
+						contextImportedIdentifier.push(DATETIME_PICKER);
 					}
 				});
 			},

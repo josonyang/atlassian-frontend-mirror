@@ -31,6 +31,22 @@ const valid: string[] = [
 const invalid = [
 	{
 		code: outdent`
+      // it raises a violation for Spotlight imported from @atlaskit/onboarding/spotlight
+      import Spotlight from '@atlaskit/onboarding/spotlight';
+    `,
+		errors: [error],
+	},
+
+	{
+		code: outdent`
+      // it raises a violation for SpotlightCard imported from @atlaskit/onboarding/spotlight-card
+      import SpotlightCard from '@atlaskit/onboarding/spotlight-card';
+    `,
+		errors: [error],
+	},
+
+	{
+		code: outdent`
       // it raises a violation for Spotlight imported from @atlaskit/onboarding
       import { Spotlight } from '@atlaskit/onboarding';
     `,

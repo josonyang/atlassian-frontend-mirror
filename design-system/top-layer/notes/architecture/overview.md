@@ -50,7 +50,7 @@ function MyDropdown() {
 				role="menu"
 				label="Actions"
 				isOpen={isOpen}
-				animate
+				shouldAnimate
 				onClose={() => setIsOpen(false)}
 			>
 				<PopoverSurface>
@@ -92,7 +92,7 @@ function MyModal() {
 	return (
 		<>
 			<button onClick={() => setIsOpen(true)}>Open dialog</button>
-			<Dialog isOpen={isOpen} onClose={() => setIsOpen(false)} label="Settings" animate>
+			<Dialog isOpen={isOpen} onClose={() => setIsOpen(false)} label="Settings" shouldAnimate>
 				<h2>Settings</h2>
 				<p>Modal content</p>
 			</Dialog>
@@ -128,8 +128,8 @@ Light dismiss handler for manual popovers that need click-outside and Escape key
 
 ### Animation
 
-`Popover` and `Dialog` expose an `animate` prop. Pass `true` to enable the component's default CSS
-entry/exit transition, or omit/pass `false` to disable animation. See
+`Popover` and `Dialog` expose a `shouldAnimate` prop. Pass `true` to enable the component's default
+CSS entry/exit transition, or omit/pass `false` to disable animation. See
 [animations.md](./animations.md) for how the animation system works.
 
 ### Close event helpers
@@ -170,11 +170,11 @@ a modal dialog is open.
 ## Architecture
 
 ```
-Popover               = top layer + isOpen + animate + mode + ARIA + (optional) nested-focus restoration
+Popover               = top layer + isOpen + shouldAnimate + mode + ARIA + (optional) nested-focus restoration
 PopoverSurface        = presentational surface (background, radius, shadow)
 useAnchorPosition     = CSS anchor positioning (separate hook)
 useWidthFromAnchor    = anchor-width sizing helper
-Dialog                = <dialog> element + isOpen + animate + onExitFinish
+Dialog                = <dialog> element + isOpen + shouldAnimate + onExitFinish
 ```
 
 ### Entry points

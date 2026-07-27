@@ -9,6 +9,7 @@ import {
 	TopNavigationEnlargedSearchInput,
 	TopNavigationExample,
 } from '../../../../../examples/top-navigation';
+import TopNavigationAppLogoSecondaryNameExample from '../../../../../examples/top-navigation-app-logo-secondary-name';
 import { TopNavigationAppLogoOversizeExample } from '../../../../../examples/top-navigation-app-logos';
 import TopNavigationCustomAppSwitcherExample from '../../../../../examples/top-navigation-custom-app-switcher';
 import {
@@ -129,6 +130,14 @@ snapshot(TopNavigationCustomLogoImage20x200Example, defaultOptions);
 snapshot(TopNavigationCustomLogoImage20x20Example, defaultOptions);
 
 snapshot(TopNavigationAppLogoOversizeExample, defaultOptions);
+
+snapshot(TopNavigationAppLogoSecondaryNameExample, {
+	description: 'app logo secondaryName when improvements gate is on',
+	variants: [variants.desktop],
+	featureFlags: {
+		platform_dst_ads_appswitcher_improvements: true,
+	},
+});
 
 snapshot(TopNavigationCustomAppSwitcherExample, {
 	description: 'custom app switcher hover state when improvements gate is off',

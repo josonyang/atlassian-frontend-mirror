@@ -403,7 +403,7 @@ const GiveKudosLauncher = (props: GiveKudosDrawerProps) => {
 				<ModalTransition>
 					{isCloseConfirmModalOpen && (
 						<Modal onClose={closeWarningModal} width="small">
-							<ModalHeader>
+							<ModalHeader hasCloseButton={fg('goals_projects_bug_smash_july_2026')}>
 								<ModalTitle>
 									<FormattedMessage {...messages.confirmCloseTitle} />
 								</ModalTitle>

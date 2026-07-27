@@ -1,5 +1,14 @@
 # @atlaskit/jql-editor
 
+## 7.4.2
+
+### Patch Changes
+
+- [`f400daccdffa1`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/f400daccdffa1) -
+  All projects*in_jira_ga_drop references removed from platform/ and migrated to the
+  atlassian_projects*-\_native_integration experiment.
+- Updated dependencies
+
 ## 7.4.1
 
 ### Patch Changes

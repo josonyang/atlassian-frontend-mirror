@@ -1,5 +1,20 @@
 # @atlaskit/editor-plugin-panel
 
+## 14.1.27
+
+### Patch Changes
+
+- Updated dependencies
+
+## 14.1.26
+
+### Patch Changes
+
+- [`591b0c312eed9`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/591b0c312eed9) -
+  Clean up experiment `platform_editor_stricter_panelcolor_typecheck` and make stricter panel color
+  validation permanent.
+- Updated dependencies
+
 ## 14.1.25
 
 ### Patch Changes

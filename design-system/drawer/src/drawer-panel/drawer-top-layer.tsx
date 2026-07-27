@@ -3,16 +3,9 @@
  * @jsx jsx
  */
 
-import {
-	type CSSProperties,
-	type ReactNode,
-	type SyntheticEvent,
-	useCallback,
-	useEffect,
-	useRef,
-} from 'react';
+import { type ReactNode, type SyntheticEvent, useCallback, useEffect, useRef } from 'react';
 
-import { cssMap, jsx, keyframes } from '@compiled/react';
+import { cssMap, cx, jsx, keyframes } from '@compiled/react';
 import { bind } from 'bind-event-listener';
 
 import { usePlatformLeafEventHandler } from '@atlaskit/analytics-next/usePlatformLeafEventHandler';
@@ -23,7 +16,7 @@ import { DialogScrollLock } from '@atlaskit/top-layer/dialog-scroll-lock';
 
 import { EnsureIsInsideDrawerContext } from '../ensure-is-inside-drawer-context';
 import { OnCloseContext } from '../on-close-context';
-import { type DrawerProps, type DrawerWidth } from '../types';
+import { type DrawerProps } from '../types';
 
 const LOCAL_CURRENT_SURFACE_CSS_VAR: typeof CURRENT_SURFACE_CSS_VAR =
 	'--ds-elevation-surface-current';
@@ -47,26 +40,22 @@ const slideOutKeyframes = keyframes({
 });
 
 const styles = cssMap({
+	// Pin the `<dialog>` full-height to the inline-start edge (overriding the
+	// primitive's centred `margin: auto`); width from the preset, clamped to the
+	// viewport.
 	root: {
+		margin: '0px',
+		insetBlockStart: '0px',
+		insetInlineStart: '0px',
+		insetInlineEnd: 'auto',
+		height: '100dvh',
+		maxWidth: '100vw',
+	},
+	enter: {
+		animationName: slideInKeyframes,
+	},
+	exit: {
 		animationName: slideOutKeyframes,
-		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- the [open] attribute selector targets the dialog's own open state and is required for the open and close animation
-		'&[open]': {
-			animationName: slideInKeyframes,
-		},
-		'@media (prefers-reduced-motion: reduce)': {
-			transitionDuration: '0s',
-			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- the [open] attribute selector targets the dialog's own open state and is required for the open and close animation
-			'&[open]': {
-				transitionDuration: '0s',
-			},
-			'&::backdrop': {
-				transitionDuration: '0s',
-			},
-			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- the [open] attribute selector targets the dialog's own open state and is required for the open and close animation
-			'&[open]::backdrop': {
-				transitionDuration: '0s',
-			},
-		},
 	},
 	// Visual surface of the panel. The native `<dialog>` (rendered by `Dialog`)
 	// owns positioning, sizing, modality and the `::backdrop`; this child only
@@ -82,15 +71,30 @@ const styles = cssMap({
 	},
 });
 
-// Width presets mirror the legacy `DrawerPanel`. Applied to the `<dialog>` (the
-// sized, edge-pinned element) and clamped to the viewport for mobile safety.
-const WIDTH_MAP: Record<DrawerWidth, string> = {
-	narrow: '360px',
-	medium: '480px',
-	wide: '600px',
-	extended: '95vw',
-	full: '100vw',
-};
+const widthStyles = cssMap({
+	narrow: {
+		width: '360px',
+	},
+	medium: {
+		width: '480px',
+	},
+	wide: {
+		width: '600px',
+	},
+	extended: {
+		width: '95vw',
+	},
+	full: {
+		width: '100vw',
+	},
+});
+
+const enterFromStyles = cssMap({
+	left: { '--x': '-100%', '--y': '0%' },
+	right: { '--x': '100%', '--y': '0%' },
+	top: { '--x': '0%', '--y': '-100%' },
+	bottom: { '--x': '0%', '--y': '100%' },
+});
 
 /**
  * Resolve the native `<dialog>` accessible name props. Prefer the consumer's
@@ -249,28 +253,6 @@ export function DrawerTopLayer({
 		}
 	}, [onCloseComplete, shouldReturnFocus]);
 
-	const enterFromStyles = {
-		left: { '--x': '-100%', '--y': '0%' },
-		right: { '--x': '100%', '--y': '0%' },
-		top: { '--x': '0%', '--y': '-100%' },
-		bottom: { '--x': '0%', '--y': '100%' },
-	};
-
-	// Pin the `<dialog>` full-height to the inline-start edge (overriding the
-	// primitive's centred `margin: auto`); width from the preset, clamped to the
-	// viewport. `enterFrom` only drives the slide animation, not the pin edge;
-	// it matches the legacy panel, which always pins `inset-inline-start`.
-	const dialogStyle: CSSProperties = {
-		margin: 0,
-		insetBlockStart: 0,
-		insetInlineStart: 0,
-		insetInlineEnd: 'auto',
-		height: '100dvh',
-		maxHeight: '100dvh',
-		width: `min(${WIDTH_MAP[width]}, 100vw)`,
-		...enterFromStyles[enterFrom],
-	};
-
 	const accessibleName = getAccessibleName({ label, titleId });
 
 	return (
@@ -279,12 +261,12 @@ export function DrawerTopLayer({
 			onClose={handleDialogClose}
 			onEnterFinish={handleEnterFinish}
 			onExitFinish={handleExitFinish}
-			animate
-			xcss={styles.root}
+			shouldAnimate
+			xcss={cx(styles.root, widthStyles[width], enterFromStyles[enterFrom])}
+			enteringAnimationXcss={styles.enter}
+			exitingAnimationXcss={styles.exit}
 			testId={testId}
 			{...accessibleName}
-			// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop
-			style={dialogStyle}
 		>
 			{/*
 			 * Native modality makes the background inert but does not lock body

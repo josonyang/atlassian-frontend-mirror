@@ -2,7 +2,7 @@ import React from 'react';
 
 import { render, screen } from '@testing-library/react';
 
-import { SimpleTag } from '../../index';
+import { default as SimpleTag } from '../../internal/simple';
 
 // eslint-disable-next-line @atlassian/a11y/require-jest-coverage
 describe('<SimpleTag />', () => {

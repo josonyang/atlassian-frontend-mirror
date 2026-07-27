@@ -1,5 +1,12 @@
 # @atlaskit/link-extractors
 
+## 3.2.4
+
+### Patch Changes
+
+- [`87d3a5aafece6`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/87d3a5aafece6) -
+  Cleanup navx-1895-new-logo-design
+
 ## 3.2.3
 
 ### Patch Changes

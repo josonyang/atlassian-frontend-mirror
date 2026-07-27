@@ -2,8 +2,11 @@ import type { Rule } from 'eslint';
 import { isNodeOfType } from 'eslint-codemod-utils';
 
 import { createLintRule } from '../utils/create-lint-rule';
+import { isImportFromPackage } from '../utils/is-import-from-package';
 
 import { checkStylesObject } from './utils';
+
+const SELECT_PACKAGE = '@atlaskit/select';
 
 const rule: Rule.RuleModule = createLintRule({
 	meta: {
@@ -28,7 +31,7 @@ const rule: Rule.RuleModule = createLintRule({
 
 		return {
 			ImportDeclaration(node) {
-				if (node.source.value !== '@atlaskit/select') {
+				if (!isImportFromPackage(node.source.value, SELECT_PACKAGE)) {
 					return;
 				}
 				node.specifiers.forEach((spec) => {

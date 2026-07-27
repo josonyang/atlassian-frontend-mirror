@@ -742,7 +742,12 @@ export const EmojiNodeWrapper: React.ForwardRefExoticComponent<
 				})
 			: emoji.shortName;
 
-	return (
+	const tooltipContent =
+		showTooltip && expValEquals('platform_editor_emoji_hover_show_tooltip', 'isEnabled', true)
+			? emoji.shortName || emoji.name || undefined
+			: undefined;
+
+	const emojiSpan = (
 		<span
 			role={
 				editorEmoji
@@ -777,12 +782,31 @@ export const EmojiNodeWrapper: React.ForwardRefExoticComponent<
 			onFocus={(event) => {
 				handleFocus(props, event);
 			}}
-			title={showTooltip ? emoji.shortName : undefined} // TODO: COLLAB-2351 - use @atlaskit/Tooltip in future for non-deletable emoji if enabled showTooltip
+			title={
+				showTooltip && !expValEquals('platform_editor_emoji_hover_show_tooltip', 'isEnabled', true)
+					? emoji.shortName
+					: undefined
+			}
 			{...other}
 		>
 			{children}
 		</span>
 	);
+
+	if (tooltipContent) {
+		return (
+			<Tooltip
+				content={tooltipContent}
+				isScreenReaderAnnouncementDisabled
+				position="top"
+				tag="span"
+			>
+				{emojiSpan}
+			</Tooltip>
+		);
+	}
+
+	return emojiSpan;
 });
 
 export const Emoji = (props: Props): JSX.Element => {

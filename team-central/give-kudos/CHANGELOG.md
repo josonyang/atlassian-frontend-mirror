@@ -1,5 +1,12 @@
 # @atlassian/give-kudos
 
+## 6.11.0
+
+### Minor Changes
+
+- [`91cb85bc182e5`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/91cb85bc182e5) -
+  Add accessible close controls to Team Central modals
+
 ## 6.10.0
 
 ### Minor Changes

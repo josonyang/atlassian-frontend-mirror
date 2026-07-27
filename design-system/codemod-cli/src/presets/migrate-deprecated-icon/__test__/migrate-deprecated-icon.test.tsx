@@ -3,7 +3,8 @@ import transformer from '../codemods/migrate-deprecated-icon';
 
 // Mock the deprecatedCore import
 jest.mock('@atlaskit/icon/deprecated-map', () => ({
-	deprecatedCore: {
+	__esModule: true,
+	default: {
 		'@atlaskit/icon/core/capture': {
 			message:
 				'The icon "capture" is deprecated in favour of "focus-area" from "@atlaskit/icon/core"',
@@ -37,8 +38,9 @@ jest.mock('@atlaskit/icon-lab/deprecated-map', () => ({
 }));
 
 // Mock the coreIconMetadata import
-jest.mock('@atlaskit/icon/metadata', () => ({
-	coreIconMetadata: {
+jest.mock('@atlaskit/icon/metadata-core', () => ({
+	__esModule: true,
+	default: {
 		capture: {
 			keywords: ['capture', 'icon', 'focus', 'focus area', 'capture'],
 			componentName: 'CaptureIcon',

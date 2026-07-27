@@ -69,14 +69,6 @@ function runOnTransitionEndOrTimeout({
 	return teardown;
 }
 
-/**
- * Animation config for entry/exit transitions.
- *
- * Currently no configuration is supported via this prop,
- * and this is just a placeholder.
- */
-export type TAnimationConfig = never;
-
 type TUseAnimatedVisibilityArgs = {
 	/**
 	 * Whether the element is logically open.
@@ -90,7 +82,7 @@ type TUseAnimatedVisibilityArgs = {
 	 * Animation config for entry/exit transitions.
 	 * Pass `false` or `undefined` to disable animation.
 	 */
-	animate: boolean | TAnimationConfig;
+	shouldAnimate: boolean;
 	/**
 	 * Ref to the DOM element that plays the entry/exit transitions.
 	 * Used to listen for `transitionend`.
@@ -120,11 +112,6 @@ type TUseAnimatedVisibilityResult = {
 	 * trapping, listeners that must outlive the exit).
 	 */
 	phase: TPhase;
-	/**
-	 * Resolved animation preset (styles applied via the host element's `css`
-	 * prop), or `null` if animation is disabled.
-	 */
-	preset: boolean | TAnimationConfig | null;
 };
 
 /**
@@ -192,18 +179,12 @@ export type TPhase = 'closed' | 'entering' | 'open' | 'exiting';
 export function useAnimatedVisibility({
 	isOpen,
 	animationKind,
-	animate,
+	shouldAnimate,
 	elementRef,
 	onEnterFinish,
 	onExitFinish,
 }: TUseAnimatedVisibilityArgs): TUseAnimatedVisibilityResult {
-	// Styles are applied via the `css` prop on the host element (see `Popover`
-	// and `Dialog`), so there is no longer any CSS injection step. Normalize a
-	// falsy `animate` to `null`.
-	const preset = animate || null;
-
-	// False when there is no preset or `prefers-reduced-motion` is set.
-	const willAnimate = Boolean(animate) && !prefersReducedMotion();
+	const willAnimate = shouldAnimate && !prefersReducedMotion();
 
 	// Promote `closed → entering`/`closed → open` synchronously during
 	// render so the host element mounts in the same commit as the open
@@ -370,5 +351,5 @@ export function useAnimatedVisibility({
 		}
 	}, [phase, willAnimate]);
 
-	return { phase, preset };
+	return { phase };
 }

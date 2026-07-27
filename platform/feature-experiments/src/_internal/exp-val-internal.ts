@@ -1,7 +1,7 @@
 import FeatureGates from '@atlaskit/feature-gate-js-client/feature-gates';
 import { addFeatureFlagAccessed } from '@atlaskit/react-ufo/feature-flags-accessed';
 
-import { devOverrides } from './dev-overrides-store';
+import { devOverrides, defaultBooleanExperimentsToTrue } from './dev-overrides-store';
 import type { AssurePrimitives } from './types';
 
 export function expValInternal<T>(
@@ -22,6 +22,16 @@ export function expValInternal<T>(
 		}
 		// eslint-disable-next-line @typescript-eslint/consistent-type-assertions
 		return defaultValue as AssurePrimitives<T>;
+	}
+
+	if (
+		process.env.NODE_ENV !== 'production' &&
+		defaultBooleanExperimentsToTrue &&
+		param === 'isEnabled' &&
+		defaultValue === false
+	) {
+		// eslint-disable-next-line @typescript-eslint/consistent-type-assertions
+		return true as AssurePrimitives<T>;
 	}
 
 	// If Statsig is not initialized, return the default.

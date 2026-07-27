@@ -1,5 +1,12 @@
 # @atlaskit/platform-feature-experiments
 
+## 0.3.0
+
+### Minor Changes
+
+- [`c79844d89ab4d`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/c79844d89ab4d) -
+  Introduce new dev tooling for testing
+
 ## 0.2.0
 
 ### Minor Changes

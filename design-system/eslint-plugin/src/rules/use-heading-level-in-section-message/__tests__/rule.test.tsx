@@ -15,6 +15,12 @@ import SectionMessage from '@atlaskit/section-message';
   Content.
 </SectionMessage>
   `,
+		`
+import SectionMessage from '@atlaskit/section-message/section-message';
+<SectionMessage title="Switch it up" headingLevel={2}>
+  Content.
+</SectionMessage>
+  `,
 		// Should only trip on onboarding package
 		`
 import SectionMessage from 'a-different-package';
@@ -23,6 +29,19 @@ import SectionMessage from 'a-different-package';
 	],
 	invalid: [
 		// Missing headingLevel
+		{
+			code: `
+import SectionMessage from '@atlaskit/section-message/section-message';
+<SectionMessage title="Switch it up">
+  Content.
+</SectionMessage>
+        `,
+			errors: [
+				{
+					message: headingLevelRequiredSuggestionText,
+				},
+			],
+		},
 		{
 			code: `
 import SectionMessage from '@atlaskit/section-message';

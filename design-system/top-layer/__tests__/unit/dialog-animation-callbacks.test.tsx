@@ -7,7 +7,7 @@ import { screen } from '@atlassian/testing-library/screen';
 import { Dialog } from '../../src/entry-points/dialog';
 
 // JSDOM does not implement CSS transitions, so `transitionend` never fires naturally.
-// When `animate` is set, the code falls back to a `setTimeout(fn, durationMs + 50)`.
+// When `shouldAnimate` is set, the code falls back to a `setTimeout(fn, durationMs + 50)`.
 // Unit tests use fake timers to drive that fallback. Real `transitionend` behaviour
 // is covered by the Playwright tests.
 //
@@ -38,7 +38,7 @@ function TestDialog({
 			onExitFinish={onExitFinish}
 			label="test-dialog"
 			testId="test-dialog"
-			animate={animated}
+			shouldAnimate={animated}
 		>
 			<div data-testid="content">content</div>
 		</Dialog>
@@ -50,7 +50,7 @@ it('should capture and report a11y violations', async () => {
 	await expect(container).toBeAccessible();
 });
 
-describe('onEnterFinish - Dialog with animate=false', () => {
+describe('onEnterFinish - Dialog with shouldAnimate=false', () => {
 	it('fires once after opening', () => {
 		const onEnterFinish = jest.fn();
 		const { rerender } = render(<TestDialog isOpen={false} onEnterFinish={onEnterFinish} />);
@@ -100,9 +100,9 @@ describe('onEnterFinish - Dialog with animate=false', () => {
 	});
 });
 
-// These tests target the fallback timer path, which is only used when `animate` is set.
+// These tests target the fallback timer path, which is only used when `shouldAnimate` is set.
 // The fallback timer is used in case the 'transitionend' event never fires (which is the case in JSDOM)
-describe('onEnterFinish - Dialog with animate=true', () => {
+describe('onEnterFinish - Dialog with shouldAnimate=true', () => {
 	beforeEach(() => {
 		jest.useFakeTimers();
 	});
@@ -167,7 +167,7 @@ describe('onEnterFinish - Dialog with animate=true', () => {
 	});
 });
 
-describe('onEnterFinish - StrictMode double-fire guard (Dialog with animate=false)', () => {
+describe('onEnterFinish - StrictMode double-fire guard (Dialog with shouldAnimate=false)', () => {
 	it('does not double-fire during open', () => {
 		const onEnterFinish = jest.fn();
 
@@ -189,7 +189,7 @@ describe('onEnterFinish - StrictMode double-fire guard (Dialog with animate=fals
 	});
 });
 
-describe('onExitFinish - Dialog with animate=false', () => {
+describe('onExitFinish - Dialog with shouldAnimate=false', () => {
 	it('fires once after closing', () => {
 		const onExitFinish = jest.fn();
 		const { rerender } = render(<TestDialog isOpen={true} onExitFinish={onExitFinish} />);
@@ -240,7 +240,7 @@ describe('onExitFinish - Dialog with animate=false', () => {
 	});
 });
 
-describe('onExitFinish - Dialog with animate=true', () => {
+describe('onExitFinish - Dialog with shouldAnimate=true', () => {
 	beforeEach(() => {
 		jest.useFakeTimers();
 	});
@@ -312,7 +312,7 @@ describe('onExitFinish - Dialog with animate=true', () => {
 	});
 });
 
-describe('onExitFinish - StrictMode double-fire guard (Dialog with animate=false)', () => {
+describe('onExitFinish - StrictMode double-fire guard (Dialog with shouldAnimate=false)', () => {
 	it('does not double-fire during close', () => {
 		const onExitFinish = jest.fn();
 

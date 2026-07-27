@@ -236,7 +236,7 @@ test.describe('Popup - ARIA attributes', () => {
 		await expect(hostLocator).toHaveCount(1);
 		await expect(page.getByTestId('popover-content')).toBeVisible();
 
-		// Non-animated close (this example does not pass `animate`).
+		// Non-animated close (this example does not pass `shouldAnimate`).
 		// Verifies the safety-net `setTimeout(unmount, 0)` in
 		// `useAnimatedVisibility` actually unmounts the host: in a real
 		// browser the `toggle` event is queued as a microtask, so our

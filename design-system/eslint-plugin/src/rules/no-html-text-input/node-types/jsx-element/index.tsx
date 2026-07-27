@@ -4,11 +4,15 @@ import { type ImportDeclaration, isNodeOfType } from 'eslint-codemod-utils';
 import { getSourceCode } from '@atlaskit/eslint-utils/context-compat';
 
 import { JSXElementHelper } from '../../../../ast-nodes/jsx-element-helper';
+import { isImportFromPackage } from '../../../utils/is-import-from-package';
 import { isSupportedForLint } from '../supported';
 
 interface MetaData {
 	context: Rule.RuleContext;
 }
+
+const TEXTFIELD_PACKAGE = '@atlaskit/textfield';
+const TEXTFIELD_IMPORT_SOURCE = '@atlaskit/textfield/text-field';
 
 function isImportDeclaration(node: any): node is ImportDeclaration {
 	return node.type === 'ImportDeclaration';
@@ -33,7 +37,7 @@ export const JSXElement = {
 				usedNames.add(specifier.local.name);
 			}
 
-			if (declaration.source.value === '@atlaskit/textfield') {
+			if (isImportFromPackage(declaration.source.value, TEXTFIELD_PACKAGE)) {
 				const defaultSpecifier = declaration.specifiers.find(
 					(specifier) => specifier.type === 'ImportDefaultSpecifier',
 				);
@@ -103,7 +107,7 @@ export const JSXElement = {
 
 						// Add import if not present
 						if (!existingTextfieldName) {
-							const importStatement = `import ${textfieldName} from '@atlaskit/textfield';\n`;
+							const importStatement = `import ${textfieldName} from '${TEXTFIELD_IMPORT_SOURCE}';\n`;
 							fixers.push(fixer.insertTextBefore(sourceCode.ast, importStatement));
 						}
 

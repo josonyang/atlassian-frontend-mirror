@@ -1,5 +1,19 @@
 # @atlaskit/editor-plugin-user-intent
 
+## 10.1.0
+
+### Minor Changes
+
+- [`303fe94433905`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/303fe94433905) -
+  [ux] Hide node floating toolbars while an AI Suggested Edits card is open, so they no longer
+  overlap or mis-position against the suggestion card / diff decorations. On opening a suggestion
+  the ai-suggestions plugin sets a new `reviewing` user intent, which the floating-toolbar plugin
+  already treats as a toolbar-suppressing intent.
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 10.0.0
 
 ### Major Changes

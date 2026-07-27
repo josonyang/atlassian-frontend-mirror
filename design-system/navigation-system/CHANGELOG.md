@@ -1,5 +1,31 @@
 # @atlassian/navigation-system
 
+## 10.9.0
+
+### Minor Changes
+
+- [`994b264c96af8`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/994b264c96af8) -
+  `AppLogo` now accepts an optional `secondaryName` prop, which renders supporting text below the
+  app name in wider viewports. This can be used to provide extra context for an app or experience
+  while keeping the existing `name`, `label`, and small-screen behavior unchanged.
+
+  ```tsx
+  import { ConfluenceIcon } from '@atlaskit/logo/confluence-icon';
+  import { AppLogo } from '@atlaskit/navigation-system/top-nav-items';
+
+  <AppLogo
+  	href="http://www.atlassian.design"
+  	icon={ConfluenceIcon}
+  	name="Confluence"
+  	secondaryName="Documentation"
+  	label="Home page"
+  />;
+  ```
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 10.8.0
 
 ### Minor Changes

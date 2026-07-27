@@ -178,6 +178,38 @@ const unboundStyles = unboundCssMap({
 	},
 });
 
+const hexagonBorderFixStyles = unboundCssMap({
+	hexagonBorderContainer: {
+		// The 'border' is actually stacked hexagons, with the inner hexagon inset.
+		// A full 2px-looking clipped-hexagon ring needs `borderWidth * 1.12 = 2.24px` of
+		// padding on each side (1.12 is calculated based on the hexagon geometry).
+		// The existing avatar margin already contributes 2px of space.
+		// See https://hello.atlassian.net/wiki/spaces/DST/pages/7432283012
+		paddingBlockEnd: `calc(${token('border.width.selected')} * 0.12)`,
+		paddingBlockStart: `calc(${token('border.width.selected')} * 0.12)`,
+		paddingInlineEnd: `calc(${token('border.width.selected')} * 0.12)`,
+		paddingInlineStart: `calc(${token('border.width.selected')} * 0.12)`,
+		marginBlockEnd: `calc(${token('border.width.selected')} * -0.12)`,
+		marginBlockStart: `calc(${token('border.width.selected')} * -0.12)`,
+		marginInlineEnd: `calc(${token('border.width.selected')} * -0.12)`,
+		marginInlineStart: `calc(${token('border.width.selected')} * -0.12)`,
+	},
+	hexagonFocusContainer: {
+		// The focus ring is another stacked hexagon layer outside the border wrapper.
+		// It does not get help from the inner avatar margin, so it needs the full
+		// `borderWidth * 1.12` rectangular gap.
+		// See https://hello.atlassian.net/wiki/spaces/DST/pages/7432283012
+		paddingBlockEnd: `calc(${token('border.width.selected')} * 1.12)`,
+		paddingBlockStart: `calc(${token('border.width.selected')} * 1.12)`,
+		paddingInlineEnd: `calc(${token('border.width.selected')} * 1.12)`,
+		paddingInlineStart: `calc(${token('border.width.selected')} * 1.12)`,
+		marginBlockEnd: `calc(${token('border.width.selected')} * -1.12)`,
+		marginBlockStart: `calc(${token('border.width.selected')} * -1.12)`,
+		marginInlineEnd: `calc(${token('border.width.selected')} * -1.12)`,
+		marginInlineStart: `calc(${token('border.width.selected')} * -1.12)`,
+	},
+});
+
 const widthHeightMap = cssMap({
 	xsmall: { width: '16px', height: '16px' },
 	UNSAFE_xsmall: { width: '20px', height: '20px' },
@@ -289,6 +321,8 @@ export const AvatarContent: React.ForwardRefExoticComponent<
 					!isDisabled &&
 					fg('platform-dst-motion-uplift') &&
 					unboundStyles.interactiveMotion,
+				fg('platform_editor_agent_mentions_drop_one_fixes') &&
+					hexagonBorderFixStyles.hexagonFocusContainer,
 			]}
 			style={
 				{
@@ -302,6 +336,8 @@ export const AvatarContent: React.ForwardRefExoticComponent<
 				css={[
 					unboundStyles.hexagonBorderContainer,
 					fg('avatar-custom-border') && unboundStyles.hexagonBorderContainerCustomBorder,
+					fg('platform_editor_agent_mentions_drop_one_fixes') &&
+						hexagonBorderFixStyles.hexagonBorderContainer,
 				]}
 				data-testid={testId ? `${testId}-hexagon-border-container` : 'hexagon-border-container'}
 			>

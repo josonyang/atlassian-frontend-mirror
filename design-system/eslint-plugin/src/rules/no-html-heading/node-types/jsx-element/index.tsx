@@ -4,11 +4,15 @@ import { type ImportDeclaration, isNodeOfType } from 'eslint-codemod-utils';
 import { getSourceCode } from '@atlaskit/eslint-utils/context-compat';
 
 import { JSXElementHelper } from '../../../../ast-nodes/jsx-element-helper';
+import { isImportFromPackage } from '../../../utils/is-import-from-package';
 import { isSupportedForLint } from '../supported';
 
 interface MetaData {
 	context: Rule.RuleContext;
 }
+
+const HEADING_PACKAGE = '@atlaskit/heading';
+const HEADING_IMPORT_SOURCE = '@atlaskit/heading/heading';
 
 function isImportDeclaration(node: any): node is ImportDeclaration {
 	return node.type === 'ImportDeclaration';
@@ -33,7 +37,7 @@ export const JSXElement = {
 				usedNames.add(specifier.local.name);
 			}
 
-			if (declaration.source.value === '@atlaskit/heading') {
+			if (isImportFromPackage(declaration.source.value, HEADING_PACKAGE)) {
 				const defaultSpecifier = declaration.specifiers.find(
 					(specifier) => specifier.type === 'ImportDefaultSpecifier',
 				);
@@ -133,7 +137,7 @@ export const JSXElement = {
 
 						// Add import if not present
 						if (!existingHeadingName) {
-							const importStatement = `import ${headingName} from '@atlaskit/heading';\n`;
+							const importStatement = `import ${headingName} from '${HEADING_IMPORT_SOURCE}';\n`;
 							fixers.push(fixer.insertTextBefore(sourceCode.ast, importStatement));
 						}
 

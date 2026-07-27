@@ -32,7 +32,7 @@ ruleTester.run('no-html-anchor', rule, {
 							desc: 'Replace with Link component from @atlaskit/link',
 							output: linesOnly`
 				// JSX Element > reports for an anchor element and shows correct message
-                import Link from '@atlaskit/link';
+                import Link from '@atlaskit/link/link';
                 <Link>Hello, World!</Link>
               `,
 						},
@@ -61,7 +61,7 @@ ruleTester.run('no-html-anchor', rule, {
 							desc: 'Replace with Link component from @atlaskit/link',
 							output: linesOnly`
                 // JSX Element > reports for an anchor with href
-                import Link from '@atlaskit/link';
+                import Link from '@atlaskit/link/link';
                 <Link href="/">Hello, World!</Link>
               `,
 						},
@@ -90,7 +90,7 @@ ruleTester.run('no-html-anchor', rule, {
 							desc: 'Replace with Link component from @atlaskit/link',
 							output: linesOnly`
                 // JSX Element > reports for a self-closing anchor
-                import Link from '@atlaskit/link';
+                import Link from '@atlaskit/link/link';
                 <Link />
               `,
 						},
@@ -100,6 +100,37 @@ ruleTester.run('no-html-anchor', rule, {
 				// JSX Element > reports for a self-closing anchor
                 import { LinkButton } from '@atlaskit/button/new';
                 <LinkButton />
+              `,
+						},
+					],
+				},
+			],
+		},
+		{
+			code: linesOnly`
+        // JSX Element > existing Link subpath import with different name
+        import CustomLink from '@atlaskit/link/link';
+        <a href="/">Hello, World!</a>
+      `,
+			errors: [
+				{
+					messageId: 'noHtmlAnchor',
+					suggestions: [
+						{
+							desc: 'Replace with Link component from @atlaskit/link',
+							output: linesOnly`
+                // JSX Element > existing Link subpath import with different name
+                import CustomLink from '@atlaskit/link/link';
+                <CustomLink href="/">Hello, World!</CustomLink>
+              `,
+						},
+						{
+							desc: 'Replace with LinkButton component from @atlaskit/button/new',
+							output: linesOnly`
+                // JSX Element > existing Link subpath import with different name
+                import { LinkButton } from '@atlaskit/button/new';
+                import CustomLink from '@atlaskit/link/link';
+                <LinkButton href="/">Hello, World!</LinkButton>
               `,
 						},
 					],
@@ -151,7 +182,7 @@ ruleTester.run('no-html-anchor', rule, {
 							desc: 'Replace with Link component from @atlaskit/link',
 							output: linesOnly`
 				  // JSX Element > existing LinkButton import with different name
-				  import Link from '@atlaskit/link';
+				  import Link from '@atlaskit/link/link';
 				  import { LinkButton as CustomLinkButton } from '@atlaskit/button/new';
 				  <Link href="/">Hello, World!</Link>
 				`,
@@ -182,7 +213,7 @@ ruleTester.run('no-html-anchor', rule, {
 							desc: 'Replace with Link component from @atlaskit/link',
 							output: linesOnly`
 					  // Existing Link import with same name from another package
-					  import Link1 from '@atlaskit/link';
+					  import Link1 from '@atlaskit/link/link';
 					  import Link from 'another-package';
 					  <Link1 href="/">Hello, World!</Link1>
 					`,
@@ -214,7 +245,7 @@ ruleTester.run('no-html-anchor', rule, {
 							desc: 'Replace with Link component from @atlaskit/link',
 							output: linesOnly`
 					  // Existing LinkButton import with same name from another package
-					  import Link from '@atlaskit/link';
+					  import Link from '@atlaskit/link/link';
 					  import { LinkButton } from 'another-package';
 					  <Link href="/">Hello, World!</Link>
 					`,
@@ -248,7 +279,7 @@ ruleTester.run('no-html-anchor', rule, {
 							desc: 'Replace with Link component from @atlaskit/link',
 							output: linesOnly`
 					  // Existing Link, Link1, and Link2 imports
-					  import Link3 from '@atlaskit/link';
+					  import Link3 from '@atlaskit/link/link';
 					  import Link from 'another-package';
 					  import Link1 from 'yet-another-package';
 					  import Link2 from '@some/package';
@@ -286,7 +317,7 @@ ruleTester.run('no-html-anchor', rule, {
 							desc: 'Replace with Link component from @atlaskit/link',
 							output: linesOnly`
 					  // Existing LinkButton, LinkButton1, and LinkButton2 imports
-					  import Link from '@atlaskit/link';
+					  import Link from '@atlaskit/link/link';
 					  import { LinkButton } from 'another-package';
 					  import { LinkButton as LinkButton1 } from 'yet-another-package';
 					  import { LinkButton as LinkButton2 } from '@some/package';
@@ -320,7 +351,7 @@ ruleTester.run('no-html-anchor', rule, {
 						{
 							output: linesOnly`
                                 // JSX Element > reports for a self-closing div with role="link"
-                                import Link from '@atlaskit/link';
+                                import Link from '@atlaskit/link/link';
                                 <Link role="link" />
 							`,
 							desc: 'Replace with Link component from @atlaskit/link',
@@ -349,7 +380,7 @@ ruleTester.run('no-html-anchor', rule, {
 						{
 							output: linesOnly`
                                 // JSX Element > reports for a div with role="link"
-                                import Link from '@atlaskit/link';
+                                import Link from '@atlaskit/link/link';
                                 <Link role="link">Hello, World!</Link>
 							`,
 							desc: 'Replace with Link component from @atlaskit/link',
@@ -378,7 +409,7 @@ ruleTester.run('no-html-anchor', rule, {
 						{
 							output: linesOnly`
                                 // JSX Element > reports for a span with role="link"
-                                import Link from '@atlaskit/link';
+                                import Link from '@atlaskit/link/link';
                                 <Link role="link">Hello, World!</Link>
 							`,
 							desc: 'Replace with Link component from @atlaskit/link',
@@ -407,7 +438,7 @@ ruleTester.run('no-html-anchor', rule, {
 						{
 							output: linesOnly`
                                 // JSX Element > reports for a button with role="link"
-                                import Link from '@atlaskit/link';
+                                import Link from '@atlaskit/link/link';
 							    <Link role="link">Hello, World!</Link>
 							`,
 							desc: 'Replace with Link component from @atlaskit/link',
@@ -436,7 +467,7 @@ ruleTester.run('no-html-anchor', rule, {
 						{
 							output: linesOnly`
 							// JSX Element > reports for a main with role="link"
-							import Link from '@atlaskit/link';
+							import Link from '@atlaskit/link/link';
 							<Link role="link">Hello, World!</Link>
 						`,
 							desc: 'Replace with Link component from @atlaskit/link',

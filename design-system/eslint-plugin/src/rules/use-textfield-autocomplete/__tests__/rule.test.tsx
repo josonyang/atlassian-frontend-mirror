@@ -11,7 +11,7 @@ tester.run(ruleName, rule, {
 		`,
 		// Textfield with correct autoComplete for email
 		`
-		import Textfield from '@atlaskit/textfield';
+		import Textfield from '@atlaskit/textfield/text-field';
 
 		<Textfield type="email" autoComplete="email" />
 		`,
@@ -53,7 +53,7 @@ tester.run(ruleName, rule, {
 		`,
 		// Aliased import with correct autocomplete
 		`
-		import AkTextField from '@atlaskit/textfield';
+		import AkTextField from '@atlaskit/textfield/text-field';
 
 		<AkTextField type="email" autoComplete="email" />
 		`,
@@ -80,7 +80,7 @@ tester.run(ruleName, rule, {
 		// Missing autoComplete for email
 		{
 			code: `
-			import Textfield from '@atlaskit/textfield';
+			import Textfield from '@atlaskit/textfield/text-field';
 
 			<Textfield type="email" />
 			`,
@@ -90,7 +90,7 @@ tester.run(ruleName, rule, {
 				},
 			],
 			output: `
-			import Textfield from '@atlaskit/textfield';
+			import Textfield from '@atlaskit/textfield/text-field';
 
 			<Textfield type="email" autoComplete='email' />
 			`,
@@ -116,7 +116,7 @@ tester.run(ruleName, rule, {
 		// Aliased import missing autoComplete
 		{
 			code: `
-			import AkTextField from '@atlaskit/textfield';
+			import AkTextField from '@atlaskit/textfield/text-field';
 
 			<AkTextField type="email" />
 			`,
@@ -126,7 +126,7 @@ tester.run(ruleName, rule, {
 				},
 			],
 			output: `
-			import AkTextField from '@atlaskit/textfield';
+			import AkTextField from '@atlaskit/textfield/text-field';
 
 			<AkTextField type="email" autoComplete='email' />
 			`,

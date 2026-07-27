@@ -14,9 +14,9 @@ import { ExitingPersistence, ShrinkOut } from '@atlaskit/motion';
 import { fg } from '@atlaskit/platform-feature-flags';
 import { token } from '@atlaskit/tokens';
 
-import TagNew from '../../../tag-new';
 import { colorMapping } from '../../../tag-new/color-mapping';
 import { getTagText } from '../../../tag-new/get-tag-text';
+import { default as TagNew } from '../../../tag-new/tag-new';
 import BaseTag from '../shared/base';
 import Before from '../shared/before';
 import { getLozengeAppearance } from '../shared/color-to-lozenge-appearance';

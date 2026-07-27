@@ -4,6 +4,7 @@ import { isNodeOfType } from 'eslint-codemod-utils';
 import { JSXAttribute } from '../../ast-nodes/jsx-attribute';
 import { JSXElementHelper } from '../../ast-nodes/jsx-element-helper';
 import { createLintRule } from '../utils/create-lint-rule';
+import { isImportFromPackage } from '../utils/is-import-from-package';
 
 const TEXTFIELD_PACKAGE = '@atlaskit/textfield';
 const TYPE_PROP = 'type';
@@ -47,7 +48,7 @@ const rule: Rule.RuleModule = createLintRule({
 		return {
 			// Track imports from @atlaskit/textfield
 			ImportDeclaration(node) {
-				if (node.source.value !== TEXTFIELD_PACKAGE) {
+				if (!isImportFromPackage(node.source.value, TEXTFIELD_PACKAGE)) {
 					return;
 				}
 

@@ -21,6 +21,7 @@ import {
 	changeToRichTextWithAnalytics,
 	dropdownClickHandler,
 } from '../editor-commands/commands';
+import type { MarkdownToPmConverter } from '../pasteOptionsToolbarPluginType';
 import {
 	PASTE_OPTIONS_TEST_ID,
 	PASTE_TOOLBAR_CLASS,
@@ -71,6 +72,7 @@ export const getToolbarMenuConfig = (
 	pluginState: PasteOptionsPluginState,
 	intl: IntlShape,
 	editorAnalyticsAPI: EditorAnalyticsAPI | undefined,
+	markdownToPmConverter?: MarkdownToPmConverter,
 ): FloatingToolbarDropdown<Command> => {
 	const options = [
 		{
@@ -84,7 +86,12 @@ export const getToolbarMenuConfig = (
 			id: 'editor.paste.markdown',
 			title: intl.formatMessage(messages.markdown),
 			selected: pluginState.selectedOption === ToolbarDropdownOption.Markdown,
-			onClick: changeToMarkdownWithAnalytics(editorAnalyticsAPI, pluginState.plaintext.length)(),
+			onClick: changeToMarkdownWithAnalytics(
+				editorAnalyticsAPI,
+				pluginState.plaintext.length,
+				undefined,
+				markdownToPmConverter,
+			)(),
 		},
 		{
 			id: 'editor.paste.plainText',
@@ -113,6 +120,7 @@ export const buildToolbar = (
 	state: EditorState,
 	intl: IntlShape,
 	editorAnalyticsAPI: EditorAnalyticsAPI | undefined,
+	markdownToPmConverter?: MarkdownToPmConverter,
 ): FloatingToolbarConfig | undefined => {
 	const { schema } = state;
 	const validNodes = Object.values(schema.nodes);
@@ -122,6 +130,7 @@ export const buildToolbar = (
 		pluginState,
 		intl,
 		editorAnalyticsAPI,
+		markdownToPmConverter,
 	);
 
 	return {

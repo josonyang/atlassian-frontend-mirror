@@ -4,11 +4,15 @@ import type { ImportDeclaration } from 'eslint-codemod-utils';
 import { getSourceCode } from '@atlaskit/eslint-utils/context-compat';
 
 import { JSXElementHelper } from '../../../../ast-nodes/jsx-element-helper';
+import { isImportFromPackage } from '../../../utils/is-import-from-package';
 import { isSupportedForLint } from '../supported';
 
 interface MetaData {
 	context: Rule.RuleContext;
 }
+
+const TEXTAREA_PACKAGE = '@atlaskit/textarea';
+const TEXTAREA_IMPORT_SOURCE = '@atlaskit/textarea/text-area';
 
 function isImportDeclaration(node: any): node is ImportDeclaration {
 	return node.type === 'ImportDeclaration';
@@ -33,7 +37,7 @@ export const JSXElement = {
 				usedNames.add(specifier.local.name);
 			}
 
-			if (declaration.source.value === '@atlaskit/textarea') {
+			if (isImportFromPackage(declaration.source.value, TEXTAREA_PACKAGE)) {
 				const defaultSpecifier = declaration.specifiers.find(
 					(specifier) => specifier.type === 'ImportDefaultSpecifier',
 				);
@@ -102,7 +106,7 @@ export const JSXElement = {
 
 						// Add import if not present
 						if (!existingTextareaName) {
-							const importStatement = `import ${textareaName} from '@atlaskit/textarea';\n`;
+							const importStatement = `import ${textareaName} from '${TEXTAREA_IMPORT_SOURCE}';\n`;
 							fixers.push(fixer.insertTextBefore(sourceCode.ast, importStatement));
 						}
 

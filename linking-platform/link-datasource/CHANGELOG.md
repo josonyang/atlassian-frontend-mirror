@@ -1,5 +1,15 @@
 # @atlaskit/link-datasource
 
+## 6.3.1
+
+### Patch Changes
+
+- [`fb07a43bd5ca0`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/fb07a43bd5ca0) -
+  Cleanup platform_sllv_a11y_modal_options_focus
+- [`87d3a5aafece6`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/87d3a5aafece6) -
+  Cleanup navx-1895-new-logo-design
+- Updated dependencies
+
 ## 6.3.0
 
 ### Minor Changes

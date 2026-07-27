@@ -50,22 +50,11 @@ export const panelAttrsToDom = (
 	const isCustomPanel = panelType === PanelType.CUSTOM && allowCustomPanel;
 	const hasIcon = !isCustomPanel || !!panelIcon || !!panelIconId;
 
-	const tokenColor = expValEquals(
-		'platform_editor_stricter_panelcolor_typecheck',
-		'isEnabled',
-		true,
-	)
-		? typeof panelColor === 'string' && hexToEditorBackgroundPaletteColor(panelColor)
-		: panelColor && hexToEditorBackgroundPaletteColor(panelColor);
+	const tokenColor =
+		typeof panelColor === 'string' && hexToEditorBackgroundPaletteColor(panelColor);
 	const panelBackgroundColor = tokenColor || panelColor;
 
-	const isCustomPanelWithColor = expValEquals(
-		'platform_editor_stricter_panelcolor_typecheck',
-		'isEnabled',
-		true,
-	)
-		? typeof panelColor === 'string' && isCustomPanel
-		: panelColor && isCustomPanel;
+	const isCustomPanelWithColor = typeof panelColor === 'string' && isCustomPanel;
 
 	const style = [
 		`${isCustomPanelWithColor ? `background-color: ${panelBackgroundColor};` : ''}`,

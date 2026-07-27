@@ -1,5 +1,39 @@
 # @atlaskit/editor-common
 
+## 116.41.0
+
+### Minor Changes
+
+- [`a86fac88f3a5e`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/a86fac88f3a5e) -
+  Use lazy-loaded VanillaTooltip for emoji tooltips in the editor and render an ADS Tooltip
+  positioned above the emoji in the emoji element, gated behind the
+  platform_editor_emoji_hover_show_tooltip experiment.
+
+### Patch Changes
+
+- [`c0fedda79b60e`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/c0fedda79b60e) -
+  Clean up experiment `platform_editor_fix_a11y_tab_focus_insertion_menu`
+- [`9d13e640f00d5`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/9d13e640f00d5) -
+  [EDITOR-8150] The `submitSuggestionFeedback` editor action now fires the canonical unified
+  `aiFeedback submitted` analytics event (with `aiFeedbackResult` up/down and the unified Editor AI
+  / Suggested edits attributes) instead of a bespoke event, so suggestion feedback votes are
+  captured by the shared AI feedback pipeline.
+- Updated dependencies
+
+## 116.40.2
+
+### Patch Changes
+
+- Updated dependencies
+
+## 116.40.1
+
+### Patch Changes
+
+- [`2386c7bdee2e7`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/2386c7bdee2e7) -
+  added operational analytics for conversation errors in suggested edits
+- Updated dependencies
+
 ## 116.40.0
 
 ### Minor Changes

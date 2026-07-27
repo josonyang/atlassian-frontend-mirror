@@ -14,5 +14,3 @@ export const spacing: {
 	controlHeight,
 	menuGutter,
 };
-
-export { colors } from './colors';
