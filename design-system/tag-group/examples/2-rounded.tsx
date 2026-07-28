@@ -61,7 +61,7 @@ export default (): React.JSX.Element => (
 			{tagNames.map((sweet) => (
 				<Tag
 					appearance="rounded"
-					elemBefore={<Avatar size="xsmall" />}
+					elemBefore={<Avatar size="xxsmall" />}
 					href="http://www.cupcakeipsum.com/"
 					key={sweet}
 					text={sweet}

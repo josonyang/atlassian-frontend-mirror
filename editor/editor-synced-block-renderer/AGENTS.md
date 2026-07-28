@@ -4,7 +4,7 @@
 >
 > **For workflow guidance, debugging, and cross-package task guides, load the `synced-blocks`
 > skill:**
-> `get_skill(skill_name_or_path="platform/packages/editor/.rovodev/skills/synced-blocks/SKILL.md")`
+> `get_skill(skill_name_or_path="platform/packages/editor/.agents/skills/synced-blocks/SKILL.md")`
 
 ---
 

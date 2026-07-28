@@ -25,20 +25,6 @@ jest.mock('@atlaskit/tmp-editor-statsig/exp-val-equals', () => ({
 		experimentName === 'platform_renderer_collapsible_headings',
 }));
 
-jest.mock('@atlaskit/icon/core/chevron-down', () => ({
-	__esModule: true,
-	default: ({ label, size }: { label: string; size: string }) => (
-		<span data-testid="chevron-down-icon" data-label={label} data-size={size} />
-	),
-}));
-
-jest.mock('@atlaskit/icon/core/chevron-right', () => ({
-	__esModule: true,
-	default: ({ label, size }: { label: string; size: string }) => (
-		<span data-testid="chevron-right-icon" data-label={label} data-size={size} />
-	),
-}));
-
 const documentWithHeadingSections: DocNode = {
 	type: 'doc',
 	version: 1,
@@ -605,8 +591,6 @@ describe('collapsible headings', () => {
 		const betaButton = screen.getAllByRole('button', { name: 'Collapse section' })[1];
 
 		expect(betaButton).toHaveAttribute('aria-expanded', 'true');
-		expect(screen.getAllByTestId('chevron-down-icon')[1]).toHaveAttribute('data-size', 'small');
-		expect(screen.getAllByTestId('chevron-down-icon')[1]).toHaveAttribute('data-label', '');
 
 		await userEvent.hover(betaHeading);
 		await userEvent.click(betaButton);
@@ -619,7 +603,6 @@ describe('collapsible headings', () => {
 
 		const expandBetaButton = screen.getByRole('button', { name: 'Expand section' });
 		expect(expandBetaButton).toHaveAttribute('aria-expanded', 'false');
-		expect(screen.getByTestId('chevron-right-icon')).toHaveAttribute('data-size', 'small');
 
 		await userEvent.click(expandBetaButton);
 		await waitFor(() => expect(betaContent.closest('p')).not.toHaveAttribute('hidden'));

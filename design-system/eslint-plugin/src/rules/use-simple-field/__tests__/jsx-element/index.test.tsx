@@ -58,6 +58,19 @@ ruleTester.run('use-simple-field', rule, {
 				)}
 			</Field>
 		`,
+		`
+			// Field, has message imported from debarrelled messages entrypoint
+			import Field from '@atlaskit/form/field';
+			import { ErrorMessage } from '@atlaskit/form/messages';
+			<Field>
+				{({ fieldProps }) => (
+					<>
+						<input {...fieldProps} />
+						<ErrorMessage>Message</ErrorMessage>
+					</>
+				)}
+			</Field>
+		`,
 	],
 	invalid: [
 		{
@@ -132,6 +145,32 @@ ruleTester.run('use-simple-field', rule, {
 								<AkField component={({ fieldProps }) => <input {...fieldProps} />} >
 
 								</AkField>
+							`,
+						},
+					],
+				},
+			],
+		},
+		{
+			code: linesOnly`
+				// Field from debarrelled entrypoint
+				import Field from '@atlaskit/form/field';
+				<Field>
+					{({ fieldProps }) => <input {...fieldProps} />}
+				</Field>
+			`,
+			errors: [
+				{
+					messageId: 'useSimpleField',
+					suggestions: [
+						{
+							desc: convertField,
+							output: linesOnly`
+								// Field from debarrelled entrypoint
+								import Field from '@atlaskit/form/field';
+								<Field component={({ fieldProps }) => <input {...fieldProps} />} >
+
+								</Field>
 							`,
 						},
 					],

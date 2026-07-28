@@ -8,6 +8,7 @@ import {
 
 import { createLintRule } from '../utils/create-lint-rule';
 import { errorBoundary } from '../utils/error-boundary';
+import { isImportFromPackage } from '../utils/is-import-from-package';
 
 const rule: Rule.RuleModule = createLintRule({
 	meta: {
@@ -58,30 +59,31 @@ const rule: Rule.RuleModule = createLintRule({
 					}
 
 					// Handle different import sources
-					switch (source) {
-						case '@atlaskit/primitives/compiled':
-							if (specifier.imported.type === 'Identifier') {
-								// Track the local name (alias), not the imported name
-								// e.g., import { Box as CompiledBox } -> track "CompiledBox"
-								tracker.compiledComponents.add(specifier.local.name);
-							}
-							break;
+					if (
+						isImportFromPackage(source, '@atlaskit/primitives/compiled') &&
+						specifier.imported.type === 'Identifier'
+					) {
+						// Track the local name (alias), not the imported name
+						// e.g., import { Box as CompiledBox } -> track "CompiledBox"
+						tracker.compiledComponents.add(specifier.local.name);
+						return;
+					}
 
-						case '@atlaskit/primitives':
-							if (specifier.imported.type === 'Identifier' && specifier.imported.name === 'xcss') {
-								tracker.xcssFunction.add(specifier.local.name);
-							}
-							break;
+					if (
+						(source === '@atlaskit/primitives' || source === '@atlaskit/primitives/xcss') &&
+						specifier.imported.type === 'Identifier' &&
+						specifier.imported.name === 'xcss'
+					) {
+						tracker.xcssFunction.add(specifier.local.name);
+						return;
+					}
 
-						case '@atlaskit/css':
-						case '@compiled/react':
-							if (
-								specifier.imported.type === 'Identifier' &&
-								specifier.imported.name === 'cssMap'
-							) {
-								tracker.cssMapFunction.add(specifier.local.name);
-							}
-							break;
+					if (
+						(source === '@atlaskit/css' || source === '@compiled/react') &&
+						specifier.imported.type === 'Identifier' &&
+						specifier.imported.name === 'cssMap'
+					) {
+						tracker.cssMapFunction.add(specifier.local.name);
 					}
 				});
 			},

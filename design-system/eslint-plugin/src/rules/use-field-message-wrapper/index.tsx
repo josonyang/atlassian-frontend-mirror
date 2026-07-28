@@ -1,10 +1,8 @@
 import type { Rule } from 'eslint';
-import { type Identifier, isNodeOfType } from 'eslint-codemod-utils';
+import { isNodeOfType } from 'eslint-codemod-utils';
 
 import { createLintRule } from '../utils/create-lint-rule';
-
-const FORM_PACKAGE = '@atlaskit/form';
-const MESSAGE_COMPONENTS = ['ErrorMessage', 'HelperMessage', 'ValidMessage'];
+import { getFormImportLocalNames } from '../utils/get-form-import-local-names';
 
 const rule: Rule.RuleModule = createLintRule({
 	meta: {
@@ -21,44 +19,20 @@ const rule: Rule.RuleModule = createLintRule({
 		},
 	},
 	create(context) {
-		let fieldImport: Identifier;
-		let messageWrapperImport: Identifier;
-		let messageImports: Identifier[] = [];
+		let fieldImport: string;
+		let messageWrapperImport: string;
+		let messageImports: string[] = [];
 
 		return {
 			ImportDeclaration(node) {
-				const source = node.source.value;
-
-				// Ignore anomalies
-				if (typeof source !== 'string') {
-					return;
-				}
-
-				if (!node.specifiers.length) {
-					return;
-				}
-
-				// If it's not from our package, ignore.
-				if (source !== FORM_PACKAGE) {
-					return;
-				}
-
-				const namedImportSpecifiers = node.specifiers.filter((spec) =>
-					isNodeOfType(spec, 'ImportSpecifier'),
+				const formImports = getFormImportLocalNames(node);
+				fieldImport = formImports.Field?.[0] ?? fieldImport;
+				messageWrapperImport = formImports.MessageWrapper?.[0] ?? messageWrapperImport;
+				messageImports.push(
+					...(formImports.ErrorMessage ?? []),
+					...(formImports.HelperMessage ?? []),
+					...(formImports.ValidMessage ?? []),
 				);
-				namedImportSpecifiers.forEach((spec) => {
-					if (spec.type === 'ImportSpecifier' && 'name' in spec.imported) {
-						const name = spec.imported.name;
-						const local = spec.local;
-						if (MESSAGE_COMPONENTS.includes(name)) {
-							messageImports.push(local);
-						} else if (name === 'Field') {
-							fieldImport = local;
-						} else if (name === 'MessageWrapper') {
-							messageWrapperImport = local;
-						}
-					}
-				});
 			},
 			JSXElement(node: Rule.Node) {
 				if (!isNodeOfType(node, 'JSXElement')) {
@@ -71,7 +45,7 @@ const rule: Rule.RuleModule = createLintRule({
 				const name = node.openingElement.name.name;
 
 				// if it's not a message component, skip
-				if (messageImports.length === 0 || !messageImports.find((imp) => imp.name === name)) {
+				if (messageImports.length === 0 || !messageImports.includes(name)) {
 					return;
 				}
 
@@ -98,8 +72,8 @@ const rule: Rule.RuleModule = createLintRule({
 					!hasParentField
 				) {
 					const name = _node.openingElement.name.name;
-					hasParentField = hasParentField || name === fieldImport.name;
-					hasParentMessageWrapper = hasParentMessageWrapper || name === messageWrapperImport.name;
+					hasParentField = hasParentField || name === fieldImport;
+					hasParentMessageWrapper = hasParentMessageWrapper || name === messageWrapperImport;
 					_node = _node.parent;
 					// Skip up until a JSXElement is reached
 					if (

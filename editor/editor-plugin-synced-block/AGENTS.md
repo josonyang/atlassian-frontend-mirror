@@ -2,7 +2,7 @@
 
 > **For workflow guidance, debugging, and cross-package task guides, load the `synced-blocks`
 > skill:**
-> `get_skill(skill_name_or_path="platform/packages/editor/.rovodev/skills/synced-blocks/SKILL.md")`
+> `get_skill(skill_name_or_path="platform/packages/editor/.agents/skills/synced-blocks/SKILL.md")`
 
 ---
 
@@ -31,7 +31,8 @@ src/
 │                                 discardUnpublishedSyncBlocks (EDITOR-6473)
 ├── editor-commands/
 │   └── index.ts                # createSyncedBlock, copySyncedBlockReferenceToClipboardEditorCommand,
-│                                 removeSyncedBlockAtPos, unsyncSyncBlock
+│                                 copySyncedBlockReferenceToClipboard, editSyncedBlockSource,
+│                                 removeSyncedBlock, removeSyncedBlockAtPos, unsync
 ├── nodeviews/
 │   ├── syncedBlock.tsx         # NodeView for reference (syncBlock) — read-only, fetches from BE
 │   ├── lazySyncedBlock.tsx     # Lazy-loaded wrapper for syncedBlock (EDITOR-6928)
@@ -50,13 +51,18 @@ src/
 │       ├── rebase-transaction.ts                   # Rebase helpers used by main.ts
 │       ├── ignore-dom-event.ts                     # DOM event guard
 │       └── utils.ts                                # Misc shared helpers
-├── ui/
+├── ui/                          # (grep the dir for the full current list — it grows often)
 │   ├── toolbar-components.tsx    # Primary toolbar button ("Create Synced Block")
+│   ├── CreateSyncedBlockButton.tsx / CreateSyncedBlockDropdownItem.tsx # Toolbar/menu entry points
 │   ├── floating-toolbar.tsx      # Node-level actions: delete, unsync, copy link, view locations
 │   ├── block-menu-components.tsx # Block menu entry
 │   ├── quick-insert.tsx          # Slash command / quick insert config
+│   ├── SyncedLocationDropdown.tsx # "View synced locations" dropdown
 │   ├── DeleteConfirmationModal.tsx # Deletion confirmation dialog
 │   ├── SyncBlockRefresher.tsx    # Periodic data refresh from backend
+│   ├── SyncBlockLabel.tsx        # Source/reference label chrome
+│   ├── BodiedSyncBlockWrapper.tsx / SyncBlockRendererWrapper.tsx # Node-view wrappers
+│   ├── SyncBlockSSRReactContextsProvider.tsx # Supplies React contexts during SSR
 │   └── Flag.tsx                  # Error/info flags (offline, copy notifications)
 └── types/
     └── index.ts                # FLAG_ID, SyncedBlockSharedState, BodiedSyncBlockDeletionStatus
@@ -89,14 +95,18 @@ Behind the `editor_synced_block_perf` experiment, `main.ts`:
 
 1. User triggers via toolbar/block menu/slash command → `ui/toolbar-components.tsx` or
    `ui/block-menu-components.tsx`
-2. Calls `editor-commands/createSyncedBlock` → inserts `bodiedSyncBlock` node into document
-3. `pm-plugins/main.ts` detects new node → `handle-bodied-sync-block-creation.ts` → calls
-   `SyncBlockStoreManager.create()` → Block Service API
-4. `menu-and-toolbar-experiences.ts` fires experience event
+2. Calls `editor-commands/createSyncedBlock` → inserts `bodiedSyncBlock` node into document (marked
+   as **pending creation** — it is not persisted yet)
+3. `pm-plugins/main.ts` detects new node → `handle-bodied-sync-block-creation.ts` updates
+   `sourceManager` state. Persistence happens later when the product layer calls `flush()`
+   (via `flushBodiedSyncBlocks`), which creates the block in the Block Service and then reconciles
+   identifiers via `commitPendingCreation()`
+4. `menu-and-toolbar-experiences.ts` fires the experience event
 
 **Reference rendering** (flow through the code):
 
-1. `nodeviews/syncedBlock.tsx` mounts for each `syncBlock` node
-2. Calls `ReferenceSyncBlockStoreManager.fetch(resourceId)` → Block Service API
+1. `nodeviews/syncedBlock.tsx` (or `lazySyncedBlock.tsx`) mounts for each `syncBlock` node
+2. Calls `referenceManager.fetchSyncBlocksData(nodes)` → batched/deduped Block Service fetch
 3. Renders content via nested renderer from `editor-synced-block-renderer`
-4. Subscribes to AGG WebSocket for real-time updates
+4. Subscribes via `referenceManager.subscribeToSyncBlock(...)` — AGG WebSocket (Confluence) or Relay
+   (Jira) — for real-time updates

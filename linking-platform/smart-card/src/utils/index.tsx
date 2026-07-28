@@ -3,6 +3,7 @@ import React from 'react';
 import Loadable from 'react-loadable';
 
 import { fg } from '@atlaskit/platform-feature-flags';
+import { token } from '@atlaskit/tokens/get-token';
 import type { ActiveThemeState } from '@atlaskit/tokens/theme-config';
 import { themeObjectToString } from '@atlaskit/tokens/theme-state-transformer';
 
@@ -220,17 +221,18 @@ export const getLazyIcons = (): Partial<
 		// @atlaskit/logo/* (product logos)
 		[IconType.Confluence]: { default: () => import(/* webpackChunkName: "@atlaskit-internal_glyphConfluence" */ '@atlaskit/logo/confluence-icon').then(({ ConfluenceIcon }) => ({default: ConfluenceIcon}))},
 		[IconType.Jira]: { default: () => import(/* webpackChunkName: "@atlaskit-internal_glyphJira" */ '@atlaskit/logo/jira-icon').then(({ JiraIcon }) => ({default: JiraIcon}))},
+		
 		// Local priority icons (custom SVG components)
-		[IconType.PriorityBlocker]: { default: () =>  import(/* webpackChunkName: "@atlaskit-internal_glyphBlocker" */ '../common/ui/icons/priority-blocker-icon')},
-		[IconType.PriorityCritical]: { default: () =>  import(/* webpackChunkName: "@atlaskit-internal_glyphCritical" */ '../common/ui/icons/priority-critical-icon')},
-		[IconType.PriorityHigh]: { default: () =>  import(/* webpackChunkName: "@atlaskit-internal_glyphHigh" */ '../common/ui/icons/priority-high-icon')},
-		[IconType.PriorityHighest]: { default: () =>  import(/* webpackChunkName: "@atlaskit-internal_glyphHighest" */ '../common/ui/icons/priority-highest-icon')},
-		[IconType.PriorityLow]: { default: () =>  import(/* webpackChunkName: "@atlaskit-internal_glyphLow" */ '../common/ui/icons/priority-low-icon')},
-		[IconType.PriorityLowest]: { default: () =>  import(/* webpackChunkName: "@atlaskit-internal_glyphLowest" */ '../common/ui/icons/priority-lowest-icon')},
-		[IconType.PriorityMajor]: { default: () =>  import(/* webpackChunkName: "@atlaskit-internal_glyphMajor" */ '../common/ui/icons/priority-major-icon')},
-		[IconType.PriorityMedium]: { default: () =>  import(/* webpackChunkName: "@atlaskit-internal_glyphMedium" */ '../common/ui/icons/priority-medium-icon')},
-		[IconType.PriorityMinor]: { default: () =>  import(/* webpackChunkName: "@atlaskit-internal_glyphMinor" */ '../common/ui/icons/priority-minor-icon')},
-		[IconType.PriorityTrivial]: { default: () =>  import(/* webpackChunkName: "@atlaskit-internal_glyphTrivial" */ '../common/ui/icons/priority-trivial-icon')},
+		[IconType.PriorityBlocker]: { default: () => fg('platform_sl_priority_icon') ? import(/* webpackChunkName: "@atlaskit-internal_glyphPriorityBlocker" */ '@atlaskit/icon/core/priority-blocker').then((module) => ({ default: (props: any) => <module.default {...props} color={token('color.icon.accent.red')} /> })) : import(/* webpackChunkName: "@atlaskit-internal_glyphBlocker" */ '../common/ui/icons/priority-blocker-icon')},
+		[IconType.PriorityCritical]: { default: () => fg('platform_sl_priority_icon') ? import(/* webpackChunkName: "@atlaskit-internal_glyphPriorityCritical" */ '@atlaskit/icon/core/priority-critical').then((module) => ({ default: (props: any) => <module.default {...props} color={token('color.icon.accent.red')} /> })) : import(/* webpackChunkName: "@atlaskit-internal_glyphCritical" */ '../common/ui/icons/priority-critical-icon')},
+		[IconType.PriorityHigh]: { default: () => fg('platform_sl_priority_icon') ? import(/* webpackChunkName: "@atlaskit-internal_glyphPriorityHigh" */ '@atlaskit/icon/core/priority-high').then((module) => ({ default: (props: any) => <module.default {...props} color={token('color.icon.accent.red')} /> })) : import(/* webpackChunkName: "@atlaskit-internal_glyphHigh" */ '../common/ui/icons/priority-high-icon')},
+		[IconType.PriorityHighest]: { default: () => fg('platform_sl_priority_icon') ? import(/* webpackChunkName: "@atlaskit-internal_glyphPriorityHighest" */ '@atlaskit/icon/core/priority-highest').then((module) => ({ default: (props: any) => <module.default {...props} color={token('color.icon.accent.red')} /> })) : import(/* webpackChunkName: "@atlaskit-internal_glyphHighest" */ '../common/ui/icons/priority-highest-icon')},
+		[IconType.PriorityLow]: { default: () => fg('platform_sl_priority_icon') ? import(/* webpackChunkName: "@atlaskit-internal_glyphPriorityLow" */ '@atlaskit/icon/core/priority-low').then((module) => ({ default: (props: any) => <module.default {...props} color={token('color.icon.accent.blue')} /> })) : import(/* webpackChunkName: "@atlaskit-internal_glyphLow" */ '../common/ui/icons/priority-low-icon')},
+		[IconType.PriorityLowest]: { default: () => fg('platform_sl_priority_icon') ? import(/* webpackChunkName: "@atlaskit-internal_glyphPriorityLowest" */ '@atlaskit/icon/core/priority-lowest').then((module) => ({ default: (props: any) => <module.default {...props} color={token('color.icon.accent.blue')} /> })) : import(/* webpackChunkName: "@atlaskit-internal_glyphLowest" */ '../common/ui/icons/priority-lowest-icon')},
+		[IconType.PriorityMajor]: { default: () => fg('platform_sl_priority_icon') ? import(/* webpackChunkName: "@atlaskit-internal_glyphPriorityMajor" */ '@atlaskit/icon/core/priority-major').then((module) => ({ default: (props: any) => <module.default {...props} color={token('color.icon.accent.red')} /> })) : import(/* webpackChunkName: "@atlaskit-internal_glyphMajor" */ '../common/ui/icons/priority-major-icon')},
+		[IconType.PriorityMedium]: { default: () => fg('platform_sl_priority_icon') ? import(/* webpackChunkName: "@atlaskit-internal_glyphPriorityMedium" */ '@atlaskit/icon/core/priority-medium').then((module) => ({ default: (props: any) => <module.default {...props} color={token('color.icon.accent.orange')} /> })) : import(/* webpackChunkName: "@atlaskit-internal_glyphMedium" */ '../common/ui/icons/priority-medium-icon')},
+		[IconType.PriorityMinor]: { default: () => fg('platform_sl_priority_icon') ? import(/* webpackChunkName: "@atlaskit-internal_glyphPriorityMinor" */ '@atlaskit/icon/core/priority-minor').then((module) => ({ default: (props: any) => <module.default {...props} color={token('color.icon.accent.blue')} /> })) : import(/* webpackChunkName: "@atlaskit-internal_glyphMinor" */ '../common/ui/icons/priority-minor-icon')},
+		[IconType.PriorityTrivial]: { default: () => fg('platform_sl_priority_icon') ? import(/* webpackChunkName: "@atlaskit-internal_glyphPriorityTrivial" */ '@atlaskit/icon/core/priority-trivial').then((module) => ({ default: (props: any) => <module.default {...props} color={token('color.icon.accent.gray')} /> })) : import(/* webpackChunkName: "@atlaskit-internal_glyphTrivial" */ '../common/ui/icons/priority-trivial-icon')},
 	};
 };
 

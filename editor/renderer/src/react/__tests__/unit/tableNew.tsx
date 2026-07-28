@@ -262,6 +262,123 @@ describe('Tables inside nested renderers (e.g. Include Page macro)', () => {
 		expect(tableContainer.style.getPropertyPriority('width')).not.toBe('important');
 		expect(tableContainer.style.getPropertyPriority('max-width')).not.toBe('important');
 	});
+
+	describe('with platform_nested_table_style_override_2', () => {
+		// A NON-resized table in a nested renderer takes a default layout cap
+		// (760px/1800px in `default`, or a `cqw` length in full-page/full-width)
+		// from the outer renderer's width context, which does not match the macro
+		// box. The gate-2 fix promotes width:100% for these. Explicitly resized
+		// tables (with attrs.width) are excluded and keep their author-chosen width
+		// (PGXT-10226).
+		const tableNodeWithoutWidth = prosemirrorTableNode as any;
+
+		const NestedRendererTableNoWidth = () => (
+			<div className="ak-renderer-document">
+				<div className="extension-wrapper">
+					<div className="ak-renderer-document">
+						<TableContainer
+							tableNode={tableNodeWithoutWidth}
+							rendererAppearance="full-width"
+							renderWidth={640}
+							{...requiredProps}
+						>
+							<tr>
+								<td>1</td>
+							</tr>
+						</TableContainer>
+					</div>
+				</div>
+			</div>
+		);
+
+		// Reproduces the actual PGXT-10421 case: an Excerpt macro renders its body
+		// in a nested renderer with a `default` appearance, so the table computes a
+		// fixed pixel width (e.g. 1800px), NOT a cqw length. The fix must still
+		// normalise this to 100%.
+		const NestedRendererTableDefaultAppearance = () => (
+			<div className="ak-renderer-document">
+				<div className="extension-wrapper">
+					<div className="ak-renderer-document">
+						<TableContainer
+							tableNode={tableNodeWithoutWidth}
+							rendererAppearance={'default' as any}
+							renderWidth={640}
+							{...requiredProps}
+						>
+							<tr>
+								<td>1</td>
+							</tr>
+						</TableContainer>
+					</div>
+				</div>
+			</div>
+		);
+
+		it('promotes width:100% for a table in a nested renderer (no width attr)', () => {
+			passGate('platform_nested_table_style_override');
+			passGate('platform_nested_table_style_override_2');
+
+			render(<NestedRendererTableNoWidth />);
+			const tableContainer = screen.getByTestId('table-container');
+			expect(tableContainer.style.getPropertyValue('width')).toBe('100%');
+			expect(tableContainer.style.getPropertyPriority('width')).toBe('important');
+			expect(tableContainer.style.getPropertyValue('left')).toBe('0px');
+			expect(tableContainer.style.getPropertyPriority('left')).toBe('important');
+			expect(tableContainer.style.getPropertyValue('max-width')).toBe('100%');
+			expect(tableContainer.style.getPropertyPriority('max-width')).toBe('important');
+		});
+
+		it('promotes width:100% for a fixed-pixel width in a default-appearance nested renderer (PGXT-10421 repro)', () => {
+			passGate('platform_nested_table_style_override');
+			passGate('platform_nested_table_style_override_2');
+
+			render(<NestedRendererTableDefaultAppearance />);
+			const tableContainer = screen.getByTestId('table-container');
+			// Without the fix this container would carry a fixed px width (e.g.
+			// 1800px) that ignores the macro box; the fix normalises it to 100%.
+			expect(tableContainer.style.getPropertyValue('width')).toBe('100%');
+			expect(tableContainer.style.getPropertyPriority('width')).toBe('important');
+		});
+
+		it('preserves an explicitly resized table width (does NOT force 100%) so PGXT-10226 is not regressed', () => {
+			passGate('platform_nested_table_style_override');
+			// Note: platform_nested_table_style_override_2 is intentionally NOT forced.
+			// For an explicitly resized table the gate-2 condition short-circuits on
+			// `!isExplicitlyResized` before the gate is read, so it is never called on
+			// this path (forcing it would fail the "unused forced gate" harness check).
+			// The resized width must be promoted verbatim regardless of gate-2.
+
+			// tableNodeWithWidth has attrs.width set (author-resized). The resized
+			// width/position must be promoted verbatim, not overwritten with 100%.
+			render(<NestedRendererTable />);
+			const tableContainer = screen.getByTestId('table-container');
+			expect(tableContainer.style.getPropertyValue('width')).not.toBe('100%');
+			expect(tableContainer.style.getPropertyPriority('width')).toBe('important');
+		});
+
+		it('when gate-2 is OFF, a non-resized table keeps the gate-1 computed width (not 100%)', () => {
+			passGate('platform_nested_table_style_override');
+			failGate('platform_nested_table_style_override_2');
+
+			// Non-resized table so the gate-2 condition is evaluated (and here OFF),
+			// falling through to the gate-1 behaviour of promoting the computed width.
+			render(<NestedRendererTableNoWidth />);
+			const tableContainer = screen.getByTestId('table-container');
+			expect(tableContainer.style.getPropertyValue('width')).not.toBe('100%');
+			expect(tableContainer.style.getPropertyPriority('width')).toBe('important');
+		});
+
+		it('still does not apply !important inside a table cell context (PGXT-10294)', () => {
+			passGate('platform_nested_table_style_override');
+			// Note: platform_nested_table_style_override_2 is intentionally not forced
+			// here. The table-cell context short-circuits in applyNestedRendererTableFix
+			// before the gate-2 branch is reached, so the gate is never read on this path.
+
+			render(<NestedRendererTableInsideTableCell />);
+			const tableContainer = screen.getByTestId('table-container');
+			expect(tableContainer.style.getPropertyPriority('width')).not.toBe('important');
+		});
+	});
 });
 
 describe('Table isPresentational prop', () => {

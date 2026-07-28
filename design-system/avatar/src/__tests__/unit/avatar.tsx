@@ -10,6 +10,7 @@ import {
 } from '@atlaskit/analytics-next';
 import __noop from '@atlaskit/ds-lib/noop';
 import { ffTest } from '@atlassian/feature-flags-test-utils';
+import { failGate } from '@atlassian/feature-flags-test-utils/mock-gates';
 import { render, screen, userEvent } from '@atlassian/testing-library';
 
 import Avatar, { AvatarContent, AvatarContext, type SizeType } from '../../index';
@@ -586,6 +587,29 @@ describe('Avatar', () => {
 			render(<Avatar testId={testId} size="UNSAFE_xsmall" status="approved" />);
 
 			expect(screen.getByTestId(`${testId}--status`)).toBeInTheDocument();
+		});
+	});
+
+	describe('xxsmall size', () => {
+		it('should render the avatar at 16px', () => {
+			const size: SizeType = 'xxsmall';
+			render(<Avatar name="xxsmall" size={size} testId={size} />);
+
+			const inner = screen.getByTestId(`${size}--inner`);
+			expect(inner).toBeInTheDocument();
+			expect(inner).toHaveCompiledCss({ height: '1pc' });
+			expect(inner).toHaveCompiledCss({ width: '1pc' });
+		});
+
+		it('should keep legacy xsmall rendering at 16px until the major behavior ships', () => {
+			failGate('platform_design-system-team_avatar-remove-xsmall');
+
+			render(<Avatar name="legacy xsmall" size="xsmall" testId="legacy-xsmall" />);
+
+			const inner = screen.getByTestId('legacy-xsmall--inner');
+			expect(inner).toBeInTheDocument();
+			expect(inner).toHaveCompiledCss({ height: '1pc' });
+			expect(inner).toHaveCompiledCss({ width: '1pc' });
 		});
 	});
 

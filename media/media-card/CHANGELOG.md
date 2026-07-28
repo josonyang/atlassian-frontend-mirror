@@ -1,5 +1,14 @@
 # @atlaskit/media-card
 
+## 81.4.16
+
+### Patch Changes
+
+- [`e3550afc43327`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/e3550afc43327) -
+  [ux] EDITOR-7679 bug fix for media name fallback falling back to "download" when the media name
+  was not being passed
+- Updated dependencies
+
 ## 81.4.15
 
 ### Patch Changes

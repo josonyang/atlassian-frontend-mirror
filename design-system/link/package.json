@@ -32,7 +32,7 @@
 	"atlaskit:src": "src/index.tsx",
 	"exports": {
 		".": "./src/index.tsx",
-		"./link": "./src/entry-points/link.tsx"
+		"./link": "./src/components/link/index.tsx"
 	},
 	"dependencies": {
 		"@atlaskit/css": "workspace:^",

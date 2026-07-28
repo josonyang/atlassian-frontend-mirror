@@ -50,6 +50,32 @@ ruleTester.run('use-simple-form', rule, {
 	invalid: [
 		{
 			code: linesOnly`
+				// Form from debarrelled entrypoint
+				import Form from '@atlaskit/form/form';
+				<Form>
+					{({ formProps }) => <form {...formProps}><p>inside</p></form>}
+				</Form>
+			`,
+			errors: [
+				{
+					messageId: 'useSimpleForm',
+					suggestions: [
+						{
+							desc: convertForm,
+							output: linesOnly`
+								// Form from debarrelled entrypoint
+								import Form from '@atlaskit/form/form';
+								<Form>
+
+								<><p>inside</p></></Form>
+							`,
+						},
+					],
+				},
+			],
+		},
+		{
+			code: linesOnly`
 				// Form
 				import Form from '@atlaskit/form';
 				<Form>

@@ -8,7 +8,7 @@ import { isSSRStreaming } from '../core-utils/is-ssr-streaming';
 import type { PortalManager } from './PortalManager';
 import { PortalRenderWrapperInner } from './PortalRenderWrapperInner';
 type RenderFn = (
-	children: () => React.ReactChild | JSX.Element | null,
+	children: () => React.ReactElement | number | string | JSX.Element | null,
 	container: HTMLElement,
 	key: string,
 	onBeforeReactDomRender?: () => void,

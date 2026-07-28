@@ -34,6 +34,7 @@ export const testMultivariateOverrides: EditorExperimentOverridesMultivariate = 
 	cc_smarts_should_improve_writing_migration: 'control',
 	confluence_quick_insert_embeds: 'control',
 	cc_cwr_prompt_strength_indicator: 'control',
+	confluence_cwr_3p_connection_suggested_prompts: 'control',
 };
 
 export const testBooleanOverrides: EditorExperimentOverridesBoolean = {

@@ -1,5 +1,16 @@
 # @atlaskit/editor-plugin-caption
 
+## 12.0.2
+
+### Patch Changes
+
+- [`9291603af8830`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/9291603af8830) -
+  Upgrade types to be compatible with React 19.
+
+  This was done with the official React codemod: https://github.com/eps1lon/types-react-codemod/
+
+- Updated dependencies
+
 ## 12.0.1
 
 ### Patch Changes

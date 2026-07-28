@@ -45,6 +45,7 @@ const styles = cssMap({
 });
 
 const borderRadiusMap = cssMap({
+	xxsmall: { borderRadius: token('radius.xsmall') },
 	xsmall: { borderRadius: token('radius.xsmall') },
 	UNSAFE_xsmall: { borderRadius: token('radius.xsmall') },
 	small: { borderRadius: token('radius.xsmall') },
@@ -55,6 +56,10 @@ const borderRadiusMap = cssMap({
 });
 
 const nestedSvgStylesMap = cssMap({
+	xxsmall: {
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
+		'& svg': { width: '16px', height: '16px' },
+	},
 	xsmall: {
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
 		'& svg': { width: '16px', height: '16px' },

@@ -5,6 +5,7 @@ import { setupEditorExperiments } from '@atlaskit/tmp-editor-statsig/setup';
 import type { EmojiProvider } from '../../../../api/EmojiResource';
 import ResourcedEmoji from '../../../../components/common/ResourcedEmoji';
 import EmojiPicker from '../../../../components/picker/EmojiPicker';
+import { virtualListScrollContainerTestId } from '../../../../components/picker/VirtualList';
 import EmojiTypeAhead from '../../../../components/typeahead/EmojiTypeAhead';
 import {
 	getEmojiResourcePromiseFromRepository,
@@ -48,9 +49,9 @@ describe('Media Emoji Handling across components', () => {
 		it('Media emoji rendered in picker', async () => {
 			const { container } = renderWithIntl(<EmojiPicker emojiProvider={emojiProvider} />);
 			// Wait until loaded
-			await screen.findByRole('grid', { name: 'Emojis' });
+			await screen.findByTestId(virtualListScrollContainerTestId);
 
-			const list = screen.getByRole('grid', { name: 'Emojis' });
+			const list = screen.getByTestId(virtualListScrollContainerTestId);
 			const emojis = await emojisVisible(list);
 			expect(emojis).toHaveLength(1);
 
@@ -64,7 +65,7 @@ describe('Media Emoji Handling across components', () => {
 		it('Media emoji rendered in picker preview', async () => {
 			const { container } = await setupPicker({ emojiProvider });
 
-			const list = screen.getByRole('grid', { name: 'Emojis' });
+			const list = screen.getByTestId(virtualListScrollContainerTestId);
 			const emojis = await emojisVisible(list);
 			expect(emojis).toHaveLength(1);
 

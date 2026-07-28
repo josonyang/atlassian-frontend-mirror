@@ -1,5 +1,36 @@
 # @atlaskit/ads-cli
 
+## 0.4.2
+
+### Patch Changes
+
+- [`3f494bce2de11`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/3f494bce2de11) -
+  Fix the Atlas CLI release pipeline to publish ADS plugin artifacts to the ADS Statlas namespace
+  with installable object paths.
+
+## 0.4.1
+
+### Patch Changes
+
+- [`5faf9a7e8dabc`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/5faf9a7e8dabc) -
+  Skip fetching remote release history when the initial Statlas release explicitly uses the
+  checked-in seed manifest.
+
+## 0.4.0
+
+### Minor Changes
+
+- [`ccba0c0605171`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/ccba0c0605171) -
+  Add an Atlas CLI distribution (internal to Atlassian) with bundle-safe ADS MCP loading and Statlas
+  release packaging.
+
+  After the plugin is published, internal staff can run the ADS CLI with `atlas ads` instead of
+  `npx @atlaskit/ads-cli`. For example:
+
+  ```sh
+  atlas ads search avatar
+  ```
+
 ## 0.3.0
 
 ### Minor Changes

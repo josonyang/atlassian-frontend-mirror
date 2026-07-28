@@ -59,8 +59,10 @@ type CarouselProps = {
 	initialSlideIndex?: number;
 	/** Ordered list of teaser slides */
 	items: CarouselItem[];
+	/** Called when the user clicks the "See next" navigation button */
+	onNextClick?: (slideId: string) => void;
 	/** Called when the user clicks the primary button */
-	onPrimaryButtonClick?: () => void;
+	onPrimaryButtonClick?: (slideId: string) => void;
 	/** Text for the auth button, e.g. "Connect to Figma" */
 	primaryButtonLabel: string;
 	/** testId prefix */
@@ -87,6 +89,7 @@ const Carousel = ({
 	iconLabel,
 	initialSlideIndex = 0,
 	items,
+	onNextClick,
 	onPrimaryButtonClick,
 	primaryButtonLabel,
 	testId = 'embed-card-teaser-carousel',
@@ -116,8 +119,9 @@ const Carousel = ({
 
 	const goNext = useCallback(() => {
 		hasNavigated.current = true;
+		onNextClick?.(items[activeIndex].id);
 		setActiveIndex((current) => (current + 1) % items.length);
-	}, [items.length]);
+	}, [items, activeIndex, onNextClick]);
 
 	const goPrev = useCallback(() => {
 		hasNavigated.current = true;
@@ -134,6 +138,10 @@ const Carousel = ({
 		},
 		[activeIndex],
 	);
+
+	const handlePrimaryButtonClick = useCallback(() => {
+		onPrimaryButtonClick?.(items[activeIndex].id);
+	}, [onPrimaryButtonClick, items, activeIndex]);
 
 	const currentSlide = items[activeIndex];
 	const isFirstSlide = activeIndex === 0;
@@ -153,7 +161,7 @@ const Carousel = ({
 					iconLabel={iconLabel}
 					image={currentSlide.image}
 					title={currentSlide.title}
-					onPrimaryButtonClick={onPrimaryButtonClick}
+					onPrimaryButtonClick={onPrimaryButtonClick ? handlePrimaryButtonClick : undefined}
 					onBackClick={!isFirstSlide ? goPrev : undefined}
 					onDotClick={goTo}
 					onNextClick={!isLastSlide ? goNext : undefined}

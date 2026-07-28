@@ -13,11 +13,5 @@
   ],
   "compilerOptions": {
     "lib": ["ES2021.String"]
-  },
-  "ts-node": {
-    // It is faster to skip typechecking.
-    "transpileOnly": true,
-    // We must load files for third party defs - https://typestrong.org/ts-node/docs/types
-    "files": true,
   }
 }

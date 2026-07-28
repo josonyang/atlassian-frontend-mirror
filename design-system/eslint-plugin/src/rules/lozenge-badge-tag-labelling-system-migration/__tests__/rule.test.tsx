@@ -208,6 +208,20 @@ tester.run('lozenge-badge-tag-labelling-system-migration', rule, {
 				<Tag appearance="rounded" color="greyLight" text="Test" />
 			`,
 		},
+		{
+			name: 'New badge entrypoint should not be treated as old Badge',
+			code: `
+				import Badge from '@atlaskit/badge/new';
+				<Badge appearance="added">{5}</Badge>
+			`,
+		},
+		{
+			name: 'New lozenge entrypoint should not be treated as old Lozenge',
+			code: `
+				import Lozenge from '@atlaskit/lozenge/new';
+				<Lozenge appearance="default">Default</Lozenge>
+			`,
+		},
 	],
 	invalid: [
 		// Lozenge appearance value migration: legacy values → new semantic values
@@ -314,6 +328,22 @@ tester.run('lozenge-badge-tag-labelling-system-migration', rule, {
 			output: `
 				import { Lozenge } from '@atlaskit/lozenge';
 				<Lozenge appearance="discovery">Test</Lozenge>
+			`,
+			errors: [
+				{
+					messageId: 'updateAppearance',
+				},
+			],
+		},
+		{
+			name: 'Lozenge subpath import with legacy appearance maps correctly',
+			code: `
+				import Lozenge from '@atlaskit/lozenge/lozenge';
+				<Lozenge appearance="default">Default</Lozenge>
+			`,
+			output: `
+				import Lozenge from '@atlaskit/lozenge/lozenge';
+				<Lozenge appearance="neutral">Default</Lozenge>
 			`,
 			errors: [
 				{
@@ -471,6 +501,22 @@ tester.run('lozenge-badge-tag-labelling-system-migration', rule, {
 			output: `
 				import { default as MyBadge } from '@atlaskit/badge';
 				<MyBadge appearance="success">{5}</MyBadge>
+			`,
+			errors: [
+				{
+					messageId: 'updateBadgeAppearance',
+				},
+			],
+		},
+		{
+			name: 'Badge subpath import migrates correctly',
+			code: `
+				import Badge from '@atlaskit/badge/badge';
+				<Badge appearance="added">{5}</Badge>
+			`,
+			output: `
+				import Badge from '@atlaskit/badge/badge';
+				<Badge appearance="success">{5}</Badge>
 			`,
 			errors: [
 				{
@@ -650,6 +696,24 @@ tester.run('lozenge-badge-tag-labelling-system-migration', rule, {
 				import { AvatarTag } from '@atlaskit/tag';
 				import Avatar from '@atlaskit/avatar';
 				<AvatarTag avatar={(props) => <Avatar {...props} />}>Hello</AvatarTag>
+			`,
+			errors: [
+				{
+					messageId: 'migrateTag',
+				},
+			],
+		},
+		{
+			name: 'SimpleTag with aliased avatar subpath import migrates to AvatarTag',
+			code: `
+				import SimpleTag from '@atlaskit/tag/simple-tag';
+				import PersonAvatar from '@atlaskit/avatar/avatar';
+				<SimpleTag elemBefore={<PersonAvatar src="x" />}>Hello</SimpleTag>
+			`,
+			output: `
+				import { AvatarTag } from '@atlaskit/tag';
+				import PersonAvatar from '@atlaskit/avatar/avatar';
+				<AvatarTag avatar={(props) => <PersonAvatar {...props} src="x" />}>Hello</AvatarTag>
 			`,
 			errors: [
 				{

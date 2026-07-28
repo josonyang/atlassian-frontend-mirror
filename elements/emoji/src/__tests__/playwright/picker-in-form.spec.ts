@@ -1,4 +1,5 @@
 import { expect, test } from '@af/integration-testing';
+import type { Page } from '@playwright/test';
 
 // Url to test the example
 // Css selectors used for the submit form test
@@ -10,6 +11,10 @@ const formSubmittedMsg = 'You have successfully submitted!';
 const formNotSubmittedMsg = 'You have not submitted yet';
 const titleInputTestId = 'input-title';
 const selectedEmojiTestId = 'selected-emoji';
+const virtualListScrollContainerTestId = 'virtual-list-scroll-container';
+
+const getEmojiButtons = async (page: Page) =>
+	await page.getByTestId(virtualListScrollContainerTestId).getByRole('button').all();
 
 test.describe('EmojiPicker In Form', () => {
 	test('Pressing Enter on input inside emoji picker should NOT trigger form submit, but Enter on form input should trigger form submit', async ({
@@ -23,12 +28,12 @@ test.describe('EmojiPicker In Form', () => {
 		await page.waitForSelector(submitForm);
 		await page.type(submitFormTextfield, 'smile', { delay: 200 });
 		page.getByText('Search results');
-		const emojis = await page.getByRole('gridcell').all();
+		const emojis = await getEmojiButtons(page);
 		expect(emojis.length).toBe(7);
 		await page.keyboard.press('Enter');
 		await expect(page.getByTestId(formMessageTestId)).toHaveText(formNotSubmittedMsg);
 		// select emoji
-		await emojis[0].getByRole('button').focus();
+		await emojis[0].focus();
 		await page.keyboard.press('Enter');
 		page.getByTestId(selectedEmojiTestId).getByLabel(':smile:');
 		// fill in title
@@ -52,12 +57,12 @@ test.describe('EmojiPicker In Form', () => {
 		await page.waitForSelector(submitForm);
 		await page.type(submitFormTextfield, 'smile', { delay: 200 });
 		page.getByText('Search results');
-		const emojis = await page.getByRole('gridcell').all();
+		const emojis = await getEmojiButtons(page);
 		expect(emojis.length).toBe(7);
 		await page.keyboard.press('Control+Enter');
 		await expect(page.getByTestId(formMessageTestId)).toHaveText(formNotSubmittedMsg);
 		// select emoji
-		await emojis[0].getByRole('button').focus();
+		await emojis[0].focus();
 		await page.keyboard.press('Control+Enter');
 		page.getByTestId(selectedEmojiTestId).getByLabel(':smile:');
 		// fill in title
@@ -87,12 +92,12 @@ test.describe('EmojiPicker In Form', () => {
 
 		await page.type(submitFormTextfield, 'smile', { delay: 200 });
 		page.getByText('Search results');
-		const emojis = await page.getByRole('gridcell').all();
+		const emojis = await getEmojiButtons(page);
 		expect(emojis.length).toBe(7);
 		await page.keyboard.press('Enter');
 		await expect(page.getByTestId(formMessageTestId)).toHaveText(formNotSubmittedMsg);
 		// select emoji
-		await emojis[0].getByRole('button').focus();
+		await emojis[0].focus();
 		await page.keyboard.press('Enter');
 		page.getByTestId(selectedEmojiTestId).getByLabel(':smile:');
 		// fill in title
@@ -122,12 +127,12 @@ test.describe('EmojiPicker In Form', () => {
 
 		await page.type(submitFormTextfield, 'smile', { delay: 200 });
 		page.getByText('Search results');
-		const emojis = await page.getByRole('gridcell').all();
+		const emojis = await getEmojiButtons(page);
 		expect(emojis.length).toBe(7);
 		await page.keyboard.press('Control+Enter');
 		await expect(page.getByTestId(formMessageTestId)).toHaveText(formNotSubmittedMsg);
 		// select emoji
-		await emojis[0].getByRole('button').focus();
+		await emojis[0].focus();
 		await page.keyboard.press('Control+Enter');
 		page.getByTestId(selectedEmojiTestId).getByLabel(':smile:');
 		// fill in title

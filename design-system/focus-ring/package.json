@@ -42,9 +42,9 @@
 	"atlaskit:src": "src/index.tsx",
 	"exports": {
 		".": "./src/index.tsx",
-		"./focus-ring": "./src/entry-points/focus-ring.tsx",
-		"./use-focus-ring": "./src/entry-points/use-focus-ring.tsx",
-		"./types": "./src/entry-points/types.tsx"
+		"./focus-ring": "./src/focus-ring.tsx",
+		"./use-focus-ring": "./src/use-focus-ring.tsx",
+		"./types": "./src/types.tsx"
 	},
 	"dependencies": {
 		"@atlaskit/react-compiler-gating": "workspace:^",

@@ -22,7 +22,7 @@ let entrypoint = path.join(__dirname, 'dist', 'cjs', 'cli');
 if (isDev) {
 	// `@atlassian/ts-loader` registers `tsx` require hooks so the TypeScript source
 	// (including `.tsx` files and cross-package imports) can be `require`d directly
-	// without a pre-build step. Unlike `ts-node`, it supports TS Project References.
+	// without a pre-build step.
 	// eslint-disable-next-line import/no-extraneous-dependencies
 	require('@atlassian/ts-loader');
 	entrypoint = path.join(__dirname, 'src', 'cli');

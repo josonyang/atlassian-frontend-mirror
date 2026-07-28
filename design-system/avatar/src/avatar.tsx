@@ -15,6 +15,7 @@ import {
 import { type UIAnalyticsEvent, useAnalyticsEvents } from '@atlaskit/analytics-next';
 import { css, jsx } from '@atlaskit/css';
 import { useId } from '@atlaskit/ds-lib/use-id';
+import { fg } from '@atlaskit/platform-feature-flags';
 
 import { AvatarContent } from './avatar-content';
 import AvatarImage from './internal/avatar-image';
@@ -41,6 +42,9 @@ const containerStyles = css({
 	position: 'relative',
 	outline: 0,
 });
+
+const normalizeAvatarSize = (size: SizeType): SizeType =>
+	size === 'xsmall' && !fg('platform_design-system-team_avatar-remove-xsmall') ? 'xxsmall' : size;
 
 // eslint-disable-next-line @repo/internal/react/consistent-types-definitions
 export interface AvatarPropTypes {
@@ -86,8 +90,10 @@ export interface AvatarPropTypes {
 	/**
 	 * Defines the size of the avatar. Default value is `medium`.
 	 *
-	 * Available sizes (in pixels): `xsmall` (16), `small` (24), `medium` (32),
+	 * Available sizes (in pixels): `xxsmall` (16), `small` (24), `medium` (32),
 	 * `large` (40), `xlarge` (96), `xxlarge` (128).
+	 *
+	 * The `xsmall` size is deprecated. Use `xxsmall` for 16px avatars.
 	 *
 	 * The `UNSAFE_xsmall` (20px) size is an unsafe, transitional value and is
 	 * intentionally not documented for general use — see `SizeType`.
@@ -200,17 +206,17 @@ const Avatar: React.ForwardRefExoticComponent<
 	) => {
 		const { createAnalyticsEvent } = useAnalyticsEvents();
 		const context = useAvatarContext();
-		const size = sizeProp || context?.size || 'medium';
+		const size = normalizeAvatarSize(sizeProp || context?.size || 'medium');
 		const customPresenceNode = isValidElement(presence) ? presence : null;
 		const customStatusNode = isValidElement(status) ? status : null;
-		const isValidIconSize = size !== 'xxlarge' && size !== 'xsmall';
+		const isValidIconSize = size !== 'xxlarge' && size !== 'xxsmall' && size !== 'xsmall';
 		// Presence/status indicators are only defined for `IndicatorSizeType`
 		// (small, medium, large, xlarge). Compute `indicatorSize` only for sizes
 		// that support an indicator (`isValidIconSize`), so the value is
 		// structurally guaranteed to be a valid `IndicatorSizeType` rather than
 		// relying on the guard at each call site. The `UNSAFE_xsmall` (20px) size
 		// reuses the `small` indicator sizing as its nearest supported neighbor;
-		// unsupported sizes (`xsmall`/`xxlarge`) fall back to `small` and are never
+		// unsupported sizes (`xxsmall`/`xsmall`/`xxlarge`) fall back to `small` and are never
 		// actually rendered because `isPresence`/`isStatus` also guard on
 		// `isValidIconSize`.
 		const indicatorSize: IndicatorSizeType = !isValidIconSize

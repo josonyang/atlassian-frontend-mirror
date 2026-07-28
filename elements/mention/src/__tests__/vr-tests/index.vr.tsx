@@ -25,5 +25,7 @@ snapshot(SimpleMention);
 snapshot(MentionItemWithAgent, {
 	featureFlags: {
 		jira_ai_agent_avatar_issue_view_comment_mentions: [true],
+		platform_editor_agent_mentions: true,
+		platform_editor_agent_mentions_drop_one_fixes: true,
 	},
 });

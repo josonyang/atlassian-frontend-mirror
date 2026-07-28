@@ -18,6 +18,7 @@ import { fg } from '@atlaskit/platform-feature-flags';
 import { JQLEditorSchema } from '../../../schema';
 import { type HydratedValuesMap } from '../../../state/types';
 import { type HydratedValue } from '../../../ui/jql-editor/types';
+import { constructFieldWithPropertyFG } from '../../../utils/construct-field-with-property';
 import getDocumentPosition from '../../common/get-document-position';
 import { getJastFromState } from '../../jql-ast';
 import { RICH_INLINE_NODE } from '../constants';
@@ -202,7 +203,7 @@ class FindValuesVisitor extends BaseAstNodeFinder<ValueOperand> {
 	}
 
 	visitTerminalClause = (terminalClause: TerminalClause): ValueOperand[] => {
-		if (!this.equalsIgnoreCase(terminalClause.field.value, this.field)) {
+		if (!this.equalsIgnoreCase(constructFieldWithPropertyFG(terminalClause.field), this.field)) {
 			return [];
 		}
 		if (terminalClause.operand === undefined) {
@@ -234,7 +235,9 @@ class FindFunctionArgumentsVisitor extends BaseAstNodeFinder<Argument> {
 	}
 
 	visitTerminalClause = (terminalClause: TerminalClause): Argument[] => {
-		if (!this.equalsIgnoreCase(terminalClause.field.value, this.fieldName)) {
+		if (
+			!this.equalsIgnoreCase(constructFieldWithPropertyFG(terminalClause.field), this.fieldName)
+		) {
 			return [];
 		}
 		if (terminalClause.operand === undefined) {

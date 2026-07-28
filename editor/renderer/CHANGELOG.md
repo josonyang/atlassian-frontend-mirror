@@ -1,5 +1,63 @@
 # @atlaskit/renderer
 
+## 133.17.1
+
+### Patch Changes
+
+- [`dbd6aad00148d`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/dbd6aad00148d) -
+  Animate collapsible heading toggle icons
+- Updated dependencies
+
+## 133.17.0
+
+### Minor Changes
+
+- [`7d37c14edffa7`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/7d37c14edffa7) -
+  Update i18n NPM package versions for editor,editor-extensions,activity-platform,media,elements
+  (Group 3)
+
+### Patch Changes
+
+- Updated dependencies
+
+## 133.16.7
+
+### Patch Changes
+
+- [`9291603af8830`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/9291603af8830) -
+  Upgrade types to be compatible with React 19.
+
+  This was done with the official React codemod: https://github.com/eps1lon/types-react-codemod/
+
+- Updated dependencies
+
+## 133.16.6
+
+### Patch Changes
+
+- [`b91c14d4dbad7`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/b91c14d4dbad7) -
+  Editor; Ensure only the first table row can become a sticky header when the rounded table patch is
+  enabled
+
+  Renderer; Patch table body elements to have rounded corners when overridden by consumers
+
+- Updated dependencies
+
+## 133.16.5
+
+### Patch Changes
+
+- [`2e067bdb34b2d`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/2e067bdb34b2d) -
+  Fix a non-resized table inside an Excerpt macro shrinking to only its first columns when rendered
+  on a wide or full-width page. Inside a nested renderer (a macro body) a non-resized table's width
+  is a default layout cap (e.g. 760px/1800px, or a container-query length) taken from the outer
+  renderer's width context, which does not match the macro's own box. Promoting that value to inline
+  `!important` made the table ignore the available space and collapse. Under
+  `platform_nested_table_style_override_2` the renderer now re-asserts the parent stylesheet's
+  intent (`width: 100%`) for these non-resized tables. Explicitly resized tables (with a saved
+  width) are excluded and keep their author-chosen width, preserving the PGXT-10226 Include Page
+  fix; tables nested inside table cells (PGXT-10294) also remain untouched.
+
 ## 133.16.4
 
 ### Patch Changes

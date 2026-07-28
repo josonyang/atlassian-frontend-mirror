@@ -52,8 +52,7 @@
 		"@atlassian/structured-docs-types": "workspace:^",
 		"@testing-library/react": "root:*",
 		"react": "root:*",
-		"react-dom": "root:*",
-		"ts-node": "root:*"
+		"react-dom": "root:*"
 	},
 	"techstack": {
 		"@atlassian/frontend": {
@@ -78,8 +77,10 @@
 	},
 	"exports": {
 		".": "./src/index.tsx",
-		"./heading": "./src/entry-points/heading.tsx",
-		"./heading-context": "./src/entry-points/heading-context.tsx"
+		"./heading": "./src/heading.tsx",
+		"./heading-context": "./src/entry-points/heading-context.tsx",
+		"./src/heading-context": "./src/heading-context.tsx",
+		"./use-heading": "./src/use-heading.tsx"
 	},
 	"homepage": "https://atlassian.design/components/heading/",
 	"platform-feature-flags": {}

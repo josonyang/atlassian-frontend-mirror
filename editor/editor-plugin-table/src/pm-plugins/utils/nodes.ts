@@ -1,6 +1,7 @@
 import { mapChildren } from '@atlaskit/editor-common/utils';
 import type { Node as PmNode } from '@atlaskit/editor-prosemirror/model';
 import type { EditorState, Selection } from '@atlaskit/editor-prosemirror/state';
+import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { TableMap } from '@atlaskit/editor-tables/table-map';
 import { findTable } from '@atlaskit/editor-tables/utils';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
@@ -161,8 +162,18 @@ const anyChildCellMergedAcrossRow = (node: PmNode): boolean =>
 const anyChildCellMergedAcrossColumn = (node: PmNode): boolean =>
 	mapChildren(node, (child) => child.attrs.colspan || 0).some((colspan) => colspan > 1);
 
+export const getTableRowIndex = (view: EditorView, getPos: () => number | undefined): number => {
+	try {
+		const pos = getPos();
+		return pos === undefined ? 0 : view.state.doc.resolve(pos).index();
+	} catch {
+		return 0;
+	}
+};
+
 /**
  * Check if a given node is a header row with this definition:
+ *  - the row is the first row when platform_editor_table_q4_patch_5 is enabled
  *  - all children are tableHeader cells
  *  - no table cells have been merged with other table row cells (rowspan > 1)
  *  - no table cells have been merged with other table column cells (colspan > 1),
@@ -175,6 +186,10 @@ const anyChildCellMergedAcrossColumn = (node: PmNode): boolean =>
  * @returns boolean if it meets definition
  */
 export const supportedHeaderRow = (node: PmNode, rowIndex: number = 0): boolean => {
+	if (expValEquals('platform_editor_table_q4_patch_5', 'isEnabled', true) && rowIndex !== 0) {
+		return false;
+	}
+
 	const allHeaders = mapChildren(node, (child) => child.type.name === 'tableHeader').every(Boolean);
 
 	if (expValEquals('platform_editor_fix_sticky_header_malfunction', 'isEnabled', true)) {

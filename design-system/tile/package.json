@@ -26,8 +26,8 @@
 	"exports": {
 		".": "./src/index.tsx",
 		"./skeleton": "./src/entry-points/skeleton.tsx",
-		"./tile": "./src/entry-points/tile.tsx",
-		"./types": "./src/entry-points/types.tsx"
+		"./tile": "./src/tile.tsx",
+		"./types": "./src/types.tsx"
 	},
 	"dependencies": {
 		"@atlaskit/react-compiler-gating": "workspace:^",

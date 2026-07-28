@@ -126,8 +126,53 @@ tester.run('ensure-proper-xcss-usage', rule, {
           },
         });
     `,
+		`
+        import { Box } from '@atlaskit/primitives/compiled/box';
+        import { cssMap } from '@atlaskit/css';
+
+        const stylesMap = cssMap({
+          root: { width: '100%' }
+        });
+
+        <Box xcss={stylesMap.root} />
+    `,
 	],
 	invalid: [
+		{
+			code: `
+			  import { Box } from '@atlaskit/primitives/compiled/box';
+			  import { xcss } from '@atlaskit/primitives/xcss';
+
+			  const oldStyles = xcss({
+				color: 'red',
+			  });
+
+			  <Box xcss={oldStyles} />
+			`,
+			errors: [
+				{
+					messageId: 'noXcssWithCompiled',
+				},
+			],
+		},
+		{
+			code: `
+			  import { Box } from '@atlaskit/primitives/compiled/box';
+			  import { cssMap } from '@atlaskit/css';
+
+			  const stylesMap = cssMap({
+				root: { color: 'red' }
+			  });
+
+			  <Box xcss={stylesMap} />
+			`,
+			errors: [
+				{
+					messageId: 'missingCssMapKey',
+					data: { identifier: 'stylesMap' },
+				},
+			],
+		},
 		{
 			code: `
 			  import { Box } from '@atlaskit/primitives/compiled';

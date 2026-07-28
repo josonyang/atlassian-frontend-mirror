@@ -43,6 +43,26 @@ export const RowStyle: StyledComponent<
 	verticalAlign: 'middle',
 });
 
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled, @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
+export const RowStyleNext: StyledComponent<
+	{
+		as?: React.ElementType;
+		theme?: Theme;
+	},
+	DetailedHTMLProps<HTMLAttributes<HTMLDivElement>, HTMLDivElement>,
+	{}
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled, @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
+> = styled.div({
+	alignItems: 'center',
+	display: 'flex',
+	flexDirection: 'row',
+	flexWrap: 'wrap',
+	overflow: 'hidden',
+	padding: `${token('space.050')} ${token('space.150')}`,
+	textOverflow: 'ellipsis',
+	verticalAlign: 'middle',
+});
+
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled, @atlaskit/ui-styling-standard/no-exported-styles, @atlaskit/ui-styling-standard/no-dynamic-styles -- Ignored via go/DSP-18766
 export const AvatarStyle: StyledComponent<
 	{

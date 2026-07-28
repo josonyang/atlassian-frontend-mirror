@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/avatar",
-	"version": "26.3.0",
+	"version": "26.4.0",
 	"description": "An avatar is a visual representation of a user or entity.",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -119,6 +119,9 @@
 			"type": "boolean"
 		},
 		"avatar-custom-border": {
+			"type": "boolean"
+		},
+		"platform_design-system-team_avatar-remove-xsmall": {
 			"type": "boolean"
 		},
 		"platform-dst-motion-uplift": {

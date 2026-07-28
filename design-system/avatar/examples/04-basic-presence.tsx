@@ -28,13 +28,13 @@ export default (): React.JSX.Element => (
 			<Avatar name="large" size="large" presence="busy" />
 			<Avatar name="medium" size="medium" presence="focus" />
 			<Avatar name="small" size="small" presence="offline" />
-			<Avatar name="xsmall" size="xsmall" />
+			<Avatar name="xsmall" size="xxsmall" />
 		</Block>
 		<Block heading="Square">
 			<Avatar appearance="square" name="large" size="large" presence="busy" />
 			<Avatar appearance="square" name="medium" size="medium" presence="focus" />
 			<Avatar appearance="square" name="small" size="small" presence="offline" />
-			<Avatar appearance="square" name="xsmall" size="xsmall" />
+			<Avatar appearance="square" name="xsmall" size="xxsmall" />
 		</Block>
 		<Block heading="Hexagon">
 			<Avatar appearance="hexagon" name="xxlarge" size="xxlarge" />
@@ -42,7 +42,7 @@ export default (): React.JSX.Element => (
 			<Avatar appearance="hexagon" name="large" size="large" presence="busy" />
 			<Avatar appearance="hexagon" name="medium" size="medium" presence="focus" />
 			<Avatar appearance="hexagon" name="small" size="small" presence="offline" />
-			<Avatar appearance="hexagon" name="xsmall" size="xsmall" />
+			<Avatar appearance="hexagon" name="xsmall" size="xxsmall" />
 		</Block>
 	</Stack>
 );

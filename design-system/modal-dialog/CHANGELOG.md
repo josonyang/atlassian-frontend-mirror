@@ -1,5 +1,19 @@
 # @atlaskit/modal-dialog
 
+## 16.2.2
+
+### Patch Changes
+
+- Updated dependencies
+
+## 16.2.1
+
+### Patch Changes
+
+- [`25392f10c50ee`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/25392f10c50ee) -
+  Deprecate `shouldCloseOnEscapePress` prop. Closing on escape is standard accessible modal
+  behaviour and should not be disabled. Handle the `onClose` callback conditionally instead.
+
 ## 16.2.0
 
 ### Minor Changes

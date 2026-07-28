@@ -1,5 +1,14 @@
 # @atlaskit/motion
 
+## 8.0.0
+
+### Major Changes
+
+- [`ae45184d2cd0b`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/ae45184d2cd0b) -
+  Add `initialState` option to `useMotion` and introduce explicit `visible` and `hidden` motion
+  states (replacing the previous `idle` state). This allows consumers to render a component in a
+  pre-hidden state and control the starting point of the motion lifecycle.
+
 ## 7.5.0
 
 ### Minor Changes

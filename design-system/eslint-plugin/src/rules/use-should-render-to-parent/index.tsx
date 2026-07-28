@@ -12,12 +12,20 @@ const PROP_NAME = 'shouldRenderToParent';
 
 const message = `Setting the \`${PROP_NAME}\` prop to anything other than \`true\` causes accessibility issues. Only set to \`false\` as a last resort.`;
 
-const components: Record<string, Record<string, any>> = {
-	'@atlaskit/popup': { default: true, named: 'Popup' },
-	'@atlaskit/dropdown-menu': { default: true },
-	'@atlassian/entry-points/dropdown-trigger': { default: false, named: 'DropdownTrigger' },
-	'@atlassian/entry-points/popup-trigger': { default: false, named: 'PopupTrigger' },
+type SupportedImport = {
+	source: string;
+	allowsDefaultImport?: boolean;
+	namedImport?: string;
 };
+
+const supportedImports: SupportedImport[] = [
+	{ source: '@atlaskit/popup', allowsDefaultImport: true, namedImport: 'Popup' },
+	{ source: '@atlaskit/popup/popup', namedImport: 'Popup' },
+	{ source: '@atlaskit/dropdown-menu', allowsDefaultImport: true },
+	{ source: '@atlaskit/dropdown-menu/dropdown-menu', allowsDefaultImport: true },
+	{ source: '@atlassian/entry-points/dropdown-trigger', namedImport: 'DropdownTrigger' },
+	{ source: '@atlassian/entry-points/popup-trigger', namedImport: 'PopupTrigger' },
+];
 
 const rule: Rule.RuleModule = createLintRule({
 	meta: {
@@ -36,7 +44,7 @@ const rule: Rule.RuleModule = createLintRule({
 	},
 
 	create(context: Rule.RuleContext) {
-		let componentLocalName: string;
+		const componentLocalNames = new Set<string>();
 
 		return {
 			ImportDeclaration(node) {
@@ -46,7 +54,8 @@ const rule: Rule.RuleModule = createLintRule({
 					return;
 				}
 
-				if (!(source in components)) {
+				const supportedImport = supportedImports.find((component) => component.source === source);
+				if (!supportedImport) {
 					return;
 				}
 
@@ -59,8 +68,8 @@ const rule: Rule.RuleModule = createLintRule({
 				);
 				const namedImports = node.specifiers.filter((spec) => spec.type === 'ImportSpecifier');
 
-				if (defaultImport.length && defaultImport[0].local && components[source]?.default) {
-					componentLocalName = defaultImport[0].local.name;
+				if (defaultImport.length && defaultImport[0].local && supportedImport.allowsDefaultImport) {
+					componentLocalNames.add(defaultImport[0].local.name);
 				}
 
 				if (!namedImports.length) {
@@ -72,9 +81,9 @@ const rule: Rule.RuleModule = createLintRule({
 					if (
 						namedImport.type === 'ImportSpecifier' &&
 						'name' in namedImport.imported &&
-						namedImport.imported.name === components[source]?.named
+						namedImport.imported.name === supportedImport.namedImport
 					) {
-						componentLocalName = namedImport.local.name;
+						componentLocalNames.add(namedImport.local.name);
 					}
 				});
 			},
@@ -89,7 +98,7 @@ const rule: Rule.RuleModule = createLintRule({
 
 				const name = node.openingElement.name.name;
 
-				if (name === componentLocalName) {
+				if (componentLocalNames.has(name)) {
 					const prop = node.openingElement.attributes.find(
 						(attr) =>
 							isNodeOfType(attr, 'JSXAttribute') &&

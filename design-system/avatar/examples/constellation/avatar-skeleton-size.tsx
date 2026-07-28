@@ -5,7 +5,7 @@ import { Skeleton } from '@atlaskit/avatar';
 const AvatarSkeletonSizeExample = (): React.JSX.Element => {
 	return (
 		<div>
-			<Skeleton size="xsmall" />
+			<Skeleton size="xxsmall" />
 			<Skeleton size="small" />
 			<Skeleton size="medium" />
 			<Skeleton size="large" />

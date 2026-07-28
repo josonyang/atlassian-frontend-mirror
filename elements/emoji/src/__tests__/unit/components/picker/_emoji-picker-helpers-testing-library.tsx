@@ -24,6 +24,7 @@ import {
 } from '../../../../components/picker/CategorySelector';
 import { emojiPickerFooterTestId } from '../../../../components/picker/EmojiPickerFooter';
 import { emojiPickerSearchTestId } from '../../../../components/picker/EmojiPickerListSearch';
+import { virtualListScrollContainerTestId } from '../../../../components/picker/VirtualList';
 
 export function getEmojiActionsSection(): HTMLElement {
 	return screen.getByTestId(emojiActionsTestId);
@@ -79,7 +80,7 @@ export function retryUpload(): void {
 }
 
 export function getVirtualList(): HTMLElement {
-	return screen.getByRole('grid');
+	return screen.getByTestId(virtualListScrollContainerTestId);
 }
 
 export function scrollToIndex(index: number): void {

@@ -1,5 +1,15 @@
 # @atlaskit/side-nav-items
 
+## 2.3.5
+
+### Patch Changes
+
+- [`c71b539a84fd1`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/c71b539a84fd1) -
+  Fix critical a11y `button-name` violation in flyout-menu-item examples: give the FilterIcon
+  `IconButton` a descriptive label ("Filter recent items") so screen readers can announce it
+  correctly. Resolves ENGHEALTH-58049 / NAVX-5183.
+- Updated dependencies
+
 ## 2.3.4
 
 ### Patch Changes

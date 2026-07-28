@@ -145,8 +145,46 @@ tester.run(RULE_NAME, rule, {
 			Children
 		</AkPopupTrigger>
 		`,
+		`
+		import { Popup } from '@atlaskit/popup/popup';
+
+		<Popup shouldRenderToParent>
+			Children
+		</Popup>
+		`,
+		`
+		import DropdownMenu from '@atlaskit/dropdown-menu/dropdown-menu';
+
+		<DropdownMenu shouldRenderToParent={true}>
+			Children
+		</DropdownMenu>
+		`,
 	],
 	invalid: [
+		{
+			code: `
+			import { Popup } from '@atlaskit/popup/popup';
+			<Popup>
+				Children
+			</Popup>
+			`,
+			errors: [
+				{
+					messageId: 'missingShouldRenderToParentProp',
+					suggestions: [
+						{
+							desc: addProp,
+							output: `
+			import { Popup } from '@atlaskit/popup/popup';
+			<Popup shouldRenderToParent>
+				Children
+			</Popup>
+			`,
+						},
+					],
+				},
+			],
+		},
 		{
 			code: `
 			import DropdownMenu from '@atlaskit/dropdown-menu';
@@ -162,6 +200,30 @@ tester.run(RULE_NAME, rule, {
 							desc: addProp,
 							output: `
 			import DropdownMenu from '@atlaskit/dropdown-menu';
+			<DropdownMenu shouldRenderToParent>
+				Children
+			</DropdownMenu>
+			`,
+						},
+					],
+				},
+			],
+		},
+		{
+			code: `
+			import DropdownMenu from '@atlaskit/dropdown-menu/dropdown-menu';
+			<DropdownMenu shouldRenderToParent={false}>
+				Children
+			</DropdownMenu>
+			`,
+			errors: [
+				{
+					messageId: 'falseShouldRenderToParentProp',
+					suggestions: [
+						{
+							desc: setPropToTrue,
+							output: `
+			import DropdownMenu from '@atlaskit/dropdown-menu/dropdown-menu';
 			<DropdownMenu shouldRenderToParent>
 				Children
 			</DropdownMenu>
@@ -189,6 +251,65 @@ tester.run(RULE_NAME, rule, {
 			<DropdownMenu shouldRenderToParent>
 				Children
 			</DropdownMenu>
+			`,
+						},
+					],
+				},
+			],
+		},
+		{
+			code: `
+			import DropdownMenu from '@atlaskit/dropdown-menu/dropdown-menu';
+			import { Popup } from '@atlaskit/popup/popup';
+
+			<>
+				<DropdownMenu>
+					Children
+				</DropdownMenu>
+				<Popup>
+					More children
+				</Popup>
+			</>
+			`,
+			errors: [
+				{
+					messageId: 'missingShouldRenderToParentProp',
+					suggestions: [
+						{
+							desc: addProp,
+							output: `
+			import DropdownMenu from '@atlaskit/dropdown-menu/dropdown-menu';
+			import { Popup } from '@atlaskit/popup/popup';
+
+			<>
+				<DropdownMenu shouldRenderToParent>
+					Children
+				</DropdownMenu>
+				<Popup>
+					More children
+				</Popup>
+			</>
+			`,
+						},
+					],
+				},
+				{
+					messageId: 'missingShouldRenderToParentProp',
+					suggestions: [
+						{
+							desc: addProp,
+							output: `
+			import DropdownMenu from '@atlaskit/dropdown-menu/dropdown-menu';
+			import { Popup } from '@atlaskit/popup/popup';
+
+			<>
+				<DropdownMenu>
+					Children
+				</DropdownMenu>
+				<Popup shouldRenderToParent>
+					More children
+				</Popup>
+			</>
 			`,
 						},
 					],

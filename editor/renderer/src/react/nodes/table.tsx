@@ -169,7 +169,7 @@ export type TableProps = SharedTableProps & {
 };
 
 export const isHeaderRowEnabled = (
-	rows: (React.ReactChild | React.ReactFragment | React.ReactPortal)[],
+	rows: (React.ReactElement | number | string | React.ReactFragment | React.ReactPortal)[],
 	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 ): any => {
 	if (!rows.length) {
@@ -234,7 +234,7 @@ const TableWrapper = ({
 
 export const tableCanBeSticky = (
 	node: PMNode | undefined,
-	children: (React.ReactChild | React.ReactFragment | React.ReactPortal)[],
+	children: (React.ReactElement | number | string | React.ReactFragment | React.ReactPortal)[],
 	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 ): any => {
 	return isHeaderRowEnabled(children) && node && node.firstChild && !hasRowspan(node.firstChild);

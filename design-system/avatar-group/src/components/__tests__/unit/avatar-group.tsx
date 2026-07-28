@@ -662,10 +662,15 @@ describe('size prop type constraints', () => {
 		expect(screen.getByTestId('test--overflow-menu--trigger')).toBeInTheDocument();
 	});
 
-	it('should reject the avatar-only "xsmall" and "UNSAFE_xsmall" sizes at the type level', () => {
-		// AvatarGroupSize excludes `xsmall` (16px) and `UNSAFE_xsmall` (20px) because the
+	it('should reject the avatar-only 16px and 20px sizes at the type level', () => {
+		// AvatarGroupSize excludes `xxsmall` (16px), legacy `xsmall`, and
+		// `UNSAFE_xsmall` (20px) because the
 		// more indicator cannot be shown accessibly at those sizes. These `@ts-expect-error`s
-		// fail the build if either size is ever (re)allowed on AvatarGroup.
+		// fail the build if any of these sizes are ever (re)allowed on AvatarGroup.
+		render(
+			// @ts-expect-error - "xxsmall" is not a valid AvatarGroupSize
+			<AvatarGroup testId="xxsmall" size="xxsmall" data={generateData({ avatarCount: 2 })} />,
+		);
 		render(
 			// @ts-expect-error - "xsmall" is not a valid AvatarGroupSize
 			<AvatarGroup testId="xsmall" size="xsmall" data={generateData({ avatarCount: 2 })} />,

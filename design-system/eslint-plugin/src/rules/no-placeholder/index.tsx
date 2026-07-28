@@ -2,11 +2,12 @@ import { isNodeOfType } from 'eslint-codemod-utils';
 
 import { JSXElementHelper as JSXElement } from '../../ast-nodes/jsx-element-helper';
 import { createLintRule } from '../utils/create-lint-rule';
+import { getAffectedPackageConfig } from '../utils/get-affected-package-config';
+import { FORM_PACKAGE, getFormImportLocalNames } from '../utils/get-form-import-local-names';
 
 import { AFFECTED_ATLASKIT_PACKAGES } from './affected-atlaskit-packages';
 import { AFFECTED_HTML_ELEMENTS } from './affected-html-elements';
 
-const ATLASKIT_FORM_PACKAGE = '@atlaskit/form';
 const ATLASKIT_FIELD_IMPORT = 'Field';
 
 const rule: import('eslint').Rule.RuleModule = createLintRule({
@@ -37,16 +38,10 @@ const rule: import('eslint').Rule.RuleModule = createLintRule({
 		return {
 			ImportDeclaration(node) {
 				const source = node.source.value;
-
-				if (typeof source !== 'string') {
-					return;
-				}
+				const affectedPackage = getAffectedPackageConfig(source, AFFECTED_ATLASKIT_PACKAGES);
 
 				// Ignore non-atlaskit input/form packages
-				if (
-					!Object.keys(AFFECTED_ATLASKIT_PACKAGES).includes(source) &&
-					ATLASKIT_FORM_PACKAGE !== source
-				) {
+				if (!affectedPackage && source !== FORM_PACKAGE && source !== `${FORM_PACKAGE}/field`) {
 					return;
 				}
 
@@ -59,18 +54,15 @@ const rule: import('eslint').Rule.RuleModule = createLintRule({
 				);
 				const namedImport = node.specifiers.filter((spec) => spec.type === 'ImportSpecifier');
 
-				if (source === ATLASKIT_FORM_PACKAGE) {
-					if (
-						namedImport.length &&
-						namedImport[0].type === 'ImportSpecifier' &&
-						'name' in namedImport[0].imported &&
-						namedImport[0].imported.name === ATLASKIT_FIELD_IMPORT
-					) {
+				if (source === FORM_PACKAGE || source === `${FORM_PACKAGE}/field`) {
+					const formImports = getFormImportLocalNames(node);
+					const matchedFieldImport = formImports[ATLASKIT_FIELD_IMPORT]?.[0] ?? null;
+					if (matchedFieldImport) {
 						hasFieldImport = true;
-						fieldLocalName = namedImport[0].local.name;
+						fieldLocalName = matchedFieldImport;
 					}
 				} else {
-					const importNames = AFFECTED_ATLASKIT_PACKAGES[source];
+					const importNames = affectedPackage?.importNames ?? [];
 					const usesDefaultImport = importNames.includes('default');
 					const possibleNamedImports = importNames.filter((importName) => importName !== 'default');
 

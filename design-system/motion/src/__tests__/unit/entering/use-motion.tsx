@@ -314,4 +314,84 @@ describe('useMotion()', () => {
 		});
 		expect(onFinish).toHaveBeenCalledWith('entering');
 	});
+
+	describe('initialState', () => {
+		it('should start in the provided initialState', () => {
+			const CaptureState = ({ initialState }: Pick<UseMotionProps, 'initialState'>) => {
+				const { state, ref } = useMotion<HTMLElement>({ initialState });
+				return <section data-testid="target" ref={ref} data-state={state} />;
+			};
+
+			renderWithMotionStyles(<CaptureState initialState="visible" />);
+
+			expect(screen.getByTestId('target')).toHaveAttribute('data-state', 'visible');
+		});
+
+		it('should apply the entering animation immediately when initialState is "entering"', () => {
+			renderWithMotionStyles(
+				<MotionSection
+					initialState="entering"
+					enteringAnimation={ENTERING_ANIMATION}
+					exitingAnimation={EXITING_ANIMATION}
+				/>,
+			);
+
+			// The entering animation is applied on the first render because the hook was
+			// initialised directly into the `entering` state.
+			expect(screen.getByTestId('target').getAttribute('style') ?? '').toContain(
+				'var(--ds-test-enter)',
+			);
+		});
+
+		it('should not apply an entering animation when initialState is "visible"', () => {
+			renderWithMotionStyles(
+				<MotionSection
+					initialState="visible"
+					enteringAnimation={ENTERING_ANIMATION}
+					exitingAnimation={EXITING_ANIMATION}
+				/>,
+			);
+
+			// Starting in the `visible` state means the element is shown immediately with no
+			// entering animation and no hidden `init` state.
+			const style = screen.getByTestId('target').getAttribute('style') ?? '';
+			expect(style).not.toContain('var(--ds-test-enter)');
+			expect(style).not.toContain('visibility: hidden');
+		});
+
+		it('should override the default appear-driven initial state', () => {
+			// Without `initialState`, an appearing element starts in `entering` (styles hidden
+			// via `init` when staggered). Providing `initialState="visible"` bypasses that so
+			// the element is visible immediately even inside an appearing ExitingPersistence.
+			renderWithMotionStyles(
+				<ExitingPersistence appear>
+					<MotionSection
+						initialState="visible"
+						enteringAnimation={ENTERING_ANIMATION}
+						exitingAnimation={EXITING_ANIMATION}
+					/>
+				</ExitingPersistence>,
+			);
+
+			const style = screen.getByTestId('target').getAttribute('style') ?? '';
+			expect(style).not.toContain('var(--ds-test-enter)');
+			expect(style).not.toContain('visibility: hidden');
+		});
+
+		it('should stay hidden when initialState is "hidden"', () => {
+			const CaptureState = () => {
+				const { state, ref } = useMotion<HTMLElement>({ initialState: 'hidden' });
+				return <section data-testid="target" ref={ref} data-state={state} />;
+			};
+
+			renderWithMotionStyles(<CaptureState />);
+
+			act(() => {
+				jest.advanceTimersByTime(MOTION_DURATION);
+			});
+
+			// A `hidden` initial state does not trigger any entering animation lifecycle.
+			expect(screen.getByTestId('target')).toHaveAttribute('data-state', 'hidden');
+		});
+	});
 });

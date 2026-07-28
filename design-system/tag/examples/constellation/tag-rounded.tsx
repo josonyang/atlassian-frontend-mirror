@@ -8,6 +8,6 @@ export default (): React.JSX.Element => (
 		appearance="rounded"
 		removeButtonLabel="Remove"
 		text="Round removable tag"
-		elemBefore={<Avatar borderColor="transparent" size="xsmall" />}
+		elemBefore={<Avatar borderColor="transparent" size="xxsmall" />}
 	/>
 );

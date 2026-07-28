@@ -20,7 +20,7 @@ import {
 	updateStickyMargins as updateTableMargin,
 } from '../pm-plugins/table-resizing/utils/dom';
 import { type TableDOMElements, getTop, getTree } from '../pm-plugins/utils/dom';
-import { supportedHeaderRow } from '../pm-plugins/utils/nodes';
+import { getTableRowIndex, supportedHeaderRow } from '../pm-plugins/utils/nodes';
 import {
 	type TablePluginState,
 	TableCssClassName as ClassName,
@@ -108,7 +108,10 @@ export default class TableRow extends TableNodeView<HTMLTableRowElement> impleme
 				const $pos = view.state.doc.resolve(pos);
 				this.isInNestedTable = getParentOfTypeCount(view.state.schema.nodes.table)($pos) > 1;
 				// Resolve rowIndex only when the flag is on — otherwise it's unused
-				if (expValEquals('platform_editor_fix_sticky_header_row', 'isEnabled', true)) {
+				if (
+					expValEquals('platform_editor_fix_sticky_header_row', 'isEnabled', true) &&
+					!expValEquals('platform_editor_table_q4_patch_5', 'isEnabled', true)
+				) {
 					rowIndex = $pos.index();
 				}
 			}
@@ -116,6 +119,9 @@ export default class TableRow extends TableNodeView<HTMLTableRowElement> impleme
 			// Intentionally swallowed — getPos can return stale positions during AI streaming
 		}
 
+		if (expValEquals('platform_editor_table_q4_patch_5', 'isEnabled', true)) {
+			rowIndex = getTableRowIndex(view, getPos);
+		}
 		this.isHeaderRow = supportedHeaderRow(node, rowIndex);
 
 		if (this.isHeaderRow) {
@@ -202,6 +208,9 @@ export default class TableRow extends TableNodeView<HTMLTableRowElement> impleme
 			} catch {
 				// Intentionally swallowed — getPos can return stale positions during AI streaming
 			}
+		}
+		if (expValEquals('platform_editor_table_q4_patch_5', 'isEnabled', true)) {
+			rowIndex = getTableRowIndex(this.view, this.getPos);
 		}
 		const newNodeIsHeaderRow = supportedHeaderRow(node, rowIndex);
 		if (this.isHeaderRow !== newNodeIsHeaderRow) {

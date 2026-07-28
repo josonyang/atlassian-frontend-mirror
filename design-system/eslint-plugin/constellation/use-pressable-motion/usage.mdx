@@ -1,0 +1,40 @@
+# use-pressable-motion
+
+Encourages semantic motion tokens when local static styles change interactive colours on
+`Pressable`.
+
+It supports Pressable imports from `@atlaskit/primitives/compiled`,
+`@atlaskit/primitives/compiled/pressable`, and `@atlaskit/primitives/pressable`. It recognises
+styles created with `css`, `cssMap`, and `xcss`. Use `&:hover` and `&:active` with `css` or
+`cssMap`; use `:hover` and `:active` with `xcss`.
+
+For button motion, the rule detects `backgroundColor` and colour-only `background` changes. For
+list-item motion, it also detects `color`, `borderColor`, and `textDecorationColor`. It offers
+editor suggestions for button and list-item motion; choose the family that matches the surface's
+semantics. Suggestions add `motion.button.*` or `motion.listitem.*` tokens for hover and pressed
+states, but the rule does not autofix code.
+
+The rule does not infer semantics, follow imported or dynamic styles, or overwrite an existing
+`transition`.
+
+## Example
+
+```tsx
+import { token } from '@atlaskit/tokens';
+import Pressable from '@atlaskit/primitives/pressable';
+import { xcss } from '@atlaskit/primitives/xcss';
+
+const styles = xcss({
+	transition: token('motion.button.hovered'),
+	':hover': { backgroundColor: 'color.background.neutral.hovered' },
+	':active': {
+		backgroundColor: 'color.background.neutral.pressed',
+		transition: token('motion.button.pressed'),
+	},
+});
+
+<Pressable xcss={styles} />;
+```
+
+For custom button guidance, see the
+[Pressable motion documentation](https://atlassian.design/components/primitives/pressable/usage#apply-motion-to-pressable).

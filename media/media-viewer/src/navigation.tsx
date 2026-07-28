@@ -7,6 +7,7 @@ import ArrowRightCircleIcon from '@atlaskit/icon/core/chevron-right';
 import { hideControlsClassName } from '@atlaskit/media-ui';
 import { Shortcut } from '@atlaskit/media-ui';
 import { withAnalyticsEvents, type WithAnalyticsEventsProps } from '@atlaskit/analytics-next';
+import { fg } from '@atlaskit/platform-feature-flags';
 import { ArrowsWrapper, RightWrapper, LeftWrapper, Arrow } from './styleWrappers';
 import { getSelectedIndex } from './utils';
 import { createNavigatedEvent } from './analytics/events/ui/navigated';
@@ -67,7 +68,7 @@ type IconProps = {
 const withIconWrapper = (Component: React.ComponentType<NewCoreIconProps>) => {
 	return ({ label, clickHandler, testId }: IconProps) => (
 		<Pressable
-			xcss={[wrapperStyles, label === 'Next' ? iconRightStyles : iconLeftStyles]}
+			xcss={[wrapperStyles, testId === nextNavButtonId ? iconRightStyles : iconLeftStyles]}
 			onClick={clickHandler('mouse')}
 			testId={testId}
 		>
@@ -119,7 +120,13 @@ export class NavigationBase extends Component<NavigationProps, {}> {
 						// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
 						<Arrow className={hideControlsClassName}>
 							<Shortcut code={'ArrowLeft'} handler={prev('keyboard')} eventType={'keyup'} />
-							<PreviousIcon label="Previous" clickHandler={prev} testId={prevNavButtonId} />
+							<PreviousIcon
+								label={
+									fg('platform_media_a11y_nav_button_labels') ? 'Previous attachment' : 'Previous'
+								}
+								clickHandler={prev}
+								testId={prevNavButtonId}
+							/>
 						</Arrow>
 					) : null}
 				</LeftWrapper>
@@ -129,7 +136,11 @@ export class NavigationBase extends Component<NavigationProps, {}> {
 						// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
 						<Arrow className={hideControlsClassName}>
 							<Shortcut code={'ArrowRight'} handler={next('keyboard')} eventType={'keyup'} />
-							<NextIcon label="Next" clickHandler={next} testId={nextNavButtonId} />
+							<NextIcon
+								label={fg('platform_media_a11y_nav_button_labels') ? 'Next attachment' : 'Next'}
+								clickHandler={next}
+								testId={nextNavButtonId}
+							/>
 						</Arrow>
 					) : null}
 				</RightWrapper>

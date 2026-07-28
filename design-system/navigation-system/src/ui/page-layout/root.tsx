@@ -76,6 +76,11 @@ const styles = cssMap({
 			display: 'none !important',
 		},
 	},
+	// used when the `platform-dst-motion-uplift-panel` feature gate is on. Ensures the panel does not cause
+	// scroll bars to appear when panel transforms off screen.
+	panelUplift: {
+		overflow: 'hidden',
+	},
 });
 
 /**
@@ -210,6 +215,7 @@ This message will not be displayed in production.
 											ref={ref}
 											css={[
 												styles.root,
+												fg('platform-dst-motion-uplift-panel') && styles.panelUplift,
 												fg('platform-dst-top-layer')
 													? styles.safetyRailWithTopLayer
 													: styles.safetyRail,

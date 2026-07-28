@@ -24,7 +24,7 @@ const WithAllAvatarSizes: (props: WithAllAvatarSizesProps) => React.JSX.Element 
 			<Avatar size="large" {...props} />
 			<Avatar size="medium" {...props} />
 			<Avatar size="small" {...props} />
-			<Avatar size="xsmall" {...rest} />
+			<Avatar size="xxsmall" {...rest} />
 		</Block>
 	);
 };

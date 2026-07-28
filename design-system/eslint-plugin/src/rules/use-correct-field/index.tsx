@@ -2,12 +2,16 @@ import type { Rule } from 'eslint';
 import { type Identifier, type ImportDeclaration, isNodeOfType } from 'eslint-codemod-utils';
 
 import { createLintRule } from '../utils/create-lint-rule';
+import { FORM_PACKAGE, getFormImportLocalNames } from '../utils/get-form-import-local-names';
+import { isImportFromPackage } from '../utils/is-import-from-package';
 
 const specialFieldsByImport: Record<string, Record<string, string | undefined>> = {
 	'@atlaskit/checkbox': { component: 'Checkbox', field: 'CheckboxField', local: undefined },
 	'@atlaskit/range': { component: 'Range', field: 'RangeField', local: undefined },
 	'@atlaskit/toggle': { component: 'Toggle', field: 'CheckboxField', local: undefined },
 };
+
+const specialFieldPackages = Object.keys(specialFieldsByImport);
 
 export const useCheckboxFieldMessage = 'Convert Field to CheckboxField';
 export const useRangeFieldMessage = 'Convert Field to RangeField';
@@ -32,6 +36,7 @@ const rule: Rule.RuleModule = createLintRule({
 	},
 	create(context) {
 		let fieldImport: Identifier;
+		let fieldImportSource: string | undefined;
 		const allPackages: ImportDeclaration[] = [];
 
 		return {
@@ -50,7 +55,10 @@ const rule: Rule.RuleModule = createLintRule({
 					isNodeOfType(spec, 'ImportDefaultSpecifier'),
 				);
 
-				if (source in specialFieldsByImport) {
+				const matchedSpecialFieldPackage = specialFieldPackages.find((packageName) =>
+					isImportFromPackage(source, packageName),
+				);
+				if (matchedSpecialFieldPackage) {
 					allPackages.push(node);
 					// set local to local value
 					if (
@@ -58,22 +66,32 @@ const rule: Rule.RuleModule = createLintRule({
 						isNodeOfType(defaultImport[0], 'ImportDefaultSpecifier') &&
 						isNodeOfType(defaultImport[0].local, 'Identifier')
 					) {
-						specialFieldsByImport[source].local = defaultImport[0].local.name;
+						specialFieldsByImport[matchedSpecialFieldPackage].local = defaultImport[0].local.name;
 					}
 				}
 
-				if (source !== '@atlaskit/form') {
+				const formImports = getFormImportLocalNames(node);
+				if (!formImports.Field?.length) {
 					return;
 				}
+				fieldImportSource = source;
+				const matchingSpecifier = node.specifiers.find((spec) => {
+					if (
+						source === FORM_PACKAGE &&
+						isNodeOfType(spec, 'ImportSpecifier') &&
+						'name' in spec.imported &&
+						spec.imported.name === 'Field'
+					) {
+						return true;
+					}
 
-				const namedImport = node.specifiers.filter((spec) => isNodeOfType(spec, 'ImportSpecifier'));
-				if (
-					namedImport.length &&
-					namedImport[0].type === 'ImportSpecifier' &&
-					'name' in namedImport[0].imported &&
-					namedImport[0].imported.name === 'Field'
-				) {
-					fieldImport = namedImport[0].local;
+					return (
+						isNodeOfType(spec, 'ImportDefaultSpecifier') &&
+						spec.local.name === formImports.Field?.[0]
+					);
+				});
+				if (matchingSpecifier?.local) {
+					fieldImport = matchingSpecifier.local;
 				}
 			},
 			JSXElement(node: Rule.Node) {
@@ -91,14 +109,8 @@ const rule: Rule.RuleModule = createLintRule({
 					return;
 				}
 
-				// If no imports are for the inputs that have special fields, exit early
-				if (
-					allPackages.every(
-						(n) =>
-							typeof n.source.value !== 'string' ||
-							!Object.keys(specialFieldsByImport).includes(n.source.value),
-					)
-				) {
+				// If no special field packages were imported, exit early.
+				if (!allPackages.length) {
 					return;
 				}
 
@@ -156,44 +168,52 @@ const rule: Rule.RuleModule = createLintRule({
 
 					// if checkbox is inside of the field's render prop
 					if (found === 'Checkbox' || found === 'Toggle') {
+						const suggestions =
+							fieldImportSource === FORM_PACKAGE
+								? [
+										{
+											desc: useCheckboxFieldMessage,
+											fix(fixer: Rule.RuleFixer) {
+												const fixes: Rule.Fix[] = [];
+
+												fixes.push(fixer.insertTextBefore(fieldImport, 'CheckboxField, '));
+												fixes.push(fixer.replaceText(node.openingElement.name, 'CheckboxField'));
+												node.closingElement &&
+													fixes.push(fixer.replaceText(node.closingElement.name, 'CheckboxField'));
+
+												return fixes;
+											},
+										},
+									]
+								: [];
 						context.report({
 							node: node,
 							messageId: found === 'Checkbox' ? 'useCheckboxField' : 'useCheckboxFieldForToggle',
-							suggest: [
-								{
-									desc: useCheckboxFieldMessage,
-									fix(fixer) {
-										const fixes: Rule.Fix[] = [];
-
-										fixes.push(fixer.insertTextBefore(fieldImport, 'CheckboxField, '));
-										fixes.push(fixer.replaceText(node.openingElement.name, 'CheckboxField'));
-										node.closingElement &&
-											fixes.push(fixer.replaceText(node.closingElement.name, 'CheckboxField'));
-
-										return fixes;
-									},
-								},
-							],
+							...(suggestions.length ? { suggest: suggestions } : {}),
 						});
 					} else if (found === 'Range') {
+						const suggestions =
+							fieldImportSource === FORM_PACKAGE
+								? [
+										{
+											desc: useRangeFieldMessage,
+											fix(fixer: Rule.RuleFixer) {
+												const fixes: Rule.Fix[] = [];
+
+												fixes.push(fixer.insertTextBefore(fieldImport, 'RangeField, '));
+												fixes.push(fixer.replaceText(node.openingElement.name, 'RangeField'));
+												node.closingElement &&
+													fixes.push(fixer.replaceText(node.closingElement.name, 'RangeField'));
+
+												return fixes;
+											},
+										},
+									]
+								: [];
 						context.report({
 							node: node,
 							messageId: 'useRangeField',
-							suggest: [
-								{
-									desc: useRangeFieldMessage,
-									fix(fixer) {
-										const fixes: Rule.Fix[] = [];
-
-										fixes.push(fixer.insertTextBefore(fieldImport, 'RangeField, '));
-										fixes.push(fixer.replaceText(node.openingElement.name, 'RangeField'));
-										node.closingElement &&
-											fixes.push(fixer.replaceText(node.closingElement.name, 'RangeField'));
-
-										return fixes;
-									},
-								},
-							],
+							...(suggestions.length ? { suggest: suggestions } : {}),
 						});
 					}
 				}

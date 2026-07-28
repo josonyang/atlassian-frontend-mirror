@@ -1,5 +1,23 @@
 # @atlaskit/media-viewer
 
+## 54.5.22
+
+### Patch Changes
+
+- [`96d0a30ad758d`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/96d0a30ad758d) -
+  [ux] A11Y-35379: Give the media viewer previous/next navigation buttons more descriptive
+  accessible names ("Previous attachment" / "Next attachment") so screen reader users can identify
+  their purpose. Gated behind `platform_media_a11y_nav_button_labels`.
+
+## 54.5.21
+
+### Patch Changes
+
+- [`e3550afc43327`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/e3550afc43327) -
+  [ux] EDITOR-7679 bug fix for media name fallback falling back to "download" when the media name
+  was not being passed
+- Updated dependencies
+
 ## 54.5.20
 
 ### Patch Changes

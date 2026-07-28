@@ -90,6 +90,7 @@ const UnauthorizedCarouselView = ({
 		if (!canAuthorize) {
 			return [
 				{
+					id: 'no-auth-available',
 					title: intl.formatMessage(messages.unauthorised_account_name_no_provider),
 					description: intl.formatMessage(messages.unauthorised_account_description_no_provider),
 					image: <NoAuthAvailableImage />,
@@ -106,6 +107,7 @@ const UnauthorizedCarouselView = ({
 		const i18nSelectContext = context?.text === 'Google Drive' ? 'Google' : context?.text;
 		const slides = [
 			{
+				id: 'smart-link-benefit',
 				title: intl.formatMessage(messages.connect_link_account_embed_carousel_sl_title),
 				description: intl.formatMessage(
 					messages.connect_link_account_embed_carousel_sl_description,
@@ -120,6 +122,7 @@ const UnauthorizedCarouselView = ({
 		// we show additional Rovo-specific teaser slides to encourage the user to connect their account.
 		if (rovoOptions?.isRovoEnabled) {
 			slides.push({
+				id: 'rovo-search-benefit',
 				title: intl.formatMessage(messages.connect_link_account_embed_carousel_rovo_title),
 				description: intl.formatMessage(
 					messages.connect_link_account_embed_carousel_rovo_description,
@@ -139,6 +142,7 @@ const UnauthorizedCarouselView = ({
 
 		if (rovoOptions?.isRovoEnabled && rovoOptions?.isRovoLLMEnabled) {
 			slides.push({
+				id: 'rovo-chat-benefit',
 				title: intl.formatMessage(messages.connect_link_account_embed_carousel_rovochat_title),
 				description: intl.formatMessage(
 					messages.connect_link_account_embed_carousel_rovochat_description,
@@ -159,12 +163,26 @@ const UnauthorizedCarouselView = ({
 		return slides;
 	}, [canAuthorize, context, intl, product, providerName, providerIcon, rovoOptions]);
 
-	const handleOnAuthorizeClick = useCallback(() => {
-		if (onAuthorize) {
-			fireEvent('track.applicationAccount.authStarted', {});
-			onAuthorize();
-		}
-	}, [onAuthorize, fireEvent]);
+	const handleOnAuthorizeClick = useCallback(
+		(slideId: string) => {
+			if (onAuthorize) {
+				fireEvent('track.applicationAccount.authStarted', {});
+				fireEvent('ui.button.clicked.carouselConnect', { display: 'embed', slideId });
+				onAuthorize();
+			}
+		},
+		[onAuthorize, fireEvent],
+	);
+
+	const handleOnNextClick = useCallback(
+		(slideId: string) => {
+			fireEvent('ui.button.clicked.carouselNext', {
+				display: 'embed',
+				slideId,
+			});
+		},
+		[fireEvent],
+	);
 
 	const buttonLabel = context?.text
 		? intl.formatMessage(messages.connect_3p_account, { context: context.text })
@@ -199,6 +217,7 @@ const UnauthorizedCarouselView = ({
 				icon={context?.icon}
 				iconLabel={context?.text}
 				items={items}
+				onNextClick={handleOnNextClick}
 				onPrimaryButtonClick={canAuthorize ? handleOnAuthorizeClick : undefined}
 				primaryButtonLabel={buttonLabel}
 				testId={`${testId}-carousel`}

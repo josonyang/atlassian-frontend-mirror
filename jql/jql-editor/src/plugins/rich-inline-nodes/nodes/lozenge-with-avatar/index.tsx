@@ -23,7 +23,7 @@ const LozengeWithAvatar = ({ id, name, fieldName, selected, error }: NodeViewPro
 	return (
 		<LozengeWithAvatarContainer selected={selected} error={error}>
 			<AvatarWrapper>
-				<Avatar src={lozengeWithAvatar?.avatarUrl} borderColor="transparent" size="xsmall" />
+				<Avatar src={lozengeWithAvatar?.avatarUrl} borderColor="transparent" size="xxsmall" />
 			</AvatarWrapper>
 			<NameContainer>{name}</NameContainer>
 		</LozengeWithAvatarContainer>

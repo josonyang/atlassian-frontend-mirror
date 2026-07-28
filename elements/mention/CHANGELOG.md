@@ -1,5 +1,21 @@
 # @atlaskit/mention
 
+## 27.12.0
+
+### Minor Changes
+
+- [`eb6534b29cb7a`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/eb6534b29cb7a) -
+  [ux] Fix alignment of NameSectionStyle with AvatarStyle and Add spacing between mention typeahead
+  sections
+
+## 27.11.0
+
+### Minor Changes
+
+- [`7d37c14edffa7`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/7d37c14edffa7) -
+  Update i18n NPM package versions for editor,editor-extensions,activity-platform,media,elements
+  (Group 3)
+
 ## 27.10.1
 
 ### Patch Changes

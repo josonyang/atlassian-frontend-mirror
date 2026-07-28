@@ -31,6 +31,7 @@ import { DeleteConfirmationModal } from './ui/DeleteConfirmationModal';
 import { Flag } from './ui/Flag';
 import { getToolbarConfig } from './ui/floating-toolbar';
 import { getQuickInsertConfig } from './ui/quick-insert';
+import { SourceSyncBlockPlaceholder } from './ui/SourceSyncBlockPlaceholder';
 import { SyncBlockRefresher } from './ui/SyncBlockRefresher';
 import { getToolbarComponents } from './ui/toolbar-components';
 
@@ -202,7 +203,14 @@ export const syncedBlockPlugin: SyncedBlockPlugin = ({ config, api }) => {
 			refs.popupsMountPoint = popupsMountPoint || undefined;
 			refs.wrapperElement = wrapperElement || undefined;
 
-			return <LazySyncedBlockUI syncBlockStore={syncBlockStore} api={api} />;
+			return (
+				<>
+					{expValEquals('platform_editor_sync_block_activation', 'isEnabled', true) && (
+						<SourceSyncBlockPlaceholder />
+					)}
+					<LazySyncedBlockUI syncBlockStore={syncBlockStore} api={api} />
+				</>
+			);
 		},
 
 		getSharedState: (editorState?: EditorState): SyncedBlockSharedState | undefined => {

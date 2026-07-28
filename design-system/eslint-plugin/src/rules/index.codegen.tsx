@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::2965e87bf78f2f027e2fe25bc9793c4b>>
+ * @codegen <<SignedSource::b7786eebbecf87217dbdc71b8f92b77e>>
  * @codegenCommand yarn workspace @atlaskit/eslint-plugin-design-system codegen
  */
 import type { Rule } from 'eslint';
@@ -74,6 +74,7 @@ import useModalDialogCloseButton from './use-modal-dialog-close-button';
 import useModalTitle from './use-modal-title';
 import useOnboardingSpotlightLabel from './use-onboarding-spotlight-label';
 import usePopupLabel from './use-popup-label';
+import usePressableMotion from './use-pressable-motion';
 import usePrimitivesText from './use-primitives-text';
 import useShouldRenderToParent from './use-should-render-to-parent';
 import useSimpleField from './use-simple-field';
@@ -157,6 +158,7 @@ export const rules: Record<string, Rule.RuleModule> = {
 	'use-modal-title': useModalTitle,
 	'use-onboarding-spotlight-label': useOnboardingSpotlightLabel,
 	'use-popup-label': usePopupLabel,
+	'use-pressable-motion': usePressableMotion,
 	'use-primitives-text': usePrimitivesText,
 	'use-should-render-to-parent': useShouldRenderToParent,
 	'use-simple-field': useSimpleField,

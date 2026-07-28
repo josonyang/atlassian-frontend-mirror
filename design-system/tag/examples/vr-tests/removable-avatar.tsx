@@ -10,13 +10,13 @@ export default (): React.JSX.Element => (
 			appearance="rounded"
 			text="Avatar Before"
 			testId="avatarTag"
-			elemBefore={<Avatar borderColor="transparent" size="xsmall" />}
+			elemBefore={<Avatar borderColor="transparent" size="xxsmall" />}
 		/>
 		<Tag
 			appearance="rounded"
 			text="Avatar Before Focused"
 			testId="avatarTag-focused"
-			elemBefore={<Avatar borderColor="transparent" size="xsmall" />}
+			elemBefore={<Avatar borderColor="transparent" size="xxsmall" />}
 		/>
 	</Box>
 );

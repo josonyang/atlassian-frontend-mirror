@@ -31,6 +31,12 @@ tester.run('no-placeholder', rule, {
 
 			<BingBongInput placeholder="foo" />
     `,
+		`
+			// Ignore debarrelled DS input with no placeholder
+			import Textfield from '@atlaskit/textfield/text-field';
+
+			<Textfield />
+		`,
 	],
 	invalid: [
 		...AFFECTED_HTML_ELEMENTS.map((elementName) => [
@@ -122,6 +128,43 @@ tester.run('no-placeholder', rule, {
 				]);
 			})
 			.flat(),
+		{
+			code: `
+					// Debarrelled textfield with placeholder inside of a simple field
+					import Field from '@atlaskit/form/field';
+					import Textfield from '@atlaskit/textfield/text-field';
+					<Field component={(fieldProps) => <Textfield {...fieldProps} placeholder="foo" />} />
+				`,
+			errors: [
+				{
+					messageId: 'noPlaceholderOnSimpleField',
+				},
+			],
+		},
+		{
+			code: `
+					// Debarrelled textarea with placeholder
+					import Textarea from '@atlaskit/textarea/text-area';
+					<Textarea placeholder="foo" />
+				`,
+			errors: [
+				{
+					messageId: 'noPlaceholder',
+				},
+			],
+		},
+		{
+			code: `
+					// Debarrelled select with placeholder
+					import Select from '@atlaskit/select/select';
+					<Select placeholder="foo" />
+				`,
+			errors: [
+				{
+					messageId: 'noPlaceholder',
+				},
+			],
+		},
 		{
 			code: `
 					// DS input that is after other imports with placeholder

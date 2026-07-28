@@ -1,5 +1,32 @@
 # @atlaskit/eslint-plugin-design-system
 
+## 16.6.0
+
+### Minor Changes
+
+- [`a54598e30d32b`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/a54598e30d32b) -
+  Fix de-barrelling support in several additional rules so they continue to recognize Atlaskit
+  components when consumers import from subpath entrypoints instead of package root barrels. Updated
+  rules:
+  - `use-simple-field`
+  - `use-simple-form`
+  - `use-field-message-wrapper`
+  - `use-correct-field`
+  - `use-character-counter-field`
+  - `no-placeholder`
+  - `no-readonly-or-disabled-inputs`
+  - `use-should-render-to-parent`
+  - `ensure-proper-xcss-usage`
+  - `lozenge-badge-tag-labelling-system-migration`
+
+## 16.5.0
+
+### Minor Changes
+
+- [`5ff2cf3cc5699`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/5ff2cf3cc5699) -
+  Add `use-pressable-motion` to suggest semantic hover and pressed motion tokens for Pressable
+  colour transitions.
+
 ## 16.4.0
 
 ### Minor Changes

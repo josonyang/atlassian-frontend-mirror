@@ -39,7 +39,7 @@ const iconGroup = css({
 	display: 'flex',
 });
 
-const CompositeIcon = ({ icon }: { icon: React.ReactChild }) => (
+const CompositeIcon = ({ icon }: { icon: React.ReactElement | number | string }) => (
 	<div css={iconGroup}>
 		{icon}
 		<span css={dropdownExpandContainer}>

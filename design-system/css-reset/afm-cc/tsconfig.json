@@ -15,10 +15,6 @@
 		"../src/**/*.test.*",
 		"../src/**/test.*"
 	],
-	"ts-node": {
-		"transpileOnly": true,
-		"files": true
-	},
 	"references": [
 		{
 			"path": "../../tokens/afm-cc/tsconfig.json"

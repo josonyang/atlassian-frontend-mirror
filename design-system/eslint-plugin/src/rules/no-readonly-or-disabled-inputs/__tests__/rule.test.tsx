@@ -33,6 +33,12 @@ tester.run('no-readonly-or-disabled-inputs', rule, {
 
 			<BingBongInput disabled />
     `,
+		`
+			// Ignore debarrelled DS input with no unwanted attributes
+			import Textfield from '@atlaskit/textfield/text-field';
+
+			<Textfield />
+		`,
 	],
 	invalid: [
 		...AFFECTED_HTML_ELEMENTS.map((elementName) => {
@@ -117,5 +123,32 @@ tester.run('no-readonly-or-disabled-inputs', rule, {
 				},
 			],
 		})),
+		{
+			code: `
+					// Debarrelled textfield with both attributes
+					import Textfield from '@atlaskit/textfield/text-field';
+					<Textfield isDisabled isReadOnly />
+			`,
+			errors: [
+				{
+					messageId: 'noDisabled',
+				},
+				{
+					messageId: 'noReadOnly',
+				},
+			],
+		},
+		{
+			code: `
+					// Debarrelled textarea with disabled state
+					import Textarea from '@atlaskit/textarea/text-area';
+					<Textarea isDisabled />
+			`,
+			errors: [
+				{
+					messageId: 'noDisabled',
+				},
+			],
+		},
 	].flat(),
 });

@@ -17,6 +17,12 @@ export type CarouselItem = {
 	 * provider name (e.g. "Google Drive") and returns the final string.
 	 */
 	description: string;
+	/**
+	 * Stable semantic identifier for this slide — used in analytics to track
+	 * which slide drove connect/navigation events, independent of slide order.
+	 * e.g. 'smart-link-benefit', 'rovo-search-benefit', 'rovo-chat-benefit'
+	 */
+	id: string;
 	/** Large hero image — either a React element (e.g. SVG) or an image URL */
 	image: ReactNode | string;
 	/**

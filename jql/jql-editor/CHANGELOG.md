@@ -1,5 +1,19 @@
 # @atlaskit/jql-editor
 
+## 7.4.3
+
+### Patch Changes
+
+- [`94071380cba1e`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/94071380cba1e) -
+  Fix rich inline value nodes (lozenges) not rendering in JQL mode for collapsed entity-property
+  fields (e.g. agent / agent state) when the field is written unquoted. When such a clause is
+  unquoted the parser splits the property out of `field.value` (leaving the base field name) into
+  `field.properties`, so matching hydrated values against the raw `field.value` missed the hydration
+  key. Field matching now reconstructs the full identity (`value[propertyKey]`). Gated behind the
+  `jira_filter_by_agent_and_agent_state` experiment; when disabled the previous `field.value`
+  behaviour is preserved exactly, so all other fields are unaffected.
+- Updated dependencies
+
 ## 7.4.2
 
 ### Patch Changes

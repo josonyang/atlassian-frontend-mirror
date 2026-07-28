@@ -1,5 +1,17 @@
 # @atlaskit/editor-plugin-table
 
+## 24.4.24
+
+### Patch Changes
+
+- [`b91c14d4dbad7`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/b91c14d4dbad7) -
+  Editor; Ensure only the first table row can become a sticky header when the rounded table patch is
+  enabled
+
+  Renderer; Patch table body elements to have rounded corners when overridden by consumers
+
+- Updated dependencies
+
 ## 24.4.23
 
 ### Patch Changes

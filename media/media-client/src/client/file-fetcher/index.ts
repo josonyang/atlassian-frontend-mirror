@@ -9,6 +9,7 @@ import { type MediaTraceContext } from '@atlaskit/media-common';
 import { isValidUuid } from '@atlaskit/media-common/isValidUuid';
 import { downloadUrl } from '@atlaskit/media-common/downloadUrl';
 import type { MediaFileArtifacts } from '@atlaskit/media-state/file-state';
+import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 import {
 	MediaStore as MediaApi,
@@ -616,12 +617,15 @@ export class FileFetcherImpl implements FileFetcher {
 
 	public async downloadBinary(
 		id: string,
-		name: string = 'download',
+		name?: string,
 		collectionName?: string,
 		traceContext?: MediaTraceContext,
 	): Promise<void> {
-		const url = await this.mediaApi.getFileBinaryURL(id, collectionName, undefined, name);
-		downloadUrl(url, { name });
+		const downloadName = name ?? 'download';
+		const url = expValEquals('platform_editor_media_download_fallback_name', 'isEnabled', true)
+			? await this.mediaApi.getFileBinaryURL(id, collectionName, undefined, name)
+			: await this.mediaApi.getFileBinaryURL(id, collectionName);
+		downloadUrl(url, { name: downloadName });
 
 		globalMediaEventEmitter.emit('media-viewed', {
 			fileId: id,

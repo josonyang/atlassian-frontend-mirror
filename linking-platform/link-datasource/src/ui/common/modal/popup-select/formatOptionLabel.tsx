@@ -64,7 +64,7 @@ const AvatarOptionLabel = ({ data, testId }: { data: AvatarLabelOption; testId?:
 					<PeopleGroupIcon color="currentColor" label="" />
 				</Flex>
 			) : (
-				<Avatar appearance={data.isSquare ? 'square' : 'circle'} src={data.avatar} size="xsmall" />
+				<Avatar appearance={data.isSquare ? 'square' : 'circle'} src={data.avatar} size="xxsmall" />
 			)}
 			<Box xcss={cx(styles.commonLabelStyles, styles.avatarOptionLabelStyles)}>{data.label}</Box>
 		</Flex>

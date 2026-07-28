@@ -64,8 +64,43 @@ ruleTester.run('use-field-message-wrapper', rule, {
 				)}
 			</FooField>
 		`,
+		`
+			// Field, message and wrapper from debarrelled entrypoints
+			import Field from '@atlaskit/form/field';
+			import { ErrorMessage, MessageWrapper } from '@atlaskit/form/messages';
+			<Field>
+				{({ fieldProps, error }) => (
+					<>
+						<input {...fieldProps} />
+						<MessageWrapper>
+							<ErrorMessage>Error</ErrorMessage>
+						</MessageWrapper>
+					</>
+				)}
+			</Field>
+		`,
 	],
 	invalid: [
+		{
+			code: linesOnly`
+				import Field from '@atlaskit/form/field';
+				import { ErrorMessage } from '@atlaskit/form/messages';
+				// No message wrapper
+				<Field>
+					{({ fieldProps }) => (
+						<>
+							<input {...fieldProps} />
+							<ErrorMessage>Error</ErrorMessage>
+						</>
+					)}
+				</Field>
+			`,
+			errors: [
+				{
+					messageId: 'useMessageWrapper',
+				},
+			],
+		},
 		{
 			code: linesOnly`
 				import { Field, ErrorMessage } from '@atlaskit/form';

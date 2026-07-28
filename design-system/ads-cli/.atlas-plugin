@@ -1,0 +1,11 @@
+[metadata]
+  name = "ads"
+  summary = "Query Atlassian Design System structured content"
+  description = "Search ADS components, tokens, icons, lint rules, and guidance from Atlas CLI"
+  tags = ["ads", "design-system", "structured-content", "platform"]
+  owners = ["mabrahamian"]
+  repository = "https://statlas.prod.atl-paas.net/atlas-cli-plugin-ads/"
+  slackChannel = "#help-design-system"
+
+[release]
+  namespace = "atlas-cli-plugin-ads"

@@ -130,6 +130,7 @@ const avatarImageStyles = cssMap({
 });
 
 const SIZES: Record<TeamAvatarImageSize, number> = {
+	xxsmall: 16,
 	xsmall: 16,
 	small: 24,
 	medium: 32,
@@ -139,6 +140,9 @@ const SIZES: Record<TeamAvatarImageSize, number> = {
 };
 
 const borderRadiusMap = cssMap({
+	xxsmall: {
+		borderRadius: token('radius.tile'),
+	},
 	xsmall: {
 		borderRadius: token('radius.tile'),
 	},
@@ -160,6 +164,10 @@ const borderRadiusMap = cssMap({
 });
 
 const widthHeightMap = cssMap({
+	xxsmall: {
+		width: '16px',
+		height: '16px',
+	},
 	xsmall: {
 		width: '16px',
 		height: '16px',

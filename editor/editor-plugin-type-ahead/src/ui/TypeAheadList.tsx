@@ -20,6 +20,7 @@ import type { ExtractInjectionAPI, TypeAheadItem } from '@atlaskit/editor-common
 import { AssistiveText } from '@atlaskit/editor-common/ui';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { MenuGroup } from '@atlaskit/menu';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
 import { Box, Inline, Text } from '@atlaskit/primitives/compiled';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { token } from '@atlaskit/tokens';
@@ -507,20 +508,48 @@ const TypeAheadListComponent = React.memo(
 							onMouseMove={(e) => onMouseMove(e, currentRow)}
 						>
 							{currentRow.type === 'section' ? (
-								<Box paddingInline="space.150" paddingBlock="space.050">
-									{sectionLozenge ? (
-										<Inline as="span" space="space.075" alignBlock="center">
+								expValEquals('platform_editor_agent_mentions', 'isEnabled', true) &&
+								fg('platform_editor_agent_mentions_drop_one_fixes') ? (
+									sectionLozenge ? (
+										<Box
+											paddingInline="space.150"
+											paddingBlockStart="space.150"
+											paddingBlockEnd="space.050"
+										>
+											<Inline as="span" space="space.075" alignBlock="center">
+												<Text as="span" size="small" color="color.text.subtle" weight="medium">
+													{currentRow.section.title}
+												</Text>
+												{sectionLozenge}
+											</Inline>
+										</Box>
+									) : (
+										<Box
+											paddingInline="space.150"
+											paddingBlockStart="space.100"
+											paddingBlockEnd="space.050"
+										>
 											<Text as="span" size="small" color="color.text.subtle" weight="medium">
 												{currentRow.section.title}
 											</Text>
-											{sectionLozenge}
-										</Inline>
-									) : (
-										<Text as="span" size="small" color="color.text.subtle" weight="medium">
-											{currentRow.section.title}
-										</Text>
-									)}
-								</Box>
+										</Box>
+									)
+								) : (
+									<Box paddingInline="space.150" paddingBlock="space.050">
+										{sectionLozenge ? (
+											<Inline as="span" space="space.075" alignBlock="center">
+												<Text as="span" size="small" color="color.text.subtle" weight="medium">
+													{currentRow.section.title}
+												</Text>
+												{sectionLozenge}
+											</Inline>
+										) : (
+											<Text as="span" size="small" color="color.text.subtle" weight="medium">
+												{currentRow.section.title}
+											</Text>
+										)}
+									</Box>
+								)
 							) : (
 								<TypeAheadListItem
 									key={items[currentRow.itemIndex].title}

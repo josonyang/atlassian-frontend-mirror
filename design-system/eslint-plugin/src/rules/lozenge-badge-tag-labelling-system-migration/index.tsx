@@ -2,6 +2,17 @@ import type { Rule } from 'eslint';
 import { isNodeOfType } from 'eslint-codemod-utils';
 
 import { createLintRule } from '../utils/create-lint-rule';
+import { isImportFromPackage } from '../utils/is-import-from-package';
+
+const LOZENGE_IMPORT_SOURCES = new Set(['@atlaskit/lozenge', '@atlaskit/lozenge/lozenge']);
+const BADGE_IMPORT_SOURCES = new Set(['@atlaskit/badge', '@atlaskit/badge/badge']);
+const SIMPLE_TAG_IMPORT_SOURCES = new Set(['@atlaskit/tag/simple-tag']);
+const REMOVABLE_TAG_IMPORT_SOURCES = new Set(['@atlaskit/tag', '@atlaskit/tag/removable-tag']);
+const AVATAR_IMPORT_SOURCES = new Set([
+	'@atlaskit/avatar',
+	'@atlaskit/avatar/avatar',
+	'@atlaskit/avatar/Avatar',
+]);
 
 const rule: Rule.RuleModule = createLintRule({
 	meta: {
@@ -159,6 +170,10 @@ const rule: Rule.RuleModule = createLintRule({
 		 * Returns the Avatar component name if it's from the avatar package, null otherwise
 		 */
 		function getAvatarComponentName(elemBeforeProp: any): string | null {
+			const getJsxIdentifierName = (node: any): string | null => {
+				return node?.type === 'JSXIdentifier' ? node.name : null;
+			};
+
 			if (!elemBeforeProp || !elemBeforeProp.value) {
 				return null;
 			}
@@ -166,8 +181,12 @@ const rule: Rule.RuleModule = createLintRule({
 			const value = elemBeforeProp.value;
 
 			// Check for JSX element: <Avatar ... />
-			if (value.type === 'JSXElement' && value.openingElement.name.name === 'Avatar') {
-				const avatarName = value.openingElement.name.name;
+			if (value.type === 'JSXElement') {
+				const avatarName = getJsxIdentifierName(value.openingElement.name);
+				if (!avatarName) {
+					return null;
+				}
+
 				if (avatarImports[avatarName]) {
 					return avatarName;
 				}
@@ -178,9 +197,13 @@ const rule: Rule.RuleModule = createLintRule({
 				// Direct JSX element: {<Avatar ... />}
 				if (
 					value.expression.type === 'JSXElement' &&
-					value.expression.openingElement.name.name === 'Avatar'
+					getJsxIdentifierName(value.expression.openingElement.name)
 				) {
-					const avatarName = value.expression.openingElement.name.name;
+					const avatarName = getJsxIdentifierName(value.expression.openingElement.name);
+					if (!avatarName) {
+						return null;
+					}
+
 					if (avatarImports[avatarName]) {
 						return avatarName;
 					}
@@ -189,8 +212,12 @@ const rule: Rule.RuleModule = createLintRule({
 				// Arrow function: {() => <Avatar ... />}
 				if (value.expression.type === 'ArrowFunctionExpression') {
 					const body = value.expression.body;
-					if (body.type === 'JSXElement' && body.openingElement.name.name === 'Avatar') {
-						const avatarName = body.openingElement.name.name;
+					if (body.type === 'JSXElement') {
+						const avatarName = getJsxIdentifierName(body.openingElement.name);
+						if (!avatarName) {
+							return null;
+						}
+
 						if (avatarImports[avatarName]) {
 							return avatarName;
 						}
@@ -344,10 +371,14 @@ const rule: Rule.RuleModule = createLintRule({
 							if (avatarElement) {
 								// Generate render props: avatar={(props) => <Avatar {...props} ... />}
 								const avatarElementText = sourceCode.getText(avatarElement);
+								const avatarComponentName =
+									avatarElement.openingElement.name.type === 'JSXIdentifier'
+										? avatarElement.openingElement.name.name
+										: 'Avatar';
 								// Add {...props} spread to the Avatar element attributes
 								const avatarWithProps = avatarElementText.replace(
-									/<Avatar\s/,
-									'<Avatar {...props} ',
+									new RegExp(`<${avatarComponentName}(\\s|/>)`),
+									`<${avatarComponentName} {...props}$1`,
 								);
 								newAttributes.push(`avatar={(props) => ${avatarWithProps}}`);
 							}
@@ -400,10 +431,7 @@ const rule: Rule.RuleModule = createLintRule({
 				const moduleSource = node.source.value;
 				if (typeof moduleSource === 'string') {
 					// Track Lozenge imports
-					if (
-						moduleSource === '@atlaskit/lozenge' ||
-						moduleSource.startsWith('@atlaskit/lozenge')
-					) {
+					if (LOZENGE_IMPORT_SOURCES.has(moduleSource)) {
 						node.specifiers.forEach((spec) => {
 							if (spec.type === 'ImportDefaultSpecifier') {
 								lozengeImports[spec.local.name] = moduleSource;
@@ -415,7 +443,7 @@ const rule: Rule.RuleModule = createLintRule({
 						});
 					}
 					// Track Badge imports
-					if (moduleSource === '@atlaskit/badge' || moduleSource.startsWith('@atlaskit/badge')) {
+					if (BADGE_IMPORT_SOURCES.has(moduleSource)) {
 						node.specifiers.forEach((spec) => {
 							if (spec.type === 'ImportDefaultSpecifier') {
 								badgeImports[spec.local.name] = moduleSource;
@@ -427,11 +455,11 @@ const rule: Rule.RuleModule = createLintRule({
 						});
 					}
 					// Track Tag imports (SimpleTag, RemovableTag only - not the new Tag component)
-					if (moduleSource === '@atlaskit/tag' || moduleSource.startsWith('@atlaskit/tag')) {
+					if (isImportFromPackage(moduleSource, '@atlaskit/tag')) {
 						node.specifiers.forEach((spec) => {
 							if (spec.type === 'ImportDefaultSpecifier') {
 								// Check for default imports from subpaths and main package
-								if (moduleSource === '@atlaskit/tag/simple-tag') {
+								if (SIMPLE_TAG_IMPORT_SOURCES.has(moduleSource)) {
 									// Default import from @atlaskit/tag/simple-tag is a SimpleTag
 									tagImports[spec.local.name] = {
 										type: 'SimpleTag',
@@ -439,10 +467,7 @@ const rule: Rule.RuleModule = createLintRule({
 										node: { ...spec, parent: node },
 									};
 									importDeclarationsToUpdate.add(node);
-								} else if (
-									moduleSource === '@atlaskit/tag/removable-tag' ||
-									moduleSource === '@atlaskit/tag'
-								) {
+								} else if (REMOVABLE_TAG_IMPORT_SOURCES.has(moduleSource)) {
 									// Default import from @atlaskit/tag/removable-tag or @atlaskit/tag is a RemovableTag
 									tagImports[spec.local.name] = {
 										type: 'RemovableTag',
@@ -471,7 +496,7 @@ const rule: Rule.RuleModule = createLintRule({
 						});
 					}
 					// Track Avatar imports
-					if (moduleSource === '@atlaskit/avatar' || moduleSource.startsWith('@atlaskit/avatar')) {
+					if (AVATAR_IMPORT_SOURCES.has(moduleSource)) {
 						node.specifiers.forEach((spec) => {
 							if (spec.type === 'ImportDefaultSpecifier') {
 								avatarImports[spec.local.name] = moduleSource;

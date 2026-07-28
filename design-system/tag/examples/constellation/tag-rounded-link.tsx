@@ -9,6 +9,6 @@ export default (): React.JSX.Element => (
 		removeButtonLabel="Remove"
 		text="Round removable link"
 		href="/components/tag"
-		elemBefore={<Avatar borderColor="transparent" size="xsmall" />}
+		elemBefore={<Avatar borderColor="transparent" size="xxsmall" />}
 	/>
 );

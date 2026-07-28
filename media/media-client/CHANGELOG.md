@@ -1,5 +1,14 @@
 # @atlaskit/media-client
 
+## 37.2.18
+
+### Patch Changes
+
+- [`e3550afc43327`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/e3550afc43327) -
+  [ux] EDITOR-7679 bug fix for media name fallback falling back to "download" when the media name
+  was not being passed
+- Updated dependencies
+
 ## 37.2.17
 
 ### Patch Changes

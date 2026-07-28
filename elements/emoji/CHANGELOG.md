@@ -1,5 +1,28 @@
 # @atlaskit/emoji
 
+## 71.15.1
+
+### Patch Changes
+
+- [`dd9429468d1d0`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/dd9429468d1d0) -
+  Clean up platform_emoji_grid_presentation FG
+
+## 71.15.0
+
+### Minor Changes
+
+- [`7d37c14edffa7`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/7d37c14edffa7) -
+  Update i18n NPM package versions for editor,editor-extensions,activity-platform,media,elements
+  (Group 3)
+
+### Patch Changes
+
+- [`22c03f298a7de`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/22c03f298a7de) -
+  Add an optional promise cache to `EmojiLoader`, keyed by the request URL, so that loaders created
+  for the same provider config reuse a single in-flight/resolved request instead of refetching.
+  Gated behind the `cache_emoji_loader_for_the_same_config` feature flag; behaviour is unchanged
+  when the flag is off.
+
 ## 71.14.0
 
 ### Minor Changes

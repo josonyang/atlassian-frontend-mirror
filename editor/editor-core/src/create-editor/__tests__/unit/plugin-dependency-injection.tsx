@@ -35,7 +35,7 @@ const requiredProps = () => ({
 	onEditorDestroyed: () => {},
 	editorProps: {},
 	intl: createIntl({ locale: 'en' }),
-	render: ({ editor }: { editor: React.ReactChild }) => <div>{editor}</div>,
+	render: ({ editor }: { editor: React.ReactElement | number | string }) => <div>{editor}</div>,
 	editorAPI: {},
 });
 

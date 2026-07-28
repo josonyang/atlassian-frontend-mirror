@@ -23,13 +23,13 @@ const _default: () => JSX.Element = () => (
 			<Skeleton size="large" />
 			<Skeleton size="medium" />
 			<Skeleton size="small" />
-			<Skeleton size="xsmall" />
+			<Skeleton size="xxsmall" />
 		</Block>
 		<Block heading="Square" testId="example-block">
 			<Skeleton appearance="square" size="large" />
 			<Skeleton appearance="square" size="medium" />
 			<Skeleton appearance="square" size="small" />
-			<Skeleton appearance="square" size="xsmall" />
+			<Skeleton appearance="square" size="xxsmall" />
 		</Block>
 		<Block heading="Hexagon" testId="example-block">
 			<Skeleton appearance="hexagon" size="xxlarge" />
@@ -37,7 +37,7 @@ const _default: () => JSX.Element = () => (
 			<Skeleton appearance="hexagon" size="large" />
 			<Skeleton appearance="hexagon" size="medium" />
 			<Skeleton appearance="hexagon" size="small" />
-			<Skeleton appearance="hexagon" size="xsmall" />
+			<Skeleton appearance="hexagon" size="xxsmall" />
 		</Block>
 		<Block heading="Coloured via inheritance" testId="example-block">
 			<Inline space="space.150" xcss={styles.textColor} alignBlock="end">
@@ -46,7 +46,7 @@ const _default: () => JSX.Element = () => (
 				<Skeleton size="large" />
 				<Skeleton size="medium" />
 				<Skeleton size="small" />
-				<Skeleton size="xsmall" />
+				<Skeleton size="xxsmall" />
 			</Inline>
 		</Block>
 		<Block heading="Coloured using props" testId="example-block">
@@ -55,7 +55,7 @@ const _default: () => JSX.Element = () => (
 			<Skeleton size="large" color={token('color.text.accent.blue')} />
 			<Skeleton size="medium" color={token('color.text.accent.red')} />
 			<Skeleton size="small" color={token('color.text.subtle')} />
-			<Skeleton size="xsmall" color={token('color.text.accent.teal')} />
+			<Skeleton size="xxsmall" color={token('color.text.accent.teal')} />
 		</Block>
 		<Block heading="With a strong weight" testId="example-block">
 			<Skeleton size="xxlarge" color={token('color.text.accent.orange')} weight="strong" />
@@ -63,7 +63,7 @@ const _default: () => JSX.Element = () => (
 			<Skeleton size="large" color={token('color.text.accent.blue')} weight="strong" />
 			<Skeleton size="medium" color={token('color.text.accent.red')} weight="strong" />
 			<Skeleton size="small" color={token('color.text.subtle')} weight="strong" />
-			<Skeleton size="xsmall" color={token('color.text.accent.teal')} weight="strong" />
+			<Skeleton size="xxsmall" color={token('color.text.accent.teal')} weight="strong" />
 		</Block>
 	</Stack>
 );

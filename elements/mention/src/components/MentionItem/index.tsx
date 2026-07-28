@@ -4,6 +4,7 @@ import Tag, { type TagColor } from '@atlaskit/tag';
 import React from 'react';
 import { token } from '@atlaskit/tokens';
 import EditorPanelIcon from '@atlaskit/icon/core/status-information';
+import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import {
 	isRestricted,
 	type MentionDescription,
@@ -23,7 +24,8 @@ import {
 	InfoSectionStyle,
 	MentionItemStyle,
 	NameSectionStyle,
-	RowStyle,
+	RowStyle as RowStyleLegacy,
+	RowStyleNext,
 	TimeStyle,
 } from './styles';
 import { renderHighlight } from './MentionHighlightHelpers';
@@ -138,6 +140,12 @@ export default class MentionItem extends React.PureComponent<Props, {}> {
 		const nameHighlights = highlight && highlight.name;
 
 		const xProductUserInfoIconColor = selected ? token('color.icon.selected') : token('color.icon');
+
+		const RowStyle =
+			expValEquals('platform_editor_agent_mentions', 'isEnabled', true) &&
+			fg('platform_editor_agent_mentions_drop_one_fixes')
+				? RowStyleNext
+				: RowStyleLegacy;
 
 		return (
 			<MessagesIntlProvider>

@@ -33,6 +33,19 @@ const getDocumentIcon = () => require('../../../../../common/ui/icons/page-icon'
 const getLiveDocumentIcon = () =>
 	require('../../../../../common/ui/icons/live-document-icon').default;
 
+const PRIORITY_ICONS = [
+	IconType.PriorityBlocker,
+	IconType.PriorityCritical,
+	IconType.PriorityHigh,
+	IconType.PriorityHighest,
+	IconType.PriorityLow,
+	IconType.PriorityLowest,
+	IconType.PriorityMajor,
+	IconType.PriorityMedium,
+	IconType.PriorityMinor,
+	IconType.PriorityTrivial,
+];
+
 const isCoreIcon = (icon: IconType): boolean => {
 	return [
 		IconType.Project,
@@ -51,6 +64,7 @@ const isCoreIcon = (icon: IconType): boolean => {
 		IconType.ProgrammingLanguage,
 		IconType.Subscriber,
 		IconType.SubTasksProgress,
+		...(fg('platform_sl_priority_icon') ? PRIORITY_ICONS : []),
 	].includes(icon);
 };
 
@@ -113,12 +127,17 @@ const AtlaskitIcon = ({
 				return <ImportedIcon label={label} testId={testId} color={color} />;
 			case SmartLinkSize.Large:
 			case SmartLinkSize.XLarge:
+				if (PRIORITY_ICONS.includes(icon) && fg('platform_sl_priority_icon')) {
+					return <ImportedIcon label={label} testId={testId} color={color} />;
+				}
+
 				let appearance: IconTileProps['appearance'];
 				if (icon === IconType.Error || icon === IconType.Forbidden) {
 					appearance = 'redBold';
 				} else {
 					appearance = 'grayBold';
 				}
+
 				const iconTileSize = transformSmartLinkSizeToIconTileSize(size);
 				if (iconTileSize) {
 					return (

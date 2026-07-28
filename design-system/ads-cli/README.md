@@ -150,6 +150,43 @@ skill are all thin surfaces over the **same** `@atlaskit/ads-mcp/tools/*` query 
 `ComponentMcpPayload[]` dataset. Adding or improving a tool in `ads-mcp` is automatically reflected
 here.
 
-> **Note:** An `atlas ads` plugin (for the Atlas CLI) is a separate future distribution path. The
-> `--json` envelope here is intentionally structured so it can be wrapped by that plugin later
-> without changes to this package.
+The `--json` envelope is shared unchanged by the npm and Atlas distributions.
+
+## Atlas CLI distribution
+
+The same command surface is available as `atlas ads`. Its entrypoint delegates directly to `run()`,
+so npm and Atlas share command parsing, output, and exit codes.
+
+Build the self-contained JavaScript bundle from the `platform/` directory:
+
+```sh
+afm workspace @atlaskit/ads-cli build:atlas
+node packages/design-system/ads-cli/build/atlas/ads-cli.js search button
+```
+
+The `.atlas-plugin` descriptor declares the `ads` plugin and the `atlas-cli-plugin-ads` Statlas
+namespace. Every upload fetches `manifest.toml` from Statlas before adding a release, so the remote
+manifest history remains canonical.
+
+Prepare an Atlas-shaped release locally:
+
+```sh
+VERSION=local-$(git rev-parse --short HEAD) \
+  afm workspace @atlaskit/ads-cli release:atlas:prepare
+```
+
+This builds 5 variants under `build/releases/$VERSION`, creates each archive and checksum,
+smoke-tests the Linux AMD64 executable when running on Linux AMD64, and adds the release to the
+`alpha` channel in the working manifest.
+
+The `ads-cli-build-and-upload-to-statlas` custom pipeline runs the tests and typecheck, prepares the
+release, uploads all artifacts, then publishes the manifest. Run it from `master`.
+
+After validating an alpha release, run the `ads-cli-promote-stable-version` custom pipeline from
+`master` with `VERSION_TO_PROMOTE` set to its exact version. Promotion updates the canonical remote
+manifest without rebuilding or uploading artifacts.
+
+The Statlas namespace authorization and Atlas plugin registry entry are one-time external
+prerequisites. Until the registry entry is available, use `atlas atlasdev exec` to exercise a
+packaged binary in the Atlas runtime. The AFM package scripts own the Node.js executable build; the
+generic `atlas atlasdev plugin build` command doesn't drive this package.

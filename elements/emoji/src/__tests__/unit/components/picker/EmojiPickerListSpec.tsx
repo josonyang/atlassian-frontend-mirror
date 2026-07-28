@@ -13,6 +13,7 @@ import {
 	type PickerListRef,
 	type Props as EmojiPickerListProps,
 } from '../../../../components/picker/EmojiPickerList';
+import { virtualListScrollContainerTestId } from '../../../../components/picker/VirtualList';
 import type { EmojiDescription } from '../../../../types';
 import * as constants from '../../../../util/constants';
 import {
@@ -656,7 +657,7 @@ describe('<EmojiPickerList />', () => {
 				onCategoryActivated: mockOnCategoryActivated,
 				query: 'gr',
 			});
-			const virtualListWrapper = await screen.findByRole('grid');
+			const virtualListWrapper = await screen.findByTestId(virtualListScrollContainerTestId);
 			expect(virtualListWrapper).toBeInTheDocument();
 			expect(mockOnCategoryActivated).not.toHaveBeenCalled();
 		});
@@ -685,7 +686,7 @@ describe('<EmojiPickerList />', () => {
 						onCategoryActivated={mockOnCategoryActivated}
 					/>,
 				);
-				await screen.findByRole('grid');
+				await screen.findByTestId(virtualListScrollContainerTestId);
 				await waitFor(() => {
 					act(() => {
 						pickerListRef.current?.reveal('NATURE');
@@ -713,7 +714,7 @@ describe('<EmojiPickerList />', () => {
 						currentUser={{ id: 'hulk' }}
 					/>,
 				);
-				await screen.findByRole('grid');
+				await screen.findByTestId(virtualListScrollContainerTestId);
 				await waitFor(() => {
 					act(() => {
 						pickerListRef.current?.reveal('CUSTOM');
@@ -738,7 +739,7 @@ describe('<EmojiPickerList />', () => {
 						onCategoryActivated={mockOnCategoryActivated}
 					/>,
 				);
-				await screen.findByRole('grid');
+				await screen.findByTestId(virtualListScrollContainerTestId);
 				await waitFor(() => {
 					act(() => {
 						pickerListRef.current?.reveal('ACTIVITY');

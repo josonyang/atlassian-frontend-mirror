@@ -2,6 +2,7 @@ import { type AvatarSizeMap } from './types';
 
 // border radius only applies to "square" avatars
 export const AVATAR_RADIUS: AvatarSizeMap = {
+	xxsmall: 2,
 	xsmall: 2,
 	UNSAFE_xsmall: 2,
 	small: 2,

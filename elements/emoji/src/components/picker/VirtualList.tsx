@@ -404,13 +404,7 @@ export const VirtualList: React.ForwardRefExoticComponent<Props & React.RefAttri
 				css={virtualList}
 				data-testid={virtualListScrollContainerTestId}
 				aria-labelledby="emoji-picker-table-description"
-				role={
-					useListSemantics
-						? 'application'
-						: fg('platform_emoji_grid_presentation')
-							? 'presentation'
-							: 'grid'
-				}
+				role={useListSemantics ? 'application' : 'presentation'}
 				tabIndex={useListSemantics ? -1 : undefined}
 			>
 				<div
@@ -433,8 +427,7 @@ export const VirtualList: React.ForwardRefExoticComponent<Props & React.RefAttri
 								height: `${virtualRow.size}px`,
 								transform: `translateY(${virtualRow.start}px)`,
 							}}
-							role={useListSemantics ? 'presentation' : 'row'}
-							{...(useListSemantics ? {} : { 'aria-rowindex': index + 1 })}
+							role="presentation"
 						>
 							{rowRenderer(virtualRow)}
 						</div>

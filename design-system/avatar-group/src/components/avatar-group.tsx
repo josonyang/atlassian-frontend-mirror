@@ -8,7 +8,7 @@ import React, {
 
 import { bind, type UnbindFn } from 'bind-event-listener';
 
-import Avatar, { type AppearanceType } from '@atlaskit/avatar';
+import Avatar from '@atlaskit/avatar';
 import { KEY_DOWN } from '@atlaskit/ds-lib/keycodes';
 import noop from '@atlaskit/ds-lib/noop';
 import useFocus from '@atlaskit/ds-lib/use-focus-event';
@@ -51,12 +51,6 @@ export interface AvatarGroupProps {
 	appearance?: 'grid' | 'stack';
 
 	/**
-	 * Indicates the shape of the more indicator. Most more indicators are circular, but square more indicators
-	 * can be used for 'container' objects.
-	 */
-	moreIndicatorAppearance?: AppearanceType;
-
-	/**
 	 * Component used to render each avatar.
 	 */
 	avatar?: typeof Avatar | ElementType<AvatarProps>;
@@ -72,7 +66,7 @@ export interface AvatarGroupProps {
 	 * Defines the size of the avatar.
 	 * Defaults to "medium".
 	 *
-	 * Note: The "xsmall" (16px) and "UNSAFE_xsmall" (20px) sizes that exist on Avatar are not supported here because elements such as the more indicator cannot be displayed in an accessible manner at those sizes.
+	 * Note: The "xxsmall" (16px), legacy "xsmall", and "UNSAFE_xsmall" (20px) sizes that exist on Avatar are not supported here because elements such as the more indicator cannot be displayed in an accessible manner at those sizes.
 	 */
 	size?: AvatarGroupSize;
 
@@ -186,7 +180,6 @@ export interface AvatarGroupProps {
  */
 const AvatarGroup = ({
 	appearance = 'stack',
-	moreIndicatorAppearance,
 	avatar = Avatar,
 	borderColor,
 	boundariesElement,
@@ -309,7 +302,6 @@ const AvatarGroup = ({
 				'aria-haspopup': ariaHasPopup,
 				onClick,
 				...props,
-				...(fg('jira-ai-agent-stack') && { appearance: moreIndicatorAppearance }),
 			});
 
 		// bail if the consumer wants to handle onClick

@@ -28,7 +28,7 @@ import {
 	updateStickyMargins as updateTableMargin,
 } from '../pm-plugins/table-resizing/utils/dom';
 import { type TableDOMElements, areAllRectsZero, getTop, getTree } from '../pm-plugins/utils/dom';
-import { supportedHeaderRow } from '../pm-plugins/utils/nodes';
+import { getTableRowIndex, supportedHeaderRow } from '../pm-plugins/utils/nodes';
 import {
 	type TablePluginState,
 	TableCssClassName as ClassName,
@@ -93,7 +93,12 @@ export default class TableRowNativeStickyWithFallback
 	) {
 		super(node, view, getPos, eventDispatcher);
 
-		this.isHeaderRow = supportedHeaderRow(node);
+		if (expValEquals('platform_editor_table_q4_patch_5', 'isEnabled', true)) {
+			const rowIndex = getTableRowIndex(view, getPos);
+			this.isHeaderRow = supportedHeaderRow(node, rowIndex);
+		} else {
+			this.isHeaderRow = supportedHeaderRow(node);
+		}
 
 		if (this.isHeaderRow && expValEquals('platform_editor_table_q4_patch_4', 'isEnabled', true)) {
 			this.isSingleRowTable = this.checkIsSingleRowTable();
@@ -249,7 +254,9 @@ export default class TableRowNativeStickyWithFallback
 		// see if we're changing into a header row or
 		// changing away from one
 		let rowIndex = 0;
-		if (expValEquals('platform_editor_fix_sticky_header_row', 'isEnabled', true)) {
+		if (expValEquals('platform_editor_table_q4_patch_5', 'isEnabled', true)) {
+			rowIndex = getTableRowIndex(this.view, this.getPos);
+		} else if (expValEquals('platform_editor_fix_sticky_header_row', 'isEnabled', true)) {
 			try {
 				const pos = this.getPos();
 				if (pos) {
@@ -259,6 +266,7 @@ export default class TableRowNativeStickyWithFallback
 				// Intentionally swallowed — getPos can return stale positions during AI streaming
 			}
 		}
+
 		const newNodeIsHeaderRow = supportedHeaderRow(node, rowIndex);
 		if (this.isHeaderRow !== newNodeIsHeaderRow) {
 			if (!newNodeIsHeaderRow && this.isHeaderRow) {

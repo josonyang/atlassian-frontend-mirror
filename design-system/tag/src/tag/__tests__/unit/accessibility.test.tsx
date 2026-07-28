@@ -23,7 +23,7 @@ describe('Tag component accessibility', () => {
 
 		it('should not fail an aXe audit when containing an elemBefore', async () => {
 			const { container } = render(
-				<Tag text="Testing" elemBefore={<Avatar borderColor="transparent" size="xsmall" />} />,
+				<Tag text="Testing" elemBefore={<Avatar borderColor="transparent" size="xxsmall" />} />,
 			);
 
 			await axe(container);
@@ -48,7 +48,7 @@ describe('Tag component accessibility', () => {
 				<RemovableTag
 					text="Testing"
 					removeButtonLabel="Remove"
-					elemBefore={<Avatar borderColor="transparent" size="xsmall" />}
+					elemBefore={<Avatar borderColor="transparent" size="xxsmall" />}
 				/>,
 			);
 

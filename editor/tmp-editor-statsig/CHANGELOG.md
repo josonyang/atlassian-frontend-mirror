@@ -1,5 +1,102 @@
 # @atlaskit/editor-statsig-tmp
 
+## 135.2.0
+
+### Minor Changes
+
+- [`b91c14d4dbad7`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/b91c14d4dbad7) -
+  Editor; Ensure only the first table row can become a sticky header when the rounded table patch is
+  enabled
+
+  Renderer; Patch table body elements to have rounded corners when overridden by consumers
+
+## 135.1.0
+
+### Minor Changes
+
+- [`5174794d869df`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/5174794d869df) -
+  Add the third-party (3P) prompt tile to Create-with-Rovo personalized suggestions, gated behind
+  the `confluence_cwr_3p_connection_suggested_prompts` experiment (Control / Variant A / Variant B).
+
+  The frontend owns all experiment logic and passes a plain `enable3pPromptOn3rdCard` boolean to
+  `fetchPersonalizedPromptSuggestionsStream`; the backend uses it only to gate 3P tile generation.
+  The modal and its preloads share one prompt-suggestions cache, so all of them decide the flag with
+  a no-exposure cohort read (only eligible users request the tile). The Statsig exposure fires once,
+  when the modal actually opens, so preloads don't dilute the experiment. Variant B renders up to
+  two connector icons on the 3P tile via `RovoLogoForAppSource`, falling back to the single tile
+  icon (Variant A behaviour) when there are no connectors.
+
+  A `track` eligibility event is emitted when the modal opens so the "admin allowed no 3P apps → not
+  in the experiment" segment (which fires no Statsig exposure) is still counted, alongside
+  eligible/cohort and connectors-unavailable outcomes.
+
+  `useEnsureConnectorsLoaded` gains an optional `enabled` flag (default `true`): the 3P tile loads
+  connectors only on the exposure surface or for variants, so control on a preload surface pays no
+  connectors fetch — and no extra render — on every create-button mount.
+
+  Usage:
+
+  ```ts
+  import { fetchPersonalizedPromptSuggestionsStream } from '@atlassian/conversation-assistant-service/services/assistance-service/main';
+  import {
+  	type ThirdPartyConnector,
+  	THIRD_PARTY_PROMPT_SOURCE_CONTENT_TYPE,
+  } from '@atlassian/conversation-assistant-service-api/types/assistance-service';
+
+  // Opt in to the 3P tile on the 3rd card (variants A/B only); omit the flag otherwise
+  // so the request stays byte-identical for everyone else.
+  const { generator } = await assistanceService.fetchPersonalizedPromptSuggestionsStream({
+  	enable3pPromptOn3rdCard: true,
+  });
+
+  // A returned tile is the 3P tile when its source content type matches; it carries the
+  // connectors used to render the product icons.
+  const is3pTile = tile.source_content_type === THIRD_PARTY_PROMPT_SOURCE_CONTENT_TYPE;
+  const connectors: ThirdPartyConnector[] | undefined = tile.third_party_connectors;
+  ```
+
+## 135.0.1
+
+### Patch Changes
+
+- [`782360c1111dc`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/782360c1111dc) -
+  Agent-edit shimmer review follow-ups (behind the default-OFF `platform_editor_agent_be_streaming`
+  experiment):
+  - Add a second shimmer phase: after the skeleton loader clears, the changed range shows a purple
+    "just edited" highlight (same colours as the editor AI "improve writing" in-editor highlight)
+    that eases in and out over its lifetime. The Rovo telepointer stays through both phases.
+  - The two phases are sized by independent experiment params: `shimmerDurationMs` (skeleton,
+    renamed from `durationMs`) and `highlightDurationMs` (highlight). `0` on either skips just that
+    phase, `0` on both shows nothing.
+  - Gate the agent-edit shimmer styles behind the experiment in both the emotion and compiled
+    `EditorContentContainer` style entries, using the no-exposure check on the hot render path.
+  - Add an `agentEditReceived` collab-provider analytics event, fired once per received transaction
+    that contains agent-authored steps, with non-PII attributes (agent ids, count, kinds,
+    agent/total step counts).
+  - Add an `agentEditShimmerNotShown` COLLAB operational analytics event for agent edits that apply
+    without the shimmer (`rebasedConcurrentEdit`, `nothingToShow`, `captureThrew`,
+    `tornDownMidAnimation`); neutral action + `reason`, non-PII attributes.
+  - Hoist the top-level block/position helpers in `agent-shimmer-ranges` to reusable module scope,
+    drop the redundant upper-bound clamp in `agent-shimmer-decorations`, and remove the empty
+    `@example` JSDoc tags added in the original PR.
+
+  `@atlaskit/editor-common` gains a new subpath export,
+  `@atlaskit/editor-common/analytics/types/agent-edit-shimmer-events`, exposing the
+  `agentEditShimmerNotShown` operational event types. Usage:
+
+  ```ts
+  import { ACTION, ACTION_SUBJECT, EVENT_TYPE } from '@atlaskit/editor-common/analytics';
+  import type { AgentEditShimmerNotShownReason } from '@atlaskit/editor-common/analytics/types/agent-edit-shimmer-events';
+
+  const reason: AgentEditShimmerNotShownReason = 'captureThrew';
+  editorAnalyticsApi?.fireAnalyticsEvent({
+  	action: ACTION.AGENT_EDIT_SHIMMER_NOT_SHOWN,
+  	actionSubject: ACTION_SUBJECT.COLLAB,
+  	eventType: EVENT_TYPE.OPERATIONAL,
+  	attributes: { reason },
+  });
+  ```
+
 ## 135.0.0
 
 ### Major Changes

@@ -1,5 +1,6 @@
 import React from 'react';
 import { render, screen, userEvent } from '@atlassian/testing-library';
+import { passGate, failGate } from '@atlassian/feature-flags-test-utils/mock-gates';
 import { type FileIdentifier } from '@atlaskit/media-client';
 import { Navigation, NavigationBase, prevNavButtonId, nextNavButtonId } from '../../../navigation';
 import { KeyboardEventWithKeyCode } from '@atlaskit/media-test-helpers';
@@ -128,6 +129,22 @@ describe('Navigation', () => {
 			});
 			document.dispatchEvent(e);
 			expect(onChange).toHaveBeenCalledWith(identifier2);
+		});
+	});
+
+	describe('Accessible labels (platform_media_a11y_nav_button_labels)', () => {
+		it('uses descriptive "Previous attachment" / "Next attachment" labels when the gate is on', () => {
+			passGate('platform_media_a11y_nav_button_labels');
+			render(<Navigation onChange={() => {}} items={items} selectedItem={identifier2} />);
+			expect(screen.getByRole('button', { name: 'Previous attachment' })).toBeInTheDocument();
+			expect(screen.getByRole('button', { name: 'Next attachment' })).toBeInTheDocument();
+		});
+
+		it('falls back to "Previous" / "Next" labels when the gate is off', () => {
+			failGate('platform_media_a11y_nav_button_labels');
+			render(<Navigation onChange={() => {}} items={items} selectedItem={identifier2} />);
+			expect(screen.getByRole('button', { name: 'Previous' })).toBeInTheDocument();
+			expect(screen.getByRole('button', { name: 'Next' })).toBeInTheDocument();
 		});
 	});
 

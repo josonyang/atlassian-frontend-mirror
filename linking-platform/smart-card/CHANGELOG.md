@@ -1,5 +1,21 @@
 # @atlaskit/smart-card
 
+## 45.13.5
+
+### Patch Changes
+
+- [`cc4252a358bcf`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/cc4252a358bcf) -
+  [ux] Migrate priority icon to use @atlaskit/icon/core
+- Updated dependencies
+
+## 45.13.4
+
+### Patch Changes
+
+- [`a49234e409f3c`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/a49234e409f3c) -
+  Add analytics events on embed carousel unauth view
+- Updated dependencies
+
 ## 45.13.3
 
 ### Patch Changes

@@ -10,7 +10,7 @@ import { platformRootResolve } from '@af/root-path';
 // Import raw token values to replicate the Babel plugin's auto-fallback behavior.
 // When @atlaskit/css-reset was bundled through Parcel, the tokens Babel plugin
 // (shouldUseAutoFallback) automatically added fallback values to token() calls
-// without explicit fallbacks. Since this build script runs via ts-node (no Babel),
+// without explicit fallbacks. Since this build script runs via run-ts (no Babel),
 // we need to post-process the CSS to add those fallbacks ourselves.
 //
 // We use relative paths to the tokens package source because the subpath exports

@@ -11,7 +11,7 @@ import type { FocusEventHandlers, FocusState } from './types';
  *
  * @deprecated useFocusRing is deprecated with FocusRing. Use Focusable from @atlaskit/primitives/compiled/focusable instead.
  */
-const useFocusRing = (
+export const useFocusRing = (
 	initialState: FocusState = 'off',
 ): {
 	readonly focusState: 'on' | 'off';
@@ -28,5 +28,3 @@ const useFocusRing = (
 		focusProps: focusProps.current,
 	} as const;
 };
-
-export default useFocusRing;

@@ -6,6 +6,7 @@ import {
 
 import { JSXElementHelper as JSXElement } from '../../ast-nodes/jsx-element-helper';
 import { createLintRule } from '../utils/create-lint-rule';
+import { getAffectedPackageConfig } from '../utils/get-affected-package-config';
 
 import { AFFECTED_ATLASKIT_PACKAGES } from './affected-atlaskit-packages';
 import { AFFECTED_HTML_ELEMENTS } from './affected-html-elements';
@@ -67,13 +68,10 @@ const rule: import('eslint').Rule.RuleModule = createLintRule({
 		return {
 			ImportDeclaration(node) {
 				const source = node.source.value;
-
-				if (typeof source !== 'string') {
-					return;
-				}
+				const affectedPackage = getAffectedPackageConfig(source, AFFECTED_ATLASKIT_PACKAGES);
 
 				// Ignore non-atlaskit input packages
-				if (!Object.keys(AFFECTED_ATLASKIT_PACKAGES).includes(source)) {
+				if (!affectedPackage) {
 					return;
 				}
 
@@ -86,7 +84,7 @@ const rule: import('eslint').Rule.RuleModule = createLintRule({
 				);
 				const namedImport = node.specifiers.filter((spec) => spec.type === 'ImportSpecifier');
 
-				const importNames = AFFECTED_ATLASKIT_PACKAGES[source];
+				const importNames = affectedPackage.importNames;
 				const usesDefaultImport = importNames.includes('default');
 				const possibleNamedImports = importNames.filter((importName) => importName !== 'default');
 

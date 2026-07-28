@@ -1,5 +1,12 @@
 # @atlaskit/editor-plugin-editor-viewmode
 
+## 14.0.1
+
+### Patch Changes
+
+- [`0130c746e0728`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/0130c746e0728) -
+  Expose the editor's read-only state to assistive technologies in view mode.
+
 ## 14.0.0
 
 ### Major Changes

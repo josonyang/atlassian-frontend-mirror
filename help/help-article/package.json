@@ -23,7 +23,10 @@
 		"./model/HelpArticle": "./src/entry-points/model-HelpArticle.ts"
 	},
 	"atlassian": {
-		"team": "Self-Help Experiences",
+		"team": "PACE PS2",
+		"slack": {
+			"channel": "#pace-ps2"
+		},
 		"website": {
 			"name": "Help Article"
 		}

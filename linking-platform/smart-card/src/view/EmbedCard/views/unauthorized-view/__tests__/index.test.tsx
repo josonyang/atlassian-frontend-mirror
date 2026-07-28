@@ -2,6 +2,7 @@ import React from 'react';
 
 import FeatureGates from '@atlaskit/feature-gate-js-client/feature-gates';
 import { renderWithIntl } from '@atlaskit/link-test-helpers/react-testing-library';
+import { act } from '@atlassian/testing-library/act';
 import { screen } from '@atlassian/testing-library/screen';
 
 import UnauthorizedView from '../index';
@@ -14,8 +15,9 @@ jest.mock('../../../../../state/hooks/use-rovo-config', () => ({
 		.mockReturnValue({ rovoOptions: { isRovoEnabled: false, isRovoLLMEnabled: false } }),
 }));
 
+const mockFireEvent = jest.fn();
 jest.mock('../../../../../common/analytics/generated/use-analytics-events', () => ({
-	useAnalyticsEvents: () => ({ fireEvent: jest.fn() }),
+	useAnalyticsEvents: () => ({ fireEvent: mockFireEvent }),
 }));
 
 const defaultProps: React.ComponentProps<typeof UnauthorizedView> = {
@@ -35,6 +37,7 @@ describe('UnauthorizedViewGated', () => {
 	beforeEach(() => {
 		initializeSpy = jest.spyOn(FeatureGates, 'initializeCompleted').mockReturnValue(true);
 		experimentSpy = jest.spyOn(FeatureGates, 'getExperimentValue').mockReturnValue(false);
+		mockFireEvent.mockClear();
 	});
 
 	afterEach(() => {
@@ -72,6 +75,63 @@ describe('UnauthorizedViewGated', () => {
 			expect(
 				screen.queryByTestId('embed-card-unauthorized-view-carousel-slide-connect'),
 			).not.toBeInTheDocument();
+		});
+
+		describe('analytics events', () => {
+			const useRovoConfig = require('../../../../../state/hooks/use-rovo-config').default;
+			beforeEach(() => {
+				experimentSpy.mockReturnValue(true);
+				// Enable Rovo so all 3 slides are present (Next button renders on non-last slides)
+				useRovoConfig.mockReturnValue({
+					rovoOptions: { isRovoEnabled: true, isRovoLLMEnabled: true },
+					product: undefined,
+				});
+			});
+
+			it('fires carouselConnect event with display and slideId when connect button is clicked', () => {
+				renderWithIntl(<UnauthorizedView {...defaultProps} />);
+				screen.getByTestId('embed-card-unauthorized-view-carousel-slide-connect').click();
+				expect(mockFireEvent).toHaveBeenCalledWith(
+					'ui.button.clicked.carouselConnect',
+					expect.objectContaining({
+						display: 'embed',
+						slideId: 'smart-link-benefit',
+					}),
+				);
+			});
+
+			it('fires carouselNext event with display and slideId when "See next" is clicked', () => {
+				renderWithIntl(<UnauthorizedView {...defaultProps} />);
+				screen.getByTestId('embed-card-unauthorized-view-carousel-slide-next').click();
+				expect(mockFireEvent).toHaveBeenCalledWith(
+					'ui.button.clicked.carouselNext',
+					expect.objectContaining({
+						display: 'embed',
+						slideId: 'smart-link-benefit',
+					}),
+				);
+			});
+
+			it('fires carouselNext with rovo-search-benefit slideId when on slide 2', () => {
+				renderWithIntl(<UnauthorizedView {...defaultProps} />);
+				// Click Next on slide 1 — fires carouselNext with 'smart-link-benefit' and navigates to slide 2
+				act(() => {
+					screen.getByTestId('embed-card-unauthorized-view-carousel-slide-next').click();
+				});
+				expect(mockFireEvent).toHaveBeenCalledWith(
+					'ui.button.clicked.carouselNext',
+					expect.objectContaining({ slideId: 'smart-link-benefit' }),
+				);
+				mockFireEvent.mockClear();
+				// Now on slide 2 (rovo-search-benefit), click Next — fires carouselNext with 'rovo-search-benefit'
+				act(() => {
+					screen.getByTestId('embed-card-unauthorized-view-carousel-slide-next').click();
+				});
+				expect(mockFireEvent).toHaveBeenCalledWith(
+					'ui.button.clicked.carouselNext',
+					expect.objectContaining({ slideId: 'rovo-search-benefit' }),
+				);
+			});
 		});
 	});
 });

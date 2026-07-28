@@ -64,9 +64,33 @@ tester.run('use-correct-field', rule, {
 				{({ fieldProps }) => <Toggle {...fieldProps} />}
 			</CheckboxField>
 		`,
+		// Should pass for debarrelled field imports
+		`
+			import CheckboxField from '@atlaskit/form/checkbox-field';
+			import Checkbox from '@atlaskit/checkbox/checkbox';
+
+			<CheckboxField>
+				{({ fieldProps }) => <Checkbox {...fieldProps} />}
+			</CheckboxField>
+		`,
 	],
 	invalid: [
 		// Should not pass if checkbox in normal field
+		{
+			code: outdent`
+				import Field from '@atlaskit/form/field';
+				import Checkbox from '@atlaskit/checkbox/checkbox';
+
+				<Field name="remember" isRequired>
+					{({ fieldProps }) => <Checkbox {...fieldProps} label="Remember me" />}
+				</Field>
+			`,
+			errors: [
+				{
+					messageId: 'useCheckboxField',
+				},
+			],
+		},
 		{
 			code: outdent`
 				import { Field } from '@atlaskit/form';

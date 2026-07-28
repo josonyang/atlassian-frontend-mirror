@@ -5,10 +5,10 @@
 import React from 'react';
 import { useIntl } from 'react-intl';
 
-import { css, jsx } from '@atlaskit/css';
+import { css, jsx } from '@compiled/react';
 import { IconButton } from '@atlaskit/button/new';
+import { akEditorSwoopCubicBezier } from '@atlaskit/editor-shared-styles/constants';
 import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
-import ChevronDownIcon from '@atlaskit/icon/core/chevron-down';
 import ChevronRightIcon from '@atlaskit/icon/core/chevron-right';
 import { abortAll } from '@atlaskit/react-ufo/interaction-metrics';
 import {
@@ -71,6 +71,24 @@ const collapsibleHeadingButtonStyles = css({
 	insetBlockStart: 0,
 	insetInlineStart: 0,
 	zIndex: 1,
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- The IconButton API does not expose a styling hook for its SVG.
+	'& svg': {
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Match the existing renderer Expand icon animation.
+		transition: `transform 0.2s ${akEditorSwoopCubicBezier}`,
+	},
+	'@media (prefers-reduced-motion: reduce)': {
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- The IconButton API does not expose a styling hook for its SVG.
+		'& svg': {
+			transition: 'none',
+		},
+	},
+});
+
+const collapsibleHeadingButtonExpandedStyles = css({
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- The IconButton API does not expose a styling hook for its SVG.
+	'& svg': {
+		transform: 'rotate(90deg)',
+	},
 });
 
 const collapsibleHeadingButtonHiddenStyles = css({
@@ -86,7 +104,6 @@ const collapsibleHeadingButtonHiddenStyles = css({
 	},
 });
 
-const ChevronDownSmallIcon = () => <ChevronDownIcon label="" size="small" />;
 const ChevronRightSmallIcon = () => <ChevronRightIcon label="" size="small" />;
 
 const hasFocusVisible = (target: HTMLElement): boolean => {
@@ -179,12 +196,16 @@ function CollapsibleHeadingButton({
 
 	return (
 		<span
-			css={[collapsibleHeadingButtonStyles, !isVisible && collapsibleHeadingButtonHiddenStyles]}
+			css={[
+				collapsibleHeadingButtonStyles,
+				!isCollapsed && collapsibleHeadingButtonExpandedStyles,
+				!isVisible && collapsibleHeadingButtonHiddenStyles,
+			]}
 		>
 			<IconButton
 				appearance="subtle"
 				spacing="compact"
-				icon={isCollapsed ? ChevronRightSmallIcon : ChevronDownSmallIcon}
+				icon={ChevronRightSmallIcon}
 				label={intl.formatMessage(
 					isCollapsed
 						? collapsibleHeadingMessages.expandSection

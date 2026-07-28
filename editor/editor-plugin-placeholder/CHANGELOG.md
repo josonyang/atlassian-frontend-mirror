@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-placeholder
 
+## 12.0.39
+
+### Patch Changes
+
+- [`d9e8a63a60b63`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/d9e8a63a60b63) -
+  Keep the placeholder visible in empty source synced blocks for the sync block activation treatment
+  while preserving the existing placeholder behavior in the control.
+
 ## 12.0.38
 
 ### Patch Changes

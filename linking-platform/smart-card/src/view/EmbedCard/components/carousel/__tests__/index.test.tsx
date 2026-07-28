@@ -22,6 +22,7 @@ beforeAll(() => {
 
 describe('Carousel', () => {
 	const makeCarouselItem = (n: number): CarouselItem => ({
+		id: `slide-${n}`,
 		title: `Slide ${n} title`,
 		description: `Slide ${n} description`,
 		image: <svg data-testid={`image-${n}`} />,
@@ -183,11 +184,21 @@ describe('Carousel', () => {
 	});
 
 	describe('onPrimaryButtonClick callback', () => {
-		it('calls onPrimaryButtonClick when the connect button is clicked', () => {
+		it('calls onPrimaryButtonClick with the slide id when the connect button is clicked', () => {
 			const onPrimaryButtonClick = jest.fn();
 			setup({ onPrimaryButtonClick });
 			fireEvent.click(screen.getByTestId('carousel-slide-connect'));
 			expect(onPrimaryButtonClick).toHaveBeenCalledTimes(1);
+			expect(onPrimaryButtonClick).toHaveBeenCalledWith('slide-1');
+		});
+
+		it('calls onPrimaryButtonClick with the correct slide id after navigating', () => {
+			const onPrimaryButtonClick = jest.fn();
+			setup({ onPrimaryButtonClick });
+			// Navigate to slide 2
+			fireEvent.click(screen.getByTestId('carousel-slide-next'));
+			fireEvent.click(screen.getByTestId('carousel-slide-connect'));
+			expect(onPrimaryButtonClick).toHaveBeenCalledWith('slide-2');
 		});
 
 		it('does not render the connect button when onPrimaryButtonClick is not provided', () => {
@@ -274,6 +285,34 @@ describe('Carousel', () => {
 
 			// @ts-ignore
 			global.ResizeObserver = MockResizeObserver;
+		});
+	});
+
+	describe('onNextClick callback', () => {
+		it('calls onNextClick with the current slide id when "See next" is clicked', () => {
+			const onNextClick = jest.fn();
+			setup({ onNextClick });
+			fireEvent.click(screen.getByTestId('carousel-slide-next'));
+			expect(onNextClick).toHaveBeenCalledTimes(1);
+			expect(onNextClick).toHaveBeenCalledWith('slide-1');
+		});
+
+		it('calls onNextClick with the correct slide id on each navigation', () => {
+			const onNextClick = jest.fn();
+			setup({ onNextClick });
+			// First next click: on slide 1
+			fireEvent.click(screen.getByTestId('carousel-slide-next'));
+			expect(onNextClick).toHaveBeenNthCalledWith(1, 'slide-1');
+			// Second next click: on slide 2
+			fireEvent.click(screen.getByTestId('carousel-slide-next'));
+			expect(onNextClick).toHaveBeenNthCalledWith(2, 'slide-2');
+		});
+
+		it('does not call onNextClick when navigating via dot', () => {
+			const onNextClick = jest.fn();
+			setup({ onNextClick });
+			fireEvent.click(screen.getByTestId('carousel-slide-dot-2'));
+			expect(onNextClick).not.toHaveBeenCalled();
 		});
 	});
 

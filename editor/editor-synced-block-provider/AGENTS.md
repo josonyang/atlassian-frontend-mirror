@@ -4,7 +4,7 @@
 >
 > **For workflow guidance, debugging, and cross-package task guides, load the `synced-blocks`
 > skill:**
-> `get_skill(skill_name_or_path="platform/packages/editor/.rovodev/skills/synced-blocks/SKILL.md")`
+> `get_skill(skill_name_or_path="platform/packages/editor/.agents/skills/synced-blocks/SKILL.md")`
 
 ---
 
@@ -22,10 +22,16 @@ plugin and the renderer across Confluence and Jira.
 src/
 ├── index.ts                          # Barrel export
 ├── store-manager/
-│   ├── syncBlockStoreManager.ts      # Parent coordinator for source + reference managers
-│   ├── referenceSyncBlockStoreManager.ts # Reference block lifecycle, cache, subscriptions, flush
-│   └── sourceSyncBlockStoreManager.ts    # Source block create, update, delete, flush,
-│                                           hasPendingCreations(), discardUnpublishedBlocks()
+│   ├── syncBlockStoreManager.ts          # Facade: delegates to source + reference managers
+│   ├── sourceSyncBlockStoreManager.ts    # Source lifecycle: updateSyncBlockData, flush,
+│   │                                       hasUnsavedChanges(), hasPendingCreations(),
+│   │                                       commitPendingCreation(), discardUnpublishedBlocks(),
+│   │                                       deleteSyncBlocksWithConfirmation()
+│   ├── referenceSyncBlockStoreManager.ts # Reference lifecycle: fetch, cache, subscriptions, flush
+│   ├── syncBlockBatchFetcher.ts          # Debounced/deduped batch fetch of reference data
+│   ├── syncBlockInMemorySessionCache.ts  # Session cache (survives view↔edit within a session)
+│   ├── syncBlockSubscriptionManager.ts   # Real-time subscription registry (AGG/Relay)
+│   └── syncBlockProviderFactoryManager.ts # Builds/wires the provider instances
 ├── clients/
 │   ├── block-service/
 │   │   ├── blockService.ts           # Block service API client (fetch, batch, CRUD)
@@ -43,7 +49,7 @@ src/
 │   ├── useFetchSyncBlockTitle.ts     # React hook: fetch source title/url metadata
 │   └── useHandleContentChanges.ts    # Wires editor content changes into source manager
 ├── common/
-│   ├── consts.ts                     # Shared constants (debounce timings, etc.)
+│   ├── consts.ts                     # Shared constants (e.g. SYNC_BLOCK_PRODUCTS)
 │   ├── rebase-transaction.ts         # Shared transaction rebase helpers
 │   └── types.ts                      # Cross-module types
 ├── utils/
@@ -64,19 +70,23 @@ src/
 ### Store Manager Hierarchy
 
 ```
-SyncBlockStoreManager (parent coordinator)
-├── SourceSyncBlockStoreManager
-│   ├── create(content) → Block Service API → returns resourceId
-│   ├── updateSyncBlockData(node) → marks isDirty, caches content
-│   ├── flush() → persist all dirty changes to backend
-│   ├── hasUnsavedChanges() → checks isDirty + hasReceivedContentChange
-│   ├── hasPendingCreations() → O(1) pending-creation check (EDITOR-6930)
-│   ├── discardUnpublishedBlocks() → delete unpublished blocks (EDITOR-6473)
-│   └── delete(resourceId) → soft delete with confirmation
-└── ReferenceSyncBlockStoreManager
+SyncBlockStoreManager (facade — delegates to source + reference managers)
+├── sourceManager: SourceSyncBlockStoreManager
+│   ├── updateSyncBlockData(node) → marks isDirty + hasReceivedContentChange, caches content
+│   ├── flush() → persist all dirty source changes to Block Service
+│   ├── hasUnsavedChanges() → hasReceivedContentChange && any block isDirty
+│   ├── hasPendingCreations() / isPendingCreation(id) → O(1) pending-creation checks (EDITOR-6930)
+│   ├── commitPendingCreation(...) → reconcile a pending source after it persists
+│   ├── createBodiedSyncBlockNode(...) / generateBodiedSyncBlockAttrs() → build a new source node
+│   ├── discardUnpublishedBlocks() → drop never-published sources (EDITOR-6473)
+│   ├── deleteSyncBlocksWithConfirmation() → confirmed source deletion (+ retryDeletion())
+│   ├── registerConfirmationCallback() / setFireAnalyticsEvent() → product-supplied hooks
+│   └── (no create()/delete(): sources are created lazily then flushed — see the skill)
+└── referenceManager: ReferenceSyncBlockStoreManager
     ├── fetchSyncBlocksData(nodes) → batch fetch with deduplication
-    ├── subscribeToSyncBlock(resourceId, callback) → AGG WebSocket
+    ├── subscribeToSyncBlock(resourceId, callback) → AGG WebSocket / Relay
     ├── fetchSyncBlockSourceInfo(resourceId) → title, URL metadata
+    ├── flush() → flush reference-side pending work
     └── destroy() → cleanup subscriptions and batchers
 ```
 
@@ -92,7 +102,10 @@ SyncBlockStoreManager (parent coordinator)
 ### Block Service API
 
 The client in `clients/block-service/blockService.ts` communicates via GraphQL at
-`/gateway/api/graphql`: Fetch, Create, Update (debounced 3s), Delete, Source Info, References Info.
+`/gateway/api/graphql`: Fetch, Create, Update, Delete, Source Info, References Info. The GraphQL
+mutations are **not** debounced at the client — write batching is driven by the product layer calling
+`flush()` (Confluence draft-sync/publish, Jira save). Reference reads are batched/deduped via
+`syncBlockBatchFetcher.ts`. Grep for the current timing constants rather than assuming a value.
 
 ### Media Token Fetching
 

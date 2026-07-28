@@ -18,7 +18,7 @@ export type CustomMotionXCSS = StrictXCSSProp<
 	never
 >;
 
-type MotionState = 'init' | 'entering' | 'exiting' | 'idle';
+type MotionState = 'init' | 'entering' | 'visible' | 'exiting' | 'hidden';
 
 export interface UseMotionProps {
 	/**
@@ -27,6 +27,8 @@ export interface UseMotionProps {
 	 * And vice versa for `exiting`.
 	 */
 	onFinish?: (state: Transition) => void;
+
+	initialState?: MotionState;
 }
 
 export interface UseMotionResult<T extends HTMLElement = HTMLElement> {
@@ -63,6 +65,7 @@ export interface UseMotionResult<T extends HTMLElement = HTMLElement> {
  */
 export function useMotion<T extends HTMLElement = HTMLElement>({
 	onFinish: onFinishMotion,
+	initialState,
 }: UseMotionProps = {}): UseMotionResult<T> {
 	const reducedMotion = isReducedMotion();
 	const staggered = useStaggeredEntrance();
@@ -71,7 +74,8 @@ export function useMotion<T extends HTMLElement = HTMLElement>({
 	const staggeredIsReady = staggered.isReady;
 
 	const [state, setState] = useState<MotionState>(
-		appear ? (staggeredIsReady && !staggeredDelay ? 'entering' : 'init') : 'idle',
+		initialState ??
+			(appear ? (staggeredIsReady && !staggeredDelay ? 'entering' : 'init') : 'visible'),
 	);
 
 	const elementRef = useRef<T | null>(null);
@@ -91,8 +95,8 @@ export function useMotion<T extends HTMLElement = HTMLElement>({
 	 */
 	const onAnimationEnd = useCallback(
 		(currentState: MotionState, cancelled: boolean) => {
-			// We are done animating, so we set the state to idle
-			let newState: MotionState = 'idle';
+			// We are done animating, so we set the state to visible
+			let newState: MotionState = 'visible';
 			if (currentState === 'exiting') {
 				if (!reanimateRef.current) {
 					// Updates the `ExitingPersistence` to remove this child
@@ -112,10 +116,9 @@ export function useMotion<T extends HTMLElement = HTMLElement>({
 				// We are done reanimating, so we clear the reanimate state
 				reanimateRef.current = undefined;
 			} else if (reanimateRef.current === Reanimate.exit) {
-				// We are done exiting, so we set the state to idle
+				// We are done reanimating, so we clear the reanimate state
 				reanimateRef.current = undefined;
-				// No need to set the state to idle, as we have exited
-				return;
+				newState = 'hidden';
 			}
 
 			if (!cancelled) {
@@ -167,8 +170,8 @@ export function useMotion<T extends HTMLElement = HTMLElement>({
 			return;
 		}
 
-		// If the state is idle or init, we don't need to do anything
-		if (state === 'idle' || state === 'init') {
+		// If the state is visible, hidden or init, we don't need to do anything
+		if (state === 'visible' || state === 'init' || state === 'hidden') {
 			return;
 		}
 

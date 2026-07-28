@@ -1,6 +1,7 @@
 import type { SecurityOptions } from '@atlaskit/util-service-support';
 import 'es6-promise/auto'; // 'whatwg-fetch' needs a Promise polyfill
 
+import { ffTest } from '@atlassian/feature-flags-test-utils/test-runner';
 import fetchMock from 'fetch-mock/cjs/client';
 import * as sinon from 'sinon';
 import EmojiLoader from '../../../api/EmojiLoader';
@@ -208,6 +209,61 @@ describe('EmojiLoader', () => {
 				.catch((err) => {
 					expect(err.code).toEqual(401);
 				});
+		});
+
+		describe('cache_emoji_loader_for_the_same_config', () => {
+			// The promise cache is module-level and persists across tests, so each test uses a
+			// unique URL to avoid cross-test pollution.
+			ffTest.on('cache_emoji_loader_for_the_same_config', 'when the caching gate is on', () => {
+				it('reuses the same promise for loaders sharing the same config url', async () => {
+					const url = 'https://cache-on-shared/';
+					fetchMock.mock({
+						matcher: `begin:${url}`,
+						response: fetchResponse(providerData1),
+					});
+
+					const first = new EmojiLoader({ ...provider1, url }).loadEmoji();
+					const second = new EmojiLoader({ ...provider1, url }).loadEmoji();
+
+					expect(second).toBe(first);
+					const [firstResponse] = await Promise.all([first, second]);
+					checkOrder(providerData1, firstResponse.emojis);
+					expect(fetchMock.calls(`begin:${url}`)).toHaveLength(1);
+				});
+
+				it('does not cache a rejected promise so retries can refetch', async () => {
+					const url = 'https://cache-on-reject/';
+					fetchMock.mock({ matcher: `begin:${url}`, response: 500, repeat: 1 });
+					fetchMock.mock({
+						matcher: `begin:${url}`,
+						response: fetchResponse(providerData1),
+						overwriteRoutes: false,
+					});
+
+					await expect(new EmojiLoader({ ...provider1, url }).loadEmoji()).rejects.toBeDefined();
+
+					const retryResponse = await new EmojiLoader({ ...provider1, url }).loadEmoji();
+					checkOrder(providerData1, retryResponse.emojis);
+					expect(fetchMock.calls(`begin:${url}`)).toHaveLength(2);
+				});
+			});
+
+			ffTest.off('cache_emoji_loader_for_the_same_config', 'when the caching gate is off', () => {
+				it('refetches for each loader with the same config url', async () => {
+					const url = 'https://cache-off-shared/';
+					fetchMock.mock({
+						matcher: `begin:${url}`,
+						response: fetchResponse(providerData1),
+					});
+
+					const first = new EmojiLoader({ ...provider1, url }).loadEmoji();
+					const second = new EmojiLoader({ ...provider1, url }).loadEmoji();
+
+					expect(second).not.toBe(first);
+					await Promise.all([first, second]);
+					expect(fetchMock.calls(`begin:${url}`)).toHaveLength(2);
+				});
+			});
 		});
 	});
 });

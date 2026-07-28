@@ -7,6 +7,13 @@ export type AppearanceType = 'circle' | 'square' | 'hexagon';
 
 // eslint-disable-next-line @repo/internal/react/consistent-types-definitions
 export type SizeType =
+	| 'xxsmall'
+	/**
+	 * 16px avatar size.
+	 *
+	 * @deprecated Use `xxsmall` for 16px avatars. `xsmall` is temporarily retained as a legacy
+	 * alias and will become the 20px avatar size in a future major version.
+	 */
 	| 'xsmall'
 	/**
 	 * 20px avatar size.

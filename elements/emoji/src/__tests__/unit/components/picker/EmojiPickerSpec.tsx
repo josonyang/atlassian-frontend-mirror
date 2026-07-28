@@ -155,7 +155,7 @@ describe('<EmojiPicker />', () => {
 			</AnalyticsListener>,
 		);
 
-	const getUpdatedList = () => screen.getByRole('grid', { name: 'Emojis' });
+	const getUpdatedList = () => screen.getByTestId(virtualListScrollContainerTestId);
 	const withRefreshEmojiPicker = async (test: () => Promise<void>) => {
 		const initializeCompletedSpy = jest
 			.spyOn(FeatureGates, 'initializeCompleted')
@@ -617,14 +617,11 @@ describe('<EmojiPicker />', () => {
 			const list = getUpdatedList();
 			await helper.emojisVisible(list);
 
-			const rows = within(list).getAllByRole('row');
-			const firstRow = rows[0];
-			await within(firstRow).findByRole('rowheader', {
-				name: 'Frequent',
-			});
-			const secondRow = rows[1];
-			const emojis = await helper.emojisVisible(secondRow);
-			expect(emojis).toHaveLength(5);
+			await within(list).findByText('Frequent');
+			const emojis = await helper.emojisVisible(list);
+			expect(emojis.slice(0, 5).map((emoji) => emoji.getAttribute('aria-label'))).toEqual(
+				frequent.map((emoji) => `Change emoji, currently ${emoji.name}`),
+			);
 		});
 
 		it('adds non-standard categories to the selector dynamically based on whether they are populated with emojis', async () => {

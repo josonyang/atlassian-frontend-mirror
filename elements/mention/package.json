@@ -40,6 +40,7 @@
 		"@atlaskit/skeleton": "workspace:^",
 		"@atlaskit/tag": "workspace:^",
 		"@atlaskit/teams-avatar": "workspace:^",
+		"@atlaskit/tmp-editor-statsig": "workspace:^",
 		"@atlaskit/tokens": "workspace:^",
 		"@atlaskit/tooltip": "workspace:^",
 		"@atlaskit/ufo": "workspace:^",
@@ -128,6 +129,9 @@
 		},
 		"platform-dst-lozenge-tag-badge-visual-uplifts": {
 			"type": "boolean"
+		},
+		"platform_editor_agent_mentions_drop_one_fixes": {
+			"type": "boolean"
 		}
 	},
 	"publishConfig": {
@@ -147,5 +151,5 @@
 		}
 	},
 	"types": "dist/types/index.d.ts",
-	"version": "27.10.1"
+	"version": "27.12.0"
 }

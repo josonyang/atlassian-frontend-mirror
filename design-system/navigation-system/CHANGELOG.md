@@ -1,5 +1,22 @@
 # @atlassian/navigation-system
 
+## 10.9.1
+
+### Patch Changes
+
+- [`ae45184d2cd0b`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/ae45184d2cd0b) -
+  Fix `Panel` enter/exit animation so a panel with a default width of `0` starts hidden instead of
+  flashing visible. The panel now uses `useMotion`'s new `initialState` to begin in the `hidden`
+  state (behind the `platform-dst-motion-uplift-panel` gate). The `animationFillMode` overrides on
+  the entering/exiting styles have been removed, as this is now set within the motion tokens
+  themselves.
+
+  Additionally, a `overflow: hidden` rule is now applied to the page layout root (behind the same
+  `platform-dst-motion-uplift-panel` gate) so that the panel transforming off screen no longer
+  causes scroll bars to appear.
+
+- Updated dependencies
+
 ## 10.9.0
 
 ### Minor Changes

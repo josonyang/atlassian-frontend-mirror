@@ -29,14 +29,14 @@ export default (): React.JSX.Element => (
 			<Avatar name="large" size="large" status="declined" />
 			<Avatar name="medium" size="medium" status="locked" />
 			<Avatar name="small" size="small" status="warning" />
-			<Avatar name="xsmall" size="xsmall" />
+			<Avatar name="xsmall" size="xxsmall" />
 		</Block>
 
 		<Block heading="Square">
 			<Avatar appearance="square" name="large" size="large" status="declined" />
 			<Avatar appearance="square" name="medium" size="medium" status="locked" />
 			<Avatar appearance="square" name="small" size="small" status="warning" />
-			<Avatar appearance="square" name="xsmall" size="xsmall" />
+			<Avatar appearance="square" name="xsmall" size="xxsmall" />
 		</Block>
 
 		<Block heading="Hexagon">
@@ -45,7 +45,7 @@ export default (): React.JSX.Element => (
 			<Avatar appearance="hexagon" name="large" size="large" status="declined" />
 			<Avatar appearance="hexagon" name="medium" size="medium" status="locked" />
 			<Avatar appearance="hexagon" name="small" size="small" status="warning" />
-			<Avatar appearance="hexagon" name="xsmall" size="xsmall" />
+			<Avatar appearance="hexagon" name="xsmall" size="xxsmall" />
 		</Block>
 	</Stack>
 );

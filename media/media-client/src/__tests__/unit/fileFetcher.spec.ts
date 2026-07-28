@@ -37,6 +37,7 @@ import type * as MediaStoreModule from '../../client/media-store';
 import { createMediaStore } from '@atlaskit/media-state/create-media-store';
 import { mediaStore as fileStateStore } from '@atlaskit/media-state/media-store';
 import { skipAutoA11yFile } from '@atlassian/a11y-jest-testing';
+import { eeTest } from '@atlaskit/tmp-editor-statsig/editor-experiments-test-utils';
 
 jest.mock('../../utils/getDimensionsFromBlob', () => {
 	return {
@@ -316,6 +317,45 @@ describe('FileFetcher', () => {
 					undefined,
 					fileName,
 				);
+			});
+
+			eeTest
+				.describe('platform_editor_media_download_fallback_name', 'download binary name forwarding')
+				.variant(true, () => {
+					it('should not pass a default name to getFileBinaryURL when no name is provided', async () => {
+						const { mediaStore, fileFetcher } = setup();
+
+						await fileFetcher.downloadBinary(fileId, undefined, collectionName);
+
+						expect(mediaStore.getFileBinaryURL).toHaveBeenCalledWith(
+							fileId,
+							collectionName,
+							undefined,
+							undefined,
+						);
+					});
+				});
+
+			eeTest
+				.describe('platform_editor_media_download_fallback_name', 'download binary name forwarding')
+				.variant(false, () => {
+					it('should not pass a name to getFileBinaryURL', async () => {
+						const { mediaStore, fileFetcher } = setup();
+
+						await fileFetcher.downloadBinary(fileId, undefined, collectionName);
+
+						expect(mediaStore.getFileBinaryURL).toHaveBeenCalledWith(fileId, collectionName);
+					});
+				});
+
+			it('should use the default name for the browser download when no name is provided', async () => {
+				const { fileFetcher } = setup();
+
+				await fileFetcher.downloadBinary(fileId, undefined, collectionName);
+
+				const lastAppendCall = appendChild.mock.calls[appendChild.mock.calls.length - 1];
+				const link = lastAppendCall[0] as HTMLAnchorElement;
+				expect(link.download).toBe('download');
 			});
 
 			it('should create a link', async () => {

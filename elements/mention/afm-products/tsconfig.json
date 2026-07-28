@@ -62,6 +62,9 @@
 			"path": "../../../people-and-teams/teams-avatar/afm-products/tsconfig.json"
 		},
 		{
+			"path": "../../../editor/tmp-editor-statsig/afm-products/tsconfig.json"
+		},
+		{
 			"path": "../../../design-system/tokens/afm-products/tsconfig.json"
 		},
 		{

@@ -180,8 +180,7 @@ const EmojiPickerEmojiRow = ({
 					<span
 						css={emojiItem}
 						key={key}
-						role={fg('platform_a11y_fixes_reaction_emoji') ? 'presentation' : 'gridcell'}
-						{...(fg('platform_a11y_fixes_reaction_emoji') ? {} : { 'aria-colindex': index + 1 })}
+						role="presentation"
 						onMouseLeave={onMouseLeave}
 						onBlur={onMouseLeave}
 					>

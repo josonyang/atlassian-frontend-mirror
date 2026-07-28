@@ -3,10 +3,11 @@ import { isNodeOfType } from 'eslint-codemod-utils';
 
 import { JSXElementHelper } from '../../ast-nodes/jsx-element-helper';
 import { createLintRule } from '../utils/create-lint-rule';
+import { getFormImportLocalNames } from '../utils/get-form-import-local-names';
+import { isImportFromPackage } from '../utils/is-import-from-package';
 
 const TEXTFIELD_PACKAGE = '@atlaskit/textfield';
 const TEXTAREA_PACKAGE = '@atlaskit/textarea';
-const FORM_PACKAGE = '@atlaskit/form';
 
 export const messageInsideForm =
 	'When using `maxLength` or `minLength` props with Textfield/Textarea inside a Form, use `CharacterCounterField` from `@atlaskit/form` instead of Field and remove the props from the Textfield/Textarea. This ensures accessibility through real time feedback and aligns with the design system. Read more about [character counter fields](https://atlassian.design/components/form/examples#charactercounterfield)';
@@ -93,21 +94,20 @@ const rule: Rule.RuleModule = createLintRule({
 				}
 
 				// Track Form package imports (Form, Field, etc.)
-				if (source === FORM_PACKAGE) {
-					node.specifiers.forEach((spec) => {
-						if (isNodeOfType(spec, 'ImportDefaultSpecifier')) {
-							// Default import: import Form from '@atlaskit/form'
-							formComponentNames.add(spec.local.name);
-						} else if (isNodeOfType(spec, 'ImportSpecifier')) {
-							// Named import: import { Form, Field } from '@atlaskit/form'
-							formComponentNames.add(spec.local.name);
-						}
-					});
-					return;
-				}
+				const formImports = getFormImportLocalNames(node);
+				[
+					...(formImports.Form ?? []),
+					...(formImports.Field ?? []),
+					...(formImports.CharacterCounterField ?? []),
+					...(formImports.CheckboxField ?? []),
+					...(formImports.RangeField ?? []),
+				].forEach((localName) => formComponentNames.add(localName));
 
 				// Track Textfield and Textarea imports
-				if (source === TEXTFIELD_PACKAGE || source === TEXTAREA_PACKAGE) {
+				if (
+					isImportFromPackage(source, TEXTFIELD_PACKAGE) ||
+					isImportFromPackage(source, TEXTAREA_PACKAGE)
+				) {
 					const defaultImport = node.specifiers.find((spec) =>
 						isNodeOfType(spec, 'ImportDefaultSpecifier'),
 					);

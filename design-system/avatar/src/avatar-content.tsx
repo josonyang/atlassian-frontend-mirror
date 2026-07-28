@@ -211,6 +211,7 @@ const hexagonBorderFixStyles = unboundCssMap({
 });
 
 const widthHeightMap = cssMap({
+	xxsmall: { width: '16px', height: '16px' },
 	xsmall: { width: '16px', height: '16px' },
 	UNSAFE_xsmall: { width: '20px', height: '20px' },
 	small: { width: '24px', height: '24px' },

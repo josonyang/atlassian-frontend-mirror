@@ -27,7 +27,7 @@ const User = ({ id, name, fieldName, selected, error }: NodeViewProps<Props>) =>
 				<Avatar
 					src={user?.avatarUrl}
 					borderColor="transparent"
-					size="xsmall"
+					size="xxsmall"
 					appearance={
 						fg('jira_ai_agent_avatar_with_apptype_for_jql')
 							? getAppearanceForAppType(user?.appType ?? null)

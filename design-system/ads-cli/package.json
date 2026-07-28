@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/ads-cli",
-	"version": "0.3.0",
+	"version": "0.4.2",
 	"description": "An npx-runnable command-line tool to query Atlassian Design System (ADS) structured content — components, tokens, icons, and guidelines — from the terminal.",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -17,7 +17,18 @@
 	"atlaskit:src": "src/cli.tsx",
 	"bin": "./bin/ads-cli.js",
 	"scripts": {
-		"start": "./bin/ads-cli.js"
+		"start": "./bin/ads-cli.js",
+		"build:atlas": "esbuild src/atlas-cli.tsx --bundle --outfile=build/atlas/ads-cli.js --format=cjs --platform=node --target=node18",
+		"package:atlas:darwin-amd64": "pkg --public --public-packages '*' --compress GZip --target node18-macos-x64 --output build/atlas/ads-darwin-amd64 build/atlas/ads-cli.js",
+		"package:atlas:darwin-arm64": "pkg --public --public-packages '*' --compress GZip --target node18-macos-arm64 --output build/atlas/ads-darwin-arm64 build/atlas/ads-cli.js",
+		"package:atlas:linux-amd64": "pkg --public --public-packages '*' --compress GZip --target node18-linux-x64 --output build/atlas/ads-linux-amd64 build/atlas/ads-cli.js",
+		"package:atlas:linux-arm64": "pkg --public --public-packages '*' --compress GZip --target node18-linux-arm64 --output build/atlas/ads-linux-arm64 build/atlas/ads-cli.js",
+		"package:atlas:windows-amd64": "pkg --public --public-packages '*' --compress GZip --target node18-win-x64 --output build/atlas/ads-windows-amd64.exe build/atlas/ads-cli.js",
+		"package:atlas": "afm run build:atlas && afm run package:atlas:darwin-amd64 && afm run package:atlas:darwin-arm64 && afm run package:atlas:linux-amd64 && afm run package:atlas:linux-arm64 && afm run package:atlas:windows-amd64",
+		"release:atlas:fetch-manifest": "bash scripts/atlas/fetch-manifest.sh",
+		"release:atlas:prepare": "bash scripts/atlas/prepare-release.sh",
+		"release:atlas:upload": "bash scripts/atlas/upload-release.sh",
+		"release:atlas:promote": "bash scripts/atlas/promote-stable.sh"
 	},
 	"exports": {
 		".": {
@@ -33,6 +44,8 @@
 		"chalk": "root:*"
 	},
 	"devDependencies": {
-		"@atlassian/ts-loader": "workspace:^"
+		"@atlassian/ts-loader": "workspace:^",
+		"esbuild": "root:*",
+		"pkg": "root:*"
 	}
 }

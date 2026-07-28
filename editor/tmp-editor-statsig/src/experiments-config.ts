@@ -1803,6 +1803,13 @@ export const editorExperimentsConfig: {
 		productKeys?: ProductKeys;
 		typeGuard: IsBooleanType;
 	};
+	// Added 2026-07-22
+	platform_editor_table_q4_patch_5: {
+		defaultValue: boolean;
+		param: string;
+		productKeys?: ProductKeys;
+		typeGuard: IsBooleanType;
+	};
 	// Added 2026-05-11
 	platform_editor_table_menu_updates: {
 		defaultValue: boolean;
@@ -2173,6 +2180,14 @@ export const editorExperimentsConfig: {
 		param: string;
 		productKeys?: ProductKeys;
 		typeGuard: IsBooleanType;
+	};
+	// Added 2026-07-21
+	confluence_cwr_3p_connection_suggested_prompts: {
+		defaultValue: 'control' | 'variant_a' | 'variant_b';
+		param: string;
+		productKeys?: ProductKeys;
+		typeGuard: (value: unknown) => value is 'control' | 'variant_a' | 'variant_b';
+		values: ('control' | 'variant_a' | 'variant_b')[];
 	};
 } = {
 	// new format to avoid collisions with other users when updating the file
@@ -2663,6 +2678,15 @@ export const editorExperimentsConfig: {
 		},
 		param: 'cohort',
 		values: ['control', 'variant1'],
+		defaultValue: 'control',
+	}),
+	// Added 2026-07-21
+	confluence_cwr_3p_connection_suggested_prompts: createMultivariateExperiment({
+		productKeys: {
+			confluence: 'confluence_cwr_3p_connection_suggested_prompts',
+		},
+		param: 'cohort',
+		values: ['control', 'variant_a', 'variant_b'],
 		defaultValue: 'control',
 	}),
 	// Added 2026-03-02
@@ -4224,6 +4248,15 @@ export const editorExperimentsConfig: {
 		productKeys: {
 			confluence: 'platform_editor_table_q4_patch_4',
 			jira: 'platform_editor_table_q4_patch_4',
+		},
+		param: 'isEnabled',
+		defaultValue: false,
+	}),
+	// Added 2026-07-22
+	platform_editor_table_q4_patch_5: createBooleanExperiment({
+		productKeys: {
+			confluence: 'platform_editor_table_q4_patch_5',
+			jira: 'platform_editor_table_q4_patch_5',
 		},
 		param: 'isEnabled',
 		defaultValue: false,

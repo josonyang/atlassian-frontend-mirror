@@ -1,5 +1,16 @@
 # @atlaskit/rovo-agent-components
 
+## 8.2.0
+
+### Minor Changes
+
+- [`dc937f627fb6f`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/dc937f627fb6f) -
+  Volt Components - Update imports for @atlaskit/icon in ai-mate after flattening entrypoint
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 8.1.7
 
 ### Patch Changes

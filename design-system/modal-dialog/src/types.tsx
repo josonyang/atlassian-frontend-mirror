@@ -88,6 +88,10 @@ export interface ModalDialogProps {
 
 	/**
 	 * Calls `onClose` when pressing escape.
+	 *
+	 * @deprecated This prop will be removed in a future major release. Closing on escape is standard
+	 * modal behaviour and should not be disabled. If you need to prevent closing during an in-progress
+	 * async action, instead handle the `onClose` callback to block the action conditionally.
 	 */
 	shouldCloseOnEscapePress?: boolean;
 

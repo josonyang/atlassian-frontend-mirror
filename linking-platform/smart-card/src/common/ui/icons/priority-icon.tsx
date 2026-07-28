@@ -1,6 +1,7 @@
 /**
  * @jsxRuntime classic
  * @jsx jsx
+ * Delete on cleanup of platform_sl_priority_icon
  */
 import { cssMap, jsx } from '@atlaskit/css';
 

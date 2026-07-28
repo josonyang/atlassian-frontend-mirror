@@ -145,7 +145,7 @@ const ReportingLinesDetails = (props: ReportingLinesDetailsProps): React.JSX.Ele
 							})}
 						>
 							<ManagerSection>
-								<Avatar size="xsmall" src={manager.pii?.picture} />
+								<Avatar size="xxsmall" src={manager.pii?.picture} />
 								<ManagerName>{manager.pii?.name}</ManagerName>
 							</ManagerSection>
 						</Pressable>

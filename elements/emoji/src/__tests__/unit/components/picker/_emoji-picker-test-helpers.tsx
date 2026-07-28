@@ -69,10 +69,7 @@ export const emojisVisible = async (list: HTMLElement): Promise<HTMLElement[]> =
 	});
 
 const findCategoryHeading = (category: CategoryGroupKey) =>
-	screen.getAllByRole('rowheader', {
-		// Key is all uppercase, lowercase everything except the first char
-		name: category.charAt(0) + category.slice(1).toLowerCase(),
-	});
+	screen.getAllByText(category.charAt(0) + category.slice(1).toLowerCase());
 
 export const categoryVisible = (category: CategoryGroupKey): boolean =>
 	findCategoryHeading(category).length > 0;

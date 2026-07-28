@@ -256,7 +256,7 @@ const JiraIntelligentTriageAgentAvatar = lazy(
  * OOTB Agents avatars - end
  */
 
-type Color = {
+export type AgentAvatarColor = {
 	primary: string;
 	secondary: string;
 };
@@ -266,7 +266,7 @@ export const purpleColor = { primary: '#BF63F3', secondary: '#D8A0F7' };
 export const greenColor = { primary: '#82B536', secondary: '#B3DF72' };
 export const blueColor = { primary: '#357DE8', secondary: '#669DF1' };
 
-const colorList: Color[] = [yellowColor, purpleColor, greenColor, blueColor];
+const colorList: AgentAvatarColor[] = [yellowColor, purpleColor, greenColor, blueColor];
 
 /**
  * NOTE: DO NOT ADD OOTB AGENTAVATARS TO THIS LIST
@@ -307,7 +307,7 @@ type GeneratedAvatarProps = {
 };
 
 const outOfTheBoxAgentAvatar: {
-	[key: string]: { getRender: (size: SizeType) => React.ReactNode; color: Color };
+	[key: string]: { getRender: (size: SizeType) => React.ReactNode; color: AgentAvatarColor };
 } = {
 	autodev_template_unit_test_creator: {
 		getRender: (size: SizeType) => (
@@ -704,6 +704,13 @@ const getAvatarRender = ({
 	};
 };
 
+export const getAgentAvatarColor = (
+	props: Pick<
+		GeneratedAvatarProps,
+		'agentNamedId' | 'agentId' | 'agentIdentityAccountId' | 'isRovoDev'
+	>,
+): AgentAvatarColor => getAvatarRender({ ...props, size: 'medium' }).color;
+
 type AgentBannerCreatorType = AgentCreatorType | 'ROVO_DEV';
 
 type AgentBannerProps = Pick<
@@ -724,12 +731,11 @@ export const AgentBanner = ({
 	height,
 	fillSpace,
 }: AgentBannerProps): JSX.Element => {
-	const { color } = getAvatarRender({
+	const color = getAgentAvatarColor({
 		agentNamedId,
 		agentId,
 		agentIdentityAccountId,
 		isRovoDev,
-		size: 'medium',
 	});
 
 	const isRemoteA2A = fg('jira_improve_agent_profile_for_a2a') && creatorType === 'REMOTE_A2A';

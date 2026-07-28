@@ -130,11 +130,9 @@ const styles = cssMap({
 	},
 	entering: {
 		animation: token('motion.panel.enter'),
-		animationFillMode: 'backwards',
 	},
 	exiting: {
 		animation: token('motion.panel.exit'),
-		animationFillMode: 'forwards',
 	},
 });
 
@@ -203,6 +201,14 @@ export function Panel({
 	const dangerouslyHoistSlotSizes = useContext(DangerouslyHoistSlotSizes);
 	const id = useLayoutId({ providedId });
 
+	const isMotionUpliftEnabled = fg('platform-dst-motion-uplift-panel');
+
+	const defaultWidth = useSafeDefaultWidth({
+		defaultWidthProp,
+		fallbackDefaultWidth,
+		slotName: 'Panel',
+	});
+
 	// useMotion is applied only when the `platform-dst-motion-uplift-panel` gate is enabled.
 	const {
 		state,
@@ -215,13 +221,7 @@ export function Panel({
 				setWidth(0);
 			}
 		},
-	});
-	const isMotionUpliftEnabled = fg('platform-dst-motion-uplift-panel');
-
-	const defaultWidth = useSafeDefaultWidth({
-		defaultWidthProp,
-		fallbackDefaultWidth,
-		slotName: 'Panel',
+		initialState: defaultWidth === 0 ? 'hidden' : undefined,
 	});
 
 	/**
@@ -337,7 +337,12 @@ export function Panel({
 			className={
 				isMotionUpliftEnabled
 					? // eslint-disable-next-line @atlaskit/ui-styling-standard/local-cx-xcss, @compiled/local-cx-xcss
-						cx(xcss, state === 'entering' && styles.entering, state === 'exiting' && styles.exiting)
+						cx(
+							xcss,
+							state === 'hidden' && styles.hidden,
+							state === 'entering' && styles.entering,
+							state === 'exiting' && styles.exiting,
+						)
 					: xcss
 			}
 			css={[

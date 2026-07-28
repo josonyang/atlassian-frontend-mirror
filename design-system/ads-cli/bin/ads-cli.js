@@ -20,7 +20,7 @@ const isDev = fs.existsSync(path.join(__dirname, '..', 'tsconfig.json'));
 if (isDev) {
 	// `@atlassian/ts-loader` registers `tsx` require hooks so the TypeScript source
 	// (including `.tsx` files and cross-package imports) can be `require`d directly
-	// without a pre-build step. Unlike `ts-node`, it supports TS Project References.
+	// without a pre-build step.
 	require('@atlassian/ts-loader');
 }
 

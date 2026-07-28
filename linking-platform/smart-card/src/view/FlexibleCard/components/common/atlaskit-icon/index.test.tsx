@@ -140,4 +140,56 @@ describe('AtlaskitIcon', () => {
 			);
 		});
 	});
+
+	ffTest.on('platform_sl_priority_icon', '', () => {
+		ffTest.on('platform_sl_icons_refactor', 'platform_sl_icons_refactor is on', () => {
+			it('renders priority icon directly at medium size without size or isTiledIcon props', () => {
+				const { getByTestId } = render(
+					<AtlaskitIcon
+						icon={IconType.PriorityHigh}
+						testId="priority-high-icon"
+						label="Priority: High"
+						size={SmartLinkSize.Medium}
+					/>,
+				);
+
+				// Core icon at small/medium size: renders the icon span directly (no IconTile wrapper)
+				expect(getByTestId('priority-high-icon')).toBeInTheDocument();
+			});
+
+			it('renders priority icon directly at large size without wrapping in IconTile', () => {
+				const { getByTestId, queryByRole } = render(
+					<AtlaskitIcon
+						icon={IconType.PriorityHigh}
+						testId="priority-high-icon"
+						label="Priority: High"
+						size={SmartLinkSize.Large}
+					/>,
+				);
+
+				// Priority icon at large size skips IconTile and renders ImportedIcon directly
+				expect(getByTestId('priority-high-icon')).toBeInTheDocument();
+				// No img role means no IconTile was rendered
+				expect(queryByRole('img')).not.toBeInTheDocument();
+			});
+		});
+	});
+
+	ffTest.off('platform_sl_priority_icon', '', () => {
+		ffTest.on('platform_sl_icons_refactor', 'platform_sl_icons_refactor is on', () => {
+			it('renders priority icon via the default path (with size prop) at large size when gate is off', () => {
+				const { getByTestId } = render(
+					<AtlaskitIcon
+						icon={IconType.PriorityHigh}
+						testId="priority-high-icon"
+						label="Priority: High"
+						size={SmartLinkSize.Large}
+					/>,
+				);
+
+				// Without the gate, priority icons fall through to the default switch case which renders with testId
+				expect(getByTestId('priority-high-icon')).toBeInTheDocument();
+			});
+		});
+	});
 });

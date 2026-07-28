@@ -96,7 +96,7 @@ describe('caption', () => {
 
 describe('nodeview updating based on child count', () => {
 	const portalProviderAPI = {
-		render(component: () => React.ReactChild | null) {
+		render(component: () => React.ReactElement | number | string | null) {
 			component();
 		},
 		remove() {},

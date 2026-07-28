@@ -3,7 +3,7 @@
  *
  * Generates Typescript types for analytics events from analytics.spec.yaml
  *
- * @codegen <<SignedSource::4e18b8952a94e4fc3afd62ef6213f7b1>>
+ * @codegen <<SignedSource::326efd393bebe329396aa4b676d0ff6d>>
  * @codegenCommand yarn workspace @atlassian/analytics-tooling run analytics:codegen smart-card
  */
 export type PackageMetaDataContextType = {
@@ -344,6 +344,14 @@ export type ButtonClickedConnectAccountAttributesType = {
 	display: 'inline' | 'block' | 'embed' | 'embedPreview' | 'flexible' | 'hoverCardPreview' | 'url';
 	definitionId?: string | null;
 };
+export type ButtonClickedCarouselNextAttributesType = {
+	display: 'inline' | 'block' | 'embed' | 'embedPreview' | 'flexible' | 'hoverCardPreview' | 'url';
+	slideId: string;
+};
+export type ButtonClickedCarouselConnectAttributesType = {
+	display: 'inline' | 'block' | 'embed' | 'embedPreview' | 'flexible' | 'hoverCardPreview' | 'url';
+	slideId: string;
+};
 export type SmartLinkClickedTryAnotherAccountAttributesType = {
 	display: 'inline' | 'block' | 'embed' | 'embedPreview' | 'flexible' | 'hoverCardPreview' | 'url';
 	definitionId?: string | null;
@@ -399,8 +407,8 @@ export type SmartLinkClickedSmartlinkClickAnalyticsWorkflowsAttributesType = {
 	eventName: string;
 	firstPartyIdentifier?: string | null;
 	clickedAt: string;
-	isAuxClick?: boolean;
-	isContextMenu?: boolean;
+	isAuxClick?: boolean | null;
+	isContextMenu?: boolean | null;
 };
 
 export type AnalyticsEventAttributes = {
@@ -536,6 +544,14 @@ export type AnalyticsEventAttributes = {
 	/**
 	 * fires an event that represents when a user clicks on the authentication call to action with no current authenticated account. (i.e. Connect to Preview). */
 	'ui.button.clicked.connectAccount': ButtonClickedConnectAccountAttributesType;
+	/**
+	 * Fires when a user clicks the "See next" button in a smart link carousel view. Used to measure engagement depth — how many users navigate past the first benefit slide.
+	 *  */
+	'ui.button.clicked.carouselNext': ButtonClickedCarouselNextAttributesType;
+	/**
+	 * Fires when a user clicks the connect account button from within a smart link carousel view. Captures which benefit slide the user was viewing when they decided to connect, enabling measurement of which slide is most persuasive.
+	 *  */
+	'ui.button.clicked.carouselConnect': ButtonClickedCarouselConnectAttributesType;
 	/**
 	 * fires an event that represents when a user clicks on the authentication call to action with a forbidden authenticated account. (i.e. Try another account). */
 	'ui.smartLink.clicked.tryAnotherAccount': SmartLinkClickedTryAnotherAccountAttributesType;

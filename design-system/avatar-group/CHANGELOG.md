@@ -1,5 +1,27 @@
 # @atlaskit/avatar-group
 
+## 13.2.2
+
+### Patch Changes
+
+- Updated dependencies
+
+## 13.2.1
+
+### Patch Changes
+
+- [`3a45d08ff1c62`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/3a45d08ff1c62) -
+  Add `xxsmall` as the public 16px Avatar size and deprecate `xsmall` as the legacy 16px alias. This
+  starts the migration from the existing 16/24px Avatar size scale to 16/20/24px. Static Avatar
+  usages in AFM should migrate from `xsmall` to `xxsmall`; `xsmall` remains available for now and
+  continues to render as 16px while the migration feature gate is off.
+
+  AvatarGroup continues to exclude the Avatar-only 16px and 20px sizes.
+
+- [`fb8662a810538`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/fb8662a810538) -
+  [ux] Removing unused support for a hexagonal more indicator in the avatar group component
+- Updated dependencies
+
 ## 13.2.0
 
 ### Minor Changes

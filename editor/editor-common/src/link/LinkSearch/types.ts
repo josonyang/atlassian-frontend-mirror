@@ -44,12 +44,12 @@ export interface RecentSearchState {
 
 export type LinkSearchListItemData = {
 	container: string;
-	icon?: React.ReactChild | never;
-	iconUrl?: string | never;
+	icon?: React.ReactElement | number | string;
+	iconUrl?: string;
 	lastUpdatedDate?: Date;
 	lastViewedDate?: Date;
 	name: string;
 	objectId: string; // ari of a link
 	prefetch?: boolean; // if the result is prefetced from activity provider
 	url: string;
-} & ({ iconUrl: string } | { icon: React.ReactChild });
+} & ({ iconUrl: string } | { icon: React.ReactElement | number | string });

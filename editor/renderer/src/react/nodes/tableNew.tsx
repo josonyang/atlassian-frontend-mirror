@@ -26,7 +26,7 @@ import {
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
 import type { RendererAppearance, StickyHeaderConfig } from '../../ui/Renderer/types';
-import { TableHeader } from './tableCell';
+import { TableCell, TableHeader } from './tableCell';
 import type { TableCellEdgeProps } from './tableCell';
 import type { WithSmartCardStorageProps } from '../../ui/SmartCardStorage';
 
@@ -183,7 +183,7 @@ export type TableProps = SharedTableProps & {
 };
 
 export const isHeaderRowEnabled = (
-	rows: (React.ReactChild | React.ReactFragment | React.ReactPortal)[],
+	rows: (React.ReactElement | number | string | React.ReactFragment | React.ReactPortal)[],
 	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 ): any => {
 	if (!rows.length) {
@@ -205,7 +205,7 @@ export const isHeaderRowEnabled = (
 
 export const tableCanBeSticky = (
 	node: PMNode | undefined,
-	children: (React.ReactChild | React.ReactFragment | React.ReactPortal)[],
+	children: (React.ReactElement | number | string | React.ReactFragment | React.ReactPortal)[],
 	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 ): any => {
 	return isHeaderRowEnabled(children) && node && node.firstChild && !hasRowspan(node.firstChild);
@@ -394,6 +394,22 @@ export class TableContainer extends React.Component<
 	 * Uses lastComputedStyle (populated during render) rather than reading from
 	 * element.style, because React may remove properties from the DOM when their
 	 * values transition to undefined between renders.
+	 *
+	 * `platform_nested_table_style_override_2` fixes a follow-up regression where a
+	 * NON-resized table inside an Excerpt macro (not Excerpt Include) on a
+	 * wide/full-width page shrinks to only show its first columns in the renderer.
+	 * Inside a nested renderer (a macro body) a non-resized table's computed width
+	 * is a default layout cap (760px/1800px, or a `cqw` length for full-page
+	 * appearances) taken from the outer renderer's width context. That value does
+	 * not match the macro's own box, so promoting it to inline `!important` makes
+	 * the table collapse. Such tables have no author-chosen size to preserve, so
+	 * under this gate we re-assert the parent stylesheet's intent (fill the box:
+	 * `width: 100%; left: 0`) with inline `!important`.
+	 *
+	 * Explicitly resized tables (`tableNode.attrs.width` set) are excluded and keep
+	 * the original PGXT-10226 behavior: their author-chosen width/left is promoted
+	 * verbatim so the Include Page macro does not stretch or indent them. The
+	 * table-cell short-circuit (PGXT-10294) above also still applies.
 	 */
 	private applyNestedRendererTableFix(): void {
 		if (!this.containerRef || !fg('platform_nested_table_style_override')) {
@@ -406,6 +422,35 @@ export class TableContainer extends React.Component<
 		const { width, left, marginLeft } = this.lastComputedStyle;
 		const style = this.containerRef.style;
 
+		// A table is "explicitly resized" when the author set a width on the node.
+		// Non-resized tables instead take a default layout cap (e.g. 760px/1800px)
+		// derived from the outer renderer's appearance.
+		const isExplicitlyResized = Boolean(this.props.tableNode?.attrs.width);
+
+		if (!isExplicitlyResized && fg('platform_nested_table_style_override_2')) {
+			// PGXT-10421: For a NON-resized table inside a nested renderer (e.g. an
+			// Excerpt macro body), the computed width is a default layout cap
+			// (760px/1800px, or a `cqw` length for full-page appearances) taken from
+			// the *outer* renderer's width context. That value does not match the
+			// macro's own box, so promoting it to inline `!important` makes the table
+			// ignore the available space and collapse to its first columns.
+			//
+			// These tables have no author-chosen size to preserve, so re-assert the
+			// parent stylesheet's intent — fill the available box (`width: 100%`) —
+			// with inline `!important` priority so it survives React re-renders and
+			// wins over the stylesheet rule that leaks into nested renderers.
+			style.setProperty('width', '100%', 'important');
+			style.setProperty('max-width', '100%', 'important');
+			style.setProperty('left', '0', 'important');
+			style.setProperty('margin-left', '0', 'important');
+			return;
+		}
+
+		// PGXT-10226: An explicitly resized table inside a nested renderer (e.g.
+		// Include Page macro) must keep its author-chosen width and position. The
+		// parent stylesheet forces `width: 100% !important; left: 0 !important`,
+		// which would stretch and indent it, so we promote the component's own
+		// computed width/left with inline `!important` to win the cascade.
 		style.setProperty('width', width || 'auto', 'important');
 		style.setProperty('max-width', '100%', 'important');
 		style.setProperty('left', left || 'auto', 'important');
@@ -1012,6 +1057,82 @@ const getCellEdgePropsByCellOffset = (
 	return cellEdgePropsByCellOffset;
 };
 
+type RenderedTableNodeProps = {
+	children?: React.ReactNode;
+	nodeType?: string;
+};
+
+const isRenderedTableCell = (element: React.ReactElement): boolean => {
+	const { nodeType } = element.props as RenderedTableNodeProps;
+
+	return (
+		nodeType === 'tableCell' ||
+		nodeType === 'tableHeader' ||
+		element.type === TableCell ||
+		element.type === TableHeader
+	);
+};
+
+const addTableCellEdgePropsThroughWrappers = (
+	// Ignored via go/ees005
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
+	rows: React.ReactElement<any>[],
+	tableNode?: PMNode,
+	isNumberColumnEnabled?: boolean,
+): React.ReactElement[] => {
+	try {
+		if (!tableNode) {
+			return rows;
+		}
+
+		const cellEdgePropsByCellOffset = getCellEdgePropsByCellOffset(
+			tableNode,
+			isNumberColumnEnabled,
+		);
+		let cellOffset = 0;
+
+		return React.Children.map(rows, (row, rowIndex) => {
+			const rowNode = tableNode.child(rowIndex);
+			cellOffset += 1;
+			let cellIndex = 0;
+
+			const addEdgePropsToRenderedCells = (element: React.ReactElement): React.ReactElement => {
+				if (isRenderedTableCell(element)) {
+					const cellNode = rowNode.child(cellIndex);
+					const edgeProps = cellEdgePropsByCellOffset.get(cellOffset);
+					cellIndex += 1;
+					cellOffset += cellNode.nodeSize;
+
+					return edgeProps ? React.cloneElement(element, edgeProps) : element;
+				}
+
+				const { children } = element.props as RenderedTableNodeProps;
+				if (children === undefined) {
+					return element;
+				}
+
+				const childrenWithEdgeProps = React.Children.map(children, (child) =>
+					React.isValidElement(child) ? addEdgePropsToRenderedCells(child) : child,
+				);
+
+				return React.cloneElement(element, undefined, childrenWithEdgeProps);
+			};
+
+			const rowWithEdgeProps = addEdgePropsToRenderedCells(row);
+			if (cellIndex !== rowNode.childCount) {
+				throw new Error('Rendered table row does not match its document node');
+			}
+			cellOffset += 1;
+
+			return rowWithEdgeProps;
+		});
+	} catch {
+		// Renderer can receive malformed historical ADF. If the table shape cannot
+		// be described safely, keep rendering without rounded edge metadata.
+		return rows;
+	}
+};
+
 const addTableCellEdgeProps = (
 	// Ignored via go/ees005
 	// eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -1111,11 +1232,17 @@ export class TableProcessorWithContainerStyles extends React.Component<
 			'isEnabled',
 			true,
 		)
-			? addTableCellEdgeProps(
-					childrenArray as React.ReactElement[],
-					tableNode,
-					isNumberColumnEnabled,
-				)
+			? expValEquals('platform_editor_table_q4_patch_5', 'isEnabled', true)
+				? addTableCellEdgePropsThroughWrappers(
+						childrenArray as React.ReactElement[],
+						tableNode,
+						isNumberColumnEnabled,
+					)
+				: addTableCellEdgeProps(
+						childrenArray as React.ReactElement[],
+						tableNode,
+						isNumberColumnEnabled,
+					)
 			: childrenArray;
 		const orderedChildren = compose(
 			this.addNumberColumnIndexes,

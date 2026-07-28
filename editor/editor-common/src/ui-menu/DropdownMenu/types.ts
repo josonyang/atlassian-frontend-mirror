@@ -42,7 +42,7 @@ export interface MenuItem {
 	'aria-keyshortcuts'?: React.AriaAttributes['aria-keyshortcuts'];
 	'aria-label'?: React.AriaAttributes['aria-label'];
 	className?: string;
-	content: string | React.ReactChild | React.ReactFragment;
+	content: React.ReactElement | number | string | React.ReactFragment;
 	'data-testid'?: string;
 	// Ignored via go/ees005
 	// eslint-disable-next-line @typescript-eslint/no-explicit-any

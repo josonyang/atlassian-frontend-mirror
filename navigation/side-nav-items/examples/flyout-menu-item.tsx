@@ -119,7 +119,7 @@ const FlyoutMenuItemSlots = ({
 								}
 								placeholder="Search recent items"
 							/>
-							<IconButton icon={FilterIcon} label="" />
+							<IconButton icon={FilterIcon} label="Filter recent items" />
 						</Inline>
 					</Box>
 				</FlyoutHeader>
