@@ -1,5 +1,13 @@
 # @atlaskit/editor-synced-block-provider
 
+## 8.6.14
+
+### Patch Changes
+
+- [`1207d5bc1e287`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/1207d5bc1e287) -
+  Show zero synced locations immediately for newly inserted source blocks
+- Updated dependencies
+
 ## 8.6.13
 
 ### Patch Changes

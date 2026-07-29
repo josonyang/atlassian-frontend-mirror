@@ -147,20 +147,22 @@ export class ExtensionNode<AdditionalParams = unknown> extends ReactNodeView<
 
 	// Reserve height by setting a minimum height for the extension node view element
 	createDomRef(): HTMLElement {
-		if (!fg('confluence_connect_macro_preset_height')) {
-			// SSR DOM reuse — see {@link consumedHydrationIdentitiesByEditor}.
-			if (
-				!isSSR() &&
-				isSSRHydrationEligible(this.node) &&
-				this.isInInitialHydrationWindow() &&
-				expValEquals('platform_editor_hydration_skip_react_portal', 'isEnabled', true)
-			) {
-				const ssrElement = this.findSSRElement();
-				if (ssrElement) {
-					this.didReuseSsrDom = true;
-					return ssrElement;
-				}
+		// SSR DOM reuse takes precedence over preset height — when eligible, adopt the
+		// server-rendered element directly so React hydration is deferred until update().
+		if (
+			!isSSR() &&
+			isSSRHydrationEligible(this.node) &&
+			this.isInInitialHydrationWindow() &&
+			expValEquals('platform_editor_hydration_skip_react_portal', 'isEnabled', true)
+		) {
+			const ssrElement = this.findSSRElement();
+			if (ssrElement) {
+				this.didReuseSsrDom = true;
+				return ssrElement;
 			}
+		}
+
+		if (!fg('confluence_connect_macro_preset_height')) {
 			return super.createDomRef();
 		}
 		if (!this.node.isInline) {

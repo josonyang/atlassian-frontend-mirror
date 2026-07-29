@@ -7,7 +7,6 @@ import { selectionToolbarMessages } from '@atlaskit/editor-common/messages';
 import { useEditorToolbar } from '@atlaskit/editor-common/toolbar';
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import { PinnedIcon, ToolbarButton, ToolbarTooltip } from '@atlaskit/editor-toolbar';
-import { fg } from '@atlaskit/platform-feature-flags';
 
 import type { SelectionToolbarPlugin } from '../selectionToolbarPluginType';
 
@@ -27,7 +26,7 @@ export const PinButton = ({
 		['toolbar'],
 		(states) => states.toolbarState?.contextualFormattingModeOverride,
 	);
-	if (runtimeOverride === 'always-pinned' && fg('platform_editor_toolbar_mode_override')) {
+	if (runtimeOverride === 'always-pinned') {
 		return null;
 	}
 

@@ -1,5 +1,31 @@
 # @atlaskit/editor-plugin-block-controls
 
+## 13.3.5
+
+### Patch Changes
+
+- Updated dependencies
+
+## 13.3.4
+
+### Patch Changes
+
+- [`069c5c0253ba5`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/069c5c0253ba5) -
+  [ux] Improve Remix button hover reliability near the right edge of narrow editor layouts behind
+  the `cc_maui_remix_button_hover_corridor` experiment.
+
+  Consumers can check the new typed boolean experiment at the behavior callsite:
+
+  ```ts
+  import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
+
+  if (expValEquals('cc_maui_remix_button_hover_corridor', 'isEnabled', true)) {
+  	// Apply the treatment behavior.
+  }
+  ```
+
+- Updated dependencies
+
 ## 13.3.3
 
 ### Patch Changes

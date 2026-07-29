@@ -9,4 +9,20 @@ describe('editor-viewmode wrapper', () => {
 		const wrapperKeys = Object.keys(wrapper).sort();
 		expect(originalKeys).toEqual(wrapperKeys);
 	});
+
+	it('check ./editor-viewmode/editorViewmodePlugin exports all the same variables as the original', () => {
+		const original = require('@atlaskit/editor-plugin-editor-viewmode/editorViewmodePlugin');
+		const wrapper = require('../editor-viewmode/entry-points/editorViewmodePlugin');
+		const originalKeys = Object.keys(original).sort();
+		const wrapperKeys = Object.keys(wrapper).sort();
+		expect(originalKeys).toEqual(wrapperKeys);
+	});
+
+	it('check ./editor-viewmode/editorViewmodePluginType exports all the same variables as the original', () => {
+		const original = require('@atlaskit/editor-plugin-editor-viewmode/editorViewmodePluginType');
+		const wrapper = require('../editor-viewmode/entry-points/editorViewmodePluginType');
+		const originalKeys = Object.keys(original).sort();
+		const wrapperKeys = Object.keys(wrapper).sort();
+		expect(originalKeys).toEqual(wrapperKeys);
+	});
 });

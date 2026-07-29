@@ -1,5 +1,48 @@
 # @atlaskit/editor-statsig-tmp
 
+## 135.6.0
+
+### Minor Changes
+
+- [`c1bfdbcc75ef2`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/c1bfdbcc75ef2) -
+  Add a floating table of contents experiment that provides a 24px scroll offset for headings in the
+  editor and renderer.
+
+## 135.5.0
+
+### Minor Changes
+
+- [`90510b2e6e5af`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/90510b2e6e5af) -
+  Prevent nested renderer tables from incorrectly using content-width mode
+
+## 135.4.0
+
+### Minor Changes
+
+- [`069c5c0253ba5`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/069c5c0253ba5) -
+  [ux] Improve Remix button hover reliability near the right edge of narrow editor layouts behind
+  the `cc_maui_remix_button_hover_corridor` experiment.
+
+  Consumers can check the new typed boolean experiment at the behavior callsite:
+
+  ```ts
+  import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
+
+  if (expValEquals('cc_maui_remix_button_hover_corridor', 'isEnabled', true)) {
+  	// Apply the treatment behavior.
+  }
+  ```
+
+## 135.3.0
+
+### Minor Changes
+
+- [`debd513af67a0`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/debd513af67a0) -
+  MAUI-1017: Fix the Remix style dropdown showing a stale chart type after editing a chart (e.g.
+  line → bar). The backend-confirmed subtype is now recorded in the remix history for chart updates,
+  so the dropdown reflects the new type. Gated behind the `cc_maui_polish_changes_batch_2`
+  experiment.
+
 ## 135.2.0
 
 ### Minor Changes

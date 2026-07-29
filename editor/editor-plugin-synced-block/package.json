@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-plugin-synced-block",
-	"version": "10.4.7",
+	"version": "10.6.2",
 	"description": "SyncedBlock plugin for @atlaskit/editor-core",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -22,7 +22,8 @@
 	"exports": {
 		".": "./src/index.ts",
 		"./synced-block-plugin": "./src/entry-points/synced-block-plugin.tsx",
-		"./synced-block-plugin-type": "./src/entry-points/synced-block-plugin-type.ts"
+		"./synced-block-plugin-type": "./src/entry-points/synced-block-plugin-type.ts",
+		"./types": "./src/types/index.ts"
 	},
 	"dependencies": {
 		"@atlaskit/adf-schema": "workspace:^",
@@ -113,6 +114,9 @@
 			"type": "boolean"
 		},
 		"platform_editor_blocks_patch_4": {
+			"type": "boolean"
+		},
+		"platform_editor_blocks_patch_6": {
 			"type": "boolean"
 		},
 		"platform_synced_block_patch_13": {

@@ -60,6 +60,13 @@ export const editorExperimentsConfig: {
 		productKeys?: ProductKeys;
 		typeGuard: IsBooleanType;
 	};
+	// Added 2026-07-18
+	cc_maui_remix_button_hover_corridor: {
+		defaultValue: boolean;
+		param: string;
+		productKeys?: ProductKeys;
+		typeGuard: IsBooleanType;
+	};
 	// Added 2026-07-21
 	// Agent edit presence — cosmetic skeleton-loader shimmer over agent-authored edits (with a Rovo
 	// agent telepointer at the end of the range), then a purple "just edited" highlight. `isEnabled`
@@ -249,6 +256,13 @@ export const editorExperimentsConfig: {
 	// lwoollard experiments
 	// Added 05-03-2026
 	platform_editor_ai_headingautocomplete: {
+		defaultValue: boolean;
+		param: string;
+		productKeys?: ProductKeys;
+		typeGuard: IsBooleanType;
+	};
+	// Added 2026-07-23
+	platform_editor_floating_toc: {
 		defaultValue: boolean;
 		param: string;
 		productKeys?: ProductKeys;
@@ -1323,6 +1337,13 @@ export const editorExperimentsConfig: {
 		productKeys?: ProductKeys;
 		typeGuard: IsBooleanType;
 	};
+	// Added 2026-07-24
+	cc_maui_polish_changes_batch_2: {
+		defaultValue: boolean;
+		param: string;
+		productKeys?: ProductKeys;
+		typeGuard: IsBooleanType;
+	};
 	// Added 2026-03-05
 	'cc-mui-slides-experiment': {
 		defaultValue: boolean;
@@ -1645,6 +1666,13 @@ export const editorExperimentsConfig: {
 		typeGuard: IsBooleanType;
 	};
 	platform_editor_table_fit_to_content_auto_convert: {
+		defaultValue: boolean;
+		param: string;
+		productKeys?: ProductKeys;
+		typeGuard: IsBooleanType;
+	};
+	// Added 2026-07-28
+	platform_editor_table_nested_content_mode_fix: {
 		defaultValue: boolean;
 		param: string;
 		productKeys?: ProductKeys;
@@ -2191,6 +2219,14 @@ export const editorExperimentsConfig: {
 	};
 } = {
 	// new format to avoid collisions with other users when updating the file
+	// Added 2026-07-18
+	cc_maui_remix_button_hover_corridor: createBooleanExperiment({
+		productKeys: {
+			confluence: 'cc_maui_remix_button_hover_corridor',
+		},
+		param: 'isEnabled',
+		defaultValue: false,
+	}),
 
 	// Added 2026-07-24
 	platform_editor_layout_column_delete_shortcut_fix: createBooleanExperiment({
@@ -3375,6 +3411,14 @@ export const editorExperimentsConfig: {
 		param: 'isEnabled',
 		defaultValue: false,
 	}),
+	// Added 2026-07-23
+	platform_editor_floating_toc: createBooleanExperiment({
+		productKeys: {
+			confluence: 'platform_editor_floating_toc',
+		},
+		param: 'isEnabled',
+		defaultValue: false,
+	}),
 	// Added 2026-02-25
 	platform_editor_expand_paste_in_comment_editor: createBooleanExperiment({
 		productKeys: {
@@ -3614,6 +3658,14 @@ export const editorExperimentsConfig: {
 	cc_maui_polish_changes_batch_1: createBooleanExperiment({
 		productKeys: {
 			confluence: 'cc_maui_polish_changes_batch_1',
+		},
+		param: 'isEnabled',
+		defaultValue: false,
+	}),
+	// Added 2026-07-24
+	cc_maui_polish_changes_batch_2: createBooleanExperiment({
+		productKeys: {
+			confluence: 'cc_maui_polish_changes_batch_2',
 		},
 		param: 'isEnabled',
 		defaultValue: false,
@@ -3949,6 +4001,14 @@ export const editorExperimentsConfig: {
 	platform_editor_table_fit_to_content_auto_convert: createBooleanExperiment({
 		productKeys: {
 			confluence: 'platform_editor_table_fit_to_content_auto_convert',
+		},
+		param: 'isEnabled',
+		defaultValue: false,
+	}),
+	// Added 2026-07-28
+	platform_editor_table_nested_content_mode_fix: createBooleanExperiment({
+		productKeys: {
+			confluence: 'platform_editor_table_nested_content_mode_fix',
 		},
 		param: 'isEnabled',
 		defaultValue: false,

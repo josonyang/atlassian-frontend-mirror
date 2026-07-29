@@ -9,4 +9,20 @@ describe('floating-toolbar wrapper', () => {
 		const wrapperKeys = Object.keys(wrapper).sort();
 		expect(originalKeys).toEqual(wrapperKeys);
 	});
+
+	it('check ./floating-toolbar/floatingToolbarPlugin exports all the same variables as the original', () => {
+		const original = require('@atlaskit/editor-plugin-floating-toolbar/floatingToolbarPlugin');
+		const wrapper = require('../floating-toolbar/entry-points/floatingToolbarPlugin');
+		const originalKeys = Object.keys(original).sort();
+		const wrapperKeys = Object.keys(wrapper).sort();
+		expect(originalKeys).toEqual(wrapperKeys);
+	});
+
+	it('check ./floating-toolbar/floatingToolbarPluginType exports all the same variables as the original', () => {
+		const original = require('@atlaskit/editor-plugin-floating-toolbar/floatingToolbarPluginType');
+		const wrapper = require('../floating-toolbar/entry-points/floatingToolbarPluginType');
+		const originalKeys = Object.keys(original).sort();
+		const wrapperKeys = Object.keys(wrapper).sort();
+		expect(originalKeys).toEqual(wrapperKeys);
+	});
 });

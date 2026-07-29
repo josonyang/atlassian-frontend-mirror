@@ -4,9 +4,9 @@
 export {
 	autocompletePluginKey,
 	createAutocompletePlugin,
-} from '@atlaskit/editor-plugin-autocomplete/src/pm-plugins/autocomplete-plugin';
+} from '@atlaskit/editor-plugin-autocomplete/CANONICAL_FIX__DO_NOT_USE_ME_A';
 export type {
 	AutocompletePluginState,
 	AutocompleteContext,
 	AutocompletePluginOptions,
-} from '@atlaskit/editor-plugin-autocomplete/src/pm-plugins/autocomplete-plugin';
+} from '@atlaskit/editor-plugin-autocomplete/CANONICAL_FIX__DO_NOT_USE_ME_A';

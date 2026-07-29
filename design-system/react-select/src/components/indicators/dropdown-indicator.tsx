@@ -40,6 +40,19 @@ const voiceControlPressableStyles = strictCssMap({
 	},
 });
 
+// Inline size reset applied as a last resort (see the `style` prop docs on
+// @atlaskit/primitives). Consumers ship global element selectors such as
+// `& button { min-width: 149px }` (e.g. Jira Plans' hierarchy filter — see
+// https://hello.jira.atlassian.cloud/jira/browse/JPO-42328) whose (class +
+// element) specificity outranks the atomic single-class styles above, stretching
+// this button and pushing the chevron toward the middle of the control. Inline
+// styles outrank any selector, so the button always hugs the chevron and stays
+// right-aligned like the gate-off icon-in-a-div.
+const voiceControlPressableSizeReset: CSSProperties = {
+	minWidth: 0,
+	width: 'auto',
+};
+
 export interface DropdownIndicatorProps<
 	Option = unknown,
 	IsMulti extends boolean = boolean,
@@ -118,6 +131,8 @@ export const DropdownIndicator: <Option, IsMulti extends boolean, Group extends 
 			isDisabled={isDisabled}
 			componentName="DropdownIndicatorVoiceControl"
 			xcss={voiceControlPressableStyles.root}
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop
+			style={voiceControlPressableSizeReset}
 		>
 			<Inline as="span" xcss={dropdownWrapperStyles.root}>
 				<DownIcon color="currentColor" label="open" size="small" />

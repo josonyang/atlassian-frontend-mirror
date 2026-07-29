@@ -12,7 +12,11 @@ import { isSupportedInParent } from '@atlaskit/editor-common/utils';
 import { Fragment, type Slice } from '@atlaskit/editor-prosemirror/model';
 import { NodeSelection, TextSelection } from '@atlaskit/editor-prosemirror/state';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
-import { ToolbarDropdownItemSection, useToolbarDropdownMenu } from '@atlaskit/editor-toolbar';
+import {
+	ToolbarDropdownItemSection,
+	ToolbarTooltip,
+	useToolbarDropdownMenu,
+} from '@atlaskit/editor-toolbar';
 import type {
 	AsyncHiddenContext,
 	RegisterComponent,
@@ -97,9 +101,9 @@ const styles = cssMap({
 		borderRadius: token('radius.medium'),
 	},
 	iconWrapper: {
-		display: 'flex',
+		display: 'grid',
+		gridTemplateColumns: '1fr',
 		width: '100%',
-		justifyContent: 'space-around',
 	},
 	iconButton: {
 		alignItems: 'center',
@@ -183,19 +187,21 @@ const AppearanceOptionIconButton = ({
 }: AppearanceOptionIconButtonProps) => {
 	return (
 		<Box xcss={styles.iconWrapper}>
-			<Pressable
-				xcss={cx(
-					styles.iconButton,
-					isDisabled && styles.iconButtonDisabled,
-					!isDisabled && currentAppearance === appearance && styles.iconButtonSelected,
-				)}
-				aria-label={label}
-				aria-pressed={currentAppearance === appearance}
-				isDisabled={isDisabled}
-				onClick={onClick}
-			>
-				<Icon label={label} />
-			</Pressable>
+			<ToolbarTooltip content={label} position="bottom">
+				<Pressable
+					xcss={cx(
+						styles.iconButton,
+						isDisabled && styles.iconButtonDisabled,
+						!isDisabled && currentAppearance === appearance && styles.iconButtonSelected,
+					)}
+					aria-label={label}
+					aria-pressed={currentAppearance === appearance}
+					isDisabled={isDisabled}
+					onClick={onClick}
+				>
+					<Icon label={label} />
+				</Pressable>
+			</ToolbarTooltip>
 		</Box>
 	);
 };

@@ -9,4 +9,20 @@ describe('media-insert wrapper', () => {
 		const wrapperKeys = Object.keys(wrapper).sort();
 		expect(originalKeys).toEqual(wrapperKeys);
 	});
+
+	it('check ./media-insert/media-insert-plugin exports all the same variables as the original', () => {
+		const original = require('@atlaskit/editor-plugin-media-insert/media-insert-plugin');
+		const wrapper = require('../media-insert/entry-points/media-insert-plugin');
+		const originalKeys = Object.keys(original).sort();
+		const wrapperKeys = Object.keys(wrapper).sort();
+		expect(originalKeys).toEqual(wrapperKeys);
+	});
+
+	it('check ./media-insert/media-insert-plugin-type exports all the same variables as the original', () => {
+		const original = require('@atlaskit/editor-plugin-media-insert/media-insert-plugin-type');
+		const wrapper = require('../media-insert/entry-points/media-insert-plugin-type');
+		const originalKeys = Object.keys(original).sort();
+		const wrapperKeys = Object.keys(wrapper).sort();
+		expect(originalKeys).toEqual(wrapperKeys);
+	});
 });

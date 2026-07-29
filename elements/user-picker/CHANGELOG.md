@@ -1,5 +1,11 @@
 # @atlaskit/user-picker
 
+## 13.8.1
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 13.8.0
 
 ### Minor Changes

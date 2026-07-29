@@ -1,5 +1,56 @@
 # @atlaskit/heading
 
+## 7.0.0
+
+### Major Changes
+
+- [`7170acd7feb77`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/7170acd7feb77) -
+  Apply Volt entry-point and multi-export standards via `volt-migrate-package`. This is a **major**
+  change to `@atlaskit/heading`: the package `exports` map has been restructured so every public
+  subpath now resolves **directly** to its `./src/*` implementation instead of going through an
+  intermediate `./src/entry-points/*` re-export. It also introduces new public subpaths:
+  `@atlaskit/heading/src/heading-context`, `@atlaskit/heading/use-heading`.
+
+  ### Why this is breaking
+
+  Because each subpath now points straight at its implementation module, a subpath and the package
+  root can resolve to the **same module instance**. Consumers that deep-import the internal
+  `entry-points/*` files, or that `jest.mock()` a specific subpath, may observe changed
+  resolution/behaviour and need updating.
+
+  ### Migration — public imports are unchanged
+
+  Importing the published subpaths (or the package root) continues to work as before:
+
+  ```ts
+  // Still valid — no change required
+  import Heading from '@atlaskit/heading/heading';
+  ```
+
+  If you were reaching into the internal entry-point modules, switch to the public subpath:
+
+  ```diff
+  -import Heading from '@atlaskit/heading/entry-points/heading';
+  +import Heading from '@atlaskit/heading/heading';
+  ```
+
+  ### Before / after `exports` map
+
+  ```diff
+    "exports": {
+      ".": "./src/index.tsx",
+  -   "./heading": "./src/entry-points/heading.tsx",
+  +   "./heading": "./src/heading.tsx",
+      "./heading-context": "./src/entry-points/heading-context.tsx",
+  +   "./src/heading-context": "./src/heading-context.tsx",
+  +   "./use-heading": "./src/use-heading.tsx",
+    }
+  ```
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 6.2.3
 
 ### Patch Changes

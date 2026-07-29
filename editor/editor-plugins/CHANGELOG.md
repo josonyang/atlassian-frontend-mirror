@@ -1,5 +1,53 @@
 # @atlaskit/editor-plugins
 
+## 14.2.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 14.2.0
+
+### Minor Changes
+
+- [`e8998a7218347`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/e8998a7218347) -
+  Exposes editor plugin entry points through the `@atlaskit/editor-plugins` facade and regenerate
+  the corresponding wrappers and export-parity tests.
+
+### Patch Changes
+
+- Updated dependencies
+
+## 14.1.85
+
+### Patch Changes
+
+- Updated dependencies
+
+## 14.1.84
+
+### Patch Changes
+
+- Updated dependencies
+
+## 14.1.83
+
+### Patch Changes
+
+- Updated dependencies
+
+## 14.1.82
+
+### Patch Changes
+
+- Updated dependencies
+
+## 14.1.81
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 14.1.80
 
 ### Patch Changes

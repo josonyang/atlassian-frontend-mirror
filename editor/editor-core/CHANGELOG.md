@@ -1,5 +1,38 @@
 # @atlaskit/editor-core
 
+## 221.16.4
+
+### Patch Changes
+
+- [`5ee00c9dc4881`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/5ee00c9dc4881) -
+  Clean up feature gate `platform_editor_controls_no_toolbar_space`
+- Updated dependencies
+
+## 221.16.3
+
+### Patch Changes
+
+- Updated dependencies
+
+## 221.16.2
+
+### Patch Changes
+
+- [`c1bfdbcc75ef2`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/c1bfdbcc75ef2) -
+  Add a floating table of contents experiment that provides a 24px scroll offset for headings in the
+  editor and renderer.
+- Updated dependencies
+
+## 221.16.1
+
+### Patch Changes
+
+- [`2bf1a4ceaf0a4`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/2bf1a4ceaf0a4) -
+  Clean up stale feature gates platform_editor_fix_md_empty_list_roundtrip,
+  platform_editor_md-mode-use-content-reconciler, platform_editor_toolbar_mode_override,
+  platform_editor_markdown_mode_hide_source_toolbar
+- Updated dependencies
+
 ## 221.16.0
 
 ### Minor Changes

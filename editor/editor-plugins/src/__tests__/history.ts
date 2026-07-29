@@ -9,4 +9,20 @@ describe('history wrapper', () => {
 		const wrapperKeys = Object.keys(wrapper).sort();
 		expect(originalKeys).toEqual(wrapperKeys);
 	});
+
+	it('check ./history/historyPlugin exports all the same variables as the original', () => {
+		const original = require('@atlaskit/editor-plugin-history/historyPlugin');
+		const wrapper = require('../history/entry-points/historyPlugin');
+		const originalKeys = Object.keys(original).sort();
+		const wrapperKeys = Object.keys(wrapper).sort();
+		expect(originalKeys).toEqual(wrapperKeys);
+	});
+
+	it('check ./history/historyPluginType exports all the same variables as the original', () => {
+		const original = require('@atlaskit/editor-plugin-history/historyPluginType');
+		const wrapper = require('../history/entry-points/historyPluginType');
+		const originalKeys = Object.keys(original).sort();
+		const wrapperKeys = Object.keys(wrapper).sort();
+		expect(originalKeys).toEqual(wrapperKeys);
+	});
 });

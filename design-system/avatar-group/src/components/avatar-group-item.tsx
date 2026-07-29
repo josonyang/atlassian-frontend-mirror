@@ -3,7 +3,6 @@ import React, { type ElementType, forwardRef } from 'react';
 import Avatar from '@atlaskit/avatar';
 import mergeRefs from '@atlaskit/ds-lib/merge-refs';
 import { ButtonItem, CustomItem, type CustomItemComponentProps, LinkItem } from '@atlaskit/menu';
-import { fg } from '@atlaskit/platform-feature-flags';
 
 import { type getOverrides } from './get-overrides';
 import useRegisterItemWithFocusManager from './internal/hooks/use-register-item-with-focus-manager';
@@ -94,54 +93,51 @@ const AvatarGroupItem: React.ForwardRefExoticComponent<
 		);
 	};
 
-	const AvatarComponent = fg('platform-avatar-group-pass-avatar-to-item')
-		? (avatarComponent ?? Avatar)
-		: Avatar;
+	const AvatarComponent = avatarComponent ?? Avatar;
 
-	const AvatarIcon =
-		avatarOverrides && fg('platform-avatar-group-pass-avatar-to-item') ? (
-			avatarOverrides.render(
-				AvatarComponent,
-				{
-					...rest,
-					analyticsContext,
-					appearance,
-					as,
-					borderColor: 'transparent',
-					children,
-					isDisabled,
-					label,
-					name: '',
-					presence,
-					size: 'small',
-					src,
-					stackIndex,
-					status,
-					tabIndex,
-					testId: testId && `${testId}--avatar`,
-				},
-				0,
-			)
-		) : (
-			<AvatarComponent
-				{...rest}
-				analyticsContext={analyticsContext}
-				appearance={appearance}
-				as={as}
-				borderColor="transparent"
-				children={children}
-				isDisabled={isDisabled}
-				label={label}
-				name=""
-				presence={presence}
-				size="small"
-				src={src}
-				stackIndex={stackIndex}
-				status={status}
-				tabIndex={tabIndex}
-				testId={testId && `${testId}--avatar`}
-			/>
-		);
+	const AvatarIcon = avatarOverrides ? (
+		avatarOverrides.render(
+			AvatarComponent,
+			{
+				...rest,
+				analyticsContext,
+				appearance,
+				as,
+				borderColor: 'transparent',
+				children,
+				isDisabled,
+				label,
+				name: '',
+				presence,
+				size: 'small',
+				src,
+				stackIndex,
+				status,
+				tabIndex,
+				testId: testId && `${testId}--avatar`,
+			},
+			0,
+		)
+	) : (
+		<AvatarComponent
+			{...rest}
+			analyticsContext={analyticsContext}
+			appearance={appearance}
+			as={as}
+			borderColor="transparent"
+			children={children}
+			isDisabled={isDisabled}
+			label={label}
+			name=""
+			presence={presence}
+			size="small"
+			src={src}
+			stackIndex={stackIndex}
+			status={status}
+			tabIndex={tabIndex}
+			testId={testId && `${testId}--avatar`}
+		/>
+	);
 
 	// onClick handler provided with avatar data takes precedence, same as with the normal avatar item
 	const callback = onClick || onAvatarClick;

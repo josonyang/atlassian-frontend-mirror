@@ -1,5 +1,15 @@
 # @atlaskit/react-select
 
+## 4.7.0
+
+### Minor Changes
+
+- [`900ca737aff91`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/900ca737aff91) -
+  Fix Select dropdown chevron drifting to the middle of the control when the
+  `platform_dst_select_dropdown_voice_control` gate is on. The voice-control indicator button now
+  pins its own size inline so consumer global `button` selectors (e.g. a `button { min-width }`
+  rule) can no longer stretch it, keeping the chevron right-aligned.
+
 ## 4.6.1
 
 ### Patch Changes

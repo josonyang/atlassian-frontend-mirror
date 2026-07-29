@@ -50,10 +50,12 @@ describe('${pluginName} wrapper', () => {
 	fs.writeFileSync(testPath, formatted);
 }
 
+const TYPESCRIPT_EXTENSION_REGEX = /\.tsx?$/u;
+
 function generateEntryPointTest(entryPointData: EntryPointData) {
 	const wrapperImport = entryPointData.exportData.newExportValue
 		.replace('src/', '')
-		.replace('.ts', '');
+		.replace(TYPESCRIPT_EXTENSION_REGEX, '');
 	return `
   it('check ${entryPointData.exportData.newExportKey} exports all the same variables as the original', () => {
     const original = require('${entryPointData.atlaskitImportName}');

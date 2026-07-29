@@ -40,6 +40,7 @@ export const testMultivariateOverrides: EditorExperimentOverridesMultivariate = 
 export const testBooleanOverrides: EditorExperimentOverridesBoolean = {
 	'cc-maui-ai-edit-loading-experiment': true,
 	cc_maui_polish_changes_batch_1: false,
+	cc_maui_polish_changes_batch_2: false,
 	social_proof_3p_unauth_block_exp: false,
 	linking_platform_track_non_primary_3p_clicks: false,
 	platform_sl_3p_preauth_better_hovercard: true,

@@ -381,11 +381,6 @@ export const syncBlockMessages: {
 		description: string;
 		id: string;
 	};
-	syncedLocationDropdownNone: {
-		defaultMessage: string;
-		description: string;
-		id: string;
-	};
 	syncedLocationDropdownNoResults: {
 		defaultMessage: string;
 		description: string;
@@ -838,11 +833,6 @@ export const syncBlockMessages: {
 		defaultMessage: 'Synced locations ({count})',
 		description:
 			'Toolbar button label that shows the number of references to the selected synced block.',
-	},
-	syncedLocationDropdownNone: {
-		id: 'fabric.editor.syncedLocationDropdownNone.ai-non-final',
-		defaultMessage: 'None',
-		description: 'Toolbar reference count shown when a synced block has no references.',
 	},
 	syncedLocationDropdownLoading: {
 		id: 'fabric.editor.syncedLocationDropdownLoading.ai-non-final',

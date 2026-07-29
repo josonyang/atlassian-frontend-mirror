@@ -4,7 +4,6 @@
  */
 import { css, jsx } from '@compiled/react';
 import { token } from '@atlaskit/tokens';
-import { fg } from '@atlaskit/platform-feature-flags';
 import Heading from '@atlaskit/heading';
 import { FormattedMessage } from 'react-intl';
 import { isMessagesKey } from '../../util/type-helpers';
@@ -49,17 +48,11 @@ const EmojiPickerCategoryHeading = ({ id, title, className }: Props): JSX.Elemen
 		data-testid={RENDER_EMOJI_PICKER_CATEGORY_HEADING_TESTID}
 		role="presentation"
 	>
-		{fg('platform_emoji_a11y_category_heading') ? (
-			<div css={emojiCategoryTitle}>
-				<Heading size="xsmall" as="h2">
-					{isMessagesKey(title) ? <FormattedMessage {...messages[title]} /> : title}
-				</Heading>
-			</div>
-		) : (
-			<div css={emojiCategoryTitle}>
+		<div css={emojiCategoryTitle}>
+			<Heading size="xsmall" as="h2">
 				{isMessagesKey(title) ? <FormattedMessage {...messages[title]} /> : title}
-			</div>
-		)}
+			</Heading>
+		</div>
 	</div>
 );
 

@@ -1,5 +1,55 @@
 # @atlaskit/badge
 
+## 20.0.0
+
+### Major Changes
+
+- [`ca3de4beeea48`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/ca3de4beeea48) -
+  Apply Volt entry-point and multi-export standards via `volt-migrate-package`. This is a **major**
+  change to `@atlaskit/badge`: the package `exports` map has been restructured so every public
+  subpath now resolves **directly** to its `./src/*` implementation instead of going through an
+  intermediate `./src/entry-points/*` re-export. No public subpaths were removed.
+
+  ### Why this is breaking
+
+  Because each subpath now points straight at its implementation module, a subpath and the package
+  root can resolve to the **same module instance**. Consumers that deep-import the internal
+  `entry-points/*` files, or that `jest.mock()` a specific subpath, may observe changed
+  resolution/behaviour and need updating.
+
+  ### Migration — public imports are unchanged
+
+  Importing the published subpaths (or the package root) continues to work as before:
+
+  ```ts
+  // Still valid — no change required
+  import Badge from '@atlaskit/badge/badge';
+  ```
+
+  If you were reaching into the internal entry-point modules, switch to the public subpath:
+
+  ```diff
+  -import Badge from '@atlaskit/badge/entry-points/badge';
+  +import Badge from '@atlaskit/badge/badge';
+  ```
+
+  ### Before / after `exports` map
+
+  ```diff
+    "exports": {
+      ".": "./src/index.tsx",
+  -   "./badge": "./src/entry-points/badge.tsx",
+  +   "./badge": "./src/badge.tsx",
+      "./new": "./src/entry-points/new.tsx",
+  -   "./types": "./src/entry-points/types.tsx",
+  +   "./types": "./src/types.tsx",
+    }
+  ```
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 19.1.3
 
 ### Patch Changes

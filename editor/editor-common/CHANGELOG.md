@@ -1,5 +1,31 @@
 # @atlaskit/editor-common
 
+## 116.44.3
+
+### Patch Changes
+
+- [`1207d5bc1e287`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/1207d5bc1e287) -
+  Show zero synced locations immediately for newly inserted source blocks
+- Updated dependencies
+
+## 116.44.2
+
+### Patch Changes
+
+- Updated dependencies
+
+## 116.44.1
+
+### Patch Changes
+
+- [`2a61b9a5413d6`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/2a61b9a5413d6) -
+  Fix TOC extension not rendering when confluence_connect_macro_preset_height gate is enabled: SSR
+  DOM reuse takes precedence over preset height
+- [`6edfa185c35c3`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/6edfa185c35c3) -
+  Add internationalized tooltip messages for the light and dark lime, magenta, and orange text
+  colors.
+- Updated dependencies
+
 ## 116.44.0
 
 ### Minor Changes

@@ -9,4 +9,28 @@ describe('paste-options-toolbar wrapper', () => {
 		const wrapperKeys = Object.keys(wrapper).sort();
 		expect(originalKeys).toEqual(wrapperKeys);
 	});
+
+	it('check ./paste-options-toolbar/current-pasted-smart-link exports all the same variables as the original', () => {
+		const original = require('@atlaskit/editor-plugin-paste-options-toolbar/current-pasted-smart-link');
+		const wrapper = require('../paste-options-toolbar/entry-points/current-pasted-smart-link');
+		const originalKeys = Object.keys(original).sort();
+		const wrapperKeys = Object.keys(wrapper).sort();
+		expect(originalKeys).toEqual(wrapperKeys);
+	});
+
+	it('check ./paste-options-toolbar/paste-options-toolbar-plugin exports all the same variables as the original', () => {
+		const original = require('@atlaskit/editor-plugin-paste-options-toolbar/paste-options-toolbar-plugin');
+		const wrapper = require('../paste-options-toolbar/entry-points/paste-options-toolbar-plugin');
+		const originalKeys = Object.keys(original).sort();
+		const wrapperKeys = Object.keys(wrapper).sort();
+		expect(originalKeys).toEqual(wrapperKeys);
+	});
+
+	it('check ./paste-options-toolbar/paste-options-toolbar-plugin-type exports all the same variables as the original', () => {
+		const original = require('@atlaskit/editor-plugin-paste-options-toolbar/paste-options-toolbar-plugin-type');
+		const wrapper = require('../paste-options-toolbar/entry-points/paste-options-toolbar-plugin-type');
+		const originalKeys = Object.keys(original).sort();
+		const wrapperKeys = Object.keys(wrapper).sort();
+		expect(originalKeys).toEqual(wrapperKeys);
+	});
 });

@@ -6,6 +6,7 @@ import Invalid from '../../../../examples/05-validation';
 import Disabled from '../../../../examples/24-disabled';
 import Appearance from '../../../../examples/26-appearance';
 import ControlledGroup from '../../../../examples/32-controlled-group';
+import ConstrainedWidth from '../../../../examples/35-dropdown-indicator-constrained-width';
 
 snapshot(Basic, {
 	variants: [
@@ -60,6 +61,35 @@ snapshot(Basic, {
 	featureFlags: {
 		platform_dst_select_dropdown_voice_control: true,
 	},
+	variants: [
+		{
+			name: 'desktop chrome',
+			device: Device.DESKTOP_CHROME,
+		},
+	],
+});
+
+// JPO-42328: reproduces the consumer layout the `Basic` snapshots can't (fixed
+// width + a global `button { min-width }` selector). See the fix in
+// @atlaskit/react-select's DropdownIndicator. Snapshots both gate states so any
+// drift between them surfaces as a diff.
+snapshot(ConstrainedWidth, {
+	description: 'constrained-width-consumer-button-styles-ff-off',
+	drawsOutsideBounds: true,
+	variants: [
+		{
+			name: 'desktop chrome',
+			device: Device.DESKTOP_CHROME,
+		},
+	],
+});
+
+snapshot(ConstrainedWidth, {
+	description: 'constrained-width-consumer-button-styles-ff-on',
+	featureFlags: {
+		platform_dst_select_dropdown_voice_control: true,
+	},
+	drawsOutsideBounds: true,
 	variants: [
 		{
 			name: 'desktop chrome',

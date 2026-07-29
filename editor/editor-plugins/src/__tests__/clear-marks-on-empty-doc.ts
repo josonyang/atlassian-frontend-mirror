@@ -9,4 +9,20 @@ describe('clear-marks-on-empty-doc wrapper', () => {
 		const wrapperKeys = Object.keys(wrapper).sort();
 		expect(originalKeys).toEqual(wrapperKeys);
 	});
+
+	it('check ./clear-marks-on-empty-doc/clearMarksOnEmptyDocPlugin exports all the same variables as the original', () => {
+		const original = require('@atlaskit/editor-plugin-clear-marks-on-empty-doc/clearMarksOnEmptyDocPlugin');
+		const wrapper = require('../clear-marks-on-empty-doc/entry-points/clearMarksOnEmptyDocPlugin');
+		const originalKeys = Object.keys(original).sort();
+		const wrapperKeys = Object.keys(wrapper).sort();
+		expect(originalKeys).toEqual(wrapperKeys);
+	});
+
+	it('check ./clear-marks-on-empty-doc/clearMarksOnEmptyDocPluginType exports all the same variables as the original', () => {
+		const original = require('@atlaskit/editor-plugin-clear-marks-on-empty-doc/clearMarksOnEmptyDocPluginType');
+		const wrapper = require('../clear-marks-on-empty-doc/entry-points/clearMarksOnEmptyDocPluginType');
+		const originalKeys = Object.keys(original).sort();
+		const wrapperKeys = Object.keys(wrapper).sort();
+		expect(originalKeys).toEqual(wrapperKeys);
+	});
 });

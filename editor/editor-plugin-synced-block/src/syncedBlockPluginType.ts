@@ -64,7 +64,7 @@ export type SyncedBlockRendererProps = {
 
 export type SyncedBlockFeedbackContext = {
 	blockType: 'source' | 'reference';
-	entryPoint?: string;
+	entryPoint: 'overflow-menu' | 'prompted-delete' | 'prompted-undo';
 };
 
 export interface SyncedBlockPluginOptions extends LongPressSelectionPluginOptions {
@@ -82,7 +82,7 @@ export interface SyncedBlockPluginOptions extends LongPressSelectionPluginOption
 	 * The editor plugin owns the menu affordance; the product owns the collector
 	 * configuration and lifecycle.
 	 */
-	onGiveFeedback?: (context: SyncedBlockFeedbackContext) => void;
+	onGiveFeedback?: (context: SyncedBlockFeedbackContext) => Promise<void> | void;
 	syncBlockDataProvider: SyncBlockDataProviderInterface;
 	syncedBlockRenderer: (props: SyncedBlockRendererProps) => React.JSX.Element;
 }

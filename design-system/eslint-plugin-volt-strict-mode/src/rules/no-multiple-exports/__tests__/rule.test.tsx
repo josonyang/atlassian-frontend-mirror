@@ -149,6 +149,34 @@ typescriptEslintTester.run(
           }
         `,
 			},
+			{
+				name: 'multiple data-object consts are allowed (codemod leaves them in place)',
+				code: `
+          export const config = { a: 1, b: 2 };
+          export const defaults = { c: 3 };
+        `,
+			},
+			{
+				name: 'multiple data-array consts are allowed',
+				code: `
+          export const items = [1, 2, 3];
+          export const names = ['a', 'b'];
+        `,
+			},
+			{
+				name: 'data const alongside a single function export is allowed',
+				code: `
+          export const config = { a: 1 };
+          export const build = () => null;
+        `,
+			},
+			{
+				name: 'call-expression and new-expression consts are treated as data (allowed)',
+				code: `
+          export const client = createClient();
+          export const store = new Store();
+        `,
+			},
 		],
 		invalid: [
 			{
@@ -219,6 +247,24 @@ typescriptEslintTester.run(
           export default function Bar() { return null; }
         `,
 				options: [{ allowPrimitiveExports: true }],
+				errors: [{ messageId: 'no-multiple-exports' }],
+			},
+			{
+				name: 'two function-valued consts still error even alongside data consts',
+				code: `
+          export const config = { a: 1 };
+          export const build = () => null;
+          export const parse = () => null;
+        `,
+				errors: [{ messageId: 'no-multiple-exports' }],
+			},
+			{
+				name: 'function-valued const alongside a real function declaration errors',
+				code: `
+          export const config = { a: 1 };
+          export const build = () => null;
+          export function parse() { return null; }
+        `,
 				errors: [{ messageId: 'no-multiple-exports' }],
 			},
 		],

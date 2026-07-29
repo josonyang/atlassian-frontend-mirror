@@ -1,5 +1,20 @@
 # @atlaskit/editor-extension-dropbox
 
+## 10.2.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 10.2.0
+
+### Minor Changes
+
+- [`85087b263ce43`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/85087b263ce43) -
+  Migrate react-dom render/unmountComponentAtNode to the React 18/19 createRoot API behind the
+  nike_r19_render_unmount feature gate. The legacy react-dom path is preserved on the gate-off
+  branch for rollback.
+
 ## 10.1.24
 
 ### Patch Changes

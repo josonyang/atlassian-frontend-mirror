@@ -956,6 +956,13 @@ const editorContentStyles = cssMapScoped({
 				},
 		},
 	},
+	headingScrollMarginStyles: {
+		'.ProseMirror': {
+			'& :is(h1, h2, h3, h4, h5, h6)': {
+				scrollMarginTop: token('space.300'),
+			},
+		},
+	},
 	// RTL blockquote padding fix — moved from nested 'blockquote' in blocktypeStyles
 	// because '[dir="rtl"] &' (ampersand on the right) is broken when nested in Compiled CSS.
 	// At the root level of a cssMap variant, '&' is correctly substituted.
@@ -8236,6 +8243,7 @@ export const EditorContentContainerCompiled: React.ForwardRefExoticComponent<
 		'isEnabled',
 		true,
 	);
+	const isFloatingTocEnabled = expValEquals('platform_editor_floating_toc', 'isEnabled', true);
 
 	return (
 		<div
@@ -8279,6 +8287,7 @@ export const EditorContentContainerCompiled: React.ForwardRefExoticComponent<
 					editorContentStyles.editorUGCSmallText,
 				editorContentStyles.blocktypeStyles,
 				editorContentStyles.blocktypeStylesRtlBlockquote,
+				isFloatingTocEnabled && editorContentStyles.headingScrollMarginStyles,
 				editorExperiment('platform_editor_block_menu', true, { exposure: true }) &&
 					editorContentStyles.blockquoteSelectedNodeStyles,
 				editorExperiment('platform_editor_block_menu', true, { exposure: true }) &&

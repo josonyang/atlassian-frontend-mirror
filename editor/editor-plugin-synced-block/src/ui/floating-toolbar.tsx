@@ -60,6 +60,12 @@ export const getToolbarConfig = (
 		return;
 	}
 
+	const isSyncBlockActivationEnabled = expValEquals(
+		'platform_editor_sync_block_activation',
+		'isEnabled',
+		true,
+	);
+
 	const syncBlockInstance = syncBlockStore.referenceManager.getFromCache(
 		syncBlockObject.node.attrs.resourceId,
 	);
@@ -86,12 +92,6 @@ export const getToolbarConfig = (
 	});
 
 	const items: Array<FloatingToolbarItem<Command>> = [];
-	const isSyncBlockActivationEnabled = expValEquals(
-		'platform_editor_sync_block_activation',
-		'isEnabled',
-		true,
-	);
-
 	if (isUnsyncedBlock) {
 		const deleteButton: FloatingToolbarItem<Command> = {
 			type: 'button',
@@ -277,6 +277,7 @@ export const getToolbarConfig = (
 											);
 											onGiveFeedback({
 												blockType: isBodiedSyncBlock ? 'source' : 'reference',
+												entryPoint: 'overflow-menu',
 											});
 											return true;
 										},

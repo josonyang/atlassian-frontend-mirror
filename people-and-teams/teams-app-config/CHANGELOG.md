@@ -1,5 +1,12 @@
 # @atlaskit/teams-app-config
 
+## 2.1.3
+
+### Patch Changes
+
+- [`de2138ed44f92`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/de2138ed44f92) -
+  Remove the isolated-cloud Teams app kill switch and feature gate remove-ic-kill-switch-teams-app
+
 ## 2.1.2
 
 ### Patch Changes

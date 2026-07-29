@@ -1,5 +1,20 @@
 # @atlaskit/help-article
 
+## 7.1.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 7.1.0
+
+### Minor Changes
+
+- [`68397ac94492a`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/68397ac94492a) -
+  Gate the ArticleBody iframe render (ReactDOM.render callback path) behind nike_r19_render_unmount,
+  mounting via the React 18/19 createRoot API when enabled. The legacy react-dom render path is
+  preserved on the gate-off branch for rollback.
+
 ## 7.0.5
 
 ### Patch Changes

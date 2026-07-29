@@ -9,4 +9,20 @@ describe('avatar-group wrapper', () => {
 		const wrapperKeys = Object.keys(wrapper).sort();
 		expect(originalKeys).toEqual(wrapperKeys);
 	});
+
+	it('check ./avatar-group/avatarGroupPlugin exports all the same variables as the original', () => {
+		const original = require('@atlaskit/editor-plugin-avatar-group/avatarGroupPlugin');
+		const wrapper = require('../avatar-group/entry-points/avatarGroupPlugin');
+		const originalKeys = Object.keys(original).sort();
+		const wrapperKeys = Object.keys(wrapper).sort();
+		expect(originalKeys).toEqual(wrapperKeys);
+	});
+
+	it('check ./avatar-group/avatarGroupPluginType exports all the same variables as the original', () => {
+		const original = require('@atlaskit/editor-plugin-avatar-group/avatarGroupPluginType');
+		const wrapper = require('../avatar-group/entry-points/avatarGroupPluginType');
+		const originalKeys = Object.keys(original).sort();
+		const wrapperKeys = Object.keys(wrapper).sort();
+		expect(originalKeys).toEqual(wrapperKeys);
+	});
 });

@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react';
 import debounce from 'lodash/debounce';
-import ReactDOM from 'react-dom';
+import ReactDOM, { flushSync } from 'react-dom';
+import { createRoot, type Root } from 'react-dom/client';
 // eslint-disable-next-line import/no-extraneous-dependencies
 import type { DocNode } from '@atlaskit/adf-schema';
 import { ReactRenderer } from '@atlaskit/renderer';
@@ -11,6 +12,24 @@ import type { AdfDoc } from '../../model/HelpArticle';
 import resetCSS from './resetCss';
 import { ArticleFrame } from './styled';
 import { fg } from '@atlaskit/platform-feature-flags';
+
+const reactRoots = new WeakMap<Element, Root>();
+
+/**
+ * Mounts `element` into `mountPoint` using the React 18/19 `createRoot` API, reusing the root for a
+ * given mount point across renders. Only invoked on the `nike_r19_render_unmount` gate-on path; the
+ * gate-off path keeps calling the legacy render API directly.
+ */
+const renderToMountPoint = (element: React.ReactElement, mountPoint: Element) => {
+	let root = reactRoots.get(mountPoint);
+
+	if (!root) {
+		root = createRoot(mountPoint);
+		reactRoots.set(mountPoint, root);
+	}
+
+	root.render(element);
+};
 
 export interface Props {
 	// Article Content
@@ -130,75 +149,99 @@ export const ArticleBody = (props: Props): React.JSX.Element | null => {
 				return;
 			}
 
-			// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
-			ReactDOM.render(<div style={divSyle} />, iframeContainer, () => {
+			// Writes the processed article HTML into the freshly-created iframe. Runs once the
+			// ArticleFrame render has committed. (Previously the inner ReactDOM.render callback.)
+			const onArticleFrameRendered = () => {
+				const iframeContainer: HTMLElement | null = document.getElementById(IFRAME_CONTAINER_ID);
+
+				if (iframeContainer) {
+					const newIframe: Window = (frames as { [key: string]: any })[IFRAME_ID] as Window;
+
+					if (newIframe !== null) {
+						const iframeDocument = newIframe.document;
+						iframeDocument.open();
+						// Process the HTML to ensure all links open in new tabs
+						const processedBody = processLinksForNewTab(body);
+						iframeDocument.write(`<div>${processedBody}</div>`);
+						iframeDocument.close();
+						const head = iframeDocument.head || iframeDocument.getElementsByTagName('head')[0];
+						const style = iframeDocument.createElement('style');
+						style.innerText = resetCSS;
+						head.appendChild(style);
+
+						if (fg('asf-943-in-product-help-dark-mode')) {
+							// Copy theme attributes from parent document to iframe for dark mode support
+							const parentHtml = document.documentElement;
+							const iframeHtml = iframeDocument.documentElement;
+							const colorMode = parentHtml.getAttribute('data-color-mode');
+							const themeAttr = parentHtml.getAttribute('data-theme');
+							if (colorMode) {
+								iframeHtml.setAttribute('data-color-mode', colorMode);
+							}
+							if (themeAttr) {
+								iframeHtml.setAttribute('data-theme', themeAttr);
+							}
+
+							// Copy theme style elements from parent document into the iframe
+							const themeStyles = document.querySelectorAll('style[data-theme]');
+							themeStyles.forEach((themeStyle) => {
+								const clonedStyle = iframeDocument.createElement('style');
+								clonedStyle.textContent = themeStyle.textContent;
+								if (themeStyle instanceof HTMLElement && themeStyle.dataset.theme) {
+									clonedStyle.dataset.theme = themeStyle.dataset.theme;
+								}
+								head.appendChild(clonedStyle);
+							});
+						}
+
+						resizeIframe();
+
+						if (onArticleRenderBegin) {
+							onArticleRenderBegin();
+						}
+					}
+				}
+			};
+
+			const articleFrame = (
+				<ArticleFrame
+					id={IFRAME_ID}
+					name={IFRAME_ID}
+					onLoad={() => {
+						resizeIframe();
+					}}
+					sandbox="allow-same-origin allow-popups allow-popups-to-escape-sandbox"
+				/>
+			);
+
+			// Replaces the placeholder div with a fresh iframe, then writes content once committed.
+			// (Previously the outer ReactDOM.render callback.)
+			const renderArticleFrame = () => {
 				if (!iframeContainer) {
 					return;
 				}
-				ReactDOM.render(
-					<ArticleFrame
-						id={IFRAME_ID}
-						name={IFRAME_ID}
-						onLoad={() => {
-							resizeIframe();
-						}}
-						sandbox="allow-same-origin allow-popups allow-popups-to-escape-sandbox"
-					/>,
-					iframeContainer,
-					() => {
-						const iframeContainer: HTMLElement | null =
-							document.getElementById(IFRAME_CONTAINER_ID);
+				if (fg('nike_r19_render_unmount')) {
+					// flushSync commits the createRoot render synchronously so the callback runs
+					// after commit, matching the legacy render callback contract.
+					flushSync(() => {
+						renderToMountPoint(articleFrame, iframeContainer);
+					});
+					onArticleFrameRendered();
+				} else {
+					ReactDOM.render(articleFrame, iframeContainer, onArticleFrameRendered);
+				}
+			};
 
-						if (iframeContainer) {
-							const newIframe: Window = (frames as { [key: string]: any })[IFRAME_ID] as Window;
-
-							if (newIframe !== null) {
-								const iframeDocument = newIframe.document;
-								iframeDocument.open();
-								// Process the HTML to ensure all links open in new tabs
-								const processedBody = processLinksForNewTab(body);
-								iframeDocument.write(`<div>${processedBody}</div>`);
-								iframeDocument.close();
-								const head = iframeDocument.head || iframeDocument.getElementsByTagName('head')[0];
-								const style = iframeDocument.createElement('style');
-								style.innerText = resetCSS;
-								head.appendChild(style);
-
-								if (fg('asf-943-in-product-help-dark-mode')) {
-									// Copy theme attributes from parent document to iframe for dark mode support
-									const parentHtml = document.documentElement;
-									const iframeHtml = iframeDocument.documentElement;
-									const colorMode = parentHtml.getAttribute('data-color-mode');
-									const themeAttr = parentHtml.getAttribute('data-theme');
-									if (colorMode) {
-										iframeHtml.setAttribute('data-color-mode', colorMode);
-									}
-									if (themeAttr) {
-										iframeHtml.setAttribute('data-theme', themeAttr);
-									}
-
-									// Copy theme style elements from parent document into the iframe
-									const themeStyles = document.querySelectorAll('style[data-theme]');
-									themeStyles.forEach((themeStyle) => {
-										const clonedStyle = iframeDocument.createElement('style');
-										clonedStyle.textContent = themeStyle.textContent;
-										if (themeStyle instanceof HTMLElement && themeStyle.dataset.theme) {
-											clonedStyle.dataset.theme = themeStyle.dataset.theme;
-										}
-										head.appendChild(clonedStyle);
-									});
-								}
-
-								resizeIframe();
-
-								if (onArticleRenderBegin) {
-									onArticleRenderBegin();
-								}
-							}
-						}
-					},
-				);
-			});
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
+			const placeholder = <div style={divSyle} />;
+			if (fg('nike_r19_render_unmount')) {
+				flushSync(() => {
+					renderToMountPoint(placeholder, iframeContainer);
+				});
+				renderArticleFrame();
+			} else {
+				ReactDOM.render(placeholder, iframeContainer, renderArticleFrame);
+			}
 		};
 
 		if (props.bodyFormat === BODY_FORMAT_TYPES.html && typeof props.body === 'string') {

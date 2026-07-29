@@ -340,8 +340,7 @@ const AvatarGroup = ({
 			return boundariesElement === 'window' ? 'document' : 'viewport';
 		})();
 
-		const avatarComponent =
-			avatar && fg('platform-avatar-group-pass-avatar-to-item') ? avatar : undefined;
+		const avatarComponent = avatar ?? undefined;
 
 		return (
 			<Popup

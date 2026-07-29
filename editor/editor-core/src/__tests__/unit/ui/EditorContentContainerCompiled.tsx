@@ -146,4 +146,41 @@ describe('Editor Content styles', () => {
 			await expect(document.body).toBeAccessible();
 		});
 	});
+
+	eeTest.describe('platform_editor_floating_toc', 'when disabled').variant(false, () => {
+		it('does not apply heading scroll margin', () => {
+			render(
+				<EditorContentContainerCompiled appearance="full-page" viewMode="edit">
+					<div className="ProseMirror">
+						<h1>Heading 1</h1>
+					</div>
+				</EditorContentContainerCompiled>,
+			);
+
+			expect(window.getComputedStyle(screen.getByRole('heading')).scrollMarginTop).toBe('');
+		});
+	});
+
+	eeTest.describe('platform_editor_floating_toc', 'when enabled').variant(true, () => {
+		it('applies scroll margin to every heading level', () => {
+			render(
+				<EditorContentContainerCompiled appearance="full-page" viewMode="edit">
+					<div className="ProseMirror">
+						<h1>Heading 1</h1>
+						<h2>Heading 2</h2>
+						<h3>Heading 3</h3>
+						<h4>Heading 4</h4>
+						<h5>Heading 5</h5>
+						<h6>Heading 6</h6>
+					</div>
+				</EditorContentContainerCompiled>,
+			);
+
+			screen.getAllByRole('heading').forEach((heading) => {
+				expect(window.getComputedStyle(heading).scrollMarginTop).toMatch(
+					/^var\(--ds-space-300,\s?24px\)$/u,
+				);
+			});
+		});
+	});
 });

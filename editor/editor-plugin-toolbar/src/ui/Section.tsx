@@ -7,7 +7,6 @@ import type { ExtractInjectionAPI, UserPreferences } from '@atlaskit/editor-comm
 import type { ViewMode } from '@atlaskit/editor-plugin-editor-viewmode';
 import { ToolbarSection, SeparatorPosition } from '@atlaskit/editor-toolbar';
 import type { ToolbarComponentType, ToolbarComponentTypes } from '@atlaskit/editor-toolbar-model';
-import { fg } from '@atlaskit/platform-feature-flags';
 
 import type { ToolbarPlugin } from '../toolbarPluginType';
 
@@ -66,12 +65,8 @@ export const Section = ({
 		(states) => states.toolbarState?.contextualFormattingModeOverride,
 	);
 	const toolbar = parents.find((parent) => parent.type === 'toolbar');
-	const effectiveRuntimeOverride =
-		runtimeOverride !== undefined && fg('platform_editor_toolbar_mode_override')
-			? runtimeOverride
-			: undefined;
 	const contextualFormattingEnabled =
-		effectiveRuntimeOverride ?? api?.toolbar?.actions.contextualFormattingMode() ?? 'always-pinned';
+		runtimeOverride ?? api?.toolbar?.actions.contextualFormattingMode() ?? 'always-pinned';
 
 	if (
 		isSharedSection &&

@@ -1,5 +1,15 @@
 # @atlaskit/editor-plugin-selection-toolbar
 
+## 13.0.34
+
+### Patch Changes
+
+- [`2bf1a4ceaf0a4`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/2bf1a4ceaf0a4) -
+  Clean up stale feature gates platform_editor_fix_md_empty_list_roundtrip,
+  platform_editor_md-mode-use-content-reconciler, platform_editor_toolbar_mode_override,
+  platform_editor_markdown_mode_hide_source_toolbar
+- Updated dependencies
+
 ## 13.0.33
 
 ### Patch Changes

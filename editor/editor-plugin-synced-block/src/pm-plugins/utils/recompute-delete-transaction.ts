@@ -1,3 +1,4 @@
+import { Slice } from '@atlaskit/editor-prosemirror/model';
 import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import type { Transaction } from '@atlaskit/editor-prosemirror/state';
 
@@ -100,6 +101,60 @@ export const recomputeDeleteTransaction = (
 		.forEach(({ node, pos }) => {
 			tr.delete(pos, pos + node.nodeSize);
 		});
+
+	return tr;
+};
+
+/**
+ * Recompute a source `bodiedSyncBlock` *unsync* from the live document.
+ *
+ * Unsync differs from delete: the sync wrapper must be removed while its content
+ * is preserved inline in the document. Instead of `tr.delete(pos, pos +
+ * nodeSize)` (which drops the content too — EDITOR-8230), this replaces each
+ * matched source block with its own content.
+ *
+ * The replacement uses a raw `tr.replace(pos, pos + nodeSize, new Slice(content,
+ * 0, 0))` — an explicit zero-open slice inserted verbatim — rather than
+ * `tr.replaceWith(...)`. `replaceWith` routes through ProseMirror's
+ * `replaceRange`, whose range-fitting heuristics can collapse or drop a trailing
+ * block (e.g. the block's final panel/empty paragraph) when the unwrapped
+ * content meets a document boundary, silently losing content (EDITOR-8230). A
+ * zero-open `replace` drops the wrapper's own open ends while keeping every child
+ * of the fragment as its own top-level node.
+ *
+ * Like `recomputeDeleteTransaction`, targets are located in the *current*
+ * document (`tr.doc`) so the operation is robust to intervening local edits and
+ * remote collab changes while the confirmation modal is open, and it handles
+ * partial matches gracefully (missing blocks are skipped).
+ *
+ * Replacements are applied in reverse document order so earlier replacements do
+ * not invalidate the positions of later ones.
+ *
+ * @returns the mutated transaction when at least one target node was found and
+ * unwrapped, otherwise `undefined` when none of the targets exist any more.
+ */
+export const recomputeUnsyncTransaction = (
+	tr: Transaction,
+	isSourceBlock: (node: PMNode) => boolean,
+	syncBlockIds: SyncBlockAttrs[],
+): Transaction | undefined => {
+	const matches = findSourceBlocks(tr, isSourceBlock, syncBlockIds);
+
+	if (matches.length === 0) {
+		return undefined;
+	}
+
+	// Unwrap in reverse document order so positions remain valid across edits.
+	// Use a raw zero-open Slice replace (not `replaceWith`) so the block's content
+	// is inserted verbatim as top-level nodes without ProseMirror's replaceRange
+	// heuristics collapsing a trailing block (EDITOR-8230).
+	const orderedMatches = matches.sort((a, b) => b.pos - a.pos);
+	for (const { node, pos } of orderedMatches) {
+		// This is ProseMirror's Transaction.replace (a document edit), not String.replace — the
+		// perf rule misfires on the method name, and there is nothing to hoist.
+		// eslint-disable-next-line @atlassian/perf-linting/no-expensive-split-replace
+		tr.replace(pos, pos + node.nodeSize, new Slice(node.content, 0, 0));
+	}
 
 	return tr;
 };

@@ -1,141 +1,171 @@
 import { defineMessages } from 'react-intl';
 
 const _default_1: {
-	white: {
-		id: string;
-		defaultMessage: string;
-		description: string;
-	};
-	'light-blue': {
-		id: string;
-		defaultMessage: string;
-		description: string;
-	};
-	'light-teal': {
-		id: string;
-		defaultMessage: string;
-		description: string;
-	};
-	'light-green': {
-		id: string;
-		defaultMessage: string;
-		description: string;
-	};
-	'light-yellow': {
-		id: string;
-		defaultMessage: string;
-		description: string;
-	};
-	'light-red': {
-		id: string;
-		defaultMessage: string;
-		description: string;
-	};
-	'light-purple': {
-		id: string;
-		defaultMessage: string;
-		description: string;
-	};
-	'light-gray': {
-		id: string;
-		defaultMessage: string;
-		description: string;
-	};
 	blue: {
-		id: string;
 		defaultMessage: string;
 		description: string;
-	};
-	teal: {
 		id: string;
-		defaultMessage: string;
-		description: string;
-	};
-	green: {
-		id: string;
-		defaultMessage: string;
-		description: string;
-	};
-	yellow: {
-		id: string;
-		defaultMessage: string;
-		description: string;
-	};
-	red: {
-		id: string;
-		defaultMessage: string;
-		description: string;
-	};
-	orange: {
-		id: string;
-		defaultMessage: string;
-		description: string;
-	};
-	purple: {
-		id: string;
-		defaultMessage: string;
-		description: string;
-	};
-	gray: {
-		id: string;
-		defaultMessage: string;
-		description: string;
-	};
-	'dark-blue': {
-		id: string;
-		defaultMessage: string;
-		description: string;
-	};
-	'dark-teal': {
-		id: string;
-		defaultMessage: string;
-		description: string;
-	};
-	'dark-green': {
-		id: string;
-		defaultMessage: string;
-		description: string;
-	};
-	'dark-yellow': {
-		id: string;
-		defaultMessage: string;
-		description: string;
-	};
-	'dark-red': {
-		id: string;
-		defaultMessage: string;
-		description: string;
-	};
-	'dark-purple': {
-		id: string;
-		defaultMessage: string;
-		description: string;
-	};
-	'subtle-gray': {
-		id: string;
-		defaultMessage: string;
-		description: string;
 	};
 	'bold-gray': {
-		id: string;
 		defaultMessage: string;
 		description: string;
+		id: string;
+	};
+	'dark-blue': {
+		defaultMessage: string;
+		description: string;
+		id: string;
+	};
+	'dark-green': {
+		defaultMessage: string;
+		description: string;
+		id: string;
+	};
+	'dark-lime': {
+		defaultMessage: string;
+		description: string;
+		id: string;
+	};
+	'dark-magenta': {
+		defaultMessage: string;
+		description: string;
+		id: string;
+	};
+	'dark-orange': {
+		defaultMessage: string;
+		description: string;
+		id: string;
+	};
+	'dark-purple': {
+		defaultMessage: string;
+		description: string;
+		id: string;
+	};
+	'dark-red': {
+		defaultMessage: string;
+		description: string;
+		id: string;
+	};
+	'dark-teal': {
+		defaultMessage: string;
+		description: string;
+		id: string;
+	};
+	'dark-yellow': {
+		defaultMessage: string;
+		description: string;
+		id: string;
+	};
+	gray: {
+		defaultMessage: string;
+		description: string;
+		id: string;
+	};
+	green: {
+		defaultMessage: string;
+		description: string;
+		id: string;
+	};
+	'light-blue': {
+		defaultMessage: string;
+		description: string;
+		id: string;
+	};
+	'light-gray': {
+		defaultMessage: string;
+		description: string;
+		id: string;
+	};
+	'light-green': {
+		defaultMessage: string;
+		description: string;
+		id: string;
+	};
+	'light-lime': {
+		defaultMessage: string;
+		description: string;
+		id: string;
+	};
+	'light-magenta': {
+		defaultMessage: string;
+		description: string;
+		id: string;
+	};
+	'light-orange': {
+		defaultMessage: string;
+		description: string;
+		id: string;
+	};
+	'light-purple': {
+		defaultMessage: string;
+		description: string;
+		id: string;
+	};
+	'light-red': {
+		defaultMessage: string;
+		description: string;
+		id: string;
+	};
+	'light-teal': {
+		defaultMessage: string;
+		description: string;
+		id: string;
+	};
+	'light-yellow': {
+		defaultMessage: string;
+		description: string;
+		id: string;
+	};
+	lime: {
+		defaultMessage: string;
+		description: string;
+		id: string;
+	};
+	magenta: {
+		defaultMessage: string;
+		description: string;
+		id: string;
 	};
 	// Colors only used in highlight palette
 	'no-color': {
-		id: string;
 		defaultMessage: string;
 		description: string;
+		id: string;
 	};
-	lime: {
-		id: string;
+	orange: {
 		defaultMessage: string;
 		description: string;
+		id: string;
 	};
-	magenta: {
-		id: string;
+	purple: {
 		defaultMessage: string;
 		description: string;
+		id: string;
+	};
+	red: {
+		defaultMessage: string;
+		description: string;
+		id: string;
+	};
+	'subtle-gray': {
+		defaultMessage: string;
+		description: string;
+		id: string;
+	};
+	teal: {
+		defaultMessage: string;
+		description: string;
+		id: string;
+	};
+	white: {
+		defaultMessage: string;
+		description: string;
+		id: string;
+	};
+	yellow: {
+		defaultMessage: string;
+		description: string;
+		id: string;
 	};
 } = defineMessages({
 	white: {
@@ -162,17 +192,35 @@ const _default_1: {
 		description:
 			'Tooltip label for the light green color swatch displayed in the editor toolbar color palette when users select text or highlight colors.',
 	},
+	'light-lime': {
+		id: 'fabric.theme.light-lime',
+		defaultMessage: 'Light lime',
+		description:
+			'Tooltip label for the light lime color swatch displayed in the editor toolbar color palette when users select text or highlight colors.',
+	},
 	'light-yellow': {
 		id: 'fabric.theme.light-yellow',
 		defaultMessage: 'Light yellow',
 		description:
 			'Tooltip label for the light yellow color swatch displayed in the editor toolbar color palette when users select text or highlight colors.',
 	},
+	'light-orange': {
+		id: 'fabric.theme.light-orange',
+		defaultMessage: 'Light orange',
+		description:
+			'Tooltip label for the light orange color swatch displayed in the editor toolbar color palette when users select text or highlight colors.',
+	},
 	'light-red': {
 		id: 'fabric.theme.light-red',
 		defaultMessage: 'Light red',
 		description:
 			'Tooltip label for the light red color swatch displayed in the editor toolbar color palette when users select text or highlight colors.',
+	},
+	'light-magenta': {
+		id: 'fabric.theme.light-magenta',
+		defaultMessage: 'Light magenta',
+		description:
+			'Tooltip label for the light magenta color swatch displayed in the editor toolbar color palette when users select text or highlight colors.',
 	},
 	'light-purple': {
 		id: 'fabric.theme.light-purple',
@@ -252,17 +300,35 @@ const _default_1: {
 		description:
 			'Tooltip label for the dark green color swatch displayed in the editor toolbar color palette when users select text or highlight colors.',
 	},
+	'dark-lime': {
+		id: 'fabric.theme.dark-lime',
+		defaultMessage: 'Dark lime',
+		description:
+			'Tooltip label for the dark lime color swatch displayed in the editor toolbar color palette when users select text or highlight colors.',
+	},
 	'dark-yellow': {
 		id: 'fabric.theme.dark-yellow',
 		defaultMessage: 'Dark yellow',
 		description:
 			'Tooltip label for the dark yellow color swatch displayed in the editor toolbar color palette when users select text or highlight colors.',
 	},
+	'dark-orange': {
+		id: 'fabric.theme.dark-orange',
+		defaultMessage: 'Dark orange',
+		description:
+			'Tooltip label for the dark orange color swatch displayed in the editor toolbar color palette when users select text or highlight colors.',
+	},
 	'dark-red': {
 		id: 'fabric.theme.dark-red',
 		defaultMessage: 'Dark red',
 		description:
 			'Tooltip label for the dark red color swatch displayed in the editor toolbar color palette when users select text or highlight colors.',
+	},
+	'dark-magenta': {
+		id: 'fabric.theme.dark-magenta',
+		defaultMessage: 'Dark magenta',
+		description:
+			'Tooltip label for the dark magenta color swatch displayed in the editor toolbar color palette when users select text or highlight colors.',
 	},
 	'dark-purple': {
 		id: 'fabric.theme.dark-purple',

@@ -1,5 +1,6 @@
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
+import { expValEqualsNoExposure } from '@atlaskit/tmp-editor-statsig/exp-val-equals-no-exposure';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
 import type { BlockControlsPlugin } from '../../blockControlsPluginType';
@@ -102,6 +103,13 @@ const processHoverSide = (view: EditorView, api?: ExtractInjectionAPI<BlockContr
 	// This is more reliable than bounds when controls are in portals outside the editor DOM.
 	const rightEdgeElement = target?.closest(RIGHT_EDGE_SELECTOR);
 	if (rightEdgeElement) {
+		if (
+			state?.isMouseOut &&
+			expValEqualsNoExposure('cc_maui_remix_button_hover_corridor', 'isEnabled', true)
+		) {
+			mouseEnter(view, 'right');
+			return;
+		}
 		if (state?.hoverSide !== 'right') {
 			setHoverSide(view, 'right');
 		}
@@ -130,6 +138,10 @@ const processHoverSide = (view: EditorView, api?: ExtractInjectionAPI<BlockContr
 			handleMouseOver(view, { target: marginZone.block } as unknown as Event, api);
 			// mouseenter doesn't fire over the click overlay, so clear isMouseOut here to re-show.
 			if (state?.isMouseOut) {
+				if (expValEqualsNoExposure('cc_maui_remix_button_hover_corridor', 'isEnabled', true)) {
+					mouseEnter(view, 'right');
+					return;
+				}
 				mouseEnter(view);
 			}
 			if (state?.hoverSide !== 'right') {
@@ -139,7 +151,14 @@ const processHoverSide = (view: EditorView, api?: ExtractInjectionAPI<BlockContr
 		}
 
 		// In the Rovo gap, dismiss the controls so the button doesn't linger over the Rovo button.
-		if (marginZone?.type === 'gap' || event.clientX > getRightMarginBoundary(view)) {
+		// The corridor experiment keeps controls visible when the pointer is still over a real block;
+		// only empty margin remains reserved for Rovo in that case.
+		if (
+			marginZone?.type === 'gap' ||
+			(event.clientX > getRightMarginBoundary(view) &&
+				(!blockElement ||
+					!expValEqualsNoExposure('cc_maui_remix_button_hover_corridor', 'isEnabled', true)))
+		) {
 			if (!state?.isMouseOut) {
 				clearHoverSide(view);
 				mouseLeave(view);
@@ -157,6 +176,15 @@ const processHoverSide = (view: EditorView, api?: ExtractInjectionAPI<BlockContr
 	const nextHoverSide = event.clientX > midpoint ? 'right' : 'left';
 
 	if (state?.hoverSide !== nextHoverSide) {
+		if (
+			state?.isMouseOut &&
+			target?.closest(BLOCK_SELECTORS) &&
+			expValEqualsNoExposure('cc_maui_remix_button_hover_corridor', 'isEnabled', true)
+		) {
+			mouseEnter(view, nextHoverSide);
+			return;
+		}
+
 		setHoverSide(view, nextHoverSide);
 	}
 };

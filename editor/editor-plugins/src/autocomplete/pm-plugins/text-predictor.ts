@@ -12,8 +12,8 @@ export {
 	loadVectorsAsync,
 	initVectors,
 	loadDefaultVocabulary,
-} from '@atlaskit/editor-plugin-autocomplete/src/pm-plugins/text-predictor';
+} from '@atlaskit/editor-plugin-autocomplete/CANONICAL_FIX__DO_NOT_USE_ME_C';
 export type {
 	WeightedTerm,
 	TenantVocabulary,
-} from '@atlaskit/editor-plugin-autocomplete/src/pm-plugins/text-predictor';
+} from '@atlaskit/editor-plugin-autocomplete/CANONICAL_FIX__DO_NOT_USE_ME_C';

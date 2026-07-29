@@ -7,9 +7,9 @@ export {
 	setDefaultSlowLaneClient,
 	getStoredContextVector,
 	getStoredLmLogits,
-} from '@atlaskit/editor-plugin-autocomplete/src/pm-plugins/slow-lane-client';
+} from '@atlaskit/editor-plugin-autocomplete/CANONICAL_FIX__DO_NOT_USE_ME_B';
 export type {
 	TypeaheadEncodingsRequest,
 	TypeaheadEncodingsResponse,
 	SlowLaneClientConfig,
-} from '@atlaskit/editor-plugin-autocomplete/src/pm-plugins/slow-lane-client';
+} from '@atlaskit/editor-plugin-autocomplete/CANONICAL_FIX__DO_NOT_USE_ME_B';

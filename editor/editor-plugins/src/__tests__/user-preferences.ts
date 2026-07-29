@@ -9,4 +9,20 @@ describe('user-preferences wrapper', () => {
 		const wrapperKeys = Object.keys(wrapper).sort();
 		expect(originalKeys).toEqual(wrapperKeys);
 	});
+
+	it('check ./user-preferences/user-preferences-plugin exports all the same variables as the original', () => {
+		const original = require('@atlaskit/editor-plugin-user-preferences/user-preferences-plugin');
+		const wrapper = require('../user-preferences/entry-points/user-preferences-plugin');
+		const originalKeys = Object.keys(original).sort();
+		const wrapperKeys = Object.keys(wrapper).sort();
+		expect(originalKeys).toEqual(wrapperKeys);
+	});
+
+	it('check ./user-preferences/user-preferences-plugin-type exports all the same variables as the original', () => {
+		const original = require('@atlaskit/editor-plugin-user-preferences/user-preferences-plugin-type');
+		const wrapper = require('../user-preferences/entry-points/user-preferences-plugin-type');
+		const originalKeys = Object.keys(original).sort();
+		const wrapperKeys = Object.keys(wrapper).sort();
+		expect(originalKeys).toEqual(wrapperKeys);
+	});
 });

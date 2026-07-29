@@ -81,6 +81,7 @@ type MouseLeaveMeta = {
 };
 
 type MouseEnterMeta = {
+	side?: 'left' | 'right';
 	type: 'mouseEnter';
 };
 
@@ -142,6 +143,9 @@ export const createInteractionTrackingPlugin = (
 						break;
 					case 'mouseEnter':
 						newState.isMouseOut = false;
+						if (meta.side) {
+							newState.hoverSide = meta.side;
+						}
 						break;
 					case 'setHoverSide':
 						newState.hoverSide = meta.side;

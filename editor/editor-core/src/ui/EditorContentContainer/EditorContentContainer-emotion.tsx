@@ -53,6 +53,7 @@ import {
 	blocktypeStyles,
 	blocktypeStyles_fg_platform_editor_nested_dnd_styles_changes,
 	blocktypeStyles_fg_platform_editor_typography_ugc,
+	headingScrollMarginStyles,
 	listDangerStyles,
 	listSelectedNodeStyles,
 	textDangerStyles,
@@ -371,6 +372,7 @@ export const EditorContentContainerEmotion: React.ForwardRefExoticComponent<
 		'isEnabled',
 		true,
 	);
+	const isFloatingTocEnabled = expValEquals('platform_editor_floating_toc', 'isEnabled', true);
 
 	return (
 		<div
@@ -436,6 +438,9 @@ export const EditorContentContainerEmotion: React.ForwardRefExoticComponent<
 				expValEquals('platform_editor_small_font_size', 'isEnabled', true) && editorUGCSmallText,
 				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
 				blocktypeStyles,
+				isFloatingTocEnabled &&
+					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
+					headingScrollMarginStyles,
 				editorExperiment('platform_editor_block_menu', true, { exposure: true }) &&
 					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
 					blockquoteSelectedNodeStyles,

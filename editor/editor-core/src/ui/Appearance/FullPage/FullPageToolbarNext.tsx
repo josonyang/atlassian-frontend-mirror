@@ -167,10 +167,7 @@ const getToolbarComponentsForMarkdownView = (
 	markdownModeView?: MarkdownModeView,
 	isConvertedMarkdownPreview?: boolean,
 ) => {
-	if (
-		(markdownModeView === 'syntax' || markdownModeView === 'preview') &&
-		fg('platform_editor_markdown_mode_hide_source_toolbar')
-	) {
+	if (markdownModeView === 'syntax' || markdownModeView === 'preview') {
 		// Converted markdown live pages in preview should show full toolbar content
 		// so preference-based docking can work consistently.
 		if (isConvertedMarkdownPreview) {
@@ -203,12 +200,8 @@ export const FullPageToolbarNext = ({
 		['toolbar'],
 		(states) => states.toolbarState?.contextualFormattingModeOverride,
 	);
-	const effectiveRuntimeOverride =
-		runtimeOverride !== undefined && fg('platform_editor_toolbar_mode_override')
-			? runtimeOverride
-			: undefined;
 	const contextualFormattingEnabled =
-		effectiveRuntimeOverride ?? editorAPI?.toolbar?.actions.contextualFormattingMode();
+		runtimeOverride ?? editorAPI?.toolbar?.actions.contextualFormattingMode();
 	const markdownModeState = useSharedPluginStateWithSelector(
 		editorAPI,
 		['markdownMode'],

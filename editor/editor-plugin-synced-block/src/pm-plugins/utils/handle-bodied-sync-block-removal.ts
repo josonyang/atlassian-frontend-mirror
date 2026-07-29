@@ -13,9 +13,18 @@ import { FLAG_ID } from '../../types';
 import type { ActiveFlag, SyncBlockInfo } from '../../types';
 import { syncedBlockPluginKey } from '../main';
 
-import { recomputeDeleteTransaction } from './recompute-delete-transaction';
+import {
+	recomputeDeleteTransaction,
+	recomputeUnsyncTransaction,
+} from './recompute-delete-transaction';
 
 export type TransactionRef = { current: Transaction | undefined };
+
+type SourceFeedbackCallbacks = {
+	onDeleteCompleted: (success: boolean) => void;
+	onDeleteTransaction: (tr: Transaction) => void;
+	onDestroy: () => void;
+};
 
 const onRetry =
 	(
@@ -46,6 +55,7 @@ export const handleBodiedSyncBlockRemoval = (
 	confirmationTransactionRef: TransactionRef,
 	deletionReason: DeletionReason,
 	mechanism?: DeletionMechanism,
+	feedbackCallbacks?: SourceFeedbackCallbacks,
 ) => {
 	// Clear potential old pending deletion to retreat the deletion as first attempt
 	syncBlockStore.sourceManager.clearPendingDeletion();
@@ -66,11 +76,24 @@ export const handleBodiedSyncBlockRemoval = (
 				// confirmation modal was open — the dominant signature being
 				// "Invalid content for node bodiedSyncBlock: <>". See EDITOR-7889.
 				api?.core?.actions.execute(({ tr }) => {
-					const recomputedTr = recomputeDeleteTransaction(
-						tr,
-						syncBlockStore.sourceManager.isSourceBlock,
-						bodiedSyncBlockRemoved.map((node) => node.attrs),
-					);
+					// EDITOR-8230: unsync must remove only the sync wrapper and keep the block's
+					// content inline, whereas delete removes the whole block. Before this branch,
+					// the confirm path always recomputed a full delete, so unsyncing a source block
+					// silently deleted its content. When the deletion was actually triggered by
+					// unsync, recompute an unwrap (replaceWith content) instead of a delete.
+					const isUnsync =
+						fg('platform_editor_blocks_patch_6') && deletionReason === 'source-block-unsynced';
+					const recomputedTr = isUnsync
+						? recomputeUnsyncTransaction(
+								tr,
+								syncBlockStore.sourceManager.isSourceBlock,
+								bodiedSyncBlockRemoved.map((node) => node.attrs),
+							)
+						: recomputeDeleteTransaction(
+								tr,
+								syncBlockStore.sourceManager.isSourceBlock,
+								bodiedSyncBlockRemoved.map((node) => node.attrs),
+							);
 
 					// The target node(s) no longer exist in the live document (e.g.
 					// a remote collaborator already removed them). There is nothing
@@ -83,6 +106,7 @@ export const handleBodiedSyncBlockRemoval = (
 					}
 
 					recomputedTr.setMeta('isConfirmedSyncBlockDeletion', true);
+					feedbackCallbacks?.onDeleteTransaction(recomputedTr);
 					if (!recomputedTr.getMeta(pmHistoryPluginKey)) {
 						// bodiedSyncBlock deletion is expected to be permanent (cannot undo)
 						// For a normal deletion (not triggered by undo), remove it from history so that it cannot be undone
@@ -99,6 +123,7 @@ export const handleBodiedSyncBlockRemoval = (
 			}
 			api?.core?.actions.execute(() => {
 				const trToDispatch = confirmationTransaction.setMeta('isConfirmedSyncBlockDeletion', true);
+				feedbackCallbacks?.onDeleteTransaction(trToDispatch);
 				if (!trToDispatch.getMeta(pmHistoryPluginKey)) {
 					// bodiedSyncBlock deletion is expected to be permanent (cannot undo)
 					// For a normal deletion (not triggered by undo), remove it from history so that it cannot be undone
@@ -108,6 +133,7 @@ export const handleBodiedSyncBlockRemoval = (
 			});
 		},
 		(success) => {
+			feedbackCallbacks?.onDeleteCompleted(success);
 			api?.core?.actions.execute(({ tr }) => {
 				let newState: Record<string, unknown>;
 				if (!success) {
@@ -134,6 +160,7 @@ export const handleBodiedSyncBlockRemoval = (
 		},
 		() => {
 			confirmationTransactionRef.current = undefined;
+			feedbackCallbacks?.onDestroy();
 		},
 		mechanism,
 	);

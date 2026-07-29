@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-core",
-	"version": "221.16.0",
+	"version": "221.16.4",
 	"description": "A package contains Atlassian editor core functionality",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -191,12 +191,6 @@
 		"platform_editor_table_nested_renderer_fix": {
 			"type": "boolean"
 		},
-		"platform_editor_toolbar_mode_override": {
-			"type": "boolean"
-		},
-		"platform_editor_markdown_mode_hide_source_toolbar": {
-			"type": "boolean"
-		},
 		"platform_editor_markdown_patch_m3": {
 			"type": "boolean"
 		},
@@ -262,10 +256,6 @@
 		},
 		"platform_editor_nested_dnd_styles_changes": {
 			"type": "boolean"
-		},
-		"platform_editor_controls_no_toolbar_space": {
-			"type": "boolean",
-			"referenceOnly": true
 		},
 		"platform_editor_quick_insert_placeholder": {
 			"type": "boolean"

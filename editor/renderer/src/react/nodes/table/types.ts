@@ -8,6 +8,7 @@ export type SharedTableProps = {
 	columnWidths?: Array<number>;
 	isinsideMultiBodiedExtension?: boolean;
 	isInsideOfBlockNode?: boolean;
+	isInsideOfNestedRenderer?: boolean;
 	isInsideOfTable?: boolean;
 	isNumberColumnEnabled: boolean;
 	layout: TableLayout;

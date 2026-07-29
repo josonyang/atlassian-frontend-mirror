@@ -103,9 +103,9 @@ SyncBlockStoreManager (facade — delegates to source + reference managers)
 
 The client in `clients/block-service/blockService.ts` communicates via GraphQL at
 `/gateway/api/graphql`: Fetch, Create, Update, Delete, Source Info, References Info. The GraphQL
-mutations are **not** debounced at the client — write batching is driven by the product layer calling
-`flush()` (Confluence draft-sync/publish, Jira save). Reference reads are batched/deduped via
-`syncBlockBatchFetcher.ts`. Grep for the current timing constants rather than assuming a value.
+mutations are **not** debounced at the client — write batching is driven by the product layer
+calling `flush()` (Confluence draft-sync/publish, Jira save). Reference reads are batched/deduped
+via `syncBlockBatchFetcher.ts`. Grep for the current timing constants rather than assuming a value.
 
 ### Media Token Fetching
 

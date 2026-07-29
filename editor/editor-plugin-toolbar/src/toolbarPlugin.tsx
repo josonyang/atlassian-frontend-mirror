@@ -8,7 +8,6 @@ import { NodeSelection } from '@atlaskit/editor-prosemirror/state';
 import { findParentNodeOfType, findSelectedNodeOfType } from '@atlaskit/editor-prosemirror/utils';
 import type { RegisterComponent } from '@atlaskit/editor-toolbar-model';
 import { createComponentRegistry } from '@atlaskit/editor-toolbar-model';
-import { fg } from '@atlaskit/platform-feature-flags';
 
 import { getSelectionToolbarOpenExperiencePlugin } from './pm-plugins/experiences/selection-toolbar-open-experience';
 import { editorToolbarPluginKey } from './pm-plugins/plugin-key';
@@ -208,8 +207,7 @@ export const toolbarPlugin: ToolbarPlugin = ({
 										newPluginState = {
 											...newPluginState,
 											...rest,
-											...('contextualFormattingModeOverride' in meta &&
-											fg('platform_editor_toolbar_mode_override')
+											...('contextualFormattingModeOverride' in meta
 												? { contextualFormattingModeOverride }
 												: {}),
 										};

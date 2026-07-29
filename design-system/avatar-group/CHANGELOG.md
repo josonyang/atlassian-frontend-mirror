@@ -1,5 +1,15 @@
 # @atlaskit/avatar-group
 
+## 13.2.3
+
+### Patch Changes
+
+- [`2625970306ba3`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/2625970306ba3) -
+  Cleanup feature gate `platform-avatar-group-pass-avatar-to-item`. Custom avatar components and
+  Avatar overrides are now always forwarded to overflowed items inside the avatar group dropdown,
+  making this behaviour permanent.
+- Updated dependencies
+
 ## 13.2.2
 
 ### Patch Changes

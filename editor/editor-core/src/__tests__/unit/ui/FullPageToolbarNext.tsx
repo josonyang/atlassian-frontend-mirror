@@ -8,7 +8,6 @@ import type { PublicPluginAPI, DocBuilder } from '@atlaskit/editor-common/types'
 import type { ToolbarPlugin } from '@atlaskit/editor-plugins/toolbar';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { createEditorFactory } from '@atlaskit/editor-test-helpers/create-editor';
-import { failGate, passGate } from '@atlassian/feature-flags-test-utils/mock-gates';
 
 import type { MarkdownModePlugin, MarkdownModeView } from '../../../../src/types/markdown-mode';
 import { FullPageToolbarNext } from '../../../../src/ui/Appearance/FullPage/FullPageToolbarNext';
@@ -121,49 +120,7 @@ describe('FullPageToolbarNext', () => {
 				await expect(document.body).toBeAccessible();
 			});
 
-			it('should render edit controls when markdown mode is in preview view', () => {
-				failGate('platform_editor_markdown_mode_hide_source_toolbar');
-
-				const screen = render(
-					<IntlProvider locale="en">
-						<FullPageToolbarNext
-							editorAPI={getMockEditorAPIWithMarkdownMode('preview')}
-							toolbarDockingPosition="top"
-							showKeyline={false}
-							editorView={editorView}
-							disabled={false}
-						/>
-					</IntlProvider>,
-				);
-
-				expect(screen.getByTestId('primary-toolbar')).toBeInTheDocument();
-				expect(screen.getByTestId('edit-toolbar-control')).toBeInTheDocument();
-				expect(screen.getByTestId('view-mode-toggle')).toBeInTheDocument();
-			});
-
-			it('should render edit controls when markdown mode is in syntax view and toolbar hiding is gated off', () => {
-				failGate('platform_editor_markdown_mode_hide_source_toolbar');
-
-				const screen = render(
-					<IntlProvider locale="en">
-						<FullPageToolbarNext
-							editorAPI={getMockEditorAPIWithMarkdownMode('syntax')}
-							toolbarDockingPosition="top"
-							showKeyline={false}
-							editorView={editorView}
-							disabled={false}
-						/>
-					</IntlProvider>,
-				);
-
-				expect(screen.getByTestId('primary-toolbar')).toBeInTheDocument();
-				expect(screen.getByTestId('edit-toolbar-control')).toBeInTheDocument();
-				expect(screen.getByTestId('view-mode-toggle')).toBeInTheDocument();
-			});
-
-			it('should hide edit controls and keep the view mode toggle when markdown mode is in syntax view and toolbar hiding is gated on', () => {
-				passGate('platform_editor_markdown_mode_hide_source_toolbar');
-
+			it('should hide edit controls and keep the view mode toggle when markdown mode is in syntax view', () => {
 				const screen = render(
 					<IntlProvider locale="en">
 						<FullPageToolbarNext
@@ -181,9 +138,7 @@ describe('FullPageToolbarNext', () => {
 				expect(screen.getByTestId('view-mode-toggle')).toBeInTheDocument();
 			});
 
-			it('should hide edit controls and keep the view mode toggle when markdown mode is in preview view and toolbar hiding is gated on', () => {
-				passGate('platform_editor_markdown_mode_hide_source_toolbar');
-
+			it('should hide edit controls and keep the view mode toggle when markdown mode is in preview view', () => {
 				const screen = render(
 					<IntlProvider locale="en">
 						<FullPageToolbarNext

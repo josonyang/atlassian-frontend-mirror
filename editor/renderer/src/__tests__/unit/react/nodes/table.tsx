@@ -22,6 +22,7 @@ import type { ReactWrapper } from 'enzyme';
 import { act } from 'react-dom/test-utils';
 import { RendererContextProvider } from '../../../../renderer-context';
 import type { RendererContextProps } from '../../../../renderer-context';
+import { eeTest } from '@atlaskit/tmp-editor-statsig/editor-experiments-test-utils';
 
 const checkColWidths = (table: ReactWrapper, expectedColWidths: number[]) => {
 	table.find('col').forEach((col, index) => {
@@ -167,6 +168,51 @@ const schema = getSchemaBasedOnStage('stage0');
 
 describe('Renderer - React/Nodes/Table', () => {
 	const renderWidth = akEditorDefaultLayoutWidth;
+	const mountContentModeTable = (isTopLevelRenderer: boolean) =>
+		mountTableWithFF(
+			{},
+			schema.nodeFromJSON({
+				...table(tr([th()(p('Header'))]), tr([td()(p('Body'))])),
+				attrs: { layout: 'align-start' },
+			}),
+			renderWidth,
+			undefined,
+			'full-page',
+			false,
+			isTopLevelRenderer,
+			false,
+			true,
+		);
+
+	eeTest(
+		'platform_editor_table_nested_content_mode_fix',
+		{
+			true: () => {
+				const nestedRendererTable = mountContentModeTable(false);
+
+				expect(nestedRendererTable.find('table[data-initial-width-mode="content"]')).toHaveLength(
+					0,
+				);
+				nestedRendererTable.unmount();
+
+				const topLevelRendererTable = mountContentModeTable(true);
+
+				expect(topLevelRendererTable.find('table[data-initial-width-mode="content"]')).toHaveLength(
+					1,
+				);
+				topLevelRendererTable.unmount();
+			},
+			false: () => {
+				const nestedRendererTable = mountContentModeTable(false);
+
+				expect(nestedRendererTable.find('table[data-initial-width-mode="content"]')).toHaveLength(
+					1,
+				);
+				nestedRendererTable.unmount();
+			},
+		},
+		{ platform_editor_table_fit_to_content_auto_convert: true },
+	);
 
 	it('should render table DOM with all attributes', () => {
 		const table = mountBasicTable({ renderWidth, layout: 'full-width' });

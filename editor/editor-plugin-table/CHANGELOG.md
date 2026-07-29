@@ -1,5 +1,11 @@
 # @atlaskit/editor-plugin-table
 
+## 24.4.25
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 24.4.24
 
 ### Patch Changes

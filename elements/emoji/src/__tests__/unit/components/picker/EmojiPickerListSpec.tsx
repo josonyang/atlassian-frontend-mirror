@@ -1,5 +1,4 @@
 import { matchers } from '@emotion/jest';
-import { ffTest } from '@atlassian/feature-flags-test-utils';
 import { act, fireEvent, screen, waitFor, within } from '@testing-library/react';
 import React from 'react';
 import FeatureGates from '@atlaskit/feature-gate-js-client';
@@ -151,31 +150,12 @@ describe('<EmojiPickerList />', () => {
 			expect(peopleHeadingItem).toBeInTheDocument();
 		});
 
-		ffTest.on(
-			'platform_emoji_a11y_category_heading',
-			'when a11y category heading gate is on',
-			() => {
-				it('should render category headings as h2 elements for screen reader accessibility', async () => {
-					renderEmojiPickerList();
-					const headings = await screen.findAllByRole('heading', { level: 2 });
-					expect(headings.length).toBeGreaterThan(0);
-					expect(headings[0]).toHaveTextContent(messages.peopleCategory.defaultMessage);
-				});
-			},
-		);
-
-		ffTest.off(
-			'platform_emoji_a11y_category_heading',
-			'when a11y category heading gate is off',
-			() => {
-				it('should render category headings as div elements (legacy)', async () => {
-					renderEmojiPickerList();
-					const peopleHeadingItem = await screen.findByText(messages.peopleCategory.defaultMessage);
-					expect(peopleHeadingItem.tagName).toBe('DIV');
-					expect(screen.queryAllByRole('heading', { level: 2 })).toHaveLength(0);
-				});
-			},
-		);
+		it('should render category headings as h2 elements for screen reader accessibility', async () => {
+			renderEmojiPickerList();
+			const headings = await screen.findAllByRole('heading', { level: 2 });
+			expect(headings.length).toBeGreaterThan(0);
+			expect(headings[0]).toHaveTextContent(messages.peopleCategory.defaultMessage);
+		});
 
 		describe('A11Y-31084: experiment platform_a11y_fixes_emoji_picker_list', () => {
 			it('renders emoji rows as lists with listitem emojis when enabled', async () => {

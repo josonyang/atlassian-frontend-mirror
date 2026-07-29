@@ -9,4 +9,28 @@ describe('decorations wrapper', () => {
 		const wrapperKeys = Object.keys(wrapper).sort();
 		expect(originalKeys).toEqual(wrapperKeys);
 	});
+
+	it('check ./decorations/decorationsPlugin exports all the same variables as the original', () => {
+		const original = require('@atlaskit/editor-plugin-decorations/decorationsPlugin');
+		const wrapper = require('../decorations/entry-points/decorationsPlugin');
+		const originalKeys = Object.keys(original).sort();
+		const wrapperKeys = Object.keys(wrapper).sort();
+		expect(originalKeys).toEqual(wrapperKeys);
+	});
+
+	it('check ./decorations/decorationsPluginType exports all the same variables as the original', () => {
+		const original = require('@atlaskit/editor-plugin-decorations/decorationsPluginType');
+		const wrapper = require('../decorations/entry-points/decorationsPluginType');
+		const originalKeys = Object.keys(original).sort();
+		const wrapperKeys = Object.keys(wrapper).sort();
+		expect(originalKeys).toEqual(wrapperKeys);
+	});
+
+	it('check ./decorations/main exports all the same variables as the original', () => {
+		const original = require('@atlaskit/editor-plugin-decorations/main');
+		const wrapper = require('../decorations/entry-points/main');
+		const originalKeys = Object.keys(original).sort();
+		const wrapperKeys = Object.keys(wrapper).sort();
+		expect(originalKeys).toEqual(wrapperKeys);
+	});
 });

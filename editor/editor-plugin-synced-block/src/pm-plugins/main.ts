@@ -35,6 +35,7 @@ import type {
 import { getSourceProductFromResourceIdSafe } from '@atlaskit/editor-synced-block-provider/utils';
 import { fg } from '@atlaskit/platform-feature-flags';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
+import { expValEqualsNoExposure } from '@atlaskit/tmp-editor-statsig/exp-val-equals-no-exposure';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
 import {
@@ -42,7 +43,11 @@ import {
 	bodiedSyncBlockNodeViewOld,
 } from '../nodeviews/bodiedSyncedBlock';
 import { SyncBlock as SyncBlockView } from '../nodeviews/syncedBlock';
-import type { SyncedBlockPlugin, SyncedBlockPluginOptions } from '../syncedBlockPluginType';
+import type {
+	SyncedBlockFeedbackContext,
+	SyncedBlockPlugin,
+	SyncedBlockPluginOptions,
+} from '../syncedBlockPluginType';
 import { FLAG_ID } from '../types';
 import type {
 	ActiveFlag,
@@ -78,6 +83,14 @@ export const syncedBlockPluginKey: PluginKey = new PluginKey('syncedBlockPlugin'
  */
 export const deleteMechanismMetaKey: PluginKey<DeletionMechanism> =
 	new PluginKey<DeletionMechanism>('syncedBlockDeleteMechanism');
+
+type PromptedFeedbackMeta = {
+	context: SyncedBlockFeedbackContext;
+	sourceAttempt?: symbol;
+};
+
+const syncedBlockPromptedFeedbackMetaKey: PluginKey<PromptedFeedbackMeta> =
+	new PluginKey<PromptedFeedbackMeta>('syncedBlockPromptedFeedback');
 
 /**
  * Creation-type signals set by {@link createSyncedBlock} on the creating
@@ -229,7 +242,10 @@ const getDeleteReason = (tr: Transaction): DeletionReason => {
 
 /** Narrows the history plugin meta, matching the editor-plugin-card pattern. */
 const isHistoryMeta = (meta: unknown): meta is { redo: boolean } =>
-	typeof meta === 'object' && meta !== null && 'redo' in meta;
+	typeof meta === 'object' &&
+	meta !== null &&
+	'redo' in meta &&
+	typeof (meta as { redo: unknown }).redo === 'boolean';
 
 /**
  * Derive how a source bodiedSyncBlock removal was performed, for the `mechanism`
@@ -253,8 +269,19 @@ const isHistoryMeta = (meta: unknown): meta is { redo: boolean } =>
  * selected when the edit was made.
  */
 export const getDeleteMechanism = (tr: Transaction, state: EditorState): DeletionMechanism => {
+	// Keep the legacy analytics classification unchanged while activation is off.
+	// The stricter history, structural-step, and reference-selection handling is
+	// only needed by the prompted feedback rollout.
+	const isSyncBlockActivationEnabled = expValEqualsNoExposure(
+		'platform_editor_sync_block_activation',
+		'isEnabled',
+		true,
+	);
 	const historyMeta = tr.getMeta(pmHistoryPluginKey);
 	if (historyMeta) {
+		if (isSyncBlockActivationEnabled && !isHistoryMeta(historyMeta)) {
+			return 'other';
+		}
 		return isHistoryMeta(historyMeta) && historyMeta.redo ? 'redo' : 'undo';
 	}
 
@@ -264,15 +291,35 @@ export const getDeleteMechanism = (tr: Transaction, state: EditorState): Deletio
 		return 'deleteButton';
 	}
 
+	const hasStructuralStep =
+		isSyncBlockActivationEnabled && tr.steps.some((step) => step instanceof ReplaceAroundStep);
 	const hasReplaceStep = tr.steps.some((step) => step instanceof ReplaceStep);
-	if (!hasReplaceStep) {
+	if (hasStructuralStep || !hasReplaceStep) {
 		return 'other';
 	}
 
 	const { selection } = state;
 	const isNodeSelected =
-		selection instanceof NodeSelection && selection.node?.type.name === 'bodiedSyncBlock';
+		selection instanceof NodeSelection &&
+		(selection.node?.type.name === 'bodiedSyncBlock' ||
+			(isSyncBlockActivationEnabled && selection.node?.type.name === 'syncBlock'));
 	return isNodeSelected ? 'selectionReplaced' : 'keyboardDelete';
+};
+
+export const getPromptedFeedbackEntryPoint = (
+	mechanism: DeletionMechanism,
+): SyncedBlockFeedbackContext['entryPoint'] | undefined => {
+	if (mechanism === 'undo') {
+		return 'prompted-undo';
+	}
+	if (
+		mechanism === 'deleteButton' ||
+		mechanism === 'keyboardDelete' ||
+		mechanism === 'selectionReplaced'
+	) {
+		return 'prompted-delete';
+	}
+	return undefined;
 };
 
 type FilterTransactionOnlineParams = {
@@ -280,6 +327,7 @@ type FilterTransactionOnlineParams = {
 	bodiedSyncBlockAdded: ReturnType<typeof trackSyncBlocks>['added'];
 	bodiedSyncBlockRemoved: ReturnType<typeof trackSyncBlocks>['removed'];
 	confirmationTransactionRef: TransactionRef;
+	ctx: SyncedBlockPluginContext;
 	extensionFlagShown: Set<string>;
 	state: EditorState;
 	syncBlockStore: SyncBlockStoreManager;
@@ -337,6 +385,7 @@ const filterTransactionOnline = ({
 	syncBlockStore,
 	api,
 	confirmationTransactionRef,
+	ctx,
 	bodiedSyncBlockRemoved,
 	bodiedSyncBlockAdded,
 	extensionFlagShown,
@@ -367,6 +416,32 @@ const filterTransactionOnline = ({
 	// dedicated `cross_product_paste` event subject.
 	const isPaste = Boolean(tr.getMeta('paste') ?? tr.getMeta('uiEvent') === 'paste');
 	const isPasteOrDrop = isPaste || tr.getMeta('uiEvent') === 'drop';
+	const hasRemovedSyncBlock = syncBlockRemoved.length > 0 || bodiedSyncBlockRemoved.length > 0;
+	const isCutRemoval = hasRemovedSyncBlock && ctx.consumeCutRemoval();
+	const canPromptForRemoval =
+		Boolean(ctx.onGiveFeedback) &&
+		hasRemovedSyncBlock &&
+		!isDirtyTransaction(tr) &&
+		!isCutRemoval &&
+		!isPasteOrDrop;
+	const promptedFeedbackEntryPoint = canPromptForRemoval
+		? getPromptedFeedbackEntryPoint(getDeleteMechanism(tr, state))
+		: undefined;
+	const entryPoint =
+		promptedFeedbackEntryPoint &&
+		expValEqualsNoExposure('platform_editor_sync_block_activation', 'isEnabled', true)
+			? promptedFeedbackEntryPoint
+			: undefined;
+
+	if (entryPoint && syncBlockRemoved.length > 0 && bodiedSyncBlockRemoved.length === 0) {
+		tr.setMeta(syncedBlockPromptedFeedbackMetaKey, {
+			context: {
+				blockType: 'reference',
+				entryPoint,
+			},
+		});
+	}
+
 	syncBlockAdded.forEach((syncBlock) => {
 		api?.analytics?.actions?.fireAnalyticsEvent({
 			action: ACTION.INSERTED,
@@ -396,6 +471,33 @@ const filterTransactionOnline = ({
 		const mechanism = fg('platform_editor_blocks_patch_4')
 			? getDeleteMechanism(tr, state)
 			: undefined;
+		const feedbackContext =
+			entryPoint && getDeleteReason(tr) !== 'source-block-unsynced'
+				? ({
+						blockType: 'source',
+						entryPoint,
+					} satisfies SyncedBlockFeedbackContext)
+				: undefined;
+		if (feedbackContext) {
+			const sourceAttempt = ctx.queueSourceFeedback(feedbackContext);
+			return handleBodiedSyncBlockRemoval(
+				bodiedSyncBlockRemoved,
+				syncBlockStore,
+				api,
+				confirmationTransactionRef,
+				getDeleteReason(tr),
+				mechanism,
+				{
+					onDeleteCompleted: (success) => ctx.completeSourceDeletion(sourceAttempt, success),
+					onDeleteTransaction: (deleteTr) =>
+						deleteTr.setMeta(syncedBlockPromptedFeedbackMetaKey, {
+							context: feedbackContext,
+							sourceAttempt,
+						}),
+					onDestroy: () => ctx.clearSourceFeedback(sourceAttempt),
+				},
+			);
+		}
 		return handleBodiedSyncBlockRemoval(
 			bodiedSyncBlockRemoved,
 			syncBlockStore,
@@ -403,6 +505,7 @@ const filterTransactionOnline = ({
 			confirmationTransactionRef,
 			getDeleteReason(tr),
 			mechanism,
+			undefined,
 		);
 	}
 
@@ -578,10 +681,22 @@ const buildStatusDecorations = (
  */
 class SyncedBlockPluginContext {
 	readonly confirmationTransactionRef: TransactionRef = { current: undefined };
+	private _cutRemovalPending = false;
+	private cutRemovalGeneration = 0;
 	private _isCopyEvent = false;
 	private _isCutEvent = false;
+	private pendingSourceFeedback:
+		| {
+				context: SyncedBlockFeedbackContext;
+				deletionSucceeded: boolean;
+				sourceAttempt: symbol;
+				transactionApplied: boolean;
+		  }
+		| undefined;
 	readonly unpublishedFlagShown = new Set<string>();
 	readonly extensionFlagShown = new Set<string>();
+
+	constructor(readonly onGiveFeedback: SyncedBlockPluginOptions['onGiveFeedback']) {}
 
 	get isCopyEvent(): boolean {
 		return this._isCopyEvent;
@@ -606,6 +721,92 @@ class SyncedBlockPluginContext {
 		this._isCutEvent = false;
 		return was;
 	}
+
+	markCutRemovalPending(): void {
+		this._cutRemovalPending = true;
+		const generation = ++this.cutRemovalGeneration;
+		queueMicrotask(() => {
+			if (this.cutRemovalGeneration === generation) {
+				this._cutRemovalPending = false;
+			}
+		});
+	}
+
+	consumeCutRemoval(): boolean {
+		const wasPending = this._cutRemovalPending;
+		this._cutRemovalPending = false;
+		this.cutRemovalGeneration += 1;
+		return wasPending;
+	}
+
+	queueSourceFeedback(context: SyncedBlockFeedbackContext): symbol {
+		const sourceAttempt = Symbol('syncedBlockSourceFeedbackAttempt');
+		this.pendingSourceFeedback = {
+			context,
+			deletionSucceeded: false,
+			sourceAttempt,
+			transactionApplied: false,
+		};
+		return sourceAttempt;
+	}
+
+	completeSourceDeletion(sourceAttempt: symbol, success: boolean): void {
+		if (this.pendingSourceFeedback?.sourceAttempt !== sourceAttempt) {
+			return;
+		}
+		if (!success) {
+			// Keep the attempt pending because retryDeletion reuses these callbacks.
+			// Dismissal or cancellation clears it through the destroy callback.
+			return;
+		}
+		this.pendingSourceFeedback.deletionSucceeded = true;
+		this.flushSourceFeedback(sourceAttempt);
+	}
+
+	clearSourceFeedback(sourceAttempt: symbol): void {
+		if (this.pendingSourceFeedback?.sourceAttempt === sourceAttempt) {
+			this.pendingSourceFeedback = undefined;
+		}
+	}
+
+	handleAppliedFeedback({ context, sourceAttempt }: PromptedFeedbackMeta): void {
+		if (
+			context.blockType === 'source' &&
+			sourceAttempt &&
+			this.pendingSourceFeedback?.sourceAttempt === sourceAttempt
+		) {
+			this.pendingSourceFeedback.transactionApplied = true;
+			this.flushSourceFeedback(sourceAttempt);
+			return;
+		}
+		if (context.blockType === 'reference') {
+			this.invokeFeedback(context);
+		}
+	}
+
+	private flushSourceFeedback(sourceAttempt: symbol): void {
+		if (
+			this.pendingSourceFeedback?.sourceAttempt === sourceAttempt &&
+			this.pendingSourceFeedback?.deletionSucceeded &&
+			this.pendingSourceFeedback.transactionApplied
+		) {
+			const { context } = this.pendingSourceFeedback;
+			this.pendingSourceFeedback = undefined;
+			this.invokeFeedback(context);
+		}
+	}
+
+	private invokeFeedback(context: SyncedBlockFeedbackContext): void {
+		deferDispatch(() => {
+			try {
+				const feedbackResult = this.onGiveFeedback?.(context);
+				void Promise.resolve(feedbackResult).catch(() => {});
+			} catch {
+				// Product feedback collectors are optional UI. Their failures must
+				// never affect the already-applied editor transaction.
+			}
+		});
+	}
 }
 
 export const createPlugin = (
@@ -622,7 +823,7 @@ export const createPlugin = (
 	// (apply, filterTransaction, appendTransaction, decorations).
 	const isPerfExperimentOn = expValEquals('editor_synced_block_perf', 'isEnabled', true);
 
-	const ctx = new SyncedBlockPluginContext();
+	const ctx = new SyncedBlockPluginContext(options?.onGiveFeedback);
 	const confirmationTransactionRef = ctx.confirmationTransactionRef;
 	const unpublishedFlagShown = ctx.unpublishedFlagShown;
 	const extensionFlagShown = ctx.extensionFlagShown;
@@ -1065,7 +1266,11 @@ export const createPlugin = (
 					return false;
 				},
 				cut: () => {
-					if (fg('platform_synced_block_patch_13')) {
+					if (
+						fg('platform_synced_block_patch_13') ||
+						(Boolean(options?.onGiveFeedback) &&
+							expValEqualsNoExposure('platform_editor_sync_block_activation', 'isEnabled', true))
+					) {
 						ctx.consumeCutEvent();
 						ctx.markCutEvent();
 					}
@@ -1102,15 +1307,38 @@ export const createPlugin = (
 				const { schema } = state;
 				const isCopy = ctx.consumeCopyEvent();
 				const isSyncedBlockPatch13Enabled = fg('platform_synced_block_patch_13');
-				const isCut = isSyncedBlockPatch13Enabled && ctx.consumeCutEvent();
+				const wasCut = ctx.consumeCutEvent();
+				const isCut = isSyncedBlockPatch13Enabled && wasCut;
+				const isPromptedFeedbackCut =
+					Boolean(syncBlockStore && options?.onGiveFeedback && wasCut) &&
+					expValEqualsNoExposure('platform_editor_sync_block_activation', 'isEnabled', true);
 
-				if (!syncBlockStore || (!isCopy && !isCut)) {
+				if (!syncBlockStore || (!isCopy && !isCut && !isPromptedFeedbackCut)) {
 					return slice;
 				}
 
-				return mapSlice(slice, (node: Node) => {
+				if (isPromptedFeedbackCut && !isCut) {
+					let containsCutSyncBlock = false;
+					mapSlice(slice, (node: Node) => {
+						if (
+							syncBlockStore.referenceManager.isReferenceBlock(node) ||
+							(node.type.name === 'bodiedSyncBlock' && sliceFullyContainsNode(slice, node))
+						) {
+							containsCutSyncBlock = true;
+						}
+						return node;
+					});
+					if (containsCutSyncBlock) {
+						ctx.markCutRemovalPending();
+					}
+					return slice;
+				}
+
+				let containsCutSyncBlock = false;
+				const transformedSlice = mapSlice(slice, (node: Node) => {
 					if (syncBlockStore.referenceManager.isReferenceBlock(node)) {
 						if (isCut) {
+							containsCutSyncBlock = isPromptedFeedbackCut;
 							return node;
 						}
 						showCopiedFlag(
@@ -1124,6 +1352,9 @@ export const createPlugin = (
 						return node;
 					}
 					if (node.type.name === 'bodiedSyncBlock' && node.attrs.resourceId) {
+						if (isPromptedFeedbackCut && isCut && sliceFullyContainsNode(slice, node)) {
+							containsCutSyncBlock = true;
+						}
 						// if we only selected part of the bodied sync block content,
 						// remove the sync block node and only keep the content
 						if (!sliceFullyContainsNode(slice, node)) {
@@ -1155,6 +1386,10 @@ export const createPlugin = (
 					}
 					return node;
 				});
+				if (containsCutSyncBlock) {
+					ctx.markCutRemovalPending();
+				}
+				return transformedSlice;
 			},
 		},
 		filterTransaction: (tr, state) => {
@@ -1254,6 +1489,7 @@ export const createPlugin = (
 						syncBlockStore,
 						api,
 						confirmationTransactionRef,
+						ctx,
 						bodiedSyncBlockRemoved,
 						bodiedSyncBlockAdded,
 						extensionFlagShown,
@@ -1277,6 +1513,22 @@ export const createPlugin = (
 			const viewMode = api?.editorViewMode?.sharedState.currentState()?.mode;
 			if (viewMode === 'view') {
 				return null;
+			}
+
+			if (options?.onGiveFeedback) {
+				const feedbackContexts = trs.flatMap((tr) => {
+					const feedbackContext = tr.getMeta(syncedBlockPromptedFeedbackMetaKey);
+					return feedbackContext ? [feedbackContext] : [];
+				});
+
+				if (
+					feedbackContexts.length > 0 &&
+					expValEqualsNoExposure('platform_editor_sync_block_activation', 'isEnabled', true)
+				) {
+					feedbackContexts.forEach((feedbackContext) => {
+						ctx.handleAppliedFeedback(feedbackContext);
+					});
+				}
 			}
 
 			// Update source sync block cache for user-initiated changes only.

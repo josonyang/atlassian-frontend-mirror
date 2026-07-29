@@ -1,5 +1,19 @@
 # @atlaskit/renderer
 
+## 133.17.3
+
+### Patch Changes
+
+- Updated dependencies
+
+## 133.17.2
+
+### Patch Changes
+
+- [`90510b2e6e5af`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/90510b2e6e5af) -
+  Prevent nested renderer tables from incorrectly using content-width mode
+- Updated dependencies
+
 ## 133.17.1
 
 ### Patch Changes

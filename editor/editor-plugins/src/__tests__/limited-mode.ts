@@ -9,4 +9,20 @@ describe('limited-mode wrapper', () => {
 		const wrapperKeys = Object.keys(wrapper).sort();
 		expect(originalKeys).toEqual(wrapperKeys);
 	});
+
+	it('check ./limited-mode/limited-mode-plugin exports all the same variables as the original', () => {
+		const original = require('@atlaskit/editor-plugin-limited-mode/limited-mode-plugin');
+		const wrapper = require('../limited-mode/entry-points/limited-mode-plugin');
+		const originalKeys = Object.keys(original).sort();
+		const wrapperKeys = Object.keys(wrapper).sort();
+		expect(originalKeys).toEqual(wrapperKeys);
+	});
+
+	it('check ./limited-mode/limited-mode-plugin-type exports all the same variables as the original', () => {
+		const original = require('@atlaskit/editor-plugin-limited-mode/limited-mode-plugin-type');
+		const wrapper = require('../limited-mode/entry-points/limited-mode-plugin-type');
+		const originalKeys = Object.keys(original).sort();
+		const wrapperKeys = Object.keys(wrapper).sort();
+		expect(originalKeys).toEqual(wrapperKeys);
+	});
 });

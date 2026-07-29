@@ -2,4 +2,8 @@
 // Disable no-re-export rule for entry point files
 /* eslint-disable @atlaskit/editor/no-re-export */
 export { autocompletePlugin } from '@atlaskit/editor-plugin-autocomplete';
-export type { AutocompletePlugin } from '@atlaskit/editor-plugin-autocomplete';
+export type {
+	AutocompletePlugin,
+	AutocompleteContext,
+	AutocompletePluginOptions,
+} from '@atlaskit/editor-plugin-autocomplete';

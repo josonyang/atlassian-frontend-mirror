@@ -150,4 +150,33 @@ test.describe('Select dropdown indicator voice-control accessibility', () => {
 
 		await expect(page.getByRole('button', { name: 'toggle select menu' })).toHaveCount(0);
 	});
+
+	// JPO-42328 (fix lives in @atlaskit/react-select's DropdownIndicator): a
+	// consumer `button { min-width: 149px }` rule must not stretch the indicator
+	// when the gate turns it into a <button>. The indicator's rendered width must
+	// be identical with the gate on and off — same chevron, same box.
+	test('with FF on: consumer global button min-width does not change the dropdown indicator width', async ({
+		page,
+	}) => {
+		const indicator = 'react-select-select--dropdown-indicator';
+		const example = 'dropdown-indicator-constrained-width';
+
+		// Baseline: gate off (legacy icon-in-a-div, no button).
+		await page.visitExample<
+			typeof import('../../../../examples/35-dropdown-indicator-constrained-width.tsx')
+		>('design-system', 'select', example);
+		const widthGateOff = (await page.getByTestId(indicator).boundingBox())?.width;
+
+		// Gate on: indicator becomes a <button>; the size reset must keep it identical.
+		await page.visitExample<
+			typeof import('../../../../examples/35-dropdown-indicator-constrained-width.tsx')
+		>('design-system', 'select', example, {
+			featureFlag: 'platform_dst_select_dropdown_voice_control',
+		});
+		await expect(page.getByRole('button', { name: 'toggle select menu' })).toBeVisible();
+		const widthGateOn = (await page.getByTestId(indicator).boundingBox())?.width;
+
+		// Must match the gate-off baseline (regression stretched it to the 149px min-width).
+		expect(widthGateOn).toBeCloseTo(widthGateOff as number, 0);
+	});
 });

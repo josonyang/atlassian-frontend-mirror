@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/smart-card",
-	"version": "45.13.5",
+	"version": "45.15.1",
 	"description": "Smart card component",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -361,6 +361,9 @@
 			"type": "boolean"
 		},
 		"navx-5343-sl-action-block-styling-fixes": {
+			"type": "boolean"
+		},
+		"nike_r19_render_unmount": {
 			"type": "boolean"
 		}
 	},

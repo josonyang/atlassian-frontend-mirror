@@ -98,8 +98,8 @@ Behind the `editor_synced_block_perf` experiment, `main.ts`:
 2. Calls `editor-commands/createSyncedBlock` → inserts `bodiedSyncBlock` node into document (marked
    as **pending creation** — it is not persisted yet)
 3. `pm-plugins/main.ts` detects new node → `handle-bodied-sync-block-creation.ts` updates
-   `sourceManager` state. Persistence happens later when the product layer calls `flush()`
-   (via `flushBodiedSyncBlocks`), which creates the block in the Block Service and then reconciles
+   `sourceManager` state. Persistence happens later when the product layer calls `flush()` (via
+   `flushBodiedSyncBlocks`), which creates the block in the Block Service and then reconciles
    identifiers via `commitPendingCreation()`
 4. `menu-and-toolbar-experiences.ts` fires the experience event
 

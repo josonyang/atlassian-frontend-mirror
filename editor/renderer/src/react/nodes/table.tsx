@@ -46,6 +46,7 @@ import {
 import { token } from '@atlaskit/tokens';
 
 import { TableStickyScrollbar } from './TableStickyScrollbar';
+import { useRendererContext } from '../../renderer-context';
 
 import { TableProcessorWithContainerStyles, RefSyncBlockFakeBorders } from './tableNew';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
@@ -498,6 +499,7 @@ export class TableContainer extends React.Component<
 			tableNode,
 			rendererAppearance,
 			isInsideOfBlockNode,
+			isInsideOfNestedRenderer,
 			isInsideOfTable,
 			isinsideMultiBodiedExtension,
 			allowTableAlignment,
@@ -707,7 +709,7 @@ export class TableContainer extends React.Component<
 			isTableInContentMode({
 				tableNode,
 				isSupported: isContentModeSupported({ allowTableResizing, rendererAppearance }),
-				isTableNested: isInsideOfBlockNode || isInsideOfTable,
+				isTableNested: isInsideOfBlockNode || isInsideOfNestedRenderer || isInsideOfTable,
 			}) && expValEquals('platform_editor_table_fit_to_content_auto_convert', 'isEnabled', true);
 
 		let style;
@@ -786,6 +788,7 @@ export class TableContainer extends React.Component<
 							tableNode={tableNode}
 							rendererAppearance={rendererAppearance}
 							isInsideOfBlockNode={isInsideOfBlockNode}
+							isInsideOfNestedRenderer={isInsideOfNestedRenderer}
 							isInsideOfTable={isInsideOfTable}
 							isinsideMultiBodiedExtension={isinsideMultiBodiedExtension}
 							allowTableResizing={allowTableResizing}
@@ -963,21 +966,32 @@ const TableWithWidth = (
 	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	props: React.PropsWithChildren<any>,
 ) => {
+	const { isTopLevelRenderer } = useRendererContext();
+	const isInsideOfNestedRenderer =
+		isTopLevelRenderer === false &&
+		expValEquals('platform_editor_table_nested_content_mode_fix', 'isEnabled', true);
+
 	if (fg('platform-ssr-table-resize')) {
 		const colWidthsSum =
 			// eslint-disable-next-line @atlassian/perf-linting/no-expensive-computations-in-render -- Ignored via go/ees017 (to be fixed)
 			props.columnWidths?.reduce((total: number, val: number) => total + val, 0) || 0;
 
 		if (colWidthsSum || props.allowTableResizing) {
-			// Ignored via go/ees005
-			// eslint-disable-next-line react/jsx-props-no-spreading
-			return <TableWithShadowsAndContainerStyles {...props} />;
+			return (
+				<TableWithShadowsAndContainerStyles
+					// Ignored via go/ees005
+					// eslint-disable-next-line react/jsx-props-no-spreading
+					{...props}
+					isInsideOfNestedRenderer={isInsideOfNestedRenderer}
+				/>
+			);
 		}
 		return (
 			<TableProcessorWithContainerStyles
 				// Ignored via go/ees005
 				// eslint-disable-next-line react/jsx-props-no-spreading
 				{...props}
+				isInsideOfNestedRenderer={isInsideOfNestedRenderer}
 			/>
 		);
 	} else {
@@ -991,9 +1005,15 @@ const TableWithWidth = (
 						props.columnWidths?.reduce((total: number, val: number) => total + val, 0) || 0;
 
 					if (colWidthsSum || props.allowTableResizing) {
-						// Ignored via go/ees005
-						// eslint-disable-next-line react/jsx-props-no-spreading
-						return <TableWithShadows renderWidth={renderWidth} {...props} />;
+						return (
+							<TableWithShadows
+								renderWidth={renderWidth}
+								// Ignored via go/ees005
+								// eslint-disable-next-line react/jsx-props-no-spreading
+								{...props}
+								isInsideOfNestedRenderer={isInsideOfNestedRenderer}
+							/>
+						);
 					}
 					// there should not be a case when colWidthsSum is 0 and table is in overflow state - so no need to render shadows in this case
 					return (
@@ -1002,6 +1022,7 @@ const TableWithWidth = (
 							// Ignored via go/ees005
 							// eslint-disable-next-line react/jsx-props-no-spreading
 							{...props}
+							isInsideOfNestedRenderer={isInsideOfNestedRenderer}
 						/>
 					);
 				}}

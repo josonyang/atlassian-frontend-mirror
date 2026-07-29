@@ -162,6 +162,13 @@ export type ChatNewPayload = PayloadCore<
 		 * and comment:<commentId> so the backend can create a SessionAssociationPublic record.
 		 */
 		tags?: string[];
+		/**
+		 * Optimistic agent metadata for the editor agent mention flow.
+		 * Allows showing the agent avatar telepointer immediately during AI streaming
+		 * without an extra network round-trip to fetch agent details.
+		 */
+		agentName?: string;
+		agentIdentityAccountId?: string;
 	} & Partial<TargetAgentParam> &
 		PlaceholderParam
 >;

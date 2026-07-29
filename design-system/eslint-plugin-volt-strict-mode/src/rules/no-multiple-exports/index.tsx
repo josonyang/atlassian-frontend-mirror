@@ -40,6 +40,33 @@ function isPrimitiveLiteral(declarator: TSESTree.VariableDeclarator): boolean {
 	return false;
 }
 
+/**
+ * Returns true if the variable declarator's initializer is a function
+ * (arrow function or function expression), e.g. `export const build = () => {}`.
+ *
+ * Such "function-valued" constants are conceptually functions and DO count
+ * toward the one-runtime-export limit. Plain data constants (objects, arrays,
+ * `new`-expressions, calls, etc.) are intentionally NOT counted — they mirror
+ * the `volt-no-multi-exports` codemod, which only ever extracts functions and
+ * classes (function-valued consts included) into their own file and leaves data
+ * consts, enums, primitives and types in place. Keeping the lint rule aligned
+ * means it never flags a file the codemod would refuse to auto-split.
+ */
+function isFunctionValued(declarator: TSESTree.VariableDeclarator): boolean {
+	let init = declarator.init;
+	if (init == null) {
+		return false;
+	}
+	// Unwrap `as const` / `as X` wrappers (e.g. `const f = (() => {}) as Fn`).
+	if (init.type === AST_NODE_TYPES.TSAsExpression) {
+		init = (init as TSESTree.TSAsExpression).expression;
+	}
+	return (
+		init.type === AST_NODE_TYPES.ArrowFunctionExpression ||
+		init.type === AST_NODE_TYPES.FunctionExpression
+	);
+}
+
 const rule: import('eslint').Rule.RuleModule = createLintRule({
 	meta: {
 		name: 'no-multiple-exports',
@@ -51,7 +78,7 @@ const rule: import('eslint').Rule.RuleModule = createLintRule({
 		},
 		messages: {
 			'no-multiple-exports':
-				'Volt Strict Mode: this file has more than one runtime export, but only one is allowed per file (this is the extra export). Fix it by moving each additional runtime export (component, function, class, non-primitive value) into its own file and importing it where needed. Exempt from this rule: `export type`, `export interface`, `export enum`, and `type`-only `export { ... }` specifiers; primitive value exports (string/number/boolean/null/undefined/template literal) are also allowed when the `allowPrimitiveExports` option is enabled. See go/volt-one-export-per-file for rationale and migration guidance.',
+				'Volt Strict Mode: this file has more than one runtime export, but only one is allowed per file (this is the extra export). Fix it by moving each additional function or class export (including function-valued consts like `export const f = () => {}`) into its own file and importing it where needed. Exempt from this rule: `export type`, `export interface`, `export enum`, `type`-only `export { ... }` specifiers, and data-value consts (objects, arrays, and other non-function values); primitive value exports (string/number/boolean/null/undefined/template literal) are also allowed when the `allowPrimitiveExports` option is enabled. See go/volt-one-export-per-file for rationale and migration guidance.',
 		},
 		schema: [
 			{
@@ -132,13 +159,26 @@ const rule: import('eslint').Rule.RuleModule = createLintRule({
 
 						if (decl.type === AST_NODE_TYPES.VariableDeclaration) {
 							for (const declarator of decl.declarations) {
-								if (
-									allowPrimitiveExports &&
-									isPrimitiveLiteral(declarator as TSESTree.VariableDeclarator)
-								) {
+								const variableDeclarator = declarator as TSESTree.VariableDeclarator;
+								// Function-valued consts (`const f = () => {}`) are conceptually
+								// functions and always count toward the limit.
+								if (isFunctionValued(variableDeclarator)) {
+									parts.push(declarator as ESTreeNode);
 									continue;
 								}
-								parts.push(declarator as ESTreeNode);
+								// Primitive value consts count only when the caller has NOT opted
+								// into `allowPrimitiveExports` (preserves the option's meaning).
+								if (isPrimitiveLiteral(variableDeclarator)) {
+									if (!allowPrimitiveExports) {
+										parts.push(declarator as ESTreeNode);
+									}
+									continue;
+								}
+								// Everything else is a plain data const (object, array, call,
+								// `new`, etc.). The `volt-no-multi-exports` codemod leaves these in
+								// place (it only extracts functions/classes), so to stay aligned we
+								// do NOT count them — a file the codemod won't split must not fail
+								// this rule.
 							}
 						} else {
 							parts.push(decl as ESTreeNode);

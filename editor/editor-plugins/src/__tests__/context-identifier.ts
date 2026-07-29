@@ -9,4 +9,20 @@ describe('context-identifier wrapper', () => {
 		const wrapperKeys = Object.keys(wrapper).sort();
 		expect(originalKeys).toEqual(wrapperKeys);
 	});
+
+	it('check ./context-identifier/contextIdentifierPlugin exports all the same variables as the original', () => {
+		const original = require('@atlaskit/editor-plugin-context-identifier/contextIdentifierPlugin');
+		const wrapper = require('../context-identifier/entry-points/contextIdentifierPlugin');
+		const originalKeys = Object.keys(original).sort();
+		const wrapperKeys = Object.keys(wrapper).sort();
+		expect(originalKeys).toEqual(wrapperKeys);
+	});
+
+	it('check ./context-identifier/contextIdentifierPluginType exports all the same variables as the original', () => {
+		const original = require('@atlaskit/editor-plugin-context-identifier/contextIdentifierPluginType');
+		const wrapper = require('../context-identifier/entry-points/contextIdentifierPluginType');
+		const originalKeys = Object.keys(original).sort();
+		const wrapperKeys = Object.keys(wrapper).sort();
+		expect(originalKeys).toEqual(wrapperKeys);
+	});
 });

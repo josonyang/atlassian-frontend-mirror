@@ -124,9 +124,7 @@ export const FullPageEditor = (props: ComponentProps): React.JSX.Element => {
 	// (no PM selection to anchor a floating toolbar to). The user's docking
 	// pref alone is not enough to decide whether to mount the primary toolbar
 	// in that case — the override has to short-circuit the hide gate below.
-	const forcePrimaryToolbarPinned =
-		state.contextualFormattingModeOverride === 'always-pinned' &&
-		fg('platform_editor_toolbar_mode_override');
+	const forcePrimaryToolbarPinned = state.contextualFormattingModeOverride === 'always-pinned';
 
 	const interactionState = state.interactionState;
 

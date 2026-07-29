@@ -9,4 +9,20 @@ describe('undo-redo wrapper', () => {
 		const wrapperKeys = Object.keys(wrapper).sort();
 		expect(originalKeys).toEqual(wrapperKeys);
 	});
+
+	it('check ./undo-redo/undo-redo-plugin exports all the same variables as the original', () => {
+		const original = require('@atlaskit/editor-plugin-undo-redo/undo-redo-plugin');
+		const wrapper = require('../undo-redo/entry-points/undo-redo-plugin');
+		const originalKeys = Object.keys(original).sort();
+		const wrapperKeys = Object.keys(wrapper).sort();
+		expect(originalKeys).toEqual(wrapperKeys);
+	});
+
+	it('check ./undo-redo/undo-redo-plugin-type exports all the same variables as the original', () => {
+		const original = require('@atlaskit/editor-plugin-undo-redo/undo-redo-plugin-type');
+		const wrapper = require('../undo-redo/entry-points/undo-redo-plugin-type');
+		const originalKeys = Object.keys(original).sort();
+		const wrapperKeys = Object.keys(wrapper).sort();
+		expect(originalKeys).toEqual(wrapperKeys);
+	});
 });

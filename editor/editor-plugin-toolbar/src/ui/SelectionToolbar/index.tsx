@@ -31,7 +31,6 @@ import {
 } from '@atlaskit/editor-toolbar';
 import { ToolbarModelRenderer } from '@atlaskit/editor-toolbar-model';
 import type { RegisterToolbar, RegisterComponent } from '@atlaskit/editor-toolbar-model';
-import { fg } from '@atlaskit/platform-feature-flags';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
@@ -118,12 +117,10 @@ export const SelectionToolbar = ({
 		contextualFormattingModeOverride,
 	} = usePluginState(api);
 
-	const effectiveRuntimeOverride =
-		contextualFormattingModeOverride !== undefined && fg('platform_editor_toolbar_mode_override')
-			? contextualFormattingModeOverride
-			: undefined;
 	const contextualFormattingEnabled =
-		effectiveRuntimeOverride ?? api?.toolbar?.actions.contextualFormattingMode() ?? 'always-pinned';
+		contextualFormattingModeOverride ??
+		api?.toolbar?.actions.contextualFormattingMode() ??
+		'always-pinned';
 	const selectionToolbarConfigEnabled = shouldShowSelectionToolbar(
 		contextualFormattingEnabled,
 		editorToolbarDockingPreference,

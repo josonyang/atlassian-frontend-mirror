@@ -132,6 +132,13 @@ export class SourceSyncBlockStoreManager {
 	 */
 	private creationEnrichment: Map<ResourceId, CreateSuccessEnrichment> = new Map();
 	/**
+	 * Source blocks created by the local insert command in this editor session that
+	 * have not yet been reconciled with authoritative reference data. This state is
+	 * intentionally kept out of ADF and the backend cache so reloaded, restored,
+	 * copied, and remotely inserted sources cannot inherit it.
+	 */
+	private newSourceBlockResourceIds: Set<ResourceId> = new Set();
+	/**
 	 * Resource IDs of blocks created empty this session that have not yet fired
 	 * the first-content-added event. Added on empty creation, removed when the
 	 * block first gains content (the event fires once). Blocks created with
@@ -195,6 +202,14 @@ export class SourceSyncBlockStoreManager {
 
 	public isSourceBlock(node: PMNode): boolean {
 		return node.type.name === 'bodiedSyncBlock';
+	}
+
+	public isNewSourceBlock(resourceId: ResourceId): boolean {
+		return this.newSourceBlockResourceIds.has(resourceId);
+	}
+
+	public clearNewSourceBlock(resourceId: ResourceId): void {
+		this.newSourceBlockResourceIds.delete(resourceId);
 	}
 
 	/**
@@ -512,6 +527,7 @@ export class SourceSyncBlockStoreManager {
 		} else {
 			// Delete the node from cache if fail to create so it's not flushed to BE
 			this.syncBlockCache.delete(resourceId || '');
+			this.newSourceBlockResourceIds.delete(resourceId || '');
 			// Creation failed, so there is no block to add content to — drop the
 			// first-content tracking entry so a later unrelated edit cannot fire it.
 			this.awaitingFirstContent.delete(resourceId || '');
@@ -616,6 +632,10 @@ export class SourceSyncBlockStoreManager {
 				throw new Error('Data provider not set');
 			}
 
+			if (enrichment) {
+				this.newSourceBlockResourceIds.add(resourceId);
+			}
+
 			// add the node to the cache
 			this.updateSyncBlockData(node, false);
 
@@ -677,6 +697,7 @@ export class SourceSyncBlockStoreManager {
 				});
 			this.pendingCreationPromises.set(resourceId, creationPromise);
 		} catch (error) {
+			this.newSourceBlockResourceIds.delete(resourceId);
 			if (this.isPendingCreation(resourceId)) {
 				this.commitPendingCreation(false, resourceId);
 			}
@@ -1052,6 +1073,7 @@ export class SourceSyncBlockStoreManager {
 		this.pendingCreationPromises.clear();
 		this.creationsTimedOutDuringFlush.clear();
 		this.creationEnrichment.clear();
+		this.newSourceBlockResourceIds.clear();
 		this.awaitingFirstContent.clear();
 		this.recentDeleteEmissions.clear();
 		this.dataProvider = undefined;

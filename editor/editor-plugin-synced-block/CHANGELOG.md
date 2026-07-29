@@ -1,5 +1,49 @@
 # @atlaskit/editor-plugin-synced-block
 
+## 10.6.2
+
+### Patch Changes
+
+- [`1207d5bc1e287`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/1207d5bc1e287) -
+  Show zero synced locations immediately for newly inserted source blocks
+- Updated dependencies
+
+## 10.6.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 10.6.0
+
+### Minor Changes
+
+- [`564443b22eeeb`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/564443b22eeeb) -
+  Fix source synced block unsync deleting the entire block and its content instead of unwrapping it
+  when the cursor is inside the block (behind `platform_editor_blocks_patch_6`).
+
+  This release also adds a new `./types` subpath export so consumers can import the `SyncBlockAttrs`
+  type without reaching into the package internals:
+
+  ```ts
+  import type { SyncBlockAttrs } from '@atlaskit/editor-plugin-synced-block/types';
+  ```
+
+### Patch Changes
+
+- Updated dependencies
+
+## 10.5.0
+
+### Minor Changes
+
+- [`3d4d7717366f7`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/3d4d7717366f7) -
+  Prompt for feedback after eligible synced block deletion or undo
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 10.4.7
 
 ### Patch Changes

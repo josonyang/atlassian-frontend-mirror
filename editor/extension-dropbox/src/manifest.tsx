@@ -10,6 +10,39 @@ import enableDropbox from './enable-dropbox';
 import type { DropboxFile } from './types';
 import { POPUP_MOUNTPOINT, DROPBOX_IFRAME_NAME } from './constants';
 
+import { fg } from '@atlaskit/platform-feature-flags';
+const reactRoots = new WeakMap<Element, Root>();
+
+/** Mounts `element` into `mountPoint`: uses the React 18/19 `createRoot` API when `nike_r19_render_unmount` is on, else the legacy render path. */
+const renderToMountPoint = (element: React.ReactElement, mountPoint: Element) => {
+	if (fg('nike_r19_render_unmount')) {
+		let root = reactRoots.get(mountPoint);
+
+		if (!root) {
+			root = createRoot(mountPoint);
+			reactRoots.set(mountPoint, root);
+		}
+
+		root.render(element);
+	} else {
+		ReactDOM.render(element, mountPoint);
+	}
+};
+
+/** Unmounts the tree at `mountPoint`: uses `root.unmount()` when `nike_r19_render_unmount` is on, else the legacy unmount path. */
+const unmountFromMountPoint = (mountPoint: Element) => {
+	if (fg('nike_r19_render_unmount')) {
+		const root = reactRoots.get(mountPoint);
+
+		if (root) {
+			root.unmount();
+			reactRoots.delete(mountPoint);
+		}
+	} else {
+		ReactDOM.unmountComponentAtNode(mountPoint);
+	}
+};
+
 declare global {
 	interface Window {
 		// This is a typed subset of the options available here https://www.dropbox.com/developers/chooser
@@ -55,7 +88,7 @@ async function pickFromDropbox(appKey: string, canMountinIframe: boolean) {
 			root.render(<Modal.default onClose={() => {}} />);
 		} else {
 			// eslint-disable-next-line @atlassian/perf-linting/no-unstable-inline-props -- Ignored via go/ees017 (to be fixed)
-			ReactDOM.render(<Modal.default onClose={() => {}} />, popupMountPoint);
+			renderToMountPoint(<Modal.default onClose={() => {}} />, popupMountPoint);
 		}
 	}
 
@@ -77,7 +110,7 @@ async function pickFromDropbox(appKey: string, canMountinIframe: boolean) {
 				root.unmount();
 			}
 		} else if (popupMountPoint) {
-			ReactDOM.unmountComponentAtNode(popupMountPoint);
+			unmountFromMountPoint(popupMountPoint);
 		}
 		return;
 	}
@@ -89,7 +122,7 @@ async function pickFromDropbox(appKey: string, canMountinIframe: boolean) {
 				root.unmount();
 			}
 		} else if (popupMountPoint) {
-			ReactDOM.unmountComponentAtNode(popupMountPoint);
+			unmountFromMountPoint(popupMountPoint);
 		}
 		return;
 	}
@@ -112,7 +145,7 @@ async function pickFromDropbox(appKey: string, canMountinIframe: boolean) {
 			root.unmount();
 		}
 	} else if (popupMountPoint) {
-		ReactDOM.unmountComponentAtNode(popupMountPoint);
+		unmountFromMountPoint(popupMountPoint);
 	}
 	return node;
 }

@@ -180,9 +180,6 @@
 		"platform_ufo_enable_otel_context_manager": {
 			"type": "boolean"
 		},
-		"platform_reset_post_interaction_on_new_interaction": {
-			"type": "boolean"
-		},
 		"platform_ufo_page_visibility_timeline": {
 			"type": "boolean"
 		},

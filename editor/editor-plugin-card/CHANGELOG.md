@@ -1,5 +1,19 @@
 # @atlaskit/editor-plugin-card
 
+## 18.2.14
+
+### Patch Changes
+
+- Updated dependencies
+
+## 18.2.13
+
+### Patch Changes
+
+- [`32f168dee5a99`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/32f168dee5a99) -
+  Add tooltips to the "Display as" appearance buttons (URL, Inline, Card, Embed) in the paste
+  actions menu.
+
 ## 18.2.12
 
 ### Patch Changes

@@ -698,17 +698,23 @@ const useReferenceData = ({
 	Props,
 	'syncBlockStore' | 'resourceId' | 'intl' | 'isSource' | 'localId'
 >): ReferenceDataState => {
+	const [isNewSourceBlock] = useState(
+		() => isSource && syncBlockStore.sourceManager.isNewSourceBlock(resourceId),
+	);
 	const [state, setState] = useState<{
 		fetchStatus: FetchStatus;
 		referenceData: SyncBlockSourceInfo[];
-	}>({
-		fetchStatus: 'loading',
+	}>(() => ({
+		fetchStatus: isNewSourceBlock ? 'success' : 'loading',
 		referenceData: [],
-	});
+	}));
 
 	useEffect(() => {
 		let isCurrentRequest = true;
-		setState({ fetchStatus: 'loading', referenceData: [] });
+		setState({
+			fetchStatus: isNewSourceBlock ? 'success' : 'loading',
+			referenceData: [],
+		});
 
 		const getReferenceData = async () => {
 			const response = await syncBlockStore.fetchReferencesSourceInfo(
@@ -721,6 +727,9 @@ const useReferenceData = ({
 				return;
 			}
 
+			if (isNewSourceBlock) {
+				syncBlockStore.sourceManager.clearNewSourceBlock(resourceId);
+			}
 			if (response.error) {
 				setState({ fetchStatus: 'error', referenceData: [] });
 				return;
@@ -736,7 +745,7 @@ const useReferenceData = ({
 		return () => {
 			isCurrentRequest = false;
 		};
-	}, [syncBlockStore, resourceId, intl, isSource, localId]);
+	}, [syncBlockStore, resourceId, intl, isSource, localId, isNewSourceBlock]);
 
 	return {
 		fetchStatus: state.fetchStatus,
@@ -765,12 +774,7 @@ const SyncedLocationTriggerContent = ({
 				</Inline>
 			);
 		case 'success': {
-			const count =
-				referenceCount === 0
-					? formatMessage(messages.syncedLocationDropdownNone)
-					: referenceCount > 99
-						? '99+'
-						: intl.formatNumber(referenceCount);
+			const count = referenceCount > 99 ? '99+' : intl.formatNumber(referenceCount);
 
 			return formatMessage(messages.syncedLocationDropdownTitleWithCount, { count });
 		}

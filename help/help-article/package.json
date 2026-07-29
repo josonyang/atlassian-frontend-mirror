@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/help-article",
-	"version": "7.0.5",
+	"version": "7.1.1",
 	"description": "A cross-product help-article component",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -72,6 +72,9 @@
 	},
 	"platform-feature-flags": {
 		"asf-943-in-product-help-dark-mode": {
+			"type": "boolean"
+		},
+		"nike_r19_render_unmount": {
 			"type": "boolean"
 		}
 	}

@@ -38,6 +38,7 @@ import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import type { SyncBlockStoreManager } from '@atlaskit/editor-synced-block-provider';
 import { getSourceProductFromResourceIdSafe } from '@atlaskit/editor-synced-block-provider/utils';
 import { fg } from '@atlaskit/platform-feature-flags';
+import { expValEqualsNoExposure } from '@atlaskit/tmp-editor-statsig/exp-val-equals-no-exposure';
 
 import { creationMetaKey, deleteMechanismMetaKey, syncedBlockPluginKey } from '../pm-plugins/main';
 import {
@@ -494,7 +495,11 @@ export const removeSyncedBlockAtPos = (
 		const node = tr.doc.nodeAt(pos);
 
 		if (node?.type.name === 'syncBlock') {
-			return tr.replace(pos, pos + (node?.nodeSize ?? 0));
+			const removeTr = tr.replace(pos, pos + (node?.nodeSize ?? 0));
+			if (expValEqualsNoExposure('platform_editor_sync_block_activation', 'isEnabled', true)) {
+				removeTr.setMeta(deleteMechanismMetaKey, 'deleteButton');
+			}
+			return removeTr;
 		}
 		return tr;
 	});
@@ -518,6 +523,12 @@ export const unsync = (
 	}
 
 	if (isBodiedSyncBlock) {
+		// Signal the unsync intent. This transaction is intercepted by the plugin's
+		// filterTransaction, which shows the deletion-confirmation modal and, on confirm,
+		// recomputes the actual document change from the live document keyed off the
+		// `deletionReason: 'source-block-unsynced'` meta (see handleBodiedSyncBlockRemoval /
+		// recomputeUnsyncTransaction). The real unwrap-vs-delete decision therefore lives in the
+		// confirm path, not here (EDITOR-8230).
 		const content = syncBlock?.node.content;
 		const { tr } = state;
 		tr.replaceWith(syncBlock.pos, syncBlock.pos + syncBlock.node.nodeSize, content).setMeta(

@@ -683,6 +683,7 @@ export class TableContainer extends React.Component<
 			tableNode,
 			rendererAppearance,
 			isInsideOfBlockNode,
+			isInsideOfNestedRenderer,
 			isInsideOfTable,
 			isinsideMultiBodiedExtension,
 			allowTableAlignment,
@@ -841,7 +842,7 @@ export class TableContainer extends React.Component<
 			isTableInContentMode({
 				tableNode,
 				isSupported: isContentModeSupported({ allowTableResizing, rendererAppearance }),
-				isTableNested: isInsideOfBlockNode || isInsideOfTable,
+				isTableNested: isInsideOfBlockNode || isInsideOfNestedRenderer || isInsideOfTable,
 			}) && expValEquals('platform_editor_table_fit_to_content_auto_convert', 'isEnabled', true);
 
 		const style = {
@@ -930,6 +931,7 @@ export class TableContainer extends React.Component<
 							tableNode={tableNode}
 							rendererAppearance={rendererAppearance}
 							isInsideOfBlockNode={isInsideOfBlockNode}
+							isInsideOfNestedRenderer={isInsideOfNestedRenderer}
 							isInsideOfTable={isInsideOfTable}
 							isinsideMultiBodiedExtension={isinsideMultiBodiedExtension}
 							allowTableResizing={allowTableResizing}
@@ -1210,6 +1212,7 @@ export class TableProcessorWithContainerStyles extends React.Component<
 			handleRef,
 			isinsideMultiBodiedExtension,
 			isInsideOfBlockNode,
+			isInsideOfNestedRenderer,
 			isInsideOfTable,
 			isNumberColumnEnabled,
 			isPresentational,
@@ -1261,6 +1264,7 @@ export class TableProcessorWithContainerStyles extends React.Component<
 				handleRef={handleRef}
 				isinsideMultiBodiedExtension={isinsideMultiBodiedExtension}
 				isInsideOfBlockNode={isInsideOfBlockNode}
+				isInsideOfNestedRenderer={isInsideOfNestedRenderer}
 				isInsideOfTable={isInsideOfTable}
 				isNumberColumnEnabled={isNumberColumnEnabled}
 				isPresentational={isPresentational}

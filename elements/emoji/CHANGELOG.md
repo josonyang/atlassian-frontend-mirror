@@ -1,5 +1,19 @@
 # @atlaskit/emoji
 
+## 71.15.3
+
+### Patch Changes
+
+- [`4cdc1e5d68e9e`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/4cdc1e5d68e9e) -
+  Clean up platform_emoji_a11y_category_heading feature gate.
+- Updated dependencies
+
+## 71.15.2
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 71.15.1
 
 ### Patch Changes

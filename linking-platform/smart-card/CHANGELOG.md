@@ -1,5 +1,31 @@
 # @atlaskit/smart-card
 
+## 45.15.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 45.15.0
+
+### Minor Changes
+
+- [`4fd26afe1912d`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/4fd26afe1912d) -
+  Update i18n NPM package versions for linking-platform,smart-experiences (Group 15)
+
+### Patch Changes
+
+- Updated dependencies
+
+## 45.14.0
+
+### Minor Changes
+
+- [`85087b263ce43`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/85087b263ce43) -
+  Migrate react-dom render/unmountComponentAtNode to the React 18/19 createRoot API behind the
+  nike_r19_render_unmount feature gate. The legacy react-dom path is preserved on the gate-off
+  branch for rollback.
+
 ## 45.13.5
 
 ### Patch Changes

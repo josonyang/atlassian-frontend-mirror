@@ -2,8 +2,6 @@
 // eslint-disable-next-line @atlaskit/platform/prefer-crypto-random-uuid -- Use crypto.randomUUID instead
 import { v4 as createUUID } from 'uuid';
 
-import { fg } from '@atlaskit/platform-feature-flags';
-
 import coinflip from '../coinflip';
 import type {
 	AbortReasonType,
@@ -1272,11 +1270,9 @@ export function abortByNewInteraction(interactionId: string, interactionName: st
 		postInteractionLog.reset();
 		postInteractionLog.stopVCObserver();
 	} else {
-		if (fg('platform_reset_post_interaction_on_new_interaction')) {
-			// post-interaction log is active after interaction is aborted by new one
-			postInteractionLog.reset();
-			postInteractionLog.stopVCObserver();
-		}
+		// post-interaction log is active after interaction is aborted by new one
+		postInteractionLog.reset();
+		postInteractionLog.stopVCObserver();
 	}
 }
 

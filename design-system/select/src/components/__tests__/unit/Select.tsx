@@ -617,6 +617,24 @@ describe('Select dropdown indicator voice-control accessibility', () => {
 				// covered by the Playwright integration test.
 				expect(button).toHaveAttribute('tabindex', '-1');
 			});
+
+			it('applies an inline size reset so consumer global button styles cannot stretch the chevron (JPO-42328)', () => {
+				// Guards the inline size reset in @atlaskit/react-select's DropdownIndicator
+				// (see that component + JPO-42328). Fails if the reset is removed.
+				const testId = 'select';
+				render(<AtlaskitSelect options={OPTIONS} testId={testId} />);
+
+				const button = screen.getByRole('button', { name: /toggle select menu/i });
+
+				// Assert on the raw inline style attribute rather than toHaveStyle: the
+				// reset uses `min-width: 0`, which React serialises without a unit and
+				// jsdom's getComputedStyle does not normalise to `0px`. The attribute
+				// string is deterministic and stays green whether the reset is written
+				// as `0` or `0px`.
+				const inlineStyle = button.getAttribute('style') ?? '';
+				expect(inlineStyle).toMatch(/min-width:\s*0(px)?\b/);
+				expect(inlineStyle).toMatch(/width:\s*auto\b/);
+			});
 		},
 	);
 

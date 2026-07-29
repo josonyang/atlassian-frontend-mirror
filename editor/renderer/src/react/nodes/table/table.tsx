@@ -28,6 +28,7 @@ export const Table: React.MemoExoticComponent<
 		tableNode,
 		rendererAppearance,
 		isInsideOfBlockNode,
+		isInsideOfNestedRenderer,
 		isInsideOfTable,
 		isinsideMultiBodiedExtension,
 		allowTableResizing,
@@ -46,6 +47,7 @@ export const Table: React.MemoExoticComponent<
 		tableNode,
 		rendererAppearance,
 		isInsideOfBlockNode,
+		isInsideOfNestedRenderer,
 		isInsideOfTable,
 		isinsideMultiBodiedExtension,
 		allowTableResizing,
@@ -90,7 +92,7 @@ export const Table: React.MemoExoticComponent<
 			isTableInContentMode({
 				tableNode,
 				isSupported: isContentModeSupported({ allowTableResizing, rendererAppearance }),
-				isTableNested: isInsideOfBlockNode || isInsideOfTable,
+				isTableNested: isInsideOfBlockNode || isInsideOfNestedRenderer || isInsideOfTable,
 			}) && expValEquals('platform_editor_table_fit_to_content_auto_convert', 'isEnabled', true);
 
 		return (

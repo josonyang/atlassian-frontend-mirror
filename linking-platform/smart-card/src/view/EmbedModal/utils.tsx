@@ -1,9 +1,44 @@
 import React from 'react';
 
 import ReactDOM from 'react-dom';
+import { createRoot, type Root } from 'react-dom/client';
 import { IntlProvider } from 'react-intl';
 
+import { fg } from '@atlaskit/platform-feature-flags';
+
 import { type EmbedModalProps } from './types';
+
+let reactRoots = new WeakMap<Element, Root>();
+
+/** Mounts `element` into `mountPoint`: uses the React 18/19 `createRoot` API when `nike_r19_render_unmount` is on, else the legacy render path. */
+const renderToMountPoint = (element: React.ReactElement, mountPoint: Element) => {
+	if (fg('nike_r19_render_unmount')) {
+		let root = reactRoots.get(mountPoint);
+
+		if (!root) {
+			root = createRoot(mountPoint);
+			reactRoots.set(mountPoint, root);
+		}
+
+		root.render(element);
+	} else {
+		ReactDOM.render(element, mountPoint);
+	}
+};
+
+/** Unmounts the tree at `mountPoint`: uses `root.unmount()` when `nike_r19_render_unmount` is on, else the legacy unmount path. */
+const unmountFromMountPoint = (mountPoint: Element) => {
+	if (fg('nike_r19_render_unmount')) {
+		const root = reactRoots.get(mountPoint);
+
+		if (root) {
+			root.unmount();
+			reactRoots.delete(mountPoint);
+		}
+	} else {
+		ReactDOM.unmountComponentAtNode(mountPoint);
+	}
+};
 
 const IFRAME_NAME = 'twp-editor-preview-iframe';
 const POPUP_MOUNT_POINT_ID = 'twp-editor-preview-iframe';
@@ -37,14 +72,14 @@ export async function openEmbedModal({
 
 	let Modal = await import('./index');
 
-	ReactDOM.render(
+	renderToMountPoint(
 		<IntlProvider locale="en">
 			<Modal.default
 				{...props}
 				iframeName={IFRAME_NAME}
 				onClose={(_context) => {
 					if (popupMountPoint) {
-						ReactDOM.unmountComponentAtNode(popupMountPoint);
+						unmountFromMountPoint(popupMountPoint);
 					}
 					if (onClose) {
 						onClose(_context);
