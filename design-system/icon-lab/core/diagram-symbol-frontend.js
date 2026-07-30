@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::c6b72b3e5acb8ce2c9961418eec4b298>>
+ * @codegen <<SignedSource::bed7cd53cff96a016a57208b599c2395>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -15,8 +15,9 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
 /**
  * Icon: "DiagramSymbolFrontend".
  * Category: single-purpose
- * Location: @atlaskit/icon-lab
- * Usage guidance: Reserved for frontend diagram symbol in Whiteboards.
+ * Location: @atlaskit/icon-lab/core/diagram-symbol-frontend
+ * Usage guidance:
+ * Reserved for frontend diagram symbol in Whiteboards.
  * - [Examples](https://atlaskit.atlassian.com/packages/design-system/icon)
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */

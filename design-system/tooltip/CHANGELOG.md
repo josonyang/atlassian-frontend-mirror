@@ -1,5 +1,12 @@
 # @atlaskit/tooltip
 
+## 24.0.1
+
+### Patch Changes
+
+- [`3da013cc133e5`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/3da013cc133e5) -
+  Internal refactor for safer feature flag usage.
+
 ## 24.0.0
 
 ### Major Changes

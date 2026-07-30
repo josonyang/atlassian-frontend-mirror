@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::5a70984045900373c15807564b65207a>>
+ * @codegen <<SignedSource::d7d50fb11af916a480312da318fd7ea3>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -15,8 +15,9 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
 /**
  * Icon: "DiagramSymbolPoolVertical".
  * Category: single-purpose
- * Location: @atlaskit/icon-lab
- * Usage guidance: Reserved for vertical pool diagram symbol in Whiteboards.
+ * Location: @atlaskit/icon-lab/core/diagram-symbol-pool-vertical
+ * Usage guidance:
+ * Reserved for vertical pool diagram symbol in Whiteboards.
  * - [Examples](https://atlaskit.atlassian.com/packages/design-system/icon)
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */

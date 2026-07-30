@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::1091d7b3916e42e9c126eb0a1ee5598a>>
+ * @codegen <<SignedSource::f7b24824c84b534a59c0f495a8a5cc05>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -15,8 +15,9 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
 /**
  * Icon: "AngleBrackets".
  * Category: multi-purpose
- * Location: @atlaskit/icon
- * Usage guidance: Multi purpose - Known uses: code or source code in Bitbucket and Jira.
+ * Location: @atlaskit/icon/core/angle-brackets
+ * Usage guidance:
+ * Multi purpose - Known uses: code or source code in Bitbucket and Jira.
  * - [Examples](https://atlaskit.atlassian.com/packages/design-system/icon)
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */

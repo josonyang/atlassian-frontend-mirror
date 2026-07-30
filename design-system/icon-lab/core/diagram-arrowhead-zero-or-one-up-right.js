@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::1d6dc2a60c3c6681adf18f796fcf9ce3>>
+ * @codegen <<SignedSource::9a3b71e4bbec4fe7550854c8da0e08d5>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -15,8 +15,9 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
 /**
  * Icon: "DiagramArrowheadZeroOrOneUpRight".
  * Category: single-purpose
- * Location: @atlaskit/icon-lab
- * Usage guidance: Reserved for zero or one diagram in Whiteboards.
+ * Location: @atlaskit/icon-lab/core/diagram-arrowhead-zero-or-one-up-right
+ * Usage guidance:
+ * Reserved for zero or one diagram in Whiteboards.
  * - [Examples](https://atlaskit.atlassian.com/packages/design-system/icon)
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */

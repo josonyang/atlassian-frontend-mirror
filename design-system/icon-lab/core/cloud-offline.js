@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::17e542faf6fbe5ebc711b672478100d7>>
+ * @codegen <<SignedSource::43257631318de03600bb0ab97c50e257>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -15,8 +15,9 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
 /**
  * Icon: "CloudOffline".
  * Category: single-purpose
- * Location: @atlaskit/icon-lab
- * Usage guidance: Reserved for showing when a connection can't be established to the cloud.
+ * Location: @atlaskit/icon-lab/core/cloud-offline
+ * Usage guidance:
+ * Reserved for showing when a connection can't be established to the cloud.
  * - [Examples](https://atlaskit.atlassian.com/packages/design-system/icon)
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */

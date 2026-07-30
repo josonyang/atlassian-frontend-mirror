@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::177057641801787c460d2f596e29ad78>>
+ * @codegen <<SignedSource::f8d1e17b87674fbe1aa567c2ca97644b>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -15,8 +15,9 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
 /**
  * Icon: "StatusWorkflowInReview".
  * Category: single-purpose
- * Location: @atlaskit/icon-lab
- * Usage guidance: Reserved for representing statuses that signal consideration, assessment, and review
+ * Location: @atlaskit/icon-lab/core/status-workflow-in-review
+ * Usage guidance:
+ * Reserved for representing statuses that signal consideration, assessment, and review
  * - [Examples](https://atlaskit.atlassian.com/packages/design-system/icon)
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */

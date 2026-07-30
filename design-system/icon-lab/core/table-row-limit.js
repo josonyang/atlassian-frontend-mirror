@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::b7ae4b9cd5d43aa90860bd66c0aeec7f>>
+ * @codegen <<SignedSource::d1af7d5c8106f9e59959629ada85e0df>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -15,8 +15,9 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
 /**
  * Icon: "TableRowLimit".
  * Category: single-purpose
- * Location: @atlaskit/icon-lab
- * Usage guidance: Reserved for limiting table rows.
+ * Location: @atlaskit/icon-lab/core/table-row-limit
+ * Usage guidance:
+ * Reserved for limiting table rows.
  * - [Examples](https://atlaskit.atlassian.com/packages/design-system/icon)
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */

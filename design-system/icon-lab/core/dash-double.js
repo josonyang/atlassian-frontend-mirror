@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::e68b4626973b4a3a547cddd5ff3f0264>>
+ * @codegen <<SignedSource::3c22e895b47784de56754bd4e948204b>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -15,8 +15,9 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
 /**
  * Icon: "DashDouble".
  * Category: multi-purpose
- * Location: @atlaskit/icon-lab
- * Usage guidance: Known uses: representing no change or keeping a value as-is.
+ * Location: @atlaskit/icon-lab/core/dash-double
+ * Usage guidance:
+ * Known uses: representing no change or keeping a value as-is.
  * - [Examples](https://atlaskit.atlassian.com/packages/design-system/icon)
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */

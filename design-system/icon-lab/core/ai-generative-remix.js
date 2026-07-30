@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::b7739ad8bf36e5bd9a55f1766d10483c>>
+ * @codegen <<SignedSource::0462f31ae9eafc9e476235466d056d0d>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -15,8 +15,9 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
 /**
  * Icon: "AiGenerativeRemix".
  * Category: single-purpose
- * Location: @atlaskit/icon-lab
- * Usage guidance: Reserved for Remix with Rovo
+ * Location: @atlaskit/icon-lab/core/ai-generative-remix
+ * Usage guidance:
+ * Reserved for Remix with Rovo
  * - [Examples](https://atlaskit.atlassian.com/packages/design-system/icon)
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */

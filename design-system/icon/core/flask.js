@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::3cc999648c0f38dff9696ef9958035f9>>
+ * @codegen <<SignedSource::004684e759d3881d487df24e25dabbc3>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -15,8 +15,9 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
 /**
  * Icon: "Flask".
  * Category: multi-purpose
- * Location: @atlaskit/icon
- * Usage guidance: Multi purpose - Known uses: labs in Jira.
+ * Location: @atlaskit/icon/core/flask
+ * Usage guidance:
+ * Multi purpose - Known uses: labs in Jira.
  * - [Examples](https://atlaskit.atlassian.com/packages/design-system/icon)
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */

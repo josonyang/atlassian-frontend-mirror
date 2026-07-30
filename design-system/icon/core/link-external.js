@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::6b603e49d606132e091f78e8fc1c638c>>
+ * @codegen <<SignedSource::f4f837bc4fc4ebb0701c77b659a16c91>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -15,8 +15,9 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
 /**
  * Icon: "LinkExternal".
  * Category: single-purpose
- * Location: @atlaskit/icon
- * Usage guidance: Single purpose - Reserved for links that open up a new tab.
+ * Location: @atlaskit/icon/core/link-external
+ * Usage guidance:
+ * Single purpose - Reserved for links that open up a new tab.
  * - [Examples](https://atlaskit.atlassian.com/packages/design-system/icon)
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */

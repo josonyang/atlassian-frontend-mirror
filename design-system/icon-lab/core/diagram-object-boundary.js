@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::94a897e7fdbf30dedea93c0c0f4b70b8>>
+ * @codegen <<SignedSource::f5062e7b098d1a13f16f34290b0454b4>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -15,8 +15,9 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
 /**
  * Icon: "DiagramObjectBoundary".
  * Category: single-purpose
- * Location: @atlaskit/icon-lab
- * Usage guidance: Reserved for Diagram object boundary in Whiteboards
+ * Location: @atlaskit/icon-lab/core/diagram-object-boundary
+ * Usage guidance:
+ * Reserved for Diagram object boundary in Whiteboards
  * - [Examples](https://atlaskit.atlassian.com/packages/design-system/icon)
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */

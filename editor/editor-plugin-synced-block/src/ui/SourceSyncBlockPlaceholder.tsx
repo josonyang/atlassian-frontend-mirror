@@ -16,12 +16,18 @@ import { token } from '@atlaskit/tokens';
 
 const getSourceSyncBlockPlaceholderStyles = (placeholderText: string) =>
 	css({
-		// ProseMirror represents an empty paragraph with a trailing break. Keeping this visual state
-		// in CSS means typing, deletion, undo/redo, and remote changes update it without decorations.
-		// :has() ensures the placeholder only appears when that trailing break is the paragraph's
-		// only child, rather than when the paragraph contains editable content.
+		// Emptiness is signalled by the node view via the `empty` class, which is derived from the
+		// ProseMirror document. Keeping this visual state in CSS means typing, deletion, undo/redo,
+		// and remote changes update it without decorations.
+		//
+		// This deliberately does NOT inspect the rendered DOM shape. The paragraph inside an empty
+		// block routinely gains extra children that are not user content — the selection marker's
+		// cursor widget (`.ProseMirror-widget`), ProseMirror's `.ProseMirror-separator` hack node,
+		// and the `.ProseMirror-trailingBreak`. An earlier `:has(.ProseMirror-trailingBreak:only-child)`
+		// form treated those decorations as content and hid the placeholder whenever the user placed
+		// a cursor in the block and then blurred the editor. See EDITOR-8327.
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors, @atlaskit/ui-styling-standard/no-unsafe-values
-		[`.ProseMirror .${BodiedSyncBlockSharedCssClassName.prefix} .${BodiedSyncBlockSharedCssClassName.content}[contenteditable="true"] > p:only-child:has(.ProseMirror-trailingBreak:only-child)`]:
+		[`.ProseMirror .${BodiedSyncBlockSharedCssClassName.prefix}.${BodiedSyncBlockSharedCssClassName.empty} .${BodiedSyncBlockSharedCssClassName.content}[contenteditable="true"] > p:only-child`]:
 			{
 				position: 'relative',
 

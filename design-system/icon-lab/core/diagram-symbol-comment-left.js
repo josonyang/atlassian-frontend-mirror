@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::cff28704b25b725461d73a37bcdd76f2>>
+ * @codegen <<SignedSource::b89ff96ed34b979ad039aa7032544d01>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -15,8 +15,9 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
 /**
  * Icon: "DiagramSymbolCommentLeft".
  * Category: single-purpose
- * Location: @atlaskit/icon-lab
- * Usage guidance: Reserved for comment left diagram symbol.
+ * Location: @atlaskit/icon-lab/core/diagram-symbol-comment-left
+ * Usage guidance:
+ * Reserved for comment left diagram symbol.
  * - [Examples](https://atlaskit.atlassian.com/packages/design-system/icon)
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */

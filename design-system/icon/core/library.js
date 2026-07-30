@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::cd6a411465a77b8d2f7b43243a47744c>>
+ * @codegen <<SignedSource::1e364357c8ee63c080486f1dcce1128f>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -15,8 +15,9 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
 /**
  * Icon: "Library".
  * Category: single-purpose
- * Location: @atlaskit/icon
- * Usage guidance: Single purpose - Reserved for library view in Atlassian Home.
+ * Location: @atlaskit/icon/core/library
+ * Usage guidance:
+ * Single purpose - Reserved for library view in Atlassian Home.
  * - [Examples](https://atlaskit.atlassian.com/packages/design-system/icon)
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */

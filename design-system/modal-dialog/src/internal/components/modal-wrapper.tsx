@@ -147,12 +147,38 @@ const allowlistElements = (element: HTMLElement, callback?: (element: HTMLElemen
 	return true;
 };
 
-const InternalModalWrapper: React.ForwardRefExoticComponent<
-	React.PropsWithoutRef<InternalModalWrapperProps> & React.RefAttributes<HTMLElement>
-> = forwardRef((props: InternalModalWrapperProps, ref: React.Ref<HTMLElement>) => {
+// Analytics-wrapped close handler. Extracted so both rendering paths build it
+// identically.
+function useModalCloseHandler(providedOnClose: InternalModalWrapperProps['onClose']) {
+	return usePlatformLeafEventHandler({
+		fn: providedOnClose || noop,
+		action: 'closed',
+		componentName: 'modalDialog',
+		packageName: process.env._PACKAGE_NAME_!,
+		packageVersion: process.env._PACKAGE_VERSION_!,
+	});
+}
+
+/**
+ * Top-layer rendering path (platform-dst-top-layer).
+ *
+ * Replaces Portal, FocusLock, ScrollLock, Blanket, Positioner, and z-index
+ * management with native <dialog> via @atlaskit/top-layer/dialog.
+ *
+ * Key decisions:
+ * - Animation: CSS transitions via @starting-style / allow-discrete.
+ * - Close gating: onDialogClose only forwards allowed reasons
+ *   (see notes/guides/dialog-close-flow.md).
+ * - onClose event param: undefined - consumers should use close reason.
+ * - Focus restoration: native <dialog> behavior replaces react-focus-lock's
+ *   returnFocus (see accessibility-criteria.md).
+ *
+ * Every hook here runs unconditionally: this component only mounts on the
+ * top-layer path, so it never shares a hook sequence with the legacy path.
+ */
+function ModalWrapperTopLayer(props: InternalModalWrapperProps): React.ReactNode {
 	const {
 		autoFocus,
-		focusLockAllowlist,
 		shouldCloseOnEscapePress = true,
 		shouldCloseOnOverlayClick = true,
 		shouldScrollInViewport = false,
@@ -169,55 +195,279 @@ const InternalModalWrapper: React.ForwardRefExoticComponent<
 		label,
 		testId,
 		isFullScreen,
-		UNSAFE_shouldDisableMotionUplift = false,
 	} = props;
 
 	const calculatedStackIndex = useModalStack({ onStackChange });
 	const stackIndex = stackIndexOverride || calculatedStackIndex;
-	const isForeground = stackIndex === 0;
 
-	// If no ref is provided, autofocus on first element
-	const autoFocusLock = !(typeof autoFocus === 'object');
+	const onCloseHandler = useModalCloseHandler(providedOnClose);
 
-	const onCloseHandler = usePlatformLeafEventHandler({
-		fn: providedOnClose || noop,
-		action: 'closed',
-		componentName: 'modalDialog',
-		packageName: process.env._PACKAGE_NAME_!,
-		packageVersion: process.env._PACKAGE_VERSION_!,
-	});
-
-	const onBlanketClicked = useCallback(
-		(e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
-			if (shouldCloseOnOverlayClick) {
-				onCloseHandler(e);
-			}
-		},
-		[shouldCloseOnOverlayClick, onCloseHandler],
-	);
-
-	// Stable callback to avoid re-renders when focusLockAllowlist is not provided.
-	const allowListCallback = useCallback(
-		(element: HTMLElement) => allowlistElements(element, focusLockAllowlist),
-		[focusLockAllowlist],
-	);
-
-	// Called outside the feature-flag branch to keep hook order stable.
-	// Legacy path: FadeIn calls onFinish. Top-layer path: called directly.
 	const { isExiting, onFinish: onExitFinish } = useExitingPersistence();
 
-	// Prevent background scroll (top-layer path uses DialogScrollLock instead).
-	// Safe conditional hook: feature flags are resolved once at startup.
-	if (!fg('platform-dst-top-layer')) {
-		// eslint-disable-next-line react-hooks/rules-of-hooks
-		usePreventProgrammaticScroll();
+	// Native <dialog> always restores focus on close - no opt-out via shouldReturnFocus.
+	const defaultTestId = testId || 'modal-dialog';
+
+	const id = useId();
+	const titleId = `modal-dialog-title-${id}`;
+
+	// Content container ref - used for onOpenComplete/onCloseComplete callbacks.
+	const contentRef = useRef<HTMLDivElement>(null);
+
+	// Cache last content element for onCloseComplete after children unmount
+	// (with reduced motion, contentRef clears before onExitFinish fires).
+	const lastContentElRef = useRef<HTMLDivElement | null>(null);
+	if (contentRef.current) {
+		lastContentElRef.current = contentRef.current;
 	}
 
-	// On the top-layer path, the Dialog primitive registers with the observer
-	// directly, so we skip registration here to avoid double-counting.
-	// Safe conditional hook: feature flags are resolved once at startup.
-	if (!fg('platform-dst-top-layer')) {
-		// eslint-disable-next-line react-hooks/rules-of-hooks
+	// Native <dialog> ref - needed for ExitingPersistence to call dialog.close().
+	const dialogRef = useRef<HTMLDialogElement | null>(null);
+
+	const modalDialogContext = useMemo(
+		() => ({
+			testId: defaultTestId,
+			titleId,
+			onClose: onCloseHandler,
+			hasProvidedOnClose: Boolean(providedOnClose),
+			isFullScreen: isFullScreen ?? false,
+		}),
+		[defaultTestId, titleId, onCloseHandler, providedOnClose, isFullScreen],
+	);
+
+	// Only forward close when the reason is allowed by props.
+	// Passes a synthetic event to satisfy the KeyboardOrMouseEvent contract.
+	const onDialogClose = useCallback(
+		({ reason }: { reason: TDialogCloseReason }) => {
+			if (reason === 'escape' && shouldCloseOnEscapePress) {
+				onCloseHandler(createCloseEvent({ reason }) as unknown as KeyboardOrMouseEvent);
+			}
+			if (reason === 'overlay-click' && shouldCloseOnOverlayClick) {
+				onCloseHandler(createCloseEvent({ reason }) as unknown as KeyboardOrMouseEvent);
+			}
+		},
+		[onCloseHandler, shouldCloseOnEscapePress, shouldCloseOnOverlayClick],
+	);
+
+	// ExitingPersistence: isExiting → isOpen={false} → Dialog exit animation →
+	// onExitFinish → onCloseComplete + unmount.
+	const handleDialogExitFinish = useCallback(() => {
+		const el = contentRef.current ?? lastContentElRef.current;
+		if (onCloseComplete && el) {
+			onCloseComplete(el);
+		}
+		lastContentElRef.current = null;
+		onExitFinish?.();
+	}, [onExitFinish, onCloseComplete]);
+
+	// Fire onOpenComplete after mount.
+	useEffect(() => {
+		if (onOpenComplete && contentRef.current) {
+			onOpenComplete(contentRef.current, true);
+		}
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, []);
+
+	// Honor `shouldReturnFocus={ref}` on unmount.
+	// Native <dialog>.close() restores focus to the trigger that opened it,
+	// but the consumer asked for focus to go to a specific element instead.
+	// Run this in an unmount cleanup so it fires after dialog.close()
+	// (which fires in the Dialog's effect cleanup).
+	const shouldReturnFocusRef = useRef(shouldReturnFocus);
+	shouldReturnFocusRef.current = shouldReturnFocus;
+	useEffect(() => {
+		return () => {
+			const target = shouldReturnFocusRef.current;
+			if (typeof target === 'object' && target.current) {
+				target.current.focus();
+			}
+		};
+	}, []);
+
+	// Focus a ref-targeted element after mount (when autoFocus is a ref).
+	// When true, native <dialog>.showModal() handles focus automatically.
+	useAutoFocus(
+		typeof autoFocus === 'object' ? autoFocus : undefined,
+		typeof autoFocus === 'object',
+	);
+
+	// Chrome cross-origin iframe DnD workaround (crbug.com/362301053)
+	useEffect(() => {
+		return combine(
+			disableDraggingToCrossOriginIFramesForElement(),
+			disableDraggingToCrossOriginIFramesForTextSelection(),
+			disableDraggingToCrossOriginIFramesForExternal(),
+		);
+	}, []);
+
+	// Responsive layout via ID-scoped <style> (same pattern as Dialog's hideBackdrop).
+	// ID selector beats Compiled atomic classes without !important and supports @media.
+	const namedWidth = getDialogWidth(width ?? 'medium');
+	const dialogId = `modal-dialog-${id}`;
+	const escapedDialogId = CSS.escape(dialogId);
+
+	// Percentage widths need special handling in the top layer.
+	// In legacy, the percentage resolved against the Positioner's max-width
+	// (100vw - 120px). In the top layer, the <dialog>'s containing block is the
+	// viewport (100vw), so a raw percentage would produce a wider modal.
+	// Transform e.g. '42%' → 'calc(42 * (100vw - 120px) / 100)' to match legacy.
+	const resolvedWidth = namedWidth.endsWith('%')
+		? `calc(${parseFloat(namedWidth)} * (100vw - 120px) / 100)`
+		: namedWidth;
+
+	const dialogStyle: Record<string, string> = isFullScreen
+		? {
+				width: '100vw',
+				height: '100vh',
+				margin: '0',
+			}
+		: {
+				width: `min(${resolvedWidth}, 100vw)`,
+			};
+
+	// Shift stacked background modals down by space.100 (8px) per level.
+	if (stackIndex > 0) {
+		dialogStyle['transform'] = `translateY(calc(${stackIndex}px * ${token('space.100')}))`;
+	}
+
+	// Mobile: viewport fill. Desktop (≥ 30rem): gutter margins, auto height.
+	// Content-div height set via #id > div to beat Compiled's atomic specificity.
+	const desktopMargin = shouldScrollInViewport ? '60px auto' : '60px auto auto';
+	const resolvedHeight = dialogHeight(height);
+	// Body-scroll: specified height or auto. Viewport-scroll: uses min-height.
+	const desktopContentHeight = shouldScrollInViewport ? 'auto' : resolvedHeight;
+	const desktopContentMinHeight = shouldScrollInViewport ? resolvedHeight : 'auto';
+	// Viewport-scroll: the legacy Positioner was a fixed 100vh container that
+	// scrolled internally, so the modal section could fill (100vh - 60px top gutter).
+	// In the top layer the <dialog> sizes to content with height:auto, so we need
+	// an explicit min-height to ensure the dialog stretches to the same visible area.
+	const desktopDialogMinHeight = shouldScrollInViewport ? 'min-height:calc(100vh - 60px);' : '';
+	// Doubled-ID selector (#id#id > div) at specificity (2,0,1) beats
+	// Compiled atomic classes at (0,1,0) (increaseSpecificity is disabled).
+	const dialogPositionStyles = isFullScreen
+		? ''
+		: // Mobile: edge-to-edge. Desktop (≥ 30rem): 60px gutters, max-width.
+			`#${escapedDialogId}#${escapedDialogId}{margin:0;height:100vh}#${escapedDialogId}#${escapedDialogId}>div{height:100%}@media(min-width:30rem){#${escapedDialogId}#${escapedDialogId}{margin:${desktopMargin};height:auto;${desktopDialogMinHeight}max-width:calc(100vw - 120px)}#${escapedDialogId}#${escapedDialogId}>div{height:${desktopContentHeight};min-height:${desktopContentMinHeight}}}`;
+
+	return (
+		<Dialog
+			ref={dialogRef}
+			id={dialogId}
+			onClose={onDialogClose}
+			onExitFinish={handleDialogExitFinish}
+			shouldAnimate={!isFullScreen}
+			isOpen={!isExiting}
+			shouldHideBackdrop={stackIndex > 0 || Boolean(isBlanketHidden)}
+			// Dialog requires at least one of `label` or `labelledBy` (string, not undefined).
+			// Prefer the consumer-provided `label`; otherwise reference the internal `titleId`.
+			{...(label ? { label } : { labelledBy: titleId })}
+			testId={defaultTestId}
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop
+			style={dialogStyle as CSSProperties}
+		>
+			{/*
+			 * Prevent background scroll (native inertness only blocks focus/click).
+			 *
+			 * `isOpen={true}` (rather than `!isExiting`) so the lock is held for the
+			 * full visible lifetime of the modal. `DialogScrollLock` is rendered
+			 * inside `<Dialog>`, which is conditionally mounted by
+			 * `ExitingPersistence` — when the consumer closes the modal,
+			 * `isExiting` flips to `true` and Dialog's exit animation plays for
+			 * hundreds of milliseconds while the dialog is still visible. Tying
+			 * the lock to `!isExiting` would release scroll lock at the start of
+			 * that animation, allowing the background to scroll while the modal
+			 * is still on screen. The lock is released naturally when
+			 * `ExitingPersistence` unmounts this subtree after the exit settles.
+			 */}
+			<DialogScrollLock isOpen={true} />
+			{/* ID-scoped responsive positioning (overrides atomic margin: auto). */}
+			{dialogPositionStyles && (
+				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-global-styles
+				<style>{dialogPositionStyles}</style>
+			)}
+			{/* Visual content container - Dialog handles the raw <dialog>. */}
+			{/* No tabIndex: native <dialog>.showModal() picks the first focusable
+			    descendant as initial focus target. A tabIndex on this wrapper
+			    would steal that focus from the close button (or other intended
+			    autofocus target). The <dialog> element itself receives the
+			    focus ring when no descendants are focusable. */}
+			<div
+				ref={contentRef}
+				css={[
+					topLayerStyles.content,
+					!isFullScreen && topLayerStyles.borderRadius,
+					!isFullScreen && fg('platform-dst-shape-theme-default') && topLayerStyles.borderRadiusT26,
+					!isFullScreen && !shouldScrollInViewport && topLayerBodyScrollStyles,
+					!isFullScreen && shouldScrollInViewport && topLayerViewportScrollStyles,
+				]}
+			>
+				<ModalContext.Provider value={modalDialogContext}>
+					<ScrollContext.Provider value={shouldScrollInViewport}>{children}</ScrollContext.Provider>
+				</ModalContext.Provider>
+			</div>
+		</Dialog>
+	);
+}
+
+/**
+ * Legacy rendering path (Portal + FocusLock + ScrollLock + Blanket).
+ *
+ * Every hook here runs unconditionally: this component only mounts on the
+ * legacy path, so it never shares a hook sequence with the top-layer path.
+ */
+const ModalWrapperLegacy = forwardRef(
+	(props: InternalModalWrapperProps, ref: React.Ref<HTMLElement>) => {
+		const {
+			autoFocus,
+			focusLockAllowlist,
+			shouldCloseOnEscapePress = true,
+			shouldCloseOnOverlayClick = true,
+			shouldScrollInViewport = false,
+			shouldReturnFocus = true,
+			stackIndex: stackIndexOverride,
+			onClose: providedOnClose,
+			onStackChange = noop,
+			isBlanketHidden,
+			children,
+			height,
+			width,
+			onCloseComplete,
+			onOpenComplete,
+			label,
+			testId,
+			isFullScreen,
+			UNSAFE_shouldDisableMotionUplift = false,
+		} = props;
+
+		const calculatedStackIndex = useModalStack({ onStackChange });
+		const stackIndex = stackIndexOverride || calculatedStackIndex;
+		const isForeground = stackIndex === 0;
+
+		// If no ref is provided, autofocus on first element
+		const autoFocusLock = !(typeof autoFocus === 'object');
+
+		const onCloseHandler = useModalCloseHandler(providedOnClose);
+
+		const onBlanketClicked = useCallback(
+			(e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
+				if (shouldCloseOnOverlayClick) {
+					onCloseHandler(e);
+				}
+			},
+			[shouldCloseOnOverlayClick, onCloseHandler],
+		);
+
+		// Stable callback to avoid re-renders when focusLockAllowlist is not provided.
+		const allowListCallback = useCallback(
+			(element: HTMLElement) => allowlistElements(element, focusLockAllowlist),
+			[focusLockAllowlist],
+		);
+
+		// Prevent background scroll (top-layer path uses DialogScrollLock instead).
+		usePreventProgrammaticScroll();
+
+		// Register with the open layer observer. On the top-layer path the Dialog
+		// primitive does this itself, which is why it lives in this legacy-only
+		// component rather than the shared dispatcher.
 		useNotifyOpenLayerObserver({
 			type: 'modal',
 			// Always open — modal is conditionally rendered when visible.
@@ -225,320 +475,57 @@ const InternalModalWrapper: React.ForwardRefExoticComponent<
 			// No-op: no current use case for programmatic close via OpenLayerObserver.
 			onClose: noop,
 		});
-	}
 
-	/**
-	 * Top-layer path (platform-dst-top-layer).
-	 *
-	 * Replaces Portal, FocusLock, ScrollLock, Blanket, Positioner, and z-index
-	 * management with native <dialog> via @atlaskit/top-layer/dialog.
-	 *
-	 * Key decisions:
-	 * - Animation: CSS transitions via @starting-style / allow-discrete.
-	 * - Close gating: onDialogClose only forwards allowed reasons
-	 *   (see notes/guides/dialog-close-flow.md).
-	 * - onClose event param: undefined - consumers should use close reason.
-	 * - Focus restoration: native <dialog> behavior replaces react-focus-lock's
-	 *   returnFocus (see accessibility-criteria.md).
-	 */
-	if (fg('platform-dst-top-layer')) {
-		// Native <dialog> always restores focus on close - no opt-out via shouldReturnFocus.
-		const defaultTestId = testId || 'modal-dialog';
-
-		// eslint-disable-next-line react-hooks/rules-of-hooks
-		const id = useId();
-		const titleId = `modal-dialog-title-${id}`;
-
-		// Content container ref - used for onOpenComplete/onCloseComplete callbacks.
-		// eslint-disable-next-line react-hooks/rules-of-hooks
-		const contentRef = useRef<HTMLDivElement>(null);
-
-		// Cache last content element for onCloseComplete after children unmount
-		// (with reduced motion, contentRef clears before onExitFinish fires).
-		// eslint-disable-next-line react-hooks/rules-of-hooks
-		const lastContentElRef = useRef<HTMLDivElement | null>(null);
-		if (contentRef.current) {
-			lastContentElRef.current = contentRef.current;
-		}
-
-		// Native <dialog> ref - needed for ExitingPersistence to call dialog.close().
-		// eslint-disable-next-line react-hooks/rules-of-hooks
-		const dialogRef = useRef<HTMLDialogElement | null>(null);
-
-		// eslint-disable-next-line react-hooks/rules-of-hooks
-		const modalDialogContext = useMemo(
-			() => ({
-				testId: defaultTestId,
-				titleId,
-				onClose: onCloseHandler,
-				hasProvidedOnClose: Boolean(providedOnClose),
-				isFullScreen: isFullScreen ?? false,
-			}),
-			[defaultTestId, titleId, onCloseHandler, providedOnClose, isFullScreen],
+		const modalDialogWithBlanket = (
+			<Blanket
+				isTinted={!isBlanketHidden}
+				onBlanketClicked={onBlanketClicked}
+				testId={testId && `${testId}--blanket`}
+			>
+				<ModalDialog
+					testId={testId}
+					label={label}
+					autoFocus={autoFocus}
+					stackIndex={stackIndex}
+					onClose={onCloseHandler}
+					shouldCloseOnEscapePress={shouldCloseOnEscapePress && isForeground}
+					shouldScrollInViewport={shouldScrollInViewport}
+					height={height}
+					width={width}
+					onCloseComplete={onCloseComplete}
+					onOpenComplete={onOpenComplete}
+					hasProvidedOnClose={Boolean(providedOnClose)}
+					isFullScreen={isFullScreen}
+					UNSAFE_shouldDisableMotionUplift={UNSAFE_shouldDisableMotionUplift}
+					ref={ref}
+				>
+					{children}
+				</ModalDialog>
+			</Blanket>
 		);
 
-		// Only forward close when the reason is allowed by props.
-		// Passes a synthetic event to satisfy the KeyboardOrMouseEvent contract.
-		// eslint-disable-next-line react-hooks/rules-of-hooks
-		const onDialogClose = useCallback(
-			({ reason }: { reason: TDialogCloseReason }) => {
-				if (reason === 'escape' && shouldCloseOnEscapePress) {
-					onCloseHandler(createCloseEvent({ reason }) as unknown as KeyboardOrMouseEvent);
-				}
-				if (reason === 'overlay-click' && shouldCloseOnOverlayClick) {
-					onCloseHandler(createCloseEvent({ reason }) as unknown as KeyboardOrMouseEvent);
-				}
-			},
-			[onCloseHandler, shouldCloseOnEscapePress, shouldCloseOnOverlayClick],
-		);
+		let returnFocus = true;
+		let onDeactivation: (node: HTMLElement) => void = noop;
 
-		// ExitingPersistence: isExiting → isOpen={false} → Dialog exit animation →
-		// onExitFinish → onCloseComplete + unmount.
-		// eslint-disable-next-line react-hooks/rules-of-hooks
-		const handleDialogExitFinish = useCallback(() => {
-			const el = contentRef.current ?? lastContentElRef.current;
-			if (onCloseComplete && el) {
-				onCloseComplete(el);
-			}
-			lastContentElRef.current = null;
-			onExitFinish?.();
-		}, [onExitFinish, onCloseComplete]);
-
-		// Fire onOpenComplete after mount.
-		// eslint-disable-next-line react-hooks/rules-of-hooks
-		useEffect(() => {
-			if (onOpenComplete && contentRef.current) {
-				onOpenComplete(contentRef.current, true);
-			}
-			// eslint-disable-next-line react-hooks/exhaustive-deps
-		}, []);
-
-		// Honor `shouldReturnFocus={ref}` on unmount.
-		// Native <dialog>.close() restores focus to the trigger that opened it,
-		// but the consumer asked for focus to go to a specific element instead.
-		// Run this in an unmount cleanup so it fires after dialog.close()
-		// (which fires in the Dialog's effect cleanup).
-		// eslint-disable-next-line react-hooks/rules-of-hooks
-		const shouldReturnFocusRef = useRef(shouldReturnFocus);
-		shouldReturnFocusRef.current = shouldReturnFocus;
-		// eslint-disable-next-line react-hooks/rules-of-hooks
-		useEffect(() => {
-			return () => {
-				const target = shouldReturnFocusRef.current;
-				if (typeof target === 'object' && target.current) {
-					target.current.focus();
-				}
+		if ('boolean' === typeof shouldReturnFocus) {
+			returnFocus = shouldReturnFocus;
+		} else {
+			onDeactivation = () => {
+				window.setTimeout(() => {
+					shouldReturnFocus.current?.focus();
+				}, 0);
 			};
-		}, []);
-
-		// Focus a ref-targeted element after mount (when autoFocus is a ref).
-		// When true, native <dialog>.showModal() handles focus automatically.
-		// eslint-disable-next-line react-hooks/rules-of-hooks
-		useAutoFocus(
-			typeof autoFocus === 'object' ? autoFocus : undefined,
-			typeof autoFocus === 'object',
-		);
-
-		// Chrome cross-origin iframe DnD workaround (crbug.com/362301053)
-		// eslint-disable-next-line react-hooks/rules-of-hooks
-		useEffect(() => {
-			return combine(
-				disableDraggingToCrossOriginIFramesForElement(),
-				disableDraggingToCrossOriginIFramesForTextSelection(),
-				disableDraggingToCrossOriginIFramesForExternal(),
-			);
-		}, []);
-
-		// Responsive layout via ID-scoped <style> (same pattern as Dialog's hideBackdrop).
-		// ID selector beats Compiled atomic classes without !important and supports @media.
-		const namedWidth = getDialogWidth(width ?? 'medium');
-		const dialogId = `modal-dialog-${id}`;
-		const escapedDialogId = CSS.escape(dialogId);
-
-		// Percentage widths need special handling in the top layer.
-		// In legacy, the percentage resolved against the Positioner's max-width
-		// (100vw - 120px). In the top layer, the <dialog>'s containing block is the
-		// viewport (100vw), so a raw percentage would produce a wider modal.
-		// Transform e.g. '42%' → 'calc(42 * (100vw - 120px) / 100)' to match legacy.
-		const resolvedWidth = namedWidth.endsWith('%')
-			? `calc(${parseFloat(namedWidth)} * (100vw - 120px) / 100)`
-			: namedWidth;
-
-		const dialogStyle: Record<string, string> = isFullScreen
-			? {
-					width: '100vw',
-					height: '100vh',
-					margin: '0',
-				}
-			: {
-					width: `min(${resolvedWidth}, 100vw)`,
-				};
-
-		// Shift stacked background modals down by space.100 (8px) per level.
-		if (stackIndex > 0) {
-			dialogStyle['transform'] = `translateY(calc(${stackIndex}px * ${token('space.100')}))`;
 		}
-
-		// Mobile: viewport fill. Desktop (≥ 30rem): gutter margins, auto height.
-		// Content-div height set via #id > div to beat Compiled's atomic specificity.
-		const desktopMargin = shouldScrollInViewport ? '60px auto' : '60px auto auto';
-		const resolvedHeight = dialogHeight(height);
-		// Body-scroll: specified height or auto. Viewport-scroll: uses min-height.
-		const desktopContentHeight = shouldScrollInViewport ? 'auto' : resolvedHeight;
-		const desktopContentMinHeight = shouldScrollInViewport ? resolvedHeight : 'auto';
-		// Viewport-scroll: the legacy Positioner was a fixed 100vh container that
-		// scrolled internally, so the modal section could fill (100vh - 60px top gutter).
-		// In the top layer the <dialog> sizes to content with height:auto, so we need
-		// an explicit min-height to ensure the dialog stretches to the same visible area.
-		const desktopDialogMinHeight = shouldScrollInViewport ? 'min-height:calc(100vh - 60px);' : '';
-		// Doubled-ID selector (#id#id > div) at specificity (2,0,1) beats
-		// Compiled atomic classes at (0,1,0) (increaseSpecificity is disabled).
-		const dialogPositionStyles = isFullScreen
-			? ''
-			: // Mobile: edge-to-edge. Desktop (≥ 30rem): 60px gutters, max-width.
-				`#${escapedDialogId}#${escapedDialogId}{margin:0;height:100vh}#${escapedDialogId}#${escapedDialogId}>div{height:100%}@media(min-width:30rem){#${escapedDialogId}#${escapedDialogId}{margin:${desktopMargin};height:auto;${desktopDialogMinHeight}max-width:calc(100vw - 120px)}#${escapedDialogId}#${escapedDialogId}>div{height:${desktopContentHeight};min-height:${desktopContentMinHeight}}}`;
 
 		return (
-			<Dialog
-				ref={dialogRef}
-				id={dialogId}
-				onClose={onDialogClose}
-				onExitFinish={handleDialogExitFinish}
-				shouldAnimate={!isFullScreen}
-				isOpen={!isExiting}
-				shouldHideBackdrop={stackIndex > 0 || Boolean(isBlanketHidden)}
-				// Dialog requires at least one of `label` or `labelledBy` (string, not undefined).
-				// Prefer the consumer-provided `label`; otherwise reference the internal `titleId`.
-				{...(label ? { label } : { labelledBy: titleId })}
-				testId={defaultTestId}
-				// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop
-				style={dialogStyle as CSSProperties}
-			>
-				{/*
-				 * Prevent background scroll (native inertness only blocks focus/click).
-				 *
-				 * `isOpen={true}` (rather than `!isExiting`) so the lock is held for the
-				 * full visible lifetime of the modal. `DialogScrollLock` is rendered
-				 * inside `<Dialog>`, which is conditionally mounted by
-				 * `ExitingPersistence` — when the consumer closes the modal,
-				 * `isExiting` flips to `true` and Dialog's exit animation plays for
-				 * hundreds of milliseconds while the dialog is still visible. Tying
-				 * the lock to `!isExiting` would release scroll lock at the start of
-				 * that animation, allowing the background to scroll while the modal
-				 * is still on screen. The lock is released naturally when
-				 * `ExitingPersistence` unmounts this subtree after the exit settles.
-				 */}
-				<DialogScrollLock isOpen={true} />
-				{/* ID-scoped responsive positioning (overrides atomic margin: auto). */}
-				{dialogPositionStyles && (
-					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-global-styles
-					<style>{dialogPositionStyles}</style>
-				)}
-				{/* Visual content container - Dialog handles the raw <dialog>. */}
-				{/* No tabIndex: native <dialog>.showModal() picks the first focusable
-				    descendant as initial focus target. A tabIndex on this wrapper
-				    would steal that focus from the close button (or other intended
-				    autofocus target). The <dialog> element itself receives the
-				    focus ring when no descendants are focusable. */}
-				<div
-					ref={contentRef}
-					css={[
-						topLayerStyles.content,
-						!isFullScreen && topLayerStyles.borderRadius,
-						!isFullScreen &&
-							fg('platform-dst-shape-theme-default') &&
-							topLayerStyles.borderRadiusT26,
-						!isFullScreen && !shouldScrollInViewport && topLayerBodyScrollStyles,
-						!isFullScreen && shouldScrollInViewport && topLayerViewportScrollStyles,
-					]}
-				>
-					<ModalContext.Provider value={modalDialogContext}>
-						<ScrollContext.Provider value={shouldScrollInViewport}>
-							{children}
-						</ScrollContext.Provider>
-					</ModalContext.Provider>
-				</div>
-			</Dialog>
-		);
-	}
-
-	const modalDialogWithBlanket = (
-		<Blanket
-			isTinted={!isBlanketHidden}
-			onBlanketClicked={onBlanketClicked}
-			testId={testId && `${testId}--blanket`}
-		>
-			<ModalDialog
-				testId={testId}
-				label={label}
-				autoFocus={autoFocus}
-				stackIndex={stackIndex}
-				onClose={onCloseHandler}
-				shouldCloseOnEscapePress={shouldCloseOnEscapePress && isForeground}
-				shouldScrollInViewport={shouldScrollInViewport}
-				height={height}
-				width={width}
-				onCloseComplete={onCloseComplete}
-				onOpenComplete={onOpenComplete}
-				hasProvidedOnClose={Boolean(providedOnClose)}
-				isFullScreen={isFullScreen}
-				UNSAFE_shouldDisableMotionUplift={UNSAFE_shouldDisableMotionUplift}
-				ref={ref}
-			>
-				{children}
-			</ModalDialog>
-		</Blanket>
-	);
-
-	let returnFocus = true;
-	let onDeactivation: (node: HTMLElement) => void = noop;
-
-	if ('boolean' === typeof shouldReturnFocus) {
-		returnFocus = shouldReturnFocus;
-	} else {
-		onDeactivation = () => {
-			window.setTimeout(() => {
-				shouldReturnFocus.current?.focus();
-			}, 0);
-		};
-	}
-
-	return (
-		<Layering isDisabled={false}>
-			<Portal zIndex={layers.modal()}>
-				{!UNSAFE_shouldDisableMotionUplift && fg('platform-dst-motion-uplift-modal') ? (
-					<Motion
-						enteringAnimation={token('motion.blanket.enter')}
-						exitingAnimation={token('motion.blanket.exit')}
-					>
-						<div css={fillScreenStyles} aria-hidden={!isForeground}>
-							<FocusLock
-								autoFocus={autoFocusLock}
-								returnFocus={returnFocus}
-								onDeactivation={onDeactivation}
-								whiteList={allowListCallback}
-							>
-								{/* Ensures scroll events are blocked on the document body and locked */}
-								<ScrollLock />
-								{/* TouchScrollable makes the whole modal dialog scrollable when scroll boundary is set to viewport. */}
-								{shouldScrollInViewport ? (
-									<TouchScrollable>{modalDialogWithBlanket}</TouchScrollable>
-								) : (
-									modalDialogWithBlanket
-								)}
-							</FocusLock>
-						</div>
-					</Motion>
-				) : (
-					<FadeIn>
-						{(fadeInProps) => (
-							<div
-								{...fadeInProps}
-								css={fillScreenStyles}
-								// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop
-								className={fadeInProps.className}
-								aria-hidden={!isForeground}
-							>
+			<Layering isDisabled={false}>
+				<Portal zIndex={layers.modal()}>
+					{!UNSAFE_shouldDisableMotionUplift && fg('platform-dst-motion-uplift-modal') ? (
+						<Motion
+							enteringAnimation={token('motion.blanket.enter')}
+							exitingAnimation={token('motion.blanket.exit')}
+						>
+							<div css={fillScreenStyles} aria-hidden={!isForeground}>
 								<FocusLock
 									autoFocus={autoFocusLock}
 									returnFocus={returnFocus}
@@ -555,12 +542,60 @@ const InternalModalWrapper: React.ForwardRefExoticComponent<
 									)}
 								</FocusLock>
 							</div>
-						)}
-					</FadeIn>
-				)}
-			</Portal>
-		</Layering>
-	);
+						</Motion>
+					) : (
+						<FadeIn>
+							{(fadeInProps) => (
+								<div
+									{...fadeInProps}
+									css={fillScreenStyles}
+									// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop
+									className={fadeInProps.className}
+									aria-hidden={!isForeground}
+								>
+									<FocusLock
+										autoFocus={autoFocusLock}
+										returnFocus={returnFocus}
+										onDeactivation={onDeactivation}
+										whiteList={allowListCallback}
+									>
+										{/* Ensures scroll events are blocked on the document body and locked */}
+										<ScrollLock />
+										{/* TouchScrollable makes the whole modal dialog scrollable when scroll boundary is set to viewport. */}
+										{shouldScrollInViewport ? (
+											<TouchScrollable>{modalDialogWithBlanket}</TouchScrollable>
+										) : (
+											modalDialogWithBlanket
+										)}
+									</FocusLock>
+								</div>
+							)}
+						</FadeIn>
+					)}
+				</Portal>
+			</Layering>
+		);
+	},
+);
+
+// Choose the rendering implementation at the component boundary rather than
+// gating hooks inside a single component. Each implementation owns its own
+// hooks unconditionally, so a runtime feature-flag change swaps component types
+// (a clean remount) instead of changing the hook order of a mounted component.
+const InternalModalWrapper: React.ForwardRefExoticComponent<
+	React.PropsWithoutRef<InternalModalWrapperProps> & React.RefAttributes<HTMLElement>
+> = forwardRef((props: InternalModalWrapperProps, ref: React.Ref<HTMLElement>) => {
+	if (fg('platform-dst-top-layer')) {
+		// TODO: the top-layer path does not forward the external `ref` (parity
+		// with the pre-refactor behavior, where the top-layer branch never
+		// consumed it). The public type still advertises `RefAttributes`, so a
+		// consumer ref silently no-ops here. Follow up by forwarding `ref` to a
+		// sensible element (for example the content `div`) once ref parity is
+		// intentionally desired.
+		return <ModalWrapperTopLayer {...props} />;
+	}
+
+	return <ModalWrapperLegacy ref={ref} {...props} />;
 });
 
 // eslint-disable-next-line @repo/internal/react/require-jsdoc

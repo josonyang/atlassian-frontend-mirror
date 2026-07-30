@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::7c8995740853ab97fe18084a5e408e13>>
+ * @codegen <<SignedSource::3ea49917c92593285532eb8de72c9e50>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -15,8 +15,9 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
 /**
  * Icon: "Compass".
  * Category: multi-purpose
- * Location: @atlaskit/icon
- * Usage guidance: Multi purpose - Known uses: templates.
+ * Location: @atlaskit/icon/core/compass
+ * Usage guidance:
+ * Multi purpose - Known uses: templates.
  * - [Examples](https://atlaskit.atlassian.com/packages/design-system/icon)
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */

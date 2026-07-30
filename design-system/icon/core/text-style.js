@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::9f0917f4199f5ead8e2ff316703c32c4>>
+ * @codegen <<SignedSource::f88fa64ab9596cfbdf77cc703d3b08ed>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -15,8 +15,9 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
 /**
  * Icon: "TextStyle".
  * Category: single-purpose
- * Location: @atlaskit/icon
- * Usage guidance: Single purpose - Reserved for text styles in Editor.
+ * Location: @atlaskit/icon/core/text-style
+ * Usage guidance:
+ * Single purpose - Reserved for text styles in Editor.
  * - [Examples](https://atlaskit.atlassian.com/packages/design-system/icon)
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */

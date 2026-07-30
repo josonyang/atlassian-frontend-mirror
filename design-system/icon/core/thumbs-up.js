@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::0bf82c15bca1a56d27012abd5cecbc7a>>
+ * @codegen <<SignedSource::2c1ba82f93ed2961af315cfc9dd3f5cc>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -15,8 +15,9 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
 /**
  * Icon: "ThumbsUp".
  * Category: multi-purpose
- * Location: @atlaskit/icon
- * Usage guidance: Multi purpose - Known uses: voting options in Jira, like.
+ * Location: @atlaskit/icon/core/thumbs-up
+ * Usage guidance:
+ * Multi purpose - Known uses: voting options in Jira, like.
  * - [Examples](https://atlaskit.atlassian.com/packages/design-system/icon)
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */

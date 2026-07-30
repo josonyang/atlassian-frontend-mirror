@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::f86100231fbd2caf72ac8c1841a8edfe>>
+ * @codegen <<SignedSource::0363d9b2ede9e66e010968db5c306ec5>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -15,8 +15,9 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
 /**
  * Icon: "DragHandleHorizontal".
  * Category: single-purpose
- * Location: @atlaskit/icon
- * Usage guidance: Reserved for dragging elements along a horizontal axis.
+ * Location: @atlaskit/icon/core/drag-handle-horizontal
+ * Usage guidance:
+ * Reserved for dragging elements along a horizontal axis.
  * - [Examples](https://atlaskit.atlassian.com/packages/design-system/icon)
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */

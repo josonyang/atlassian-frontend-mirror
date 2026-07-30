@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::3c71f464f0a68ac13cf34d8bdc60b231>>
+ * @codegen <<SignedSource::f5a9f624623a366d4fcd536beae1dbec>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -15,8 +15,9 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
 /**
  * Icon: "ShowMoreVertical".
  * Category: single-purpose
- * Location: @atlaskit/icon
- * Usage guidance: Single purpose - Reserved for more action menus, traditionally on mobile.
+ * Location: @atlaskit/icon/core/show-more-vertical
+ * Usage guidance:
+ * Single purpose - Reserved for more action menus, traditionally on mobile.
  * - [Examples](https://atlaskit.atlassian.com/packages/design-system/icon)
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */

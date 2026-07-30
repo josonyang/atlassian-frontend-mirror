@@ -65,6 +65,7 @@ const extractAction = (
 		url: string;
 	}) => void,
 	transformUrl?: TransformUrlFn,
+	isPreviewRestricted?: (params: { ari: string }) => boolean,
 ): LinkLozengeInvokeActions | undefined => {
 	const extensionKey = getExtensionKey(response);
 	const data = response?.data as JsonLd.Data.BaseData;
@@ -100,6 +101,7 @@ const extractAction = (
 				origin,
 				response,
 				isPreviewPanelAvailable,
+				...(fg('preview_panel_unit_check') ? { isPreviewRestricted } : undefined),
 				openPreviewPanel,
 				...(fg('platform_smartlink_xpc_url_wrapping') ? { transformUrl } : undefined),
 			})?.invokeAction
@@ -138,6 +140,7 @@ const extractState = (
 		url: string;
 	}) => void,
 	transformUrl?: TransformUrlFn,
+	isPreviewRestricted?: (params: { ari: string }) => boolean,
 ): LinkLozenge | undefined => {
 	if (!response || !response.data) {
 		return;
@@ -164,6 +167,7 @@ const extractState = (
 		isPreviewPanelAvailable,
 		openPreviewPanel,
 		fg('platform_smartlink_xpc_url_wrapping') ? transformUrl : undefined,
+		fg('preview_panel_unit_check') ? isPreviewRestricted : undefined,
 	);
 	return { ...lozenge, action };
 };

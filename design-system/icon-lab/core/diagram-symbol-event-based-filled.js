@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::94dc81d30f078eea9e8241d2982556c4>>
+ * @codegen <<SignedSource::a1e81335c7458ead4b58b6cd2d559ae0>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -15,8 +15,9 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
 /**
  * Icon: "DiagramSymbolEventBasedFilled".
  * Category: single-purpose
- * Location: @atlaskit/icon-lab
- * Usage guidance: Reserved for event based BPMN diagram symbol in Whiteboards.
+ * Location: @atlaskit/icon-lab/core/diagram-symbol-event-based-filled
+ * Usage guidance:
+ * Reserved for event based BPMN diagram symbol in Whiteboards.
  * - [Examples](https://atlaskit.atlassian.com/packages/design-system/icon)
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */

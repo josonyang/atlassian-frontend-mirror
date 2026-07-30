@@ -1249,7 +1249,12 @@ export const DragHandle = ({
 		docDepForReliableAnchor,
 	]);
 
+	const isHandleShown = positionStylesOld.display !== 'none';
+
 	useEffect(() => {
+		if (fg('nike_r19_render_unmount')) {
+			return;
+		}
 		if (handleOptions?.isFocused && buttonRef.current) {
 			const id = requestAnimationFrame(() => {
 				buttonRef.current?.focus();
@@ -1260,6 +1265,46 @@ export const DragHandle = ({
 			};
 		}
 	}, [buttonRef, handleOptions?.isFocused, view]);
+
+	useEffect(() => {
+		if (!fg('nike_r19_render_unmount')) {
+			return;
+		}
+		if (!(handleOptions?.isFocused && isHandleShown && buttonRef.current)) {
+			return;
+		}
+
+		// isHandleShown means the handle has been positioned, but an ancestor can still be
+		// visibility:hidden or display:none for a frame, in which case focus() is a silent no-op.
+		// Focus now, and if activeElement shows it did not land, retry on the next few frames.
+		let rafId: number | undefined;
+		let attempts = 0;
+		const MAX_ATTEMPTS = 5;
+
+		const focusHandle = () => {
+			const button = buttonRef.current;
+			if (!button) {
+				return;
+			}
+			button.focus();
+			// getDocument() is the same document handleKeyDownNew reads activeElement from, so
+			// this confirms Space/Enter will act on the handle rather than silently no-op.
+			if (getDocument()?.activeElement === button || attempts >= MAX_ATTEMPTS) {
+				return;
+			}
+			attempts++;
+			rafId = requestAnimationFrame(focusHandle);
+		};
+
+		focusHandle();
+
+		return () => {
+			if (rafId !== undefined) {
+				cancelAnimationFrame(rafId);
+			}
+			view.focus();
+		};
+	}, [buttonRef, handleOptions?.isFocused, view, isHandleShown]);
 
 	useEffect(() => {
 		if (typeof start !== 'number' || !selection) {

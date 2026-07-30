@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::b595e3eb89de5c29dab9996153a67074>>
+ * @codegen <<SignedSource::9d02ce6f2146979b912085d0efbf126f>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -15,8 +15,9 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
 /**
  * Icon: "DiagramSymbolCompute".
  * Category: single-purpose
- * Location: @atlaskit/icon-lab
- * Usage guidance: Reserved for compute diagram symbol in Whiteboards.
+ * Location: @atlaskit/icon-lab/core/diagram-symbol-compute
+ * Usage guidance:
+ * Reserved for compute diagram symbol in Whiteboards.
  * - [Examples](https://atlaskit.atlassian.com/packages/design-system/icon)
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */

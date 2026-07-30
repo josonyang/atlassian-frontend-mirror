@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::18342020b5f02f9c206b3220d7738d9a>>
+ * @codegen <<SignedSource::283092fd91c85dbc8c9a0d2a7cd32dc1>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -15,8 +15,9 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
 /**
  * Icon: "ChartArea".
  * Category: multi-purpose
- * Location: @atlaskit/icon-lab
- * Usage guidance: Known uses: Area charts
+ * Location: @atlaskit/icon-lab/core/chart-area
+ * Usage guidance:
+ * Known uses: Area charts
  * - [Examples](https://atlaskit.atlassian.com/packages/design-system/icon)
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */

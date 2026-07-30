@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::eb3734350d97713ca64980e59b38742a>>
+ * @codegen <<SignedSource::0aaad78bdf79019def28646b8e8ff188>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -15,8 +15,9 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
 /**
  * Icon: "DiagramArrowheadCompositionUpRight".
  * Category: single-purpose
- * Location: @atlaskit/icon-lab
- * Usage guidance: Reserved for composition diagram in Whiteboards.
+ * Location: @atlaskit/icon-lab/core/diagram-arrowhead-composition-up-right
+ * Usage guidance:
+ * Reserved for composition diagram in Whiteboards.
  * - [Examples](https://atlaskit.atlassian.com/packages/design-system/icon)
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */

@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::e437ff979ed52fe3fc89de1b184e851d>>
+ * @codegen <<SignedSource::732334df5c0c32a9354a92d8d799a875>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -15,8 +15,9 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
 /**
  * Icon: "TextLetterCase".
  * Category: single-purpose
- * Location: @atlaskit/icon-lab
- * Usage guidance: Reserved for letter casing and text-transform
+ * Location: @atlaskit/icon-lab/core/text-letter-case
+ * Usage guidance:
+ * Reserved for letter casing and text-transform
  * - [Examples](https://atlaskit.atlassian.com/packages/design-system/icon)
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */

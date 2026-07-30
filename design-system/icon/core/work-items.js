@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::4eef8c7bda009f013e8cf54eb12259e1>>
+ * @codegen <<SignedSource::da032184393a31024799f85576d6996e>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -15,8 +15,9 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
 /**
  * Icon: "WorkItems".
  * Category: single-purpose
- * Location: @atlaskit/icon
- * Usage guidance: Reserved for representing multiple work items.
+ * Location: @atlaskit/icon/core/work-items
+ * Usage guidance:
+ * Reserved for representing multiple work items.
  * - [Examples](https://atlaskit.atlassian.com/packages/design-system/icon)
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */

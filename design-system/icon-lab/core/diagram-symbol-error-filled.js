@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::9b8e2c5516e01ce5a57d7b423eebd1f7>>
+ * @codegen <<SignedSource::869b8a58fe7de94e0209d26b97a0456e>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -15,8 +15,9 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
 /**
  * Icon: "DiagramSymbolErrorFilled".
  * Category: single-purpose
- * Location: @atlaskit/icon-lab
- * Usage guidance: Reserved for error BPMN diagram symbol in Whiteboards.
+ * Location: @atlaskit/icon-lab/core/diagram-symbol-error-filled
+ * Usage guidance:
+ * Reserved for error BPMN diagram symbol in Whiteboards.
  * - [Examples](https://atlaskit.atlassian.com/packages/design-system/icon)
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */

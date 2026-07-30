@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::5320da1531b31a10e3efb8da318011bb>>
+ * @codegen <<SignedSource::755aa26b06221fa9a459ed5e783c57b7>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -15,8 +15,9 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
 /**
  * Icon: "VideoSkipBackwardTen".
  * Category: single-purpose
- * Location: @atlaskit/icon
- * Usage guidance: Reserved for skipping video content backwards by 10 seconds.
+ * Location: @atlaskit/icon/core/video-skip-backward-ten
+ * Usage guidance:
+ * Reserved for skipping video content backwards by 10 seconds.
  * - [Examples](https://atlaskit.atlassian.com/packages/design-system/icon)
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */

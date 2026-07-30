@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::c22708a2b42b19ce4aab928f6a5718a1>>
+ * @codegen <<SignedSource::a4dba3e6aab511dcdda5f5af74ba9eaa>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -15,8 +15,9 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
 /**
  * Icon: "DiagramSymbolExclusiveFilled".
  * Category: single-purpose
- * Location: @atlaskit/icon-lab
- * Usage guidance: Reserved for exclusive BPMN diagram symbol in Whiteboards.
+ * Location: @atlaskit/icon-lab/core/diagram-symbol-exclusive-filled
+ * Usage guidance:
+ * Reserved for exclusive BPMN diagram symbol in Whiteboards.
  * - [Examples](https://atlaskit.atlassian.com/packages/design-system/icon)
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */

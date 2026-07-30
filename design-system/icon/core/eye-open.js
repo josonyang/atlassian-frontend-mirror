@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::7d4381d46d56f0396feef6421a091c8f>>
+ * @codegen <<SignedSource::e03a1abef9c7552042b0641d7d345b1c>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -15,8 +15,9 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
 /**
  * Icon: "EyeOpen".
  * Category: multi-purpose
- * Location: @atlaskit/icon
- * Usage guidance: Multi purpose - Known uses: watch page in Confluence, show password in text field, and following in Atlas.
+ * Location: @atlaskit/icon/core/eye-open
+ * Usage guidance:
+ * Multi purpose - Known uses: watch page in Confluence, show password in text field, and following in Atlas.
  * - [Examples](https://atlaskit.atlassian.com/packages/design-system/icon)
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */

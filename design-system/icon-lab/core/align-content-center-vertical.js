@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::2fa92f4125ad7be96546b33ab65c09de>>
+ * @codegen <<SignedSource::8791ca9f5be9c0b2f03894d1de240223>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -15,8 +15,9 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
 /**
  * Icon: "AlignContentCenterVertical".
  * Category: multi-purpose
- * Location: @atlaskit/icon-lab
- * Usage guidance: Used for aligning vertical centers of content in Whiteboards
+ * Location: @atlaskit/icon-lab/core/align-content-center-vertical
+ * Usage guidance:
+ * Used for aligning vertical centers of content in Whiteboards
  * - [Examples](https://atlaskit.atlassian.com/packages/design-system/icon)
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */

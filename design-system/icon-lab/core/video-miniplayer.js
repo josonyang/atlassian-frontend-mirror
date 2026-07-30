@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::2f72cdc9dd744d65444b8998cb10ed6d>>
+ * @codegen <<SignedSource::36849515f8f6102bc425fa817120d55a>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -15,8 +15,9 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
 /**
  * Icon: "VideoMiniplayer".
  * Category: single-purpose
- * Location: @atlaskit/icon-lab
- * Usage guidance: Reserved for picture-in-picture functionality for videos.
+ * Location: @atlaskit/icon-lab/core/video-miniplayer
+ * Usage guidance:
+ * Reserved for picture-in-picture functionality for videos.
  * - [Examples](https://atlaskit.atlassian.com/packages/design-system/icon)
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */

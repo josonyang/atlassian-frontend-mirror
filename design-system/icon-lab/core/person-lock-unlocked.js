@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::76f47dc931ec3b9a4356b3aad93283b4>>
+ * @codegen <<SignedSource::34ba24a3db7501ab8e4eebc084eef905>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -15,8 +15,9 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
 /**
  * Icon: "PersonLockUnlocked".
  * Category: single-purpose
- * Location: @atlaskit/icon-lab
- * Usage guidance: Reserved for unrestricted user permissions or access.
+ * Location: @atlaskit/icon-lab/core/person-lock-unlocked
+ * Usage guidance:
+ * Reserved for unrestricted user permissions or access.
  * - [Examples](https://atlaskit.atlassian.com/packages/design-system/icon)
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */

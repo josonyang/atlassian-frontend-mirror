@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::14d3508a57d0950b33e5e611a6d67b81>>
+ * @codegen <<SignedSource::e0b6f893c7fb5a8615f29970e99930fd>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -15,8 +15,9 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
 /**
  * Icon: "TextLengthen".
  * Category: single-purpose
- * Location: @atlaskit/icon-lab
- * Usage guidance: Lengthening text content with Atlassian Intelligence
+ * Location: @atlaskit/icon-lab/core/text-lengthen
+ * Usage guidance:
+ * Lengthening text content with Atlassian Intelligence
  * - [Examples](https://atlaskit.atlassian.com/packages/design-system/icon)
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */

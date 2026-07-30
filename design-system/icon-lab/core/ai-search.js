@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::df727533991c4aac2a7e523738f16a10>>
+ * @codegen <<SignedSource::47222777a6ba79e023cc331ab4bf9f6d>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -15,8 +15,9 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
 /**
  * Icon: "AiSearch".
  * Category: single-purpose
- * Location: @atlaskit/icon-lab
- * Usage guidance: Reserved for search interactions powered by Rovo/AI.
+ * Location: @atlaskit/icon-lab/core/ai-search
+ * Usage guidance:
+ * Reserved for search interactions powered by Rovo/AI.
  * - [Examples](https://atlaskit.atlassian.com/packages/design-system/icon)
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */

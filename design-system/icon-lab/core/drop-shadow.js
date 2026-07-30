@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::a0c99cb20a3cc5f063b1751bb732e2cc>>
+ * @codegen <<SignedSource::132cb7fdbc2663a9dfe2793e88a2a295>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -15,8 +15,9 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
 /**
  * Icon: "DropShadow".
  * Category: single-purpose
- * Location: @atlaskit/icon-lab
- * Usage guidance: Toggle drop shadow on and off
+ * Location: @atlaskit/icon-lab/core/drop-shadow
+ * Usage guidance:
+ * Toggle drop shadow on and off
  * - [Examples](https://atlaskit.atlassian.com/packages/design-system/icon)
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */

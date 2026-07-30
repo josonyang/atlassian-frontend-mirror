@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::a4eeef5070218ce98ba604b8582fbe5f>>
+ * @codegen <<SignedSource::aa7615026ffde16b04a8cef5b364e383>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -15,8 +15,9 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
 /**
  * Icon: "DiagramSymbolLoopLimit".
  * Category: single-purpose
- * Location: @atlaskit/icon-lab
- * Usage guidance: Reserved for loop limit diagram symbol.
+ * Location: @atlaskit/icon-lab/core/diagram-symbol-loop-limit
+ * Usage guidance:
+ * Reserved for loop limit diagram symbol.
  * - [Examples](https://atlaskit.atlassian.com/packages/design-system/icon)
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */

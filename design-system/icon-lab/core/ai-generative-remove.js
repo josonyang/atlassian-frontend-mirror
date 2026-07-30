@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::0f778c83bc8082fc596ba12347f14cf9>>
+ * @codegen <<SignedSource::e5dbe7f2aab0ebb0d0cd9553b3ac29c6>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -15,8 +15,9 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
 /**
  * Icon: "AiGenerativeRemove".
  * Category: single-purpose
- * Location: @atlaskit/icon-lab
- * Usage guidance: Reserved for remove filler words functionality in Loom
+ * Location: @atlaskit/icon-lab/core/ai-generative-remove
+ * Usage guidance:
+ * Reserved for remove filler words functionality in Loom
  * - [Examples](https://atlaskit.atlassian.com/packages/design-system/icon)
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */

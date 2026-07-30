@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::0532e68f671e7bc03ccfc8e749bb7adb>>
+ * @codegen <<SignedSource::0a4ad919f0d3f6e59300ea75340bb301>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -15,7 +15,7 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
 /**
  * Icon: "Signpost".
  * Category: multi-purpose
- * Location: @atlaskit/icon-lab
+ * Location: @atlaskit/icon-lab/core/signpost
  * - [Examples](https://atlaskit.atlassian.com/packages/design-system/icon)
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */

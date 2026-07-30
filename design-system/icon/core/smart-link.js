@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::f4d5f161589a38033248db2607dbad0d>>
+ * @codegen <<SignedSource::6dbfccc48541e2997caa694cca1ab88a>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -15,8 +15,9 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
 /**
  * Icon: "SmartLink".
  * Category: single-purpose
- * Location: @atlaskit/icon
- * Usage guidance: Reserved for representing Smart links.
+ * Location: @atlaskit/icon/core/smart-link
+ * Usage guidance:
+ * Reserved for representing Smart links.
  * - [Examples](https://atlaskit.atlassian.com/packages/design-system/icon)
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */

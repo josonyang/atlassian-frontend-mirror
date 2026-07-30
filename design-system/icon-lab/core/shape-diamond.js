@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::5d7e932626740fb58621f17059bca48a>>
+ * @codegen <<SignedSource::8a4a3474d435f0f9f4eb7790e8faa35f>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -15,8 +15,9 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
 /**
  * Icon: "ShapeDiamond".
  * Category: multi-purpose
- * Location: @atlaskit/icon-lab
- * Usage guidance: Diamond shape tool in Whiteboards
+ * Location: @atlaskit/icon-lab/core/shape-diamond
+ * Usage guidance:
+ * Diamond shape tool in Whiteboards
  * - [Examples](https://atlaskit.atlassian.com/packages/design-system/icon)
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */

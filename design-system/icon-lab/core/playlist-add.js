@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::04de3589381f9a0610e28dee990a4306>>
+ * @codegen <<SignedSource::0ac5e56c1ae972fed0592a50e6dc88ba>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -15,8 +15,9 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
 /**
  * Icon: "PlaylistAdd".
  * Category: single-purpose
- * Location: @atlaskit/icon-lab
- * Usage guidance: Adding items to your playlist (feature).
+ * Location: @atlaskit/icon-lab/core/playlist-add
+ * Usage guidance:
+ * Adding items to your playlist (feature).
  * - [Examples](https://atlaskit.atlassian.com/packages/design-system/icon)
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */

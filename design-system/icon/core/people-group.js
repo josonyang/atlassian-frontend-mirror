@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::a53e84608f4cc80b860fc333251d7715>>
+ * @codegen <<SignedSource::df4fc88f40749d293570c808b4b489c6>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -15,8 +15,9 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
 /**
  * Icon: "PeopleGroup".
  * Category: single-purpose
- * Location: @atlaskit/icon
- * Usage guidance: Single purpose - Known uses: representing a group or collection of people or users.
+ * Location: @atlaskit/icon/core/people-group
+ * Usage guidance:
+ * Single purpose - Known uses: representing a group or collection of people or users.
  * - [Examples](https://atlaskit.atlassian.com/packages/design-system/icon)
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */

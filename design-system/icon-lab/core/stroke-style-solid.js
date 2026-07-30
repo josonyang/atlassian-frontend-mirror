@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::c41b6ef90c0a716f997a526f85d95b5a>>
+ * @codegen <<SignedSource::6924b903d80f995450ad51626169e8a9>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -15,8 +15,9 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
 /**
  * Icon: "StrokeStyleSolid".
  * Category: single-purpose
- * Location: @atlaskit/icon-lab
- * Usage guidance: Reserved for representing solid stroke and border styles.
+ * Location: @atlaskit/icon-lab/core/stroke-style-solid
+ * Usage guidance:
+ * Reserved for representing solid stroke and border styles.
  * - [Examples](https://atlaskit.atlassian.com/packages/design-system/icon)
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */

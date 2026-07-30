@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::3f9c25083e911723e75d25e884618325>>
+ * @codegen <<SignedSource::2fcfb721dbe5e881ae686d6dbd9aacd5>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -15,8 +15,9 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
 /**
  * Icon: "Pen".
  * Category: multi-purpose
- * Location: @atlaskit/icon
- * Usage guidance: Known usages: 'Design task' work type.
+ * Location: @atlaskit/icon/core/pen
+ * Usage guidance:
+ * Known usages: 'Design task' work type.
  * - [Examples](https://atlaskit.atlassian.com/packages/design-system/icon)
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */

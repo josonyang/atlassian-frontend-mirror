@@ -171,8 +171,11 @@ export function hexToEditorTextBackgroundPaletteColor<HexColor extends string>(
 	: string | undefined {
 	// Ts ignore was used to allow use of conditional return type
 	// (preferring better type on consumption over safety in implementation)
-	// @ts-expect-error
-	return hexColor ? textBackgroundColorPalette[hexColor.toUpperCase()] : undefined;
+	return hexColor
+		? // @ts-expect-error
+			textBackgroundColorPalette[hexColor.toUpperCase()]
+		: // @ts-expect-error
+			undefined;
 }
 export const textBackgroundColorPalette = {
 	/** Gray - light */
@@ -220,8 +223,10 @@ export function hexToEditorBackgroundPaletteRawValue<HexColor extends string>(
 	: undefined {
 	// Ts ignore was used to allow use of conditional return type
 	// (preferencing better type on consumption over safety in implementation)
-	// @ts-ignore
-	const tokenData = hexColor ? editorBackgroundPalette[hexColor.toUpperCase()] : undefined;
+	const tokenData = hexColor
+		? // @ts-expect-error
+			editorBackgroundPalette[hexColor.toUpperCase()]
+		: undefined;
 	// @ts-expect-error
 	return tokenData ? tokenData.getValue(hexColor) : undefined;
 }
@@ -337,6 +342,88 @@ export const editorBackgroundPalette = {
 	'#B3BAC5': {
 		getValue: () => '#B3BAC5',
 		token: 'var(--ds-background-accent-gray-subtle, #B3BAC5)',
+	},
+	/** lime - light */
+	'#EFFFD6': {
+		getValue: () => '#EFFFD6',
+		token: 'var(--ds-background-accent-lime-subtlest, #EFFFD6)',
+	},
+	/** lime - medium */
+	'#D3F1A7': {
+		getValue: () => '#D3F1A7',
+		token: 'var(--ds-background-accent-lime-subtler, #D3F1A7)',
+	},
+	/** lime - bold */
+	'#BDE97C': {
+		getValue: () => '#BDE97C',
+		token: 'var(--ds-background-accent-lime-subtler-hovered, #BDE97C)',
+	},
+	/** orange - light */
+	'#FFF5DB': {
+		getValue: () => '#FFF5DB',
+		token: 'var(--ds-background-accent-orange-subtlest, #FFF5DB)',
+	},
+	/** orange - medium */
+	'#FCE4A6': {
+		getValue: () => '#FCE4A6',
+		token: 'var(--ds-background-accent-orange-subtler, #FCE4A6)',
+	},
+	/** orange - bold */
+	'#FBD779': {
+		getValue: () => '#FBD779',
+		token: 'var(--ds-background-accent-orange-subtler-hovered, #FBD779)',
+	},
+	/** magenta - light */
+	'#FFECF8': {
+		getValue: () => '#FFECF8',
+		token: 'var(--ds-background-accent-magenta-subtlest, #FFECF8)',
+	},
+	/** magenta - medium */
+	'#FDD0EC': {
+		getValue: () => '#FDD0EC',
+		token: 'var(--ds-background-accent-magenta-subtler, #FDD0EC)',
+	},
+	/** magenta - bold */
+	'#FCB6E1': {
+		getValue: () => '#FCB6E1',
+		token: 'var(--ds-background-accent-magenta-subtler-hovered, #FCB6E1)',
+	},
+	// Bold row mappings using subtler.hovered tokens. These use new hex codes
+	// so pre-existing documents keep their old subtle-token mappings above.
+	/** blue - bold */
+	'#ADCBFB': {
+		getValue: () => '#ADCBFB',
+		token: 'var(--ds-background-accent-blue-subtler-hovered, #ADCBFB)',
+	},
+	/** teal - bold */
+	'#B1E4F7': {
+		getValue: () => '#B1E4F7',
+		token: 'var(--ds-background-accent-teal-subtler-hovered, #B1E4F7)',
+	},
+	/** green - bold */
+	'#97EDC9': {
+		getValue: () => '#97EDC9',
+		token: 'var(--ds-background-accent-green-subtler-hovered, #97EDC9)',
+	},
+	/** yellow - bold */
+	'#EFDD4E': {
+		getValue: () => '#EFDD4E',
+		token: 'var(--ds-background-accent-yellow-subtler-hovered, #EFDD4E)',
+	},
+	/** red - bold */
+	'#FFB8B2': {
+		getValue: () => '#FFB8B2',
+		token: 'var(--ds-background-accent-red-subtler-hovered, #FFB8B2)',
+	},
+	/** purple - bold */
+	'#E3BDFA': {
+		getValue: () => '#E3BDFA',
+		token: 'var(--ds-background-accent-purple-subtler-hovered, #E3BDFA)',
+	},
+	/** gray - bold */
+	'#B7B9BE': {
+		getValue: () => '#B7B9BE',
+		token: 'var(--ds-background-accent-gray-subtler-hovered, #B7B9BE)',
 	},
 };
 

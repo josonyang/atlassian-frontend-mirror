@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::4f5f4b2aec9cdae97d8585958ccb9ebb>>
+ * @codegen <<SignedSource::379d27dc2254a712c7e5f662436ba8d1>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -15,8 +15,9 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
 /**
  * Icon: "ChartBubble".
  * Category: multi-purpose
- * Location: @atlaskit/icon
- * Usage guidance: Known uses: Bubble and matrix charts; Matrix view in in JPD
+ * Location: @atlaskit/icon/core/chart-bubble
+ * Usage guidance:
+ * Known uses: Bubble and matrix charts; Matrix view in in JPD
  * - [Examples](https://atlaskit.atlassian.com/packages/design-system/icon)
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */

@@ -1,110 +1,160 @@
 import { defineMessages } from 'react-intl';
 
 export const lightBackgroundPaletteTooltipMessages: {
-	'#DEEBFF': {
-		id: string;
-		defaultMessage: string;
-		description: string;
-	};
-	'#B3D4FF': {
-		id: string;
-		defaultMessage: string;
-		description: string;
-	};
 	'#4C9AFF': {
-		id: string;
 		defaultMessage: string;
 		description: string;
-	};
-	'#E6FCFF': {
 		id: string;
-		defaultMessage: string;
-		description: string;
-	};
-	'#B3F5FF': {
-		id: string;
-		defaultMessage: string;
-		description: string;
-	};
-	'#79E2F2': {
-		id: string;
-		defaultMessage: string;
-		description: string;
-	};
-	'#E3FCEF': {
-		id: string;
-		defaultMessage: string;
-		description: string;
-	};
-	'#ABF5D1': {
-		id: string;
-		defaultMessage: string;
-		description: string;
 	};
 	'#57D9A3': {
-		id: string;
 		defaultMessage: string;
 		description: string;
+		id: string;
 	};
-	'#FFFAE6': {
-		id: string;
+	'#79E2F2': {
 		defaultMessage: string;
 		description: string;
-	};
-	'#FFF0B3': {
 		id: string;
-		defaultMessage: string;
-		description: string;
-	};
-	'#FFC400': {
-		id: string;
-		defaultMessage: string;
-		description: string;
-	};
-	'#FFEBE6': {
-		id: string;
-		defaultMessage: string;
-		description: string;
-	};
-	'#FFBDAD': {
-		id: string;
-		defaultMessage: string;
-		description: string;
-	};
-	'#FF8F73': {
-		id: string;
-		defaultMessage: string;
-		description: string;
-	};
-	'#EAE6FF': {
-		id: string;
-		defaultMessage: string;
-		description: string;
-	};
-	'#C0B6F2': {
-		id: string;
-		defaultMessage: string;
-		description: string;
 	};
 	'#998DD9': {
-		id: string;
 		defaultMessage: string;
 		description: string;
+		id: string;
 	};
-	'#FFFFFF': {
-		id: string;
+	'#ABF5D1': {
 		defaultMessage: string;
 		description: string;
-	};
-	'#F4F5F7': {
 		id: string;
-		defaultMessage: string;
-		description: string;
 	};
 	'#B3BAC5': {
-		id: string;
 		defaultMessage: string;
 		description: string;
+		id: string;
+	};
+	'#B3D4FF': {
+		defaultMessage: string;
+		description: string;
+		id: string;
+	};
+	'#B3F5FF': {
+		defaultMessage: string;
+		description: string;
+		id: string;
+	};
+	'#BDE97C': {
+		defaultMessage: string;
+		description: string;
+		id: string;
+	};
+	'#C0B6F2': {
+		defaultMessage: string;
+		description: string;
+		id: string;
+	};
+	'#D3F1A7': {
+		defaultMessage: string;
+		description: string;
+		id: string;
+	};
+	'#DEEBFF': {
+		defaultMessage: string;
+		description: string;
+		id: string;
+	};
+	'#E3FCEF': {
+		defaultMessage: string;
+		description: string;
+		id: string;
+	};
+	'#E6FCFF': {
+		defaultMessage: string;
+		description: string;
+		id: string;
+	};
+	'#EAE6FF': {
+		defaultMessage: string;
+		description: string;
+		id: string;
+	};
+	'#EFFFD6': {
+		defaultMessage: string;
+		description: string;
+		id: string;
+	};
+	'#F4F5F7': {
+		defaultMessage: string;
+		description: string;
+		id: string;
+	};
+	'#FBD779': {
+		defaultMessage: string;
+		description: string;
+		id: string;
+	};
+	'#FCB6E1': {
+		defaultMessage: string;
+		description: string;
+		id: string;
+	};
+	'#FCE4A6': {
+		defaultMessage: string;
+		description: string;
+		id: string;
+	};
+	'#FDD0EC': {
+		defaultMessage: string;
+		description: string;
+		id: string;
+	};
+	'#FF8F73': {
+		defaultMessage: string;
+		description: string;
+		id: string;
+	};
+	'#FFBDAD': {
+		defaultMessage: string;
+		description: string;
+		id: string;
+	};
+	'#FFC400': {
+		defaultMessage: string;
+		description: string;
+		id: string;
+	};
+	'#EFDD4E': {
+		defaultMessage: string;
+		description: string;
+		id: string;
+	};
+	'#FFEBE6': {
+		defaultMessage: string;
+		description: string;
+		id: string;
+	};
+	'#FFECF8': {
+		defaultMessage: string;
+		description: string;
+		id: string;
+	};
+	'#FFF0B3': {
+		defaultMessage: string;
+		description: string;
+		id: string;
+	};
+	'#FFF5DB': {
+		defaultMessage: string;
+		description: string;
+		id: string;
+	};
+	'#FFFAE6': {
+		defaultMessage: string;
+		description: string;
+		id: string;
+	};
+	'#FFFFFF': {
+		defaultMessage: string;
+		description: string;
+		id: string;
 	};
 } = defineMessages({
 	'#DEEBFF': {
@@ -179,6 +229,12 @@ export const lightBackgroundPaletteTooltipMessages: {
 		description:
 			'The text is shown as a tooltip label for a color swatch in the editor background color picker when the user hovers over the bold yellow color option.',
 	},
+	'#EFDD4E': {
+		id: 'fabric.theme.bold-yellow-new',
+		defaultMessage: 'Bold yellow',
+		description:
+			'The text is shown as a tooltip label for a color swatch in the editor background color picker when the user hovers over the bold yellow color option.',
+	},
 	'#FFEBE6': {
 		id: 'fabric.theme.subtle-red',
 		defaultMessage: 'Subtle red',
@@ -232,5 +288,59 @@ export const lightBackgroundPaletteTooltipMessages: {
 		defaultMessage: 'Bold gray',
 		description:
 			'The text is shown as a tooltip label for a color swatch in the editor background color picker when the user hovers over the bold gray color option.',
+	},
+	'#EFFFD6': {
+		id: 'fabric.theme.subtle-lime',
+		defaultMessage: 'Subtle lime',
+		description:
+			'The text is shown as a tooltip label for a color swatch in the editor background color picker when the user hovers over the subtle lime color option.',
+	},
+	'#D3F1A7': {
+		id: 'fabric.theme.lime',
+		defaultMessage: 'Lime',
+		description:
+			'The text is shown as a tooltip label for a color swatch in the editor background color picker when the user hovers over the lime color option.',
+	},
+	'#BDE97C': {
+		id: 'fabric.theme.bold-lime',
+		defaultMessage: 'Bold lime',
+		description:
+			'The text is shown as a tooltip label for a color swatch in the editor background color picker when the user hovers over the bold lime color option.',
+	},
+	'#FFF5DB': {
+		id: 'fabric.theme.subtle-orange',
+		defaultMessage: 'Subtle orange',
+		description:
+			'The text is shown as a tooltip label for a color swatch in the editor background color picker when the user hovers over the subtle orange color option.',
+	},
+	'#FCE4A6': {
+		id: 'fabric.theme.orange',
+		defaultMessage: 'Orange',
+		description:
+			'The text is shown as a tooltip label for a color swatch in the editor background color picker when the user hovers over the orange color option.',
+	},
+	'#FBD779': {
+		id: 'fabric.theme.bold-orange',
+		defaultMessage: 'Bold orange',
+		description:
+			'The text is shown as a tooltip label for a color swatch in the editor background color picker when the user hovers over the bold orange color option.',
+	},
+	'#FFECF8': {
+		id: 'fabric.theme.subtle-magenta',
+		defaultMessage: 'Subtle magenta',
+		description:
+			'The text is shown as a tooltip label for a color swatch in the editor background color picker when the user hovers over the subtle magenta color option.',
+	},
+	'#FDD0EC': {
+		id: 'fabric.theme.magenta',
+		defaultMessage: 'Magenta',
+		description:
+			'The text is shown as a tooltip label for a color swatch in the editor background color picker when the user hovers over the magenta color option.',
+	},
+	'#FCB6E1': {
+		id: 'fabric.theme.bold-magenta',
+		defaultMessage: 'Bold magenta',
+		description:
+			'The text is shown as a tooltip label for a color swatch in the editor background color picker when the user hovers over the bold magenta color option.',
 	},
 });

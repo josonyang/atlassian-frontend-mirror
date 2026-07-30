@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::9192cbdac48cc13a6ba11749984434b1>>
+ * @codegen <<SignedSource::baa78e68e75f11f72022d5bc8d8bb3ef>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -15,8 +15,9 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
 /**
  * Icon: "ImageInline".
  * Category: single-purpose
- * Location: @atlaskit/icon
- * Usage guidance: Reserved for representing inline images in Editor.
+ * Location: @atlaskit/icon/core/image-inline
+ * Usage guidance:
+ * Reserved for representing inline images in Editor.
  * - [Examples](https://atlaskit.atlassian.com/packages/design-system/icon)
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */

@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::6069904a63afcdce043e135fe33b9f8a>>
+ * @codegen <<SignedSource::5f3583ca2eed0637e1fe9011c396d181>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -15,8 +15,9 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
 /**
  * Icon: "SpeedometerUp".
  * Category: multi-purpose
- * Location: @atlaskit/icon-lab
- * Usage guidance: Known uses: video is set a normal playback speed; medium risk likelihood
+ * Location: @atlaskit/icon-lab/core/speedometer-up
+ * Usage guidance:
+ * Known uses: video is set a normal playback speed; medium risk likelihood
  * - [Examples](https://atlaskit.atlassian.com/packages/design-system/icon)
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */

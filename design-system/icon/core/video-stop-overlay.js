@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::d776e090c71d4272dea1a04d82939ee2>>
+ * @codegen <<SignedSource::d47bc9d05f833e571cfad83015f1dfb8>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -15,8 +15,9 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
 /**
  * Icon: "VideoStopOverlay".
  * Category: single-purpose
- * Location: @atlaskit/icon
- * Usage guidance: Reserved for stopping video content. Use on dark or translucent backgrounds.
+ * Location: @atlaskit/icon/core/video-stop-overlay
+ * Usage guidance:
+ * Reserved for stopping video content. Use on dark or translucent backgrounds.
  * - [Examples](https://atlaskit.atlassian.com/packages/design-system/icon)
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */

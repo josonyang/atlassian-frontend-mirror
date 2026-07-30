@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::9e7080bf87b2f894b1be92edda23d93f>>
+ * @codegen <<SignedSource::227a565dd248ae1c84bb6608916ce3a5>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -15,8 +15,9 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
 /**
  * Icon: "AiAgentAdd".
  * Category: single-purpose
- * Location: @atlaskit/icon-lab
- * Usage guidance: Reserved for adding AI agents in Atlassian apps
+ * Location: @atlaskit/icon-lab/core/ai-agent-add
+ * Usage guidance:
+ * Reserved for adding AI agents in Atlassian apps
  * - [Examples](https://atlaskit.atlassian.com/packages/design-system/icon)
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */

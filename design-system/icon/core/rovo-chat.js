@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::9af4adec7e453263370a787e5a93d059>>
+ * @codegen <<SignedSource::a54aefaa1650c0134b6f2cc085fcbf8f>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -15,8 +15,9 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
 /**
  * Icon: "RovoChat".
  * Category: single-purpose
- * Location: @atlaskit/icon
- * Usage guidance: Reserved for branded Rovo chat experiences.
+ * Location: @atlaskit/icon/core/rovo-chat
+ * Usage guidance:
+ * Reserved for branded Rovo chat experiences.
  * - [Examples](https://atlaskit.atlassian.com/packages/design-system/icon)
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */

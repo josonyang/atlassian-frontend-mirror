@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::eeffe6aa21a8fb0e939c0d64e090644b>>
+ * @codegen <<SignedSource::44336a9c4a8d1ba1d89b8770fe0f43de>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -15,8 +15,9 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
 /**
  * Icon: "VideoPreviousOverlay".
  * Category: single-purpose
- * Location: @atlaskit/icon
- * Usage guidance: Single purpose - Reserved for previous video when icon is overlayed on Media.
+ * Location: @atlaskit/icon/core/video-previous-overlay
+ * Usage guidance:
+ * Single purpose - Reserved for previous video when icon is overlayed on Media.
  * - [Examples](https://atlaskit.atlassian.com/packages/design-system/icon)
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */

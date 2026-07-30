@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::2a01188e0180ed5f8d6bd84f6f3a5cf0>>
+ * @codegen <<SignedSource::d50b95b38778fafd8ff64cd277eabdda>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -15,8 +15,9 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
 /**
  * Icon: "ChartScatterPlot".
  * Category: multi-purpose
- * Location: @atlaskit/icon-lab
- * Usage guidance: Known uses: Scatter plot chart
+ * Location: @atlaskit/icon-lab/core/chart-scatter-plot
+ * Usage guidance:
+ * Known uses: Scatter plot chart
  * - [Examples](https://atlaskit.atlassian.com/packages/design-system/icon)
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */

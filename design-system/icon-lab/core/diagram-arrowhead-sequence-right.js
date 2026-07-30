@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::618b819abb817607335762cbee855dcf>>
+ * @codegen <<SignedSource::f69e7ae675f8549f720be03186e6d83a>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -15,8 +15,9 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
 /**
  * Icon: "DiagramArrowheadSequenceRight".
  * Category: single-purpose
- * Location: @atlaskit/icon-lab
- * Usage guidance: Reserved for right-facing sequence diagram arrowhead in Whiteboards.
+ * Location: @atlaskit/icon-lab/core/diagram-arrowhead-sequence-right
+ * Usage guidance:
+ * Reserved for right-facing sequence diagram arrowhead in Whiteboards.
  * - [Examples](https://atlaskit.atlassian.com/packages/design-system/icon)
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */

@@ -1,5 +1,38 @@
 # @atlaskit/editor-statsig-tmp
 
+## 135.9.0
+
+### Minor Changes
+
+- [`109c3998554f2`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/109c3998554f2) -
+  Add SSR-safe, experiment-gated CSS overflow shadows for editor tables and keep renderer shadows
+  within table bounds when sticky scrollbars are present.
+
+## 135.8.0
+
+### Minor Changes
+
+- [`d98f609f1fc23`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/d98f609f1fc23) -
+  Register the platform_editor_nest_expand_in_panel boolean experiment used to gate the
+  expand-in-panel nesting scenario.
+- [`9425f3fa081e4`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/9425f3fa081e4) -
+  Fix nested content selection inside layouts
+- [`09b86875f59c3`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/09b86875f59c3) -
+  Add cc_maui_polish_changes_batch_3 and cc_maui_polish_changes_batch_4 editor experiment gates
+- [`3cfefe56db017`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/3cfefe56db017) -
+  Close the Confluence Remix chooser when a remix is cancelled
+
+## 135.7.0
+
+### Minor Changes
+
+- [`51c33ef5349b6`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/51c33ef5349b6) -
+  Enable compatibility with React 19.2.0
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 135.6.0
 
 ### Minor Changes

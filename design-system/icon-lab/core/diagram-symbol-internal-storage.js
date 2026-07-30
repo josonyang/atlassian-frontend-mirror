@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::b387efb2e49ea1f56d012254c2753609>>
+ * @codegen <<SignedSource::a5add5a8e54dc4bda0c5de520fdbe631>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -15,8 +15,9 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
 /**
  * Icon: "DiagramSymbolInternalStorage".
  * Category: single-purpose
- * Location: @atlaskit/icon-lab
- * Usage guidance: Reserved for internal storage diagram symbol.
+ * Location: @atlaskit/icon-lab/core/diagram-symbol-internal-storage
+ * Usage guidance:
+ * Reserved for internal storage diagram symbol.
  * - [Examples](https://atlaskit.atlassian.com/packages/design-system/icon)
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */

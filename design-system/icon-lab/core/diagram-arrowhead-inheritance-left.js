@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::6c89345675a1ce20f861864c200e7220>>
+ * @codegen <<SignedSource::d48a4597af5cf3729afee7380ceb5bb5>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -15,8 +15,9 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
 /**
  * Icon: "DiagramArrowheadInheritanceLeft".
  * Category: single-purpose
- * Location: @atlaskit/icon-lab
- * Usage guidance: Reserved for left-facing inheritance diagram arrowhead in Whiteboards.
+ * Location: @atlaskit/icon-lab/core/diagram-arrowhead-inheritance-left
+ * Usage guidance:
+ * Reserved for left-facing inheritance diagram arrowhead in Whiteboards.
  * - [Examples](https://atlaskit.atlassian.com/packages/design-system/icon)
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */

@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::0f4c38469e331907b0778b01362388bc>>
+ * @codegen <<SignedSource::59fdf4463a68db5d57e0b65c2c497b05>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -15,7 +15,7 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
 /**
  * Icon: "Flower".
  * Category: multi-purpose
- * Location: @atlaskit/icon-lab
+ * Location: @atlaskit/icon-lab/core/flower
  * - [Examples](https://atlaskit.atlassian.com/packages/design-system/icon)
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */

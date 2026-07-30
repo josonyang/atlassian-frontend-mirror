@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::d51e4a53b773461fcacb3f2ef49e80e0>>
+ * @codegen <<SignedSource::63ce17648d66a3e35d23384b02311a62>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -15,8 +15,9 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
 /**
  * Icon: "WarningOutline".
  * Category: multi-purpose
- * Location: @atlaskit/icon-lab
- * Usage guidance: Low-impact warnings. Overdue dates in Atlassian Home.
+ * Location: @atlaskit/icon-lab/core/warning-outline
+ * Usage guidance:
+ * Low-impact warnings. Overdue dates in Atlassian Home.
  * - [Examples](https://atlaskit.atlassian.com/packages/design-system/icon)
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */

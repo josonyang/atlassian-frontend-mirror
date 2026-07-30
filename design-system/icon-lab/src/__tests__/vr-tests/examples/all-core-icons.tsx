@@ -3,7 +3,7 @@
  *
  * To change the format of this file, modify `createVRTest` in icon-build-process/src/create-vr-test.tsx.
  *
- * @codegen <<SignedSource::25cc621b4e9a36985626c59a231dcc5a>>
+ * @codegen <<SignedSource::398d80bf33605d46ffa17b31809505b9>>
  * @codegenCommand yarn build:icon-glyphs
  */
 /* eslint-disable @atlaskit/platform/use-entrypoints-in-examples */
@@ -512,7 +512,7 @@ import WorldIcon from '../../../../core/world';
 import WrenchIcon from '../../../../core/wrench';
 
 // eslint-disable-next-line import/order
-import type { NewCoreIconProps } from '@atlaskit/icon';
+import type { NewCoreIconProps } from '@atlaskit/icon/types';
 
 const Icons = [
 	AiGenerativeAudioBriefingIcon,

@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::adba6a60ae00d1ec1222367684a9c1e7>>
+ * @codegen <<SignedSource::c47d320f27bc0797490a0ad21caefe1c>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -15,8 +15,9 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
 /**
  * Icon: "DiagramArrowheadManyLeft".
  * Category: single-purpose
- * Location: @atlaskit/icon-lab
- * Usage guidance: Reserved for left-facing many diagram arrowhead in Whiteboards.
+ * Location: @atlaskit/icon-lab/core/diagram-arrowhead-many-left
+ * Usage guidance:
+ * Reserved for left-facing many diagram arrowhead in Whiteboards.
  * - [Examples](https://atlaskit.atlassian.com/packages/design-system/icon)
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */

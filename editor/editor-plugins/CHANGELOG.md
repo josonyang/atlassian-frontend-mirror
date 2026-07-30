@@ -1,5 +1,28 @@
 # @atlaskit/editor-plugins
 
+## 14.3.2
+
+### Patch Changes
+
+- Updated dependencies
+
+## 14.3.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 14.3.0
+
+### Minor Changes
+
+- [`51c33ef5349b6`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/51c33ef5349b6) -
+  Enable compatibility with React 19.2.0
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 14.2.1
 
 ### Patch Changes

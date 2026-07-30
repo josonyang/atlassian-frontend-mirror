@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::d15059710d4ca38ca2da5256bffaa122>>
+ * @codegen <<SignedSource::7d818ddef78090f1f3b5fdbc57bbad43>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -15,8 +15,9 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
 /**
  * Icon: "ArrowEnd".
  * Category: multi-purpose
- * Location: @atlaskit/icon-lab
- * Usage guidance: Used for moving an object to the back or ending of a container, moving a column to last position
+ * Location: @atlaskit/icon-lab/core/arrow-end
+ * Usage guidance:
+ * Used for moving an object to the back or ending of a container, moving a column to last position
  * - [Examples](https://atlaskit.atlassian.com/packages/design-system/icon)
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */

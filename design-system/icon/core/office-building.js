@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::61e479f96d30ea6369ef34d699ad08b2>>
+ * @codegen <<SignedSource::6a236ae450a0df0bf2faf6207167ff43>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -15,8 +15,9 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
 /**
  * Icon: "OfficeBuilding".
  * Category: multi-purpose
- * Location: @atlaskit/icon
- * Usage guidance: Multi purpose - Known uses: office in Atlas, company.
+ * Location: @atlaskit/icon/core/office-building
+ * Usage guidance:
+ * Multi purpose - Known uses: office in Atlas, company.
  * - [Examples](https://atlaskit.atlassian.com/packages/design-system/icon)
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */

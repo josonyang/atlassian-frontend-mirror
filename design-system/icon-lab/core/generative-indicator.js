@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::aeea3452b156c1a88293b0f0d28d725d>>
+ * @codegen <<SignedSource::cf56f05ebdb57c1dbc90961a7379283b>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -15,8 +15,9 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
 /**
  * Icon: "GenerativeIndicator".
  * Category: single-purpose
- * Location: @atlaskit/icon-lab
- * Usage guidance: Reserved for indicating generative and suggested content.
+ * Location: @atlaskit/icon-lab/core/generative-indicator
+ * Usage guidance:
+ * Reserved for indicating generative and suggested content.
  * - [Examples](https://atlaskit.atlassian.com/packages/design-system/icon)
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */

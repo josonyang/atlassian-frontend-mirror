@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::4847e92aa760de046b6ced6db7a00675>>
+ * @codegen <<SignedSource::ac94124a6220a25fda276424520edfe1>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -15,8 +15,9 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
 /**
  * Icon: "ArrowDownLeft".
  * Category: multi-purpose
- * Location: @atlaskit/icon
- * Usage guidance: Known uses: Adding content from Rovo Chat into Editor.
+ * Location: @atlaskit/icon/core/arrow-down-left
+ * Usage guidance:
+ * Known uses: Adding content from Rovo Chat into Editor.
  * - [Examples](https://atlaskit.atlassian.com/packages/design-system/icon)
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */

@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::8d6c387b6cdf01d178e89f35ca2cc613>>
+ * @codegen <<SignedSource::43331783d0851f2e3298778ae2b87f02>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -15,8 +15,9 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
 /**
  * Icon: "Form".
  * Category: multi-purpose
- * Location: @atlaskit/icon
- * Usage guidance: Known uses: Represents forms across Atlassian apps, including Proforma.
+ * Location: @atlaskit/icon/core/form
+ * Usage guidance:
+ * Known uses: Represents forms across Atlassian apps, including Proforma.
  * - [Examples](https://atlaskit.atlassian.com/packages/design-system/icon)
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */

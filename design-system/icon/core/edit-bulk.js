@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::77c848e3098666bf0b9d860f7c0fa130>>
+ * @codegen <<SignedSource::76e1d7852c77788b608c8a25a14c5e2e>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -15,8 +15,9 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
 /**
  * Icon: "EditBulk".
  * Category: single-purpose
- * Location: @atlaskit/icon
- * Usage guidance: Single purpose - Reserved for editing multiple objects in bulk.
+ * Location: @atlaskit/icon/core/edit-bulk
+ * Usage guidance:
+ * Single purpose - Reserved for editing multiple objects in bulk.
  * - [Examples](https://atlaskit.atlassian.com/packages/design-system/icon)
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */

@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::8a6ea5e9608a39c91dddcd716eb961db>>
+ * @codegen <<SignedSource::c3003c5e4a154bd10fedd7dc9ba8fc60>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -15,8 +15,9 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
 /**
  * Icon: "BlastRadius".
  * Category: single-purpose
- * Location: @atlaskit/icon-lab
- * Usage guidance: Reserved for representing blast radius in Object Graph.
+ * Location: @atlaskit/icon-lab/core/blast-radius
+ * Usage guidance:
+ * Reserved for representing blast radius in Object Graph.
  * - [Examples](https://atlaskit.atlassian.com/packages/design-system/icon)
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */

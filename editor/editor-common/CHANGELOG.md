@@ -1,5 +1,29 @@
 # @atlaskit/editor-common
 
+## 116.46.0
+
+### Minor Changes
+
+- [`3b0816741523c`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/3b0816741523c) -
+  Add lime, orange, and magenta colors to table cell background color palette
+- [`4bc9e5cd5f2d9`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/4bc9e5cd5f2d9) -
+  EDITOR-7136: Check suggestion staleness right after fetching suggestions.
+
+### Patch Changes
+
+- Updated dependencies
+
+## 116.45.0
+
+### Minor Changes
+
+- [`51c33ef5349b6`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/51c33ef5349b6) -
+  Enable compatibility with React 19.2.0
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 116.44.3
 
 ### Patch Changes

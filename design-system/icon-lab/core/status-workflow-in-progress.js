@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::cf2ef86350383ba30ac60de3c96c4f8e>>
+ * @codegen <<SignedSource::ef2d5e5e6d7a17435925bb7f0a50b50f>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -15,8 +15,9 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
 /**
  * Icon: "StatusWorkflowInProgress".
  * Category: single-purpose
- * Location: @atlaskit/icon-lab
- * Usage guidance: Reserved for representing in progress statuses such as "In progress", "In development", "Draft"
+ * Location: @atlaskit/icon-lab/core/status-workflow-in-progress
+ * Usage guidance:
+ * Reserved for representing in progress statuses such as "In progress", "In development", "Draft"
  * - [Examples](https://atlaskit.atlassian.com/packages/design-system/icon)
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */

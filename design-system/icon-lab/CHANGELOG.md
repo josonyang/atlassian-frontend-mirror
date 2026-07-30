@@ -1,5 +1,13 @@
 # @atlaskit/icon-lab
 
+## 7.4.1
+
+### Patch Changes
+
+- [`edeb4ec55e98c`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/edeb4ec55e98c) -
+  Remove `ts-node` dependency. Regenerate icon glypths.
+- Updated dependencies
+
 ## 7.4.0
 
 ### Minor Changes

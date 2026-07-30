@@ -111,6 +111,7 @@ export const dragMenuDropdownWidth = 250;
 export const dragTableInsertColumnButtonSize = 16;
 export const dropTargetExtendedWidth = 150;
 export const dragRowControlsWidth = 14;
-export const colorPalletteColumns = 7;
+export const colorPaletteColumnsOld = 7;
+export const colorPaletteColumns = 10;
 
 export const tableResizerWidth = 8;

@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::21d894bc7c6ad9ec58bc8f60f7c17f4b>>
+ * @codegen <<SignedSource::ee84b4eb04ff3fcd3cf0d2835f1f065f>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -15,8 +15,9 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
 /**
  * Icon: "ChartTrendUp".
  * Category: multi-purpose
- * Location: @atlaskit/icon
- * Usage guidance: Known uses: Upward trending data; Trend charts; Reports in Jira; Sprint insights.
+ * Location: @atlaskit/icon/core/chart-trend-up
+ * Usage guidance:
+ * Known uses: Upward trending data; Trend charts; Reports in Jira; Sprint insights.
  * - [Examples](https://atlaskit.atlassian.com/packages/design-system/icon)
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */

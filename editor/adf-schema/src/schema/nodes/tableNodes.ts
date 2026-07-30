@@ -1,32 +1,50 @@
 import type { NodeSpec, Node as PmNode, Attrs } from '@atlaskit/editor-prosemirror/model';
 import { hexToEditorBackgroundPaletteRawValue } from '../../utils/editor-palette';
+import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
+import { fg } from '@atlaskit/platform-feature-flags';
 import {
 	B100,
 	B50,
 	B75,
+	BlueBold,
 	G200,
 	G50,
 	G75,
+	GrayBold,
+	GreenBold,
 	hexToRgba,
 	isHex,
 	isRgb,
+	L200,
+	L400,
+	L50,
+	M200,
+	M400,
+	M50,
 	N0,
 	N20,
 	N60,
 	N800,
+	Orange200,
+	Orange400,
+	Orange50,
 	P100,
 	P50,
 	P75,
+	PurpleBold,
 	R100,
 	R50,
 	R75,
+	RedBold,
 	rgbToHex,
 	T100,
 	T50,
 	T75,
+	TealBold,
 	Y200,
 	Y50,
 	Y75,
+	YellowBold,
 } from '../../utils/colors';
 import type { PanelDefinition as Panel } from './panel';
 import type {
@@ -293,7 +311,12 @@ export const getCellDomAttrs = (node: PmNode): CellDomAttrs => {
 			}
 
 			if (typeof color === 'string') {
-				attrs.colorname = tableBackgroundColorPalette.get(color.toLowerCase());
+				const palette =
+					expValEquals('platform_editor_lovability_text_bg_color', 'isEnabled', true) &&
+					fg('platform_editor_lovability_text_bg_color_patch_2')
+						? tableBackgroundColorPaletteNew
+						: tableBackgroundColorPalette;
+				attrs.colorname = palette.get(color.toLowerCase());
 			}
 		}
 	}
@@ -316,10 +339,18 @@ export const getCellDomAttrs = (node: PmNode): CellDomAttrs => {
 };
 
 export const tableBackgroundColorPalette: Map<string, string> = new Map<string, string>();
+/**
+ * Expanded 10-column (30-entry) palette that adds lime, orange, and magenta columns
+ * and updates the bold row to use `subtler.hovered` design tokens.
+ * This is a superset of {@link tableBackgroundColorPalette}.
+ */
+export const tableBackgroundColorPaletteNew: Map<string, string> = new Map<string, string>();
 
 export const tableBackgroundBorderColor: string = hexToRgba(N800, 0.12) || N0;
 export const tableBackgroundColorNames: Map<string, string> = new Map<string, string>();
 
+// Original 7-column palette — kept as the default export so external consumers
+// are not broken. When cleaning up the platform_editor_lovability_text_bg_color experiment, check if this can be removed
 [
 	[N0, 'White'],
 	[B50, 'Light blue'],
@@ -346,6 +377,43 @@ export const tableBackgroundColorNames: Map<string, string> = new Map<string, st
 	[P100, 'Dark purple'],
 ].forEach(([colorValue, colorName]) => {
 	tableBackgroundColorPalette.set(colorValue.toLowerCase(), colorName);
+});
+
+[
+	[N0, 'White'],
+	[B50, 'Light blue'],
+	[T50, 'Light teal'],
+	[G50, 'Light green'],
+	[L50, 'Subtle lime'],
+	[Y50, 'Light yellow'],
+	[Orange50, 'Subtle orange'],
+	[R50, 'Light red'],
+	[M50, 'Subtle magenta'],
+	[P50, 'Light purple'],
+
+	[N20, 'Light gray'],
+	[B75, 'Blue'],
+	[T75, 'Teal'],
+	[G75, 'Green'],
+	[L200, 'Lime'],
+	[Y75, 'Yellow'],
+	[Orange200, 'Orange'],
+	[R75, 'Red'],
+	[M200, 'Magenta'],
+	[P75, 'Purple'],
+
+	[GrayBold, 'Bold gray'],
+	[BlueBold, 'Bold blue'],
+	[TealBold, 'Bold teal'],
+	[GreenBold, 'Bold green'],
+	[L400, 'Bold lime'],
+	[YellowBold, 'Bold yellow'],
+	[Orange400, 'Bold orange'],
+	[RedBold, 'Bold red'],
+	[M400, 'Bold magenta'],
+	[PurpleBold, 'Bold purple'],
+].forEach(([colorValue, colorName]) => {
+	tableBackgroundColorPaletteNew.set(colorValue.toLowerCase(), colorName);
 	tableBackgroundColorNames.set(colorName.toLowerCase(), colorValue.toLowerCase());
 });
 

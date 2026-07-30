@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::49b0f4962d89d0ce34b036d811d65e8c>>
+ * @codegen <<SignedSource::847cea1436fec86b35f1501de1b3c580>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -15,8 +15,9 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
 /**
  * Icon: "DiagramSymbolArrowLeft".
  * Category: single-purpose
- * Location: @atlaskit/icon-lab
- * Usage guidance: Reserved for left-facing arrow BPMN diagram symbol in Whiteboards.
+ * Location: @atlaskit/icon-lab/core/diagram-symbol-arrow-left
+ * Usage guidance:
+ * Reserved for left-facing arrow BPMN diagram symbol in Whiteboards.
  * - [Examples](https://atlaskit.atlassian.com/packages/design-system/icon)
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */

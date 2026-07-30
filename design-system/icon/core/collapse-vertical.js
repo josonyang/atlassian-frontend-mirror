@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::cb4c0b04d74b34ec32eb001d1db58986>>
+ * @codegen <<SignedSource::dff8434e33a7ca4f70db2063ea9df040>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -15,8 +15,9 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
 /**
  * Icon: "CollapseVertical".
  * Category: single-purpose
- * Location: @atlaskit/icon
- * Usage guidance: Single purpose - Reserved for contracting or reducing the height of an element to its smallest size.
+ * Location: @atlaskit/icon/core/collapse-vertical
+ * Usage guidance:
+ * Single purpose - Reserved for contracting or reducing the height of an element to its smallest size.
  * - [Examples](https://atlaskit.atlassian.com/packages/design-system/icon)
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */

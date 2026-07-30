@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::43de5f9b3bb6700b4427dcb1b32389eb>>
+ * @codegen <<SignedSource::997622c245c968907130d93e0c9e235f>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -15,8 +15,9 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
 /**
  * Icon: "VideoTimelineEditor".
  * Category: single-purpose
- * Location: @atlaskit/icon-lab
- * Usage guidance: Reserved for timeline editor functionality in Loom
+ * Location: @atlaskit/icon-lab/core/video-timeline-editor
+ * Usage guidance:
+ * Reserved for timeline editor functionality in Loom
  * - [Examples](https://atlaskit.atlassian.com/packages/design-system/icon)
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */

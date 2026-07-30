@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::59ec5f8235c04836cfb5b3f781aba467>>
+ * @codegen <<SignedSource::483858236f9003314b2dce473707f24c>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -15,8 +15,9 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
 /**
  * Icon: "DiagramSymbolRequiredInterface".
  * Category: single-purpose
- * Location: @atlaskit/icon-lab
- * Usage guidance: Reserved for required interface UML diagram symbol in Whiteboards.
+ * Location: @atlaskit/icon-lab/core/diagram-symbol-required-interface
+ * Usage guidance:
+ * Reserved for required interface UML diagram symbol in Whiteboards.
  * - [Examples](https://atlaskit.atlassian.com/packages/design-system/icon)
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */

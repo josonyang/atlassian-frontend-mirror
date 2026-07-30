@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::1f2d6ba05e30a3b28dbfef9164dad87a>>
+ * @codegen <<SignedSource::5ebf31396e8813f3a012988670c06096>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -15,8 +15,9 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
 /**
  * Icon: "Close".
  * Category: multi-purpose
- * Location: @atlaskit/icon
- * Usage guidance: Known uses: closing modals, panels, and transient views; removing tags
+ * Location: @atlaskit/icon/core/close
+ * Usage guidance:
+ * Known uses: closing modals, panels, and transient views; removing tags
  * - [Examples](https://atlaskit.atlassian.com/packages/design-system/icon)
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */

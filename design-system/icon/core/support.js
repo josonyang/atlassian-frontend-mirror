@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::8388b6b16657a7677de7df8b63fedfad>>
+ * @codegen <<SignedSource::e72e3fed119e5cd5b162af26877ac1f0>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -15,8 +15,9 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
 /**
  * Icon: "Support".
  * Category: single-purpose
- * Location: @atlaskit/icon
- * Usage guidance: Reserved for representing help support.
+ * Location: @atlaskit/icon/core/support
+ * Usage guidance:
+ * Reserved for representing help support.
  * - [Examples](https://atlaskit.atlassian.com/packages/design-system/icon)
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */

@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::7cda528f9679d716d7f767e6ce4137c1>>
+ * @codegen <<SignedSource::cdda0d1087c7b64a71d2e429b51be29f>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -15,8 +15,9 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
 /**
  * Icon: "TableColumnsDistribute".
  * Category: single-purpose
- * Location: @atlaskit/icon
- * Usage guidance: Reserved for distributing the width of table columns evenly.
+ * Location: @atlaskit/icon/core/table-columns-distribute
+ * Usage guidance:
+ * Reserved for distributing the width of table columns evenly.
  * - [Examples](https://atlaskit.atlassian.com/packages/design-system/icon)
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */

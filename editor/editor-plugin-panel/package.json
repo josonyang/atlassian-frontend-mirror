@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-plugin-panel",
-	"version": "14.1.27",
+	"version": "14.2.0",
 	"description": "Panel plugin for @atlaskit/editor-core.",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -45,8 +45,8 @@
 	},
 	"peerDependencies": {
 		"@atlaskit/editor-common": "workspace:^",
-		"react": "^18.2.0",
-		"react-dom": "^18.2.0",
+		"react": "^18.2.0 || ^19.2.0",
+		"react-dom": "^18.2.0 || ^19.2.0",
 		"react-intl": "^5.25.1 || ^6.0.0 || ^7.0.0"
 	},
 	"techstack": {
@@ -95,6 +95,9 @@
 		"platform_editor_adf_with_localid": {
 			"type": "boolean"
 		},
+		"platform_editor_lovability_text_bg_color_patch_2": {
+			"type": "boolean"
+		},
 		"platform_editor_block_menu_v2_patch_3": {
 			"type": "boolean"
 		}
@@ -105,8 +108,8 @@
 		}
 	},
 	"devDependencies": {
-		"react": "root:*",
-		"react-dom": "root:*",
+		"react": "^19.2.0",
+		"react-dom": "^19.2.0",
 		"react-intl": "root:*"
 	}
 }

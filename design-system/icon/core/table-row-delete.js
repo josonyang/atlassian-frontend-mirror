@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::a47975d9a6c646363e74cea370b39b9e>>
+ * @codegen <<SignedSource::46b4079daca8f1cc509f2097261b00b8>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -15,8 +15,9 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
 /**
  * Icon: "TableRowDelete".
  * Category: single-purpose
- * Location: @atlaskit/icon
- * Usage guidance: Reserved for deleting a table row.
+ * Location: @atlaskit/icon/core/table-row-delete
+ * Usage guidance:
+ * Reserved for deleting a table row.
  * - [Examples](https://atlaskit.atlassian.com/packages/design-system/icon)
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */

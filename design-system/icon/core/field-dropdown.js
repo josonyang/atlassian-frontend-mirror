@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::b9586fb5efe71b6941b8bd5aa4e67c1a>>
+ * @codegen <<SignedSource::7b7282a8fc2b3913686af91d8f596388>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -15,8 +15,9 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
 /**
  * Icon: "FieldDropdown".
  * Category: multi-purpose
- * Location: @atlaskit/icon
- * Usage guidance: Known uses: Dropdown field type in Proforma.
+ * Location: @atlaskit/icon/core/field-dropdown
+ * Usage guidance:
+ * Known uses: Dropdown field type in Proforma.
  * - [Examples](https://atlaskit.atlassian.com/packages/design-system/icon)
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */

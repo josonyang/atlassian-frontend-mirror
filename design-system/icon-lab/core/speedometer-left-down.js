@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::656604c0c5245cc5912adf5561078c66>>
+ * @codegen <<SignedSource::bf5a18c938ae75ae4dc979cbb82a2f5b>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -15,8 +15,9 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
 /**
  * Icon: "SpeedometerLeftDown".
  * Category: multi-purpose
- * Location: @atlaskit/icon-lab
- * Usage guidance: Known uses: low risk likelihood
+ * Location: @atlaskit/icon-lab/core/speedometer-left-down
+ * Usage guidance:
+ * Known uses: low risk likelihood
  * - [Examples](https://atlaskit.atlassian.com/packages/design-system/icon)
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */

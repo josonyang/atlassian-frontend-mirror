@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::86c81b938c289da4a6f0f045727080d9>>
+ * @codegen <<SignedSource::838f476caa3f9c022219d7ddc5039775>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -15,8 +15,9 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
 /**
  * Icon: "DiagramSymbolAdHoc".
  * Category: single-purpose
- * Location: @atlaskit/icon-lab
- * Usage guidance: Reserved for ad hoc BPMN diagram symbol in Whiteboards.
+ * Location: @atlaskit/icon-lab/core/diagram-symbol-ad-hoc
+ * Usage guidance:
+ * Reserved for ad hoc BPMN diagram symbol in Whiteboards.
  * - [Examples](https://atlaskit.atlassian.com/packages/design-system/icon)
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */

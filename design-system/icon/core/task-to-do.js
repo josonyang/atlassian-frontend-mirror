@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::967051479008b6df3057b7f835f26a9f>>
+ * @codegen <<SignedSource::3d1980cd1cd1dd3802bb83bdef4aaecc>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -15,8 +15,9 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
 /**
  * Icon: "TaskToDo".
  * Category: single-purpose
- * Location: @atlaskit/icon
- * Usage guidance: Reserved for to-do task status. Used in JSM Calendar view.
+ * Location: @atlaskit/icon/core/task-to-do
+ * Usage guidance:
+ * Reserved for to-do task status. Used in JSM Calendar view.
  * - [Examples](https://atlaskit.atlassian.com/packages/design-system/icon)
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */

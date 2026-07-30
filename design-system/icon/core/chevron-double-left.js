@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::3a1ef6001ab87a1d8d52e3fa36b1ca44>>
+ * @codegen <<SignedSource::2706a888a095b0bf1d564f3132217284>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -15,8 +15,9 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
 /**
  * Icon: "ChevronDoubleLeft".
  * Category: multi-purpose
- * Location: @atlaskit/icon
- * Usage guidance: Known uses: Navigate to previous year in calendar/date picker
+ * Location: @atlaskit/icon/core/chevron-double-left
+ * Usage guidance:
+ * Known uses: Navigate to previous year in calendar/date picker
  * - [Examples](https://atlaskit.atlassian.com/packages/design-system/icon)
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */

@@ -42,6 +42,7 @@ export function useSmartLink(
 	config: CardAuthFlowOpts | undefined;
 	error: Error | null;
 	isPreviewPanelAvailable: ((props: { ari: string }) => boolean) | undefined;
+	isPreviewRestricted: ((props: { ari: string }) => boolean) | undefined;
 	openPreviewPanel:
 		| ((props: {
 				ari: string;
@@ -57,7 +58,8 @@ export function useSmartLink(
 	state: CardState;
 } {
 	const state = useSmartLinkState(url);
-	const { store, isPreviewPanelAvailable, openPreviewPanel } = useSmartLinkContext();
+	const { store, isPreviewPanelAvailable, isPreviewRestricted, openPreviewPanel } =
+		useSmartLinkContext();
 	const actions = useSmartLinkActions(id, url);
 	const config = useSmartLinkConfig();
 	const renderers = useSmartLinkRenderers();
@@ -82,6 +84,7 @@ export function useSmartLink(
 		renderers,
 		error,
 		isPreviewPanelAvailable,
+		isPreviewRestricted: fg('preview_panel_unit_check') ? isPreviewRestricted : undefined,
 		openPreviewPanel,
 	};
 }

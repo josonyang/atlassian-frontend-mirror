@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::73e4112e2e2971f30b238409911ab98a>>
+ * @codegen <<SignedSource::6bdac5386ec44485a0222659d710dc42>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -15,8 +15,9 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
 /**
  * Icon: "DiagramSymbolPinRight".
  * Category: single-purpose
- * Location: @atlaskit/icon-lab
- * Usage guidance: Reserved for right-facing pin UML diagram symbol in Whiteboards.
+ * Location: @atlaskit/icon-lab/core/diagram-symbol-pin-right
+ * Usage guidance:
+ * Reserved for right-facing pin UML diagram symbol in Whiteboards.
  * - [Examples](https://atlaskit.atlassian.com/packages/design-system/icon)
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */

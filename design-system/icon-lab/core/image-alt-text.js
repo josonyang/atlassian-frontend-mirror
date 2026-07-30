@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::ba10fe2c4ef1ea336b2035e8f15b8f37>>
+ * @codegen <<SignedSource::c66ab747535f16ff2d7b8c0b57c46e37>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -15,8 +15,9 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
 /**
  * Icon: "ImageAltText".
  * Category: single-purpose
- * Location: @atlaskit/icon-lab
- * Usage guidance: Reserved for creating alt text for an image
+ * Location: @atlaskit/icon-lab/core/image-alt-text
+ * Usage guidance:
+ * Reserved for creating alt text for an image
  * - [Examples](https://atlaskit.atlassian.com/packages/design-system/icon)
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */

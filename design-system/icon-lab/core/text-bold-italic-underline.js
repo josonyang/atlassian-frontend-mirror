@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::206ed951bbf311d70d12da1fc12a321b>>
+ * @codegen <<SignedSource::d42178895f09d320f87f7ffe37fa4ed6>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -15,8 +15,9 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
 /**
  * Icon: "TextBoldItalicUnderline".
  * Category: single-purpose
- * Location: @atlaskit/icon-lab
- * Usage guidance: Reserved for bold italic text with underline
+ * Location: @atlaskit/icon-lab/core/text-bold-italic-underline
+ * Usage guidance:
+ * Reserved for bold italic text with underline
  * - [Examples](https://atlaskit.atlassian.com/packages/design-system/icon)
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */

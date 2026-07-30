@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::a4869f1203c8250e1d9d7d8f75722417>>
+ * @codegen <<SignedSource::45e4526d636fe48c1568fcb1289394bc>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -15,8 +15,9 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
 /**
  * Icon: "Tabs".
  * Category: multi-purpose
- * Location: @atlaskit/icon-lab
- * Usage guidance: Known uses: tabs macro feature from the slash command menu in Editor.
+ * Location: @atlaskit/icon-lab/core/tabs
+ * Usage guidance:
+ * Known uses: tabs macro feature from the slash command menu in Editor.
  * - [Examples](https://atlaskit.atlassian.com/packages/design-system/icon)
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */

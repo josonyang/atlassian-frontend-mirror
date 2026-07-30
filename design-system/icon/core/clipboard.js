@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::2531378e8141a8eb47ef57d9a7bb8c78>>
+ * @codegen <<SignedSource::3aeb8e4c7d653b7e003e936e1f733992>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -15,8 +15,9 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
 /**
  * Icon: "Clipboard".
  * Category: multi-purpose
- * Location: @atlaskit/icon
- * Usage guidance: Known uses: Pasting content from clipboard.
+ * Location: @atlaskit/icon/core/clipboard
+ * Usage guidance:
+ * Known uses: Pasting content from clipboard.
  * - [Examples](https://atlaskit.atlassian.com/packages/design-system/icon)
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */

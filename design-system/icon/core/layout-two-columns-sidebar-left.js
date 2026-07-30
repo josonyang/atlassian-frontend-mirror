@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::4628d836a2702117fd4aa5f1325a9af2>>
+ * @codegen <<SignedSource::9177f87021bd510676cd2e745666ca1c>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -15,8 +15,9 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
 /**
  * Icon: "LayoutTwoColumnsSidebarLeft".
  * Category: single-purpose
- * Location: @atlaskit/icon
- * Usage guidance: Single purpose - Reserved for 2 column layout with left sidebar option in Confluence Editor.
+ * Location: @atlaskit/icon/core/layout-two-columns-sidebar-left
+ * Usage guidance:
+ * Single purpose - Reserved for 2 column layout with left sidebar option in Confluence Editor.
  * - [Examples](https://atlaskit.atlassian.com/packages/design-system/icon)
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */

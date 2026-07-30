@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::29f195fae124a1a666932db45e8323e9>>
+ * @codegen <<SignedSource::2820404f3c5c148a20d3c58a9e6675cf>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -15,8 +15,9 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
 /**
  * Icon: "SmartLinkCard".
  * Category: single-purpose
- * Location: @atlaskit/icon
- * Usage guidance: Reserved for representing Smart link preview cards.
+ * Location: @atlaskit/icon/core/smart-link-card
+ * Usage guidance:
+ * Reserved for representing Smart link preview cards.
  * - [Examples](https://atlaskit.atlassian.com/packages/design-system/icon)
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */

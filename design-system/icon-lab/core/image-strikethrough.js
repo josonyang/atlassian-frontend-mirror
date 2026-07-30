@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::9d085658bee3f9e35872f240a6699fa4>>
+ * @codegen <<SignedSource::3c41a9a73cfe00b04f49eb63d234b3c0>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -15,8 +15,9 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
 /**
  * Icon: "ImageStrikethrough".
  * Category: multi-purpose
- * Location: @atlaskit/icon-lab
- * Usage guidance: Known uses: Represents "hide images" action in Loom Workflows.
+ * Location: @atlaskit/icon-lab/core/image-strikethrough
+ * Usage guidance:
+ * Known uses: Represents "hide images" action in Loom Workflows.
  * - [Examples](https://atlaskit.atlassian.com/packages/design-system/icon)
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */

@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::b4ce71db2fadb7b8f5dffd15d5290a3b>>
+ * @codegen <<SignedSource::71541b29dbd8355ab683ab55ab289094>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -15,8 +15,9 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
 /**
  * Icon: "DiagramSymbolDocuments".
  * Category: single-purpose
- * Location: @atlaskit/icon-lab
- * Usage guidance: Reserved for multiple documents diagram symbol
+ * Location: @atlaskit/icon-lab/core/diagram-symbol-documents
+ * Usage guidance:
+ * Reserved for multiple documents diagram symbol
  * - [Examples](https://atlaskit.atlassian.com/packages/design-system/icon)
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */

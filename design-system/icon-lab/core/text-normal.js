@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::5a6d0daa86571e434771830ab21d189b>>
+ * @codegen <<SignedSource::16986c082688a4f5b3b764388c8e3ca8>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -15,8 +15,9 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
 /**
  * Icon: "TextNormal".
  * Category: single-purpose
- * Location: @atlaskit/icon-lab
- * Usage guidance: Reserved for representing Paragraph text style / Normal text style.
+ * Location: @atlaskit/icon-lab/core/text-normal
+ * Usage guidance:
+ * Reserved for representing Paragraph text style / Normal text style.
  * - [Examples](https://atlaskit.atlassian.com/packages/design-system/icon)
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */

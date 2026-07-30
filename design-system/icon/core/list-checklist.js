@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::2cb4098aa30e18803ef4d5cc2de21024>>
+ * @codegen <<SignedSource::133e411796bbbd412f9b62ad37428255>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -15,8 +15,9 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
 /**
  * Icon: "ListChecklist".
  * Category: multi-purpose
- * Location: @atlaskit/icon
- * Usage guidance: Known usages: Checklist, 'Requirement' work type.
+ * Location: @atlaskit/icon/core/list-checklist
+ * Usage guidance:
+ * Known usages: Checklist, 'Requirement' work type.
  * - [Examples](https://atlaskit.atlassian.com/packages/design-system/icon)
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */

@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::fbeb3c3506b5e4624266b710e1d22869>>
+ * @codegen <<SignedSource::9cceda212b8de63789eafd62a93f2629>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -15,8 +15,9 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
 /**
  * Icon: "PresenterMode".
  * Category: single-purpose
- * Location: @atlaskit/icon
- * Usage guidance: Single purpose - Reserved for presenter mode in Confluence.
+ * Location: @atlaskit/icon/core/presenter-mode
+ * Usage guidance:
+ * Single purpose - Reserved for presenter mode in Confluence.
  * - [Examples](https://atlaskit.atlassian.com/packages/design-system/icon)
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */

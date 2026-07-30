@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::4b3613c7e18556761a1c0b5ad2c9a88f>>
+ * @codegen <<SignedSource::293db82116128e6c5304fad1be762b11>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -15,9 +15,10 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
 /**
  * Icon: "StatusDiscovery".
  * Category: single-purpose
- * Location: @atlaskit/icon
- * Usage guidance: Reserved for discovery statuses and messaging.
-Filled status icons provide higher visual contrast to draw attention to important information.
+ * Location: @atlaskit/icon/core/status-discovery
+ * Usage guidance:
+ * Reserved for discovery statuses and messaging.
+ * Filled status icons provide higher visual contrast to draw attention to important information.
  * - [Examples](https://atlaskit.atlassian.com/packages/design-system/icon)
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */

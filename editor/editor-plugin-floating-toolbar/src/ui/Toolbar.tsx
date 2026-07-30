@@ -380,6 +380,7 @@ const ToolbarItems = React.memo(
 								onChange={(selected) => {
 									dispatchCommand(item.onChange(selected));
 								}}
+								cols={item.cols}
 								colorPalette={item.options as PaletteColor[]}
 								currentColor={item.defaultValue ? item.defaultValue.value : undefined}
 								placement="Panels"

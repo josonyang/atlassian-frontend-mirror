@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::0a88a3775945a84b0b0f11b1b29529f5>>
+ * @codegen <<SignedSource::52e65c04cd0b6fedd9b81f9d4406e40f>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -15,8 +15,9 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
 /**
  * Icon: "Gift".
  * Category: multi-purpose
- * Location: @atlaskit/icon-lab
- * Usage guidance: User-selectable icon choice for calendars
+ * Location: @atlaskit/icon-lab/core/gift
+ * Usage guidance:
+ * User-selectable icon choice for calendars
  * - [Examples](https://atlaskit.atlassian.com/packages/design-system/icon)
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */

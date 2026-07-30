@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::74ca1dacf8943b30998c1339b14fef77>>
+ * @codegen <<SignedSource::1e4a428fb45ffc461f11d5708ab4120c>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -15,8 +15,9 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
 /**
  * Icon: "TextParagraph".
  * Category: multi-purpose
- * Location: @atlaskit/icon-lab
- * Usage guidance: Confluence Editor AI action for reformatting paragraphs into multiple shorter paragraphs
+ * Location: @atlaskit/icon-lab/core/text-paragraph
+ * Usage guidance:
+ * Confluence Editor AI action for reformatting paragraphs into multiple shorter paragraphs
  * - [Examples](https://atlaskit.atlassian.com/packages/design-system/icon)
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */

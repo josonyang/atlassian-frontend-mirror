@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::5bb9507c4b9a0143a260d5f6bdcf6b3e>>
+ * @codegen <<SignedSource::1c8b66b873bbfe150a6f4b8cc1ae2853>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -15,8 +15,9 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
 /**
  * Icon: "AlignContentLeft".
  * Category: multi-purpose
- * Location: @atlaskit/icon-lab
- * Usage guidance: Used for aligning left edges of content in Whiteboards
+ * Location: @atlaskit/icon-lab/core/align-content-left
+ * Usage guidance:
+ * Used for aligning left edges of content in Whiteboards
  * - [Examples](https://atlaskit.atlassian.com/packages/design-system/icon)
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */

@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::e63012391fad97538340ac6a0ffbd03b>>
+ * @codegen <<SignedSource::bac49933e9d5bd8a3d08fcd185e2afb7>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -15,8 +15,9 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
 /**
  * Icon: "VideoHdFilled".
  * Category: single-purpose
- * Location: @atlaskit/icon-lab
- * Usage guidance: Single purpose - Reserved to show that high definition is enabled for videos
+ * Location: @atlaskit/icon-lab/core/video-hd-filled
+ * Usage guidance:
+ * Single purpose - Reserved to show that high definition is enabled for videos
  * - [Examples](https://atlaskit.atlassian.com/packages/design-system/icon)
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */

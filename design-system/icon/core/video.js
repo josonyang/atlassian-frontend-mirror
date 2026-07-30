@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::563b591bbaa180fc5c3a0e9071f2faa1>>
+ * @codegen <<SignedSource::f883fd20022b67e50ba0c0d40e77f77b>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -15,8 +15,9 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
 /**
  * Icon: "Video".
  * Category: single-purpose
- * Location: @atlaskit/icon
- * Usage guidance: Single purpose - Reserved for representing video content across Atlassian and Loom.
+ * Location: @atlaskit/icon/core/video
+ * Usage guidance:
+ * Single purpose - Reserved for representing video content across Atlassian and Loom.
  * - [Examples](https://atlaskit.atlassian.com/packages/design-system/icon)
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */

@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::5a6141322649c830eeff41161517495d>>
+ * @codegen <<SignedSource::93fa52ca01319d285486b1a5dd9fa49a>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -15,8 +15,9 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
 /**
  * Icon: "EmojiSad".
  * Category: single-purpose
- * Location: @atlaskit/icon-lab
- * Usage guidance: Reserved for presenting a sad tone or negative sentiment.
+ * Location: @atlaskit/icon-lab/core/emoji-sad
+ * Usage guidance:
+ * Reserved for presenting a sad tone or negative sentiment.
  * - [Examples](https://atlaskit.atlassian.com/packages/design-system/icon)
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */

@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::fe74ef9c654d922d3ff18f7784d24df9>>
+ * @codegen <<SignedSource::b23362d661b1d96937e16111df60b38e>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -15,8 +15,9 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
 /**
  * Icon: "Glasses".
  * Category: multi-purpose
- * Location: @atlaskit/icon
- * Usage guidance: Known uses: Changing tone of written content to Educational with Atlassian Intelligence.
+ * Location: @atlaskit/icon/core/glasses
+ * Usage guidance:
+ * Known uses: Changing tone of written content to Educational with Atlassian Intelligence.
  * - [Examples](https://atlaskit.atlassian.com/packages/design-system/icon)
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */

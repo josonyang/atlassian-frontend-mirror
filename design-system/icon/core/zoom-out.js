@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::38d4bb9285a504664d94867606cdaddc>>
+ * @codegen <<SignedSource::b7944bc0a34bd1aa0e3dec587d453276>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -15,8 +15,9 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
 /**
  * Icon: "ZoomOut".
  * Category: single-purpose
- * Location: @atlaskit/icon
- * Usage guidance: Single purpose - Reserved for zooming out of an object or view.
+ * Location: @atlaskit/icon/core/zoom-out
+ * Usage guidance:
+ * Single purpose - Reserved for zooming out of an object or view.
  * - [Examples](https://atlaskit.atlassian.com/packages/design-system/icon)
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */

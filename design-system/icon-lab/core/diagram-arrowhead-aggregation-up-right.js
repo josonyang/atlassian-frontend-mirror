@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::a46eb408fe1a24d3247a5f12bcf2087d>>
+ * @codegen <<SignedSource::370a187976bce1df0bf5e5275a75fc6e>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -15,8 +15,9 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
 /**
  * Icon: "DiagramArrowheadAggregationUpRight".
  * Category: single-purpose
- * Location: @atlaskit/icon-lab
- * Usage guidance: Reserved for aggregation diagram in Whiteboards.
+ * Location: @atlaskit/icon-lab/core/diagram-arrowhead-aggregation-up-right
+ * Usage guidance:
+ * Reserved for aggregation diagram in Whiteboards.
  * - [Examples](https://atlaskit.atlassian.com/packages/design-system/icon)
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */

@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::79393cf52935af5d2ce7204817b33e1d>>
+ * @codegen <<SignedSource::e1854e5ffc3a1de1aae0317f9d1ee5de>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -15,8 +15,9 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
 /**
  * Icon: "Randomize".
  * Category: single-purpose
- * Location: @atlaskit/icon-lab
- * Usage guidance: Reserved for randomizing or shuffling functionality.
+ * Location: @atlaskit/icon-lab/core/randomize
+ * Usage guidance:
+ * Reserved for randomizing or shuffling functionality.
  * - [Examples](https://atlaskit.atlassian.com/packages/design-system/icon)
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */

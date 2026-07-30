@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::a0b019b9a1703ba836e9431143f4089a>>
+ * @codegen <<SignedSource::a9dcde4f05570f8c79135be7d66a0f34>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -15,8 +15,9 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
 /**
  * Icon: "Repeat".
  * Category: single-purpose
- * Location: @atlaskit/icon-lab
- * Usage guidance: Reserved for setting objects to recur (eg Work items, Forms)
+ * Location: @atlaskit/icon-lab/core/repeat
+ * Usage guidance:
+ * Reserved for setting objects to recur (eg Work items, Forms)
  * - [Examples](https://atlaskit.atlassian.com/packages/design-system/icon)
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */

@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::1f21f762619c06084dbf6ff4818edd86>>
+ * @codegen <<SignedSource::8d4ca9a93d06304820700fb2b508ca78>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -15,8 +15,9 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
 /**
  * Icon: "DistributeSpacingHorizontal".
  * Category: single-purpose
- * Location: @atlaskit/icon-lab
- * Usage guidance: Evenly distributing the horizontal space between multiple selected objects on Whiteboards
+ * Location: @atlaskit/icon-lab/core/distribute-spacing-horizontal
+ * Usage guidance:
+ * Evenly distributing the horizontal space between multiple selected objects on Whiteboards
  * - [Examples](https://atlaskit.atlassian.com/packages/design-system/icon)
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */

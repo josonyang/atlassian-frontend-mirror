@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::237648e8ae3dc5897d60a8003a48ca40>>
+ * @codegen <<SignedSource::5324293664b9e74debfe074fe8d4a7c1>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -15,8 +15,9 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
 /**
  * Icon: "PersonAssignee".
  * Category: single-purpose
- * Location: @atlaskit/icon-lab
- * Usage guidance: Reserved for representing assignees or assigning work to an individual.
+ * Location: @atlaskit/icon-lab/core/person-assignee
+ * Usage guidance:
+ * Reserved for representing assignees or assigning work to an individual.
  * - [Examples](https://atlaskit.atlassian.com/packages/design-system/icon)
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */

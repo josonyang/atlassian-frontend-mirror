@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::19891f19d4d7ba111133d00ffc3ed298>>
+ * @codegen <<SignedSource::d14e7572c9a581bb4bce1647837768d2>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -15,8 +15,9 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
 /**
  * Icon: "Wallet".
  * Category: multi-purpose
- * Location: @atlaskit/icon-lab
- * Usage guidance: Multi purpose
+ * Location: @atlaskit/icon-lab/core/wallet
+ * Usage guidance:
+ * Multi purpose
  * - [Examples](https://atlaskit.atlassian.com/packages/design-system/icon)
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */

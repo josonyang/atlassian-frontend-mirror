@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::f356fd6a3e582f9b9b8effd0e1468b63>>
+ * @codegen <<SignedSource::2751d8c610dc76fac1d47fadacc24558>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -15,8 +15,9 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
 /**
  * Icon: "MilestoneOverdue".
  * Category: single-purpose
- * Location: @atlaskit/icon-lab
- * Usage guidance: Reserved for representing an overdue milestone.
+ * Location: @atlaskit/icon-lab/core/milestone-overdue
+ * Usage guidance:
+ * Reserved for representing an overdue milestone.
  * - [Examples](https://atlaskit.atlassian.com/packages/design-system/icon)
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */

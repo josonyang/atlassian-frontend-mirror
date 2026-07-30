@@ -2,7 +2,6 @@ import { createElement } from 'react';
 
 import { bind } from 'bind-event-listener';
 import type { UnbindFn } from 'bind-event-listener';
-import ReactDOM from 'react-dom';
 import type { IntlShape } from 'react-intl';
 // eslint-disable-next-line @atlaskit/platform/prefer-crypto-random-uuid -- Use crypto.randomUUID instead
 import uuid from 'uuid';
@@ -21,6 +20,7 @@ import { ACTIVE_DRAG_HANDLE_ATTR } from '../ui/consts';
 import { DragHandle, DragHandleWithVisibility } from '../ui/drag-handle';
 
 import { TYPE_HANDLE_DEC, TYPE_NODE_DEC, unmountDecorations } from './decorations-common';
+import { renderToMountPoint } from './react-root-registry';
 import type { AnchorRectCache } from './utils/anchor-utils';
 import { getMatchingBlockMarks } from './utils/marks';
 
@@ -212,7 +212,7 @@ export const dragHandleDecoration = ({
 			// 	);
 
 			if (editorExperiment('platform_editor_controls', 'variant1')) {
-				ReactDOM.render(
+				renderToMountPoint(
 					createElement(DragHandleWithVisibility, {
 						view,
 						api,
@@ -227,7 +227,7 @@ export const dragHandleDecoration = ({
 					element,
 				);
 			} else {
-				ReactDOM.render(
+				renderToMountPoint(
 					createElement(DragHandle, {
 						view,
 						api,

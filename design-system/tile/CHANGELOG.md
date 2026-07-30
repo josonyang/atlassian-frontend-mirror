@@ -1,5 +1,51 @@
 # @atlaskit/tile
 
+## 3.0.0
+
+### Major Changes
+
+- [`6eda34cb9c42f`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/6eda34cb9c42f) -
+  Apply Volt entry-point and multi-export standards via `volt-migrate-package`. This is a **major**
+  change to `@atlaskit/tile`: the package `exports` map has been restructured so every public
+  subpath now resolves **directly** to its `./src/*` implementation instead of going through an
+  intermediate `./src/entry-points/*` re-export. No public subpaths were removed.
+
+  ### Why this is breaking
+
+  Because each subpath now points straight at its implementation module, a subpath and the package
+  root can resolve to the **same module instance**. Consumers that deep-import the internal
+  `entry-points/*` files, or that `jest.mock()` a specific subpath, may observe changed
+  resolution/behaviour and need updating.
+
+  ### Migration — public imports are unchanged
+
+  Importing the published subpaths (or the package root) continues to work as before:
+
+  ```ts
+  // Still valid — no change required
+  import Tile from '@atlaskit/tile/tile';
+  ```
+
+  If you were reaching into the internal entry-point modules, switch to the public subpath:
+
+  ```diff
+  -import Tile from '@atlaskit/tile/entry-points/tile';
+  +import Tile from '@atlaskit/tile/tile';
+  ```
+
+  ### Before / after `exports` map
+
+  ```diff
+    "exports": {
+      ".": "./src/index.tsx",
+      "./skeleton": "./src/entry-points/skeleton.tsx",
+  -   "./tile": "./src/entry-points/tile.tsx",
+  +   "./tile": "./src/tile.tsx",
+  -   "./types": "./src/entry-points/types.tsx",
+  +   "./types": "./src/types.tsx",
+    }
+  ```
+
 ## 2.3.1
 
 ### Patch Changes

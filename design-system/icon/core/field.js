@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::663e27e9cbfa2b4d992cb1e55c9c3afb>>
+ * @codegen <<SignedSource::268323681afb5c6318c6a3e2103073e6>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -15,8 +15,9 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
 /**
  * Icon: "Field".
  * Category: multi-purpose
- * Location: @atlaskit/icon
- * Usage guidance: Multi purpose - Known usages: Field suggestions provided by Atlassian Intelligence.
+ * Location: @atlaskit/icon/core/field
+ * Usage guidance:
+ * Multi purpose - Known usages: Field suggestions provided by Atlassian Intelligence.
  * - [Examples](https://atlaskit.atlassian.com/packages/design-system/icon)
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */

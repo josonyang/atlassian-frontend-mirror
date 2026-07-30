@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::5d8d971bf9def65ea3fd98a53d2a797b>>
+ * @codegen <<SignedSource::d0fdfdae0d4d1dbd52f0a0a21794255a>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -15,8 +15,9 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
 /**
  * Icon: "Branch".
  * Category: single-purpose
- * Location: @atlaskit/icon
- * Usage guidance: Single purpose - Reserved for branches in Bitbucket and Jira.
+ * Location: @atlaskit/icon/core/branch
+ * Usage guidance:
+ * Single purpose - Reserved for branches in Bitbucket and Jira.
  * - [Examples](https://atlaskit.atlassian.com/packages/design-system/icon)
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */

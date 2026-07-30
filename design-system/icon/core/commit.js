@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::6ab489d2a38e8a0acc1962f05ff04e40>>
+ * @codegen <<SignedSource::5782c4706f55fc770807e0ccaf0f3831>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -15,8 +15,9 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
 /**
  * Icon: "Commit".
  * Category: single-purpose
- * Location: @atlaskit/icon
- * Usage guidance: Single purpose - Reserved for commits in Jira or Bitbucket.
+ * Location: @atlaskit/icon/core/commit
+ * Usage guidance:
+ * Single purpose - Reserved for commits in Jira or Bitbucket.
  * - [Examples](https://atlaskit.atlassian.com/packages/design-system/icon)
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */

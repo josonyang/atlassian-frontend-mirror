@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::bd5e4c6502b43556d5112a6259790ae3>>
+ * @codegen <<SignedSource::bc2ef782f0a17a40e50cbc1915eccfe4>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -15,8 +15,9 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
 /**
  * Icon: "VideoTimelineClipInsertPlayhead".
  * Category: single-purpose
- * Location: @atlaskit/icon-lab
- * Usage guidance: Reserved for inserting a clip at the playhead position of the video timeline in Loom.
+ * Location: @atlaskit/icon-lab/core/video-timeline-clip-insert-playhead
+ * Usage guidance:
+ * Reserved for inserting a clip at the playhead position of the video timeline in Loom.
  * - [Examples](https://atlaskit.atlassian.com/packages/design-system/icon)
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */

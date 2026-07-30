@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::7793ff30c9ad94db80257cd49bd8132f>>
+ * @codegen <<SignedSource::df41cc4d70a30093af7801a73c08281c>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -15,8 +15,9 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
 /**
  * Icon: "CheckCircleUnchecked".
  * Category: multi-purpose
- * Location: @atlaskit/icon
- * Usage guidance: Known uses: Incomplete items
+ * Location: @atlaskit/icon/core/check-circle-unchecked
+ * Usage guidance:
+ * Known uses: Incomplete items
  * - [Examples](https://atlaskit.atlassian.com/packages/design-system/icon)
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */

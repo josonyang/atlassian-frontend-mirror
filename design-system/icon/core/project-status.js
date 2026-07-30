@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::5d69f10d971c4564037b12f5bf41e56a>>
+ * @codegen <<SignedSource::798e2bc618348b9cf0450d3a3e1793b1>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -15,8 +15,9 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
 /**
  * Icon: "ProjectStatus".
  * Category: single-purpose
- * Location: @atlaskit/icon
- * Usage guidance: Reserved for representing project status in Atlassian Home.
+ * Location: @atlaskit/icon/core/project-status
+ * Usage guidance:
+ * Reserved for representing project status in Atlassian Home.
  * - [Examples](https://atlaskit.atlassian.com/packages/design-system/icon)
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */

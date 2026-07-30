@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::c44ca3af5d99d99573761123bc1c1f79>>
+ * @codegen <<SignedSource::eb6a2be77562ca7b9d4a7ef228c56aab>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -15,8 +15,9 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
 /**
  * Icon: "Calendar".
  * Category: multi-purpose
- * Location: @atlaskit/icon
- * Usage guidance: Multi purpose - Known uses: date metadata, date input field, calendar view, jira status.
+ * Location: @atlaskit/icon/core/calendar
+ * Usage guidance:
+ * Multi purpose - Known uses: date metadata, date input field, calendar view, jira status.
  * - [Examples](https://atlaskit.atlassian.com/packages/design-system/icon)
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */

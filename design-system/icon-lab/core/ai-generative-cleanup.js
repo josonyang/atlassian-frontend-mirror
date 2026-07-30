@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::e145ebbd6eaf2e0b8e4930467ce4a33d>>
+ * @codegen <<SignedSource::2d230dc9ab962e8b83fe82dda866afb2>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -15,8 +15,9 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
 /**
  * Icon: "AiGenerativeCleanup".
  * Category: single-purpose
- * Location: @atlaskit/icon-lab
- * Usage guidance: Reserved for automated cleanup and tidy functionality
+ * Location: @atlaskit/icon-lab/core/ai-generative-cleanup
+ * Usage guidance:
+ * Reserved for automated cleanup and tidy functionality
  * - [Examples](https://atlaskit.atlassian.com/packages/design-system/icon)
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */

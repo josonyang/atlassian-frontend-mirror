@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::abbb31b853ca8cce5f1e04df42b49218>>
+ * @codegen <<SignedSource::edae6e461d2d27dca5304328c914086d>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -15,8 +15,9 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
 /**
  * Icon: "ApprovalStart".
  * Category: single-purpose
- * Location: @atlaskit/icon-lab
- * Usage guidance: Reserved for indicating content that is entering into an approval workflow.
+ * Location: @atlaskit/icon-lab/core/approval-start
+ * Usage guidance:
+ * Reserved for indicating content that is entering into an approval workflow.
  * - [Examples](https://atlaskit.atlassian.com/packages/design-system/icon)
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */

@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::377c8bcd43f8b7193395b89e37187d5f>>
+ * @codegen <<SignedSource::a18cf004eafb0a9a00ba1c5b30fbbffb>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -15,8 +15,9 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
 /**
  * Icon: "VideoPlayOverlay".
  * Category: single-purpose
- * Location: @atlaskit/icon
- * Usage guidance: Single purpose - Reserved for play video when icon is overlayed on Media.
+ * Location: @atlaskit/icon/core/video-play-overlay
+ * Usage guidance:
+ * Single purpose - Reserved for play video when icon is overlayed on Media.
  * - [Examples](https://atlaskit.atlassian.com/packages/design-system/icon)
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */

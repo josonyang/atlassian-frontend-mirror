@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::edf8f228a4cfb403dd519179d58cb609>>
+ * @codegen <<SignedSource::b72bafb35474e304e72e552811c2d9ca>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -15,8 +15,9 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
 /**
  * Icon: "Studio".
  * Category: single-purpose
- * Location: @atlaskit/icon-lab
- * Usage guidance: Reserved for functional representation of Atlassian Studio
+ * Location: @atlaskit/icon-lab/core/studio
+ * Usage guidance:
+ * Reserved for functional representation of Atlassian Studio
  * - [Examples](https://atlaskit.atlassian.com/packages/design-system/icon)
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */

@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::82d552d61ccd8c1190c5c2c0bad87309>>
+ * @codegen <<SignedSource::6e112a62be5bd8d1f06680fabda61649>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -15,8 +15,9 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
 /**
  * Icon: "TextAdjustLength".
  * Category: single-purpose
- * Location: @atlaskit/icon-lab
- * Usage guidance: Reserved for accessing text length generative AI actions.
+ * Location: @atlaskit/icon-lab/core/text-adjust-length
+ * Usage guidance:
+ * Reserved for accessing text length generative AI actions.
  * - [Examples](https://atlaskit.atlassian.com/packages/design-system/icon)
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */

@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::3446c4b9f016ffc18d694d0a3b47048c>>
+ * @codegen <<SignedSource::e72daf2989fbd6b4c1fbd54df8359e6c>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -15,7 +15,7 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
 /**
  * Icon: "Fire".
  * Category: multi-purpose
- * Location: @atlaskit/icon-lab
+ * Location: @atlaskit/icon-lab/core/fire
  * - [Examples](https://atlaskit.atlassian.com/packages/design-system/icon)
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */

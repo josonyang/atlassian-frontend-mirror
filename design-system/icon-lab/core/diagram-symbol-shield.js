@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::b3ec7de3d5d3b7ba5ed3a0dd9166ed9f>>
+ * @codegen <<SignedSource::4c45f1ab1c0c3029caccad987e4e3123>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -15,8 +15,9 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
 /**
  * Icon: "DiagramSymbolShield".
  * Category: single-purpose
- * Location: @atlaskit/icon-lab
- * Usage guidance: Reserved for shield diagram symbol in Whiteboards.
+ * Location: @atlaskit/icon-lab/core/diagram-symbol-shield
+ * Usage guidance:
+ * Reserved for shield diagram symbol in Whiteboards.
  * - [Examples](https://atlaskit.atlassian.com/packages/design-system/icon)
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */

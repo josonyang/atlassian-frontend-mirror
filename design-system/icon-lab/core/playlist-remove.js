@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::9b025e88f545a176f0bf73d94d1b7152>>
+ * @codegen <<SignedSource::8c6a1003fec5b035827640b9ca1bee45>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -15,8 +15,9 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
 /**
  * Icon: "PlaylistRemove".
  * Category: single-purpose
- * Location: @atlaskit/icon-lab
- * Usage guidance: Represents the action for removing things from the playlist feature.
+ * Location: @atlaskit/icon-lab/core/playlist-remove
+ * Usage guidance:
+ * Represents the action for removing things from the playlist feature.
  * - [Examples](https://atlaskit.atlassian.com/packages/design-system/icon)
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */

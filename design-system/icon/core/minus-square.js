@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::c413b7591501ee747106c004a623bf0d>>
+ * @codegen <<SignedSource::8617cb45145f1ee4e556296553c23585>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -15,8 +15,9 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
 /**
  * Icon: "MinusSquare".
  * Category: multi-purpose
- * Location: @atlaskit/icon
- * Usage guidance: Known usages: 'Remove feature' work type.
+ * Location: @atlaskit/icon/core/minus-square
+ * Usage guidance:
+ * Known usages: 'Remove feature' work type.
  * - [Examples](https://atlaskit.atlassian.com/packages/design-system/icon)
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */

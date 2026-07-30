@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::01a498f3617833e0d338d77640038247>>
+ * @codegen <<SignedSource::3e8284b8febeb78b53d6c588193560d3>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -15,9 +15,10 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
 /**
  * Icon: "Warning".
  * Category: single-purpose
- * Location: @atlaskit/icon
- * Usage guidance: Reserved for warning statuses.
-Filled status icons provide higher visual contrast to draw attention to important information.
+ * Location: @atlaskit/icon/core/warning
+ * Usage guidance:
+ * Reserved for warning statuses.
+ * Filled status icons provide higher visual contrast to draw attention to important information.
  * - [Examples](https://atlaskit.atlassian.com/packages/design-system/icon)
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */

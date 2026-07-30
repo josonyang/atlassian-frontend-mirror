@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::f1c30d577c7234bb5109e7b6cea91ee6>>
+ * @codegen <<SignedSource::201a66beeefcbbe6d775fa5bfb864539>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -15,8 +15,9 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
 /**
  * Icon: "Emoji".
  * Category: single-purpose
- * Location: @atlaskit/icon
- * Usage guidance: Single purpose - Reserved for Editor as a category for Emoji's.
+ * Location: @atlaskit/icon/core/emoji
+ * Usage guidance:
+ * Single purpose - Reserved for Editor as a category for Emoji's.
  * - [Examples](https://atlaskit.atlassian.com/packages/design-system/icon)
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */

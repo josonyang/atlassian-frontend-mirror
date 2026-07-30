@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::fc35d7011127658ef0b5408810ae194b>>
+ * @codegen <<SignedSource::6aab3342e6f56d05c74f4c5ff81cd089>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -15,8 +15,9 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
 /**
  * Icon: "EyeOpenStrikethrough".
  * Category: multi-purpose
- * Location: @atlaskit/icon
- * Usage guidance: Multi purpose - Intended uses: unwatch page in Confluence, hide password in text field, and unfollow in Atlas.
+ * Location: @atlaskit/icon/core/eye-open-strikethrough
+ * Usage guidance:
+ * Multi purpose - Intended uses: unwatch page in Confluence, hide password in text field, and unfollow in Atlas.
  * - [Examples](https://atlaskit.atlassian.com/packages/design-system/icon)
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */

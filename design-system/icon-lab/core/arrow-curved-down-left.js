@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::db9b6fd18b3af712cfe0c8c7cac18788>>
+ * @codegen <<SignedSource::1e568423ff411faf403527c5bbb3a119>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -15,7 +15,7 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
 /**
  * Icon: "ArrowCurvedDownLeft".
  * Category: multi-purpose
- * Location: @atlaskit/icon-lab
+ * Location: @atlaskit/icon-lab/core/arrow-curved-down-left
  * - [Examples](https://atlaskit.atlassian.com/packages/design-system/icon)
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */

@@ -30,6 +30,7 @@ export type ExtractActionsParam = {
 	fireEvent?: FireEventFunction;
 	id?: string;
 	isPreviewPanelAvailable?: (params: { ari: string }) => boolean;
+	isPreviewRestricted?: (params: { ari: string }) => boolean;
 	openPreviewPanel?: (params: {
 		ari: string;
 		iconUrl: string | undefined;
@@ -58,6 +59,7 @@ export const extractFlexibleCardActions = ({
 	transformUrl,
 	url,
 	isPreviewPanelAvailable,
+	isPreviewRestricted,
 	openPreviewPanel,
 }: ExtractActionsParam): FlexibleUiActions | undefined => {
 	const action = {
@@ -82,6 +84,7 @@ export const extractFlexibleCardActions = ({
 			origin,
 			response,
 			isPreviewPanelAvailable,
+			...(fg('preview_panel_unit_check') ? { isPreviewRestricted } : undefined),
 			openPreviewPanel,
 			...(fg('platform_smartlink_xpc_url_wrapping') ? { transformUrl } : undefined),
 		}),

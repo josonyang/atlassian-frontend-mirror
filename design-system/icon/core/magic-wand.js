@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::e8d104d01680a4874e0476b0a23060c4>>
+ * @codegen <<SignedSource::8a998752a1f9eb822928ac73b4c236d1>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -15,8 +15,9 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
 /**
  * Icon: "MagicWand".
  * Category: multi-purpose
- * Location: @atlaskit/icon
- * Usage guidance: Multi purpose
+ * Location: @atlaskit/icon/core/magic-wand
+ * Usage guidance:
+ * Multi purpose
  * - [Examples](https://atlaskit.atlassian.com/packages/design-system/icon)
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */

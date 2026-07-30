@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::1ffab839d7e0e2b3d2c27d56d3b6beaa>>
+ * @codegen <<SignedSource::641f4049c4de4eca9c893ab68b600d00>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -15,8 +15,9 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
 /**
  * Icon: "HardwareConfiguration".
  * Category: single-purpose
- * Location: @atlaskit/icon-lab
- * Usage guidance: Reserved for representing hardware configuration.
+ * Location: @atlaskit/icon-lab/core/hardware-configuration
+ * Usage guidance:
+ * Reserved for representing hardware configuration.
  * - [Examples](https://atlaskit.atlassian.com/packages/design-system/icon)
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */

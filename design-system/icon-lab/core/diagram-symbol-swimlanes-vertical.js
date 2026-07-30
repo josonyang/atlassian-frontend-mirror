@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::988aa4be234dd3a823fffaaa5ac51f73>>
+ * @codegen <<SignedSource::35ad2b5135e216426ac017df4e81eb2a>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -15,8 +15,9 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
 /**
  * Icon: "DiagramSymbolSwimlanesVertical".
  * Category: single-purpose
- * Location: @atlaskit/icon-lab
- * Usage guidance: Reserved for vertical swimlanes diagram symbol in Whiteboards.
+ * Location: @atlaskit/icon-lab/core/diagram-symbol-swimlanes-vertical
+ * Usage guidance:
+ * Reserved for vertical swimlanes diagram symbol in Whiteboards.
  * - [Examples](https://atlaskit.atlassian.com/packages/design-system/icon)
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */

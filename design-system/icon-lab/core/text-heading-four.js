@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::a0ec299c9d9d8293148b95b4eb4ef8e6>>
+ * @codegen <<SignedSource::38a395ef1316610d3a95f8df79c2ec77>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -15,8 +15,9 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
 /**
  * Icon: "TextHeadingFour".
  * Category: single-purpose
- * Location: @atlaskit/icon-lab
- * Usage guidance: Reserved for H4 / Heading 4 text style
+ * Location: @atlaskit/icon-lab/core/text-heading-four
+ * Usage guidance:
+ * Reserved for H4 / Heading 4 text style
  * - [Examples](https://atlaskit.atlassian.com/packages/design-system/icon)
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */

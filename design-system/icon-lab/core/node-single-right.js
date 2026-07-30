@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::59004f77b78024ffd56c5449faebb7b5>>
+ * @codegen <<SignedSource::42e1ee266104b7e6c74832fa5f1f0a22>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -15,8 +15,9 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
 /**
  * Icon: "NodeSingleRight".
  * Category: single-purpose
- * Location: @atlaskit/icon-lab
- * Usage guidance: Reserved for whiteboard’s node single-right
+ * Location: @atlaskit/icon-lab/core/node-single-right
+ * Usage guidance:
+ * Reserved for whiteboard’s node single-right
  * - [Examples](https://atlaskit.atlassian.com/packages/design-system/icon)
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */

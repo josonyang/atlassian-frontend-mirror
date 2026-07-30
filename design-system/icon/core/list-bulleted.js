@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::94ba737f8eb536b5803fd14d2e86416d>>
+ * @codegen <<SignedSource::efb8f5139240fae402384ecfa3fe1805>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -15,8 +15,9 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
 /**
  * Icon: "ListBulleted".
  * Category: multi-purpose
- * Location: @atlaskit/icon
- * Usage guidance: Multi purpose - Known uses: bulleted lists, view all.
+ * Location: @atlaskit/icon/core/list-bulleted
+ * Usage guidance:
+ * Multi purpose - Known uses: bulleted lists, view all.
  * - [Examples](https://atlaskit.atlassian.com/packages/design-system/icon)
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */

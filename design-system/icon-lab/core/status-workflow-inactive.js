@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::7384878a1e05f088c125c1af03abcde8>>
+ * @codegen <<SignedSource::8ed0fb165110a63c6319f833a950c575>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -15,8 +15,9 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
 /**
  * Icon: "StatusWorkflowInactive".
  * Category: single-purpose
- * Location: @atlaskit/icon-lab
- * Usage guidance: Reserved for representing statuses that indicate work or a process is in an inactive state
+ * Location: @atlaskit/icon-lab/core/status-workflow-inactive
+ * Usage guidance:
+ * Reserved for representing statuses that indicate work or a process is in an inactive state
  * - [Examples](https://atlaskit.atlassian.com/packages/design-system/icon)
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */

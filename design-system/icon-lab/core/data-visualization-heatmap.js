@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::a763c8dd712723c9d650695ac53e1be3>>
+ * @codegen <<SignedSource::505d0f4fdfe7177a0da23a0679cff8a4>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -15,8 +15,9 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
 /**
  * Icon: "DataVisualizationHeatmap".
  * Category: single-purpose
- * Location: @atlaskit/icon-lab
- * Usage guidance: Reserved for representing heatmap data visualizations.
+ * Location: @atlaskit/icon-lab/core/data-visualization-heatmap
+ * Usage guidance:
+ * Reserved for representing heatmap data visualizations.
  * - [Examples](https://atlaskit.atlassian.com/packages/design-system/icon)
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */

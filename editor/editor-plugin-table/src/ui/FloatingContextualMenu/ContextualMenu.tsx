@@ -28,6 +28,7 @@ import type { GetEditorContainerWidth, GetEditorFeatureFlags } from '@atlaskit/e
 import {
 	backgroundPaletteTooltipMessages,
 	cellBackgroundColorPalette,
+	cellBackgroundColorPaletteNew,
 	ColorPalette,
 	getSelectedRowAndColumnFromPalette,
 } from '@atlaskit/editor-common/ui-color';
@@ -53,6 +54,7 @@ import TableColumnDeleteIcon from '@atlaskit/icon/core/table-column-delete';
 import TableColumnsDistributeIcon from '@atlaskit/icon/core/table-columns-distribute';
 import TableRowAddBelowIcon from '@atlaskit/icon/core/table-row-add-below';
 import TableRowDeleteIcon from '@atlaskit/icon/core/table-row-delete';
+import { fg } from '@atlaskit/platform-feature-flags';
 // eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives -- to be migrated to @atlaskit/primitives/compiled – go/akcss
 import { Box, xcss } from '@atlaskit/primitives';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
@@ -86,7 +88,11 @@ import { getSelectedColumnIndexes, getSelectedRowIndexes } from '../../pm-plugin
 import { getMergedCellsPositions } from '../../pm-plugins/utils/table';
 import type { PluginInjectionAPI } from '../../types';
 import { TableCssClassName as ClassName } from '../../types';
-import { colorPalletteColumns, contextualMenuDropdownWidthDnD } from '../consts';
+import {
+	colorPaletteColumns,
+	colorPaletteColumnsOld,
+	contextualMenuDropdownWidthDnD,
+} from '../consts';
 
 import { cellColourPreviewStyles } from './styles';
 
@@ -273,12 +279,20 @@ export class ContextualMenu extends Component<Props & WrappedComponentProps, Sta
 			const node = isOpen && targetCellPosition ? state.doc.nodeAt(targetCellPosition) : null;
 			const background = hexToEditorBackgroundPaletteColor(node?.attrs?.background || '#ffffff');
 
+			const isMoreColorsEnabled =
+				expValEquals('platform_editor_lovability_text_bg_color', 'isEnabled', true) &&
+				fg('platform_editor_lovability_text_bg_color_patch_2');
+			const activePalette = isMoreColorsEnabled
+				? cellBackgroundColorPaletteNew
+				: cellBackgroundColorPalette;
+			const activeCols = isMoreColorsEnabled ? colorPaletteColumns : colorPaletteColumnsOld;
+
 			const selectedRowAndColumnFromPalette = getSelectedRowAndColumnFromPalette(
-				cellBackgroundColorPalette,
+				activePalette,
 				// Ignored via go/ees005
 				// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 				background!,
-				colorPalletteColumns,
+				activeCols,
 			);
 			const selectedRowIndex = selectedRowAndColumnFromPalette.selectedRowIndex;
 			const selectedColumnIndex = selectedRowAndColumnFromPalette.selectedColumnIndex;
@@ -331,12 +345,12 @@ export class ContextualMenu extends Component<Props & WrappedComponentProps, Sta
 									isOpenedByKeyboard={isCellMenuOpenByKeyboard!}
 								>
 									<ColorPalette
-										cols={7}
+										cols={activeCols}
 										onClick={this.setColor}
 										selectedColor={node?.attrs?.background || '#ffffff'}
 										// eslint-disable-next-line @atlassian/perf-linting/no-unstable-inline-props -- Ignored via go/ees017 (to be fixed)
 										paletteOptions={{
-											palette: cellBackgroundColorPalette,
+											palette: activePalette,
 											paletteColorTooltipMessages: backgroundPaletteTooltipMessages,
 											hexToPaletteColor: hexToEditorBackgroundPaletteColor,
 										}}

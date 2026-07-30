@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::334746b1094d253b91c3fed75cde6e6b>>
+ * @codegen <<SignedSource::38b7279cd087f4f41c353652c9ac82a7>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -15,8 +15,9 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
 /**
  * Icon: "TaskInProgress".
  * Category: single-purpose
- * Location: @atlaskit/icon
- * Usage guidance: Reserved for in progress task status. Used in JSM Calendar view.
+ * Location: @atlaskit/icon/core/task-in-progress
+ * Usage guidance:
+ * Reserved for in progress task status. Used in JSM Calendar view.
  * - [Examples](https://atlaskit.atlassian.com/packages/design-system/icon)
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */

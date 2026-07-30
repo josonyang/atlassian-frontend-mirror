@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::f344f95c9825310e9fccac7493ea14e3>>
+ * @codegen <<SignedSource::6fe2d9830c0de88aca7b15d9ae153116>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -15,8 +15,9 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
 /**
  * Icon: "Markdown".
  * Category: single-purpose
- * Location: @atlaskit/icon
- * Usage guidance: Reserved for representing the Markdown markup language.
+ * Location: @atlaskit/icon/core/markdown
+ * Usage guidance:
+ * Reserved for representing the Markdown markup language.
  * - [Examples](https://atlaskit.atlassian.com/packages/design-system/icon)
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */

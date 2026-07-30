@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::eb8ba74bc7f968e3347d9c83c15417ee>>
+ * @codegen <<SignedSource::570777efd818570465c22920c54b5aeb>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -15,8 +15,9 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
 /**
  * Icon: "TextHeadingThree".
  * Category: single-purpose
- * Location: @atlaskit/icon-lab
- * Usage guidance: Reserved for H3 / Heading 3 text style
+ * Location: @atlaskit/icon-lab/core/text-heading-three
+ * Usage guidance:
+ * Reserved for H3 / Heading 3 text style
  * - [Examples](https://atlaskit.atlassian.com/packages/design-system/icon)
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */

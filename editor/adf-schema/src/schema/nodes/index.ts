@@ -124,6 +124,7 @@ export {
 	toJSONTableHeader,
 	tableRow,
 	tableBackgroundColorPalette,
+	tableBackgroundColorPaletteNew,
 	tableBackgroundBorderColor,
 	tableBackgroundColorNames,
 	getCellAttrs,

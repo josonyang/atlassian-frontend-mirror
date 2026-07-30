@@ -1,5 +1,18 @@
 # @atlaskit/icon
 
+## 37.2.2
+
+### Patch Changes
+
+- Updated dependencies
+
+## 37.2.1
+
+### Patch Changes
+
+- [`edeb4ec55e98c`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/edeb4ec55e98c) -
+  Remove `ts-node` dependency. Regenerate icon glypths.
+
 ## 37.2.0
 
 ### Minor Changes

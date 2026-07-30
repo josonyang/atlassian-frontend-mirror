@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::daf8e8a19e811662a8c9e12aaf7a27e5>>
+ * @codegen <<SignedSource::1b435dd954afd1e80196be402a3e50de>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -15,8 +15,9 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
 /**
  * Icon: "ShapeParallelogramSkewLeft".
  * Category: multi-purpose
- * Location: @atlaskit/icon-lab
- * Usage guidance: Left parallelogram shape tool in Whiteboards
+ * Location: @atlaskit/icon-lab/core/shape-parallelogram-skew-left
+ * Usage guidance:
+ * Left parallelogram shape tool in Whiteboards
  * - [Examples](https://atlaskit.atlassian.com/packages/design-system/icon)
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */

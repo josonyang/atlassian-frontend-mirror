@@ -46,6 +46,7 @@ export function SmartCardProvider({
 	product,
 	shouldControlDataExport,
 	isPreviewPanelAvailable,
+	isPreviewRestricted,
 	openPreviewPanel,
 	rovoOptions,
 	xpcProduct,
@@ -154,6 +155,7 @@ export function SmartCardProvider({
 			product,
 			shouldControlDataExport,
 			isPreviewPanelAvailable,
+			...(fg('preview_panel_unit_check') ? { isPreviewRestricted } : undefined),
 			openPreviewPanel,
 			rovoOptions,
 			xpcProduct,
@@ -165,6 +167,7 @@ export function SmartCardProvider({
 		client,
 		isAdminHubAIEnabled,
 		isPreviewPanelAvailable,
+		isPreviewRestricted,
 		openPreviewPanel,
 		product,
 		renderers,
@@ -176,8 +179,13 @@ export function SmartCardProvider({
 	]);
 
 	const value = useMemo(
-		() => merge({}, parentContext || providerValue, { isPreviewPanelAvailable, openPreviewPanel }),
-		[parentContext, providerValue, isPreviewPanelAvailable, openPreviewPanel],
+		() =>
+			merge({}, parentContext || providerValue, {
+				isPreviewPanelAvailable,
+				...(fg('preview_panel_unit_check') ? { isPreviewRestricted } : undefined),
+				openPreviewPanel,
+			}),
+		[parentContext, providerValue, isPreviewPanelAvailable, isPreviewRestricted, openPreviewPanel],
 	);
 
 	return <SmartCardContext.Provider value={value}>{children}</SmartCardContext.Provider>;

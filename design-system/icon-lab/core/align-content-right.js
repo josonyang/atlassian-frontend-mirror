@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::3775cc35df4d5da2326de67d017b6ad2>>
+ * @codegen <<SignedSource::ea6b738faf5c1030a3b9fe8df4e55828>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -15,8 +15,9 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
 /**
  * Icon: "AlignContentRight".
  * Category: multi-purpose
- * Location: @atlaskit/icon-lab
- * Usage guidance: Used for aligning right edges of content in Whiteboards
+ * Location: @atlaskit/icon-lab/core/align-content-right
+ * Usage guidance:
+ * Used for aligning right edges of content in Whiteboards
  * - [Examples](https://atlaskit.atlassian.com/packages/design-system/icon)
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */

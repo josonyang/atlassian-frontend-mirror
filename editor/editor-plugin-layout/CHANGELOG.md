@@ -1,5 +1,27 @@
 # @atlaskit/editor-plugin-layout
 
+## 13.5.0
+
+### Minor Changes
+
+- [`9425f3fa081e4`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/9425f3fa081e4) -
+  Fix nested content selection inside layouts
+
+### Patch Changes
+
+- Updated dependencies
+
+## 13.4.0
+
+### Minor Changes
+
+- [`51c33ef5349b6`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/51c33ef5349b6) -
+  Enable compatibility with React 19.2.0
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 13.3.24
 
 ### Patch Changes

@@ -1,4 +1,10 @@
-import { getEmojiAcName, hexToRgb, tableBackgroundColorPalette } from '@atlaskit/adf-schema';
+import { getEmojiAcName, hexToRgb } from '@atlaskit/adf-schema';
+import {
+	tableBackgroundColorPalette,
+	tableBackgroundColorPaletteNew,
+} from '@atlaskit/adf-schema/tableNodes';
+import { fg } from '@atlaskit/platform-feature-flags';
+import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import type {
 	MediaAttributes,
 	RichMediaAttributes as MediaSingleAttributes,
@@ -183,7 +189,13 @@ export default function encode(node: PMNode, schema: Schema): string {
 				if (background) {
 					cellElement.setAttribute(
 						'data-highlight-colour',
-						(tableBackgroundColorPalette.get(background.toLowerCase()) || background).toLowerCase(),
+						(
+							(expValEquals('platform_editor_lovability_text_bg_color', 'isEnabled', true) &&
+							fg('platform_editor_lovability_text_bg_color_patch_2')
+								? tableBackgroundColorPaletteNew
+								: tableBackgroundColorPalette
+							).get(background.toLowerCase()) || background
+						).toLowerCase(),
 					);
 				}
 

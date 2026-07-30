@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::0011c4891fc889484d743349f095b128>>
+ * @codegen <<SignedSource::e9a03a501eccc54cb9aebee6dc0d767d>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -15,8 +15,9 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
 /**
  * Icon: "Calculate".
  * Category: single-purpose
- * Location: @atlaskit/icon-lab
- * Usage guidance: Calculate for databases
+ * Location: @atlaskit/icon-lab/core/calculate
+ * Usage guidance:
+ * Calculate for databases
  * - [Examples](https://atlaskit.atlassian.com/packages/design-system/icon)
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */

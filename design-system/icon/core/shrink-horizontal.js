@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::2fe612b077f89273578622d0011caa3a>>
+ * @codegen <<SignedSource::5a0725824d70e7f1c562f41ccd65e430>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -15,8 +15,9 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
 /**
  * Icon: "ShrinkHorizontal".
  * Category: single-purpose
- * Location: @atlaskit/icon
- * Usage guidance: Single purpose - Reserved for contracting or reducing the width of an element.
+ * Location: @atlaskit/icon/core/shrink-horizontal
+ * Usage guidance:
+ * Single purpose - Reserved for contracting or reducing the width of an element.
  * - [Examples](https://atlaskit.atlassian.com/packages/design-system/icon)
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */

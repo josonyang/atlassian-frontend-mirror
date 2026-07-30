@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::fa6f10a9a1e6f11b67fe9bba8cb46c90>>
+ * @codegen <<SignedSource::609a94a035fe4401d5f752267cea0ef8>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -15,8 +15,9 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
 /**
  * Icon: "Feed".
  * Category: single-purpose
- * Location: @atlaskit/icon
- * Usage guidance: Single purpose - Reserved for update feeds in Atlassian Home.
+ * Location: @atlaskit/icon/core/feed
+ * Usage guidance:
+ * Single purpose - Reserved for update feeds in Atlassian Home.
  * - [Examples](https://atlaskit.atlassian.com/packages/design-system/icon)
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */

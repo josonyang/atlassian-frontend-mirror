@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::d4892c276b5463761a4363f071816684>>
+ * @codegen <<SignedSource::df859d5951d13a3bbd9d487ed8db4f14>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -15,8 +15,9 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
 /**
  * Icon: "TextStrikethrough".
  * Category: single-purpose
- * Location: @atlaskit/icon
- * Usage guidance: Reserved for strikethrough text tool
+ * Location: @atlaskit/icon/core/text-strikethrough
+ * Usage guidance:
+ * Reserved for strikethrough text tool
  * - [Examples](https://atlaskit.atlassian.com/packages/design-system/icon)
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */

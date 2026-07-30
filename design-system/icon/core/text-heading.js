@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::1f79579b5d3a5b9463f7319fcb75a93f>>
+ * @codegen <<SignedSource::9cdafa8c71f0195fc1f3c4d4122800b4>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -15,8 +15,9 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
 /**
  * Icon: "TextHeading".
  * Category: single-purpose
- * Location: @atlaskit/icon
- * Usage guidance: Reserved for representing heading styles
+ * Location: @atlaskit/icon/core/text-heading
+ * Usage guidance:
+ * Reserved for representing heading styles
  * - [Examples](https://atlaskit.atlassian.com/packages/design-system/icon)
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */

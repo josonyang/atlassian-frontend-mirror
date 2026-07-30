@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::63d9932361b81d6cef1fdc11a53c1ac8>>
+ * @codegen <<SignedSource::78ff83376a5b9d898cb9e50246edf357>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -15,8 +15,9 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
 /**
  * Icon: "VideoRewindOverlay".
  * Category: single-purpose
- * Location: @atlaskit/icon-lab
- * Usage guidance: Reserved for rewinding media and representing rewind diagram symbol.
+ * Location: @atlaskit/icon-lab/core/video-rewind-overlay
+ * Usage guidance:
+ * Reserved for rewinding media and representing rewind diagram symbol.
  * - [Examples](https://atlaskit.atlassian.com/packages/design-system/icon)
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */

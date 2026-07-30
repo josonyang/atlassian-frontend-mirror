@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::70b9741ad9932f24476514185e4e0849>>
+ * @codegen <<SignedSource::4aa9254a71ca21a0d659a190aa5340eb>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -15,8 +15,9 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
 /**
  * Icon: "VideoTimelineClipInsertStart".
  * Category: single-purpose
- * Location: @atlaskit/icon-lab
- * Usage guidance: Reserved for inserting a clip at the beginning of the video timeline in Loom.
+ * Location: @atlaskit/icon-lab/core/video-timeline-clip-insert-start
+ * Usage guidance:
+ * Reserved for inserting a clip at the beginning of the video timeline in Loom.
  * - [Examples](https://atlaskit.atlassian.com/packages/design-system/icon)
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */

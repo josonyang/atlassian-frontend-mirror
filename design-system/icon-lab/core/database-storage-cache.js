@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::8d27f2ef07d821a925d5c0e3c038f5f0>>
+ * @codegen <<SignedSource::7ae415ba20616e9b2cc9d8518f5209c9>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -15,8 +15,9 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
 /**
  * Icon: "DatabaseStorageCache".
  * Category: multi-purpose
- * Location: @atlaskit/icon-lab
- * Usage guidance: Known uses: Storage cache in Developer Console.
+ * Location: @atlaskit/icon-lab/core/database-storage-cache
+ * Usage guidance:
+ * Known uses: Storage cache in Developer Console.
  * - [Examples](https://atlaskit.atlassian.com/packages/design-system/icon)
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */

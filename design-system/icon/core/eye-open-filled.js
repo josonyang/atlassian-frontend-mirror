@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::5543a1bcdfd8c47fe735784b0d385448>>
+ * @codegen <<SignedSource::8597222b6b414a4b1fc500f20a14a6bf>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -15,8 +15,9 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
 /**
  * Icon: "EyeOpenFilled".
  * Category: multi-purpose
- * Location: @atlaskit/icon
- * Usage guidance: Multi purpose - Known uses: watched pages in Confluence.
+ * Location: @atlaskit/icon/core/eye-open-filled
+ * Usage guidance:
+ * Multi purpose - Known uses: watched pages in Confluence.
  * - [Examples](https://atlaskit.atlassian.com/packages/design-system/icon)
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */

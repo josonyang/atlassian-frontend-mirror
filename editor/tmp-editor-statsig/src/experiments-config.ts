@@ -53,6 +53,13 @@ export type ExperimentDefaultValue<ExperimentName extends keyof EditorExperiment
  * existing experiments.
  */
 export const editorExperimentsConfig: {
+	// Added 2026-07-28
+	platform_editor_table_css_overflow_shadow: {
+		defaultValue: boolean;
+		param: string;
+		productKeys?: ProductKeys;
+		typeGuard: IsBooleanType;
+	};
 	// Added 2026-07-24
 	platform_editor_layout_column_delete_shortcut_fix: {
 		defaultValue: boolean;
@@ -612,6 +619,13 @@ export const editorExperimentsConfig: {
 	};
 	// Added 2026-04-23
 	'cc-markdown-mode': {
+		defaultValue: boolean;
+		param: string;
+		productKeys?: ProductKeys;
+		typeGuard: IsBooleanType;
+	};
+	// Added 2026-07-28
+	platform_editor_paste_as_md_use_gfm: {
 		defaultValue: boolean;
 		param: string;
 		productKeys?: ProductKeys;
@@ -1233,6 +1247,13 @@ export const editorExperimentsConfig: {
 		productKeys?: ProductKeys;
 		typeGuard: IsBooleanType;
 	};
+	// Added 2026-07-29
+	platform_editor_layout_column_selection_fix: {
+		defaultValue: boolean;
+		param: string;
+		productKeys?: ProductKeys;
+		typeGuard: IsBooleanType;
+	};
 	// Added 2026-06-15
 	platform_editor_layout_column_valign_rendering: {
 		defaultValue: boolean;
@@ -1339,6 +1360,20 @@ export const editorExperimentsConfig: {
 	};
 	// Added 2026-07-24
 	cc_maui_polish_changes_batch_2: {
+		defaultValue: boolean;
+		param: string;
+		productKeys?: ProductKeys;
+		typeGuard: IsBooleanType;
+	};
+	// Added 2026-07-29
+	cc_maui_polish_changes_batch_3: {
+		defaultValue: boolean;
+		param: string;
+		productKeys?: ProductKeys;
+		typeGuard: IsBooleanType;
+	};
+	// Added 2026-07-29
+	cc_maui_polish_changes_batch_4: {
 		defaultValue: boolean;
 		param: string;
 		productKeys?: ProductKeys;
@@ -1999,6 +2034,13 @@ export const editorExperimentsConfig: {
 		productKeys?: ProductKeys;
 		typeGuard: IsBooleanType;
 	};
+	// Added 2026-07-24
+	platform_editor_nest_expand_in_panel: {
+		defaultValue: boolean;
+		param: string;
+		productKeys?: ProductKeys;
+		typeGuard: IsBooleanType;
+	};
 	// Added 2026-05-20
 	platform_rovo_support_create_inline_comment: {
 		defaultValue: boolean;
@@ -2223,6 +2265,16 @@ export const editorExperimentsConfig: {
 	cc_maui_remix_button_hover_corridor: createBooleanExperiment({
 		productKeys: {
 			confluence: 'cc_maui_remix_button_hover_corridor',
+		},
+		param: 'isEnabled',
+		defaultValue: false,
+	}),
+
+	// Added 2026-07-28
+	platform_editor_table_css_overflow_shadow: createBooleanExperiment({
+		productKeys: {
+			confluence: 'platform_editor_table_css_overflow_shadow',
+			jira: 'platform_editor_table_css_overflow_shadow',
 		},
 		param: 'isEnabled',
 		defaultValue: false,
@@ -3670,6 +3722,22 @@ export const editorExperimentsConfig: {
 		param: 'isEnabled',
 		defaultValue: false,
 	}),
+	// Added 2026-07-29
+	cc_maui_polish_changes_batch_3: createBooleanExperiment({
+		productKeys: {
+			confluence: 'cc_maui_polish_changes_batch_3',
+		},
+		param: 'isEnabled',
+		defaultValue: false,
+	}),
+	// Added 2026-07-29
+	cc_maui_polish_changes_batch_4: createBooleanExperiment({
+		productKeys: {
+			confluence: 'cc_maui_polish_changes_batch_4',
+		},
+		param: 'isEnabled',
+		defaultValue: false,
+	}),
 	// Added 2026-03-05
 	'cc-mui-slides-experiment': createBooleanExperiment({
 		productKeys: {
@@ -4100,6 +4168,14 @@ export const editorExperimentsConfig: {
 		param: 'isEnabled',
 		defaultValue: false,
 	}),
+	// Added 2026-07-28
+	platform_editor_paste_as_md_use_gfm: createBooleanExperiment({
+		productKeys: {
+			confluence: 'platform_editor_paste_as_md_use_gfm',
+		},
+		param: 'isEnabled',
+		defaultValue: false,
+	}),
 	// Added 2026-03-30
 	platform_editor_ai_xstate_migration: createBooleanExperiment({
 		productKeys: {
@@ -4152,6 +4228,15 @@ export const editorExperimentsConfig: {
 	platform_editor_layout_column_menu: createBooleanExperiment({
 		productKeys: {
 			confluence: 'platform_editor_layout_column_menu',
+		},
+		param: 'isEnabled',
+		defaultValue: false,
+	}),
+	// Added 2026-07-29
+	platform_editor_layout_column_selection_fix: createBooleanExperiment({
+		productKeys: {
+			confluence: 'platform_editor_layout_column_selection_fix',
+			jira: 'platform_editor_layout_column_selection_fix',
 		},
 		param: 'isEnabled',
 		defaultValue: false,
@@ -4477,6 +4562,14 @@ export const editorExperimentsConfig: {
 	platform_editor_nest_table_in_panel: createBooleanExperiment({
 		productKeys: {
 			confluence: 'platform_editor_nest_table_in_panel',
+		},
+		param: 'isEnabled',
+		defaultValue: false,
+	}),
+	// Added 2026-07-24
+	platform_editor_nest_expand_in_panel: createBooleanExperiment({
+		productKeys: {
+			confluence: 'platform_editor_nest_expand_in_panel',
 		},
 		param: 'isEnabled',
 		defaultValue: false,

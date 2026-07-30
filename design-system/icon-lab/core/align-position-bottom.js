@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::5ed43bd1b2094ab64a758cd4316351a6>>
+ * @codegen <<SignedSource::b4505fd549775c358d60bc0e7cf98452>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -15,8 +15,9 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
 /**
  * Icon: "AlignPositionBottom".
  * Category: multi-purpose
- * Location: @atlaskit/icon-lab
- * Usage guidance: Bottom-aligned text position within sticky notes in Whiteboards.
+ * Location: @atlaskit/icon-lab/core/align-position-bottom
+ * Usage guidance:
+ * Bottom-aligned text position within sticky notes in Whiteboards.
  * - [Examples](https://atlaskit.atlassian.com/packages/design-system/icon)
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */

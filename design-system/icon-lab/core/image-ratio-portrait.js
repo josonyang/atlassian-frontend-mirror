@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::8b2907d8d268194cca38a939f911ced0>>
+ * @codegen <<SignedSource::b7acca74761f79cac15f7ea03ac669af>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -15,8 +15,9 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
 /**
  * Icon: "ImageRatioPortrait".
  * Category: multi-purpose
- * Location: @atlaskit/icon-lab
- * Usage guidance: Known uses: Portrait image ratio
+ * Location: @atlaskit/icon-lab/core/image-ratio-portrait
+ * Usage guidance:
+ * Known uses: Portrait image ratio
  * - [Examples](https://atlaskit.atlassian.com/packages/design-system/icon)
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */

@@ -43,7 +43,7 @@
 		"bind-event-listener": "root:*"
 	},
 	"peerDependencies": {
-		"react": "^18.2.0"
+		"react": "^18.2.0 || ^19.2.0"
 	},
 	"devDependencies": {
 		"@af/integration-testing": "workspace:^",
@@ -51,8 +51,8 @@
 		"@atlaskit/textarea": "workspace:^",
 		"@atlassian/structured-docs-types": "workspace:^",
 		"@testing-library/react": "root:*",
-		"react": "root:*",
-		"react-dom": "root:*",
+		"react": "^19.2.0",
+		"react-dom": "^19.2.0",
 		"wait-for-expect": "root:*"
 	},
 	"techstack": {
@@ -100,7 +100,7 @@
 		"build-and-copy-page-score": "npx esbuild ./src/page-complexity-score/index.ts --bundle --platform=neutral --target=es2022 --format=iife --global-name=pageTreeScore | pbcopy"
 	},
 	"name": "@atlaskit/editor-performance-metrics",
-	"version": "3.1.2",
+	"version": "3.2.0",
 	"description": "Experimental code to track Editor Full Page performance on some particular scenarios",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",

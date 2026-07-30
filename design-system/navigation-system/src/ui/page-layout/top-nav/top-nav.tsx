@@ -175,7 +175,8 @@ function TopNavOld({
 		isHidden: fg('platform_dst_nav4_skip_link_a11y_1'),
 	});
 
-	const height = heightProp ?? (isFhsEnabled ? 56 : 48);
+	const height =
+		heightProp ?? (isFhsEnabled || fg('platform_dst_ads_appswitcher_improvements') ? 56 : 48);
 
 	const customTheme = useCustomTheme(customThemeConfig);
 
@@ -231,7 +232,8 @@ function TopNavNew({
 		isHidden: fg('platform_dst_nav4_skip_link_a11y_1'),
 	});
 
-	const height = heightProp ?? (isFhsEnabled ? 56 : 48);
+	const height =
+		heightProp ?? (isFhsEnabled || fg('platform_dst_ads_appswitcher_improvements') ? 56 : 48);
 
 	const customTheme = useCustomThemeNew(customThemeConfig);
 	const hasDefaultBackground = customTheme.isEnabled ? customTheme.hasDefaultBackground : true;

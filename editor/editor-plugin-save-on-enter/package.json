@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-plugin-save-on-enter",
-	"version": "12.0.1",
+	"version": "12.1.0",
 	"description": "Save-on-enter plugin for @atlaskit/editor-core",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -31,7 +31,7 @@
 	},
 	"peerDependencies": {
 		"@atlaskit/editor-common": "workspace:^",
-		"react": "^18.2.0"
+		"react": "^18.2.0 || ^19.2.0"
 	},
 	"techstack": {
 		"@atlassian/frontend": {
@@ -76,6 +76,6 @@
 	},
 	"platform-feature-flags": {},
 	"devDependencies": {
-		"react": "root:*"
+		"react": "^19.2.0"
 	}
 }

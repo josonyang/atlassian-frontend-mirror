@@ -71,6 +71,7 @@ const extractFlexibleUiContext = ({
 	status,
 	aiSummaryConfig,
 	isPreviewPanelAvailable,
+	isPreviewRestricted,
 	openPreviewPanel,
 	transformUrl,
 	...props
@@ -95,6 +96,7 @@ const extractFlexibleUiContext = ({
 			response,
 			url: props.url, // Use the original URL in edge cases, such as short links for AI summary and copy link actions.
 			isPreviewPanelAvailable,
+			...(fg('preview_panel_unit_check') ? { isPreviewRestricted } : undefined),
 			openPreviewPanel,
 			...(fg('platform_smartlink_xpc_url_wrapping') ? { transformUrl } : undefined),
 		}),
@@ -143,6 +145,7 @@ const extractFlexibleUiContext = ({
 			isPreviewPanelAvailable,
 			openPreviewPanel,
 			fg('platform_smartlink_xpc_url_wrapping') ? transformUrl : undefined,
+			fg('preview_panel_unit_check') ? isPreviewRestricted : undefined,
 		),
 		subscriberCount: extractSubscriberCount(data),
 		subTasksProgress: extractSubTasksProgress(data),

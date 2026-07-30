@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::6e4d3b8c2282199229e89fad097e5cbf>>
+ * @codegen <<SignedSource::eee691665e02eaa3903236d0d832e952>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -15,8 +15,9 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
 /**
  * Icon: "TextHeadingOne".
  * Category: single-purpose
- * Location: @atlaskit/icon-lab
- * Usage guidance: Reserved for H1 / Heading 1 text style
+ * Location: @atlaskit/icon-lab/core/text-heading-one
+ * Usage guidance:
+ * Reserved for H1 / Heading 1 text style
  * - [Examples](https://atlaskit.atlassian.com/packages/design-system/icon)
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */

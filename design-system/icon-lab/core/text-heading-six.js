@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::7ea50078a5999a2c3fbe51c1b3e78d4a>>
+ * @codegen <<SignedSource::50408d02af03ae8936014cad63d1f46c>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -15,8 +15,9 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
 /**
  * Icon: "TextHeadingSix".
  * Category: single-purpose
- * Location: @atlaskit/icon-lab
- * Usage guidance: Reserved for H6 / Heading 6 text style
+ * Location: @atlaskit/icon-lab/core/text-heading-six
+ * Usage guidance:
+ * Reserved for H6 / Heading 6 text style
  * - [Examples](https://atlaskit.atlassian.com/packages/design-system/icon)
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */

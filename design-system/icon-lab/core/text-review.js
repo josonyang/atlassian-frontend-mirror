@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::eec3f295dcbeb9d28c1fd20e67d08459>>
+ * @codegen <<SignedSource::85653b2f24645348c1fc01e486ccac84>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -15,8 +15,9 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
 /**
  * Icon: "TextReview".
  * Category: single-purpose
- * Location: @atlaskit/icon-lab
- * Usage guidance: Confluence Editor AI action for reviewing text
+ * Location: @atlaskit/icon-lab/core/text-review
+ * Usage guidance:
+ * Confluence Editor AI action for reviewing text
  * - [Examples](https://atlaskit.atlassian.com/packages/design-system/icon)
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */

@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/icon-lab",
-	"version": "7.4.0",
+	"version": "7.4.1",
 	"description": "An icon package for public icon contributions",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -35,7 +35,7 @@
 		}
 	},
 	"scripts": {
-		"build-glyphs": "ts-node --project ../../../tsconfig.node.json ./build/index.tsx"
+		"build-glyphs": "tsx ./build/index.tsx"
 	},
 	"dependencies": {
 		"@atlaskit/icon": "workspace:^",
@@ -63,7 +63,7 @@
 		"pkg-dir": "root:*",
 		"react": "root:*",
 		"react-dom": "root:*",
-		"ts-node": "root:*"
+		"tsx": "root:*"
 	},
 	"keywords": [
 		"atlaskit",

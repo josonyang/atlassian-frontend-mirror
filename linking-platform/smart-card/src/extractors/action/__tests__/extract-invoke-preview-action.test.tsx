@@ -251,6 +251,47 @@ describe('extractInvokePreviewAction', () => {
 		expect(openEmbedModal).toHaveBeenCalled();
 	});
 
+	it('should suppress the preview action entirely (no panel, no modal) when isPreviewRestricted returns true', async () => {
+		const { fg } = require('@atlaskit/platform-feature-flags');
+		fg.mockImplementation((flag: string) => flag === 'preview_panel_unit_check');
+		const openEmbedModal = jest.spyOn(utils, 'openEmbedModal').mockResolvedValue(undefined);
+		const mockOpenPreviewPanel = jest.fn();
+		const mockIsPreviewPanelAvailable = jest.fn().mockReturnValue(false);
+		const mockIsPreviewRestricted = jest.fn().mockReturnValue(true);
+
+		const action = extractInvokePreviewAction({
+			appearance: 'block',
+			id: 'test-id',
+			response: TEST_RESPONSE_WITH_PREVIEW_AND_ARI,
+			isPreviewPanelAvailable: mockIsPreviewPanelAvailable,
+			isPreviewRestricted: mockIsPreviewRestricted,
+			openPreviewPanel: mockOpenPreviewPanel,
+		});
+
+		expect(action).toBeUndefined();
+		expect(mockIsPreviewRestricted).toHaveBeenCalledWith({ ari: expect.any(String) });
+		expect(openEmbedModal).not.toHaveBeenCalled();
+		expect(mockOpenPreviewPanel).not.toHaveBeenCalled();
+	});
+
+	it('should fall back to embed modal when isPreviewRestricted returns false', async () => {
+		const { fg } = require('@atlaskit/platform-feature-flags');
+		fg.mockImplementation((flag: string) => flag === 'preview_panel_unit_check');
+		const openEmbedModal = jest.spyOn(utils, 'openEmbedModal').mockResolvedValue(undefined);
+		const mockIsPreviewRestricted = jest.fn().mockReturnValue(false);
+
+		const action = extractInvokePreviewAction({
+			appearance: 'block',
+			id: 'test-id',
+			response: TEST_RESPONSE_WITH_PREVIEW,
+			isPreviewRestricted: mockIsPreviewRestricted,
+		});
+
+		expect(action).toBeDefined();
+		await action?.invokeAction.actionFn();
+		expect(openEmbedModal).toHaveBeenCalled();
+	});
+
 	it('should fall back to embed modal when preview panel params are incomplete', async () => {
 		const openEmbedModal = jest.spyOn(utils, 'openEmbedModal').mockResolvedValue(undefined);
 		const mockIsPreviewPanelAvailable = jest.fn().mockReturnValue(true);

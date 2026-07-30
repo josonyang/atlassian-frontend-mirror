@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-plugin-status",
-	"version": "13.1.9",
+	"version": "13.2.0",
 	"description": "Status plugin for @atlaskit/editor-core",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -45,15 +45,15 @@
 	},
 	"peerDependencies": {
 		"@atlaskit/editor-common": "workspace:^",
-		"react": "^18.2.0",
-		"react-dom": "^18.2.0",
+		"react": "^18.2.0 || ^19.2.0",
+		"react-dom": "^18.2.0 || ^19.2.0",
 		"react-intl": "^5.25.1 || ^6.0.0 || ^7.0.0"
 	},
 	"devDependencies": {
 		"@testing-library/react": "root:*",
 		"raf-stub": "root:*",
-		"react": "root:*",
-		"react-dom": "root:*",
+		"react": "^19.2.0",
+		"react-dom": "^19.2.0",
 		"react-intl": "root:*"
 	},
 	"techstack": {

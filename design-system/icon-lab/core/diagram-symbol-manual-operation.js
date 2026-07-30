@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::25a8ae68a4e29ebf8d2ae092cfdd7a14>>
+ * @codegen <<SignedSource::9c3aa29176d819ea90637c91765bb8da>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -15,8 +15,9 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
 /**
  * Icon: "DiagramSymbolManualOperation".
  * Category: single-purpose
- * Location: @atlaskit/icon-lab
- * Usage guidance: Reserved for manual operation diagram symbol.
+ * Location: @atlaskit/icon-lab/core/diagram-symbol-manual-operation
+ * Usage guidance:
+ * Reserved for manual operation diagram symbol.
  * - [Examples](https://atlaskit.atlassian.com/packages/design-system/icon)
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */

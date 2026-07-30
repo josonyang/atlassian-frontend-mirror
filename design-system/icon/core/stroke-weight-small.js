@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::62e62e57d1c724276255918e43817f68>>
+ * @codegen <<SignedSource::162743b0fcb7aa45244b1ecfef2757e3>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -15,8 +15,9 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
 /**
  * Icon: "StrokeWeightSmall".
  * Category: single-purpose
- * Location: @atlaskit/icon
- * Usage guidance: Reserved for representing thin border stroke widths.
+ * Location: @atlaskit/icon/core/stroke-weight-small
+ * Usage guidance:
+ * Reserved for representing thin border stroke widths.
  * - [Examples](https://atlaskit.atlassian.com/packages/design-system/icon)
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */

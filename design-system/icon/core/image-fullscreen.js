@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::8c75712994f6f10547115c96cb84c098>>
+ * @codegen <<SignedSource::80c61d770aa0c22e8002cbbf07d5cf26>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -15,8 +15,9 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
 /**
  * Icon: "ImageFullscreen".
  * Category: single-purpose
- * Location: @atlaskit/icon
- * Usage guidance: Reserved for viewing an image in a fullscreen view or modal.
+ * Location: @atlaskit/icon/core/image-fullscreen
+ * Usage guidance:
+ * Reserved for viewing an image in a fullscreen view or modal.
  * - [Examples](https://atlaskit.atlassian.com/packages/design-system/icon)
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */

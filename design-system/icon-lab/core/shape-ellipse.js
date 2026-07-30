@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::5be3ddd8f1dcbe0fec21eda4524da0d2>>
+ * @codegen <<SignedSource::445c2a97b88fabe1ccb1aa80c862d94e>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -15,8 +15,9 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
 /**
  * Icon: "ShapeEllipse".
  * Category: multi-purpose
- * Location: @atlaskit/icon-lab
- * Usage guidance: Ellipse shape tool in Whiteboards
+ * Location: @atlaskit/icon-lab/core/shape-ellipse
+ * Usage guidance:
+ * Ellipse shape tool in Whiteboards
  * - [Examples](https://atlaskit.atlassian.com/packages/design-system/icon)
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */

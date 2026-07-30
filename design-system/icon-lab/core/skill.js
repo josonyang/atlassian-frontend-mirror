@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::a094e46648e7c203d266148a7c03a503>>
+ * @codegen <<SignedSource::ab3e94a0351617220fd3a9ec43bebd02>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -15,8 +15,9 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
 /**
  * Icon: "Skill".
  * Category: single-purpose
- * Location: @atlaskit/icon-lab
- * Usage guidance: Reserved for skill functionality. Skills are a combination of tools and a prompt to allow an agent to perform a multistep process.
+ * Location: @atlaskit/icon-lab/core/skill
+ * Usage guidance:
+ * Reserved for skill functionality. Skills are a combination of tools and a prompt to allow an agent to perform a multistep process.
  * - [Examples](https://atlaskit.atlassian.com/packages/design-system/icon)
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */

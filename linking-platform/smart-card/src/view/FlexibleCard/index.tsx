@@ -49,7 +49,8 @@ const FlexibleCard = ({
 }: FlexibleCardProps): React.JSX.Element => {
 	const aiSummaryConfig = useAISummaryConfig();
 	const resolve = useResolve();
-	const { isPreviewPanelAvailable, openPreviewPanel, product } = useSmartLinkContext();
+	const { isPreviewPanelAvailable, isPreviewRestricted, openPreviewPanel, product } =
+		useSmartLinkContext();
 
 	const rovoConfig = useRovoConfig();
 
@@ -99,6 +100,7 @@ const FlexibleCard = ({
 				status: placeholderCardState ? placeHolderStatus : status,
 				url,
 				isPreviewPanelAvailable,
+				...(fg('preview_panel_unit_check') ? { isPreviewRestricted } : undefined),
 				openPreviewPanel,
 				transformUrl,
 			}),
@@ -109,6 +111,7 @@ const FlexibleCard = ({
 			details,
 			id,
 			isPreviewPanelAvailable,
+			isPreviewRestricted,
 			onAuthorize,
 			onClick,
 			onAuxClick,

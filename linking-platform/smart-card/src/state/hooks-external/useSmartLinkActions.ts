@@ -83,7 +83,7 @@ export function useSmartLinkActions({
 
 	const linkState = useLinkState(url);
 	const { fireEvent } = useAnalyticsEvents();
-	const { isPreviewPanelAvailable, openPreviewPanel } = useSmartLinkContext();
+	const { isPreviewPanelAvailable, isPreviewRestricted, openPreviewPanel } = useSmartLinkContext();
 	const invokeClientAction = useInvokeClientAction({ fireEvent });
 	const resolve = useResolve();
 
@@ -125,6 +125,7 @@ export function useSmartLinkActions({
 			fireEvent,
 			origin,
 			isPreviewPanelAvailable,
+			...(fg('preview_panel_unit_check') ? { isPreviewRestricted } : undefined),
 			openPreviewPanel,
 			...(fg('platform_smartlink_xpc_url_wrapping')
 				? {

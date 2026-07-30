@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::a2cff70d9276c693dca9eb8c1c54a9e2>>
+ * @codegen <<SignedSource::63b67c15f5ce4acfe8885b27c8fde116>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -15,8 +15,9 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
 /**
  * Icon: "AtlassianIntelligence".
  * Category: single-purpose
- * Location: @atlaskit/icon
- * Usage guidance: Single purpose - Reserved for Atlassian Intelligence apps or experiences.
+ * Location: @atlaskit/icon/core/atlassian-intelligence
+ * Usage guidance:
+ * Single purpose - Reserved for Atlassian Intelligence apps or experiences.
  * - [Examples](https://atlaskit.atlassian.com/packages/design-system/icon)
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */

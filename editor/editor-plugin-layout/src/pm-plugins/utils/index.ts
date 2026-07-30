@@ -1,4 +1,5 @@
 import { GapCursorSelection } from '@atlaskit/editor-common/selection';
+import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 // eslint-disable-next-line @typescript-eslint/consistent-type-imports
 import { TextSelection, Transaction } from '@atlaskit/editor-prosemirror/state';
 import type { EditorState } from '@atlaskit/editor-prosemirror/state';
@@ -6,6 +7,7 @@ import { findParentNodeOfType, findSelectedNodeOfType } from '@atlaskit/editor-p
 import type { ContentNodeWithPos } from '@atlaskit/editor-prosemirror/utils';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { fg } from '@atlaskit/platform-feature-flags';
+import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
 export const getMaybeLayoutSection = (state: EditorState): ContentNodeWithPos | undefined => {
@@ -67,6 +69,13 @@ export const selectIntoLayout = (
 };
 
 export type GapCursorTarget = { pos: number; side: 'left' | 'right' };
+
+/**
+ * These node views can fill a layout column while leaving visually blank space that ProseMirror
+ * cannot map to a document position. Interactive atomic nodes must receive clicks normally.
+ */
+const supportsBlankSpaceGapCursorFallback = (node: PMNode | null): boolean =>
+	node?.type.name === 'mediaSingle' || node?.type.name === 'expand';
 
 /**
  * For a blank-space click inside a layout column — above the first child (middle/bottom-aligned
@@ -165,10 +174,14 @@ export const getGapCursorTargetForBlankSpaceClick = (
 	// so the above/below checks never fired.
 	if (columnNode.childCount === 1) {
 		const onlyChild = columnNode.firstChild;
-		// Exclude `panel`: its wrapper makes `view.nodeDOM` non-null and intercepts clicks, so the
-		// guard below would wrongly fire for in-panel blank-space clicks (which have their own
-		// native gap cursor).
-		if (onlyChild && onlyChild.type.name !== 'paragraph' && onlyChild.type.name !== 'panel') {
+		const shouldHandleAtomicChild = expValEquals(
+			'platform_editor_layout_column_selection_fix',
+			'isEnabled',
+			true,
+		)
+			? supportsBlankSpaceGapCursorFallback(onlyChild)
+			: onlyChild?.type.name !== 'paragraph' && onlyChild?.type.name !== 'panel';
+		if (onlyChild && shouldHandleAtomicChild) {
 			// Bail when the click is on the child's own content. For media the wrapper is full-width
 			// so test against the <img> rect; resolve it only for a direct mediaSingle child (else
 			// getContentRect could grab an image nested in an expand and break its toggle).

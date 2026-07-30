@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::76102cae83ff84364fe0f8b9a98fb276>>
+ * @codegen <<SignedSource::a6d9460ea633f4f93b685c8e22232576>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -15,8 +15,9 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
 /**
  * Icon: "FocusArea".
  * Category: single-purpose
- * Location: @atlaskit/icon
- * Usage guidance: Reserved for representing Focus Areas.
+ * Location: @atlaskit/icon/core/focus-area
+ * Usage guidance:
+ * Reserved for representing Focus Areas.
  * - [Examples](https://atlaskit.atlassian.com/packages/design-system/icon)
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */

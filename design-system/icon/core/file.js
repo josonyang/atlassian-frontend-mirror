@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::51c2fad80696a752d051082f1f9faaf4>>
+ * @codegen <<SignedSource::49fc2abb731b0d5d523db8193eb7128c>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -15,8 +15,9 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
 /**
  * Icon: "File".
  * Category: multi-purpose
- * Location: @atlaskit/icon
- * Usage guidance: Multi purpose - Known uses: document, file. Do not use to represent a page — use the dedicated 'Page' icon instead.
+ * Location: @atlaskit/icon/core/file
+ * Usage guidance:
+ * Multi purpose - Known uses: document, file. Do not use to represent a page — use the dedicated 'Page' icon instead.
  * - [Examples](https://atlaskit.atlassian.com/packages/design-system/icon)
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */

@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::2f61bc73a2589030119a1c58e20160b1>>
+ * @codegen <<SignedSource::39f52d26a7ec01d2ad90bdebf5b7a887>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -15,8 +15,9 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
 /**
  * Icon: "StatusWorkflowIncomplete".
  * Category: single-purpose
- * Location: @atlaskit/icon-lab
- * Usage guidance: Reserved for representing incomplete statuses such as "To do", "Backlog", "Not started", "Pending"
+ * Location: @atlaskit/icon-lab/core/status-workflow-incomplete
+ * Usage guidance:
+ * Reserved for representing incomplete statuses such as "To do", "Backlog", "Not started", "Pending"
  * - [Examples](https://atlaskit.atlassian.com/packages/design-system/icon)
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */

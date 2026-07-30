@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::d6ecf60ccc57b84195fdb9af15952135>>
+ * @codegen <<SignedSource::9737e1e40d56f17145ef3ba150a8291b>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -15,8 +15,9 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
 /**
  * Icon: "StatusWorkflowPaused".
  * Category: single-purpose
- * Location: @atlaskit/icon-lab
- * Usage guidance: Reserved for representing statuses that indicate work or a process has paused
+ * Location: @atlaskit/icon-lab/core/status-workflow-paused
+ * Usage guidance:
+ * Reserved for representing statuses that indicate work or a process has paused
  * - [Examples](https://atlaskit.atlassian.com/packages/design-system/icon)
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */

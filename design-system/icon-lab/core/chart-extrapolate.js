@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::0e59cfdcae01b3c7fb88cbc77b458bb4>>
+ * @codegen <<SignedSource::46423c472aa3196bb63c15704977fe21>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -15,8 +15,9 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
 /**
  * Icon: "ChartExtrapolate".
  * Category: multi-purpose
- * Location: @atlaskit/icon-lab
- * Usage guidance: Known uses: Chart trend extrapolation in Analytics.
+ * Location: @atlaskit/icon-lab/core/chart-extrapolate
+ * Usage guidance:
+ * Known uses: Chart trend extrapolation in Analytics.
  * - [Examples](https://atlaskit.atlassian.com/packages/design-system/icon)
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */

@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::6a4927378733e51a3ce95b0e41c9f30e>>
+ * @codegen <<SignedSource::ecba6cd2be80f2d48d64aa2d25500845>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -15,8 +15,9 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
 /**
  * Icon: "HardwareDispose".
  * Category: single-purpose
- * Location: @atlaskit/icon-lab
- * Usage guidance: Reserved for representing disposed hardware.
+ * Location: @atlaskit/icon-lab/core/hardware-dispose
+ * Usage guidance:
+ * Reserved for representing disposed hardware.
  * - [Examples](https://atlaskit.atlassian.com/packages/design-system/icon)
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */

@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::c4d062024e5f9c2aa80a3b06ab99b575>>
+ * @codegen <<SignedSource::0e676924b756b69a2a2f9de1a7f81ffd>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -15,8 +15,9 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
 /**
  * Icon: "NodeSingleLeft".
  * Category: single-purpose
- * Location: @atlaskit/icon-lab
- * Usage guidance: Reserved for whiteboard’s node single-left alignment
+ * Location: @atlaskit/icon-lab/core/node-single-left
+ * Usage guidance:
+ * Reserved for whiteboard’s node single-left alignment
  * - [Examples](https://atlaskit.atlassian.com/packages/design-system/icon)
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */

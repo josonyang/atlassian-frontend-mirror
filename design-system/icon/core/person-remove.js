@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::0fd8ff5877a7f502c92580dcdf7158c8>>
+ * @codegen <<SignedSource::ccb2a9c248f831a1ec3a1b26a73aa1b7>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -15,8 +15,9 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
 /**
  * Icon: "PersonRemove".
  * Category: single-purpose
- * Location: @atlaskit/icon
- * Usage guidance: Reserved for removing and unfollowing people and teammates.
+ * Location: @atlaskit/icon/core/person-remove
+ * Usage guidance:
+ * Reserved for removing and unfollowing people and teammates.
  * - [Examples](https://atlaskit.atlassian.com/packages/design-system/icon)
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */

@@ -1,12 +1,38 @@
 /* eslint-disable @atlaskit/ui-styling-standard/use-compiled,
 	@repo/internal/deprecations/deprecation-ticket-required,
 	@atlaskit/ui-styling-standard/no-exported-styles */
-import { css } from '@emotion/react';
+import { css, keyframes } from '@emotion/react';
 import type { SerializedStyles } from '@emotion/react';
 
+import { tableMarginTop } from '@atlaskit/editor-common/styles';
+import {
+	akEditorShadowZIndex,
+	akEditorTableNumberColumnWidth,
+} from '@atlaskit/editor-shared-styles/constants';
 import { token } from '@atlaskit/tokens';
 
 import { scrollbarStyles } from './scrollbarStyles';
+
+const tableOverflowShadowWidthWide = 32;
+
+const tableInlineStartShadow = keyframes({
+	'0%': {
+		opacity: 0,
+	},
+	'0.0001%, 100%': {
+		opacity: 1,
+	},
+});
+
+const tableInlineEndShadow = keyframes({
+	'0%, 99.9999%': {
+		opacity: 1,
+	},
+	'100%': {
+		opacity: 0,
+	},
+});
+
 /**
  * @deprecated This style has been migrated to Compiled CSS, under experiment platform_editor_core_static_css
  * If you need to make changes here, also update the corresponding style in
@@ -104,6 +130,82 @@ export const tableContainerStyles: SerializedStyles = css({
 		minWidth: 'auto',
 	},
 });
+
+/**
+ * SSR-safe foreground overflow shadows driven by the table wrapper's horizontal scroll timeline.
+ * The overlays are siblings of the scrollport, so they stay anchored to its edges without
+ * modifying table-cell surfaces or interaction overlays.
+ *
+ * @deprecated This style has been migrated to Compiled CSS, under experiment platform_editor_core_static_css
+ * If you need to make changes here, also update the corresponding style in
+ * packages/editor/editor-core/src/ui/EditorContentContainer/EditorContentContainer-compiled.tsx
+ * See EDITOR-7600 for more details: https://hello.jira.atlassian.cloud/jira/browse/EDITOR-7600
+ */
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles, @atlaskit/volt-strict-mode/no-multiple-exports
+export const tableScrollInlineShadowStyles: SerializedStyles = css({
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors
+	'.ProseMirror .pm-table-container:has(> .pm-table-scroll-inline-shadow)': {
+		timelineScope: '--editor-table-inline-scroll',
+	},
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
+	'.ProseMirror .pm-table-scroll-inline-shadow': {
+		scrollTimelineName: '--editor-table-inline-scroll',
+		scrollTimelineAxis: 'inline',
+	},
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
+	'.ProseMirror .pm-table-container > [data-table-overflow-shadow]': {
+		position: 'absolute',
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values
+		zIndex: akEditorShadowZIndex,
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values
+		top: tableMarginTop,
+		bottom: 0,
+		width: tableOverflowShadowWidthWide,
+		opacity: 0,
+		pointerEvents: 'none',
+		animationDuration: '1ms',
+		animationFillMode: 'both',
+		animationTimingFunction: 'linear',
+		animationTimeline: '--editor-table-inline-scroll',
+	},
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
+	".ProseMirror .pm-table-container > [data-table-overflow-shadow='start']": {
+		left: 0,
+		backgroundImage: `linear-gradient(
+			to left,
+			transparent 0,
+			${token('elevation.shadow.overflow.spread')} 140%
+		),
+		linear-gradient(
+			to right,
+			${token('elevation.shadow.overflow.perimeter')} 0,
+			transparent 1px
+		)`,
+		animationName: tableInlineStartShadow,
+	},
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
+	".ProseMirror .pm-table-container[data-number-column='true'] > [data-table-overflow-shadow='start']":
+		{
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values
+			left: akEditorTableNumberColumnWidth - 1,
+		},
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
+	".ProseMirror .pm-table-container > [data-table-overflow-shadow='end']": {
+		right: 0,
+		backgroundImage: `linear-gradient(
+			to right,
+			transparent 0,
+			${token('elevation.shadow.overflow.spread')} 140%
+		),
+		linear-gradient(
+			to left,
+			${token('elevation.shadow.overflow.perimeter')} 0,
+			transparent 1px
+		)`,
+		animationName: tableInlineEndShadow,
+	},
+});
+
 /**
  * @deprecated This style has been migrated to Compiled CSS, under experiment platform_editor_core_static_css
  * If you need to make changes here, also update the corresponding style in

@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::8837392090759c2cd774eac0ad256ac4>>
+ * @codegen <<SignedSource::5cffecec463dc5ff04f9486056ee6fff>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -15,8 +15,9 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
 /**
  * Icon: "StrokeCurvatureDynamic".
  * Category: single-purpose
- * Location: @atlaskit/icon-lab
- * Usage guidance: Reserved for dynamic line type setting for line tool in Whiteboards
+ * Location: @atlaskit/icon-lab/core/stroke-curvature-dynamic
+ * Usage guidance:
+ * Reserved for dynamic line type setting for line tool in Whiteboards
  * - [Examples](https://atlaskit.atlassian.com/packages/design-system/icon)
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */

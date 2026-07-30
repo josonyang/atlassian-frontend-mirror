@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::6f7537afae1521ac249370a3c6f08a12>>
+ * @codegen <<SignedSource::899a5e1306e8987144454772736db49e>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -15,8 +15,9 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
 /**
  * Icon: "PlusSquare".
  * Category: multi-purpose
- * Location: @atlaskit/icon
- * Usage guidance: Known usages: 'New feature' work type.
+ * Location: @atlaskit/icon/core/plus-square
+ * Usage guidance:
+ * Known usages: 'New feature' work type.
  * - [Examples](https://atlaskit.atlassian.com/packages/design-system/icon)
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */

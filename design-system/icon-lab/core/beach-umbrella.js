@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::01785c0880adede3efdaeb96ca49a40e>>
+ * @codegen <<SignedSource::b0886c0ff010eb01147002b9d37b5f0e>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -15,8 +15,9 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
 /**
  * Icon: "BeachUmbrella".
  * Category: multi-purpose
- * Location: @atlaskit/icon-lab
- * Usage guidance: User-selectable icon choice for calendars
+ * Location: @atlaskit/icon-lab/core/beach-umbrella
+ * Usage guidance:
+ * User-selectable icon choice for calendars
  * - [Examples](https://atlaskit.atlassian.com/packages/design-system/icon)
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */

@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::71b16771d20e11197bfb5e984b2e4d18>>
+ * @codegen <<SignedSource::806ebefb1990e02a2923f1f9cdd40a25>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -15,8 +15,9 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
 /**
  * Icon: "VideoWatchLaterRemove".
  * Category: single-purpose
- * Location: @atlaskit/icon-lab
- * Usage guidance: Reserved for watch later functionality in Loom
+ * Location: @atlaskit/icon-lab/core/video-watch-later-remove
+ * Usage guidance:
+ * Reserved for watch later functionality in Loom
  * - [Examples](https://atlaskit.atlassian.com/packages/design-system/icon)
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */

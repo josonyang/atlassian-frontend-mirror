@@ -1,5 +1,3 @@
-import { fg } from '@atlaskit/platform-feature-flags/fg';
-
 import coinflip from '../coinflip';
 import { type PostInteractionLogOutput, type ReactProfilerTiming } from '../common';
 import type { LateMutation } from '../common/react-ufo-payload-schema';
@@ -153,10 +151,6 @@ function getPostInteractionVCRevision(
 function getRawHandlerVCRevision(
 	revisions: RevisionPayload | undefined,
 ): RevisionPayloadEntry | undefined {
-	if (!fg('platform_ufo_post_interaction_raw_vc90')) {
-		return undefined;
-	}
-
 	return revisions?.find(({ revision }) => revision === 'raw-handler');
 }
 

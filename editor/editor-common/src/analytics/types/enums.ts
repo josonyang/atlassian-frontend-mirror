@@ -439,6 +439,7 @@ export enum ACTION_SUBJECT_ID {
 	CODEBLOCK_COPY = 'codeBlockCopy',
 	CODEBLOCK_WRAP = 'codeBlockWrap',
 	CONVERSATION_ERROR = 'conversationError',
+	SUGGESTIONS_REGENERATION_ERROR = 'suggestionsRegenerationError',
 	COPY_BUTTON = 'copyButton',
 	COPY_LINK_TO_ANCHOR = 'copyLinkToAnchor',
 	COPY_BLOCK = 'copyBlock',

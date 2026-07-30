@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::dea082c064362c648a51e0ac8eedfbf9>>
+ * @codegen <<SignedSource::174b7248110b9756b93f8798b2645859>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -15,8 +15,9 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
 /**
  * Icon: "Section".
  * Category: multi-purpose
- * Location: @atlaskit/icon-lab
- * Usage guidance: Used for section tool in Whiteboards
+ * Location: @atlaskit/icon-lab/core/section
+ * Usage guidance:
+ * Used for section tool in Whiteboards
  * - [Examples](https://atlaskit.atlassian.com/packages/design-system/icon)
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */

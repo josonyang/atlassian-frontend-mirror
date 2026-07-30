@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::93f795d5599fbbda0254e3425c3eaca8>>
+ * @codegen <<SignedSource::457037af90abdf3e38f91c8c94803d4e>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -15,8 +15,9 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
 /**
  * Icon: "TextUnderlineStrikethrough".
  * Category: single-purpose
- * Location: @atlaskit/icon-lab
- * Usage guidance: Reserved for underline text with a strikethrough
+ * Location: @atlaskit/icon-lab/core/text-underline-strikethrough
+ * Usage guidance:
+ * Reserved for underline text with a strikethrough
  * - [Examples](https://atlaskit.atlassian.com/packages/design-system/icon)
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */

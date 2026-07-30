@@ -81,14 +81,19 @@ type StandardPopupContentProps = CommonContentPopupProps & {
 
 export type PopupContentProps = ShouldFitContainerContentPopupProps | StandardPopupContentProps;
 
+type TPopupContentLegacyProps = PopupContentProps & {
+	isOpen: boolean;
+	id: string | undefined;
+};
+
 /**
- * __Popup content__
+ * Legacy (Popper + Portal) implementation of the compositional PopupContent.
  *
- * Popup content is the component that renders the content of the popup.
- *
- * It must be a child of the Popup component.
+ * Renders when the `platform-dst-top-layer` flag is off. This component owns
+ * the open layer observer registration, which on the top-layer path is handled
+ * by the `Popover` primitive inside `PopupContentTopLayer` instead.
  */
-export const PopupContent = ({
+function PopupContentLegacy({
 	xcss,
 	appearance: inAppearance = 'default',
 	children,
@@ -112,12 +117,10 @@ export const PopupContent = ({
 	shouldFitViewport,
 	shouldDisableGpuAcceleration = false,
 	role,
-	label,
 	titleId,
-}: PopupContentProps): React.JSX.Element | null => {
-	useEnsureIsInsidePopup();
-	const isOpen = useContext(IsOpenContext);
-	const id = useContext(IdContext);
+	isOpen,
+	id,
+}: TPopupContentLegacyProps): React.ReactNode {
 	const triggerRef = useContext(TriggerRefContext);
 	const { appearance, shouldRenderToParent } = usePopupAppearance({
 		appearance: inAppearance,
@@ -128,53 +131,11 @@ export const PopupContent = ({
 		onClose?.(null);
 	}, [onClose]);
 
-	// On the top-layer path, the Popover primitive registers with the observer
-	// directly, so we skip registration here to avoid double-counting.
-	// Safe conditional hook: feature flags are resolved once at startup.
-	if (!fg('platform-dst-top-layer')) {
-		// eslint-disable-next-line react-hooks/rules-of-hooks
-		useNotifyOpenLayerObserver({
-			isOpen,
-			onClose: handleOpenLayerObserverCloseSignal,
-			type: 'popup',
-		});
-	}
-
-	// Top-layer rendering path: native Popover API via @atlaskit/top-layer.
-	// Mirrors the FF branch in the legacy `Popup` component (popup.tsx).
-	if (fg('platform-dst-top-layer')) {
-		return (
-			<PopupContentTopLayer
-				xcss={xcss}
-				appearance={inAppearance}
-				offset={offset}
-				onClose={onClose}
-				testId={testId}
-				placement={placement}
-				fallbackPlacements={fallbackPlacements}
-				popupComponent={popupComponent}
-				autoFocus={autoFocus}
-				shouldFitContainer={shouldFitContainer}
-				shouldFitViewport={shouldFitViewport}
-				role={role}
-				label={label}
-				titleId={titleId}
-				zIndex={zIndex}
-				shouldRenderToParent={inShouldRenderToParent}
-				strategy={strategy}
-				boundary={boundary}
-				rootBoundary={rootBoundary}
-				shouldUseCaptureOnOutsideClick={shouldUseCaptureOnOutsideClick}
-				shouldDisableFocusLock={shouldDisableFocusLock}
-				shouldFlip={shouldFlip}
-				shouldDisableGpuAcceleration={shouldDisableGpuAcceleration}
-				isOpen={isOpen}
-				id={id}
-			>
-				{children}
-			</PopupContentTopLayer>
-		);
-	}
+	useNotifyOpenLayerObserver({
+		isOpen,
+		onClose: handleOpenLayerObserverCloseSignal,
+		type: 'popup',
+	});
 
 	if (!isOpen) {
 		return null;
@@ -218,4 +179,34 @@ export const PopupContent = ({
 	}
 
 	return <Portal zIndex={zIndex}>{popperWrapper}</Portal>;
-};
+}
+
+/**
+ * __Popup content__
+ *
+ * Popup content is the component that renders the content of the popup.
+ *
+ * It must be a child of the Popup component.
+ */
+export function PopupContent(props: PopupContentProps): React.ReactNode {
+	useEnsureIsInsidePopup();
+	const isOpen = useContext(IsOpenContext);
+	const id = useContext(IdContext);
+
+	// Select the rendering implementation at the component boundary rather than
+	// gating hooks inside a single component. Each implementation owns its own
+	// hooks, so a runtime feature-flag change swaps component types (a clean
+	// remount) instead of changing the hook order of a mounted component.
+	//
+	// Forwarding the full props onto the chosen implementation is intentional:
+	// both implementations declare explicit prop types, so the forward is type
+	// checked rather than an unbounded API.
+	if (fg('platform-dst-top-layer')) {
+		// The top-layer Popover registers with the open layer observer itself.
+		// eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props -- intentional forward to a typed implementation
+		return <PopupContentTopLayer {...props} isOpen={isOpen} id={id} />;
+	}
+
+	// eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props -- intentional forward to a typed implementation
+	return <PopupContentLegacy {...props} isOpen={isOpen} id={id} />;
+}

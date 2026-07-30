@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::8eced7d4004a78c9a645ef3d6727f49b>>
+ * @codegen <<SignedSource::2d16476b5ca40ef7b1045035dfd6777a>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -15,8 +15,9 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
 /**
  * Icon: "AiGenerativeChapters".
  * Category: single-purpose
- * Location: @atlaskit/icon-lab
- * Usage guidance: Reserved for auto chapters functionality in Loom.
+ * Location: @atlaskit/icon-lab/core/ai-generative-chapters
+ * Usage guidance:
+ * Reserved for auto chapters functionality in Loom.
  * - [Examples](https://atlaskit.atlassian.com/packages/design-system/icon)
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */

@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-plugin-fragment",
-	"version": "12.0.1",
+	"version": "12.1.0",
 	"description": "Fragment plugin for @atlaskit/editor-core",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -30,8 +30,8 @@
 	},
 	"peerDependencies": {
 		"@atlaskit/editor-common": "workspace:^",
-		"react": "^18.2.0",
-		"react-dom": "^18.2.0"
+		"react": "^18.2.0 || ^19.2.0",
+		"react-dom": "^18.2.0 || ^19.2.0"
 	},
 	"techstack": {
 		"@atlassian/frontend": {
@@ -70,7 +70,7 @@
 		}
 	},
 	"devDependencies": {
-		"react": "root:*",
-		"react-dom": "root:*"
+		"react": "^19.2.0",
+		"react-dom": "^19.2.0"
 	}
 }

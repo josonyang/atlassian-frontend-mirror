@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::9f77355f1095996b165ce2b0f79f546f>>
+ * @codegen <<SignedSource::886e495f44627d10f23bf3c643e10311>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -15,8 +15,9 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
 /**
  * Icon: "SpeedometerRight".
  * Category: multi-purpose
- * Location: @atlaskit/icon-lab
- * Usage guidance: Known uses: video is set to a faster playback speed
+ * Location: @atlaskit/icon-lab/core/speedometer-right
+ * Usage guidance:
+ * Known uses: video is set to a faster playback speed
  * - [Examples](https://atlaskit.atlassian.com/packages/design-system/icon)
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */

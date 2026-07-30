@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::c3db074eea5fcf4e8ef698417c599317>>
+ * @codegen <<SignedSource::d6b5ff75f11e876542e7b8de754f6650>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -15,8 +15,9 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
 /**
  * Icon: "Api".
  * Category: single-purpose
- * Location: @atlaskit/icon
- * Usage guidance: Reserved for representing Application Programming Interfaces (APIs).
+ * Location: @atlaskit/icon/core/api
+ * Usage guidance:
+ * Reserved for representing Application Programming Interfaces (APIs).
  * - [Examples](https://atlaskit.atlassian.com/packages/design-system/icon)
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */

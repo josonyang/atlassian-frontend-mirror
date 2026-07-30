@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::24c85da433a7def76f682c2e482c8374>>
+ * @codegen <<SignedSource::d81cd62901163a6f9d5c22f4b2b74b50>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -15,8 +15,9 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
 /**
  * Icon: "PanelRight".
  * Category: single-purpose
- * Location: @atlaskit/icon
- * Usage guidance: Reserved for opening a preview panel to the right of the viewport edge. Use only for left-to-right languages.
+ * Location: @atlaskit/icon/core/panel-right
+ * Usage guidance:
+ * Reserved for opening a preview panel to the right of the viewport edge. Use only for left-to-right languages.
  * - [Examples](https://atlaskit.atlassian.com/packages/design-system/icon)
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */

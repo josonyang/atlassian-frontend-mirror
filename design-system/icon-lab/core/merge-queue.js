@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::e5327b01eafed62fdc960eb2ff4ced3b>>
+ * @codegen <<SignedSource::0023dec4a0fb0fdf8ac6fc0488c17d41>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -15,8 +15,9 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
 /**
  * Icon: "MergeQueue".
  * Category: single-purpose
- * Location: @atlaskit/icon-lab
- * Usage guidance: Reserved for representing merge queue functionality.
+ * Location: @atlaskit/icon-lab/core/merge-queue
+ * Usage guidance:
+ * Reserved for representing merge queue functionality.
  * - [Examples](https://atlaskit.atlassian.com/packages/design-system/icon)
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */

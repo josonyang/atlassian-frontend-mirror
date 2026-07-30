@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::8254c23f3224da21c58f709d6b33ecb1>>
+ * @codegen <<SignedSource::101568d3694609bd961a38f285c90a2a>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -15,8 +15,9 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
 /**
  * Icon: "AlignContentTop".
  * Category: multi-purpose
- * Location: @atlaskit/icon-lab
- * Usage guidance: Used for aligning top edges of content in Whiteboards
+ * Location: @atlaskit/icon-lab/core/align-content-top
+ * Usage guidance:
+ * Used for aligning top edges of content in Whiteboards
  * - [Examples](https://atlaskit.atlassian.com/packages/design-system/icon)
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */

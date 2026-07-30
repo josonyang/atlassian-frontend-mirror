@@ -8,6 +8,7 @@ export {
 	tableBackgroundBorderColor,
 	tableBackgroundColorNames,
 	tableBackgroundColorPalette,
+	tableBackgroundColorPaletteNew,
 	tableCell,
 	tableCellContentDomSelector,
 	tableCellContentWrapperSelector,

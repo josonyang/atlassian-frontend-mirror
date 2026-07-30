@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/email-renderer",
-	"version": "10.0.1",
+	"version": "10.1.0",
 	"description": "Email renderer",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -52,7 +52,7 @@
 		"@atlassian/structured-docs-types": "workspace:^",
 		"mkdirp": "root:*",
 		"mockdate": "root:*",
-		"react": "root:*",
+		"react": "^19.2.0",
 		"rimraf": "root:*",
 		"svgexport": "root:*",
 		"ts-node": "root:*"

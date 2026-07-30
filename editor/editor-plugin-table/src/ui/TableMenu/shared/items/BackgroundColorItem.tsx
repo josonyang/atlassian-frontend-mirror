@@ -12,6 +12,7 @@ import { tableMessages as messages } from '@atlaskit/editor-common/messages';
 import {
 	backgroundPaletteTooltipMessages,
 	cellBackgroundColorPalette,
+	cellBackgroundColorPaletteNew,
 	ColorPalette,
 } from '@atlaskit/editor-common/ui-color';
 import { hexToEditorBackgroundPaletteColor } from '@atlaskit/editor-palette';
@@ -20,16 +21,17 @@ import {
 	PaintBucketIcon,
 	ToolbarNestedDropdownMenu,
 } from '@atlaskit/editor-toolbar';
+import { fg } from '@atlaskit/platform-feature-flags';
 import { Box } from '@atlaskit/primitives/compiled';
+import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { token } from '@atlaskit/tokens';
 
 import { closeActiveTableMenu } from '../../../../pm-plugins/commands';
 import { setColorWithAnalytics } from '../../../../pm-plugins/commands/commands-with-analytics';
 import { getPluginState } from '../../../../pm-plugins/plugin-factory';
+import { colorPaletteColumns, colorPaletteColumnsOld } from '../../../../ui/consts';
 import { useTableMenuContext } from '../TableMenuContext';
 import type { TableMenuComponentsParams } from '../types';
-
-const colorPaletteColumns = 7;
 
 const colorPaletteStyles = cssMap({
 	container: {
@@ -84,13 +86,22 @@ export const BackgroundColorItem = ({ api }: TableMenuComponentsParams): React.J
 	// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
 	const colorPreviewStyle = useMemo(() => ({ backgroundColor: selectedColor }), [selectedColor]);
 
+	const isMoreColorsEnabled =
+		expValEquals('platform_editor_lovability_text_bg_color', 'isEnabled', true) &&
+		fg('platform_editor_lovability_text_bg_color_patch_2');
+
+	const activePalette = isMoreColorsEnabled
+		? cellBackgroundColorPaletteNew
+		: cellBackgroundColorPalette;
+	const activeCols = isMoreColorsEnabled ? colorPaletteColumns : colorPaletteColumnsOld;
+
 	const paletteOptions = useMemo(() => {
 		return {
-			palette: cellBackgroundColorPalette,
+			palette: activePalette,
 			paletteColorTooltipMessages: backgroundPaletteTooltipMessages,
 			hexToPaletteColor: hexToEditorBackgroundPaletteColor,
 		};
-	}, []);
+	}, [activePalette]);
 
 	return (
 		<ToolbarNestedDropdownMenu
@@ -106,7 +117,7 @@ export const BackgroundColorItem = ({ api }: TableMenuComponentsParams): React.J
 		>
 			<Box xcss={colorPaletteStyles.container}>
 				<ColorPalette
-					cols={colorPaletteColumns}
+					cols={activeCols}
 					onClick={onClick}
 					selectedColor={colorPreviewStyle.backgroundColor}
 					paletteOptions={paletteOptions}

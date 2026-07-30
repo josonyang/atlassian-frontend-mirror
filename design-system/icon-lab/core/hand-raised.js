@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::b5e409f9e9b2c4149cc96f2b48a0a19f>>
+ * @codegen <<SignedSource::011dfee97e55a28855c3766c72026847>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -15,8 +15,9 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
 /**
  * Icon: "HandRaised".
  * Category: multi-purpose
- * Location: @atlaskit/icon-lab
- * Usage guidance: Used for farewell feed in Atlassian Home.
+ * Location: @atlaskit/icon-lab/core/hand-raised
+ * Usage guidance:
+ * Used for farewell feed in Atlassian Home.
  * - [Examples](https://atlaskit.atlassian.com/packages/design-system/icon)
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */

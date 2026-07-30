@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::f6d2de4de427d6283ea93d13f01cb85e>>
+ * @codegen <<SignedSource::6933dfc402b2062c86d68dda6b19eafe>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -15,8 +15,9 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
 /**
  * Icon: "DiagramArrowheadDefaultFlowUpRight".
  * Category: single-purpose
- * Location: @atlaskit/icon-lab
- * Usage guidance: Reserved for default flow diagram in Whiteboards.
+ * Location: @atlaskit/icon-lab/core/diagram-arrowhead-default-flow-up-right
+ * Usage guidance:
+ * Reserved for default flow diagram in Whiteboards.
  * - [Examples](https://atlaskit.atlassian.com/packages/design-system/icon)
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */

@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::87af89cd562983a126e1123e47f82a4f>>
+ * @codegen <<SignedSource::67e400674c8919bf53dcea4d97772639>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -15,8 +15,9 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
 /**
  * Icon: "StatusWorkflowScheduled".
  * Category: single-purpose
- * Location: @atlaskit/icon-lab
- * Usage guidance: Reserved for representing statuses that indicate work or a process is scheduled or waiting to commence
+ * Location: @atlaskit/icon-lab/core/status-workflow-scheduled
+ * Usage guidance:
+ * Reserved for representing statuses that indicate work or a process is scheduled or waiting to commence
  * - [Examples](https://atlaskit.atlassian.com/packages/design-system/icon)
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */

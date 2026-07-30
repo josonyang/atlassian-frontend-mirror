@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::efd7c8040c7679e6d0a1434e0d18452a>>
+ * @codegen <<SignedSource::c42edf438a8595cd395b2b7c2340d8f7>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -15,8 +15,9 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
 /**
  * Icon: "ImageRatioNarrow".
  * Category: multi-purpose
- * Location: @atlaskit/icon-lab
- * Usage guidance: Known uses: Narrow image ratio
+ * Location: @atlaskit/icon-lab/core/image-ratio-narrow
+ * Usage guidance:
+ * Known uses: Narrow image ratio
  * - [Examples](https://atlaskit.atlassian.com/packages/design-system/icon)
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */

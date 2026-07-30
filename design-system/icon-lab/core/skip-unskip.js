@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::56c57f944fa7bbe4c1f7a5937e0cdaee>>
+ * @codegen <<SignedSource::ff85e827f34a5f20ac564323a6aa9f2b>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -15,8 +15,9 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
 /**
  * Icon: "SkipUnskip".
  * Category: single-purpose
- * Location: @atlaskit/icon-lab
- * Usage guidance: Reserved for reinstating a previously skipped step.
+ * Location: @atlaskit/icon-lab/core/skip-unskip
+ * Usage guidance:
+ * Reserved for reinstating a previously skipped step.
  * - [Examples](https://atlaskit.atlassian.com/packages/design-system/icon)
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */

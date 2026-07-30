@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::a3d34bfaf1808a9f6cdccf6251ac5df7>>
+ * @codegen <<SignedSource::71557eb71e45fb9ab2cbf243e73b9be4>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -15,8 +15,9 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
 /**
  * Icon: "DividerElement".
  * Category: single-purpose
- * Location: @atlaskit/icon-lab
- * Usage guidance: Reserved for inserting divider elements in Confluence
+ * Location: @atlaskit/icon-lab/core/divider-element
+ * Usage guidance:
+ * Reserved for inserting divider elements in Confluence
  * - [Examples](https://atlaskit.atlassian.com/packages/design-system/icon)
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */

@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::5a4720dcc648d07e799e98d5c507a4ef>>
+ * @codegen <<SignedSource::a7a1a6e5410340ddaf769d7c39a4dddb>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -15,8 +15,9 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
 /**
  * Icon: "WelcomeFeed".
  * Category: multi-purpose
- * Location: @atlaskit/icon-lab
- * Usage guidance: Known uses: Intro blog feed picker on Hello
+ * Location: @atlaskit/icon-lab/core/welcome-feed
+ * Usage guidance:
+ * Known uses: Intro blog feed picker on Hello
  * - [Examples](https://atlaskit.atlassian.com/packages/design-system/icon)
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */

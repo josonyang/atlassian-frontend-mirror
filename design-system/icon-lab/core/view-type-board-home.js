@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::de76467d2760e1c479f562a2f458f5b6>>
+ * @codegen <<SignedSource::d0e6c4951088ad59dfced0f5f61cc4a4>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -15,8 +15,9 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
 /**
  * Icon: "ViewTypeBoardHome".
  * Category: single-purpose
- * Location: @atlaskit/icon-lab
- * Usage guidance: Home view for database board layout
+ * Location: @atlaskit/icon-lab/core/view-type-board-home
+ * Usage guidance:
+ * Home view for database board layout
  * - [Examples](https://atlaskit.atlassian.com/packages/design-system/icon)
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */

@@ -5,7 +5,9 @@ import { DiProvider, injectable } from 'react-magnetic-di';
 
 import { renderWithIntl } from '@atlaskit/link-test-helpers';
 import { eeTest } from '@atlaskit/tmp-editor-statsig/editor-experiments-test-utils';
+import * as expValEqualsModule from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { ffTest } from '@atlassian/feature-flags-test-utils';
+import { failGate, passGate } from '@atlassian/feature-flags-test-utils/mock-gates';
 import { fireEvent, render, screen } from '@atlassian/testing-library';
 
 import { getCachedProviderPctMapAndRefresh } from '../../../../state/services/personalization';
@@ -319,86 +321,96 @@ describe('Unauthorised View', () => {
 		});
 	});
 
-	ffTest.on('rovogrowth-635-pre-auth-cta-preview-fg', 'preview CTA FG on', () => {
-		const previewExp = eeTest.describe(
-			'rovogrowth-635-pre-auth-cta-preview-exp',
-			'preview CTA experiment',
-		);
+	describe('preview CTA experiment', () => {
+		let expValEqualsSpy: jest.SpyInstance<
+			ReturnType<typeof expValEqualsModule.expValEquals>,
+			Parameters<typeof expValEqualsModule.expValEquals>
+		>;
 
-		previewExp.variant(true, () => {
-			it('shows "Preview" button label in treatment', () => {
-				const testUrl = 'http://unauthorised-test/';
-				const { getByTestId } = renderWithIntl(
-					<InlineCardUnauthorizedView
-						context="Google"
-						url={testUrl}
-						onAuthorise={jest.fn()}
-						testId="inline-card-unauthorized-view"
-					/>,
-				);
+		beforeEach(() => {
+			expValEqualsSpy = jest.spyOn(expValEqualsModule, 'expValEquals').mockReturnValue(false);
+		});
 
-				expect(getByTestId('button-connect-account')).toHaveTextContent('Preview');
-				expect(getByTestId('button-connect-account')).not.toHaveTextContent(
-					'Connect your Google account',
-				);
-			});
+		afterEach(() => {
+			expValEqualsSpy.mockRestore();
+		});
 
-			ffTest.on(
-				'platform_sl_3p_preauth_soc_proof_inline_killswitch',
-				'social proof killswitch on',
-				() => {
-					eeTest
-						.describe(
-							'platform_sl_3p_preauth_social_proof_inline_cta',
-							'social proof CTA experiment on',
-						)
-						.variant(true, () => {
-							it('shows "Preview" button label when social proof is shown', () => {
-								const testUrl = 'http://unauthorised-test/';
-								const { getByTestId } = renderWithSocialProofDi(
-									<InlineCardUnauthorizedView
-										context="Figma"
-										extensionKey="figma-object-provider"
-										url={testUrl}
-										onAuthorise={jest.fn()}
-										testId="inline-card-unauthorized-view"
-									/>,
-									mockGetProviderPctMapSyncLoaded,
-								);
+		it('shows "Preview" button label in treatment', () => {
+			passGate('rovogrowth-635-pre-auth-cta-preview-fg');
+			expValEqualsSpy.mockImplementation(
+				(experimentName, parameterName, expectedValue) =>
+					experimentName === 'rovogrowth-635-pre-auth-cta-preview-exp' &&
+					parameterName === 'isEnabled' &&
+					expectedValue === true,
+			);
 
-								expect(getByTestId('button-connect-account')).toHaveTextContent('Preview');
-								expect(getByTestId('button-connect-account')).not.toHaveTextContent('Connect');
-								expect(
-									getByTestId('inline-card-unauthorized-view-social-proof-tag'),
-								).toBeInTheDocument();
-							});
-						});
-				},
+			const testUrl = 'http://unauthorised-test/';
+			const { getByTestId } = renderWithIntl(
+				<InlineCardUnauthorizedView
+					context="Google"
+					url={testUrl}
+					onAuthorise={jest.fn()}
+					testId="inline-card-unauthorized-view"
+				/>,
+			);
+
+			expect(getByTestId('button-connect-account')).toHaveTextContent('Preview');
+			expect(getByTestId('button-connect-account')).not.toHaveTextContent(
+				'Connect your Google account',
 			);
 		});
 
-		previewExp.variant(false, () => {
-			it('shows "Connect your Google account" in control', () => {
-				const testUrl = 'http://unauthorised-test/';
-				const { getByTestId } = renderWithIntl(
-					<InlineCardUnauthorizedView
-						context="Google"
-						url={testUrl}
-						onAuthorise={jest.fn()}
-						testId="inline-card-unauthorized-view"
-					/>,
-				);
+		it('shows "Preview" button label when social proof is shown', () => {
+			passGate('rovogrowth-635-pre-auth-cta-preview-fg');
+			passGate('platform_sl_3p_preauth_soc_proof_inline_killswitch');
+			expValEqualsSpy.mockImplementation(
+				(experimentName, parameterName, expectedValue) =>
+					parameterName === 'isEnabled' &&
+					expectedValue === true &&
+					(experimentName === 'rovogrowth-635-pre-auth-cta-preview-exp' ||
+						experimentName === 'platform_sl_3p_preauth_social_proof_inline_cta'),
+			);
 
-				expect(getByTestId('button-connect-account')).toHaveTextContent(
-					'Connect your Google account',
-				);
-				expect(getByTestId('button-connect-account')).not.toHaveTextContent('Preview');
-			});
+			const testUrl = 'http://unauthorised-test/';
+			const { getByTestId } = renderWithSocialProofDi(
+				<InlineCardUnauthorizedView
+					context="Figma"
+					extensionKey="figma-object-provider"
+					url={testUrl}
+					onAuthorise={jest.fn()}
+					testId="inline-card-unauthorized-view"
+				/>,
+				mockGetProviderPctMapSyncLoaded,
+			);
+
+			expect(getByTestId('button-connect-account')).toHaveTextContent('Preview');
+			expect(getByTestId('button-connect-account')).not.toHaveTextContent('Connect');
+			expect(getByTestId('inline-card-unauthorized-view-social-proof-tag')).toBeInTheDocument();
 		});
-	});
 
-	ffTest.off('rovogrowth-635-pre-auth-cta-preview-fg', 'preview CTA FG off', () => {
+		it('shows "Connect your Google account" in control', () => {
+			passGate('rovogrowth-635-pre-auth-cta-preview-fg');
+
+			const testUrl = 'http://unauthorised-test/';
+			const { getByTestId } = renderWithIntl(
+				<InlineCardUnauthorizedView
+					context="Google"
+					url={testUrl}
+					onAuthorise={jest.fn()}
+					testId="inline-card-unauthorized-view"
+				/>,
+			);
+
+			expect(getByTestId('button-connect-account')).toHaveTextContent(
+				'Connect your Google account',
+			);
+			expect(getByTestId('button-connect-account')).not.toHaveTextContent('Preview');
+		});
+
 		it('shows "Connect your Google account" when FG is off', () => {
+			failGate('rovogrowth-635-pre-auth-cta-preview-fg');
+			expValEqualsSpy.mockReturnValue(true);
+
 			const testUrl = 'http://unauthorised-test/';
 			const { getByTestId } = renderWithIntl(
 				<InlineCardUnauthorizedView

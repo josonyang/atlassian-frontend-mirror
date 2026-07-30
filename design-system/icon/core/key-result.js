@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::ac5dd9d18e58065415ed9f773e6c5a23>>
+ * @codegen <<SignedSource::85176a536ca70f335f50b5c8652b4751>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -15,8 +15,9 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
 /**
  * Icon: "KeyResult".
  * Category: single-purpose
- * Location: @atlaskit/icon
- * Usage guidance: Reserved for representing key results.
+ * Location: @atlaskit/icon/core/key-result
+ * Usage guidance:
+ * Reserved for representing key results.
  * - [Examples](https://atlaskit.atlassian.com/packages/design-system/icon)
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */

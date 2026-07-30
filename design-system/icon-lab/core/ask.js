@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::298a675804dfc02a8fe201c42654f64b>>
+ * @codegen <<SignedSource::672f54867b49b1c7238efddca8a55688>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -15,8 +15,9 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
 /**
  * Icon: "Ask".
  * Category: single-purpose
- * Location: @atlaskit/icon-lab
- * Usage guidance: Reserved for representing Asks in Focus. An ask is structured request made by one team or user to another, representing work needed to complete other work.
+ * Location: @atlaskit/icon-lab/core/ask
+ * Usage guidance:
+ * Reserved for representing Asks in Focus. An ask is structured request made by one team or user to another, representing work needed to complete other work.
  * - [Examples](https://atlaskit.atlassian.com/packages/design-system/icon)
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */

@@ -922,9 +922,14 @@ class TableComponent extends React.Component<ComponentProps, TableState> {
 					/>
 				)}
 				<NodeViewContentHole
-					// eslint-disable-next-line @atlaskit/design-system/no-unsafe-style-overrides -- existing table wrapper class required for legacy styling hooks
-					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
-					className={classnames(ClassName.TABLE_NODE_WRAPPER)}
+					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop, @atlaskit/design-system/no-unsafe-style-overrides -- existing table wrapper class required for legacy styling hooks
+					className={classnames(ClassName.TABLE_NODE_WRAPPER, {
+						[ClassName.TABLE_SCROLL_INLINE_SHADOW]: expValEquals(
+							'platform_editor_table_css_overflow_shadow',
+							'isEnabled',
+							true,
+						),
+					})}
 					ref={this.setWrapperRef}
 				>
 					{expValEquals('platform_editor_table_q4_loveability', 'isEnabled', true) && (
@@ -947,6 +952,22 @@ class TableComponent extends React.Component<ComponentProps, TableState> {
 					)}
 					{allowControls && colControls}
 				</NodeViewContentHole>
+				{expValEquals('platform_editor_table_css_overflow_shadow', 'isEnabled', true) && (
+					<>
+						<div
+							contentEditable={false}
+							aria-hidden="true"
+							data-vc-nvs="true"
+							data-table-overflow-shadow="start"
+						/>
+						<div
+							contentEditable={false}
+							aria-hidden="true"
+							data-vc-nvs="true"
+							data-table-overflow-shadow="end"
+						/>
+					</>
+				)}
 				{!this.isNestedInTable ? (
 					<div
 						// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766

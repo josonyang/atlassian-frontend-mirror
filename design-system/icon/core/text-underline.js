@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::1e6328b238b4e1d4c8883ade823798f3>>
+ * @codegen <<SignedSource::0954b7f91a9901aae49863fc77bcb248>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -15,8 +15,9 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
 /**
  * Icon: "TextUnderline".
  * Category: single-purpose
- * Location: @atlaskit/icon
- * Usage guidance: Reserved for underlined text tool
+ * Location: @atlaskit/icon/core/text-underline
+ * Usage guidance:
+ * Reserved for underlined text tool
  * - [Examples](https://atlaskit.atlassian.com/packages/design-system/icon)
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */

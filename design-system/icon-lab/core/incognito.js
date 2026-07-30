@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::d9b59f1961f04550c23a59f828d4d3c3>>
+ * @codegen <<SignedSource::d49dc8226419eb02f2958d0d2e50740b>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -15,8 +15,9 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
 /**
  * Icon: "Incognito".
  * Category: single-purpose
- * Location: @atlaskit/icon-lab
- * Usage guidance: Toggle Whiteboards private mode on and off.
+ * Location: @atlaskit/icon-lab/core/incognito
+ * Usage guidance:
+ * Toggle Whiteboards private mode on and off.
  * - [Examples](https://atlaskit.atlassian.com/packages/design-system/icon)
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */

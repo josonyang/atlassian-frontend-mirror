@@ -33,6 +33,18 @@ type ConversationErrorAEP = OperationalAEP<
 	}
 >;
 
+type RegenerateSuggestionsErrorAEP = OperationalAEP<
+	ACTION.ERRORED,
+	ACTION_SUBJECT.AI_SUGGESTIONS,
+	ACTION_SUBJECT_ID.SUGGESTIONS_REGENERATION_ERROR,
+	{
+		currentNodeCount: number;
+		errorCode?: string;
+		staleSuggestionCount: number;
+		statusCode?: number;
+	}
+>;
+
 type EntryPointClickedAEP = TrackAEP<
 	ACTION.CLICKED,
 	ACTION_SUBJECT.AI_SUGGESTIONS,
@@ -110,6 +122,7 @@ type ViewSuggestionAEP = TrackAEP<
 export type AiSuggestionsEventPayload =
 	| NoDiffSuggestionAEP
 	| ConversationErrorAEP
+	| RegenerateSuggestionsErrorAEP
 	| EntryPointClickedAEP
 	| EntryPointExposureAEP
 	| AcceptSuggestionAEP

@@ -1,5 +1,13 @@
 # @atlaskit/ufo-interaction-ignore
 
+## 7.3.26
+
+### Patch Changes
+
+- [`1882e44987695`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/1882e44987695) -
+  Clean up platform_ufo_post_interaction_raw_vc90 and always include raw VC revisions in
+  post-interaction logs
+
 ## 7.3.25
 
 ### Patch Changes

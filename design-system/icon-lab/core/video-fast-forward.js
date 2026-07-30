@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::17f1a8f913ef6fc486c6941c1a642fca>>
+ * @codegen <<SignedSource::2e95c7129036371722fe7e1d41fbe4d7>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -15,8 +15,9 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
 /**
  * Icon: "VideoFastForward".
  * Category: single-purpose
- * Location: @atlaskit/icon-lab
- * Usage guidance: Reserved for fast forwarding media and representing fast forward BPMN diagram symbol.
+ * Location: @atlaskit/icon-lab/core/video-fast-forward
+ * Usage guidance:
+ * Reserved for fast forwarding media and representing fast forward BPMN diagram symbol.
  * - [Examples](https://atlaskit.atlassian.com/packages/design-system/icon)
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */

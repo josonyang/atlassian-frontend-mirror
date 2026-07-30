@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::ef67b8397b09ef0274a36003df1711b9>>
+ * @codegen <<SignedSource::d56696bd7d9bfd51a53fc1726d5b9e10>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -15,8 +15,9 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
 /**
  * Icon: "VideoPauseOverlay".
  * Category: single-purpose
- * Location: @atlaskit/icon
- * Usage guidance: Single purpose - Reserved for pause video when icon is overlayed on Media.
+ * Location: @atlaskit/icon/core/video-pause-overlay
+ * Usage guidance:
+ * Single purpose - Reserved for pause video when icon is overlayed on Media.
  * - [Examples](https://atlaskit.atlassian.com/packages/design-system/icon)
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */

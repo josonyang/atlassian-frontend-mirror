@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::f1a1d8e8d8cc06dd55144d30c84e67b0>>
+ * @codegen <<SignedSource::64f0eace23d069698ba6cf4fa55b43c3>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -15,8 +15,9 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
 /**
  * Icon: "DiagramSymbolSummingJunction".
  * Category: single-purpose
- * Location: @atlaskit/icon-lab
- * Usage guidance: Reserved for summing junction diagram symbol.
+ * Location: @atlaskit/icon-lab/core/diagram-symbol-summing-junction
+ * Usage guidance:
+ * Reserved for summing junction diagram symbol.
  * - [Examples](https://atlaskit.atlassian.com/packages/design-system/icon)
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */

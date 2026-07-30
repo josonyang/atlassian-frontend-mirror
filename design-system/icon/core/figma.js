@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::70bee9a86caa9dbbde0512b0b5f536b4>>
+ * @codegen <<SignedSource::807b586b2c71fc83fa93badabf1a2927>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -15,8 +15,9 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
 /**
  * Icon: "Figma".
  * Category: single-purpose
- * Location: @atlaskit/icon
- * Usage guidance: Reserved for representing Figma.
+ * Location: @atlaskit/icon/core/figma
+ * Usage guidance:
+ * Reserved for representing Figma.
  * - [Examples](https://atlaskit.atlassian.com/packages/design-system/icon)
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */

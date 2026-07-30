@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::174472a7e38932dc7a97866e0be8034a>>
+ * @codegen <<SignedSource::43780b3395052aa320d1077123ecca9b>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -15,8 +15,9 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
 /**
  * Icon: "StatusSuccess".
  * Category: single-purpose
- * Location: @atlaskit/icon
- * Usage guidance: Reserved for success statuses and messaging. Filled status icons provide higher visual contrast to draw attention to important information.
+ * Location: @atlaskit/icon/core/status-success
+ * Usage guidance:
+ * Reserved for success statuses and messaging. Filled status icons provide higher visual contrast to draw attention to important information.
  * - [Examples](https://atlaskit.atlassian.com/packages/design-system/icon)
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */

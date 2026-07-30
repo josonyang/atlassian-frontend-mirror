@@ -1,12 +1,7 @@
-import { setBooleanFeatureFlagResolver } from '@atlaskit/platform-feature-flags/setBooleanFeatureFlagResolver';
-
 import type { PostInteractionLogOutput } from '../common';
 import { setUFOConfig } from '../config';
 
 import createPostInteractionLogPayload from './index';
-
-const POST_INTERACTION_RAW_VC90_GATE = 'platform_ufo_post_interaction_raw_vc90';
-
 const createPostInteractionLogOutput = (): PostInteractionLogOutput => ({
 	lastInteractionFinish: {
 		ufoName: 'test-interaction',
@@ -73,26 +68,9 @@ describe('createPostInteractionLogPayload', () => {
 	afterEach(() => {
 		// @ts-expect-error Resetting module-level config for tests.
 		setUFOConfig(undefined);
-		setBooleanFeatureFlagResolver(() => false);
 	});
 
-	it('does not include raw-handler revisions when the post-interaction raw VC90 gate is off', () => {
-		setBooleanFeatureFlagResolver(() => false);
-
-		const payload = createPostInteractionLogPayload(createPostInteractionLogOutput());
-
-		expect(payload?.attributes.properties.postInteractionLog.rawVCRevisions).toBeUndefined();
-		expect(payload?.attributes.properties.postInteractionLog.lastInteractionFinish.vc90).toBeNull();
-		expect(payload?.attributes.properties.postInteractionLog.lastInteractionFinish.vcClean).toBe(
-			false,
-		);
-		expect(payload?.attributes.properties.postInteractionLog.revisedVC90).toBeNull();
-		expect(payload?.attributes.properties.postInteractionLog.vcClean).toBe(false);
-	});
-
-	it('includes raw-handler revisions for downstream VC90 calculation when the gate is on', () => {
-		setBooleanFeatureFlagResolver((gateName) => gateName === POST_INTERACTION_RAW_VC90_GATE);
-
+	it('includes raw-handler revisions for downstream VC90 calculation', () => {
 		const payload = createPostInteractionLogPayload(createPostInteractionLogOutput());
 
 		expect(payload?.attributes.properties.postInteractionLog.rawVCRevisions).toEqual({

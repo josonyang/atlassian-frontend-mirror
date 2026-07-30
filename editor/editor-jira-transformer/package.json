@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-jira-transformer",
-	"version": "20.0.2",
+	"version": "20.1.0",
 	"description": "Editor JIRA transformer's",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -36,7 +36,7 @@
 	},
 	"peerDependencies": {
 		"@atlaskit/editor-common": "workspace:^",
-		"react": "^18.2.0"
+		"react": "^18.2.0 || ^19.2.0"
 	},
 	"devDependencies": {
 		"@atlaskit/activity": "root:*",
@@ -49,7 +49,7 @@
 		"@atlaskit/util-data-test": "workspace:^",
 		"@atlassian/structured-docs-types": "workspace:^",
 		"@emotion/react": "root:*",
-		"react": "root:*"
+		"react": "^19.2.0"
 	},
 	"techstack": {
 		"@repo/internal": {

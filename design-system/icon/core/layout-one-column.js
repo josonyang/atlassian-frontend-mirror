@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::d59b5ed561b25f3fb1da55a522fb8984>>
+ * @codegen <<SignedSource::08a6c5938ffca48724ffb7cb03500605>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -15,8 +15,9 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
 /**
  * Icon: "LayoutOneColumn".
  * Category: single-purpose
- * Location: @atlaskit/icon
- * Usage guidance: Reserved for single column layout option in Confluence Editor
+ * Location: @atlaskit/icon/core/layout-one-column
+ * Usage guidance:
+ * Reserved for single column layout option in Confluence Editor
  * - [Examples](https://atlaskit.atlassian.com/packages/design-system/icon)
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */

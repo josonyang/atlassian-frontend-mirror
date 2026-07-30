@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::4462f40c375ebe722466dce1677f33d8>>
+ * @codegen <<SignedSource::0539b1500979c6a2299af23ebad0ce99>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -15,8 +15,9 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
 /**
  * Icon: "TableColumnMoveLeft".
  * Category: single-purpose
- * Location: @atlaskit/icon
- * Usage guidance: Reserved for moving a table column to the left of its current location.
+ * Location: @atlaskit/icon/core/table-column-move-left
+ * Usage guidance:
+ * Reserved for moving a table column to the left of its current location.
  * - [Examples](https://atlaskit.atlassian.com/packages/design-system/icon)
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */

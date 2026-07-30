@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::9dbe5b0f582d6ea2fe12e0e26313662c>>
+ * @codegen <<SignedSource::3f868b684fdc30026e334b45eaf89531>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -15,8 +15,9 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
 /**
  * Icon: "PersonWarning".
  * Category: single-purpose
- * Location: @atlaskit/icon
- * Usage guidance: Reserved for showing a warning related to a person or teammate.
+ * Location: @atlaskit/icon/core/person-warning
+ * Usage guidance:
+ * Reserved for showing a warning related to a person or teammate.
  * - [Examples](https://atlaskit.atlassian.com/packages/design-system/icon)
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */

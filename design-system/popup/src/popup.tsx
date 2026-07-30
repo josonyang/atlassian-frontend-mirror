@@ -32,7 +32,7 @@ const wrapperStyles = cssMap({
 	},
 });
 
-export const Popup: FC<PopupProps> = memo((props: PopupProps) => {
+const PopupLegacy: FC<PopupProps> = (props: PopupProps) => {
 	const {
 		xcss,
 		appearance: inAppearance = 'default',
@@ -80,24 +80,11 @@ export const Popup: FC<PopupProps> = memo((props: PopupProps) => {
 		onClose?.(null);
 	}, [onClose]);
 
-	// On the top-layer path, the Popover primitive registers with the observer
-	// directly, so we skip registration here to avoid double-counting.
-	// Safe conditional hook: feature flags are resolved once at startup.
-	if (!fg('platform-dst-top-layer')) {
-		// eslint-disable-next-line react-hooks/rules-of-hooks
-		useNotifyOpenLayerObserver({
-			isOpen,
-			onClose: handleOpenLayerObserverCloseSignal,
-			type: 'popup',
-		});
-	}
-
-	// Top-layer rendering path: native Popover API via @atlaskit/top-layer
-	if (fg('platform-dst-top-layer')) {
-		// Pass the original props object to preserve the discriminated union
-		// (shouldFitContainer: true vs false) that is lost after destructuring.
-		return <PopupTopLayer {...props} />;
-	}
+	useNotifyOpenLayerObserver({
+		isOpen,
+		onClose: handleOpenLayerObserverCloseSignal,
+		type: 'popup',
+	});
 
 	// `xcss` is part of Popup's public API and is forwarded as-is to
 	// the internal PopperWrapper, which rebuilds the inner styles. We
@@ -181,4 +168,19 @@ export const Popup: FC<PopupProps> = memo((props: PopupProps) => {
 	}
 
 	return popupContent;
+};
+
+export const Popup: FC<PopupProps> = memo((props: PopupProps) => {
+	// Choose the rendering implementation at the component boundary rather than
+	// gating hooks inside a single component. Each implementation owns its own
+	// hooks unconditionally, so a runtime feature-flag change swaps component
+	// types (a clean remount) instead of changing the hook order of a mounted
+	// component.
+	if (fg('platform-dst-top-layer')) {
+		// Pass the original props object to preserve the discriminated union
+		// (shouldFitContainer: true vs false) that is lost after destructuring.
+		return <PopupTopLayer {...props} />;
+	}
+
+	return <PopupLegacy {...props} />;
 });

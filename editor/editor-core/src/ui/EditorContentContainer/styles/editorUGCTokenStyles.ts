@@ -5,7 +5,7 @@ import { css } from '@emotion/react';
 import type { SerializedStyles } from '@emotion/react';
 
 /**
- * Use when fg('platform_editor_typography_ugc') is enabled, but the following are not enabled:
+ * Use when the following is not enabled:
  * - fg('atlas_editor_typography_refreshed')
  */
 /**
@@ -34,7 +34,7 @@ export const editorUGCTokensModernized: SerializedStyles = css({
 });
 
 /**
- * Use when fg('platform_editor_typography_ugc') is enabled and the following is enabled:
+ * Use when the following is enabled:
  * - fg('atlas_editor_typography_refreshed')
  */
 /**

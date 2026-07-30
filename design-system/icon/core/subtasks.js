@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::c160a9f26591f77220765c2e9d99939c>>
+ * @codegen <<SignedSource::71857bdfed4ef51975526ae5a07c1a0e>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -15,8 +15,9 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
 /**
  * Icon: "Subtasks".
  * Category: single-purpose
- * Location: @atlaskit/icon
- * Usage guidance: Reserved for subtask work type.
+ * Location: @atlaskit/icon/core/subtasks
+ * Usage guidance:
+ * Reserved for subtask work type.
  * - [Examples](https://atlaskit.atlassian.com/packages/design-system/icon)
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */

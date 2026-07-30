@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::378a26a14fd25e05e0f596ad147a8284>>
+ * @codegen <<SignedSource::3e1654abdad0f3b34d01fd2ecc06d519>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -15,8 +15,9 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
 /**
  * Icon: "Headphones".
  * Category: multi-purpose
- * Location: @atlaskit/icon
- * Usage guidance: Known uses: music, audio.
+ * Location: @atlaskit/icon/core/headphones
+ * Usage guidance:
+ * Known uses: music, audio.
  * - [Examples](https://atlaskit.atlassian.com/packages/design-system/icon)
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */

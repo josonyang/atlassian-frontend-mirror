@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::d2eb42ffff47552bf7695cd1247757bc>>
+ * @codegen <<SignedSource::ada6b738c1316fc597aa255722306d00>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -15,8 +15,9 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
 /**
  * Icon: "TextWrap".
  * Category: single-purpose
- * Location: @atlaskit/icon
- * Usage guidance: Reserved for wrapping text so it spans multiple lines.
+ * Location: @atlaskit/icon/core/text-wrap
+ * Usage guidance:
+ * Reserved for wrapping text so it spans multiple lines.
  * - [Examples](https://atlaskit.atlassian.com/packages/design-system/icon)
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */

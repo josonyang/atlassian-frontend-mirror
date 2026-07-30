@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::affc28d64bccdede848e6ee453a3164c>>
+ * @codegen <<SignedSource::3ce08b2d91e6aea25e5cafd57084833c>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -15,8 +15,9 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
 /**
  * Icon: "PriorityTrivial".
  * Category: single-purpose
- * Location: @atlaskit/icon
- * Usage guidance: Reserved for trivial work type priority.
+ * Location: @atlaskit/icon/core/priority-trivial
+ * Usage guidance:
+ * Reserved for trivial work type priority.
  * - [Examples](https://atlaskit.atlassian.com/packages/design-system/icon)
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */

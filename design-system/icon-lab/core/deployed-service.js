@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::c2a2688e41bca857e6ff671dd3ce1bbd>>
+ * @codegen <<SignedSource::7f2e49ccba2954d10431253d7e771ec1>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -15,8 +15,9 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
 /**
  * Icon: "DeployedService".
  * Category: single-purpose
- * Location: @atlaskit/icon-lab
- * Usage guidance: Reserved for representing a deployed software, capability, or application service.
+ * Location: @atlaskit/icon-lab/core/deployed-service
+ * Usage guidance:
+ * Reserved for representing a deployed software, capability, or application service.
  * - [Examples](https://atlaskit.atlassian.com/packages/design-system/icon)
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */

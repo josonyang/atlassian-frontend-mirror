@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::2379769942b452821345d3db8e1641c9>>
+ * @codegen <<SignedSource::698cdbb7157fae3127e51e636cf7a8d4>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -15,8 +15,9 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
 /**
  * Icon: "InformationCircle".
  * Category: multi-purpose
- * Location: @atlaskit/icon
- * Usage guidance: Known uses: For highlighting information when less visual emphasis is needed within the UI compared to the filled information status icon.
+ * Location: @atlaskit/icon/core/information-circle
+ * Usage guidance:
+ * Known uses: For highlighting information when less visual emphasis is needed within the UI compared to the filled information status icon.
  * - [Examples](https://atlaskit.atlassian.com/packages/design-system/icon)
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */

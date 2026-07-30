@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::432ea26d62f26515b4626718ca47f05c>>
+ * @codegen <<SignedSource::4dda539f870f41d789cecb171ac6544f>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -15,8 +15,9 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
 /**
  * Icon: "Cursor".
  * Category: multi-purpose
- * Location: @atlaskit/icon-lab
- * Usage guidance: Selecting the cursor in Whiteboards
+ * Location: @atlaskit/icon-lab/core/cursor
+ * Usage guidance:
+ * Selecting the cursor in Whiteboards
  * - [Examples](https://atlaskit.atlassian.com/packages/design-system/icon)
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */

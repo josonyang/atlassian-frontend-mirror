@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::caf7c91e82456aba15e73fc941c75ef8>>
+ * @codegen <<SignedSource::16646907d9d5f6364aa15d0f283865fe>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -15,8 +15,9 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
 /**
  * Icon: "DataVisualizationMetric".
  * Category: single-purpose
- * Location: @atlaskit/icon-lab
- * Usage guidance: Reserved for single data indicator or metric visualizations.
+ * Location: @atlaskit/icon-lab/core/data-visualization-metric
+ * Usage guidance:
+ * Reserved for single data indicator or metric visualizations.
  * - [Examples](https://atlaskit.atlassian.com/packages/design-system/icon)
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */

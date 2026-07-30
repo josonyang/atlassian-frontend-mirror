@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::f3ea5fcdbdd2a3db3d8f3f267a6778c2>>
+ * @codegen <<SignedSource::7db0d4a226b50604360a5bd86296f974>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -15,8 +15,9 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
 /**
  * Icon: "PowerCable".
  * Category: multi-purpose
- * Location: @atlaskit/icon-lab
- * Usage guidance: Suggested uses: Data connectivity, Connection, Plugins, Extensions, Extensibility
+ * Location: @atlaskit/icon-lab/core/power-cable
+ * Usage guidance:
+ * Suggested uses: Data connectivity, Connection, Plugins, Extensions, Extensibility
  * - [Examples](https://atlaskit.atlassian.com/packages/design-system/icon)
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */

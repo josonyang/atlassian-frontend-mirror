@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::dbd08cf892e7e5c82f48a6d0938b8563>>
+ * @codegen <<SignedSource::81c20b2c343584743efd318bca9ace85>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -15,8 +15,9 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
 /**
  * Icon: "CursorStrikethrough".
  * Category: multi-purpose
- * Location: @atlaskit/icon-lab
- * Usage guidance: Hide collaborator cursors in the Whiteboard
+ * Location: @atlaskit/icon-lab/core/cursor-strikethrough
+ * Usage guidance:
+ * Hide collaborator cursors in the Whiteboard
  * - [Examples](https://atlaskit.atlassian.com/packages/design-system/icon)
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */

@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::590255127a6d73728633911e9efed4fc>>
+ * @codegen <<SignedSource::9ee606756a34b194cd005cc25d0fba89>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -15,8 +15,9 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
 /**
  * Icon: "CheckboxUnchecked".
  * Category: multi-purpose
- * Location: @atlaskit/icon
- * Usage guidance: Multi purpose - Reserved for interactive checkbox experiences. Consider using the checkbox component.
+ * Location: @atlaskit/icon/core/checkbox-unchecked
+ * Usage guidance:
+ * Multi purpose - Reserved for interactive checkbox experiences. Consider using the checkbox component.
  * - [Examples](https://atlaskit.atlassian.com/packages/design-system/icon)
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */

@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::7c2dd75429cf173dc202e5ff88d6911a>>
+ * @codegen <<SignedSource::5b3b5c62742e51d781c33c5e0ab1ccf5>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -15,8 +15,9 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
 /**
  * Icon: "VideoTimelineClipInsertEnd".
  * Category: single-purpose
- * Location: @atlaskit/icon-lab
- * Usage guidance: Reserved for inserting a clip at the end of the video timeline in Loom.
+ * Location: @atlaskit/icon-lab/core/video-timeline-clip-insert-end
+ * Usage guidance:
+ * Reserved for inserting a clip at the end of the video timeline in Loom.
  * - [Examples](https://atlaskit.atlassian.com/packages/design-system/icon)
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */

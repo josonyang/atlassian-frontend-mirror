@@ -7,7 +7,6 @@ import { Fragment, Slice } from '@atlaskit/editor-prosemirror/model';
 import type { Transaction } from '@atlaskit/editor-prosemirror/state';
 import { Selection } from '@atlaskit/editor-prosemirror/state';
 import { ReplaceStep } from '@atlaskit/editor-prosemirror/transform';
-import { fg } from '@atlaskit/platform-feature-flags';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 import type { MarkdownToPmConverter } from '../../pasteOptionsToolbarPluginType';
@@ -214,7 +213,7 @@ function richTextSliceTransactionWithSelectionAdjust({
 
 /**
  * Parse markdown text into a slice for paste replacement, using markdown-plus
- * only when both markdown-mode experiment and paste parser gate are enabled.
+ * only when the paste parser experiment is enabled.
  */
 export function getMarkdownSlice(
 	text: string,
@@ -242,8 +241,7 @@ export function getMarkdownSlice(
 
 		const doc =
 			markdownToPmConverter &&
-			expValEquals('cc-markdown-mode', 'isEnabled', true) &&
-			fg('platform_editor_paste_as_md_use_gfm_transformer')
+			expValEquals('platform_editor_paste_as_md_use_gfm', 'isEnabled', true)
 				? schema.nodes.doc.createAndFill({}, markdownToPmConverter({ markdown: textInput, schema }))
 				: new MarkdownTransformer(schema, md).parse(escapeLinks(textInput));
 

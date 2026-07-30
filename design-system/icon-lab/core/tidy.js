@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::105cb26c97b8c0186dd6bf8a89f806b1>>
+ * @codegen <<SignedSource::d5318584c686846516d1a200538f38ba>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -15,8 +15,9 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
 /**
  * Icon: "Tidy".
  * Category: single-purpose
- * Location: @atlaskit/icon-lab
- * Usage guidance: Tidy up objects on Whiteboards
+ * Location: @atlaskit/icon-lab/core/tidy
+ * Usage guidance:
+ * Tidy up objects on Whiteboards
  * - [Examples](https://atlaskit.atlassian.com/packages/design-system/icon)
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */

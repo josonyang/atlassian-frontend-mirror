@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::9b4cd66c1e1ec67792dace27b5ca8f11>>
+ * @codegen <<SignedSource::42f73c58ab540254439c27beed2b7338>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -15,8 +15,9 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
 /**
  * Icon: "TextDensityExpand".
  * Category: single-purpose
- * Location: @atlaskit/icon-lab
- * Usage guidance: Reserved for reducing the density of text by increasing font size and/or line height.
+ * Location: @atlaskit/icon-lab/core/text-density-expand
+ * Usage guidance:
+ * Reserved for reducing the density of text by increasing font size and/or line height.
  * - [Examples](https://atlaskit.atlassian.com/packages/design-system/icon)
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */

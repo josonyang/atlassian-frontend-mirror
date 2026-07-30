@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::53728e0574f558930df8091a2decc47d>>
+ * @codegen <<SignedSource::3a171620881b1c48add1bbc552097398>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -15,8 +15,9 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
 /**
  * Icon: "Eyedropper".
  * Category: multi-purpose
- * Location: @atlaskit/icon-lab
- * Usage guidance: Sampling a color with a color picker
+ * Location: @atlaskit/icon-lab/core/eyedropper
+ * Usage guidance:
+ * Sampling a color with a color picker
  * - [Examples](https://atlaskit.atlassian.com/packages/design-system/icon)
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */

@@ -28,6 +28,7 @@ import type {
 import {
 	backgroundPaletteTooltipMessages,
 	cellBackgroundColorPalette,
+	cellBackgroundColorPaletteNew,
 	ColorPalette,
 	getSelectedRowAndColumnFromPalette,
 } from '@atlaskit/editor-common/ui-color';
@@ -52,8 +53,10 @@ import {
 	isSelectionType,
 } from '@atlaskit/editor-tables/utils';
 import PaintBucketIcon from '@atlaskit/icon/core/paint-bucket';
+import { fg } from '@atlaskit/platform-feature-flags';
 // eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives -- to be migrated to @atlaskit/primitives/compiled – go/akcss
 import { Box, xcss } from '@atlaskit/primitives';
+import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import Toggle from '@atlaskit/toggle';
 
 import { clearHoverSelection, hoverColumns, hoverRows } from '../../pm-plugins/commands';
@@ -77,7 +80,7 @@ import { getSelectedColumnIndexes, getSelectedRowIndexes } from '../../pm-plugin
 import type { TablePlugin } from '../../tablePluginType';
 import { TableCssClassName as ClassName } from '../../types';
 import type { PluginConfig, TableDirection } from '../../types';
-import { colorPalletteColumns } from '../consts';
+import { colorPaletteColumns, colorPaletteColumnsOld } from '../consts';
 
 import { DropdownMenu } from './DropdownMenu';
 import { cellColourPreviewStyles, dragMenuBackgroundColorStyles, toggleStyles } from './styles';
@@ -386,10 +389,18 @@ const DragMenu = React.memo(
 			const node = targetCellPosition ? state.doc.nodeAt(targetCellPosition) : null;
 			const background = hexToEditorBackgroundPaletteColor(node?.attrs?.background || '#ffffff');
 
+			const isMoreColorsEnabled =
+				expValEquals('platform_editor_lovability_text_bg_color', 'isEnabled', true) &&
+				fg('platform_editor_lovability_text_bg_color_patch_2');
+			const activePalette = isMoreColorsEnabled
+				? cellBackgroundColorPaletteNew
+				: cellBackgroundColorPalette;
+			const activeCols = isMoreColorsEnabled ? colorPaletteColumns : colorPaletteColumnsOld;
+
 			const { selectedRowIndex, selectedColumnIndex } = getSelectedRowAndColumnFromPalette(
-				cellBackgroundColorPalette,
+				activePalette,
 				background,
-				colorPalletteColumns,
+				activeCols,
 			);
 
 			return {
@@ -441,7 +452,7 @@ const DragMenu = React.memo(
 									isOpenedByKeyboard={isKeyboardModeActive}
 								>
 									<ColorPalette
-										cols={colorPalletteColumns}
+										cols={activeCols}
 										// eslint-disable-next-line @atlassian/perf-linting/no-unstable-inline-props -- Ignored via go/ees017 (to be fixed)
 										onClick={(color) => {
 											setColor(color);
@@ -449,7 +460,7 @@ const DragMenu = React.memo(
 										selectedColor={background}
 										// eslint-disable-next-line @atlassian/perf-linting/no-unstable-inline-props -- Ignored via go/ees017 (to be fixed)
 										paletteOptions={{
-											palette: cellBackgroundColorPalette,
+											palette: activePalette,
 											paletteColorTooltipMessages: backgroundPaletteTooltipMessages,
 											hexToPaletteColor: hexToEditorBackgroundPaletteColor,
 										}}

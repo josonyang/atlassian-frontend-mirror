@@ -2449,6 +2449,16 @@ const stickyScrollbarStyles = css({
 	},
 });
 
+const stickyScrollbarOverflowShadowFixStyles = css({
+	[`.${RendererCssClassName.DOCUMENT} .${TableSharedCssClassName.TABLE_CONTAINER}`]: {
+		[`&.${shadowClassNames.RIGHT_SHADOW}::after, &.${shadowClassNames.LEFT_SHADOW}::before`]: {
+			// The sticky scrollbar retains this space in the table container's layout even while hidden.
+			bottom: token('space.250'),
+			height: 'auto',
+		},
+	},
+});
+
 const rendererTableHeaderEqualHeightStylesForTableCellOnly = css({
 	[`.${RendererCssClassName.DOCUMENT} .${TableSharedCssClassName.TABLE_CONTAINER}`]: {
 		[`.${TableSharedCssClassName.TABLE_NODE_WRAPPER} > table, .${TableSharedCssClassName.TABLE_STICKY_WRAPPER} > table`]:
@@ -3247,9 +3257,10 @@ export const RendererStyleContainer = (props: RendererStyleContainerProps): jsx.
 		true,
 		{ exposure: true },
 	);
-
+	const isStickyScrollbarOn = isStickyScrollbarEnabled(appearance);
 	const baseFontSize = getBaseFontSize(appearance, contentMode);
 	const browser = getBrowserInfo();
+
 	return (
 		<div
 			role="none"
@@ -3392,7 +3403,10 @@ export const RendererStyleContainer = (props: RendererStyleContainerProps): jsx.
 					? firstNodeWithNotMarginTopWithNestedDnD
 					: firstNodeWithNotMarginTop,
 				rendererTableStyles,
-				isStickyScrollbarEnabled(appearance) && stickyScrollbarStyles,
+				isStickyScrollbarOn && stickyScrollbarStyles,
+				isStickyScrollbarOn &&
+					expValEquals('platform_editor_table_css_overflow_shadow', 'isEnabled', true) &&
+					stickyScrollbarOverflowShadowFixStyles,
 				rendererTableHeaderEqualHeightStylesForTableCellOnly,
 				allowColumnSorting && rendererTableSortableColumnStyles,
 				allowColumnSorting &&

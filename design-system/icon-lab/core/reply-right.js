@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::81ff0ece5a5fcc077ae0770ac0c0ffcf>>
+ * @codegen <<SignedSource::f33b7fd57322203150cd946304924e06>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -15,8 +15,9 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
 /**
  * Icon: "ReplyRight".
  * Category: single-purpose
- * Location: @atlaskit/icon-lab
- * Usage guidance: Known uses: replying to a message thread
+ * Location: @atlaskit/icon-lab/core/reply-right
+ * Usage guidance:
+ * Known uses: replying to a message thread
  * - [Examples](https://atlaskit.atlassian.com/packages/design-system/icon)
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */

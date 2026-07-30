@@ -102,6 +102,33 @@ export const tableNodeSpecWithFixedToDOM = (
 				];
 			}
 
+			const overflowShadows: DOMOutputSpec[] = expValEquals(
+				'platform_editor_table_css_overflow_shadow',
+				'isEnabled',
+				true,
+			)
+				? [
+						[
+							'div',
+							{
+								contenteditable: 'false',
+								'aria-hidden': 'true',
+								'data-vc-nvs': 'true',
+								'data-table-overflow-shadow': 'start',
+							},
+						],
+						[
+							'div',
+							{
+								contenteditable: 'false',
+								'aria-hidden': 'true',
+								'data-vc-nvs': 'true',
+								'data-table-overflow-shadow': 'end',
+							},
+						],
+					]
+				: [];
+
 			const roundedTableCornerMasks: DOMOutputSpec[] = expValEquals(
 				'platform_editor_table_q4_loveability',
 				'isEnabled',
@@ -154,11 +181,18 @@ export const tableNodeSpecWithFixedToDOM = (
 				[
 					'div',
 					{
-						class: 'pm-table-wrapper',
+						class: classNames(ClassName.TABLE_NODE_WRAPPER, {
+							[ClassName.TABLE_SCROLL_INLINE_SHADOW]: expValEquals(
+								'platform_editor_table_css_overflow_shadow',
+								'isEnabled',
+								true,
+							),
+						}),
 					},
 					...roundedTableCornerMasks,
 					['table', attrs, colgroup, ['tbody', 0]],
 				],
+				...overflowShadows,
 				[
 					'div',
 					{

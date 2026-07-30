@@ -32,7 +32,11 @@ import type {
 	Icon,
 	typeOption,
 } from '@atlaskit/editor-common/types';
-import { DEFAULT_BORDER_COLOR, cellBackgroundColorPalette } from '@atlaskit/editor-common/ui-color';
+import {
+	DEFAULT_BORDER_COLOR,
+	cellBackgroundColorPalette,
+	cellBackgroundColorPaletteNew,
+} from '@atlaskit/editor-common/ui-color';
 import {
 	closestElement,
 	getChildrenInfo,
@@ -60,6 +64,7 @@ import CustomizeIcon from '@atlaskit/icon/core/customize';
 import DeleteIcon from '@atlaskit/icon/core/delete';
 import ShrinkHorizontalIcon from '@atlaskit/icon/core/shrink-horizontal';
 import TableColumnsDistributeIcon from '@atlaskit/icon/core/table-columns-distribute';
+import { fg } from '@atlaskit/platform-feature-flags';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
@@ -114,6 +119,7 @@ import type {
 } from '../types';
 import { TableCssClassName } from '../types';
 
+import { colorPaletteColumns, colorPaletteColumnsOld } from './consts';
 import { FloatingAlignmentButtons } from './FloatingAlignmentButtons/FloatingAlignmentButtons';
 
 export const getToolbarMenuConfig = (
@@ -897,9 +903,13 @@ const getColorPicker = (
 	}
 	const node = targetCellPosition ? state.doc.nodeAt(targetCellPosition) : undefined;
 	const currentBackground = node?.attrs?.background || '#ffffff';
-	const defaultPalette = cellBackgroundColorPalette.find(
-		(item) => item.value === currentBackground,
-	) || {
+	const isMoreColorsEnabled =
+		expValEquals('platform_editor_lovability_text_bg_color', 'isEnabled', true) &&
+		fg('platform_editor_lovability_text_bg_color_patch_2');
+	const activePalette = isMoreColorsEnabled
+		? cellBackgroundColorPaletteNew
+		: cellBackgroundColorPalette;
+	const defaultPalette = activePalette.find((item) => item.value === currentBackground) || {
 		// eslint-disable-next-line @atlassian/i18n/no-literal-string-in-object
 		label: 'Custom',
 		value: currentBackground,
@@ -913,8 +923,9 @@ const getColorPicker = (
 			type: 'select',
 			isAriaExpanded: true,
 			selectType: 'color',
+			cols: isMoreColorsEnabled ? colorPaletteColumns : colorPaletteColumnsOld,
 			defaultValue: defaultPalette,
-			options: cellBackgroundColorPalette,
+			options: activePalette,
 			returnEscToButton: true,
 			// Ignored via go/ees005
 			// eslint-disable-next-line @typescript-eslint/no-explicit-any

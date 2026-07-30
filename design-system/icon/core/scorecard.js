@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::5a4903e4ec58e62125197758e732a2ff>>
+ * @codegen <<SignedSource::7f3fd04cb039a7e1db6ef0e51fefb003>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -15,8 +15,9 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
 /**
  * Icon: "Scorecard".
  * Category: single-purpose
- * Location: @atlaskit/icon
- * Usage guidance: Single purpose - Reserved for Scorecard in Analytics.
+ * Location: @atlaskit/icon/core/scorecard
+ * Usage guidance:
+ * Single purpose - Reserved for Scorecard in Analytics.
  * - [Examples](https://atlaskit.atlassian.com/packages/design-system/icon)
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */

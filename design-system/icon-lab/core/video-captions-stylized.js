@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::776615b6042acc939a7b1832672e82d1>>
+ * @codegen <<SignedSource::71f8e4fdfca93ca3339f312428991bed>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -15,8 +15,9 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
 /**
  * Icon: "VideoCaptionsStylized".
  * Category: single-purpose
- * Location: @atlaskit/icon-lab
- * Usage guidance: Reserved for stylized captions functionality in Loom
+ * Location: @atlaskit/icon-lab/core/video-captions-stylized
+ * Usage guidance:
+ * Reserved for stylized captions functionality in Loom
  * - [Examples](https://atlaskit.atlassian.com/packages/design-system/icon)
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */

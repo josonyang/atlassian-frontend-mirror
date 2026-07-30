@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::b08853290efcdd597667e3431b2ad7db>>
+ * @codegen <<SignedSource::bd8f0119dabf4690393aa109b60bd96c>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -15,8 +15,9 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
 /**
  * Icon: "StatusWorkflowReturned".
  * Category: single-purpose
- * Location: @atlaskit/icon-lab
- * Usage guidance: Reserved for representing statuses that return to a previous state in the process such as "Redeploy", "Needs more information"
+ * Location: @atlaskit/icon-lab/core/status-workflow-returned
+ * Usage guidance:
+ * Reserved for representing statuses that return to a previous state in the process such as "Redeploy", "Needs more information"
  * - [Examples](https://atlaskit.atlassian.com/packages/design-system/icon)
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */

@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::34370ab3dde16589138f03d8588b48b8>>
+ * @codegen <<SignedSource::e60b7a78bb7ec047b8878ae4dddc1f9f>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -15,8 +15,9 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
 /**
  * Icon: "VideoStrikethrough".
  * Category: multi-purpose
- * Location: @atlaskit/icon-lab
- * Usage guidance: Reserved for no video input
+ * Location: @atlaskit/icon-lab/core/video-strikethrough
+ * Usage guidance:
+ * Reserved for no video input
  * - [Examples](https://atlaskit.atlassian.com/packages/design-system/icon)
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */

@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::29b3c3398bed31dbea6a6d22470908b9>>
+ * @codegen <<SignedSource::7aa4c68100f2b96893eb1b2784af0313>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -15,8 +15,9 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
 /**
  * Icon: "MergeSuccess".
  * Category: single-purpose
- * Location: @atlaskit/icon
- * Usage guidance: Single purpose - Reserved for branches in Bitbucket and Jira that have successfully merged.
+ * Location: @atlaskit/icon/core/merge-success
+ * Usage guidance:
+ * Single purpose - Reserved for branches in Bitbucket and Jira that have successfully merged.
  * - [Examples](https://atlaskit.atlassian.com/packages/design-system/icon)
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */

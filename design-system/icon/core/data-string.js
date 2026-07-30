@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::27711fcc888f992313682d010fce1dac>>
+ * @codegen <<SignedSource::0e04d9c1f71726070cc58d5e51262548>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -15,8 +15,9 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
 /**
  * Icon: "DataString".
  * Category: multi-purpose
- * Location: @atlaskit/icon
- * Usage guidance: Known uses: Representing string datatype fields in Proforma and databases.
+ * Location: @atlaskit/icon/core/data-string
+ * Usage guidance:
+ * Known uses: Representing string datatype fields in Proforma and databases.
  * - [Examples](https://atlaskit.atlassian.com/packages/design-system/icon)
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */

@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::b50a6e4dd8b62d7d7bf2cfae0d8c6979>>
+ * @codegen <<SignedSource::7af42e4ed582afb1138c492d59100fd3>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -15,9 +15,10 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
 /**
  * Icon: "StatusVerified".
  * Category: single-purpose
- * Location: @atlaskit/icon
- * Usage guidance: Reserved for representing verified content.
-Filled status icons provide higher visual contrast draw attention to important information.
+ * Location: @atlaskit/icon/core/status-verified
+ * Usage guidance:
+ * Reserved for representing verified content.
+ * Filled status icons provide higher visual contrast draw attention to important information.
  * - [Examples](https://atlaskit.atlassian.com/packages/design-system/icon)
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */

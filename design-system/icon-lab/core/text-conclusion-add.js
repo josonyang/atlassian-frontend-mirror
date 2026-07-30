@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::5299dae51933827bfdc2b6fdbe7310d4>>
+ * @codegen <<SignedSource::903316e1daf2f6c27f61b3f789affb4b>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -15,8 +15,9 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
 /**
  * Icon: "TextConclusionAdd".
  * Category: single-purpose
- * Location: @atlaskit/icon-lab
- * Usage guidance: Confluence Editor AI action for generating a conclusion
+ * Location: @atlaskit/icon-lab/core/text-conclusion-add
+ * Usage guidance:
+ * Confluence Editor AI action for generating a conclusion
  * - [Examples](https://atlaskit.atlassian.com/packages/design-system/icon)
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */

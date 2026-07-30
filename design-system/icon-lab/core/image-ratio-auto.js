@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::d925762a252ba9e2b2b577a011f9f94c>>
+ * @codegen <<SignedSource::43cf978f0cccf7b1b0a45a5f7e3b625e>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -15,8 +15,9 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
 /**
  * Icon: "ImageRatioAuto".
  * Category: multi-purpose
- * Location: @atlaskit/icon-lab
- * Usage guidance: Known uses: Auto detect ratio in the image generation process
+ * Location: @atlaskit/icon-lab/core/image-ratio-auto
+ * Usage guidance:
+ * Known uses: Auto detect ratio in the image generation process
  * - [Examples](https://atlaskit.atlassian.com/packages/design-system/icon)
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */

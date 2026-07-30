@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::8d8ea54092d81c7f8d20eb21b0fabec8>>
+ * @codegen <<SignedSource::f1c785a1cea813c6b992ee01a7c6f624>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -15,8 +15,9 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
 /**
  * Icon: "ViewTypeTableHome".
  * Category: single-purpose
- * Location: @atlaskit/icon-lab
- * Usage guidance: Home view for database table layout
+ * Location: @atlaskit/icon-lab/core/view-type-table-home
+ * Usage guidance:
+ * Home view for database table layout
  * - [Examples](https://atlaskit.atlassian.com/packages/design-system/icon)
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */

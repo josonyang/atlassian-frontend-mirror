@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::becdeda8f8450c41ab5988200094862a>>
+ * @codegen <<SignedSource::980d107576b29c30ef03ae88ad798822>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -15,8 +15,9 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
 /**
  * Icon: "ContentWidthNarrow".
  * Category: single-purpose
- * Location: @atlaskit/icon
- * Usage guidance: Single purpose - Reserved for setting media and content to a narrow width.
+ * Location: @atlaskit/icon/core/content-width-narrow
+ * Usage guidance:
+ * Single purpose - Reserved for setting media and content to a narrow width.
  * - [Examples](https://atlaskit.atlassian.com/packages/design-system/icon)
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */

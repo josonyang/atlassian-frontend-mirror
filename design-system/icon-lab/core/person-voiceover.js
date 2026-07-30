@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::bd1de80266d5f61fdafffc68a7f3f013>>
+ * @codegen <<SignedSource::806e52fcf6da48653845af040d2e5d32>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -15,8 +15,9 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
 /**
  * Icon: "PersonVoiceover".
  * Category: single-purpose
- * Location: @atlaskit/icon-lab
- * Usage guidance: Known uses: voiceover within Loom Variables
+ * Location: @atlaskit/icon-lab/core/person-voiceover
+ * Usage guidance:
+ * Known uses: voiceover within Loom Variables
  * - [Examples](https://atlaskit.atlassian.com/packages/design-system/icon)
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */

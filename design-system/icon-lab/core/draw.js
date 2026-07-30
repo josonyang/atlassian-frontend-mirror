@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::28723f479af2a8bdc3410f8d1e7b0773>>
+ * @codegen <<SignedSource::ec7b7a7357e181cafc7c6e5166d0de61>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -15,8 +15,9 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
 /**
  * Icon: "Draw".
  * Category: multi-purpose
- * Location: @atlaskit/icon-lab
- * Usage guidance: For drawing and annotation
+ * Location: @atlaskit/icon-lab/core/draw
+ * Usage guidance:
+ * For drawing and annotation
  * - [Examples](https://atlaskit.atlassian.com/packages/design-system/icon)
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */

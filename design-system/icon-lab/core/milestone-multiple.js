@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::7c39e11738a2265e7ada34cc49bf0129>>
+ * @codegen <<SignedSource::4040cc09f2ebd6503876b90d0a9964e4>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -15,8 +15,9 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
 /**
  * Icon: "MilestoneMultiple".
  * Category: single-purpose
- * Location: @atlaskit/icon-lab
- * Usage guidance: Reserved for use when multiple milestones occur on a single date or point in time.
+ * Location: @atlaskit/icon-lab/core/milestone-multiple
+ * Usage guidance:
+ * Reserved for use when multiple milestones occur on a single date or point in time.
  * - [Examples](https://atlaskit.atlassian.com/packages/design-system/icon)
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */

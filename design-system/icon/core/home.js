@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::fd36682bcf7d93c8d6a4f8218f4f4e2d>>
+ * @codegen <<SignedSource::b9bf870b3510cd1e7e952e244a89fba9>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -15,8 +15,9 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
 /**
  * Icon: "Home".
  * Category: single-purpose
- * Location: @atlaskit/icon
- * Usage guidance: Single purpose - Reserved for home in navigation. When a user clicks on this, they should return to the homepage.
+ * Location: @atlaskit/icon/core/home
+ * Usage guidance:
+ * Single purpose - Reserved for home in navigation. When a user clicks on this, they should return to the homepage.
  * - [Examples](https://atlaskit.atlassian.com/packages/design-system/icon)
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */

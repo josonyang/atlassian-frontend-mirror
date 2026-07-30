@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::cf42a874fd663e99d7dd186d566b6426>>
+ * @codegen <<SignedSource::e3153e73cd89e8d7e0e56123992c0de0>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -15,8 +15,9 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
 /**
  * Icon: "ShapeTriangleInverted".
  * Category: multi-purpose
- * Location: @atlaskit/icon-lab
- * Usage guidance: Upside down triangle shape tool in Whiteboards
+ * Location: @atlaskit/icon-lab/core/shape-triangle-inverted
+ * Usage guidance:
+ * Upside down triangle shape tool in Whiteboards
  * - [Examples](https://atlaskit.atlassian.com/packages/design-system/icon)
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */

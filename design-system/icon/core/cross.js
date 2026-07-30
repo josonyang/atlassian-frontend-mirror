@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::a6e34d167858ba514f74d5881b8440fc>>
+ * @codegen <<SignedSource::cdf99897c5696ca9ecbe3cd832bc46f8>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -15,8 +15,9 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
 /**
  * Icon: "Cross".
  * Category: multi-purpose
- * Location: @atlaskit/icon
- * Usage guidance: Known uses: closing modals, panels, and transient views; removing tags
+ * Location: @atlaskit/icon/core/cross
+ * Usage guidance:
+ * Known uses: closing modals, panels, and transient views; removing tags
  * - [Examples](https://atlaskit.atlassian.com/packages/design-system/icon)
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */

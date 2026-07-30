@@ -32,7 +32,7 @@
 		"@babel/runtime": "root:*"
 	},
 	"peerDependencies": {
-		"react": "^18.2.0"
+		"react": "^18.2.0 || ^19.2.0"
 	},
 	"techstack": {
 		"@atlassian/frontend": {
@@ -70,7 +70,7 @@
 		}
 	},
 	"name": "@atlaskit/editor-ui-control-model",
-	"version": "2.2.0",
+	"version": "2.3.0",
 	"description": "Rendering logic and model-types for Editor controls registry ( editor-plugin-ui-control-registry)",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -78,6 +78,6 @@
 		"registry": "https://registry.npmjs.org/"
 	},
 	"devDependencies": {
-		"react": "root:*"
+		"react": "^19.2.0"
 	}
 }

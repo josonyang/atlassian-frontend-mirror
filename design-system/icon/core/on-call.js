@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::1f637bf95186c227529956ad4df65712>>
+ * @codegen <<SignedSource::0f8a22d934791fec62d6c8de153e7611>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -15,8 +15,9 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
 /**
  * Icon: "OnCall".
  * Category: single-purpose
- * Location: @atlaskit/icon
- * Usage guidance: Single purpose - Reserved for representing on-call across Atlassian apps.
+ * Location: @atlaskit/icon/core/on-call
+ * Usage guidance:
+ * Single purpose - Reserved for representing on-call across Atlassian apps.
  * - [Examples](https://atlaskit.atlassian.com/packages/design-system/icon)
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */

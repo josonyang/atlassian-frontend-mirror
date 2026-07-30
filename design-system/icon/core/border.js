@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::97990c4769833190a022224ac3fdbe68>>
+ * @codegen <<SignedSource::6fa3fb0046b3e342809c7777e253d803>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -15,8 +15,9 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
 /**
  * Icon: "Border".
  * Category: single-purpose
- * Location: @atlaskit/icon
- * Usage guidance: Reserved for toggling the visibility of a border on an object.
+ * Location: @atlaskit/icon/core/border
+ * Usage guidance:
+ * Reserved for toggling the visibility of a border on an object.
  * - [Examples](https://atlaskit.atlassian.com/packages/design-system/icon)
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */

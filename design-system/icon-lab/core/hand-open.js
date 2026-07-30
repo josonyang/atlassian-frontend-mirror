@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::01bdbc440b991dd1e53beee64e59e1d5>>
+ * @codegen <<SignedSource::e7df8c02d23f383e8b3009625f57d98c>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -15,8 +15,9 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
 /**
  * Icon: "HandOpen".
  * Category: multi-purpose
- * Location: @atlaskit/icon-lab
- * Usage guidance: Known uses: Hand tool in Whiteboards for moving objects.
+ * Location: @atlaskit/icon-lab/core/hand-open
+ * Usage guidance:
+ * Known uses: Hand tool in Whiteboards for moving objects.
  * - [Examples](https://atlaskit.atlassian.com/packages/design-system/icon)
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */

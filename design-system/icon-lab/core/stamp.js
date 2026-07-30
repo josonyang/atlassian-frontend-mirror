@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::c419b6c5d8d54994dd4cfe6e5a9f31c3>>
+ * @codegen <<SignedSource::484f70822f10601d348578a2992ec0a8>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -15,8 +15,9 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
 /**
  * Icon: "Stamp".
  * Category: multi-purpose
- * Location: @atlaskit/icon-lab
- * Usage guidance: Used for stamp tool in Whiteboards
+ * Location: @atlaskit/icon-lab/core/stamp
+ * Usage guidance:
+ * Used for stamp tool in Whiteboards
  * - [Examples](https://atlaskit.atlassian.com/packages/design-system/icon)
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */

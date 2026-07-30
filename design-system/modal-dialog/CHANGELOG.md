@@ -1,5 +1,13 @@
 # @atlaskit/modal-dialog
 
+## 16.2.3
+
+### Patch Changes
+
+- [`3da013cc133e5`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/3da013cc133e5) -
+  Internal refactor for safer feature flag usage.
+- Updated dependencies
+
 ## 16.2.2
 
 ### Patch Changes

@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::78e21eedddc8d0d7c9448c501c255dcf>>
+ * @codegen <<SignedSource::9d8d54a8fa15e2ae56bd70adca1e29a6>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -15,8 +15,9 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
 /**
  * Icon: "DataZeroFill".
  * Category: single-purpose
- * Location: @atlaskit/icon-lab
- * Usage guidance: Reserved for replacing empty data fields with zero.
+ * Location: @atlaskit/icon-lab/core/data-zero-fill
+ * Usage guidance:
+ * Reserved for replacing empty data fields with zero.
  * - [Examples](https://atlaskit.atlassian.com/packages/design-system/icon)
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */

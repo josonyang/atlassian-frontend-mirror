@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::3c3d7920d21840bbdbda77777279aae7>>
+ * @codegen <<SignedSource::cfb61cab49b353f3e7198d97ce85d614>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -15,8 +15,9 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
 /**
  * Icon: "EmojiCasual".
  * Category: single-purpose
- * Location: @atlaskit/icon
- * Usage guidance: Reserved for representing a casual or relaxed tone or sentiment.
+ * Location: @atlaskit/icon/core/emoji-casual
+ * Usage guidance:
+ * Reserved for representing a casual or relaxed tone or sentiment.
  * - [Examples](https://atlaskit.atlassian.com/packages/design-system/icon)
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */

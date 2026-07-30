@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-plugin-synced-block",
-	"version": "10.6.2",
+	"version": "10.7.2",
 	"description": "SyncedBlock plugin for @atlaskit/editor-core",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -65,11 +65,11 @@
 	},
 	"peerDependencies": {
 		"@atlaskit/editor-common": "workspace:^",
-		"react": "^18.2.0",
+		"react": "^18.2.0 || ^19.2.0",
 		"react-intl": "^5.25.1 || ^6.0.0 || ^7.0.0"
 	},
 	"devDependencies": {
-		"react": "root:*",
+		"react": "^19.2.0",
 		"react-intl": "root:*",
 		"typescript": "root:*"
 	},

@@ -7,7 +7,7 @@ import { empty } from 'rxjs/observable/empty';
 import { of } from 'rxjs/observable/of';
 
 import { type AutocompleteOptions } from '@atlaskit/jql-editor-common';
-import { ffTest } from '@atlassian/feature-flags-test-utils';
+import { failGate, passGate } from '@atlassian/feature-flags-test-utils/mock-gates';
 
 import useOnFunctionArguments from './index';
 
@@ -56,76 +56,163 @@ describe('onFunctionArguments', () => {
 		return null;
 	};
 
-	ffTest.on(
-		'enable-jql-membersof-autocomplete',
-		'membersOf function argument autocomplete is enabled',
-		() => {
-			it('delegates membersOf arguments to onValues using the Team field', (done) => {
-				const expectedOptions: AutocompleteOptions = [
-					{ name: 'Team Rocket', value: 'team-rocket', valueType: 'team' },
-				];
-				onValues.mockReturnValue(of(expectedOptions));
+	describe('membersOf', () => {
+		it('delegates membersOf arguments to onValues using the Team field when the gate is on', (done) => {
+			passGate('enable-jql-membersof-autocomplete');
 
-				const assertValues = (options: AutocompleteOptions) => {
-					expect(onValues).toHaveBeenCalledWith('rock', '"Team[Team]"');
-					// The value should be prefixed with "id:" for membersOf so the JQL parser can
-					// distinguish team IDs from group name.
-					expect(options).toEqual(
-						expectedOptions.map((option) => ({
-							...option,
-							value: `id:${option.value}`,
-							groupKey: 'team',
-						})),
-					);
-				};
+			const expectedOptions: AutocompleteOptions = [
+				{ name: 'Team Rocket', value: 'team-rocket', valueType: 'team' },
+			];
+			onValues.mockReturnValue(of(expectedOptions));
 
-				act(() => {
-					render(
-						<IntlProvider locale="en">
-							<OnFunctionArgumentsConsumer
-								fieldValue="rock"
-								functionName="membersOf"
-								onAssert={assertValues}
-								done={done}
-							/>
-						</IntlProvider>,
-					);
-				});
+			const assertValues = (options: AutocompleteOptions) => {
+				expect(onValues).toHaveBeenCalledWith('rock', '"Team[Team]"');
+				// The value should be prefixed with "id:" for membersOf so the JQL parser can
+				// distinguish team IDs from group name.
+				expect(options).toEqual(
+					expectedOptions.map((option) => ({
+						...option,
+						value: `id:${option.value}`,
+						groupKey: 'team',
+					})),
+				);
+			};
+
+			act(() => {
+				render(
+					<IntlProvider locale="en">
+						<OnFunctionArgumentsConsumer
+							fieldValue="rock"
+							functionName="membersOf"
+							onAssert={assertValues}
+							done={done}
+						/>
+					</IntlProvider>,
+				);
 			});
-		},
-	);
+		});
 
-	ffTest.off(
-		'enable-jql-membersof-autocomplete',
-		'membersOf function argument autocomplete is disabled',
-		() => {
-			it('returns no values for membersOf when the gate is off', (done) => {
-				onValues.mockReturnValue(of([{ name: 'Team Rocket', value: 'team-rocket' }]));
+		it('returns no values for membersOf when the gate is off', (done) => {
+			failGate('enable-jql-membersof-autocomplete');
 
-				const assertValues = (options: AutocompleteOptions) => {
-					expect(onValues).not.toHaveBeenCalled();
-					expect(onNext).not.toHaveBeenCalled();
-					expect(options).toEqual([]);
-				};
+			onValues.mockReturnValue(of([{ name: 'Team Rocket', value: 'team-rocket' }]));
 
-				act(() => {
-					render(
-						<IntlProvider locale="en">
-							<OnFunctionArgumentsConsumer
-								fieldValue="rock"
-								functionName="membersOf"
-								onAssert={assertValues}
-								done={done}
-							/>
-						</IntlProvider>,
-					);
-				});
+			const assertValues = (options: AutocompleteOptions) => {
+				expect(onValues).not.toHaveBeenCalled();
+				expect(onNext).not.toHaveBeenCalled();
+				expect(options).toEqual([]);
+			};
+
+			act(() => {
+				render(
+					<IntlProvider locale="en">
+						<OnFunctionArgumentsConsumer
+							fieldValue="rock"
+							functionName="membersOf"
+							onAssert={assertValues}
+							done={done}
+						/>
+					</IntlProvider>,
+				);
 			});
-		},
-	);
+		});
+	});
 
-	ffTest.on('enable-jql-membersof-autocomplete', 'non-membersOf functions', () => {
-		it('returns no values for non-membersOf functions', (done) => {
+	describe('descendantsOfTeam', () => {
+		it('delegates descendantsOfTeam arguments to onValues using the Team field when the gate is on', (done) => {
+			passGate('jira-descendants-of-team-jql-function');
+
+			const expectedOptions: AutocompleteOptions = [
+				{ name: 'Team Rocket', value: 'team-rocket', valueType: 'team' },
+			];
+			onValues.mockReturnValue(of(expectedOptions));
+
+			const assertValues = (options: AutocompleteOptions) => {
+				expect(onValues).toHaveBeenCalledWith('rock', '"Team[Team]"');
+				expect(options).toEqual(
+					expectedOptions.map((option) => ({
+						...option,
+						value: `id:${option.value}`,
+						groupKey: 'team',
+					})),
+				);
+			};
+
+			act(() => {
+				render(
+					<IntlProvider locale="en">
+						<OnFunctionArgumentsConsumer
+							fieldValue="rock"
+							functionName="descendantsOfTeam"
+							onAssert={assertValues}
+							done={done}
+						/>
+					</IntlProvider>,
+				);
+			});
+		});
+
+		it('matches descendantsOfTeam case-insensitively when the gate is on', (done) => {
+			passGate('jira-descendants-of-team-jql-function');
+
+			const expectedOptions: AutocompleteOptions = [
+				{ name: 'Team Rocket', value: 'team-rocket', valueType: 'team' },
+			];
+			onValues.mockReturnValue(of(expectedOptions));
+
+			const assertValues = (options: AutocompleteOptions) => {
+				expect(onValues).toHaveBeenCalledWith('rock', '"Team[Team]"');
+				expect(options).toEqual(
+					expectedOptions.map((option) => ({
+						...option,
+						value: `id:${option.value}`,
+						groupKey: 'team',
+					})),
+				);
+			};
+
+			act(() => {
+				render(
+					<IntlProvider locale="en">
+						<OnFunctionArgumentsConsumer
+							fieldValue="rock"
+							functionName="DeScEnDaNtSOfTeaM"
+							onAssert={assertValues}
+							done={done}
+						/>
+					</IntlProvider>,
+				);
+			});
+		});
+
+		it('returns no values for descendantsOfTeam when the gate is off', (done) => {
+			failGate('jira-descendants-of-team-jql-function');
+
+			onValues.mockReturnValue(of([{ name: 'Team Rocket', value: 'team-rocket' }]));
+
+			const assertValues = (options: AutocompleteOptions) => {
+				expect(onValues).not.toHaveBeenCalled();
+				expect(onNext).not.toHaveBeenCalled();
+				expect(options).toEqual([]);
+			};
+
+			act(() => {
+				render(
+					<IntlProvider locale="en">
+						<OnFunctionArgumentsConsumer
+							fieldValue="rock"
+							functionName="descendantsOfTeam"
+							onAssert={assertValues}
+							done={done}
+						/>
+					</IntlProvider>,
+				);
+			});
+		});
+	});
+
+	describe('non-team functions', () => {
+		it('returns no values for non-team functions', (done) => {
 			onValues.mockReturnValue(empty());
 
 			const assertValues = (options: AutocompleteOptions) => {

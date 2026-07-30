@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::0cdccba3d7742a12d1dd259bf333308d>>
+ * @codegen <<SignedSource::10f3a345717d1c657b50bf7d56307662>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -15,8 +15,9 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
 /**
  * Icon: "Template".
  * Category: single-purpose
- * Location: @atlaskit/icon-lab
- * Usage guidance: Reserved fore templates.
+ * Location: @atlaskit/icon-lab/core/template
+ * Usage guidance:
+ * Reserved fore templates.
  * - [Examples](https://atlaskit.atlassian.com/packages/design-system/icon)
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */

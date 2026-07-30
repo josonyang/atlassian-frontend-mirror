@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::036068c5a1f1dc96dbfc80f36abfb8a7>>
+ * @codegen <<SignedSource::f09fa3962ea067529063962eea447eab>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -15,8 +15,9 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
 /**
  * Icon: "ChartPie".
  * Category: multi-purpose
- * Location: @atlaskit/icon
- * Usage guidance: Known uses: Pie and segment charts
+ * Location: @atlaskit/icon/core/chart-pie
+ * Usage guidance:
+ * Known uses: Pie and segment charts
  * - [Examples](https://atlaskit.atlassian.com/packages/design-system/icon)
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */

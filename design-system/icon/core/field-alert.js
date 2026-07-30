@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::09e6300eb7eb0f65be527bab06fbc70d>>
+ * @codegen <<SignedSource::0712faeb845a0caf138830df81998cc2>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -15,8 +15,9 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
 /**
  * Icon: "FieldAlert".
  * Category: multi-purpose
- * Location: @atlaskit/icon
- * Usage guidance: Known uses: Changed field values in Automation.
+ * Location: @atlaskit/icon/core/field-alert
+ * Usage guidance:
+ * Known uses: Changed field values in Automation.
  * - [Examples](https://atlaskit.atlassian.com/packages/design-system/icon)
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */

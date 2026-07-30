@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::0ad07bbd6de25d6b92907fb7a6c0070d>>
+ * @codegen <<SignedSource::987d2f4f35def70970b5cc5658d301e1>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -15,8 +15,9 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
 /**
  * Icon: "VideoFastForwardOverlay".
  * Category: single-purpose
- * Location: @atlaskit/icon-lab
- * Usage guidance: Reserved for fast forwarding media when icon is shown on an overlay, and representing fast forward BPMN diagram symbol.
+ * Location: @atlaskit/icon-lab/core/video-fast-forward-overlay
+ * Usage guidance:
+ * Reserved for fast forwarding media when icon is shown on an overlay, and representing fast forward BPMN diagram symbol.
  * - [Examples](https://atlaskit.atlassian.com/packages/design-system/icon)
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */

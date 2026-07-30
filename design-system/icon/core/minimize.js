@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::63af381965cffd1b2653ae2b97232288>>
+ * @codegen <<SignedSource::751aa9cabdd244dbab5c9e21a8199a5e>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -15,8 +15,9 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
 /**
  * Icon: "Minimize".
  * Category: single-purpose
- * Location: @atlaskit/icon
- * Usage guidance: Single purpose - Reserved for minimizing or docking modals to the bottom of the viewport.
+ * Location: @atlaskit/icon/core/minimize
+ * Usage guidance:
+ * Single purpose - Reserved for minimizing or docking modals to the bottom of the viewport.
  * - [Examples](https://atlaskit.atlassian.com/packages/design-system/icon)
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */

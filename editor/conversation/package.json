@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/conversation",
-	"version": "27.0.1",
+	"version": "27.1.0",
 	"description": "DEPRECATED Render conversation threads",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -43,7 +43,7 @@
 	},
 	"peerDependencies": {
 		"@atlaskit/editor-common": "workspace:^",
-		"react-dom": "^18.2.0",
+		"react-dom": "^18.2.0 || ^19.2.0",
 		"styled-components": "^3.2.6"
 	},
 	"devDependencies": {
@@ -52,7 +52,7 @@
 		"@testing-library/react": "root:*",
 		"@types/react-redux": "root:*",
 		"enzyme": "root:*",
-		"react-dom": "root:*"
+		"react-dom": "^19.2.0"
 	},
 	"exports": {
 		".": "./src/index.ts",

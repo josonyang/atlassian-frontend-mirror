@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::4280f54cb1f2416c8d1b430fc38ff118>>
+ * @codegen <<SignedSource::9d5bdaf257719ba73546ebd48db94e28>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -15,8 +15,9 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
 /**
  * Icon: "TextHeadingTwo".
  * Category: single-purpose
- * Location: @atlaskit/icon-lab
- * Usage guidance: Reserved for H2 / Heading 2 text style
+ * Location: @atlaskit/icon-lab/core/text-heading-two
+ * Usage guidance:
+ * Reserved for H2 / Heading 2 text style
  * - [Examples](https://atlaskit.atlassian.com/packages/design-system/icon)
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */

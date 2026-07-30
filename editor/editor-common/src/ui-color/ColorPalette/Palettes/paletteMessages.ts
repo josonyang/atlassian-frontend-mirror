@@ -6,7 +6,52 @@ const _default_1: {
 		description: string;
 		id: string;
 	};
+	'bold-blue': {
+		defaultMessage: string;
+		description: string;
+		id: string;
+	};
 	'bold-gray': {
+		defaultMessage: string;
+		description: string;
+		id: string;
+	};
+	'bold-green': {
+		defaultMessage: string;
+		description: string;
+		id: string;
+	};
+	'bold-lime': {
+		defaultMessage: string;
+		description: string;
+		id: string;
+	};
+	'bold-magenta': {
+		defaultMessage: string;
+		description: string;
+		id: string;
+	};
+	'bold-orange': {
+		defaultMessage: string;
+		description: string;
+		id: string;
+	};
+	'bold-purple': {
+		defaultMessage: string;
+		description: string;
+		id: string;
+	};
+	'bold-red': {
+		defaultMessage: string;
+		description: string;
+		id: string;
+	};
+	'bold-teal': {
+		defaultMessage: string;
+		description: string;
+		id: string;
+	};
+	'bold-yellow': {
 		defaultMessage: string;
 		description: string;
 		id: string;
@@ -148,6 +193,21 @@ const _default_1: {
 		id: string;
 	};
 	'subtle-gray': {
+		defaultMessage: string;
+		description: string;
+		id: string;
+	};
+	'subtle-lime': {
+		defaultMessage: string;
+		description: string;
+		id: string;
+	};
+	'subtle-magenta': {
+		defaultMessage: string;
+		description: string;
+		id: string;
+	};
+	'subtle-orange': {
 		defaultMessage: string;
 		description: string;
 		id: string;
@@ -347,6 +407,78 @@ const _default_1: {
 		defaultMessage: 'Bold gray',
 		description:
 			'Tooltip label for the bold gray color swatch displayed in the editor toolbar color palette when users select text or highlight colors.',
+	},
+	'subtle-lime': {
+		id: 'fabric.theme.subtle-lime',
+		defaultMessage: 'Subtle lime',
+		description:
+			'Tooltip label for the subtle lime color swatch displayed in the editor toolbar color palette when users select text or highlight colors.',
+	},
+	'bold-lime': {
+		id: 'fabric.theme.bold-lime',
+		defaultMessage: 'Bold lime',
+		description:
+			'Tooltip label for the bold lime color swatch displayed in the editor toolbar color palette when users select text or highlight colors.',
+	},
+	'subtle-orange': {
+		id: 'fabric.theme.subtle-orange',
+		defaultMessage: 'Subtle orange',
+		description:
+			'Tooltip label for the subtle orange color swatch displayed in the editor toolbar color palette when users select text or highlight colors.',
+	},
+	'bold-orange': {
+		id: 'fabric.theme.bold-orange',
+		defaultMessage: 'Bold orange',
+		description:
+			'Tooltip label for the bold orange color swatch displayed in the editor toolbar color palette when users select text or highlight colors.',
+	},
+	'subtle-magenta': {
+		id: 'fabric.theme.subtle-magenta',
+		defaultMessage: 'Subtle magenta',
+		description:
+			'Tooltip label for the subtle magenta color swatch displayed in the editor toolbar color palette when users select text or highlight colors.',
+	},
+	'bold-magenta': {
+		id: 'fabric.theme.bold-magenta',
+		defaultMessage: 'Bold magenta',
+		description:
+			'Tooltip label for the bold magenta color swatch displayed in the editor toolbar color palette when users select text or highlight colors.',
+	},
+	'bold-blue': {
+		id: 'fabric.theme.bold-blue',
+		defaultMessage: 'Bold blue',
+		description:
+			'Tooltip label for the bold blue color swatch displayed in the editor toolbar color palette when users select text or highlight colors.',
+	},
+	'bold-teal': {
+		id: 'fabric.theme.bold-teal',
+		defaultMessage: 'Bold teal',
+		description:
+			'Tooltip label for the bold teal color swatch displayed in the editor toolbar color palette when users select text or highlight colors.',
+	},
+	'bold-green': {
+		id: 'fabric.theme.bold-green',
+		defaultMessage: 'Bold green',
+		description:
+			'Tooltip label for the bold green color swatch displayed in the editor toolbar color palette when users select text or highlight colors.',
+	},
+	'bold-yellow': {
+		id: 'fabric.theme.bold-yellow',
+		defaultMessage: 'Bold yellow',
+		description:
+			'Tooltip label for the bold yellow color swatch displayed in the editor toolbar color palette when users select text or highlight colors.',
+	},
+	'bold-red': {
+		id: 'fabric.theme.bold-red',
+		defaultMessage: 'Bold red',
+		description:
+			'Tooltip label for the bold red color swatch displayed in the editor toolbar color palette when users select text or highlight colors.',
+	},
+	'bold-purple': {
+		id: 'fabric.theme.bold-purple',
+		defaultMessage: 'Bold purple',
+		description:
+			'Tooltip label for the bold purple color swatch displayed in the editor toolbar color palette when users select text or highlight colors.',
 	},
 	// Colors only used in highlight palette
 	'no-color': {

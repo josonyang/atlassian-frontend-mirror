@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::e4a75f30383a815136b76433b9d7ec6c>>
+ * @codegen <<SignedSource::b78dfcf1fed3f051c74e6ac37352ce66>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -15,8 +15,9 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
 /**
  * Icon: "Globe".
  * Category: multi-purpose
- * Location: @atlaskit/icon
- * Usage guidance: Multi purpose - Known uses: public link in Confluence share dialog, global rules in Automation.
+ * Location: @atlaskit/icon/core/globe
+ * Usage guidance:
+ * Multi purpose - Known uses: public link in Confluence share dialog, global rules in Automation.
  * - [Examples](https://atlaskit.atlassian.com/packages/design-system/icon)
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */

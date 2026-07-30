@@ -1,5 +1,16 @@
 # @atlassian/navigation-system
 
+## 10.10.0
+
+### Minor Changes
+
+- [`b7302e44fd76d`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/b7302e44fd76d) -
+  [ux] Adjusts TopNav header height. Gated by the fg: platform_dst_ads_appswitcher_improvements
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 10.9.2
 
 ### Patch Changes

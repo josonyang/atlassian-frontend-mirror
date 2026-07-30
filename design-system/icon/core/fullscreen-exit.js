@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::4e1125ddd9eeb0be9c82e1eca44eda0a>>
+ * @codegen <<SignedSource::c8eb46b7025dde58cec1b1364b38e421>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -15,8 +15,9 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
 /**
  * Icon: "FullscreenExit".
  * Category: single-purpose
- * Location: @atlaskit/icon
- * Usage guidance: Single purpose - Reserved for return screen videos or objects.
+ * Location: @atlaskit/icon/core/fullscreen-exit
+ * Usage guidance:
+ * Single purpose - Reserved for return screen videos or objects.
  * - [Examples](https://atlaskit.atlassian.com/packages/design-system/icon)
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */

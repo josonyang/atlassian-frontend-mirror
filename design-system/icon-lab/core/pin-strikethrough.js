@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::2c76564b18eac3cc4190781c3575ae47>>
+ * @codegen <<SignedSource::1a9e914dc295f656d544f39af86b0bf9>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -15,8 +15,9 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
 /**
  * Icon: "PinStrikethrough".
  * Category: multi-purpose
- * Location: @atlaskit/icon-lab
- * Usage guidance: Known uses: Unpinning comments in Jira
+ * Location: @atlaskit/icon-lab/core/pin-strikethrough
+ * Usage guidance:
+ * Known uses: Unpinning comments in Jira
  * - [Examples](https://atlaskit.atlassian.com/packages/design-system/icon)
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */

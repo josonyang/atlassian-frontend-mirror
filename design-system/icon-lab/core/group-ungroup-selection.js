@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::8237e97429a13dc964571a3db3d0ccc9>>
+ * @codegen <<SignedSource::b09e20a61a398514a5ab24f8cda7184e>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -15,8 +15,9 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
 /**
  * Icon: "GroupUngroupSelection".
  * Category: multi-purpose
- * Location: @atlaskit/icon-lab
- * Usage guidance: Ungrouping selected objects in Whiteboards
+ * Location: @atlaskit/icon-lab/core/group-ungroup-selection
+ * Usage guidance:
+ * Ungrouping selected objects in Whiteboards
  * - [Examples](https://atlaskit.atlassian.com/packages/design-system/icon)
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */

@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::e809563b9f03f60319a495ef1f119e26>>
+ * @codegen <<SignedSource::ea21be1f719c3b975934e7249a49139e>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -15,8 +15,9 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
 /**
  * Icon: "VideoClosedCaptionsFilled".
  * Category: single-purpose
- * Location: @atlaskit/icon-lab
- * Usage guidance: Reserved to show that closed captions are enabled for videos.
+ * Location: @atlaskit/icon-lab/core/video-closed-captions-filled
+ * Usage guidance:
+ * Reserved to show that closed captions are enabled for videos.
  * - [Examples](https://atlaskit.atlassian.com/packages/design-system/icon)
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */

@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::a2c0dc6357dcf36b6b5fbc7fab2883cc>>
+ * @codegen <<SignedSource::efca78d2ff84c46234bba0182469ec28>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -15,8 +15,9 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
 /**
  * Icon: "Sticker".
  * Category: multi-purpose
- * Location: @atlaskit/icon-lab
- * Usage guidance: Used for sticker tool in Whiteboards
+ * Location: @atlaskit/icon-lab/core/sticker
+ * Usage guidance:
+ * Used for sticker tool in Whiteboards
  * - [Examples](https://atlaskit.atlassian.com/packages/design-system/icon)
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */

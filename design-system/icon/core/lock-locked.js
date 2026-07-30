@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::b170729cb10fdaa6c208ecbe5722b466>>
+ * @codegen <<SignedSource::0a62885bf2499ce3e3ae53a4060ebf5d>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -15,8 +15,9 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
 /**
  * Icon: "LockLocked".
  * Category: multi-purpose
- * Location: @atlaskit/icon
- * Usage guidance: Multi purpose - Known uses: secure password in textfields, locked page in Confluence.
+ * Location: @atlaskit/icon/core/lock-locked
+ * Usage guidance:
+ * Multi purpose - Known uses: secure password in textfields, locked page in Confluence.
  * - [Examples](https://atlaskit.atlassian.com/packages/design-system/icon)
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */

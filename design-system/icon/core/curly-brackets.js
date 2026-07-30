@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::b133f932c60134f78278a8ab3c04e516>>
+ * @codegen <<SignedSource::f32f2abf1f225d229b6be2dfd61a6635>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -15,8 +15,9 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
 /**
  * Icon: "CurlyBrackets".
  * Category: multi-purpose
- * Location: @atlaskit/icon
- * Usage guidance: Known uses: Represents Smart values in Proforma.
+ * Location: @atlaskit/icon/core/curly-brackets
+ * Usage guidance:
+ * Known uses: Represents Smart values in Proforma.
  * - [Examples](https://atlaskit.atlassian.com/packages/design-system/icon)
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */

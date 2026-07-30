@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::4e7091c6b1175d76746a5b14cfcb3132>>
+ * @codegen <<SignedSource::ed35a07fcad1d83bf34c1ffae139dffd>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -15,8 +15,9 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
 /**
  * Icon: "Cloud".
  * Category: multi-purpose
- * Location: @atlaskit/icon-lab
- * Usage guidance: Known uses: Cloud resource, Cloud online
+ * Location: @atlaskit/icon-lab/core/cloud
+ * Usage guidance:
+ * Known uses: Cloud resource, Cloud online
  * - [Examples](https://atlaskit.atlassian.com/packages/design-system/icon)
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */

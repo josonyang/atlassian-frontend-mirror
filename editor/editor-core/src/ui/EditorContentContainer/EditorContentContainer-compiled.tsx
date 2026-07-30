@@ -27,6 +27,7 @@ import {
 	CodeBlockSharedCssClassName,
 	tableCellBorderWidth,
 	tableCellMinWidth,
+	tableMarginTop,
 	TaskDecisionSharedCssClassName,
 } from '@atlaskit/editor-common/styles';
 import {
@@ -45,6 +46,7 @@ import {
 	akEditorFullPageDefaultFontSize,
 	akEditorFullPageDenseFontSize,
 	akEditorGutterPaddingDynamic,
+	akEditorShadowZIndex,
 	akEditorSwoopCubicBezier,
 	akEditorTableNumberColumnWidth,
 } from '@atlaskit/editor-shared-styles';
@@ -65,6 +67,7 @@ const akEditorCalculatedWideLayoutWidthSmallViewport = 905;
 const akEditorGutterPadding = 32;
 const akEditorDefaultLayoutWidth = 760;
 const akEditorFullWidthLayoutWidth = 1800;
+const tableOverflowShadowWidthWide = 32;
 // The breakpoint for small devices is 1266px, copied from getBreakpoint in platform/packages/editor/editor-common/src/ui/WidthProvider/index.tsx
 const akEditorBreakpointForSmallDevice = `1266px`;
 
@@ -169,6 +172,24 @@ const fadeIn = keyframes({
 	to: {
 		opacity: 1,
 		transform: 'translateY(0)',
+	},
+});
+
+const tableInlineStartShadow = keyframes({
+	'0%': {
+		opacity: 0,
+	},
+	'0.0001%, 100%': {
+		opacity: 1,
+	},
+});
+
+const tableInlineEndShadow = keyframes({
+	'0%, 99.9999%': {
+		opacity: 1,
+	},
+	'100%': {
+		opacity: 0,
 	},
 });
 
@@ -1565,7 +1586,7 @@ const editorContentStyles = cssMapScoped({
 		},
 	},
 	/**
-	 * Use when fg('platform_editor_typography_ugc') is enabled and the following is enabled:
+	 * Use when the following is enabled:
 	 * - fg('atlas_editor_typography_refreshed')
 	 */
 	editorUGCTokensRefreshed: {
@@ -4831,32 +4852,6 @@ const editorContentStyles = cssMapScoped({
 			boxSizing: 'border-box',
 		},
 	},
-	paragraphStylesOld: {
-		'.ProseMirror p': {
-			// eslint-disable-next-line @atlaskit/design-system/use-tokens-typography
-			fontSize: '1em',
-			// eslint-disable-next-line @atlaskit/design-system/use-tokens-typography
-			lineHeight: 1.714,
-			fontWeight: token('font.weight.regular'),
-			marginTop: blockNodesVerticalMargin,
-			marginBottom: 0,
-			// eslint-disable-next-line @atlaskit/design-system/use-tokens-typography
-			letterSpacing: '-0.005em',
-		},
-	},
-	paragraphStylesOldWithScaledMargin: {
-		'.ProseMirror p': {
-			// eslint-disable-next-line @atlaskit/design-system/use-tokens-typography
-			fontSize: '1em',
-			// eslint-disable-next-line @atlaskit/design-system/use-tokens-typography
-			lineHeight: 1.714,
-			fontWeight: token('font.weight.regular'),
-			marginTop: scaledBlockNodesVerticalMargin,
-			marginBottom: 0,
-			// eslint-disable-next-line @atlaskit/design-system/use-tokens-typography
-			letterSpacing: '-0.005em',
-		},
-	},
 	paragraphStylesUGCRefreshed: {
 		'.ProseMirror p': {
 			// The `editor.font.body` token is used for the UGC typography theme.
@@ -6826,6 +6821,63 @@ const editorContentStyles = cssMapScoped({
 			minWidth: 'auto',
 		},
 	},
+	// SSR-safe foreground overflow shadows driven by the table wrapper's horizontal scroll timeline.
+	// The overlays are siblings of the scrollport, so they stay anchored to its edges without
+	// modifying table-cell surfaces or interaction overlays.
+	tableScrollInlineShadowStyles: {
+		'.ProseMirror .pm-table-container:has(> .pm-table-scroll-inline-shadow)': {
+			timelineScope: '--editor-table-inline-scroll',
+		},
+		'.ProseMirror .pm-table-scroll-inline-shadow': {
+			scrollTimelineName: '--editor-table-inline-scroll',
+			scrollTimelineAxis: 'inline',
+		},
+		'.ProseMirror .pm-table-container > [data-table-overflow-shadow]': {
+			position: 'absolute',
+			zIndex: akEditorShadowZIndex,
+			top: tableMarginTop,
+			bottom: 0,
+			width: tableOverflowShadowWidthWide,
+			opacity: 0,
+			pointerEvents: 'none',
+			animationDuration: '1ms',
+			animationFillMode: 'both',
+			animationTimingFunction: 'linear',
+			animationTimeline: '--editor-table-inline-scroll',
+		},
+		".ProseMirror .pm-table-container > [data-table-overflow-shadow='start']": {
+			left: 0,
+			backgroundImage: `linear-gradient(
+				to left,
+				transparent 0,
+				${token('elevation.shadow.overflow.spread')} 140%
+			),
+			linear-gradient(
+				to right,
+				${token('elevation.shadow.overflow.perimeter')} 0,
+				transparent 1px
+			)`,
+			animationName: tableInlineStartShadow,
+		},
+		".ProseMirror .pm-table-container[data-number-column='true'] > [data-table-overflow-shadow='start']":
+			{
+				left: akEditorTableNumberColumnWidth - 1,
+			},
+		".ProseMirror .pm-table-container > [data-table-overflow-shadow='end']": {
+			right: 0,
+			backgroundImage: `linear-gradient(
+				to right,
+				transparent 0,
+				${token('elevation.shadow.overflow.spread')} 140%
+			),
+			linear-gradient(
+				to left,
+				${token('elevation.shadow.overflow.perimeter')} 0,
+				transparent 1px
+			)`,
+			animationName: tableInlineEndShadow,
+		},
+	},
 	tableContentModeStyles: {
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors
 		'.pm-table-resizer-container:has(table[data-initial-width-mode="content"])': {
@@ -8474,13 +8526,9 @@ export const EditorContentContainerCompiled: React.ForwardRefExoticComponent<
 				editorContentStyles.smartLinksInLivePagesStyles,
 				editorContentStyles.linkingVisualRefreshV1Styles,
 				editorContentStyles.dateVanillaStyles,
-				fg('platform_editor_typography_ugc')
-					? contentMode === 'compact'
-						? editorContentStyles.paragraphStylesWithScaledMargin
-						: editorContentStyles.paragraphStylesUGCRefreshed
-					: contentMode === 'compact'
-						? editorContentStyles.paragraphStylesOldWithScaledMargin
-						: editorContentStyles.paragraphStylesOld,
+				contentMode === 'compact'
+					? editorContentStyles.paragraphStylesWithScaledMargin
+					: editorContentStyles.paragraphStylesUGCRefreshed,
 				editorContentStyles.linkStyles,
 				browser.safari && editorContentStyles.listsStylesSafariFix,
 				editorExperiment('platform_synced_block', true) &&
@@ -8559,6 +8607,8 @@ export const EditorContentContainerCompiled: React.ForwardRefExoticComponent<
 					: editorContentStyles.tableLayoutFixes,
 				editorContentStyles.tableContainerStyles,
 				editorContentStyles.tableSharedStyle,
+				expValEquals('platform_editor_table_css_overflow_shadow', 'isEnabled', true) &&
+					editorContentStyles.tableScrollInlineShadowStyles,
 				/* https://stackoverflow.com/questions/7517127/borders-not-shown-in-firefox-with-border-collapse-on-table-position-relative-o */
 				(browser.gecko || browser.ie || (browser.mac && browser.chrome)) &&
 					editorContentStyles.tableSharedStyleBackgroundClipFix,

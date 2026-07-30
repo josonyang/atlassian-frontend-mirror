@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::4b5ce449a55bb9650133aa9929b35074>>
+ * @codegen <<SignedSource::1fc58446b9c73e30f8540b5a44e0cfc7>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -15,8 +15,9 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
 /**
  * Icon: "Webhook".
  * Category: single-purpose
- * Location: @atlaskit/icon-lab
- * Usage guidance: Reserved for using a webhook to send data between applications via HTTP
+ * Location: @atlaskit/icon-lab/core/webhook
+ * Usage guidance:
+ * Reserved for using a webhook to send data between applications via HTTP
  * - [Examples](https://atlaskit.atlassian.com/packages/design-system/icon)
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */

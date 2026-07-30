@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::590eaf12e50859821f6fc76b19f9bdc6>>
+ * @codegen <<SignedSource::0d468e7169889f3a6a2275de10375029>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -15,8 +15,9 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
 /**
  * Icon: "ChatWidget".
  * Category: single-purpose
- * Location: @atlaskit/icon
- * Usage guidance: Reserved for representing a chat widget triggered by a floating action button.
+ * Location: @atlaskit/icon/core/chat-widget
+ * Usage guidance:
+ * Reserved for representing a chat widget triggered by a floating action button.
  * - [Examples](https://atlaskit.atlassian.com/packages/design-system/icon)
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */

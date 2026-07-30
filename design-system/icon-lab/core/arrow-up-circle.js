@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::dccf0b47d8ed1325c5c7e3eb320a4bb1>>
+ * @codegen <<SignedSource::0163c46ad140e2717396be7b834c20e3>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -15,8 +15,9 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
 /**
  * Icon: "ArrowUpCircle".
  * Category: multi-purpose
- * Location: @atlaskit/icon-lab
- * Usage guidance: Known uses: upgrading to a paid plan
+ * Location: @atlaskit/icon-lab/core/arrow-up-circle
+ * Usage guidance:
+ * Known uses: upgrading to a paid plan
  * - [Examples](https://atlaskit.atlassian.com/packages/design-system/icon)
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */

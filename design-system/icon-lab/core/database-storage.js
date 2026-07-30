@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::664d3c579b82442ac0850a28424b4c03>>
+ * @codegen <<SignedSource::4ac6f8780578a7b6b739f167e5fbc0b5>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -15,8 +15,9 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
 /**
  * Icon: "DatabaseStorage".
  * Category: multi-purpose
- * Location: @atlaskit/icon-lab
- * Usage guidance: Known uses: SQL database in Developer Console
+ * Location: @atlaskit/icon-lab/core/database-storage
+ * Usage guidance:
+ * Known uses: SQL database in Developer Console
  * - [Examples](https://atlaskit.atlassian.com/packages/design-system/icon)
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */

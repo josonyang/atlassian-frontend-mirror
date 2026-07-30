@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::ad4fca2c5f4c3898cae1d64de356de9a>>
+ * @codegen <<SignedSource::7c528e2f34573dd1e0aa19f82905bd67>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -15,8 +15,9 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
 /**
  * Icon: "AudioWaveform".
  * Category: multi-purpose
- * Location: @atlaskit/icon-lab
- * Usage guidance: Known uses: show waveform editor in Loom.
+ * Location: @atlaskit/icon-lab/core/audio-waveform
+ * Usage guidance:
+ * Known uses: show waveform editor in Loom.
  * - [Examples](https://atlaskit.atlassian.com/packages/design-system/icon)
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */

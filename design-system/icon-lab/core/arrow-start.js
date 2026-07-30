@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::12ef97221cd596774a0c7758f7a48084>>
+ * @codegen <<SignedSource::d9cfba4a586f58961107925e83fee037>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -15,8 +15,9 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
 /**
  * Icon: "ArrowStart".
  * Category: multi-purpose
- * Location: @atlaskit/icon-lab
- * Usage guidance: Used for moving an object to the front or beginning of a container, moving a column to first position
+ * Location: @atlaskit/icon-lab/core/arrow-start
+ * Usage guidance:
+ * Used for moving an object to the front or beginning of a container, moving a column to first position
  * - [Examples](https://atlaskit.atlassian.com/packages/design-system/icon)
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */

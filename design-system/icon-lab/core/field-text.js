@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::b0cd8dd83f623ffc8a93c918c96c1a11>>
+ * @codegen <<SignedSource::1e968f74392c9852a620f126dfaed814>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -15,8 +15,9 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
 /**
  * Icon: "FieldText".
  * Category: multi-purpose
- * Location: @atlaskit/icon-lab
- * Usage guidance: Multi purpose
+ * Location: @atlaskit/icon-lab/core/field-text
+ * Usage guidance:
+ * Multi purpose
  * - [Examples](https://atlaskit.atlassian.com/packages/design-system/icon)
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */

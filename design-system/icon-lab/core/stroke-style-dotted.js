@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::796a57bee976a9c11f2c6d23b76d2cb2>>
+ * @codegen <<SignedSource::5c0831e85496b0b03e51ae0f99cd8c9c>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -15,8 +15,9 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
 /**
  * Icon: "StrokeStyleDotted".
  * Category: single-purpose
- * Location: @atlaskit/icon-lab
- * Usage guidance: Reserved for representing dotted stroke and border styles.
+ * Location: @atlaskit/icon-lab/core/stroke-style-dotted
+ * Usage guidance:
+ * Reserved for representing dotted stroke and border styles.
  * - [Examples](https://atlaskit.atlassian.com/packages/design-system/icon)
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */

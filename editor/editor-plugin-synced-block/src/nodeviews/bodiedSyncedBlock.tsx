@@ -22,13 +22,15 @@ import {
 	type DOMOutputSpec,
 	type Node as PMNode,
 } from '@atlaskit/editor-prosemirror/model';
-import type { EditorView, NodeView } from '@atlaskit/editor-prosemirror/view';
+import type { Decoration, EditorView, NodeView } from '@atlaskit/editor-prosemirror/view';
 import type { SyncBlockStoreManager } from '@atlaskit/editor-synced-block-provider';
 import { fg } from '@atlaskit/platform-feature-flags';
 
 import type { SyncedBlockPlugin, SyncedBlockPluginOptions } from '../syncedBlockPluginType';
 import { BodiedSyncBlockWrapper } from '../ui/BodiedSyncBlockWrapper';
 import { SyncBlockLabel } from '../ui/SyncBlockLabel';
+
+import { isEmptySourceSyncBlock } from './isEmptySourceSyncBlock';
 
 export interface BodiedSyncBlockNodeViewProps extends ReactComponentProps {
 	api?: ExtractInjectionAPI<SyncedBlockPlugin>;
@@ -121,8 +123,32 @@ class BodiedSyncBlockOld extends ReactNodeView<BodiedSyncBlockNodeViewProps> {
 		// eslint-disable-next-line @atlaskit/platform/no-direct-document-usage -- NodeView DOM must be created against active runtime document
 		const domRef = document.createElement('div');
 		domRef.classList.add(BodiedSyncBlockSharedCssClassName.prefix);
+		domRef.classList.toggle(
+			BodiedSyncBlockSharedCssClassName.empty,
+			isEmptySourceSyncBlock(this.node),
+		);
 
 		return domRef;
+	}
+
+	/**
+	 * Keeps the empty marker class in sync so the source placeholder can be shown purely from
+	 * document state. See `isEmptySourceSyncBlock` for why the DOM is not used to decide this.
+	 */
+	update(node: PMNode, decorations: readonly Decoration[]): boolean {
+		const updated = super.update(node, decorations);
+
+		if (updated) {
+			// `ReactNodeView`'s `dom` getter throws rather than returning nullish once the view is
+			// destroyed, so optional chaining here would be misleading. `super.update()` only
+			// returns true while the view is still mounted, so the ref is guaranteed.
+			this.dom.classList.toggle(
+				BodiedSyncBlockSharedCssClassName.empty,
+				isEmptySourceSyncBlock(this.node),
+			);
+		}
+
+		return updated;
 	}
 
 	render(_props: never, forwardRef: ForwardRef) {
@@ -288,6 +314,7 @@ export class BodiedSyncBlock implements NodeView {
 			this.labelKey,
 		);
 		this.updateContentEditable({});
+		this.updateEmptyClass();
 		this.handleConnectivityModeChange();
 		this.handleViewModeChange();
 
@@ -333,6 +360,17 @@ export class BodiedSyncBlock implements NodeView {
 		}
 	}
 
+	/**
+	 * Marks the block as empty so the source placeholder can be shown purely from document state.
+	 * See `isEmptySourceSyncBlock` for why the DOM is not used to decide this.
+	 */
+	private updateEmptyClass(): void {
+		this.dom.classList.toggle(
+			BodiedSyncBlockSharedCssClassName.empty,
+			isEmptySourceSyncBlock(this.node),
+		);
+	}
+
 	update(node: PMNode): boolean {
 		if (this.node.type !== node.type) {
 			return false;
@@ -341,6 +379,7 @@ export class BodiedSyncBlock implements NodeView {
 		// Cache updates are handled in appendTransaction where we can
 		// filter out non-user changes (remote collab, table auto-scale, etc.)
 		this.node = node;
+		this.updateEmptyClass();
 
 		return true;
 	}

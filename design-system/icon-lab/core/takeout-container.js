@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::0a50e96ae3aafc4e1d1ede0bc9b207d0>>
+ * @codegen <<SignedSource::60c2fc80313d48216821f6e3b31d611f>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -15,8 +15,9 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
 /**
  * Icon: "TakeoutContainer".
  * Category: multi-purpose
- * Location: @atlaskit/icon-lab
- * Usage guidance: Known usages: Alternative option for food emoji category.
+ * Location: @atlaskit/icon-lab/core/takeout-container
+ * Usage guidance:
+ * Known usages: Alternative option for food emoji category.
  * - [Examples](https://atlaskit.atlassian.com/packages/design-system/icon)
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */

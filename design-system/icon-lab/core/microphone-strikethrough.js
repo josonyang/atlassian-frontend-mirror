@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::9a0095371d279b0b7977407d9c03c610>>
+ * @codegen <<SignedSource::f724230e4c7e92b25c9525c6c2e954f2>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -15,8 +15,9 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
 /**
  * Icon: "MicrophoneStrikethrough".
  * Category: multi-purpose
- * Location: @atlaskit/icon-lab
- * Usage guidance: Reserved for no microphone input
+ * Location: @atlaskit/icon-lab/core/microphone-strikethrough
+ * Usage guidance:
+ * Reserved for no microphone input
  * - [Examples](https://atlaskit.atlassian.com/packages/design-system/icon)
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */

@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::57c10490b7ec4f2f27fd63648cb7c8b6>>
+ * @codegen <<SignedSource::1e372b7eb440da78c04bce99c73f56f2>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -15,8 +15,9 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
 /**
  * Icon: "Camera".
  * Category: multi-purpose
- * Location: @atlaskit/icon
- * Usage guidance: Multi purpose - Known uses: upload photo in Trello, photos.
+ * Location: @atlaskit/icon/core/camera
+ * Usage guidance:
+ * Multi purpose - Known uses: upload photo in Trello, photos.
  * - [Examples](https://atlaskit.atlassian.com/packages/design-system/icon)
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */

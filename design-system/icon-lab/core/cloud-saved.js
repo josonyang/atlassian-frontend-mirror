@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::4fba4274829a9ad0b1ac02ea1eff0e9c>>
+ * @codegen <<SignedSource::4290f341c518bc7a7b3fab4958979047>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -15,8 +15,9 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
 /**
  * Icon: "CloudSaved".
  * Category: single-purpose
- * Location: @atlaskit/icon-lab
- * Usage guidance: Reserved for showing saved status after successful cloud synchronisation.
+ * Location: @atlaskit/icon-lab/core/cloud-saved
+ * Usage guidance:
+ * Reserved for showing saved status after successful cloud synchronisation.
  * - [Examples](https://atlaskit.atlassian.com/packages/design-system/icon)
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */

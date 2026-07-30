@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::f265fd87bbf4af354701490bd230f4e7>>
+ * @codegen <<SignedSource::590162921b28c3ea3ed2aedec125dc4a>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -15,8 +15,9 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
 /**
  * Icon: "CornerRadiusSquared".
  * Category: single-purpose
- * Location: @atlaskit/icon-lab
- * Usage guidance: Reserved for squared corners option for experiences that offer user customization of corner radius.
+ * Location: @atlaskit/icon-lab/core/corner-radius-squared
+ * Usage guidance:
+ * Reserved for squared corners option for experiences that offer user customization of corner radius.
  * - [Examples](https://atlaskit.atlassian.com/packages/design-system/icon)
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */

@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::aad2312c44e56bfe228b05001ebe3e76>>
+ * @codegen <<SignedSource::dede0c853a6725251d18141f21a326b8>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -15,8 +15,9 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
 /**
  * Icon: "TextShorten".
  * Category: single-purpose
- * Location: @atlaskit/icon
- * Usage guidance: Reserved for shortening text content with Atlassian Intelligence.
+ * Location: @atlaskit/icon/core/text-shorten
+ * Usage guidance:
+ * Reserved for shortening text content with Atlassian Intelligence.
  * - [Examples](https://atlaskit.atlassian.com/packages/design-system/icon)
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */

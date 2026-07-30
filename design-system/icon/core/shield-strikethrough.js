@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::8a5f6928fb7c76a5605697664f189e81>>
+ * @codegen <<SignedSource::7de04370f2fbc992c0597351993aa3ef>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -15,8 +15,9 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
 /**
  * Icon: "ShieldStrikethrough".
  * Category: multi-purpose
- * Location: @atlaskit/icon
- * Usage guidance: Known uses: No classification in Enterprise Trust
+ * Location: @atlaskit/icon/core/shield-strikethrough
+ * Usage guidance:
+ * Known uses: No classification in Enterprise Trust
  * - [Examples](https://atlaskit.atlassian.com/packages/design-system/icon)
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */

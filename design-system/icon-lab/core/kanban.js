@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::1f5ae9141ba1ff0507a2facc09bcef5b>>
+ * @codegen <<SignedSource::5e81ad2e62ba3dff0dc2bf50f3af435f>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -15,8 +15,9 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
 /**
  * Icon: "Kanban".
  * Category: single-purpose
- * Location: @atlaskit/icon-lab
- * Usage guidance: Kanban board
+ * Location: @atlaskit/icon-lab/core/kanban
+ * Usage guidance:
+ * Kanban board
  * - [Examples](https://atlaskit.atlassian.com/packages/design-system/icon)
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */

@@ -301,6 +301,7 @@ export type FloatingToolbarColorPicker<T extends Object> = FloatingToolbarSelect
 	T,
 	PaletteColor
 > & {
+	cols?: number;
 	selectType: 'color';
 };
 

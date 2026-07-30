@@ -1,5 +1,22 @@
 # @atlaskit/renderer
 
+## 133.17.5
+
+### Patch Changes
+
+- [`109c3998554f2`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/109c3998554f2) -
+  Add SSR-safe, experiment-gated CSS overflow shadows for editor tables and keep renderer shadows
+  within table bounds when sticky scrollbars are present.
+- Updated dependencies
+
+## 133.17.4
+
+### Patch Changes
+
+- [`3b0816741523c`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/3b0816741523c) -
+  Add lime, orange, and magenta colors to table cell background color palette
+- Updated dependencies
+
 ## 133.17.3
 
 ### Patch Changes

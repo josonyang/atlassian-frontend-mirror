@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::0a4b28a13363cb05d76b308a3664c79d>>
+ * @codegen <<SignedSource::112919c346ae1487df6068f2e15f0b7c>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -15,8 +15,9 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
 /**
  * Icon: "TextDensityCompress".
  * Category: single-purpose
- * Location: @atlaskit/icon-lab
- * Usage guidance: Reserved for increasing the density of text by reducing font size and/or line height.
+ * Location: @atlaskit/icon-lab/core/text-density-compress
+ * Usage guidance:
+ * Reserved for increasing the density of text by reducing font size and/or line height.
  * - [Examples](https://atlaskit.atlassian.com/packages/design-system/icon)
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */

@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::5e4ce3568a939e12f8a5f474d8d813cf>>
+ * @codegen <<SignedSource::3bc23dd2dda71d7961123faeb4e223f6>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -15,8 +15,9 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
 /**
  * Icon: "Roadmap".
  * Category: single-purpose
- * Location: @atlaskit/icon
- * Usage guidance: Single purpose - Reserved for roadmaps in Jira or Trello.
+ * Location: @atlaskit/icon/core/roadmap
+ * Usage guidance:
+ * Single purpose - Reserved for roadmaps in Jira or Trello.
  * - [Examples](https://atlaskit.atlassian.com/packages/design-system/icon)
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */

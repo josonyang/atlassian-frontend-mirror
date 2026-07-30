@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::0d8d1e945b6f8630c73c436ecacb1af3>>
+ * @codegen <<SignedSource::7c291a6126477b544669060b1c4c078d>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -15,8 +15,9 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
 /**
  * Icon: "FieldRadioGroup".
  * Category: multi-purpose
- * Location: @atlaskit/icon
- * Usage guidance: Known uses: Radio group field type in Proforma.
+ * Location: @atlaskit/icon/core/field-radio-group
+ * Usage guidance:
+ * Known uses: Radio group field type in Proforma.
  * - [Examples](https://atlaskit.atlassian.com/packages/design-system/icon)
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */

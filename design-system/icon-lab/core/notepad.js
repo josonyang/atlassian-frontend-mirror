@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::0b5a64a2ca9b8ddc91e264b2e4d54e26>>
+ * @codegen <<SignedSource::f6311da47ce726fc7626619a6b7c14fc>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -15,8 +15,9 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
 /**
  * Icon: "Notepad".
  * Category: multi-purpose
- * Location: @atlaskit/icon-lab
- * Usage guidance: Whiteboard component 'card'
+ * Location: @atlaskit/icon-lab/core/notepad
+ * Usage guidance:
+ * Whiteboard component 'card'
  * - [Examples](https://atlaskit.atlassian.com/packages/design-system/icon)
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */

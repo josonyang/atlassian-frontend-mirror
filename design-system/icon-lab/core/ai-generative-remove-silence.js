@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::6b15d3fb67cad438983aaed8a0b0acfc>>
+ * @codegen <<SignedSource::73d49bf552d65f11cfaf768f33afd347>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -15,8 +15,9 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
 /**
  * Icon: "AiGenerativeRemoveSilence".
  * Category: single-purpose
- * Location: @atlaskit/icon-lab
- * Usage guidance: Reserved for silence removal functionality in Loom
+ * Location: @atlaskit/icon-lab/core/ai-generative-remove-silence
+ * Usage guidance:
+ * Reserved for silence removal functionality in Loom
  * - [Examples](https://atlaskit.atlassian.com/packages/design-system/icon)
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */

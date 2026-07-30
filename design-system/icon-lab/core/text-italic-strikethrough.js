@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::a93af3c559889f13580b7f4a28315623>>
+ * @codegen <<SignedSource::5651144fc92559011944dcd957ab49ac>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -15,8 +15,9 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
 /**
  * Icon: "TextItalicStrikethrough".
  * Category: single-purpose
- * Location: @atlaskit/icon-lab
- * Usage guidance: Reserved for italic text with strikethrough
+ * Location: @atlaskit/icon-lab/core/text-italic-strikethrough
+ * Usage guidance:
+ * Reserved for italic text with strikethrough
  * - [Examples](https://atlaskit.atlassian.com/packages/design-system/icon)
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */

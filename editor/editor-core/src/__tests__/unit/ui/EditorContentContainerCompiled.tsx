@@ -62,6 +62,31 @@ describe('Editor Content styles', () => {
 	});
 
 	eeTest
+		.describe('platform_editor_table_css_overflow_shadow', 'CSS-only table overflow shadow styles')
+		.variant(true, () => {
+			it('renders the table overflow shadow styles from the editor content container', () => {
+				render(
+					<BaseTheme baseFontSize={akEditorFullPageDefaultFontSize}>
+						<EditorContentContainerCompiled appearance="full-page" viewMode="edit">
+							<div className="ProseMirror">
+								<div className="pm-table-container">
+									<div className="pm-table-wrapper pm-table-scroll-inline-shadow" />
+									<div data-testid="table-overflow-shadow" data-table-overflow-shadow="start" />
+								</div>
+							</div>
+						</EditorContentContainerCompiled>
+					</BaseTheme>,
+				);
+
+				expect(screen.getByTestId('table-overflow-shadow')).toHaveStyle({
+					opacity: '0',
+					'pointer-events': 'none',
+					position: 'absolute',
+				});
+			});
+		});
+
+	eeTest
 		.describe('editor_tinymce_full_width_mode', 'when max width mode feature is enabled')
 		.variant(true, () => {
 			eeTest

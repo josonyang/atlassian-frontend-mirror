@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::08cb2dcbd48bcd9f39b1d5128e9a99c3>>
+ * @codegen <<SignedSource::7d774ba81b2381b82e06a617ad78ab6f>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -15,8 +15,9 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
 /**
  * Icon: "VideoTimelineClipSplit".
  * Category: single-purpose
- * Location: @atlaskit/icon-lab
- * Usage guidance: Reserved for split clip functionality in Loom.
+ * Location: @atlaskit/icon-lab/core/video-timeline-clip-split
+ * Usage guidance:
+ * Reserved for split clip functionality in Loom.
  * - [Examples](https://atlaskit.atlassian.com/packages/design-system/icon)
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */

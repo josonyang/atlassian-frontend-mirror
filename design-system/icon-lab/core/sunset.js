@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::2d6ff2113712652381db2eeef0f24380>>
+ * @codegen <<SignedSource::5ea38671faf140bcc11c82d58d78ecbd>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -15,8 +15,9 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
 /**
  * Icon: "Sunset".
  * Category: multi-purpose
- * Location: @atlaskit/icon-lab
- * Usage guidance: Farewell feed in hello.
+ * Location: @atlaskit/icon-lab/core/sunset
+ * Usage guidance:
+ * Farewell feed in hello.
  * - [Examples](https://atlaskit.atlassian.com/packages/design-system/icon)
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */

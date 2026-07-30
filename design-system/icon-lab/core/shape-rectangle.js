@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::39c423318d37c06e626eb5da35fde41d>>
+ * @codegen <<SignedSource::f75edbde73fc0a4ae04e55a8603a9f60>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -15,8 +15,9 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
 /**
  * Icon: "ShapeRectangle".
  * Category: multi-purpose
- * Location: @atlaskit/icon-lab
- * Usage guidance: Rectangle shape tool in Whiteboards
+ * Location: @atlaskit/icon-lab/core/shape-rectangle
+ * Usage guidance:
+ * Rectangle shape tool in Whiteboards
  * - [Examples](https://atlaskit.atlassian.com/packages/design-system/icon)
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */

@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::f508a55979f5b8821e6c17d66c185d99>>
+ * @codegen <<SignedSource::120a58a5c519b69860ff0e469a1aa022>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -15,8 +15,9 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
 /**
  * Icon: "QueuePopOut".
  * Category: single-purpose
- * Location: @atlaskit/icon-lab
- * Usage guidance: Reserved for JSM queue navigation to pop out from sidebar
+ * Location: @atlaskit/icon-lab/core/queue-pop-out
+ * Usage guidance:
+ * Reserved for JSM queue navigation to pop out from sidebar
  * - [Examples](https://atlaskit.atlassian.com/packages/design-system/icon)
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */

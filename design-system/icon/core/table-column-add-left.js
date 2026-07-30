@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::2b6d4b31b61165ef4461dd86157d3656>>
+ * @codegen <<SignedSource::2bffaf01db37c85823edd7dcd50ea761>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -15,8 +15,9 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
 /**
  * Icon: "TableColumnAddLeft".
  * Category: single-purpose
- * Location: @atlaskit/icon
- * Usage guidance: Reserved for adding a table column to the left of the selected column.
+ * Location: @atlaskit/icon/core/table-column-add-left
+ * Usage guidance:
+ * Reserved for adding a table column to the left of the selected column.
  * - [Examples](https://atlaskit.atlassian.com/packages/design-system/icon)
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */

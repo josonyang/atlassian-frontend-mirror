@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::7ff13ff1b2f6b349dbd101944acc1762>>
+ * @codegen <<SignedSource::dc4cadab9aace704415fb3c4e6217c27>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -15,8 +15,9 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
 /**
  * Icon: "Maximize".
  * Category: single-purpose
- * Location: @atlaskit/icon
- * Usage guidance: Single purpose - Reserved for resizing screens, panels, modals, or media to its maximum size.
+ * Location: @atlaskit/icon/core/maximize
+ * Usage guidance:
+ * Single purpose - Reserved for resizing screens, panels, modals, or media to its maximum size.
  * - [Examples](https://atlaskit.atlassian.com/packages/design-system/icon)
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */

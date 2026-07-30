@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::2cdf9d7389f70d417f1c4646d6f6f47c>>
+ * @codegen <<SignedSource::d103fc9628822903a1bd1c4ce5330f90>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -15,8 +15,9 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
 /**
  * Icon: "DiagramSymbolPredefinedProcess".
  * Category: single-purpose
- * Location: @atlaskit/icon-lab
- * Usage guidance: Reserved for predefined process diagram symbol.
+ * Location: @atlaskit/icon-lab/core/diagram-symbol-predefined-process
+ * Usage guidance:
+ * Reserved for predefined process diagram symbol.
  * - [Examples](https://atlaskit.atlassian.com/packages/design-system/icon)
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */

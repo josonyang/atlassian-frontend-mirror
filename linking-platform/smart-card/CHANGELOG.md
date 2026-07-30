@@ -1,5 +1,39 @@
 # @atlaskit/smart-card
 
+## 45.16.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 45.16.0
+
+### Minor Changes
+
+- [`05fc574d23d1e`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/05fc574d23d1e) -
+  Block previews for cross-unit resources. Before opening a preview panel or falling back to an
+  embed modal, the target resource's cloudId is now verified to belong to the same unit as the
+  current site; resources on a different unit are blocked entirely. `useGlobalObjectPreviewPanels`
+  exposes a new `isPreviewRestricted` signal, which is threaded through `link-provider` and
+  `smart-card` so the smart card preview affordance is not offered (neither panel nor modal) for
+  restricted resources.
+
+  The new and legacy behaviours of `useGlobalObjectPreviewPanels` are now split into separate
+  implementations selected via `functionWithCondition` behind the `preview_panel_unit_check` gate;
+  this is an internal restructure with no change to the hook's public API.
+
+### Patch Changes
+
+- Updated dependencies
+
+## 45.15.2
+
+### Patch Changes
+
+- [`388ac19392377`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/388ac19392377) -
+  Migrate ROVOGROWTH-635 preview CTA unit tests from wrapper-based feature flag and experiment
+  helpers to imperative gate and experiment mocks.
+
 ## 45.15.1
 
 ### Patch Changes

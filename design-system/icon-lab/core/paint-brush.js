@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::b33f6cea30c30d4bb688045632d4c251>>
+ * @codegen <<SignedSource::a340e2be728fc5acdff7d9ea527c00fc>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -15,8 +15,9 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
 /**
  * Icon: "PaintBrush".
  * Category: multi-purpose
- * Location: @atlaskit/icon-lab
- * Usage guidance: Multi purpose
+ * Location: @atlaskit/icon-lab/core/paint-brush
+ * Usage guidance:
+ * Multi purpose
  * - [Examples](https://atlaskit.atlassian.com/packages/design-system/icon)
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */

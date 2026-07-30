@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::55735126425816215b54d18f917a5070>>
+ * @codegen <<SignedSource::b31f3d5a2e1071b2b74eca826f1e1bd9>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -15,8 +15,9 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
 /**
  * Icon: "TextIntroductionAdd".
  * Category: single-purpose
- * Location: @atlaskit/icon-lab
- * Usage guidance: Confluence Editor AI action for generating an introduction
+ * Location: @atlaskit/icon-lab/core/text-introduction-add
+ * Usage guidance:
+ * Confluence Editor AI action for generating an introduction
  * - [Examples](https://atlaskit.atlassian.com/packages/design-system/icon)
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */

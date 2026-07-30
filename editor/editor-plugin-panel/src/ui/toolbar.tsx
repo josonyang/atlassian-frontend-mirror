@@ -26,7 +26,11 @@ import type {
 	FloatingToolbarItem,
 } from '@atlaskit/editor-common/types';
 import type { PaletteColor } from '@atlaskit/editor-common/ui-color';
-import { DEFAULT_BORDER_COLOR, panelBackgroundPalette } from '@atlaskit/editor-common/ui-color';
+import {
+	DEFAULT_BORDER_COLOR,
+	panelBackgroundPalette,
+	panelBackgroundPaletteNew,
+} from '@atlaskit/editor-common/ui-color';
 import type { HoverDecorationHandler } from '@atlaskit/editor-plugin-decorations';
 import type { NodeType } from '@atlaskit/editor-prosemirror/model';
 import type { EditorState } from '@atlaskit/editor-prosemirror/state';
@@ -42,6 +46,7 @@ import StatusDiscoveryIcon from '@atlaskit/icon/core/status-discovery';
 import InformationIcon from '@atlaskit/icon/core/status-information';
 import SuccessIcon from '@atlaskit/icon/core/status-success';
 import WarningIcon from '@atlaskit/icon/core/status-warning';
+import { fg } from '@atlaskit/platform-feature-flags';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 import { changePanelType, removePanel } from '../editor-actions/actions';
@@ -259,8 +264,16 @@ export const getToolbarItems = (
 				? activePanelColor || getPanelTypeBackgroundNoTokens(PanelType.INFO)
 				: getPanelTypeBackgroundNoTokens(activePanelType as Exclude<PanelType, PanelType.CUSTOM>);
 
+		const isNewPanelPaletteEnabled =
+			expValEquals('platform_editor_lovability_text_bg_color', 'isEnabled', true) &&
+			fg('platform_editor_lovability_text_bg_color_patch_2');
+
+		const colorPalette = isNewPanelPaletteEnabled
+			? panelBackgroundPaletteNew
+			: panelBackgroundPalette;
+
 		const defaultPalette =
-			panelBackgroundPalette.find((item) => item.value === panelColor) ||
+			colorPalette.find((item) => item.value === panelColor) ||
 			({
 				// eslint-disable-next-line @atlassian/i18n/no-literal-string-in-object
 				label: 'Custom',
@@ -276,7 +289,8 @@ export const getToolbarItems = (
 				type: 'select',
 				selectType: 'color',
 				defaultValue: defaultPalette,
-				options: panelBackgroundPalette,
+				options: colorPalette,
+				cols: isNewPanelPaletteEnabled ? 10 : undefined,
 				onChange: (option) => changeColor(option.value),
 			};
 

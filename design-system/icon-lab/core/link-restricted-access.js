@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::51ee9264d3113b68df0d2410c3121a94>>
+ * @codegen <<SignedSource::5263c76091d19e3d21a06e3f84fd34de>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -15,8 +15,9 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
 /**
  * Icon: "LinkRestrictedAccess".
  * Category: single-purpose
- * Location: @atlaskit/icon-lab
- * Usage guidance: Reserved for when there is limited link permissions
+ * Location: @atlaskit/icon-lab/core/link-restricted-access
+ * Usage guidance:
+ * Reserved for when there is limited link permissions
  * - [Examples](https://atlaskit.atlassian.com/packages/design-system/icon)
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */

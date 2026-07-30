@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::87b126ba38d591666b6bb1a2ae894895>>
+ * @codegen <<SignedSource::99730993d4263175d62f8db387d720e6>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -15,8 +15,9 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
 /**
  * Icon: "SidebarExpand".
  * Category: single-purpose
- * Location: @atlaskit/icon
- * Usage guidance: Single purpose - Reserved for expanding the navigation sidebar.
+ * Location: @atlaskit/icon/core/sidebar-expand
+ * Usage guidance:
+ * Single purpose - Reserved for expanding the navigation sidebar.
  * - [Examples](https://atlaskit.atlassian.com/packages/design-system/icon)
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */

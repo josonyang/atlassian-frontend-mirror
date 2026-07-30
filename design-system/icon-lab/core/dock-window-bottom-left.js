@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::bca6c48635a9b6927bcb083dbe05ec31>>
+ * @codegen <<SignedSource::87cbfb06b396526752ceccb54802ebb4>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -15,8 +15,9 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
 /**
  * Icon: "DockWindowBottomLeft".
  * Category: single-purpose
- * Location: @atlaskit/icon-lab
- * Usage guidance: Reserved for docking a modal or window to the bottom left of a page
+ * Location: @atlaskit/icon-lab/core/dock-window-bottom-left
+ * Usage guidance:
+ * Reserved for docking a modal or window to the bottom left of a page
  * - [Examples](https://atlaskit.atlassian.com/packages/design-system/icon)
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */

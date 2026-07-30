@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::cdb939b93a8524d001fd2c490c8f16c1>>
+ * @codegen <<SignedSource::0cdb43c090e89be1f8c2155133950489>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -15,8 +15,9 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
 /**
  * Icon: "GrowVertical".
  * Category: single-purpose
- * Location: @atlaskit/icon
- * Usage guidance: Single purpose - Reserved for increasing the height of an element.
+ * Location: @atlaskit/icon/core/grow-vertical
+ * Usage guidance:
+ * Single purpose - Reserved for increasing the height of an element.
  * - [Examples](https://atlaskit.atlassian.com/packages/design-system/icon)
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */

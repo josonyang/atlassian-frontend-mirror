@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::88bdcee760486015723a76374f559cd7>>
+ * @codegen <<SignedSource::00f05def699da5ec69b064990731e04b>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -15,8 +15,9 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
 /**
  * Icon: "StatusWorkflowCancelled".
  * Category: single-purpose
- * Location: @atlaskit/icon-lab
- * Usage guidance: Reserved for representing statuses that indicated work or a process has been cancelled
+ * Location: @atlaskit/icon-lab/core/status-workflow-cancelled
+ * Usage guidance:
+ * Reserved for representing statuses that indicated work or a process has been cancelled
  * - [Examples](https://atlaskit.atlassian.com/packages/design-system/icon)
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */

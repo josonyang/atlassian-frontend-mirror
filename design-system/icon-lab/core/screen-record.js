@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::1192f79bdb6a58e7dd19f655f1db439c>>
+ * @codegen <<SignedSource::216a177e62a5ab0cae1bff75cf18e3cd>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -15,8 +15,9 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
 /**
  * Icon: "ScreenRecord".
  * Category: single-purpose
- * Location: @atlaskit/icon-lab
- * Usage guidance: Known uses: screen recorder with the cam bubble for Loom
+ * Location: @atlaskit/icon-lab/core/screen-record
+ * Usage guidance:
+ * Known uses: screen recorder with the cam bubble for Loom
  * - [Examples](https://atlaskit.atlassian.com/packages/design-system/icon)
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */

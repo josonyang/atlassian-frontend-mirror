@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-plugin-engagement-platform",
-	"version": "13.1.0",
+	"version": "13.2.0",
 	"description": "Engagement platform plugin for @atlaskit/editor-core“",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -32,8 +32,8 @@
 	},
 	"peerDependencies": {
 		"@atlaskit/editor-common": "workspace:^",
-		"react": "^18.2.0",
-		"react-dom": "^18.2.0"
+		"react": "^18.2.0 || ^19.2.0",
+		"react-dom": "^18.2.0 || ^19.2.0"
 	},
 	"techstack": {
 		"@atlassian/frontend": {
@@ -69,7 +69,7 @@
 		}
 	},
 	"devDependencies": {
-		"react": "root:*",
-		"react-dom": "root:*"
+		"react": "^19.2.0",
+		"react-dom": "^19.2.0"
 	}
 }

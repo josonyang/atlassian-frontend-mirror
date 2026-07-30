@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-plugin-collab-edit",
-	"version": "13.2.0",
+	"version": "13.3.0",
 	"description": "Collab Edit plugin for @atlaskit/editor-core",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -44,13 +44,13 @@
 	},
 	"peerDependencies": {
 		"@atlaskit/editor-common": "workspace:^",
-		"react": "^18.2.0",
-		"react-dom": "^18.2.0"
+		"react": "^18.2.0 || ^19.2.0",
+		"react-dom": "^18.2.0 || ^19.2.0"
 	},
 	"devDependencies": {
 		"@testing-library/react": "root:*",
-		"react": "root:*",
-		"react-dom": "root:*",
+		"react": "^19.2.0",
+		"react-dom": "^19.2.0",
 		"wait-for-expect": "root:*"
 	},
 	"techstack": {

@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::b524844eb66d7a118557b9dbe514a9ec>>
+ * @codegen <<SignedSource::5042a62f5f17a12f5694cf2eebcce099>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -15,8 +15,9 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
 /**
  * Icon: "MilestoneIncomplete".
  * Category: single-purpose
- * Location: @atlaskit/icon-lab
- * Usage guidance: Reserved for representing an incomplete milestone.
+ * Location: @atlaskit/icon-lab/core/milestone-incomplete
+ * Usage guidance:
+ * Reserved for representing an incomplete milestone.
  * - [Examples](https://atlaskit.atlassian.com/packages/design-system/icon)
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */

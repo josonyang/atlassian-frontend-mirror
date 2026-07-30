@@ -3,7 +3,7 @@
  *
  * To change the format of this file, modify `createVRTest` in icon-build-process/src/create-vr-test.tsx.
  *
- * @codegen <<SignedSource::9214aac6fb0c245e777bda34ff11eeff>>
+ * @codegen <<SignedSource::2edde30b8a5ad4c5be61605bbbc09d4b>>
  * @codegenCommand yarn build:icon-glyphs
  */
 /* eslint-disable @atlaskit/platform/use-entrypoints-in-examples */
@@ -394,8 +394,9 @@ import WorkItemIcon from '../../../../../core/work-item';
 import WorkItemsIcon from '../../../../../core/work-items';
 import ZoomInIcon from '../../../../../core/zoom-in';
 import ZoomOutIcon from '../../../../../core/zoom-out';
+
 // eslint-disable-next-line import/order
-import type { NewCoreIconProps } from '../../../../../src/types';
+import type { NewCoreIconProps } from '@atlaskit/icon/types';
 
 const Icons = [
 	AccessibilityIcon,

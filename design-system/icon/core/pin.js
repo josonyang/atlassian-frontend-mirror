@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::45707d9c52fa683c21ac6061fb8f413e>>
+ * @codegen <<SignedSource::68098390797b9d1be26d3e2005324c49>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -15,8 +15,9 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
 /**
  * Icon: "Pin".
  * Category: multi-purpose
- * Location: @atlaskit/icon
- * Usage guidance: Known uses: unpinned fields.
+ * Location: @atlaskit/icon/core/pin
+ * Usage guidance:
+ * Known uses: unpinned fields.
  * - [Examples](https://atlaskit.atlassian.com/packages/design-system/icon)
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */

@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::10d7615b6292d70e1de86f8e11f4b3be>>
+ * @codegen <<SignedSource::5c7338b22d1d507d651ed2b1dc05dab8>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -15,8 +15,9 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
 /**
  * Icon: "TableCellSplit".
  * Category: single-purpose
- * Location: @atlaskit/icon
- * Usage guidance: Reserved for splitting joined table cells.
+ * Location: @atlaskit/icon/core/table-cell-split
+ * Usage guidance:
+ * Reserved for splitting joined table cells.
  * - [Examples](https://atlaskit.atlassian.com/packages/design-system/icon)
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */

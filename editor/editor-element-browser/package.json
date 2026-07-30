@@ -23,7 +23,7 @@
 		"@babel/runtime": "root:*"
 	},
 	"peerDependencies": {
-		"react": "^18.2.0"
+		"react": "^18.2.0 || ^19.2.0"
 	},
 	"techstack": {
 		"@atlassian/frontend": {
@@ -41,7 +41,7 @@
 		}
 	},
 	"name": "@atlaskit/editor-element-browser",
-	"version": "8.1.0",
+	"version": "8.2.0",
 	"description": "Placeholder for new UI for the QuickInsert menu and Right rail",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -50,6 +50,6 @@
 	},
 	"devDependencies": {
 		"@atlaskit/react-compiler-gating": "workspace:^",
-		"react": "root:*"
+		"react": "^19.2.0"
 	}
 }

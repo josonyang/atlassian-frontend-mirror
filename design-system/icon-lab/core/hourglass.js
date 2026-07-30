@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::af305acc0cdeeada99a78ca04bb032e0>>
+ * @codegen <<SignedSource::2432dcaba6837920e298e0229f34f69a>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -15,8 +15,9 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
 /**
  * Icon: "Hourglass".
  * Category: multi-purpose
- * Location: @atlaskit/icon-lab
- * Usage guidance: Aging or expiring items
+ * Location: @atlaskit/icon-lab/core/hourglass
+ * Usage guidance:
+ * Aging or expiring items
  * - [Examples](https://atlaskit.atlassian.com/packages/design-system/icon)
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */

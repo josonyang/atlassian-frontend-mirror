@@ -98,6 +98,14 @@ export const editorBackgroundPalette = {
 			'color.background.accent.blue.subtle',
 		) as 'var(--ds-background-accent-blue-subtle, #4C9AFF)',
 	}, // source for hex code was legacy token B100
+	/** blue - bold */
+	['#ADCBFB']: {
+		getValue: (fallback: string): string =>
+			getTokenValue('color.background.accent.blue.subtler.hovered', fallback),
+		token: token(
+			'color.background.accent.blue.subtler.hovered',
+		) as 'var(--ds-background-accent-blue-subtler-hovered, #ADCBFB)',
+	},
 
 	// teal
 	/** teal - light */
@@ -123,6 +131,14 @@ export const editorBackgroundPalette = {
 		token: token(
 			'color.background.accent.teal.subtle',
 		) as 'var(--ds-background-accent-teal-subtle, #79E2F2)', // source for hex code was legacy token T100,
+	},
+	/** teal - bold */
+	['#B1E4F7']: {
+		getValue: (fallback: string): string =>
+			getTokenValue('color.background.accent.teal.subtler.hovered', fallback),
+		token: token(
+			'color.background.accent.teal.subtler.hovered',
+		) as 'var(--ds-background-accent-teal-subtler-hovered, #B1E4F7)',
 	},
 
 	// green
@@ -150,6 +166,40 @@ export const editorBackgroundPalette = {
 			'color.background.accent.green.subtle',
 		) as 'var(--ds-background-accent-green-subtle, #57D9A3)', // source for hex code was legacy token G200,
 	},
+	/** green - bold */
+	['#97EDC9']: {
+		getValue: (fallback: string): string =>
+			getTokenValue('color.background.accent.green.subtler.hovered', fallback),
+		token: token(
+			'color.background.accent.green.subtler.hovered',
+		) as 'var(--ds-background-accent-green-subtler-hovered, #97EDC9)',
+	},
+
+	// lime
+	/** lime - light */
+	['#EFFFD6']: {
+		getValue: (fallback: string): string =>
+			getTokenValue('color.background.accent.lime.subtlest', fallback),
+		token: token(
+			'color.background.accent.lime.subtlest',
+		) as 'var(--ds-background-accent-lime-subtlest, #EFFFD6)',
+	},
+	/** lime - medium */
+	['#D3F1A7']: {
+		getValue: (fallback: string): string =>
+			getTokenValue('color.background.accent.lime.subtler', fallback),
+		token: token(
+			'color.background.accent.lime.subtler',
+		) as 'var(--ds-background-accent-lime-subtler, #D3F1A7)',
+	},
+	/** lime - bold */
+	['#BDE97C']: {
+		getValue: (fallback: string): string =>
+			getTokenValue('color.background.accent.lime.subtler.hovered', fallback),
+		token: token(
+			'color.background.accent.lime.subtler.hovered',
+		) as 'var(--ds-background-accent-lime-subtler-hovered, #BDE97C)',
+	},
 
 	// yellowOrange
 	/** yellowOrange - light */
@@ -175,6 +225,40 @@ export const editorBackgroundPalette = {
 		token: token(
 			'color.background.accent.orange.subtle',
 		) as 'var(--ds-background-accent-orange-subtle, #FFC400)', // source for hex code was legacy token Y200,
+	},
+	/** yellow - bold */
+	['#EFDD4E']: {
+		getValue: (fallback: string): string =>
+			getTokenValue('color.background.accent.yellow.subtler.hovered', fallback),
+		token: token(
+			'color.background.accent.yellow.subtler.hovered',
+		) as 'var(--ds-background-accent-yellow-subtler-hovered, #EFDD4E)',
+	},
+
+	// orange
+	/** orange - light */
+	['#FFF5DB']: {
+		getValue: (fallback: string): string =>
+			getTokenValue('color.background.accent.orange.subtlest', fallback),
+		token: token(
+			'color.background.accent.orange.subtlest',
+		) as 'var(--ds-background-accent-orange-subtlest, #FFF5DB)',
+	},
+	/** orange - medium */
+	['#FCE4A6']: {
+		getValue: (fallback: string): string =>
+			getTokenValue('color.background.accent.orange.subtler', fallback),
+		token: token(
+			'color.background.accent.orange.subtler',
+		) as 'var(--ds-background-accent-orange-subtler, #FCE4A6)',
+	},
+	/** orange - bold */
+	['#FBD779']: {
+		getValue: (fallback: string): string =>
+			getTokenValue('color.background.accent.orange.subtler.hovered', fallback),
+		token: token(
+			'color.background.accent.orange.subtler.hovered',
+		) as 'var(--ds-background-accent-orange-subtler-hovered, #FBD779)',
 	},
 
 	// red
@@ -202,6 +286,40 @@ export const editorBackgroundPalette = {
 			'color.background.accent.red.subtle',
 		) as 'var(--ds-background-accent-red-subtle, #FF8F73)', // source for hex code was legacy token R100,
 	},
+	/** red - bold */
+	['#FFB8B2']: {
+		getValue: (fallback: string): string =>
+			getTokenValue('color.background.accent.red.subtler.hovered', fallback),
+		token: token(
+			'color.background.accent.red.subtler.hovered',
+		) as 'var(--ds-background-accent-red-subtler-hovered, #FFB8B2)',
+	},
+
+	// magenta
+	/** magenta - light */
+	['#FFECF8']: {
+		getValue: (fallback: string): string =>
+			getTokenValue('color.background.accent.magenta.subtlest', fallback),
+		token: token(
+			'color.background.accent.magenta.subtlest',
+		) as 'var(--ds-background-accent-magenta-subtlest, #FFECF8)',
+	},
+	/** magenta - medium */
+	['#FDD0EC']: {
+		getValue: (fallback: string): string =>
+			getTokenValue('color.background.accent.magenta.subtler', fallback),
+		token: token(
+			'color.background.accent.magenta.subtler',
+		) as 'var(--ds-background-accent-magenta-subtler, #FDD0EC)',
+	},
+	/** magenta - bold */
+	['#FCB6E1']: {
+		getValue: (fallback: string): string =>
+			getTokenValue('color.background.accent.magenta.subtler.hovered', fallback),
+		token: token(
+			'color.background.accent.magenta.subtler.hovered',
+		) as 'var(--ds-background-accent-magenta-subtler-hovered, #FCB6E1)',
+	},
 
 	// purple
 	/** purple - light */
@@ -228,6 +346,14 @@ export const editorBackgroundPalette = {
 			'color.background.accent.purple.subtle',
 		) as 'var(--ds-background-accent-purple-subtle, #998DD9)', // source for hex code was legacy token P100,
 	},
+	/** purple - bold */
+	['#E3BDFA']: {
+		getValue: (fallback: string): string =>
+			getTokenValue('color.background.accent.purple.subtler.hovered', fallback),
+		token: token(
+			'color.background.accent.purple.subtler.hovered',
+		) as 'var(--ds-background-accent-purple-subtler-hovered, #E3BDFA)',
+	},
 
 	// whiteGray
 	/** whiteGray - light */
@@ -250,5 +376,13 @@ export const editorBackgroundPalette = {
 		token: token(
 			'color.background.accent.gray.subtle',
 		) as 'var(--ds-background-accent-gray-subtle, #B3BAC5)', // source for hex code was legacy token N60,
+	},
+	/** gray - bold */
+	['#B7B9BE']: {
+		getValue: (fallback: string): string =>
+			getTokenValue('color.background.accent.gray.subtler.hovered', fallback),
+		token: token(
+			'color.background.accent.gray.subtler.hovered',
+		) as 'var(--ds-background-accent-gray-subtler-hovered, #B7B9BE)',
 	},
 };

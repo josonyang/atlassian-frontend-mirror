@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::98db7ecf7a88004ad911d912e316fd5e>>
+ * @codegen <<SignedSource::b5f47220b55c2d3eb4af3287fdd7d034>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -15,8 +15,9 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
 /**
  * Icon: "GrowDiagonal".
  * Category: single-purpose
- * Location: @atlaskit/icon
- * Usage guidance: Single purpose - Reserved for increasing the size of an element when height and width are changed concurrently.
+ * Location: @atlaskit/icon/core/grow-diagonal
+ * Usage guidance:
+ * Single purpose - Reserved for increasing the size of an element when height and width are changed concurrently.
  * - [Examples](https://atlaskit.atlassian.com/packages/design-system/icon)
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */

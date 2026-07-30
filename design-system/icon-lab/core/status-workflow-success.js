@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::03f695dc0e6fe825e79c953e29fa3f18>>
+ * @codegen <<SignedSource::82299c90fefe11d838a0e8a5402911ac>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -15,8 +15,9 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
 /**
  * Icon: "StatusWorkflowSuccess".
  * Category: single-purpose
- * Location: @atlaskit/icon-lab
- * Usage guidance: Reserved for representing statuses that signal positive outcome — success, accomplishment, achievement, or optimal state
+ * Location: @atlaskit/icon-lab/core/status-workflow-success
+ * Usage guidance:
+ * Reserved for representing statuses that signal positive outcome — success, accomplishment, achievement, or optimal state
  * - [Examples](https://atlaskit.atlassian.com/packages/design-system/icon)
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */

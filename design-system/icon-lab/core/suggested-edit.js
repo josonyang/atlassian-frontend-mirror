@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::abee860452bcaffc9cded3519ab61cd1>>
+ * @codegen <<SignedSource::3106b9c6f62709920818f57612d09ba2>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -15,8 +15,9 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
 /**
  * Icon: "SuggestedEdit".
  * Category: single-purpose
- * Location: @atlaskit/icon-lab
- * Usage guidance: Reserved for suggestions powered by Atlassian Intelligence
+ * Location: @atlaskit/icon-lab/core/suggested-edit
+ * Usage guidance:
+ * Reserved for suggestions powered by Atlassian Intelligence
  * - [Examples](https://atlaskit.atlassian.com/packages/design-system/icon)
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */

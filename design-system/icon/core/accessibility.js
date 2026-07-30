@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::6e36ece1bfec0ac0d748d444236ae336>>
+ * @codegen <<SignedSource::96d42dfb62ccf629ef23fd867e155b78>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -15,8 +15,9 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
 /**
  * Icon: "Accessibility".
  * Category: single-purpose
- * Location: @atlaskit/icon
- * Usage guidance: Reserved for representing accessibility and accessibility-related features and settings
+ * Location: @atlaskit/icon/core/accessibility
+ * Usage guidance:
+ * Reserved for representing accessibility and accessibility-related features and settings
  * - [Examples](https://atlaskit.atlassian.com/packages/design-system/icon)
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */

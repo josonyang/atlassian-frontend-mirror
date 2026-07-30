@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::a26bae920cb8d656dedfc4ffa418663d>>
+ * @codegen <<SignedSource::818b452be509de69adaa70ffb97a2df5>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -15,8 +15,9 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
 /**
  * Icon: "StrokeCurvatureCurved".
  * Category: single-purpose
- * Location: @atlaskit/icon-lab
- * Usage guidance: Reserved for curved line type setting for line tool in Whiteboards.
+ * Location: @atlaskit/icon-lab/core/stroke-curvature-curved
+ * Usage guidance:
+ * Reserved for curved line type setting for line tool in Whiteboards.
  * - [Examples](https://atlaskit.atlassian.com/packages/design-system/icon)
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */

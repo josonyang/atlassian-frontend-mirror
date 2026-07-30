@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::5d0289e9acb4bb747362ef3accbc9ad3>>
+ * @codegen <<SignedSource::a0cfd7bb01fc32658867641bfc94b8a9>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -15,8 +15,9 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
 /**
  * Icon: "AlignPositionCenterVertical".
  * Category: multi-purpose
- * Location: @atlaskit/icon-lab
- * Usage guidance: Center-aligned text position within sticky notes in Whiteboards.
+ * Location: @atlaskit/icon-lab/core/align-position-center-vertical
+ * Usage guidance:
+ * Center-aligned text position within sticky notes in Whiteboards.
  * - [Examples](https://atlaskit.atlassian.com/packages/design-system/icon)
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */

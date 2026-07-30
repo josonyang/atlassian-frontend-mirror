@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::5a9109095f0a9b69c0b01202dc3ed5e4>>
+ * @codegen <<SignedSource::ba9afd4eb126f071a58dfaaab72cc81d>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -15,8 +15,9 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
 /**
  * Icon: "Editions".
  * Category: single-purpose
- * Location: @atlaskit/icon-lab
- * Usage guidance: Reserved for representing premium features in upsell experiences. The Editions gem icon has officially replaced the sparkle icon.
+ * Location: @atlaskit/icon-lab/core/editions
+ * Usage guidance:
+ * Reserved for representing premium features in upsell experiences. The Editions gem icon has officially replaced the sparkle icon.
  * - [Examples](https://atlaskit.atlassian.com/packages/design-system/icon)
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */

@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::6e354977285efce08ec10c33c7aa547f>>
+ * @codegen <<SignedSource::1c1a3f357ddbc705e077f73e2104018a>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -15,8 +15,9 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
 /**
  * Icon: "Inbox".
  * Category: multi-purpose
- * Location: @atlaskit/icon
- * Usage guidance: Multi purpose - Known uses: 'Your work' in Confluence, inbox, mail.
+ * Location: @atlaskit/icon/core/inbox
+ * Usage guidance:
+ * Multi purpose - Known uses: 'Your work' in Confluence, inbox, mail.
  * - [Examples](https://atlaskit.atlassian.com/packages/design-system/icon)
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */

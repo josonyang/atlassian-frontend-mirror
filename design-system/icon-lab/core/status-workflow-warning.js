@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::8ef79214f4cc9ed1a44be3eb99eabdf0>>
+ * @codegen <<SignedSource::9e8e0364ef68a574583b186c559d1ff9>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -15,8 +15,9 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
 /**
  * Icon: "StatusWorkflowWarning".
  * Category: single-purpose
- * Location: @atlaskit/icon-lab
- * Usage guidance: Reserved for representing statuses that signal potential issues requiring awareness or intervention
+ * Location: @atlaskit/icon-lab/core/status-workflow-warning
+ * Usage guidance:
+ * Reserved for representing statuses that signal potential issues requiring awareness or intervention
  * - [Examples](https://atlaskit.atlassian.com/packages/design-system/icon)
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */

@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::c365d193bb347a901df804122b7b7af0>>
+ * @codegen <<SignedSource::e2096ea41a9d5c70bf710640b56eec67>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -15,8 +15,9 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
 /**
  * Icon: "SmartLinkInline".
  * Category: single-purpose
- * Location: @atlaskit/icon
- * Usage guidance: Reserved for representing inline Smart link lozenges.
+ * Location: @atlaskit/icon/core/smart-link-inline
+ * Usage guidance:
+ * Reserved for representing inline Smart link lozenges.
  * - [Examples](https://atlaskit.atlassian.com/packages/design-system/icon)
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */

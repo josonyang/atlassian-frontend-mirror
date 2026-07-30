@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::240d2a2d2ecd17e4d685f807cd1b54f8>>
+ * @codegen <<SignedSource::d8218d968f99f965e3473f1bbc7ff080>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -15,8 +15,9 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
 /**
  * Icon: "BookWithBookmark".
  * Category: multi-purpose
- * Location: @atlaskit/icon
- * Usage guidance: Multi purpose - Known uses: knowledge bases, articles, and other representations of books or info.
+ * Location: @atlaskit/icon/core/book-with-bookmark
+ * Usage guidance:
+ * Multi purpose - Known uses: knowledge bases, articles, and other representations of books or info.
  * - [Examples](https://atlaskit.atlassian.com/packages/design-system/icon)
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */

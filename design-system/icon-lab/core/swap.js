@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::9733db982428de9a6765ab5be48adcdd>>
+ * @codegen <<SignedSource::cc23a9d5e248c8fdcee283867f69dd01>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -15,8 +15,9 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
 /**
  * Icon: "Swap".
  * Category: single-purpose
- * Location: @atlaskit/icon-lab
- * Usage guidance: Swapping between Jira tickets in Whiteboard smart section
+ * Location: @atlaskit/icon-lab/core/swap
+ * Usage guidance:
+ * Swapping between Jira tickets in Whiteboard smart section
  * - [Examples](https://atlaskit.atlassian.com/packages/design-system/icon)
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */

@@ -1,4 +1,3 @@
-import ReactDOM from 'react-dom';
 // eslint-disable-next-line @atlaskit/platform/prefer-crypto-random-uuid -- Use crypto.randomUUID instead
 import uuid from 'uuid';
 
@@ -7,6 +6,7 @@ import { getBaseNodeTypeName } from '@atlaskit/editor-common/utils/node-type-uti
 import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
+import { unmountFromMountPoint } from './react-root-registry';
 import { isFontSizeMarkActive } from './utils/validation';
 
 export const TYPE_DROP_TARGET_DEC = 'drop-target-decoration';
@@ -65,6 +65,6 @@ export const unmountDecorations = (
 	// as it was more responsive and causes less re-rendering
 	const decorationsToRemove = document.querySelectorAll(`[${selector}="true"]`);
 	decorationsToRemove.forEach((el) => {
-		ReactDOM.unmountComponentAtNode(el);
+		unmountFromMountPoint(el);
 	});
 };

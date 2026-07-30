@@ -162,8 +162,6 @@ import {
 	panelViewStyles,
 } from './styles/panelStyles';
 import {
-	paragraphStylesOld,
-	paragraphStylesOldWithScaledMargin,
 	paragraphStylesUGCRefreshed,
 	paragraphStylesWithScaledMargin,
 } from './styles/paragraphStyles';
@@ -229,6 +227,7 @@ import {
 	tableEmptyRowStyles,
 	tableLayoutFixes,
 	tableRoundedCornerStyles,
+	tableScrollInlineShadowStyles,
 	tableLayoutFixesWithFontSize,
 	tableContentModeStyles,
 	tableContentModeNestedTableStyles,
@@ -726,19 +725,11 @@ export const EditorContentContainerEmotion: React.ForwardRefExoticComponent<
 				linkingVisualRefreshV1Styles,
 				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
 				dateVanillaStyles,
-				fg('platform_editor_typography_ugc')
+				contentMode === 'compact'
 					? // eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
-						contentMode === 'compact'
-						? // eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
-							paragraphStylesWithScaledMargin
-						: // eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
-							paragraphStylesUGCRefreshed
+						paragraphStylesWithScaledMargin
 					: // eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
-						contentMode === 'compact'
-						? // eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
-							paragraphStylesOldWithScaledMargin
-						: // eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
-							paragraphStylesOld,
+						paragraphStylesUGCRefreshed,
 				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
 				linkStyles,
 				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
@@ -864,6 +855,9 @@ export const EditorContentContainerEmotion: React.ForwardRefExoticComponent<
 				tableContainerStyles,
 				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
 				tableSharedStyle(),
+				expValEquals('platform_editor_table_css_overflow_shadow', 'isEnabled', true) &&
+					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
+					tableScrollInlineShadowStyles,
 				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
 				tableEmptyRowStyles,
 				// SSR-safe rounded corners (see tableRoundedCornerStyles). Gated to match the table plugin

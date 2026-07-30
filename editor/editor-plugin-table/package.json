@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-plugin-table",
-	"version": "24.4.25",
+	"version": "24.5.2",
 	"description": "Table plugin for the @atlaskit/editor",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -68,8 +68,8 @@
 	},
 	"peerDependencies": {
 		"@atlaskit/editor-common": "workspace:^",
-		"react": "^18.2.0",
-		"react-dom": "^18.2.0",
+		"react": "^18.2.0 || ^19.2.0",
+		"react-dom": "^18.2.0 || ^19.2.0",
 		"react-intl": "^5.25.1 || ^6.0.0 || ^7.0.0"
 	},
 	"exports": {
@@ -169,11 +169,14 @@
 		},
 		"platform_editor_table_flicker_issue": {
 			"type": "boolean"
+		},
+		"platform_editor_lovability_text_bg_color_patch_2": {
+			"type": "boolean"
 		}
 	},
 	"devDependencies": {
-		"react": "root:*",
-		"react-dom": "root:*",
+		"react": "^19.2.0",
+		"react-dom": "^19.2.0",
 		"react-intl": "root:*"
 	}
 }

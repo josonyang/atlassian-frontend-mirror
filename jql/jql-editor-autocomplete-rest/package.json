@@ -63,6 +63,9 @@
 	"platform-feature-flags": {
 		"enable-jql-membersof-autocomplete": {
 			"type": "boolean"
+		},
+		"jira-descendants-of-team-jql-function": {
+			"type": "boolean"
 		}
 	},
 	"techstack": {

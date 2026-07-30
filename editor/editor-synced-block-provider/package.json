@@ -63,12 +63,12 @@
 	},
 	"peerDependencies": {
 		"@atlaskit/editor-common": "workspace:^",
-		"react": "^18.2.0"
+		"react": "^18.2.0 || ^19.2.0"
 	},
 	"devDependencies": {
 		"@testing-library/react": "root:*",
-		"react": "root:*",
-		"react-dom": "root:*"
+		"react": "^19.2.0",
+		"react-dom": "^19.2.0"
 	},
 	"techstack": {
 		"@atlassian/frontend": {
@@ -106,7 +106,7 @@
 		}
 	},
 	"name": "@atlaskit/editor-synced-block-provider",
-	"version": "8.6.14",
+	"version": "8.7.0",
 	"description": "Synced Block Provider for @atlaskit/editor-plugin-synced-block",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",

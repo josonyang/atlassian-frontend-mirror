@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::a318d560503e1d75f56ae6c02c16beaa>>
+ * @codegen <<SignedSource::53f35f736a7485fa368c194863f4dde7>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -15,8 +15,9 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
 /**
  * Icon: "TableCellMerge".
  * Category: single-purpose
- * Location: @atlaskit/icon
- * Usage guidance: Reserved for merging table cells.
+ * Location: @atlaskit/icon/core/table-cell-merge
+ * Usage guidance:
+ * Reserved for merging table cells.
  * - [Examples](https://atlaskit.atlassian.com/packages/design-system/icon)
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */

@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::b8d670dd5c89bc72d6e1707242c8b417>>
+ * @codegen <<SignedSource::51a2d8c1f629fdbc0a86f49b1bb5ab34>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -15,8 +15,9 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
 /**
  * Icon: "Journeys".
  * Category: single-purpose
- * Location: @atlaskit/icon-lab
- * Usage guidance: Reserved for representing Journeys in JSM.
+ * Location: @atlaskit/icon-lab/core/journeys
+ * Usage guidance:
+ * Reserved for representing Journeys in JSM.
  * - [Examples](https://atlaskit.atlassian.com/packages/design-system/icon)
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */

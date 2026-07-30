@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::ec56d53f6935139bc9b8387adf31e631>>
+ * @codegen <<SignedSource::475edd236d66c0bbecc3eb1393d05b9d>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -15,8 +15,9 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
 /**
  * Icon: "TextIndentRight".
  * Category: single-purpose
- * Location: @atlaskit/icon
- * Usage guidance: Single purpose - Reserved for shifting the indent of text content right.
+ * Location: @atlaskit/icon/core/text-indent-right
+ * Usage guidance:
+ * Single purpose - Reserved for shifting the indent of text content right.
  * - [Examples](https://atlaskit.atlassian.com/packages/design-system/icon)
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */

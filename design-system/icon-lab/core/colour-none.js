@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::4222345f295c019768c6ddf4ab1f1fdd>>
+ * @codegen <<SignedSource::17e29b6bb89403ebf3bd65fdcc880ec2>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -15,8 +15,9 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
 /**
  * Icon: "ColourNone".
  * Category: single-purpose
- * Location: @atlaskit/icon-lab
- * Usage guidance: Remove colours from Whiteboard's colour picker
+ * Location: @atlaskit/icon-lab/core/colour-none
+ * Usage guidance:
+ * Remove colours from Whiteboard's colour picker
  * - [Examples](https://atlaskit.atlassian.com/packages/design-system/icon)
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */

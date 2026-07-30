@@ -1,5 +1,24 @@
 # @atlaskit/editor-plugin-floating-toolbar
 
+## 14.1.1
+
+### Patch Changes
+
+- [`3b0816741523c`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/3b0816741523c) -
+  Add lime, orange, and magenta colors to table cell background color palette
+- Updated dependencies
+
+## 14.1.0
+
+### Minor Changes
+
+- [`51c33ef5349b6`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/51c33ef5349b6) -
+  Enable compatibility with React 19.2.0
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 14.0.37
 
 ### Patch Changes

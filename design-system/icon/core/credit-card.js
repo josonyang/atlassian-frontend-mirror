@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::4578922c859412c9b698726b9df659c7>>
+ * @codegen <<SignedSource::aaab5f6701aa02491cfdb5d68929a1ec>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -15,8 +15,9 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
 /**
  * Icon: "CreditCard".
  * Category: multi-purpose
- * Location: @atlaskit/icon
- * Usage guidance: Multi purpose - Known uses: billing in Admin, invoices in PPC, payments.
+ * Location: @atlaskit/icon/core/credit-card
+ * Usage guidance:
+ * Multi purpose - Known uses: billing in Admin, invoices in PPC, payments.
  * - [Examples](https://atlaskit.atlassian.com/packages/design-system/icon)
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */

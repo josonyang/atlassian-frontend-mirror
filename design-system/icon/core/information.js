@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::233572e9ab597c2f0e141bd3381c8a02>>
+ * @codegen <<SignedSource::ba07718aef8f1bd51aa8985fc2c19242>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -15,10 +15,11 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
 /**
  * Icon: "Information".
  * Category: single-purpose
- * Location: @atlaskit/icon
- * Usage guidance: Reserved for information statuses and messaging. 
-Filled status icons provide higher visual contrast to draw attention to important information.
-For information tooltips, use the unfilled 'information circle' icon.
+ * Location: @atlaskit/icon/core/information
+ * Usage guidance:
+ * Reserved for information statuses and messaging.
+ * Filled status icons provide higher visual contrast to draw attention to important information.
+ * For information tooltips, use the unfilled 'information circle' icon.
  * - [Examples](https://atlaskit.atlassian.com/packages/design-system/icon)
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */

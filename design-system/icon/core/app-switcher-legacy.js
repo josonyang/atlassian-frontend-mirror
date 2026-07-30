@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::60b1333596ee755fdc5808389dd73d02>>
+ * @codegen <<SignedSource::e972d85d19407257dfe7de23fb419707>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -15,8 +15,9 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
 /**
  * Icon: "AppSwitcherLegacy".
  * Category: single-purpose
- * Location: @atlaskit/icon
- * Usage guidance: Single purpose - Reserved for the legacy app switcher in global app navigation.
+ * Location: @atlaskit/icon/core/app-switcher-legacy
+ * Usage guidance:
+ * Single purpose - Reserved for the legacy app switcher in global app navigation.
  * - [Examples](https://atlaskit.atlassian.com/packages/design-system/icon)
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */

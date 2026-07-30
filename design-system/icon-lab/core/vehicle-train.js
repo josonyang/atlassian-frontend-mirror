@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::ed011c7a7abe9e6755d24a66f0465d13>>
+ * @codegen <<SignedSource::370850b5caf574c3f7a9314129bbd41d>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -15,8 +15,9 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
 /**
  * Icon: "VehicleTrain".
  * Category: multi-purpose
- * Location: @atlaskit/icon-lab
- * Usage guidance: Known usages: Alternative option for transport emoji category.
+ * Location: @atlaskit/icon-lab/core/vehicle-train
+ * Usage guidance:
+ * Known usages: Alternative option for transport emoji category.
  * - [Examples](https://atlaskit.atlassian.com/packages/design-system/icon)
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */

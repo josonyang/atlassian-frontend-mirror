@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::45a2c4d220d49f1a6d399d814b3f6cac>>
+ * @codegen <<SignedSource::c7ff6c77e679627a30cd83281a1b4f30>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -15,8 +15,9 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
 /**
  * Icon: "NodeParallelTopRight".
  * Category: single-purpose
- * Location: @atlaskit/icon-lab
- * Usage guidance: Reserved for whiteboard’s node parallel-top-right
+ * Location: @atlaskit/icon-lab/core/node-parallel-top-right
+ * Usage guidance:
+ * Reserved for whiteboard’s node parallel-top-right
  * - [Examples](https://atlaskit.atlassian.com/packages/design-system/icon)
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */

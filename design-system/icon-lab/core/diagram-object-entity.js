@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::cbef6d73009e598d26ea846917f1cd18>>
+ * @codegen <<SignedSource::685583cecb1b1151773c836f72123e52>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -15,8 +15,9 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
 /**
  * Icon: "DiagramObjectEntity".
  * Category: single-purpose
- * Location: @atlaskit/icon-lab
- * Usage guidance: Reserved for diagram symbol entity object in Whiteboards
+ * Location: @atlaskit/icon-lab/core/diagram-object-entity
+ * Usage guidance:
+ * Reserved for diagram symbol entity object in Whiteboards
  * - [Examples](https://atlaskit.atlassian.com/packages/design-system/icon)
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */

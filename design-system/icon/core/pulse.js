@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::2735c0e48e5c90288be2a1ef4fa17962>>
+ * @codegen <<SignedSource::6cecb0468a39a738c91a80df6c1f60cb>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -15,8 +15,9 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
 /**
  * Icon: "Pulse".
  * Category: multi-purpose
- * Location: @atlaskit/icon
- * Usage guidance: Single purpose - Known uses: work health in Atlassian Home.
+ * Location: @atlaskit/icon/core/pulse
+ * Usage guidance:
+ * Single purpose - Known uses: work health in Atlassian Home.
  * - [Examples](https://atlaskit.atlassian.com/packages/design-system/icon)
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */

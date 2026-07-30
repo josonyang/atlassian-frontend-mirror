@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::8fffc7266266d0393157bdb270d4e4bf>>
+ * @codegen <<SignedSource::7cea9a4a68e6ff5028fa3489e481f368>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -15,8 +15,9 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
 /**
  * Icon: "SplitParallel".
  * Category: single-purpose
- * Location: @atlaskit/icon-lab
- * Usage guidance: Reserved for split parallel branches in Automation
+ * Location: @atlaskit/icon-lab/core/split-parallel
+ * Usage guidance:
+ * Reserved for split parallel branches in Automation
  * - [Examples](https://atlaskit.atlassian.com/packages/design-system/icon)
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */

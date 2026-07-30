@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::e9ceddf0089d22364fd7477c84655ac4>>
+ * @codegen <<SignedSource::deaaabc2e331584e8d887b8ee66a5fdc>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -15,8 +15,9 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
 /**
  * Icon: "DiagramSymbolPoolHorizontal".
  * Category: single-purpose
- * Location: @atlaskit/icon-lab
- * Usage guidance: Reserved for horizontal pool diagram symbol in Whiteboards.
+ * Location: @atlaskit/icon-lab/core/diagram-symbol-pool-horizontal
+ * Usage guidance:
+ * Reserved for horizontal pool diagram symbol in Whiteboards.
  * - [Examples](https://atlaskit.atlassian.com/packages/design-system/icon)
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */

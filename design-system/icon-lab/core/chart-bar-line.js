@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::1d41a49be2d57b5fca92e1196d1fac8e>>
+ * @codegen <<SignedSource::0a64ff9bbd3eba445aba6fdd5c97507e>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -15,8 +15,9 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
 /**
  * Icon: "ChartBarLine".
  * Category: multi-purpose
- * Location: @atlaskit/icon-lab
- * Usage guidance: Known uses: Bar charts with trend lines
+ * Location: @atlaskit/icon-lab/core/chart-bar-line
+ * Usage guidance:
+ * Known uses: Bar charts with trend lines
  * - [Examples](https://atlaskit.atlassian.com/packages/design-system/icon)
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */

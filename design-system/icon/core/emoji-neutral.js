@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::a2ac947f63209d241272a5f59270c101>>
+ * @codegen <<SignedSource::d8c3029cc07a85b19c00df4d8661271a>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -15,8 +15,9 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
 /**
  * Icon: "EmojiNeutral".
  * Category: single-purpose
- * Location: @atlaskit/icon
- * Usage guidance: Reserved for representing a neutral tone or sentiment.
+ * Location: @atlaskit/icon/core/emoji-neutral
+ * Usage guidance:
+ * Reserved for representing a neutral tone or sentiment.
  * - [Examples](https://atlaskit.atlassian.com/packages/design-system/icon)
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */

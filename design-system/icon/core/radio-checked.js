@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::87b94670fd4bfa0886206b088d0c3b5d>>
+ * @codegen <<SignedSource::2500057cf70ef4fa35b963ae5abbbeca>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -15,8 +15,9 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
 /**
  * Icon: "RadioChecked".
  * Category: single-purpose
- * Location: @atlaskit/icon
- * Usage guidance: Reserved for the selected state of radio controls.
+ * Location: @atlaskit/icon/core/radio-checked
+ * Usage guidance:
+ * Reserved for the selected state of radio controls.
  * - [Examples](https://atlaskit.atlassian.com/packages/design-system/icon)
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */

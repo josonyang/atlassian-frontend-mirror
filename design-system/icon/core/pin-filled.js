@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::cc94c033304ea9f771c822850910b341>>
+ * @codegen <<SignedSource::9f072c91e6fc84e9e2a980f0d5982a44>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -15,8 +15,9 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
 /**
  * Icon: "PinFilled".
  * Category: multi-purpose
- * Location: @atlaskit/icon
- * Usage guidance: Known uses: pinned fields.
+ * Location: @atlaskit/icon/core/pin-filled
+ * Usage guidance:
+ * Known uses: pinned fields.
  * - [Examples](https://atlaskit.atlassian.com/packages/design-system/icon)
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */

@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::02d5b507d6509703e78cfd9e03641a0e>>
+ * @codegen <<SignedSource::3e7446bcec94476e31d44102b14467a4>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -15,8 +15,9 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
 /**
  * Icon: "DiagramSymbolConnectorOnPage".
  * Category: single-purpose
- * Location: @atlaskit/icon-lab
- * Usage guidance: Reserved for on-page connector diagram symbol.
+ * Location: @atlaskit/icon-lab/core/diagram-symbol-connector-on-page
+ * Usage guidance:
+ * Reserved for on-page connector diagram symbol.
  * - [Examples](https://atlaskit.atlassian.com/packages/design-system/icon)
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */

@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::2aaf3dad8a17dc61e30907e5686fd00f>>
+ * @codegen <<SignedSource::bfee438c26e33a9db4297de515829a9e>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -15,8 +15,9 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
 /**
  * Icon: "DiagramArrowheadInheritanceUpRight".
  * Category: single-purpose
- * Location: @atlaskit/icon-lab
- * Usage guidance: Reserved for inheritance diagram in Whiteboards.
+ * Location: @atlaskit/icon-lab/core/diagram-arrowhead-inheritance-up-right
+ * Usage guidance:
+ * Reserved for inheritance diagram in Whiteboards.
  * - [Examples](https://atlaskit.atlassian.com/packages/design-system/icon)
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */

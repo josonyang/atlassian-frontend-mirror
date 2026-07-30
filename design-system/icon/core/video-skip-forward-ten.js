@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::6cacec3de3d7ef7f8625fec66647a072>>
+ * @codegen <<SignedSource::0c00ddc9948326576ffc9170b7489681>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -15,8 +15,9 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
 /**
  * Icon: "VideoSkipForwardTen".
  * Category: single-purpose
- * Location: @atlaskit/icon
- * Usage guidance: Reserved for skipping video content forward by 10 seconds.
+ * Location: @atlaskit/icon/core/video-skip-forward-ten
+ * Usage guidance:
+ * Reserved for skipping video content forward by 10 seconds.
  * - [Examples](https://atlaskit.atlassian.com/packages/design-system/icon)
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */

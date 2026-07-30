@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::bf4678aba7dbce8407002d69c8d50334>>
+ * @codegen <<SignedSource::bb1c250a062f2f03a087af65c91dd697>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -15,8 +15,9 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
 /**
  * Icon: "Playlist".
  * Category: single-purpose
- * Location: @atlaskit/icon-lab
- * Usage guidance: Representing the playlist feature
+ * Location: @atlaskit/icon-lab/core/playlist
+ * Usage guidance:
+ * Representing the playlist feature
  * - [Examples](https://atlaskit.atlassian.com/packages/design-system/icon)
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */

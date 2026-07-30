@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::28e818db41afcf6fce742cecb9d4361e>>
+ * @codegen <<SignedSource::638903f1830b7e0883391ef492d7a343>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -15,8 +15,9 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
 /**
  * Icon: "AiGenerativeAudioBriefing".
  * Category: single-purpose
- * Location: @atlaskit/icon-lab
- * Usage guidance: Reserved for Audio Briefings, a new feature launching within Confluence to help people develop an expanded awareness on a topic by generating AI-powered podcasts about their work.
+ * Location: @atlaskit/icon-lab/core/ai-generative-audio-briefing
+ * Usage guidance:
+ * Reserved for Audio Briefings, a new feature launching within Confluence to help people develop an expanded awareness on a topic by generating AI-powered podcasts about their work.
  * - [Examples](https://atlaskit.atlassian.com/packages/design-system/icon)
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */

@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::121eb2b18b12d8ab709b32be7a3f7f9e>>
+ * @codegen <<SignedSource::f3a8b6cd59ec21d27133b15a6ab0c3ca>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -15,8 +15,9 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
 /**
  * Icon: "PaintRoller".
  * Category: multi-purpose
- * Location: @atlaskit/icon-lab
- * Usage guidance: Multi purpose
+ * Location: @atlaskit/icon-lab/core/paint-roller
+ * Usage guidance:
+ * Multi purpose
  * - [Examples](https://atlaskit.atlassian.com/packages/design-system/icon)
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */

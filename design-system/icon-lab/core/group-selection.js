@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::b699d43ecda0de909083da9e946720ea>>
+ * @codegen <<SignedSource::b9296b3024e3e2656a25e23ab0fa837f>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -15,8 +15,9 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
 /**
  * Icon: "GroupSelection".
  * Category: multi-purpose
- * Location: @atlaskit/icon-lab
- * Usage guidance: Grouping selected objects in Whiteboards
+ * Location: @atlaskit/icon-lab/core/group-selection
+ * Usage guidance:
+ * Grouping selected objects in Whiteboards
  * - [Examples](https://atlaskit.atlassian.com/packages/design-system/icon)
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */

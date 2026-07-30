@@ -83,6 +83,36 @@ describe('Editor Content styles', () => {
 	});
 
 	eeTest
+		.describe('platform_editor_table_css_overflow_shadow', 'CSS-only table overflow shadow styles')
+		.variant(true, () => {
+			it('renders the table overflow shadow styles from the editor content container', () => {
+				render(
+					<BaseTheme baseFontSize={akEditorFullPageDefaultFontSize}>
+						<EditorContentContainerEmotion appearance="full-page" viewMode="edit">
+							{/* eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop */}
+							<div className="ProseMirror">
+								{/* eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop */}
+								<div className="pm-table-container">
+									{/* eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop */}
+									<div className="pm-table-wrapper pm-table-scroll-inline-shadow" />
+									<div data-testid="table-overflow-shadow" data-table-overflow-shadow="start" />
+								</div>
+							</div>
+						</EditorContentContainerEmotion>
+					</BaseTheme>,
+				);
+
+				const emotionStyles = Array.from(document.querySelectorAll('style[data-emotion]'))
+					.map((style) => style.textContent)
+					.join('');
+
+				expect(emotionStyles).toContain('data-table-overflow-shadow');
+				expect(emotionStyles).toContain('animation-timeline:--editor-table-inline-scroll');
+				expect(emotionStyles).toContain('position:absolute');
+			});
+		});
+
+	eeTest
 		.describe('editor_tinymce_full_width_mode', 'when max width mode feature is enabled')
 		.variant(true, () => {
 			eeTest

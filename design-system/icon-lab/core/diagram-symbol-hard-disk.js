@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::bb05cfe221d53818a3357bbbf3cd32ed>>
+ * @codegen <<SignedSource::e4e43de7e4c60b690fa51e7b35a79768>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -15,8 +15,9 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
 /**
  * Icon: "DiagramSymbolHardDisk".
  * Category: single-purpose
- * Location: @atlaskit/icon-lab
- * Usage guidance: Reserved for hard disk diagram symbol.
+ * Location: @atlaskit/icon-lab/core/diagram-symbol-hard-disk
+ * Usage guidance:
+ * Reserved for hard disk diagram symbol.
  * - [Examples](https://atlaskit.atlassian.com/packages/design-system/icon)
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */

@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::90b4915c4447168157799df2556b049d>>
+ * @codegen <<SignedSource::43eb34aaaa2de8fe96de43d57dc98ad3>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -15,8 +15,9 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
 /**
  * Icon: "AlignPositionTop".
  * Category: multi-purpose
- * Location: @atlaskit/icon-lab
- * Usage guidance: Top-aligned text position within sticky notes in Whiteboards.
+ * Location: @atlaskit/icon-lab/core/align-position-top
+ * Usage guidance:
+ * Top-aligned text position within sticky notes in Whiteboards.
  * - [Examples](https://atlaskit.atlassian.com/packages/design-system/icon)
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */

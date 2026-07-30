@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::db6aeea69ff8feff6f6db33cfebf432d>>
+ * @codegen <<SignedSource::171aadb0294cb37d752bd9a1e8d6c809>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -15,8 +15,9 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
 /**
  * Icon: "DiagramSymbolInputOutput".
  * Category: single-purpose
- * Location: @atlaskit/icon-lab
- * Usage guidance: Reserved for input or output diagram symbols.
+ * Location: @atlaskit/icon-lab/core/diagram-symbol-input-output
+ * Usage guidance:
+ * Reserved for input or output diagram symbols.
  * - [Examples](https://atlaskit.atlassian.com/packages/design-system/icon)
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */

@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::862fc3ae750c82a4230ed56c55ced5d6>>
+ * @codegen <<SignedSource::79441bb5b1169e9150cb6d425562f384>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -15,8 +15,9 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
 /**
  * Icon: "Card".
  * Category: multi-purpose
- * Location: @atlaskit/icon
- * Usage guidance: Known uses: Representing cards in Trello. Toggling card detail in Jira.
+ * Location: @atlaskit/icon/core/card
+ * Usage guidance:
+ * Known uses: Representing cards in Trello. Toggling card detail in Jira.
  * - [Examples](https://atlaskit.atlassian.com/packages/design-system/icon)
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */

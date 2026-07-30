@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::e0cec56bcaa3818a64522fc2d2f4977f>>
+ * @codegen <<SignedSource::25fa4ca14656bb748ee3d5422a706bb5>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -15,8 +15,9 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
 /**
  * Icon: "DiagramSymbolCollaboration".
  * Category: single-purpose
- * Location: @atlaskit/icon-lab
- * Usage guidance: Reserved for collaboration diagram symbol in Whiteboards.
+ * Location: @atlaskit/icon-lab/core/diagram-symbol-collaboration
+ * Usage guidance:
+ * Reserved for collaboration diagram symbol in Whiteboards.
  * - [Examples](https://atlaskit.atlassian.com/packages/design-system/icon)
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */

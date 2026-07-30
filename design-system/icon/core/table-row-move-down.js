@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::9e12ad8b9285399e621f8347da1513c6>>
+ * @codegen <<SignedSource::e7f791e0c797e0403bcc85f14d76758c>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -15,8 +15,9 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
 /**
  * Icon: "TableRowMoveDown".
  * Category: single-purpose
- * Location: @atlaskit/icon
- * Usage guidance: Reserved for moving a table row below its current location.
+ * Location: @atlaskit/icon/core/table-row-move-down
+ * Usage guidance:
+ * Reserved for moving a table row below its current location.
  * - [Examples](https://atlaskit.atlassian.com/packages/design-system/icon)
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */

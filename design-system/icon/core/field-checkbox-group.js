@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::a6dd97c540eacd92549c1b217b41fcb7>>
+ * @codegen <<SignedSource::f980aa850a765b817eeee03433658425>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -15,8 +15,9 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
 /**
  * Icon: "FieldCheckboxGroup".
  * Category: multi-purpose
- * Location: @atlaskit/icon
- * Usage guidance: Known uses: Checkbox group field type in Proforma.
+ * Location: @atlaskit/icon/core/field-checkbox-group
+ * Usage guidance:
+ * Known uses: Checkbox group field type in Proforma.
  * - [Examples](https://atlaskit.atlassian.com/packages/design-system/icon)
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */

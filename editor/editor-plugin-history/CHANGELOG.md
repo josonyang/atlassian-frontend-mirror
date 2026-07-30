@@ -1,5 +1,16 @@
 # @atlaskit/editor-plugin-history
 
+## 12.1.0
+
+### Minor Changes
+
+- [`51c33ef5349b6`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/51c33ef5349b6) -
+  Enable compatibility with React 19.2.0
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 12.0.0
 
 ### Major Changes

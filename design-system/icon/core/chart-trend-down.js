@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::e480a4b46dd5eb099153cb7c11e15e81>>
+ * @codegen <<SignedSource::65d6dc59a918c63f783a9b5432059d67>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -15,8 +15,9 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
 /**
  * Icon: "ChartTrendDown".
  * Category: multi-purpose
- * Location: @atlaskit/icon
- * Usage guidance: Known uses: Downward trending data; Trend charts
+ * Location: @atlaskit/icon/core/chart-trend-down
+ * Usage guidance:
+ * Known uses: Downward trending data; Trend charts
  * - [Examples](https://atlaskit.atlassian.com/packages/design-system/icon)
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */

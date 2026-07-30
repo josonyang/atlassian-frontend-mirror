@@ -1,5 +1,20 @@
 # @atlaskit/editor-core
 
+## 221.17.0
+
+### Minor Changes
+
+- [`cb252ca7235fa`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/cb252ca7235fa) -
+  Clean up fully rolled-out feature gate `platform_editor_typography_ugc`. UGC typography paragraph
+  styles are now always applied.
+
+### Patch Changes
+
+- [`109c3998554f2`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/109c3998554f2) -
+  Add SSR-safe, experiment-gated CSS overflow shadows for editor tables and keep renderer shadows
+  within table bounds when sticky scrollbars are present.
+- Updated dependencies
+
 ## 221.16.4
 
 ### Patch Changes

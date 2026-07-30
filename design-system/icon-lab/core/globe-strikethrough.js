@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::1cdfa1faf5181fe0e65a9d8f3c8e6f9d>>
+ * @codegen <<SignedSource::2ce989e47539d3ce29c3826f7d966716>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -15,8 +15,9 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
 /**
  * Icon: "GlobeStrikethrough".
  * Category: multi-purpose
- * Location: @atlaskit/icon-lab
- * Usage guidance: Known uses: Limited share permissions which are not public
+ * Location: @atlaskit/icon-lab/core/globe-strikethrough
+ * Usage guidance:
+ * Known uses: Limited share permissions which are not public
  * - [Examples](https://atlaskit.atlassian.com/packages/design-system/icon)
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */

@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::45233a62a3f56b9e4911deb2a2339447>>
+ * @codegen <<SignedSource::325f6ba365d37e1b844b4841ab828579>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -15,8 +15,9 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
 /**
  * Icon: "Notification".
  * Category: single-purpose
- * Location: @atlaskit/icon
- * Usage guidance: Single purpose - Reserved for notifications within global app navigation and within app screens.
+ * Location: @atlaskit/icon/core/notification
+ * Usage guidance:
+ * Single purpose - Reserved for notifications within global app navigation and within app screens.
  * - [Examples](https://atlaskit.atlassian.com/packages/design-system/icon)
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */

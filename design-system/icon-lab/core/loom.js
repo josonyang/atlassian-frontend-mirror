@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::a051ab78e18c281411dfa9ccba68c085>>
+ * @codegen <<SignedSource::3dd29414388bd74c45933e2befdbb965>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -15,8 +15,9 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
 /**
  * Icon: "Loom".
  * Category: single-purpose
- * Location: @atlaskit/icon-lab
- * Usage guidance: Used only for representing the object type of 'a Loom'
+ * Location: @atlaskit/icon-lab/core/loom
+ * Usage guidance:
+ * Used only for representing the object type of 'a Loom'
  * - [Examples](https://atlaskit.atlassian.com/packages/design-system/icon)
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */

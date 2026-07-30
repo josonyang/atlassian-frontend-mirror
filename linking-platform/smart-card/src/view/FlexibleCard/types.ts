@@ -234,6 +234,7 @@ export type ExtractFlexibleUiDataContextParams = Pick<
 	aiSummaryConfig?: AISummaryConfig;
 	fireEvent?: FireEventFunction;
 	isPreviewPanelAvailable?: (params: { ari: string }) => boolean;
+	isPreviewRestricted?: (params: { ari: string }) => boolean;
 	openPreviewPanel?: (params: {
 		ari: string;
 		iconUrl: string | undefined;

@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::4f27ffcb10ef2f007258cc5c328ada66>>
+ * @codegen <<SignedSource::f4315657674c64a954b32f80a9180356>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -15,8 +15,9 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
 /**
  * Icon: "ShrinkDiagonal".
  * Category: single-purpose
- * Location: @atlaskit/icon
- * Usage guidance: Single purpose - Reserved for shrinking the height and width of modals, panels, media, or objects.
+ * Location: @atlaskit/icon/core/shrink-diagonal
+ * Usage guidance:
+ * Single purpose - Reserved for shrinking the height and width of modals, panels, media, or objects.
  * - [Examples](https://atlaskit.atlassian.com/packages/design-system/icon)
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */

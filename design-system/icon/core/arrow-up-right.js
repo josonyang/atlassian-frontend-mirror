@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::2228fa01b7e8b5ee470ffc60df47923d>>
+ * @codegen <<SignedSource::8d458034df571ed95bda84f71003b22c>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -15,8 +15,9 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
 /**
  * Icon: "ArrowUpRight".
  * Category: multi-purpose
- * Location: @atlaskit/icon
- * Usage guidance: Multi purpose
+ * Location: @atlaskit/icon/core/arrow-up-right
+ * Usage guidance:
+ * Multi purpose
  * - [Examples](https://atlaskit.atlassian.com/packages/design-system/icon)
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */

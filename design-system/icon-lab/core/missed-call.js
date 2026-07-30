@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::d9b430b3c3cdbe88f414e40d5f30bd8a>>
+ * @codegen <<SignedSource::15c14d7e7fca1cfff9b426cc0982d966>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -15,8 +15,9 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
 /**
  * Icon: "MissedCall".
  * Category: single-purpose
- * Location: @atlaskit/icon-lab
- * Usage guidance: Reserved for representing missed calls and missed call settings.
+ * Location: @atlaskit/icon-lab/core/missed-call
+ * Usage guidance:
+ * Reserved for representing missed calls and missed call settings.
  * - [Examples](https://atlaskit.atlassian.com/packages/design-system/icon)
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */

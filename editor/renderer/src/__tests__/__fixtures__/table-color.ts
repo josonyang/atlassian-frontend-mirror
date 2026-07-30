@@ -68,6 +68,19 @@ export const tableColorAdf: DocNode = {
 						{
 							type: 'tableCell',
 							attrs: {
+								background: '#efffd6',
+								colwidth: [110],
+							},
+							content: [
+								{
+									type: 'paragraph',
+									content: [],
+								},
+							],
+						},
+						{
+							type: 'tableCell',
+							attrs: {
 								background: '#fffae6',
 								colwidth: [110],
 							},
@@ -81,7 +94,33 @@ export const tableColorAdf: DocNode = {
 						{
 							type: 'tableCell',
 							attrs: {
+								background: '#fff5db',
+								colwidth: [110],
+							},
+							content: [
+								{
+									type: 'paragraph',
+									content: [],
+								},
+							],
+						},
+						{
+							type: 'tableCell',
+							attrs: {
 								background: '#ffebe6',
+								colwidth: [110],
+							},
+							content: [
+								{
+									type: 'paragraph',
+									content: [],
+								},
+							],
+						},
+						{
+							type: 'tableCell',
+							attrs: {
+								background: '#ffecf8',
 								colwidth: [110],
 							},
 							content: [
@@ -164,6 +203,19 @@ export const tableColorAdf: DocNode = {
 						{
 							type: 'tableCell',
 							attrs: {
+								background: '#d3f1a7',
+								colwidth: [110],
+							},
+							content: [
+								{
+									type: 'paragraph',
+									content: [],
+								},
+							],
+						},
+						{
+							type: 'tableCell',
+							attrs: {
 								background: '#fff0b3',
 								colwidth: [110],
 							},
@@ -177,7 +229,33 @@ export const tableColorAdf: DocNode = {
 						{
 							type: 'tableCell',
 							attrs: {
+								background: '#fce4a6',
+								colwidth: [110],
+							},
+							content: [
+								{
+									type: 'paragraph',
+									content: [],
+								},
+							],
+						},
+						{
+							type: 'tableCell',
+							attrs: {
 								background: '#ffbdad',
+								colwidth: [110],
+							},
+							content: [
+								{
+									type: 'paragraph',
+									content: [],
+								},
+							],
+						},
+						{
+							type: 'tableCell',
+							attrs: {
+								background: '#fdd0ec',
 								colwidth: [110],
 							},
 							content: [
@@ -208,7 +286,7 @@ export const tableColorAdf: DocNode = {
 						{
 							type: 'tableCell',
 							attrs: {
-								background: '#b3bac5',
+								background: '#b7b9be',
 								colwidth: [110],
 							},
 							content: [
@@ -221,7 +299,7 @@ export const tableColorAdf: DocNode = {
 						{
 							type: 'tableCell',
 							attrs: {
-								background: '#4c9aff',
+								background: '#adcbfb',
 								colwidth: [110],
 							},
 							content: [
@@ -234,7 +312,7 @@ export const tableColorAdf: DocNode = {
 						{
 							type: 'tableCell',
 							attrs: {
-								background: '#79e2f2',
+								background: '#b1e4f7',
 								colwidth: [110],
 							},
 							content: [
@@ -247,7 +325,7 @@ export const tableColorAdf: DocNode = {
 						{
 							type: 'tableCell',
 							attrs: {
-								background: '#57d9a3',
+								background: '#97edc9',
 								colwidth: [110],
 							},
 							content: [
@@ -260,7 +338,7 @@ export const tableColorAdf: DocNode = {
 						{
 							type: 'tableCell',
 							attrs: {
-								background: '#ffc400',
+								background: '#bde97c',
 								colwidth: [110],
 							},
 							content: [
@@ -273,7 +351,7 @@ export const tableColorAdf: DocNode = {
 						{
 							type: 'tableCell',
 							attrs: {
-								background: '#ff8f73',
+								background: '#efdd4e',
 								colwidth: [110],
 							},
 							content: [
@@ -286,7 +364,46 @@ export const tableColorAdf: DocNode = {
 						{
 							type: 'tableCell',
 							attrs: {
-								background: '#998dd9',
+								background: '#fbd779',
+								colwidth: [110],
+							},
+							content: [
+								{
+									type: 'paragraph',
+									content: [],
+								},
+							],
+						},
+						{
+							type: 'tableCell',
+							attrs: {
+								background: '#ffb8b2',
+								colwidth: [110],
+							},
+							content: [
+								{
+									type: 'paragraph',
+									content: [],
+								},
+							],
+						},
+						{
+							type: 'tableCell',
+							attrs: {
+								background: '#fcb6e1',
+								colwidth: [110],
+							},
+							content: [
+								{
+									type: 'paragraph',
+									content: [],
+								},
+							],
+						},
+						{
+							type: 'tableCell',
+							attrs: {
+								background: '#e3bdfa',
 								colwidth: [110],
 							},
 							content: [

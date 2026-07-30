@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::08c69367a44062caff5ced0656ddb6ce>>
+ * @codegen <<SignedSource::4abe603719aadb5785f85b85ad2428b0>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -15,8 +15,9 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
 /**
  * Icon: "VideoStop".
  * Category: single-purpose
- * Location: @atlaskit/icon
- * Usage guidance: Reserved for stopping video content.
+ * Location: @atlaskit/icon/core/video-stop
+ * Usage guidance:
+ * Reserved for stopping video content.
  * - [Examples](https://atlaskit.atlassian.com/packages/design-system/icon)
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */

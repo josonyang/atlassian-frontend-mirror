@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::88de0df7f24a3c9f0e66913c16ee7cd7>>
+ * @codegen <<SignedSource::021a824a5e1eb96b7b7a2fd191fb952e>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -15,8 +15,9 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
 /**
  * Icon: "Hierarchy".
  * Category: single-purpose
- * Location: @atlaskit/icon-lab
- * Usage guidance: Reserved for representing the hierarchical relationship between objects.
+ * Location: @atlaskit/icon-lab/core/hierarchy
+ * Usage guidance:
+ * Reserved for representing the hierarchical relationship between objects.
  * - [Examples](https://atlaskit.atlassian.com/packages/design-system/icon)
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */

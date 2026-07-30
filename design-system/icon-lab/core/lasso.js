@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::b6dab62c0a3d26293126c8267ba34a37>>
+ * @codegen <<SignedSource::f95d386404858491276a7c9fb2b314ab>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -15,8 +15,9 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
 /**
  * Icon: "Lasso".
  * Category: multi-purpose
- * Location: @atlaskit/icon-lab
- * Usage guidance: Making a selection
+ * Location: @atlaskit/icon-lab/core/lasso
+ * Usage guidance:
+ * Making a selection
  * - [Examples](https://atlaskit.atlassian.com/packages/design-system/icon)
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */

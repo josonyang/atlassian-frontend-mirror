@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::cd6c6061ead1c7bf826f9b8997aa8670>>
+ * @codegen <<SignedSource::e02082dd54a3810fbee41519090014de>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -15,8 +15,9 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
 /**
  * Icon: "Signature".
  * Category: multi-purpose
- * Location: @atlaskit/icon-lab
- * Usage guidance: Toggle author visibility on sticky notes in Whiteboards.
+ * Location: @atlaskit/icon-lab/core/signature
+ * Usage guidance:
+ * Toggle author visibility on sticky notes in Whiteboards.
  * - [Examples](https://atlaskit.atlassian.com/packages/design-system/icon)
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */

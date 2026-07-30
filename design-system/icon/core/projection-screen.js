@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::8b893aeb6c9207083813e77ffc57c8ff>>
+ * @codegen <<SignedSource::0c8d5ee4964a29599ffb70b18cdf04ff>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -15,8 +15,9 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
 /**
  * Icon: "ProjectionScreen".
  * Category: multi-purpose
- * Location: @atlaskit/icon
- * Usage guidance: Multi purpose - Intended usages: Presentation mode.
+ * Location: @atlaskit/icon/core/projection-screen
+ * Usage guidance:
+ * Multi purpose - Intended usages: Presentation mode.
  * - [Examples](https://atlaskit.atlassian.com/packages/design-system/icon)
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */

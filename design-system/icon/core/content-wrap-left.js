@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::c2494db76a67b997170fcc19554c20c8>>
+ * @codegen <<SignedSource::7b91f5fed9019780e0c1ca8c80f40e9a>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -15,8 +15,9 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
 /**
  * Icon: "ContentWrapLeft".
  * Category: single-purpose
- * Location: @atlaskit/icon
- * Usage guidance: Single purpose - Reserved for left aligning media and content with wrapping enabled.
+ * Location: @atlaskit/icon/core/content-wrap-left
+ * Usage guidance:
+ * Single purpose - Reserved for left aligning media and content with wrapping enabled.
  * - [Examples](https://atlaskit.atlassian.com/packages/design-system/icon)
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */

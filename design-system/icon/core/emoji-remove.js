@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::3fcc7ec4e4a90ef6f278af13d73450d0>>
+ * @codegen <<SignedSource::ada0fe608fa318c2badf0fa9f1c1afc7>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -15,8 +15,9 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
 /**
  * Icon: "EmojiRemove".
  * Category: single-purpose
- * Location: @atlaskit/icon
- * Usage guidance: Reserved for removing emoji.
+ * Location: @atlaskit/icon/core/emoji-remove
+ * Usage guidance:
+ * Reserved for removing emoji.
  * - [Examples](https://atlaskit.atlassian.com/packages/design-system/icon)
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */

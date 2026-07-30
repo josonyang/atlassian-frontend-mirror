@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::6c6f56c8361c40e1c778ba50713dcedd>>
+ * @codegen <<SignedSource::a7f8166e4f086af09f2396ad26afb633>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -15,8 +15,9 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
 /**
  * Icon: "Department".
  * Category: single-purpose
- * Location: @atlaskit/icon
- * Usage guidance: Single purpose - Reserved for departments, reporting lines, or other tree chart representations.
+ * Location: @atlaskit/icon/core/department
+ * Usage guidance:
+ * Single purpose - Reserved for departments, reporting lines, or other tree chart representations.
  * - [Examples](https://atlaskit.atlassian.com/packages/design-system/icon)
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */

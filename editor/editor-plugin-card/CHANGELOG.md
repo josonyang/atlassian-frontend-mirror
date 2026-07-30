@@ -1,5 +1,16 @@
 # @atlaskit/editor-plugin-card
 
+## 18.3.0
+
+### Minor Changes
+
+- [`51c33ef5349b6`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/51c33ef5349b6) -
+  Enable compatibility with React 19.2.0
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 18.2.14
 
 ### Patch Changes

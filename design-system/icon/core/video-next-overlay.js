@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::71f8f78eda7021adf899b1364183b253>>
+ * @codegen <<SignedSource::7ab63b39b8c2220cc790242aeb125828>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -15,8 +15,9 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
 /**
  * Icon: "VideoNextOverlay".
  * Category: single-purpose
- * Location: @atlaskit/icon
- * Usage guidance: Single purpose - Reserved for next video when icon is overlayed on Media.
+ * Location: @atlaskit/icon/core/video-next-overlay
+ * Usage guidance:
+ * Single purpose - Reserved for next video when icon is overlayed on Media.
  * - [Examples](https://atlaskit.atlassian.com/packages/design-system/icon)
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */

@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::98dacc3c1bb3d5374fb42d5548c97893>>
+ * @codegen <<SignedSource::f3c497e6a9004586e903900835aac6a2>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -15,8 +15,9 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
 /**
  * Icon: "PartyPopper".
  * Category: multi-purpose
- * Location: @atlaskit/icon-lab
- * Usage guidance: User-selectable icon choice for calendars
+ * Location: @atlaskit/icon-lab/core/party-popper
+ * Usage guidance:
+ * User-selectable icon choice for calendars
  * - [Examples](https://atlaskit.atlassian.com/packages/design-system/icon)
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */

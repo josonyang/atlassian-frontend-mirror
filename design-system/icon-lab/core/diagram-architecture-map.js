@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::66d007939bf0d2ebb7eb357b9bdbfe0a>>
+ * @codegen <<SignedSource::8611e77fe8b11ffb0e87f23a7376cb5e>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -15,8 +15,9 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
 /**
  * Icon: "DiagramArchitectureMap".
  * Category: single-purpose
- * Location: @atlaskit/icon-lab
- * Usage guidance: Reserved for architecture map diagram type in Whiteboards.
+ * Location: @atlaskit/icon-lab/core/diagram-architecture-map
+ * Usage guidance:
+ * Reserved for architecture map diagram type in Whiteboards.
  * - [Examples](https://atlaskit.atlassian.com/packages/design-system/icon)
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */

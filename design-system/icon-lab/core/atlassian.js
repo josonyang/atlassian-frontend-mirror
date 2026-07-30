@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::61bfb8f62d2e8ccedb64d4cb5f6cd248>>
+ * @codegen <<SignedSource::7e92c3d8345c0c75c0a054d7948d9d22>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -15,8 +15,9 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
 /**
  * Icon: "Atlassian".
  * Category: multi-purpose
- * Location: @atlaskit/icon-lab
- * Usage guidance: Known uses: Atlassian branded emojis on emoji picker in Editor.
+ * Location: @atlaskit/icon-lab/core/atlassian
+ * Usage guidance:
+ * Known uses: Atlassian branded emojis on emoji picker in Editor.
  * - [Examples](https://atlaskit.atlassian.com/packages/design-system/icon)
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */

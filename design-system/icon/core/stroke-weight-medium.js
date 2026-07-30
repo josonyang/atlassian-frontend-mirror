@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::fdbbd9f959950d1923cb6a1760abe2a2>>
+ * @codegen <<SignedSource::fa83a5bc34ac8582b85e44007aafcb70>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -15,8 +15,9 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
 /**
  * Icon: "StrokeWeightMedium".
  * Category: single-purpose
- * Location: @atlaskit/icon
- * Usage guidance: Reserved for representing medium border stroke widths.
+ * Location: @atlaskit/icon/core/stroke-weight-medium
+ * Usage guidance:
+ * Reserved for representing medium border stroke widths.
  * - [Examples](https://atlaskit.atlassian.com/packages/design-system/icon)
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */

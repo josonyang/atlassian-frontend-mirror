@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::6300fb48766980d6ad8e1addfb0650d5>>
+ * @codegen <<SignedSource::14b1eaea497574b277bdc69d0d5b07af>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -15,8 +15,9 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
 /**
  * Icon: "PriorityHigh".
  * Category: single-purpose
- * Location: @atlaskit/icon
- * Usage guidance: Reserved for high work type priority.
+ * Location: @atlaskit/icon/core/priority-high
+ * Usage guidance:
+ * Reserved for high work type priority.
  * - [Examples](https://atlaskit.atlassian.com/packages/design-system/icon)
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */

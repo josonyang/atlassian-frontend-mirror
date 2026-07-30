@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::718366f0455684b58aea71d9f899bda7>>
+ * @codegen <<SignedSource::5e73661dc8ae479f7ca97fadd7caf7e6>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -15,8 +15,9 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
 /**
  * Icon: "LayoutFiveColumns".
  * Category: single-purpose
- * Location: @atlaskit/icon-lab
- * Usage guidance: Reserved for 5 column layout option in Confluence Editor.
+ * Location: @atlaskit/icon-lab/core/layout-five-columns
+ * Usage guidance:
+ * Reserved for 5 column layout option in Confluence Editor.
  * - [Examples](https://atlaskit.atlassian.com/packages/design-system/icon)
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */

@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-plugin-autocomplete",
-	"version": "4.2.0",
+	"version": "4.3.0",
 	"description": "Client-side text autocomplete plugin for @atlaskit/editor-core",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -43,7 +43,7 @@
 	"peerDependencies": {
 		"@atlaskit/editor-common": "workspace:^",
 		"@atlaskit/editor-plugin-analytics": "workspace:^",
-		"react": "^18.2.0"
+		"react": "^18.2.0 || ^19.2.0"
 	},
 	"techstack": {
 		"@atlassian/frontend": {
@@ -59,6 +59,6 @@
 		}
 	},
 	"devDependencies": {
-		"react": "root:*"
+		"react": "^19.2.0"
 	}
 }

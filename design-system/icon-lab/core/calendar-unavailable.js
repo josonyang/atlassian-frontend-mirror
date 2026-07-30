@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::d4add57fbdb7ab534f2f90d4ad942837>>
+ * @codegen <<SignedSource::74f73e8b32ea2b31eac46e19a9bd695b>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -15,8 +15,9 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
 /**
  * Icon: "CalendarUnavailable".
  * Category: multi-purpose
- * Location: @atlaskit/icon-lab
- * Usage guidance: Known uses: Any kind of time off, such as personal leave or public holidays in JSM
+ * Location: @atlaskit/icon-lab/core/calendar-unavailable
+ * Usage guidance:
+ * Known uses: Any kind of time off, such as personal leave or public holidays in JSM
  * - [Examples](https://atlaskit.atlassian.com/packages/design-system/icon)
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */

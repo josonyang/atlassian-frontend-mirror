@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::66b934a6d267ab50c439b49581835900>>
+ * @codegen <<SignedSource::6db4468a97b7a4b82f774811564a70c9>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -15,8 +15,9 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
 /**
  * Icon: "Bird".
  * Category: multi-purpose
- * Location: @atlaskit/icon-lab
- * Usage guidance: A fun little bird drawn as a legacy to Jesse Bauer (a huge bird nerd) who crafted the iconography system.
+ * Location: @atlaskit/icon-lab/core/bird
+ * Usage guidance:
+ * A fun little bird drawn as a legacy to Jesse Bauer (a huge bird nerd) who crafted the iconography system.
  * - [Examples](https://atlaskit.atlassian.com/packages/design-system/icon)
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */

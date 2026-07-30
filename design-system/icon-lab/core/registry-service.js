@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::a745228c54eba62724746e637e894834>>
+ * @codegen <<SignedSource::71a0f716db5997cf41d2e6cf9cd659c0>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -15,8 +15,9 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
 /**
  * Icon: "RegistryService".
  * Category: single-purpose
- * Location: @atlaskit/icon-lab
- * Usage guidance: Reserved for representing a service registry — a category of software, capabilities, and application services.
+ * Location: @atlaskit/icon-lab/core/registry-service
+ * Usage guidance:
+ * Reserved for representing a service registry — a category of software, capabilities, and application services.
  * - [Examples](https://atlaskit.atlassian.com/packages/design-system/icon)
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */

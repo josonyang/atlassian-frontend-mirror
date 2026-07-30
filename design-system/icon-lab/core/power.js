@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::29d9e3272c686a3a22c93c5884e4045a>>
+ * @codegen <<SignedSource::d15efe4d1180f3843e034b6bea9eda8a>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -15,8 +15,9 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
 /**
  * Icon: "Power".
  * Category: multi-purpose
- * Location: @atlaskit/icon-lab
- * Usage guidance: Known uses: Turn off Loom companion in Chrome extension
+ * Location: @atlaskit/icon-lab/core/power
+ * Usage guidance:
+ * Known uses: Turn off Loom companion in Chrome extension
  * - [Examples](https://atlaskit.atlassian.com/packages/design-system/icon)
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */

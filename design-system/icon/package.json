@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/icon",
-	"version": "37.2.0",
+	"version": "37.2.2",
 	"description": "An icon is a symbol representing a command, device, directory, or common action.",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -38,7 +38,7 @@
 		}
 	},
 	"scripts": {
-		"build-glyphs": "ts-node --project ../../../tsconfig.node.json ./build/index.tsx"
+		"build-glyphs": "tsx ./build/index.tsx"
 	},
 	"dependencies": {
 		"@atlaskit/react-compiler-gating": "workspace:^",
@@ -88,7 +88,7 @@
 		"pkg-dir": "root:*",
 		"react": "root:*",
 		"react-dom": "root:*",
-		"ts-node": "root:*"
+		"tsx": "root:*"
 	},
 	"keywords": [
 		"atlaskit",

@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::b5ae331244e5ce5f0d911605ea315070>>
+ * @codegen <<SignedSource::1ac5e9e40fd352b276f107a84122ec7a>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -15,8 +15,9 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
 /**
  * Icon: "Audio".
  * Category: single-purpose
- * Location: @atlaskit/icon
- * Usage guidance: 📦 @atlaskit/icon/core/audio
+ * Location: @atlaskit/icon/core/audio
+ * Usage guidance:
+ * 📦 @atlaskit/icon/core/audio
  * - [Examples](https://atlaskit.atlassian.com/packages/design-system/icon)
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */

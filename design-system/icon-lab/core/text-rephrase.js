@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::6252aa35f4b87f920a068113b2e82d97>>
+ * @codegen <<SignedSource::e979b1ccb2fb09bdc609567970c2388e>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -15,8 +15,9 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
 /**
  * Icon: "TextRephrase".
  * Category: single-purpose
- * Location: @atlaskit/icon-lab
- * Usage guidance: Confluence Editor AI action for rephrasing text
+ * Location: @atlaskit/icon-lab/core/text-rephrase
+ * Usage guidance:
+ * Confluence Editor AI action for rephrasing text
  * - [Examples](https://atlaskit.atlassian.com/packages/design-system/icon)
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */

@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::d303ddba53d82f5b367e7e70fa925a3f>>
+ * @codegen <<SignedSource::671e065356ade23fb981db7d784418b6>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -15,8 +15,9 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
 /**
  * Icon: "CalendarPlus".
  * Category: multi-purpose
- * Location: @atlaskit/icon
- * Usage guidance: Known uses: Auto-scheduling in Jira Plans. Scheduled dates.
+ * Location: @atlaskit/icon/core/calendar-plus
+ * Usage guidance:
+ * Known uses: Auto-scheduling in Jira Plans. Scheduled dates.
  * - [Examples](https://atlaskit.atlassian.com/packages/design-system/icon)
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */

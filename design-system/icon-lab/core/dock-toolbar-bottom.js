@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::5bf30d23dcd6b56d0d894d7b86adbe10>>
+ * @codegen <<SignedSource::edb243e7d980efd02dc8bb524c37bf27>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -15,8 +15,9 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
 /**
  * Icon: "DockToolbarBottom".
  * Category: single-purpose
- * Location: @atlaskit/icon-lab
- * Usage guidance: Reserved for docking a toolbar to the bottom of a page.
+ * Location: @atlaskit/icon-lab/core/dock-toolbar-bottom
+ * Usage guidance:
+ * Reserved for docking a toolbar to the bottom of a page.
  * - [Examples](https://atlaskit.atlassian.com/packages/design-system/icon)
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */

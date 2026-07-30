@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::68d3004518164da8b43b6666a98b51e2>>
+ * @codegen <<SignedSource::f0b6ea7fe9d8d36d08f20a781eba64e2>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -15,8 +15,9 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
 /**
  * Icon: "Compare".
  * Category: single-purpose
- * Location: @atlaskit/icon-lab
- * Usage guidance: Reserved for compare functionality in Bitbucket.
+ * Location: @atlaskit/icon-lab/core/compare
+ * Usage guidance:
+ * Reserved for compare functionality in Bitbucket.
  * - [Examples](https://atlaskit.atlassian.com/packages/design-system/icon)
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */

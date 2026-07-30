@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::0f82f0b9830ced32cc77fda273e62034>>
+ * @codegen <<SignedSource::2ced299804fb01385fefefbab429e216>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -15,8 +15,9 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
 /**
  * Icon: "QuotationBlock".
  * Category: multi-purpose
- * Location: @atlaskit/icon
- * Usage guidance: Preferred for representing block quotes and quote text style in Confluence
+ * Location: @atlaskit/icon/core/quotation-block
+ * Usage guidance:
+ * Preferred for representing block quotes and quote text style in Confluence
  * - [Examples](https://atlaskit.atlassian.com/packages/design-system/icon)
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */

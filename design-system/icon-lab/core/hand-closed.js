@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::2f95d388f98dd0b6def3a9dd59b01693>>
+ * @codegen <<SignedSource::6eb24b890003b77061c5bccff05996ac>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -15,8 +15,9 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
 /**
  * Icon: "HandClosed".
  * Category: multi-purpose
- * Location: @atlaskit/icon-lab
- * Usage guidance: Known uses: Hand tool in Whiteboards when actively moving objects.
+ * Location: @atlaskit/icon-lab/core/hand-closed
+ * Usage guidance:
+ * Known uses: Hand tool in Whiteboards when actively moving objects.
  * - [Examples](https://atlaskit.atlassian.com/packages/design-system/icon)
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */

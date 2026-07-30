@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::b4fea2e330c700bf75c14517d1912484>>
+ * @codegen <<SignedSource::5ec31ac03f0dbf165c9386eedcd3ab28>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -15,8 +15,9 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
 /**
  * Icon: "BezierCurve".
  * Category: multi-purpose
- * Location: @atlaskit/icon
- * Usage guidance: Represents bezier curve functions of vector paths, or animation easing curves.
+ * Location: @atlaskit/icon/core/bezier-curve
+ * Usage guidance:
+ * Represents bezier curve functions of vector paths, or animation easing curves.
  * - [Examples](https://atlaskit.atlassian.com/packages/design-system/icon)
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */

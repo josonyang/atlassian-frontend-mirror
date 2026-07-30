@@ -38,6 +38,7 @@ export type CardContext = {
 	| 'rovoOptions'
 	| 'isAdminHubAIEnabled'
 	| 'isPreviewPanelAvailable'
+	| 'isPreviewRestricted'
 	| 'product'
 	| 'renderers'
 	| 'shouldControlDataExport'
@@ -85,6 +86,12 @@ export type CardProviderProps = {
 	 * Required to be defined to add support for preview panel handling.
 	 */
 	isPreviewPanelAvailable?: (props: { ari: string }) => boolean;
+	/**
+	 * Optional callback establishing whether previewing the given linked resource is restricted
+	 * (e.g. cross-unit). When it returns `true`, the entire preview affordance is suppressed
+	 * (neither a preview panel nor a fallback preview modal is shown).
+	 */
+	isPreviewRestricted?: (props: { ari: string }) => boolean;
 	/**
 	 * Optional callback enabling the host application to open a preview panel for compatible links.
 	 * Required to be defined to add support for preview panel handling.

@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::6dad959d4748daed02c67a782b9b76e4>>
+ * @codegen <<SignedSource::fb440d4dc48cf49210f0aa5fdeaf281e>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -15,8 +15,9 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
 /**
  * Icon: "TextAudioTranscript".
  * Category: single-purpose
- * Location: @atlaskit/icon-lab
- * Usage guidance: Reserved for viewing transcript in Loom
+ * Location: @atlaskit/icon-lab/core/text-audio-transcript
+ * Usage guidance:
+ * Reserved for viewing transcript in Loom
  * - [Examples](https://atlaskit.atlassian.com/packages/design-system/icon)
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */

@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::93d5fa9818f3da58a09a3a21aa0e61f7>>
+ * @codegen <<SignedSource::ec319f6ecf63c0086327f8caf6103296>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -15,8 +15,9 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
 /**
  * Icon: "PanelLeft".
  * Category: single-purpose
- * Location: @atlaskit/icon
- * Usage guidance: Reserved for opening a preview panel to the left of the viewport edge. Use for right-to-left languages which invert the navigational chrome.
+ * Location: @atlaskit/icon/core/panel-left
+ * Usage guidance:
+ * Reserved for opening a preview panel to the left of the viewport edge. Use for right-to-left languages which invert the navigational chrome.
  * - [Examples](https://atlaskit.atlassian.com/packages/design-system/icon)
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */

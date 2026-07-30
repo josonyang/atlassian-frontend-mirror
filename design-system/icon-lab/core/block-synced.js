@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::527f33e0573e8027a3e6df8a9b12f86d>>
+ * @codegen <<SignedSource::84739518118048ed21db64d5f304c13b>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -15,8 +15,9 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
 /**
  * Icon: "BlockSynced".
  * Category: single-purpose
- * Location: @atlaskit/icon-lab
- * Usage guidance: Reserved for syncing content blocks in Editor experiences.
+ * Location: @atlaskit/icon-lab/core/block-synced
+ * Usage guidance:
+ * Reserved for syncing content blocks in Editor experiences.
  * - [Examples](https://atlaskit.atlassian.com/packages/design-system/icon)
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */
