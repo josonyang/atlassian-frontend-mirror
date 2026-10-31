@@ -309,6 +309,7 @@ function getDismissedBy({
 function ModalWrapperTopLayer(props: InternalModalWrapperProps): React.ReactNode {
 	const {
 		autoFocus,
+		UNSAFE__disableInitialAutoFocus,
 		shouldCloseOnEscapePress = true,
 		shouldCloseOnOverlayClick = true,
 		shouldScrollInViewport = false,
@@ -434,7 +435,7 @@ function ModalWrapperTopLayer(props: InternalModalWrapperProps): React.ReactNode
 	// When true, native <dialog>.showModal() handles focus automatically.
 	useAutoFocus(
 		typeof autoFocus === 'object' ? autoFocus : undefined,
-		typeof autoFocus === 'object',
+		typeof autoFocus === 'object' && !UNSAFE__disableInitialAutoFocus,
 	);
 
 	// Chrome cross-origin iframe DnD workaround (crbug.com/362301053)
@@ -521,6 +522,7 @@ const ModalWrapperLegacy = forwardRef(
 	(props: InternalModalWrapperProps, ref: React.Ref<HTMLElement>) => {
 		const {
 			autoFocus,
+			UNSAFE__disableInitialAutoFocus = false,
 			focusLockAllowlist,
 			shouldCloseOnEscapePress = true,
 			shouldCloseOnOverlayClick = true,
@@ -546,7 +548,7 @@ const ModalWrapperLegacy = forwardRef(
 		const isForeground = stackIndex === 0;
 
 		// If no ref is provided, autofocus on first element
-		const autoFocusLock = !(typeof autoFocus === 'object');
+		const autoFocusLock = !UNSAFE__disableInitialAutoFocus && !(typeof autoFocus === 'object');
 
 		const onCloseHandler = useModalCloseHandler(providedOnClose);
 

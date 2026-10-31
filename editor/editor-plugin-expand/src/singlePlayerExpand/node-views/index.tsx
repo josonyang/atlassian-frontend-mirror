@@ -29,6 +29,7 @@ import { DOMSerializer } from '@atlaskit/editor-prosemirror/model';
 import { NodeSelection, Selection } from '@atlaskit/editor-prosemirror/state';
 import type { Decoration, EditorView, NodeView } from '@atlaskit/editor-prosemirror/view';
 import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
 import { redo } from '@atlaskit/prosemirror-history/redo';
 import { undo } from '@atlaskit/prosemirror-history/undo';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
@@ -693,7 +694,8 @@ export class ExpandNodeView implements NodeView {
 
 			// Sync up the aria-label with the current expand title.
 			if (
-				isExperimentEnabled('platform_editor_expand_content_a11y_2') &&
+				(isExperimentEnabled('platform_editor_expand_content_a11y_2') ||
+					fg('platform_editor_expand_content_a11y_other_apps')) &&
 				this.node.attrs.title !== node.attrs.title &&
 				this.content
 			) {

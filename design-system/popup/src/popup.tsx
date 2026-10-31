@@ -52,6 +52,7 @@ const PopupLegacy: FC<DialogPopupProps | PopupProps> = (props: DialogPopupProps 
 		fallbackPlacements,
 		popupComponent: PopupContainer,
 		autoFocus = true,
+		UNSAFE__disableInitialAutoFocus = false,
 		zIndex = defaultLayer,
 		shouldUseCaptureOnOutsideClick = false,
 		shouldIgnoreCloseEvent,
@@ -111,7 +112,7 @@ const PopupLegacy: FC<DialogPopupProps | PopupProps> = (props: DialogPopupProps 
 				id={id}
 				testId={testId}
 				onClose={onClose}
-				autoFocus={autoFocus}
+				autoFocus={UNSAFE__disableInitialAutoFocus ? false : autoFocus}
 				shouldUseCaptureOnOutsideClick={shouldUseCaptureOnOutsideClick}
 				shouldIgnoreCloseEvent={shouldIgnoreCloseEvent}
 				shouldRenderToParent={shouldRenderToParent || shouldFitContainer}

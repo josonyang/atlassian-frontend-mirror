@@ -122,20 +122,27 @@ const toDOM = (
 		],
 	],
 	[
-		isExperimentEnabled('platform_editor_expand_content_a11y_2') ? 'section' : 'div',
+		isExperimentEnabled('platform_editor_expand_content_a11y_2') ||
+		fg('platform_editor_expand_content_a11y_other_apps')
+			? 'section'
+			: 'div',
 		{
 			// prettier-ignore
 			class: `${expandClassNames.content} ${(__livePage ? !node.attrs.__expanded : node.attrs.__expanded) ? '' : expandClassNames.contentCollapsed}`,
 			contenteditable:
 				contentEditable !== undefined ? (contentEditable ? 'true' : 'false') : undefined,
-			...(!isExperimentEnabled('platform_editor_expand_content_a11y_2') && {
+			...(!(
+				isExperimentEnabled('platform_editor_expand_content_a11y_2') ||
+				fg('platform_editor_expand_content_a11y_other_apps')
+			) && {
 				role: 'textbox',
 				'aria-multiline': 'true',
 				'aria-label':
 					(intl && intl.formatMessage(expandMessages.expandBodyAriaLabelOriginal)) ||
 					expandMessages.expandBodyAriaLabelOriginal.defaultMessage,
 			}),
-			...(isExperimentEnabled('platform_editor_expand_content_a11y_2') && {
+			...((isExperimentEnabled('platform_editor_expand_content_a11y_2') ||
+				fg('platform_editor_expand_content_a11y_other_apps')) && {
 				'aria-label': getExpandBodyAriaLabel(node.attrs.title ?? '', intl),
 				'aria-description':
 					intl?.formatMessage(expandMessages.expandBodyAriaDescription) ||
@@ -845,7 +852,10 @@ export class ExpandNodeView implements NodeView {
 				}
 			});
 
-			if (isExperimentEnabled('platform_editor_expand_content_a11y_2')) {
+			if (
+				isExperimentEnabled('platform_editor_expand_content_a11y_2') ||
+				fg('platform_editor_expand_content_a11y_other_apps')
+			) {
 				if (this.node.attrs.title !== node.attrs.title && this.content) {
 					this.content.setAttribute(
 						'aria-label',

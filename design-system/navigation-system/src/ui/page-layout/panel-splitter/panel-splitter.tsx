@@ -37,6 +37,7 @@ import VisuallyHidden from '@atlaskit/visually-hidden/visually-hidden';
 import { contentInsetBlockStart } from '../constants';
 import { LayoutAreaSizingContext } from '../layout-area-sizing-context';
 import { convertResizeBoundToPixels } from './convert-resize-bound-to-pixels';
+import { getPanelGrowthSide } from './get-panel-growth-side';
 import { getPercentageWithinPixelBounds } from './get-percentage-within-pixel-bounds';
 import { getPixelWidth } from './get-pixel-width';
 import { getWidthFromDragLocation } from './get-width-from-drag-location';
@@ -150,9 +151,15 @@ const tooltipStyles = cssMap({
 		// `width: max-content` bypasses this and lets the tooltip size to its content instead.
 		width: 'max-content',
 	},
+	// Mirrors the root offset for tooltips placed on the left of the splitter.
+	placedLeft: {
+		marginInlineStart: token('space.0'),
+		marginInlineEnd: token('space.negative.075'),
+	},
 });
 
 type MaybeTooltipProps = Pick<PanelSplitterProps, 'tooltipContent'> & {
+	mousePosition: 'left' | 'right';
 	children: ReactNode;
 	shortcut?: TooltipProps['shortcut'];
 	testId?: string;
@@ -198,7 +205,7 @@ const PanelSplitterTooltip = forwardRef<HTMLDivElement, TooltipContainerProps>(
 				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop, @atlaskit/design-system/no-unsafe-style-overrides
 				className={className}
 				// eslint-disable-next-line @atlaskit/design-system/no-unsafe-style-overrides
-				css={tooltipStyles.root}
+				css={[tooltipStyles.root, props.placement === 'left' && tooltipStyles.placedLeft]}
 				// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop
 				style={style}
 			>
@@ -211,7 +218,13 @@ const PanelSplitterTooltip = forwardRef<HTMLDivElement, TooltipContainerProps>(
 /**
  * A wrapper component that renders a tooltip if the tooltipContent or shortcut is provided.
  */
-const MaybeTooltip = ({ tooltipContent, shortcut, children, testId }: MaybeTooltipProps) => {
+const MaybeTooltip = ({
+	tooltipContent,
+	shortcut,
+	mousePosition,
+	children,
+	testId,
+}: MaybeTooltipProps) => {
 	if (tooltipContent) {
 		return (
 			<Tooltip
@@ -219,7 +232,7 @@ const MaybeTooltip = ({ tooltipContent, shortcut, children, testId }: MaybeToolt
 				content={tooltipContent}
 				shortcut={shortcut}
 				position="mouse-y"
-				mousePosition="right"
+				mousePosition={mousePosition}
 				isScreenReaderAnnouncementDisabled
 				component={PanelSplitterTooltip}
 				shouldAlwaysFadeIn
@@ -232,6 +245,10 @@ const MaybeTooltip = ({ tooltipContent, shortcut, children, testId }: MaybeToolt
 
 	return children;
 };
+
+// Browsers increase an RTL range input's value on ArrowLeft, so the arrow key pointing towards the
+// panel's growth side widens it.
+const rangeInputDirs = { left: 'rtl', right: 'ltr' } as const;
 
 function getTextDirection(element: HTMLElement): 'ltr' | 'rtl' {
 	const { direction } = window.getComputedStyle(element);
@@ -284,6 +301,13 @@ const PortaledPanelSplitter = ({
 		[prepareResize, registerSplitter],
 	);
 	const labelId = useId();
+	const panelGrowthSide = useMemo(
+		() =>
+			fg('platform-dst-panel-splitter-resize-direction')
+				? getPanelGrowthSide({ position, textDirection: getTextDirection(panel) })
+				: undefined,
+		[position, panel],
+	);
 	// Separate state used for the input range width to remove the UI's dependency on the "persisted" layout state value being updated
 	const [rangeInputValue, setRangeInputValue] = useState(panelWidth);
 
@@ -529,10 +553,12 @@ const PortaledPanelSplitter = ({
 					// Native range inputs would apply these keys to the placeholder bounds.
 					// Preserve the intent until the chunk provides the real bounds instead.
 					const current = pendingKeyboardWidth.current ?? getPixelWidth(panel);
-					const isRtl = getTextDirection(panel) === 'rtl';
+					const doesArrowRightIncrease = panelGrowthSide
+						? panelGrowthSide === 'right'
+						: getTextDirection(panel) === 'ltr';
 					const increase =
 						pendingKey === 'ArrowUp' ||
-						pendingKey === (isRtl ? 'ArrowLeft' : 'ArrowRight') ||
+						pendingKey === (doesArrowRightIncrease ? 'ArrowRight' : 'ArrowLeft') ||
 						pendingKey === 'PageUp';
 					const step = pendingKey.startsWith('Page') ? Math.max(20, (max - min) / 10) : 20;
 					value =
@@ -563,6 +589,7 @@ const PortaledPanelSplitter = ({
 			keyboardResizeManager,
 			panel,
 			prepareResize,
+			panelGrowthSide,
 		],
 	);
 	const handleSliderKeyDown = useCallback(
@@ -676,6 +703,7 @@ const PortaledPanelSplitter = ({
 			<MaybeTooltip
 				tooltipContent={tooltipContent}
 				shortcut={shortcut}
+				mousePosition={panelGrowthSide ?? 'right'}
 				testId={testId ? `${testId}-tooltip` : undefined}
 			>
 				{/* eslint-disable-next-line @atlassian/a11y/no-static-element-interactions --
@@ -693,6 +721,7 @@ const PortaledPanelSplitter = ({
 					<VisuallyHidden>
 						<input
 							type="range"
+							dir={panelGrowthSide ? rangeInputDirs[panelGrowthSide] : undefined}
 							value={rangeInputValue}
 							step={20}
 							min={rangeInputBounds.min}

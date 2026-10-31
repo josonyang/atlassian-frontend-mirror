@@ -1,5 +1,15 @@
 # @atlaskit/rovo-triggers
 
+## 12.12.0
+
+### Minor Changes
+
+- [`e77b13d2cd41f`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/e77b13d2cd41f) -
+  Under `confluence_ncs_step_diffing_version_history`, preserve the selected inline agent's name,
+  named ID and third-party classification through the `chat-new` handoff into message streaming.
+  This lets editor actions retain the selected agent's presentation metadata without an additional
+  agent lookup.
+
 ## 12.11.0
 
 ### Minor Changes

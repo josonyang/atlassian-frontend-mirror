@@ -255,7 +255,6 @@ export const debarrelPackageFolders = [
 	'platform/packages/editor/adf-utils',
 	'platform/packages/editor/ai-model-io',
 	'platform/packages/editor/collab-provider',
-	'platform/packages/editor/conversation',
 	'platform/packages/editor/custom-steps',
 	'platform/packages/editor/editor-card-provider',
 	'platform/packages/editor/editor-common',

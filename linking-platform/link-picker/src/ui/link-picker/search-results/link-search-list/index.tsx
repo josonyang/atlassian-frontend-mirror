@@ -21,7 +21,11 @@ import Spinner from '@atlaskit/spinner/spinner';
 import { token } from '@atlaskit/tokens';
 import VisuallyHidden from '@atlaskit/visually-hidden/visually-hidden';
 
-import { type LinkPickerPlugin, type LinkSearchListItemData } from '../../../../common/types';
+import {
+	type LinkPickerPlugin,
+	type LinkPickerProps,
+	type LinkSearchListItemData,
+} from '../../../../common/types';
 import { MinHeightContainer } from '../../../../common/ui/min-height-container';
 import { handleNavKeyDown } from '../../../../common/utils/handleNavKeyDown';
 import { NoResults, testIds as noResultsTestIds } from './link-search-no-results';
@@ -144,6 +148,7 @@ export interface LinkSearchListProps extends Omit<
 	activePlugin?: LinkPickerPlugin;
 	/** Because we don't use the DST TabPanels component, tabPanelId is needed to set the correct aria-controls for a11y. */
 	tabPanelId?: string;
+	resultHeadingLevel?: LinkPickerProps['resultHeadingLevel'];
 	shouldRenderNoResultsImage?: boolean;
 }
 
@@ -167,6 +172,7 @@ export const LinkSearchList: ForwardRefExoticComponent<
 			adaptiveHeight,
 			className,
 			tabPanelId,
+			resultHeadingLevel = 3,
 			shouldRenderNoResultsImage,
 			...restProps
 		},
@@ -251,7 +257,8 @@ export const LinkSearchList: ForwardRefExoticComponent<
 			itemsContent = (
 				<Fragment>
 					<Box
-						as="h3" // Must remain <h3> for a11y title hierarchy as per https://hello.jira.atlassian.cloud/browse/NAVX-3332
+						// Default to h3 for Trello's heading hierarchy (NAVX-3332); consumers can match their surrounding headings.
+						as={`h${resultHeadingLevel}`}
 						// `.wiki-content h3` css styles in confluence override ADS/native styles here, so inline styles are needed.
 						// Should use css or xcss prop when that CSS is removed/fixed by confluence
 						// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop

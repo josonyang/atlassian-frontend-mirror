@@ -33,6 +33,15 @@ export interface ModalDialogProps {
 	autoFocus?: RefObject<HTMLElement | null | undefined>;
 
 	/**
+	 * For asynchronous Entry Point wrappers only. Disables Modal Dialog's
+	 * initial autofocus so the wrapper can apply focus after its content is
+	 * ready. This is gated by `platform_dst-automated_focus` and must not be
+	 * used by Makers or ordinary Modal Dialog consumers.
+	 */
+	// eslint-disable-next-line @repo/internal/react/consistent-props-definitions, @repo/internal/react/boolean-prop-naming-convention -- restricted Entry Point escape hatch
+	UNSAFE__disableInitialAutoFocus?: boolean;
+
+	/**
 	 * Contents of the modal dialog.
 	 */
 	children?: React.ReactNode;

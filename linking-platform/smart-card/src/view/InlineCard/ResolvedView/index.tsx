@@ -1,15 +1,8 @@
 import React from 'react';
 
-import { componentWithFG } from '@atlaskit/platform-feature-flags-react/component-with-fg';
-import { fg } from '@atlaskit/platform-feature-flags/fg';
-
 import { type LozengeProps } from '../../../types';
 import type { InternalCardActionOptions as CardActionOptions } from '../../Card/types';
-import { HoverCard } from '../../HoverCard';
 import { type HoverPreviewOptions } from '../../HoverCard/types';
-import InlineLozenge from '../common/inline-lozenge';
-import { Frame } from '../Frame';
-import { IconAndTitleLayout } from '../IconAndTitleLayout';
 import { InlineCardResolvedViewFunctional } from './InlineCardResolvedViewFunctional';
 import type { InlineCardResolvedViewFunctionalProps } from './types';
 
@@ -56,111 +49,6 @@ export interface InlineCardResolvedViewProps {
 	type?: string[];
 }
 
-class InlineCardResolvedViewClass extends React.Component<InlineCardResolvedViewProps> {
-	renderLozenge(): React.JSX.Element | null {
-		const { lozenge } = this.props;
-		if (!lozenge || !lozenge?.text) {
-			return null;
-		}
-		if (fg('platform-dst-lozenge-tag-badge-visual-uplifts')) {
-			const stateMetricMatch = lozenge.text.match(/^(.+?)\s+-\s+(\d+(?:\.\d+)?)$/);
-			if (stateMetricMatch) {
-				const [, label, metric] = stateMetricMatch;
-				const appearance = lozenge.appearance || 'neutral';
-				return (
-					<InlineLozenge
-						testId="inline-card-resolved-view-lozenge"
-						appearance={appearance}
-						style={{
-							backgroundColor: lozenge?.style?.backgroundColor,
-							color: lozenge?.style?.color,
-						}}
-						trailingMetric={metric}
-					>
-						{label}
-					</InlineLozenge>
-				);
-			}
-		}
-		const appearance = lozenge.appearance || 'default';
-		return (
-			<InlineLozenge
-				testId="inline-card-resolved-view-lozenge"
-				appearance={appearance}
-				style={{ backgroundColor: lozenge?.style?.backgroundColor, color: lozenge?.style?.color }}
-				isBold={lozenge.isBold !== false}
-			>
-				{lozenge.text}
-			</InlineLozenge>
-		);
-	}
-
-	render(): React.JSX.Element {
-		const {
-			id,
-			title = '',
-			isSelected,
-			isHovered,
-			onClick,
-			onAuxClick,
-			onContextMenu,
-			icon,
-			link,
-			testId = 'inline-card-resolved-view',
-			titleTextColor,
-			titlePrefix,
-			showHoverPreview = false,
-			hoverPreviewOptions,
-			actionOptions,
-			truncateInline,
-			type,
-			hideIconLoadingSkeleton,
-		} = this.props;
-
-		const inlineCardResolvedView = (
-			<Frame
-				testId={testId}
-				link={link}
-				isSelected={isSelected}
-				isHovered={isHovered}
-				onClick={onClick}
-				onAuxClick={onAuxClick}
-				onContextMenu={onContextMenu}
-				truncateInline={truncateInline}
-			>
-				<IconAndTitleLayout
-					emoji={titlePrefix}
-					icon={icon}
-					title={title}
-					titleTextColor={titleTextColor}
-					type={type}
-					hideIconLoadingSkeleton={hideIconLoadingSkeleton}
-				/>
-				{this.renderLozenge()}
-			</Frame>
-		);
-
-		if (showHoverPreview && link) {
-			return (
-				<HoverCard
-					id={id}
-					url={link}
-					actionOptions={actionOptions}
-					hoverPreviewOptions={hoverPreviewOptions}
-				>
-					{inlineCardResolvedView}
-				</HoverCard>
-			);
-		}
-
-		return inlineCardResolvedView;
-	}
-}
-
 export const InlineCardResolvedView: React.FC<
 	InlineCardResolvedViewFunctionalProps & InlineCardResolvedViewProps
-> = componentWithFG(
-	'smart-card-inline-resolved-view-refactor',
-	InlineCardResolvedViewFunctional,
-	InlineCardResolvedViewClass,
-);
+> = InlineCardResolvedViewFunctional;

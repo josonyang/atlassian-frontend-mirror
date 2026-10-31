@@ -1,5 +1,19 @@
 # @atlaskit/editor-plugin-help-dialog
 
+## 30.0.5
+
+### Patch Changes
+
+- Updated dependencies
+
+## 30.0.4
+
+### Patch Changes
+
+- [`36805c1c6ffe5`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/36805c1c6ffe5) -
+  Behind `platform_dst-modal_title`, render the modal's visible heading with `ModalTitle` so the
+  dialog is named by its title. No change when the flag is off.
+
 ## 30.0.3
 
 ### Patch Changes

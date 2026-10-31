@@ -1,11 +1,13 @@
 import React, { type PropsWithChildren } from 'react';
 
 import { screen, waitForElementToBeRemoved } from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
 
 import { renderWithIntl as render } from '@atlaskit/link-test-helpers/react-testing-library';
 import '@testing-library/jest-dom';
 
 import type { LinkPickerProps } from '../common/types';
+import { getDefaultItems } from './__tests__/__helpers';
 import type { LinkPicker as LinkPickerType } from './link-picker';
 
 const testIds = {
@@ -54,7 +56,12 @@ describe('lazy loaded export', () => {
 });
 
 describe.each(['default', 'DeprecatedLazyLinkPickerExport'])(`using export %s`, (namedExport) => {
-	const setupLinkPicker = ({ url = '', component, plugins }: Partial<LinkPickerProps> = {}) => {
+	const setupLinkPicker = ({
+		url = '',
+		component,
+		plugins,
+		resultHeadingLevel,
+	}: Partial<LinkPickerProps> = {}) => {
 		jest.isolateModules(() => {
 			const LinkPicker: typeof LinkPickerType = require('./index')[namedExport];
 			render(
@@ -64,10 +71,47 @@ describe.each(['default', 'DeprecatedLazyLinkPickerExport'])(`using export %s`, 
 					onSubmit={jest.fn()}
 					plugins={plugins ?? []}
 					onCancel={jest.fn()}
+					resultHeadingLevel={resultHeadingLevel}
 				/>,
 			);
 		});
 	};
+
+	it.each([
+		{ resultHeadingLevel: undefined, expectedLevel: 3 },
+		{ resultHeadingLevel: 2, expectedLevel: 2 },
+	] as const)(
+		'renders recent and search results with heading level $expectedLevel',
+		async ({ resultHeadingLevel, expectedLevel }) => {
+			const user = userEvent.setup();
+			setupLinkPicker({
+				resultHeadingLevel,
+				plugins: [{ resolve: () => Promise.resolve({ data: getDefaultItems() }) }],
+			});
+
+			const recentHeading = await screen.findByRole('heading', {
+				name: 'Recently viewed',
+				level: expectedLevel,
+			});
+			expect(recentHeading.tagName).toBe(`H${expectedLevel}`);
+			expect(screen.getByRole('listbox', { name: 'Recently viewed' })).toHaveAttribute(
+				'aria-labelledby',
+				recentHeading.id,
+			);
+
+			await user.type(screen.getByRole('combobox'), 'some');
+
+			const resultsHeading = await screen.findByRole('heading', {
+				name: 'Results',
+				level: expectedLevel,
+			});
+			expect(resultsHeading.tagName).toBe(`H${expectedLevel}`);
+			expect(screen.getByRole('listbox', { name: 'Results' })).toHaveAttribute(
+				'aria-labelledby',
+				resultsHeading.id,
+			);
+		},
+	);
 
 	describe('error boundary', () => {
 		it('renders a fallback ui if the inner link picker component throws an error', async () => {

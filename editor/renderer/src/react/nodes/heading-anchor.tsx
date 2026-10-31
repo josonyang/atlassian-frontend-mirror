@@ -121,9 +121,7 @@ class HeadingAnchor extends React.PureComponent<HeadingAnchorProps, HeadingAncho
 			},
 			() => {
 				// Reposition tooltip after content change (replaces the key-based remount)
-				if (isExperimentEnabled('a11y-fixes-week4-may-2026')) {
-					this._tooltipUpdate?.();
-				}
+				this._tooltipUpdate?.();
 			},
 		);
 	};
@@ -231,43 +229,21 @@ class HeadingAnchor extends React.PureComponent<HeadingAnchorProps, HeadingAncho
 		const { tooltipMessage } = this.state;
 
 		if (tooltipMessage) {
-			if (isExperimentEnabled('a11y-fixes-week4-may-2026')) {
-				// Fix for A11Y-30972: Use content as a function with update callback so
-				// the Tooltip repositions without unmounting (which caused focus loss).
-				// @see https://hello.jira.atlassian.cloud/browse/A11Y-30972
-				return (
-					<Tooltip
-						tag={CopyAnchorWrapperWithRef}
-						content={this.renderTooltipContent}
-						position="top"
-						delay={0}
-						isScreenReaderAnnouncementDisabled={
-							expValEquals('platform_editor_copy_link_a11y_inconsistency_fix', 'isEnabled', true)
-								? true
-								: false
-						}
-						hasNewContentOnTriggerClick
-					>
-						{this.renderAnchorButton()}
-					</Tooltip>
-				);
-			}
-
-			// We set the key to the message to ensure it remounts when the message
-			// changes, so that it correctly repositions.
-			// @see https://ecosystem.atlassian.net/projects/AK/queues/issue/AK-6548
+			// Fix for A11Y-30972: Use content as a function with update callback so
+			// the Tooltip repositions without unmounting (which caused focus loss).
+			// @see https://hello.jira.atlassian.cloud/browse/A11Y-30972
 			return (
 				<Tooltip
 					tag={CopyAnchorWrapperWithRef}
-					content={tooltipMessage}
+					content={this.renderTooltipContent}
 					position="top"
 					delay={0}
-					key={tooltipMessage}
 					isScreenReaderAnnouncementDisabled={
 						expValEquals('platform_editor_copy_link_a11y_inconsistency_fix', 'isEnabled', true)
 							? true
 							: false
 					}
+					hasNewContentOnTriggerClick
 				>
 					{this.renderAnchorButton()}
 				</Tooltip>

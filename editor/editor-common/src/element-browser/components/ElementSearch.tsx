@@ -15,6 +15,7 @@ import { relativeFontSizeToBase16 } from '@atlaskit/editor-shared-styles/constan
 import { shortcutStyle } from '@atlaskit/editor-shared-styles/shortcut/main';
 import SearchIcon from '@atlaskit/icon/core/search';
 import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
 import Textfield from '@atlaskit/textfield/text-field';
 import { token } from '@atlaskit/tokens';
 
@@ -98,9 +99,11 @@ function ElementSearch({
 	const assistiveMessage = getFormattedMessage(items?.length);
 
 	const isInputNotFocusedAndItemSelected = !inputFocused && selectedItemIndex !== undefined;
+	const isAriaFixEnabled =
+		isExperimentEnabled('platform_editor_element_browser_aria_fix') ||
+		fg('platform_editor_element_browser_aria_other_apps');
 	const ariaActiveDescendant =
-		isInputNotFocusedAndItemSelected &&
-		(!isExperimentEnabled('platform_editor_element_browser_aria_fix') || items[selectedItemIndex])
+		isInputNotFocusedAndItemSelected && (!isAriaFixEnabled || items[selectedItemIndex])
 			? `searched-item-${selectedItemIndex}`
 			: undefined;
 

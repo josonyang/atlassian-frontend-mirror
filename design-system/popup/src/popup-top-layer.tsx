@@ -88,6 +88,7 @@ export const PopupTopLayer: FC<DialogPopupProps | PopupProps> = memo(function Po
 	id: providedId,
 	offset: offsetProp,
 	testId,
+	UNSAFE__disableInitialAutoFocus,
 	trigger,
 	content,
 	onClose: providedOnClose,
@@ -293,6 +294,7 @@ export const PopupTopLayer: FC<DialogPopupProps | PopupProps> = memo(function Po
 				ref={popoverRef}
 				id={resolvedPopoverId}
 				{...roleProps}
+				UNSAFE__disableInitialAutoFocus={UNSAFE__disableInitialAutoFocus}
 				isOpen={isOpen}
 				{...getModeProps({ isManual, hasOnClose: Boolean(providedOnClose), handleOnClose })}
 				shouldAnimate

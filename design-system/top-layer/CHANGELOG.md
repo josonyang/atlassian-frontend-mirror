@@ -1,5 +1,15 @@
 # @atlaskit/top-layer
 
+## 7.1.0
+
+### Minor Changes
+
+- [`2980f0f050276`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/2980f0f050276) -
+  Add `UNSAFE__disableAutoFocusForAsyncWrapper` to `ModalDialog` and `Popup` to support deferred
+  focus when asynchronous entry point content loads. Add the
+  `@atlaskit/top-layer/apply-initial-focus` entrypoint for applying initial focus after that content
+  is available.
+
 ## 7.0.1
 
 ### Patch Changes

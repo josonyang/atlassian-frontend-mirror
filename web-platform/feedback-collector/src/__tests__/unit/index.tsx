@@ -3,7 +3,6 @@ import React from 'react';
 import { fireEvent, render, screen, waitFor } from '@testing-library/react';
 
 import { failGate, passGate } from '@atlassian/feature-flags-test-utils/mock-gates';
-import { ffTest } from '@atlassian/feature-flags-test-utils/test-runner';
 
 import FeedbackCollector from '../../components/FeedbackCollector';
 import FeedbackFlag from '../../components/FeedbackFlag';
@@ -36,54 +35,21 @@ const renderFeedbackCollector = (props = {}) =>
 
 describe('Feedback Collector unit tests', () => {
 	describe('Feedback integration', () => {
-		describe('Required fields summary rendering behavior for undefined showRequiredFieldsSummary', () => {
-			ffTest(
-				'ak_feedback_collector_hide_required_summary',
-				async () => {
-					renderFeedbackCollector({});
-					const visualInstruction = screen.getByText('Required fields are marked with an asterisk');
-					expect(visualInstruction).toBeInTheDocument();
-				},
-				async () => {
-					renderFeedbackCollector({});
-					const visualInstruction = screen.getByText('Required fields are marked with an asterisk');
-					expect(visualInstruction).toBeInTheDocument();
-				},
-			);
+		test('shows the required fields summary by default', () => {
+			renderFeedbackCollector({});
+			expect(screen.getByText('Required fields are marked with an asterisk')).toBeInTheDocument();
 		});
 
-		describe('Required fields summary rendering behavior for false showRequiredFieldsSummary', () => {
-			ffTest(
-				'ak_feedback_collector_hide_required_summary',
-				async () => {
-					renderFeedbackCollector({ showRequiredFieldsSummary: false });
-					const visualInstruction = screen.queryByText(
-						'Required fields are marked with an asterisk',
-					);
-					expect(visualInstruction).not.toBeInTheDocument();
-				},
-				async () => {
-					renderFeedbackCollector({ showRequiredFieldsSummary: false });
-					const visualInstruction = screen.getByText('Required fields are marked with an asterisk');
-					expect(visualInstruction).toBeInTheDocument();
-				},
-			);
+		test('hides the required fields summary when showRequiredFieldsSummary is false', () => {
+			renderFeedbackCollector({ showRequiredFieldsSummary: false });
+			expect(
+				screen.queryByText('Required fields are marked with an asterisk'),
+			).not.toBeInTheDocument();
 		});
 
-		describe('Required fields summary rendering behavior for true showRequiredFieldsSummary', () => {
-			ffTest(
-				'ak_feedback_collector_hide_required_summary',
-				async () => {
-					renderFeedbackCollector({ showRequiredFieldsSummary: true });
-					const visualInstruction = screen.getByText('Required fields are marked with an asterisk');
-					expect(visualInstruction).toBeInTheDocument();
-				},
-				async () => {
-					renderFeedbackCollector({ showRequiredFieldsSummary: true });
-					const visualInstruction = screen.getByText('Required fields are marked with an asterisk');
-					expect(visualInstruction).toBeInTheDocument();
-				},
-			);
+		test('shows the required fields summary when showRequiredFieldsSummary is true', () => {
+			renderFeedbackCollector({ showRequiredFieldsSummary: true });
+			expect(screen.getByText('Required fields are marked with an asterisk')).toBeInTheDocument();
 		});
 
 		describe('Transforming form values into format', () => {

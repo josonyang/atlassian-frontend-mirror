@@ -4,7 +4,6 @@
  */
 import { css, jsx, cssMap, cx } from '@compiled/react';
 
-import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
 import { fg } from '@atlaskit/platform-feature-flags/fg';
 import { Pressable } from '@atlaskit/primitives/compiled/pressable';
 import { token } from '@atlaskit/tokens';
@@ -144,7 +143,7 @@ export const ReactionButton = ({
 			onFocus={onFocus}
 			aria-label={ariaLabel}
 			aria-pressed={ariaPressed}
-			aria-expanded={isExperimentEnabled('a11y-fixes-week4-may-2026') ? ariaExpanded : undefined}
+			aria-expanded={ariaExpanded}
 			testId={testId}
 			xcss={cx(
 				styles.reactionButton,

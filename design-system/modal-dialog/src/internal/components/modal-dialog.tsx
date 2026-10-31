@@ -168,6 +168,7 @@ const ModalDialog: React.ForwardRefExoticComponent<
 		shouldScrollInViewport = false,
 		shouldCloseOnEscapePress,
 		autoFocus,
+		UNSAFE__disableInitialAutoFocus = false,
 		stackIndex,
 		onClose,
 		onCloseComplete,
@@ -206,7 +207,7 @@ const ModalDialog: React.ForwardRefExoticComponent<
 	useAutoFocus(
 		autoFocus,
 		// When a user supplies  a ref to focus we enable this hook
-		typeof autoFocus === 'object',
+		typeof autoFocus === 'object' && !UNSAFE__disableInitialAutoFocus,
 	);
 
 	const [motionRef, onMotionFinish] = useOnMotionFinish({

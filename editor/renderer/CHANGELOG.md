@@ -1,5 +1,26 @@
 # @atlaskit/renderer
 
+## 153.2.3
+
+### Patch Changes
+
+- [`f7cf7e70c78b2`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/f7cf7e70c78b2) -
+  Clean up `confluence_fe_renderer_inline_node_mark_color_fix`, retaining the enabled inline-node
+  annotation styles.
+
+  Remove the experiment from the statsig configuration contract. Consumers must stop evaluating this
+  experiment and use its shipped enabled behaviour.
+
+- Updated dependencies
+
+## 153.2.2
+
+### Patch Changes
+
+- [`8c852c7ba9503`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/8c852c7ba9503) -
+  Remove a11y-fixes-week4-may-2026 and retain the enabled accessibility behavior for Unsplash
+  headings, heading-link focus and tooltips, and reaction expansion state.
+
 ## 153.2.1
 
 ### Patch Changes

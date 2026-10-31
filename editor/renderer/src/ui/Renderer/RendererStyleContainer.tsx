@@ -3074,22 +3074,6 @@ const columnLayoutResponsiveRendererStyles = css({
 	},
 });
 
-const rendererAnnotationStylesOld = css({
-	"& [data-mark-type='annotation'][data-mark-annotation-state='active'] [data-annotation-mark], & [data-annotation-draft-mark][data-annotation-inline-node]":
-		{
-			background: token('color.background.accent.yellow.subtler'),
-			borderBottom: `${token('border.width.selected')} solid ${token(
-				'color.border.accent.yellow',
-			)}`,
-			boxShadow: token('elevation.shadow.overlay'),
-			cursor: 'pointer',
-			paddingTop: token('space.050'),
-			paddingRight: token('space.025'),
-			paddingBottom: token('space.050'),
-			paddingLeft: token('space.025'),
-		},
-});
-
 const rendererAnnotationStyles = css({
 	"& [data-mark-type='annotation'][data-mark-annotation-state='active'] [data-annotation-mark]": {
 		background: token('color.background.accent.yellow.subtlest'),
@@ -3527,10 +3511,7 @@ export const RendererStyleContainer = (props: RendererStyleContainerProps): jsx.
 				headerSmartCardStyles,
 				smartCardStylesAvatarMarginFix,
 				smartCardStylesAvatarListZeroMarginTop,
-				fg('editor_inline_comments_on_inline_nodes') &&
-					(expValEquals('confluence_fe_renderer_inline_node_mark_color_fix', 'isEnabled', true)
-						? rendererAnnotationStyles
-						: rendererAnnotationStylesOld),
+				fg('editor_inline_comments_on_inline_nodes') && rendererAnnotationStyles,
 				// eslint-disable-next-line @atlaskit/platform/no-preconditioning
 				fg('editor_inline_comments_on_inline_nodes') && rendererAnnotationStylesCommentHeightFix,
 				expValEquals('platform_editor_copy_link_a11y_inconsistency_fix', 'isEnabled', true)

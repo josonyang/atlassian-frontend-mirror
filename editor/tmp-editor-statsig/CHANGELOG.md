@@ -1,5 +1,16 @@
 # @atlaskit/editor-statsig-tmp
 
+## 249.0.0
+
+### Major Changes
+
+- [`f7cf7e70c78b2`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/f7cf7e70c78b2) -
+  Clean up `confluence_fe_renderer_inline_node_mark_color_fix`, retaining the enabled inline-node
+  annotation styles.
+
+  Remove the experiment from the statsig configuration contract. Consumers must stop evaluating this
+  experiment and use its shipped enabled behaviour.
+
 ## 248.1.0
 
 ### Minor Changes

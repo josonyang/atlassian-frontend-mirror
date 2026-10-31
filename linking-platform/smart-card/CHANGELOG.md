@@ -1,5 +1,20 @@
 # @atlaskit/smart-card
 
+## 46.11.2
+
+### Patch Changes
+
+- Updated dependencies
+
+## 46.11.1
+
+### Patch Changes
+
+- [`b30fc64bbfc66`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/b30fc64bbfc66) -
+  Cleanup `feature_gate` `smart-card-inline-resolved-view-refactor`. The inline card resolved view
+  now always uses the functional component implementation.
+- Updated dependencies
+
 ## 46.11.0
 
 ### Minor Changes

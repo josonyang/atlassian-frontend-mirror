@@ -1,5 +1,20 @@
 # @atlaskit/editor-plugin-show-diff
 
+## 29.0.2
+
+### Patch Changes
+
+- Updated dependencies
+
+## 29.0.1
+
+### Patch Changes
+
+- [`90093ce337081`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/90093ce337081) -
+  Version history diff: treat documents that differ only in how adjacent same-mark text nodes are
+  split as equal, so changes to migrated legacy-editor content are highlighted (behind
+  platform_editor_show_diff_normalise_text_nodes)
+
 ## 29.0.0
 
 ### Major Changes

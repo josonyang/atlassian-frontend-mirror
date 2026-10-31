@@ -14,7 +14,11 @@ import TabList from '@atlaskit/tabs/tab-list';
 import Tabs from '@atlaskit/tabs/tabs';
 import { token } from '@atlaskit/tokens';
 
-import { type LinkPickerPlugin, type LinkSearchListItemData } from '../../../common/types';
+import {
+	type LinkPickerPlugin,
+	type LinkPickerProps,
+	type LinkSearchListItemData,
+} from '../../../common/types';
 import { LinkSearchError, testIds as searchErrorTestIds } from './link-search-error';
 import { LinkSearchList, testIds as listTestIds } from './link-search-list';
 import { ScrollingTabList } from './scrolling-tabs';
@@ -75,6 +79,7 @@ export type SearchResultsProps = {
 	error?: unknown;
 	adaptiveHeight: boolean;
 	retry: () => void;
+	resultHeadingLevel?: LinkPickerProps['resultHeadingLevel'];
 	shouldRenderNoResultsImage?: boolean;
 };
 
@@ -98,6 +103,7 @@ export const SearchResults = ({
 	handleKeyDown,
 	adaptiveHeight,
 	retry,
+	resultHeadingLevel,
 	shouldRenderNoResultsImage,
 }: SearchResultsProps): JSX.Element => {
 	const isActivePlugin = !!activePlugin;
@@ -165,6 +171,7 @@ export const SearchResults = ({
 							activePlugin={activePlugin}
 							adaptiveHeight={adaptiveHeight}
 							tabPanelId={`${testIds.tabList}-${activeTab}-tab`}
+							resultHeadingLevel={resultHeadingLevel}
 							shouldRenderNoResultsImage={shouldRenderNoResultsImage}
 						/>
 					)}

@@ -1,5 +1,13 @@
 # @atlaskit/eslint-plugin-platform
 
+## 5.0.4
+
+### Patch Changes
+
+- [`c82c5c44c7f70`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/c82c5c44c7f70) -
+  Remove the deleted `@atlaskit/conversation` package from the `no-barrel-entry-imports` package
+  list.
+
 ## 5.0.3
 
 ### Patch Changes

@@ -1,5 +1,20 @@
 # @atlaskit/editor-plugin-expand
 
+## 31.0.5
+
+### Patch Changes
+
+- [`4786b18933680`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/4786b18933680) -
+  Enable accessible Expand body sections for non-Confluence products behind
+  `platform_editor_expand_content_a11y_other_apps`.
+- Updated dependencies
+
+## 31.0.4
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 31.0.3
 
 ### Patch Changes

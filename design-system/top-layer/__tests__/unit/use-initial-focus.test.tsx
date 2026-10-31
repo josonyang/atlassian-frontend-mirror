@@ -12,13 +12,24 @@ import { Popover } from '../../src/popover/popover';
 // does not wait for animation settlement.
 
 type TTestPopoverProps = {
+	isInitialFocusDisabled?: boolean;
 	isOpen: boolean;
 	isAnimated?: boolean;
 };
 
-function TestMenuPopover({ isOpen, isAnimated = false }: TTestPopoverProps) {
+function TestMenuPopover({
+	isInitialFocusDisabled = false,
+	isOpen,
+	isAnimated = false,
+}: TTestPopoverProps) {
 	return (
-		<Popover isOpen={isOpen} role="menu" label="test-menu" shouldAnimate={isAnimated}>
+		<Popover
+			isOpen={isOpen}
+			role="menu"
+			label="test-menu"
+			shouldAnimate={isAnimated}
+			UNSAFE__disableInitialAutoFocus={isInitialFocusDisabled}
+		>
 			<button type="button" data-testid="first-item">
 				First
 			</button>
@@ -43,6 +54,31 @@ describe('useInitialFocus (via Popover)', () => {
 		// Non-animated path: phase goes `closed -> open` in the same commit, so
 		// focus must land on the first item without any timer advancement.
 		expect(screen.getByTestId('first-item')).toHaveFocus();
+	});
+
+	it('keeps focus outside the popover when initial focus is disabled', () => {
+		const { rerender } = render(
+			<>
+				<button type="button" data-testid="trigger">
+					Trigger
+				</button>
+				<TestMenuPopover isInitialFocusDisabled isOpen={false} />
+			</>,
+		);
+		const trigger = screen.getByTestId('trigger');
+		trigger.focus();
+
+		rerender(
+			<>
+				<button type="button" data-testid="trigger">
+					Trigger
+				</button>
+				<TestMenuPopover isInitialFocusDisabled isOpen />
+			</>,
+		);
+
+		expect(trigger).toHaveFocus();
+		expect(screen.getByTestId('first-item')).not.toHaveFocus();
 	});
 
 	it('focuses the first menu item during the entering phase without waiting for transition end', () => {

@@ -64,6 +64,30 @@ export const DefaultAdaptiveHeightExample: React.ComponentType<{}> = createExamp
 	adaptiveHeight: true,
 });
 
+const headingLevelItems = [
+	{
+		objectId: 'suggested-link',
+		name: 'Some Suggested Link',
+		url: 'https://atlassian.com',
+		container: 'Some Space',
+		icon: '',
+		iconAlt: '',
+	},
+];
+
+export const RecentlyViewedWithLevelTwoHeading: React.ComponentType<{}> = createExample({
+	adaptiveHeight: true,
+	items: headingLevelItems,
+	queryState: { query: '' },
+	resultHeadingLevel: 2,
+});
+
+export const ResultsWithLevelTwoHeading: React.ComponentType<{}> = createExample({
+	adaptiveHeight: true,
+	items: headingLevelItems,
+	resultHeadingLevel: 2,
+});
+
 export const LoadingPlugins: React.ComponentType<{}> = createExample({
 	isLoadingPlugins: true,
 });

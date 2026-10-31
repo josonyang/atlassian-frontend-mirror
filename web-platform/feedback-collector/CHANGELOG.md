@@ -1,5 +1,14 @@
 # @atlaskit/feedback-collector
 
+## 16.16.1
+
+### Patch Changes
+
+- [`8ad73ab706752`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/8ad73ab706752) -
+  Remove the `ak_feedback_collector_hide_required_summary` feature gate. The feedback form now
+  always honors `showRequiredFieldsSummary`, showing the required-fields summary by default and
+  hiding it when the prop is false.
+
 ## 16.16.0
 
 ### Minor Changes

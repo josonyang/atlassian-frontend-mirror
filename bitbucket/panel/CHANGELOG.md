@@ -1,5 +1,14 @@
 # @atlaskit/panel
 
+## 2.14.0
+
+### Minor Changes
+
+- [`9fb73323daa47`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/9fb73323daa47) -
+  Add React 19 support: widen the `react` peer range to `^18.2.0 || ^19.0.0`, migrate styles from
+  styled-components to Compiled, and remove the `styled-components` and `react-focus-within`
+  dependencies. No API changes.
+
 ## 2.13.0
 
 ### Minor Changes

@@ -1,5 +1,15 @@
 # @atlassian/navigation-system
 
+## 11.4.3
+
+### Patch Changes
+
+- [`e3025d3052440`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/e3025d3052440) -
+  PanelSplitter: behind `platform-dst-panel-splitter-resize-direction`, the tooltip side and the
+  keyboard arrow keys follow the panel's resize direction, which comes from `position` and the text
+  direction. For `position="start"` in left-to-right languages, the tooltip shows on the left and
+  ArrowLeft increases the width.
+
 ## 11.4.2
 
 ### Patch Changes

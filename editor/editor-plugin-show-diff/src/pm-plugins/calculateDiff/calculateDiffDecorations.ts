@@ -13,6 +13,7 @@ import { Mapping, type StepMap } from '@atlaskit/editor-prosemirror/transform';
 import type { Step as ProseMirrorStep } from '@atlaskit/editor-prosemirror/transform-override';
 import { Decoration, DecorationSet } from '@atlaskit/editor-prosemirror/view';
 import { TableMap } from '@atlaskit/editor-tables/table-map';
+import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
 import { UNSAFE_expValNoExposure } from '@atlaskit/platform-feature-experiments/unsafe-exp-val-no-exposure';
 import { fg } from '@atlaskit/platform-feature-flags/fg';
 
@@ -70,6 +71,7 @@ import {
 } from './groupDeletedColumnChanges';
 import { isMarkOnlyChange } from './isMarkOnlyChange';
 import { isOpenTokenOnlyChange } from './isOpenTokenOnlyChange';
+import { normalizeTextNodes } from './normalizeTextNodes';
 import { optimizeChanges } from './optimizeChanges';
 import { selectTokenEncoder } from './selectTokenEncoder';
 import {
@@ -413,6 +415,7 @@ type NodesEqualEvent = {
 		colorScheme: ColorScheme | undefined;
 		docSizeEqual: boolean;
 		recoveredViaContentEquality?: boolean;
+		recoveredViaTextNodeNormalisation?: boolean;
 	};
 	eventType: 'track';
 };
@@ -613,6 +616,12 @@ const calculateDiffDecorationsInner = ({
 	// Rather than using .eq() we use a custom function that only checks for structural
 	// changes and ignores differences in attributes which don't affect decoration positions
 	if (!areNodesEqualIgnoreAttrs(steppedDoc, tr.doc)) {
+		// A document parsed from ADF can hold adjacent text nodes with identical marks, while the
+		// editor joins them whenever it rebuilds a node (for example when local ids are assigned on
+		// load). Positions are identical either way, so the decorations still apply.
+		const recoveredViaTextNodeNormalisation =
+			isExperimentEnabled('platform_editor_show_diff_normalise_text_nodes') &&
+			areNodesEqualIgnoreAttrs(normalizeTextNodes(steppedDoc), normalizeTextNodes(tr.doc));
 		const recoveredViaContentEquality = areDocsEqualByBlockStructureAndText(steppedDoc, tr.doc);
 
 		api?.analytics?.actions.fireAnalyticsEvent<NodesEqualEvent, 'customEventType'>({
@@ -623,10 +632,11 @@ const calculateDiffDecorationsInner = ({
 				docSizeEqual: steppedDoc.nodeSize === tr.doc.nodeSize,
 				colorScheme,
 				recoveredViaContentEquality,
+				recoveredViaTextNodeNormalisation,
 			},
 		});
 
-		if (!recoveredViaContentEquality) {
+		if (!recoveredViaTextNodeNormalisation && !recoveredViaContentEquality) {
 			return { contributorTags: [], decorations: DecorationSet.empty, diffDescriptors: [] };
 		}
 	}

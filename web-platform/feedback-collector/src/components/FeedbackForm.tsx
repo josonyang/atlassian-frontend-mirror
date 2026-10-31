@@ -289,9 +289,7 @@ const FeedbackForm = ({
 						</ModalTitle>
 					</ModalHeader>
 					<ModalBody>
-						{fg('ak_feedback_collector_hide_required_summary')
-							? showRequiredFieldsSummary && requiredFieldsSummary
-							: requiredFieldsSummary}
+						{showRequiredFieldsSummary && requiredFieldsSummary}
 						{feedbackTitleDetails}
 						{customContent}
 						{showTypeField ? (

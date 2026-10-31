@@ -18,6 +18,7 @@ import {
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import AkModalDialog from '@atlaskit/modal-dialog/modal-dialog';
 import ModalTransition from '@atlaskit/modal-dialog/modal-transition';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
 
 import type { HelpDialogPlugin } from '../helpDialogPluginType';
 import { closeHelpCommand } from '../pm-plugins/commands';
@@ -96,7 +97,12 @@ const HelpDialog = ({
 		<ModalTransition>
 			{isVisible ? (
 				// eslint-disable-next-line @atlaskit/design-system/no-modal-label
-				<AkModalDialog label={label} width="large" onClose={closeDialog} testId="help-modal-dialog">
+				<AkModalDialog
+					label={fg('platform_dst-modal_title') ? undefined : label}
+					width="large"
+					onClose={closeDialog}
+					testId="help-modal-dialog"
+				>
 					<Modal formatting={formatting} />
 				</AkModalDialog>
 			) : null}

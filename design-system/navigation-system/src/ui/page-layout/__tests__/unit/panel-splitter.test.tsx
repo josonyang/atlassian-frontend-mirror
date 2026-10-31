@@ -1230,4 +1230,67 @@ describe('PanelSplitter', () => {
 			});
 		});
 	});
+
+	describe('resize direction', () => {
+		beforeEach(() => {
+			jest.useFakeTimers();
+		});
+
+		afterEach(() => {
+			jest.useRealTimers();
+		});
+
+		async function hoverAndFindTooltip() {
+			const user = createUser();
+			await user.hover(screen.getByTestId('panel-splitter'));
+			act(() => {
+				jest.runAllTimers();
+			});
+			return screen.findByRole('tooltip', { name: 'Resize', hidden: true });
+		}
+
+		describe('when platform-dst-panel-splitter-resize-direction is enabled', () => {
+			beforeEach(() => {
+				passGate('platform-dst-panel-splitter-resize-direction');
+			});
+
+			it.each([
+				{ position: 'end', textDirection: 'ltr', tooltipPlacement: 'right', sliderDir: 'ltr' },
+				{ position: 'start', textDirection: 'ltr', tooltipPlacement: 'left', sliderDir: 'rtl' },
+				{ position: 'end', textDirection: 'rtl', tooltipPlacement: 'left', sliderDir: 'rtl' },
+				{ position: 'start', textDirection: 'rtl', tooltipPlacement: 'right', sliderDir: 'ltr' },
+			] as const)(
+				'should show the tooltip on the $tooltipPlacement and make the slider $sliderDir when position is $position in $textDirection',
+				async ({ position, textDirection, tooltipPlacement, sliderDir }) => {
+					render(
+						<TestComponent
+							tooltipContent="Resize"
+							position={position}
+							textDirection={textDirection}
+						/>,
+					);
+
+					expect(
+						screen.getByRole('slider', { name: 'Panel splitter', hidden: true }),
+					).toHaveAttribute('dir', sliderDir);
+					expect(await hoverAndFindTooltip()).toHaveAttribute('data-placement', tooltipPlacement);
+				},
+			);
+		});
+
+		describe('when platform-dst-panel-splitter-resize-direction is disabled', () => {
+			beforeEach(() => {
+				failGate('platform-dst-panel-splitter-resize-direction');
+			});
+
+			it('should show the tooltip on the right and not set a slider direction when position is start', async () => {
+				render(<TestComponent tooltipContent="Resize" position="start" />);
+
+				expect(
+					screen.getByRole('slider', { name: 'Panel splitter', hidden: true }),
+				).not.toHaveAttribute('dir');
+				expect(await hoverAndFindTooltip()).toHaveAttribute('data-placement', 'right');
+			});
+		});
+	});
 });

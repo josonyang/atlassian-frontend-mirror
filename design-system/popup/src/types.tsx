@@ -343,6 +343,15 @@ interface BaseProps {
 	autoFocus?: boolean;
 
 	/**
+	 * For asynchronous Entry Point wrappers only. Disables Popup's initial
+	 * autofocus so the wrapper can apply focus once its content is ready.
+	 * This is gated by `platform_dst-automated_focus` and must not be used by
+	 * Makers or ordinary Popup consumers.
+	 */
+	// eslint-disable-next-line @repo/internal/react/consistent-props-definitions, @repo/internal/react/boolean-prop-naming-convention -- restricted Entry Point escape hatch
+	UNSAFE__disableInitialAutoFocus?: boolean;
+
+	/**
 	 * This controls if the event which handles clicks outside the popup is be bound with
 	 *  `capture: true`.
 	 */

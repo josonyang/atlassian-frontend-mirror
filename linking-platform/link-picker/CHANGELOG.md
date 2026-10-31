@@ -1,5 +1,14 @@
 # @atlaskit/link-picker
 
+## 6.18.0
+
+### Minor Changes
+
+- [`d912ee003c4b3`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/d912ee003c4b3) -
+  Add the optional `resultHeadingLevel` prop to configure the native heading level of the Recently
+  viewed and Results section titles. The default remains level 3 to preserve existing consumers'
+  heading hierarchy.
+
 ## 6.17.0
 
 ### Minor Changes

@@ -6,7 +6,7 @@ import { SmartCardProvider as Provider } from '@atlaskit/link-provider/smart-car
 import { token } from '@atlaskit/tokens';
 import { ffTest } from '@atlassian/feature-flags-test-utils/test-runner';
 import { screen } from '@atlassian/testing-library/screen';
-import { render } from '@atlassian/testing-library/testing-library/react';
+import { render as rtlRender } from '@atlassian/testing-library/testing-library/react';
 
 import { type LozengeProps } from '../../../../../types';
 import { InlineCardResolvedView } from '../../index';
@@ -33,6 +33,9 @@ jest.mock('../../../IconAndTitleLayout', () => ({
 		);
 	}),
 }));
+
+// InlineCardResolvedView relies on SmartCardProvider context (e.g. for tailored Rovo actions).
+const render = (ui: React.ReactElement) => rtlRender(ui, { wrapper: Provider });
 
 describe('ResolvedView', () => {
 	it('should capture and report a11y violations', async () => {
@@ -211,95 +214,48 @@ describe('ResolvedView', () => {
 		);
 	});
 
-	describe('feature flag: smart-card-inline-resolved-view-refactor', () => {
-		ffTest.on(
-			'smart-card-inline-resolved-view-refactor',
-			'uses functional component implementation',
-			() => {
-				it('should render the title', async () => {
-					render(
-						<Provider>
-							<InlineCardResolvedView title="functional component title" />
-						</Provider>,
-					);
-					expect(await screen.findByText('functional component title')).toBeVisible();
-				});
+	describe('functional component implementation', () => {
+		it('should render the title', async () => {
+			render(
+				<Provider>
+					<InlineCardResolvedView title="functional component title" />
+				</Provider>,
+			);
+			expect(await screen.findByText('functional component title')).toBeVisible();
+		});
 
-				it('should render a lozenge when one is provided', async () => {
-					const lozengeProps: LozengeProps = {
-						text: 'In Progress',
-						isBold: true,
-						appearance: 'inprogress',
-					};
-					render(
-						<Provider>
-							<InlineCardResolvedView title="some text" lozenge={lozengeProps} />
-						</Provider>,
-					);
-					expect(
-						await screen.findByTestId('inline-card-resolved-view-lozenge'),
-					).toBeInTheDocument();
-				});
+		it('should render a lozenge when one is provided', async () => {
+			const lozengeProps: LozengeProps = {
+				text: 'In Progress',
+				isBold: true,
+				appearance: 'inprogress',
+			};
+			render(
+				<Provider>
+					<InlineCardResolvedView title="some text" lozenge={lozengeProps} />
+				</Provider>,
+			);
+			expect(await screen.findByTestId('inline-card-resolved-view-lozenge')).toBeInTheDocument();
+		});
 
-				it('should render a hover preview when prop is enabled and link is included', async () => {
-					render(
-						<IntlProvider locale="en">
-							<Provider>
-								<InlineCardResolvedView showHoverPreview={true} link="www.test.com" />
-							</Provider>
-						</IntlProvider>,
-					);
-					expect(await screen.findByTestId('hover-card-trigger-wrapper')).toBeInTheDocument();
-				});
+		it('should render a hover preview when prop is enabled and link is included', async () => {
+			render(
+				<IntlProvider locale="en">
+					<Provider>
+						<InlineCardResolvedView showHoverPreview={true} link="www.test.com" />
+					</Provider>
+				</IntlProvider>,
+			);
+			expect(await screen.findByTestId('hover-card-trigger-wrapper')).toBeInTheDocument();
+		});
 
-				it('should not render a hover preview when prop is disabled', () => {
-					render(
-						<Provider>
-							<InlineCardResolvedView showHoverPreview={false} link="www.test.com" />
-						</Provider>,
-					);
-					expect(screen.queryByTestId('hover-card-trigger-wrapper')).not.toBeInTheDocument();
-				});
-			},
-		);
-
-		ffTest.off(
-			'smart-card-inline-resolved-view-refactor',
-			'uses class component implementation',
-			() => {
-				it('should render the title', async () => {
-					render(<InlineCardResolvedView title="class component title" />);
-					expect(await screen.findByText('class component title')).toBeVisible();
-				});
-
-				it('should render a lozenge when one is provided', async () => {
-					const lozengeProps: LozengeProps = {
-						text: 'In Progress',
-						isBold: true,
-						appearance: 'inprogress',
-					};
-					render(<InlineCardResolvedView title="some text" lozenge={lozengeProps} />);
-					expect(
-						await screen.findByTestId('inline-card-resolved-view-lozenge'),
-					).toBeInTheDocument();
-				});
-
-				it('should render a hover preview when prop is enabled and link is included', async () => {
-					render(
-						<IntlProvider locale="en">
-							<Provider>
-								<InlineCardResolvedView showHoverPreview={true} link="www.test.com" />
-							</Provider>
-						</IntlProvider>,
-					);
-					expect(await screen.findByTestId('hover-card-trigger-wrapper')).toBeInTheDocument();
-				});
-
-				it('should not render a hover preview when prop is disabled', () => {
-					render(<InlineCardResolvedView showHoverPreview={false} link="www.test.com" />);
-					expect(screen.queryByTestId('hover-card-trigger-wrapper')).not.toBeInTheDocument();
-				});
-			},
-		);
+		it('should not render a hover preview when prop is disabled', () => {
+			render(
+				<Provider>
+					<InlineCardResolvedView showHoverPreview={false} link="www.test.com" />
+				</Provider>,
+			);
+			expect(screen.queryByTestId('hover-card-trigger-wrapper')).not.toBeInTheDocument();
+		});
 	});
 });

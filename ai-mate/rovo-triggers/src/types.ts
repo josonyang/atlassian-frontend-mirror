@@ -260,6 +260,8 @@ export type ChatNewPayload = PayloadCore<
 		 */
 		agentName?: string;
 		agentIdentityAccountId?: string;
+		agentNamedId?: string;
+		isThirdPartyAgent?: boolean;
 		/** Identifies the product surface that launched the conversation for analytics attribution. */
 		chatEntryPoint?: ChatEntryPoint;
 		/**

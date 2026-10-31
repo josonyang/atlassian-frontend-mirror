@@ -1,5 +1,18 @@
 # @atlaskit/rovo-agent-components
 
+## 10.3.2
+
+### Patch Changes
+
+- Updated dependencies
+
+## 10.3.1
+
+### Patch Changes
+
+- [`0c72a135e4e4a`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/0c72a135e4e4a) -
+  Remove agent_studio_can_duplicate_permission and always enforce agent duplication permissions.
+
 ## 10.3.0
 
 ### Minor Changes

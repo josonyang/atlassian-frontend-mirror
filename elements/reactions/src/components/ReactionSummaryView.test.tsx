@@ -6,8 +6,6 @@ import { IntlProvider } from 'react-intl';
 
 import type { EmojiProvider } from '@atlaskit/emoji/types';
 import { getTestEmojiResource } from '@atlaskit/util-data-test/get-test-emoji-resource';
-import { mockExpDisabled } from '@atlassian/experiment-test-utils/mock-exp-disabled';
-import { mockExpEnabled } from '@atlassian/experiment-test-utils/mock-exp-enabled';
 import { failGate, passGate } from '@atlassian/feature-flags-test-utils/mock-gates';
 
 import { getReactionSummary } from '../MockReactionsClient';
@@ -189,30 +187,20 @@ describe.each([
 		expect(list?.querySelectorAll('li li')).toHaveLength(0);
 	});
 
-	describe('a11y-fixes-week4-may-2026 experiment', () => {
-		it('should NOT set aria-expanded on summary button when experiment is disabled', async () => {
-			mockExpDisabled('a11y-fixes-week4-may-2026');
-			renderComponent();
-			const button = await screen.findByTestId(RENDER_SUMMARY_BUTTON_TESTID);
-			expect(button).not.toHaveAttribute('aria-expanded');
-		});
-
-		it('should set aria-expanded="false" on summary button when experiment is enabled and popup is closed', async () => {
-			mockExpEnabled('a11y-fixes-week4-may-2026');
+	describe('summary popup accessibility', () => {
+		it('should set aria-expanded="false" on summary button when popup is closed', async () => {
 			renderComponent();
 			const button = await screen.findByTestId(RENDER_SUMMARY_BUTTON_TESTID);
 			expect(button).toHaveAttribute('aria-expanded', 'false');
 		});
 
-		it('should set aria-expanded="true" on summary button when experiment is enabled and popup is open', async () => {
-			mockExpEnabled('a11y-fixes-week4-may-2026');
+		it('should set aria-expanded="true" on summary button when popup is open', async () => {
 			renderComponent();
 			const button = await screen.findByTestId(RENDER_SUMMARY_BUTTON_TESTID);
 			await userEvent.click(button);
 			expect(button).toHaveAttribute('aria-expanded', 'true');
 		});
-		it('should show reactions list when experiment is on and popup is open', async () => {
-			mockExpEnabled('a11y-fixes-week4-may-2026');
+		it('should show reactions list when popup is open', async () => {
 			renderComponent();
 			const reactionSummaryButton = await screen.findByTestId(RENDER_SUMMARY_BUTTON_TESTID);
 			await userEvent.click(reactionSummaryButton);

@@ -1,5 +1,6 @@
 import React from 'react';
 
+import { SmartCardProvider } from '@atlaskit/link-provider/smart-card-provider';
 // eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives -- to be migrated to @atlaskit/primitives/compiled – go/akcss
 import { Box } from '@atlaskit/primitives/box';
 // eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives -- to be migrated to @atlaskit/primitives/compiled – go/akcss
@@ -14,19 +15,21 @@ export default (): React.JSX.Element => {
 	return (
 		<VRTestCase title="Inline card with default icon and truncation">
 			{() => (
-				<Box xcss={wrapperStyles}>
-					<ResolvedView
-						link={'some-url'}
-						isSelected={false}
-						icon={'broken-url'}
-						title="Smart Links - Designs"
-						lozenge={{
-							text: 'in progress',
-							appearance: 'inprogress',
-						}}
-						truncateInline
-					/>
-				</Box>
+				<SmartCardProvider>
+					<Box xcss={wrapperStyles}>
+						<ResolvedView
+							link={'some-url'}
+							isSelected={false}
+							icon={'broken-url'}
+							title="Smart Links - Designs"
+							lozenge={{
+								text: 'in progress',
+								appearance: 'inprogress',
+							}}
+							truncateInline
+						/>
+					</Box>
+				</SmartCardProvider>
 			)}
 		</VRTestCase>
 	);

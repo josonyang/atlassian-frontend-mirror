@@ -1,5 +1,19 @@
 # @atlaskit/reactions
 
+## 37.2.3
+
+### Patch Changes
+
+- Updated dependencies
+
+## 37.2.2
+
+### Patch Changes
+
+- [`8c852c7ba9503`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/8c852c7ba9503) -
+  Remove a11y-fixes-week4-may-2026 and retain the enabled accessibility behavior for Unsplash
+  headings, heading-link focus and tooltips, and reaction expansion state.
+
 ## 37.2.1
 
 ### Patch Changes

@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/top-layer",
-	"version": "7.0.1",
+	"version": "7.1.0",
 	"description": "Low-level layering primitives based on popover and dialog",
 	"homepage": "https://atlassian.design/components/top-layer",
 	"repository": "https://bitbucket.org/atlassian/atlassian-frontend-mirror",
@@ -42,6 +42,7 @@
 		"./dialog/types": "./src/dialog/types.tsx",
 		"./get-aria-for-trigger": "./src/internal/get-aria-for-trigger.tsx",
 		"./get-first-focusable": "./src/focus/get-first-focusable.tsx",
+		"./apply-initial-focus": "./src/apply-initial-focus.tsx",
 		"./get-last-focusable": "./src/focus/get-last-focusable.tsx",
 		"./get-next-focusable": "./src/focus/get-next-focusable.tsx",
 		"./is-at-current-menu-level": "./src/use-arrow-navigation/is-at-current-menu-level.tsx",

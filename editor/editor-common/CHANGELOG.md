@@ -1,5 +1,19 @@
 # @atlaskit/editor-common
 
+## 134.2.2
+
+### Patch Changes
+
+- [`d5ed4baa63b87`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/d5ed4baa63b87) -
+  Enable Element Browser ARIA fix for non-Confluence products behind
+  `platform_editor_element_browser_aria_other_apps`.
+
+## 134.2.1
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 134.2.0
 
 ### Minor Changes

@@ -1,5 +1,7 @@
 import React from 'react';
 
+import { SmartCardProvider } from '@atlaskit/link-provider/smart-card-provider';
+
 import { InlineCardResolvedView as ResolvedView } from '../../src/view/InlineCard/ResolvedView';
 import { VRTestCase } from '../utils/common';
 
@@ -7,16 +9,18 @@ export default (): React.JSX.Element => {
 	return (
 		<VRTestCase title="Inline card with default icon">
 			{() => (
-				<ResolvedView
-					link={'some-url'}
-					isSelected={false}
-					icon={'broken-url'}
-					title="Smart Links - Designs"
-					lozenge={{
-						text: 'in progress',
-						appearance: 'inprogress',
-					}}
-				/>
+				<SmartCardProvider>
+					<ResolvedView
+						link={'some-url'}
+						isSelected={false}
+						icon={'broken-url'}
+						title="Smart Links - Designs"
+						lozenge={{
+							text: 'in progress',
+							appearance: 'inprogress',
+						}}
+					/>
+				</SmartCardProvider>
 			)}
 		</VRTestCase>
 	);

@@ -5,8 +5,6 @@ import { IntlProvider } from 'react-intl';
 
 import type { EmojiProvider } from '@atlaskit/emoji/types';
 import { getTestEmojiResource } from '@atlaskit/util-data-test/get-test-emoji-resource';
-import { mockExpDisabled } from '@atlassian/experiment-test-utils/mock-exp-disabled';
-import { mockExpEnabled } from '@atlassian/experiment-test-utils/mock-exp-enabled';
 
 import { getReactionSummary } from '../MockReactionsClient';
 import { DefaultReactions } from '../shared/constants';
@@ -223,23 +221,14 @@ describe('ReactionSummaryButton', () => {
 		expect(screen.queryByText('ReactionParticleEffect')).not.toBeInTheDocument();
 	});
 
-	describe('aria-expanded (a11y-fixes-week4-may-2026 experiment)', () => {
-		it('should NOT set aria-expanded on summary button when experiment is disabled', () => {
-			mockExpDisabled('a11y-fixes-week4-may-2026');
-			renderComponent({ isOpen: true });
-			const button = screen.getByTestId(RENDER_SUMMARY_BUTTON_TESTID);
-			expect(button).not.toHaveAttribute('aria-expanded');
-		});
-
-		it('should set aria-expanded="false" on summary button when experiment is enabled and popup is closed', () => {
-			mockExpEnabled('a11y-fixes-week4-may-2026');
+	describe('aria-expanded', () => {
+		it('should set aria-expanded="false" on summary button when popup is closed', () => {
 			renderComponent({ isOpen: false });
 			const button = screen.getByTestId(RENDER_SUMMARY_BUTTON_TESTID);
 			expect(button).toHaveAttribute('aria-expanded', 'false');
 		});
 
-		it('should set aria-expanded="true" on summary button when experiment is enabled and popup is open', () => {
-			mockExpEnabled('a11y-fixes-week4-may-2026');
+		it('should set aria-expanded="true" on summary button when popup is open', () => {
 			renderComponent({ isOpen: true });
 			const button = screen.getByTestId(RENDER_SUMMARY_BUTTON_TESTID);
 			expect(button).toHaveAttribute('aria-expanded', 'true');

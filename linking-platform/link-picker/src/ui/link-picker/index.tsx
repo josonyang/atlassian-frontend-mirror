@@ -176,6 +176,7 @@ export const LinkPicker: ComponentType<LinkPickerProps> = withLinkPickerAnalytic
 			additionalError,
 			submitOnInputChange = false,
 			recentSearchListSize,
+			resultHeadingLevel,
 			shouldRenderNoResultsImage,
 			alwaysShowTabs,
 			disableManualUrlInsert = false,
@@ -662,6 +663,7 @@ export const LinkPicker: ComponentType<LinkPickerProps> = withLinkPickerAnalytic
 							handleSearchListOnChange={handleSearchListOnChange}
 							adaptiveHeight={adaptiveHeight}
 							retry={retry}
+							resultHeadingLevel={resultHeadingLevel}
 							shouldRenderNoResultsImage={shouldRenderNoResultsImage}
 						/>
 					)}

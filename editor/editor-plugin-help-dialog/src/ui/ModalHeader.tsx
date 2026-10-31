@@ -14,7 +14,9 @@ import ToolbarButton from '@atlaskit/editor-common/ui-menu/ToolbarButton';
 import Heading from '@atlaskit/heading/heading';
 import CrossIcon from '@atlaskit/icon/core/cross';
 import { CloseButton } from '@atlaskit/modal-dialog/close-button';
+import ModalTitle from '@atlaskit/modal-dialog/modal-title';
 import type { OnCloseHandler } from '@atlaskit/modal-dialog/types';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
 import { token } from '@atlaskit/tokens';
 import Tooltip from '@atlaskit/tooltip/Tooltip';
 
@@ -40,13 +42,25 @@ const ModalHeader: FC<WithIntlProps<ModalHeaderProps>> & {
 	return (
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766
 		<div css={header}>
-			<Heading size="large">
-				<FormattedMessage
-					// Ignored via go/ees005
-					// eslint-disable-next-line react/jsx-props-no-spreading
-					{...messages.editorHelp}
-				/>
-			</Heading>
+			{fg('platform_dst-modal_title') ? (
+				<ModalTitle>
+					<Heading size="large" as="span">
+						<FormattedMessage
+							// Ignored via go/ees005
+							// eslint-disable-next-line react/jsx-props-no-spreading
+							{...messages.editorHelp}
+						/>
+					</Heading>
+				</ModalTitle>
+			) : (
+				<Heading size="large">
+					<FormattedMessage
+						// Ignored via go/ees005
+						// eslint-disable-next-line react/jsx-props-no-spreading
+						{...messages.editorHelp}
+					/>
+				</Heading>
+			)}
 			{onClose ? (
 				<div css={toolbarFocusStyles}>
 					<Tooltip content={formatMessage(messages.closeHelpDialog)} position="top">

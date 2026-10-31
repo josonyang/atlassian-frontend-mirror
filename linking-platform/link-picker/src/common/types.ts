@@ -192,6 +192,11 @@ export interface LinkPickerProps {
 	submitOnInputChange?: boolean;
 	/** Showing dynamic list size based on window height */
 	recentSearchListSize?: number;
+	/**
+	 * Native heading level for the Recently viewed and Results section titles.
+	 * Defaults to 3. Set this to match the surrounding heading hierarchy.
+	 */
+	resultHeadingLevel?: 1 | 2 | 3 | 4 | 5 | 6;
 	/** Controls showing the image in the no results state */
 	shouldRenderNoResultsImage?: boolean;
 	/** When true, tabs are displayed even if there is only one plugin. */
